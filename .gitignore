@@ -1,0 +1,95 @@
+# ==============================================================================
+#                   BRAVE OMEGA PROJECT (Community Edition)
+# ==============================================================================
+# Git üzerinde yalnızca kaynak kodları (.ps1) ve belgeleri (.md) tutun.
+# Yerel kayıt defteri yedeklerini, editör önbelleklerini ve değişkenleri yoksayın.
+
+# Yerel Kayıt Defteri Yedekleri ve Dışa Aktarımlar (Gizlilik İçin Kritik)
+# ─────────────────────────────────────────────────────────────────────────────
+# Sisteme özgü politikaların ve hassas verilerin sızmasını önler.
+*.reg
+*.bak
+*.backup
+Backup/
+Backups/
+
+# PowerShell / Betik Çıktıları ve Oturum Kayıtları
+# ─────────────────────────────────────────────────────────────────────────────
+*.log
+*.err
+*.out
+*.txt.log
+composite.xml
+# Hassas oturum verilerini yakalayabilecek PowerShell transkript günlükleri
+*_*_transcript.*.txt
+
+# Yerel Ortam Değişkenleri ve Sırlar
+# ─────────────────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+secrets.*
+credentials.*
+
+# Geliştirme Ortamları ve Editörler (JetBrains Rider, VS Code, VS)
+# ─────────────────────────────────────────────────────────────────────────────
+# .idea klasörünün tamamı engellenerek altındaki tüm geçici veriler kapsanmıştır.
+.idea/
+_ReSharper*/
+*.DotSettings.user
+*.sln.iml
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+.vs/
+*.user
+*.suo
+*.userosscache
+UpgradeLog*.htm
+
+# Windows İşletim Sistemine Özgü Kalıntılar
+# ─────────────────────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS İşletim Sistemine Özgü Kalıntılar (Ortak Çalışanlar İçin)
+# ─────────────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Önbellekler, Tarayıcılar ve Geçici Dosyalar
+# ─────────────────────────────────────────────────────────────────────────────
+.cache/
+.pester/
+.sonarqube/
+.scannerwork/
+qodana.yaml
+qodana.sarif.json
+~$*
+*~
+*.tmp
+*.temp
+*.orig
+*.rej
+*.swp
+*.swo
+
+# Proje Takip Kuralları
+# ─────────────────────────────────────────────────────────────────────────────
+# Gelecekte eklenirse takibinin yapılması gereken yapılandırma dosyaları:
+# .gitattributes
+# .editorconfig
+# README.md
+# LICENSE
