@@ -23,7 +23,7 @@
 <br>
 
 > **Language / Dil** &nbsp;
-> [🇬🇧 English](#-english-documentation) &nbsp;·&nbsp; [🇹🇷 Türkçe](#-türkçe-belgelendirme)
+> [EN English](#-english-documentation) &nbsp;·&nbsp; [TR Türkçe](#-türkçe-belgelendirme)
 
 <br>
 
@@ -33,7 +33,7 @@
 
 <a id="-english-documentation"></a>
 
-## 🇬🇧 English Documentation
+## EN English Documentation
 
 ### Table of Contents
 
@@ -376,7 +376,7 @@ environment first, and review the source code before executing in any managed or
 
 <a id="-türkçe-belgelendirme"></a>
 
-## 🇹🇷 Türkçe Belgelendirme
+## TR Türkçe Belgelendirme
 
 ### İçindekiler
 
