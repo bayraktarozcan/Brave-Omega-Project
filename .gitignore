@@ -1,30 +1,34 @@
 # ==============================================================================
 #                   BRAVE OMEGA PROJECT (Community Edition)
 # ==============================================================================
-# Git üzerinde yalnızca kaynak kodları (.ps1) ve belgeleri (.md) tutun.
-# Yerel kayıt defteri yedeklerini, editör önbelleklerini ve değişkenleri yoksayın.
+# [EN] Keep only source code (.ps1) and documentation (.md) in version control.
+# [TR] Git üzerinde yalnızca kaynak kodları (.ps1) ve belgeleri (.md) tutun.
 
-# Yerel Kayıt Defteri Yedekleri ve Dışa Aktarımlar (Gizlilik İçin Kritik)
+# 1. LOCAL REGISTRY BACKUPS / YEREL KAYIT DEFTERİ YEDEKLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-# Sisteme özgü politikaların ve hassas verilerin sızmasını önler.
+# [EN] Prevents leaking system-specific policies and sensitive data.
+# [TR] Sisteme özgü politikaların ve hassas verilerin sızmasını önler.
 *.reg
 *.bak
 *.backup
 Backup/
 Backups/
 
-# PowerShell / Betik Çıktıları ve Oturum Kayıtları
+# 2. POWERSHELL LOGS & OUTPUTS / POWERSHELL GÜNLÜKLERİ VE ÇIKTILAR
 # ─────────────────────────────────────────────────────────────────────────────
+# [EN] Exclude transcript logs and session data that may contain sensitive info.
+# [TR] Hassas oturum verilerini içerebilecek transkript günlüklerini dışarıda tutar.
 *.log
 *.err
 *.out
 *.txt.log
 composite.xml
-# Hassas oturum verilerini yakalayabilecek PowerShell transkript günlükleri
 *_*_transcript.*.txt
 
-# Yerel Ortam Değişkenleri ve Sırlar
+# 3. ENVIRONMENT VARIABLES & SECRETS / ORTAM DEĞİŞKENLERİ VE SIRLAR
 # ─────────────────────────────────────────────────────────────────────────────
+# [EN] Ignore local environment files and credential stores.
+# [TR] Yerel ortam dosyalarını ve kimlik bilgisi depolarını yoksayar.
 .env
 .env.*
 !.env.example
@@ -33,9 +37,10 @@ composite.xml
 secrets.*
 credentials.*
 
-# Geliştirme Ortamları ve Editörler (JetBrains Rider, VS Code, VS)
+# 4. IDE & EDITOR CONFIGURATIONS / GELİŞTİRME ORTAMI AYARLARI
 # ─────────────────────────────────────────────────────────────────────────────
-# .idea klasörünün tamamı engellenerek altındaki tüm geçici veriler kapsanmıştır.
+# [EN] Exclude JetBrains Rider, VS Code, and Visual Studio temporary files.
+# [TR] JetBrains Rider, VS Code ve Visual Studio geçici dosyalarını engeller.
 .idea/
 _ReSharper*/
 *.DotSettings.user
@@ -54,23 +59,25 @@ _ReSharper*/
 *.userosscache
 UpgradeLog*.htm
 
-# Windows İşletim Sistemine Özgü Kalıntılar
+# 5. OS ARTIFACTS (WINDOWS & MACOS) / İŞLETİM SİSTEMİ KALINTILARI
 # ─────────────────────────────────────────────────────────────────────────────
+# [EN] Exclude system-generated thumbnails, desktop and metadata files.
+# [TR] Sistem üretimi küçük resimler, masaüstü ve meta veri dosyalarını dışlar.
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 *.lnk
 
-# macOS İşletim Sistemine Özgü Kalıntılar (Ortak Çalışanlar İçin)
-# ─────────────────────────────────────────────────────────────────────────────
 .DS_Store
 .AppleDouble
 .LSOverride
 ._*
 
-# Önbellekler, Tarayıcılar ve Geçici Dosyalar
+# 6. CACHE & TEMP FILES / ÖNBELLEK VE GEÇİCİ DOSYALAR
 # ─────────────────────────────────────────────────────────────────────────────
+# [EN] Exclude cache directories and temporary processing files.
+# [TR] Önbellek dizinlerini ve geçici işlem dosyalarını dışarıda tutar.
 .cache/
 .pester/
 .sonarqube/
@@ -86,9 +93,10 @@ qodana.sarif.json
 *.swp
 *.swo
 
-# Proje Takip Kuralları
+# 7. VERSION CONTROL TRACKING / PROJE TAKİP KURALLARI
 # ─────────────────────────────────────────────────────────────────────────────
-# Gelecekte eklenirse takibinin yapılması gereken yapılandırma dosyaları:
+# [EN] Essential project configuration files to be kept under version control.
+# [TR] Versiyon kontrolünde tutulması gereken temel proje yapılandırma dosyaları.
 # .gitattributes
 # .editorconfig
 # README.md
