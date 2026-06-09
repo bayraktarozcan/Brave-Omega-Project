@@ -27,19 +27,19 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v1.2 — 2026-06-09](#en-v12)
+2.  [v1.2 — 2026-06-10](#en-v12)
     *   [Summary](#en-v12-summary)
     *   [Added](#en-v12-added)
     *   [Statistics](#en-v12-statistics)
     *   [Changed](#en-v12-changed)
     *   [Security](#en-v12-security)
-3.  [v1.1 — 2026-05-05](#en-v11)
+3.  [v1.1 — 2026-06-05](#en-v11)
     *   [Summary](#en-v11-summary)
     *   [Added](#en-v11-added)
     *   [Changed](#en-v11-changed)
     *   [Removed](#en-v11-removed)
     *   [Details](#en-v11-details)
-4.  [v1.0 — 2026-05-04](#en-v10)
+4.  [v1.0 — 2026-06-04](#en-v10)
     *   [Summary](#en-v10-summary)
     *   [Features](#en-v10-features)
     *   [Initial Policies](#en-v10-initial-policies)
@@ -58,13 +58,15 @@ All notable changes to this project are documented below, following the [Keep a 
 
 <a id="en-v12"></a>
 
-## [v1.2] — 2026-06-09
+## [v1.2] — 2026-06-10
 
 <a id="en-v12-summary"></a>
 
 ### 🎯 Summary
 
 **Major expansion:** 10 new enterprise policies added, bringing total from **7 to 17 policies**. This represents a **143% expansion** in privacy hardening coverage. All new policies are ADMX-verified and Chromium 149 compatible.
+
+**Validated against Brave 1.91.171 (Chromium 149.0.7827.103).**
 
 <a id="en-v12-added"></a>
 
@@ -134,7 +136,7 @@ Documentation:
 
 <a id="en-v11"></a>
 
-## [v1.1] — 2026-05-05
+## [v1.1] — 2026-06-05
 
 <a id="en-v11-summary"></a>
 
@@ -183,7 +185,7 @@ Comprehensive debugging and enhancement release with 7 major improvements. Intro
 
 <a id="en-v10"></a>
 
-## [v1.0] — 2026-05-04
+## [v1.0] — 2026-06-04
 
 <a id="en-v10-summary"></a>
 
@@ -238,9 +240,9 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
-| v1.2 | 2026-06-09 | 17 | +10 new policies, expanded documentation |
-| v1.1 | 2026-05-05 | 7 | Error handling, backups, process guards |
-| v1.0 | 2026-05-04 | 7 | Initial release, 3-tier architecture |
+| v1.2 | 2026-06-10 | 17 | +10 new policies, Brave 1.91.171 validation |
+| v1.1 | 2026-06-05 | 7 | Error handling, backups, process guards |
+| v1.0 | 2026-06-04 | 7 | Initial release, 3-tier architecture |
 
 ---
 
@@ -284,19 +286,19 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v1.2 — 2026-06-09](#tr-v12)
+2.  [v1.2 — 2026-06-10](#tr-v12)
     *   [Özet](#tr-v12-summary)
     *   [Eklendi](#tr-v12-added)
     *   [İstatistikler](#tr-v12-statistics)
     *   [Değiştirildi](#tr-v12-changed)
     *   [Güvenlik](#tr-v12-security)
-3.  [v1.1 — 2026-05-05](#tr-v11)
+3.  [v1.1 — 2026-06-05](#tr-v11)
     *   [Özet](#tr-v11-summary)
     *   [Eklendi](#tr-v11-added)
     *   [Değiştirildi](#tr-v11-changed)
     *   [Kaldırıldı](#tr-v11-removed)
     *   [Detaylar](#tr-v11-details)
-4.  [v1.0 — 2026-05-04](#tr-v10)
+4.  [v1.0 — 2026-06-04](#tr-v10)
     *   [Özet](#tr-v10-summary)
     *   [Özellikler](#tr-v10-features)
     *   [Başlangıç Politikaları](#tr-v10-initial-policies)
@@ -315,13 +317,15 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 <a id="tr-v12"></a>
 
-## [v1.2] — 2026-06-09
+## [v1.2] — 2026-06-10
 
 <a id="tr-v12-summary"></a>
 
 ### 🎯 Özet
 
 **Büyük genişleme:** Toplam **7'den 17'ye** çıkarılan 10 yeni kurumsal politika eklendi. Bu, gizlilik sıkılaştırma kapsamının **%143 genişlemesi** anlamına geliyor. Tüm yeni politikalar ADMX doğrulamalı ve Chromium 149 ile uyumludur.
+
+**Brave 1.91.171 (Chromium 149.0.7827.103) ile doğrulandı.**
 
 <a id="tr-v12-added"></a>
 
@@ -391,7 +395,7 @@ Belgelendirme:
 
 <a id="tr-v11"></a>
 
-## [v1.1] — 2026-05-05
+## [v1.1] — 2026-06-05
 
 <a id="tr-v11-summary"></a>
 
@@ -440,7 +444,7 @@ Belgelendirme:
 
 <a id="tr-v10"></a>
 
-## [v1.0] — 2026-05-04
+## [v1.0] — 2026-06-04
 
 <a id="tr-v10-summary"></a>
 
@@ -495,9 +499,9 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
-| v1.2 | 2026-06-09 | 17 | +10 yeni politika, genişletilmiş belgelendirme |
-| v1.1 | 2026-05-05 | 7 | Hata yönetimi, yedeklemeler, süreç koruyucuları |
-| v1.0 | 2026-05-04 | 7 | İlk sürüm, 3 katmanlı mimari |
+| v1.2 | 2026-06-10 | 17 | +10 yeni politika, Brave 1.91.171 doğrulaması |
+| v1.1 | 2026-06-05 | 7 | Hata yönetimi, yedeklemeler, süreç koruyucuları |
+| v1.0 | 2026-06-04 | 7 | İlk sürüm, 3 katmanlı mimari |
 
 ---
 
