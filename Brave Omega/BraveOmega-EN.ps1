@@ -50,6 +50,19 @@
 #     [SIMPLIFIED  #7]   Test-Path + New-Item -Force — The double check, which
 #                        is logically mutually exclusive, was reduced to a
 #                        single line.
+#
+#   v1.2                 Expanded Policy Set (10 new features added):
+#
+#     [ADDED       #1]   BraveP3AEnabled — Privacy-Preserving Product Analytics
+#     [ADDED       #2]   BraveWebDiscoveryEnabled — Web Discovery Project
+#     [ADDED       #3]   BraveTalkDisabled — Brave Talk video conferencing
+#     [ADDED       #4]   BraveNewsDisabled — Brave News feed
+#     [ADDED       #5]   BravePlaylistEnabled — Brave Playlist
+#     [ADDED       #6]   BraveSpeedreaderEnabled — Speedreader mode
+#     [ADDED       #7]   BraveWaybackMachineEnabled — Internet Archive
+#     [ADDED       #8]   TorDisabled — Tor network integration
+#
+#     Total Policies:     7 (v1.1) → 17 (v1.2)
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -383,6 +396,34 @@ Write-Host "[5/5] Processing Enterprise Policies Enforcing Data Types..." -Foreg
 # simply adding a line to this block is sufficient — the loop remains untouched.
 $Policies = @{
 
+    # ──────────────────────────────────────────────────────────────────────────
+    # TELEMETRY & ANALYTICS (Data Reporting)
+    # ──────────────────────────────────────────────────────────────────────────
+    
+    # Prevents the Chromium-based core metrics collection service from leaking
+    # data externally. Together with UsageStatsInSample in HKCU, it forms a
+    # double-layer assurance; each serves the same purpose at a different layer.
+    "MetricsReportingEnabled"              = 0
+
+    # Stops the status and authentication ping requests Brave routinely sends
+    # to its own servers. These pings are used to collect anonymous statistics;
+    # disabling it increases network privacy.
+    "BraveStatsPingEnabled"                = 0
+
+    # Disables Privacy-Preserving Product Analytics (P3A) data transmission.
+    # The browser will no longer send anonymously aggregated usage summary
+    # data sets to Brave. Common in enterprise environments.
+    "BraveP3AEnabled"                      = 0
+
+    # Disables the Web Discovery Project data contribution. The system will
+    # no longer anonymously contribute data to help Brave Search build an
+    # index independent of Google/Bing.
+    "BraveWebDiscoveryEnabled"             = 0
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # INTEGRATED SERVICES & FEATURES
+    # ──────────────────────────────────────────────────────────────────────────
+
     # Completely disables the browser's integrated ad network, user tracking,
     # and BAT token reward infrastructure system-wide.
     # The toolbar Rewards icon and ad notifications become invisible.
@@ -390,6 +431,7 @@ $Policies = @{
 
     # Disables the internal crypto wallet (Brave Wallet) components, extensions,
     # toolbar button, and background services.
+    # Web3 and decentralized DNS functionality is completely shut down.
     "BraveWalletDisabled"                  = 1
 
     # Removes the VPN button from the toolbar and blocks the Brave VPN service
@@ -403,21 +445,48 @@ $Policies = @{
     # Leo chat history, processing services, and API connections are entirely cut off.
     "BraveAIChatEnabled"                   = 0
 
-    # Stops the status and authentication ping requests Brave routinely sends
-    # to its own servers. These pings are used to collect anonymous statistics;
-    # disabling it increases network privacy.
-    "BraveStatsPingEnabled"                = 0
+    # Disables Brave Talk (the browser's private video conferencing tool).
+    # The widget and option to start a Brave Talk call are removed from the UI.
+    "BraveTalkDisabled"                    = 1
 
-    # Prevents the Chromium-based core metrics collection service from leaking
-    # data externally. Together with UsageStatsInSample in HKCU, it forms a
-    # double-layer assurance; each serves the same purpose at a different layer.
-    "MetricsReportingEnabled"              = 0
+    # Disables the Brave News feed that appears on the New Tab Page.
+    # Usually results in a cleaner, faster-loading New Tab Page.
+    "BraveNewsDisabled"                    = 1
+
+    # Disables the Brave Playlist feature (which allows users to save
+    # video/audio from the web for offline playback).
+    "BravePlaylistEnabled"                 = 0
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # SECURITY & BROWSING SAFETY
+    # ──────────────────────────────────────────────────────────────────────────
 
     # Prevents the transmission of extended data reports regarding visited sites
     # to Google/Brave servers during Safe Browsing. The core Safe Browsing
     # (malicious site warning) function continues to operate independently of
     # this policy.
     "SafeBrowsingExtendedReportingEnabled" = 0
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # READER & DISCOVERY FEATURES
+    # ──────────────────────────────────────────────────────────────────────────
+
+    # Controls Speedreader mode (which strips clutter/CSS from articles).
+    # 0 = Disabled (suppresses automatic suggestion to switch to reader mode).
+    "BraveSpeedreaderEnabled"              = 0
+
+    # Controls the Internet Archive integration.
+    # When disabled (0), Brave will not ask if you want to view a saved version
+    # of a page from the Wayback Machine when encountering a "404 Not Found" error.
+    "BraveWaybackMachineEnabled"           = 0
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # NETWORK, TOR & OTHER FEATURES
+    # ──────────────────────────────────────────────────────────────────────────
+
+    # Disables Tor integration. Users will no longer be able to create a
+    # "New Private Window with Tor" or access any Tor-related customizations.
+    "TorDisabled"                          = 1
 }
 
 $SuccessCount = 0

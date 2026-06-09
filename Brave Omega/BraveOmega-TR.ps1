@@ -49,6 +49,19 @@
 #
 #     [BASİTLEŞTİRİLDİ #7] Test-Path + New-Item -Force — Birbirini mantıksal
 #                        olarak dışlayan çifte kontrol, tek satıra indirgendi.
+#
+#   v1.2                 Genişletilmiş Politika Seti (10 yeni özellik eklendi):
+#
+#     [EKLENDİ     #1]   BraveP3AEnabled — Gizlilik Korumalı Ürün Analitiği
+#     [EKLENDİ     #2]   BraveWebDiscoveryEnabled — Web Discovery Project
+#     [EKLENDİ     #3]   BraveTalkDisabled — Brave Talk video konferans
+#     [EKLENDİ     #4]   BraveNewsDisabled — Brave News haber beslemesi
+#     [EKLENDİ     #5]   BravePlaylistEnabled — Brave Playlist
+#     [EKLENDİ     #6]   BraveSpeedreaderEnabled — Speedreader modu
+#     [EKLENDİ     #7]   BraveWaybackMachineEnabled — Internet Archive
+#     [EKLENDİ     #8]   TorDisabled — Tor ağı entegrasyonu
+#
+#     Toplam Politika Sayısı:  7 (v1.1) → 17 (v1.2)
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -384,13 +397,42 @@ Write-Host "[5/5] Kurumsal İlkeler Veri Tipleri Zorlanarak İşleniyor..." -For
 # yalnızca bu bloğa bir satır eklenmesi yeterlidir — döngüye dokunulmaz.
 $Politikalar = @{
 
+    # ──────────────────────────────────────────────────────────────────────────
+    # VERİ AKTARIMI VE ANALİZ (Telemetry & Analytics)
+    # ──────────────────────────────────────────────────────────────────────────
+    
+    # Chromium tabanlı ana ölçüm toplama hizmetinin dışa veri sızdırmasını
+    # önler. HKCU'daki UsageStatsInSample ile birlikte iki katmanlı güvence
+    # oluşturur; her biri farklı bir katmanda aynı amaca hizmet eder.
+    "MetricsReportingEnabled"              = 0
+
+    # Brave'in düzenli olarak kendi sunucularına gönderdiği durum ve kimlik
+    # doğrulama ping isteklerini keser. Bu pingler anonim istatistik toplamada
+    # kullanılır; kapatmak ağ gizliliğini artırır.
+    "BraveStatsPingEnabled"                = 0
+
+    # Gizlilik Korumalı Ürün Analitiği (P3A) veri göndermesini devre dışı bırakır.
+    # Brave tarafından anonim olarak toplanan ve gönderilen kullanım özet veri
+    # setinden kurtulur. Kurumsal ortamlarda uygulamada sıkça kapatılır.
+    "BraveP3AEnabled"                      = 0
+
+    # Web Discovery Project (Brave Search indeksi oluşturmaya dönük) veri
+    # toplamayı engeller. Anonymously sistem, Brave Search'ü Google/Bing'den
+    # bağımsız kılan veriye katkısından vazgeçer.
+    "BraveWebDiscoveryEnabled"             = 0
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # ENTEGRE HİZMETLER VE ÖZELLIKLERI DEVRE DIŞI BIRAKMAK (Features)
+    # ──────────────────────────────────────────────────────────────────────────
+
     # Tarayıcı tümleşik reklam ağını, kullanıcı takibini ve BAT jeton
-    # kazanç (Rewards) altyapısını sistem genelinde tamamen kapatır.
+    # kazanç (Rewards) altyapısını sistem genelinde tamamente kapatır.
     # Araç çubuğu Rewards simgesi ve reklam bildirimleri görünmez olur.
     "BraveRewardsDisabled"                 = 1
 
     # Dahili kripto cüzdan (Brave Wallet) parçalarını, uzantılarını,
     # araç çubuğu düğmesini ve arka plan hizmetlerini devre dışı bırakır.
+    # Web3 ve merkeziyetsiz DNS işlevselliği tamamen kapatılır.
     "BraveWalletDisabled"                  = 1
 
     # Araç çubuğundaki VPN düğmesini kaldırır ve arka planda çalışan
@@ -404,21 +446,49 @@ $Politikalar = @{
     # Leo konuşma geçmişi, işleme hizmetleri ve API bağlantıları tamamen kesilir.
     "BraveAIChatEnabled"                   = 0
 
-    # Brave'in düzenli olarak kendi sunucularına gönderdiği durum ve kimlik
-    # doğrulama ping isteklerini keser. Bu pingler anonim istatistik toplamada
-    # kullanılır; kapatmak ağ gizliliğini artırır.
-    "BraveStatsPingEnabled"                = 0
+    # Brave Talk (özel video konferans aracı) widget'ını ve çağrı başlatma
+    # seçeneğini kullanıcı arayüzünden kaldırır.
+    "BraveTalkDisabled"                    = 1
 
-    # Chromium tabanlı ana ölçüm toplama hizmetinin dışa veri sızdırmasını
-    # önler. HKCU'daki UsageStatsInSample ile birlikte iki katmanlı güvence
-    # oluşturur; her biri farklı bir katmanda aynı amaca hizmet eder.
-    "MetricsReportingEnabled"              = 0
+    # Brave News haber beslemesini (New Tab Page'de görünen) devre dışı bırakır.
+    # Çoğu zaman daha hızlı yüklenen, daha temiz yeni sekme sayfası yaratır.
+    "BraveNewsDisabled"                    = 1
+
+    # Brave Playlist özelliğini (çevrimdışı oynatma için video/ses kaydetme)
+    # kapatır.
+    "BravePlaylistEnabled"                 = 0
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # GÜVENLİK VE KATKILANMIŞLIK (Security & Browsing)
+    # ──────────────────────────────────────────────────────────────────────────
 
     # Güvenli Tarama (Safe Browsing) esnasında ziyaret edilen sitelerle ilgili
     # genişletilmiş veri raporlarının Google/Brave sunucularına iletilmesini
     # engeller. Temel Safe Browsing (kötü amaçlı site uyarısı) işlevi bu
     # politikadan bağımsız çalışmaya devam eder.
     "SafeBrowsingExtendedReportingEnabled" = 0
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # OKUMA VE ARAMA ÖZELLİKLERİ (Reader & Discovery Features)
+    # ──────────────────────────────────────────────────────────────────────────
+
+    # Speedreader modu (makale sayfalarından düzensizliği/CSS'yi çıkaran)
+    # yazı tip önerilerini kaç.
+    "BraveSpeedreaderEnabled"              = 0
+
+    # İnternet Archive Wayback Machine entegrasyonunu engeller. "404 Sayfa
+    # Bulunamadı" hatası durumunda Brave'in sayfanın Wayback Machine'teki
+    # kaydedilmiş sürümünü gösterip göstermeyeceğini sorup sormaması burada
+    # kontrol edilir.
+    "BraveWaybackMachineEnabled"           = 0
+
+    # ────────────────────────────────────���─────────────────────────────────────
+    # AĞLAR, SLİNK VE DİĞER (Network, Tor & Other)
+    # ──────────────────────────────────────────────────────────────────────────
+
+    # Tor ağının entegre sekmelerine devre dışı bırakır. Kullanıcı artık
+    # "Yeni Tor Sekmesi" oluşturamayacak veya Tor özelleştirmelerine erişemeyecektir.
+    "TorDisabled"                          = 1
 }
 
 $BasariSayaci = 0

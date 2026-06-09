@@ -174,7 +174,7 @@ redundant, independent enforcement at each layer of the Windows + Brave + Omaha 
 ├─────────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  7 ADMX-validated enterprise policies, enforced.        │
+│  ↳  17 ADMX-validated enterprise policies, enforced.       │
 │     Appear gray and locked in browser Settings UI.         │
 │     Cannot be overridden by user interaction.              │
 ├─────────────────────────────────────────────────────────────┤
@@ -248,7 +248,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v1.1** *(current)* | 1.91.168 | 149 | 11 25H2 | ✅ Active |
+| **v1.2** *(current)* | 1.91.168 | 149 | 11 25H2 | ✅ Active |
+| v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
 > [!TIP]
@@ -272,6 +273,14 @@ no longer have any effect.
 | `MetricsReportingEnabled` | HKLM | `0` | Disables Chromium core metrics collection and external telemetry reporting |
 | `SafeBrowsingExtendedReportingEnabled` | HKLM | `0` | Stops extended site data reports during Safe Browsing checks (core SB unaffected) |
 | `usagestats` *(per GUID)* | HKCU | `0` | Disables Omaha updater telemetry per application GUID identifier |
+| `BraveP3AEnabled` *(v1.2+)* | HKLM | `0` | Disables Privacy-Preserving Product Analytics (P3A) data transmission |
+| `BraveWebDiscoveryEnabled` *(v1.2+)* | HKLM | `0` | Disables Web Discovery Project data contribution to Brave Search index |
+| `BraveTalkDisabled` *(v1.2+)* | HKLM | `1` | Disables Brave Talk video conferencing widget and call options |
+| `BraveNewsDisabled` *(v1.2+)* | HKLM | `1` | Disables Brave News feed on New Tab Page |
+| `BravePlaylistEnabled` *(v1.2+)* | HKLM | `0` | Disables Brave Playlist feature for offline media playback |
+| `BraveSpeedreaderEnabled` *(v1.2+)* | HKLM | `0` | Disables Speedreader mode and article cleaning suggestions |
+| `BraveWaybackMachineEnabled` *(v1.2+)* | HKLM | `0` | Disables Internet Archive Wayback Machine integration on 404 errors |
+| `TorDisabled` *(v1.2+)* | HKLM | `1` | Disables Tor network integration and "New Private Window with Tor" |
 
 ---
 
@@ -517,7 +526,7 @@ bir yaklaşım kullanır.
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  7 ADMX doğrulamalı kurumsal ilke, zorunlu kılındı.    │
+│  ↳  17 ADMX doğrulamalı kurumsal ilke, zorunlu kılındı.   │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -594,7 +603,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v1.1** *(güncel)* | 1.91.168 | 149 | 11 25H2 | ✅ Etkin |
+| **v1.2** *(güncel)* | 1.91.168 | 149 | 11 25H2 | ✅ Etkin |
+| v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
 > [!TIP]
@@ -618,6 +628,14 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `MetricsReportingEnabled` | HKLM | `0` | Chromium ana ölçüm toplamayı ve harici veri aktarımı raporlamasını devre dışı bırakır |
 | `SafeBrowsingExtendedReportingEnabled` | HKLM | `0` | Güvenli Tarama sırasında genişletilmiş site veri raporlarını durdurur (temel SB işlevi etkilenmez) |
 | `usagestats` *(GUID başına)* | HKCU | `0` | Uygulama GUID tanımlayıcısı başına Omaha güncelleyici veri aktarımını devre dışı bırakır |
+| `BraveP3AEnabled` *(v1.2+)* | HKLM | `0` | Gizlilik Korumalı Ürün Analitiği (P3A) veri transmisyonunu devre dışı bırakır |
+| `BraveWebDiscoveryEnabled` *(v1.2+)* | HKLM | `0` | Web Discovery Project'in Brave Search indeksine veri katkısını devre dışı bırakır |
+| `BraveTalkDisabled` *(v1.2+)* | HKLM | `1` | Brave Talk video konferans widget'ını ve çağrı seçeneklerini kapatır |
+| `BraveNewsDisabled` *(v1.2+)* | HKLM | `1` | Yeni Sekme Sayfasındaki Brave News haber beslemesini devre dışı bırakır |
+| `BravePlaylistEnabled` *(v1.2+)* | HKLM | `0` | Çevrimdışı ortam oynatması için Brave Playlist özelliğini kapatır |
+| `BraveSpeedreaderEnabled` *(v1.2+)* | HKLM | `0` | Speedreader modunu ve makale temizliği önerilerini devre dışı bırakır |
+| `BraveWaybackMachineEnabled` *(v1.2+)* | HKLM | `0` | 404 hatalarında İnternet Archive Wayback Machine entegrasyonunu kapatır |
+| `TorDisabled` *(v1.2+)* | HKLM | `1` | Tor ağı entegrasyonunu ve "Tor İle Yeni Gizli Pencere" seçeneğini kapatır |
 
 ---
 
