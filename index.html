@@ -1,0 +1,1285 @@
+﻿<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brave Omega Project - Enterprise-grade browser privacy hardening via ADMX-validated PowerShell automation. Open source, community-driven.">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0f0f0f">
+    <meta name="keywords" content="brave, browser, privacy, hardening, powershell, security, windows, enterprise, admx, group-policy">
+    <meta name="author" content="Brave Omega Project Contributors">
+    <meta property="og:title" content="Brave Omega Project - Kurumsal Duzeyde Tarayici Gizlilik Sikilastirmasi">
+    <meta property="og:description" content="Acik kaynak PowerShell otomasyonu ile Brave Browser gizlilik sikilastirmasi.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bayraktarozcan.github.io/Brave-Omega-Project/">
+    <title data-i18n="page_title">Brave Omega Project - Kurumsal Düzeyde Tarayıcı Gizlilik Sıkılaştırması</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Plus Jakarta Sans',sans-serif; background:#000; color:#e5e5e5; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; }
+        .font-mono { font-family:'JetBrains Mono',monospace; }
+        ::selection { background:#f59e0b33; color:#fbbf24; }
+        ::-webkit-scrollbar { width:6px; }
+        ::-webkit-scrollbar-track { background:#000; }
+        ::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
+        ::-webkit-scrollbar-thumb:hover { background:#555; }
+        .terminal-cursor::after { content:'|'; animation:blink 1s step-end infinite; color:#22c55e; font-weight:700; }
+        @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes slideInRight { from { opacity:0; transform:translateX(30px); } to { opacity:1; transform:translateX(0); } }
+        @keyframes pulseGlow { 0%,100% { box-shadow:0 0 20px rgba(34,197,94,0.15); } 50% { box-shadow:0 0 40px rgba(34,197,94,0.3); } }
+        .animate-fade-in-up { animation:fadeInUp 0.6s ease-out forwards; opacity:0; }
+        .animate-fade-in-up-d1 { animation:fadeInUp 0.6s ease-out 0.15s forwards; opacity:0; }
+        .animate-fade-in-up-d2 { animation:fadeInUp 0.6s ease-out 0.3s forwards; opacity:0; }
+        .animate-fade-in-up-d3 { animation:fadeInUp 0.6s ease-out 0.45s forwards; opacity:0; }
+        .animate-fade-in { animation:fadeIn 0.8s ease-out forwards; opacity:0; }
+        .animate-slide-in-right { animation:slideInRight 0.5s ease-out forwards; opacity:0; }
+        .terminal-line { opacity:0; animation:fadeIn 0.3s ease-out forwards; }
+        .terminal-line:nth-child(1) { animation-delay:0.5s; }
+        .terminal-line:nth-child(2) { animation-delay:0.9s; }
+        .terminal-line:nth-child(3) { animation-delay:1.3s; }
+        .terminal-line:nth-child(4) { animation-delay:1.7s; }
+        .terminal-line:nth-child(5) { animation-delay:2.1s; }
+        .terminal-line:nth-child(6) { animation-delay:2.5s; }
+        .terminal-line:nth-child(7) { animation-delay:2.9s; }
+        .terminal-line:nth-child(8) { animation-delay:3.3s; }
+        .terminal-line:nth-child(9) { animation-delay:3.7s; }
+        .terminal-line:nth-child(10) { animation-delay:4.1s; }
+        .terminal-line:nth-child(11) { animation-delay:4.5s; }
+        .terminal-line:nth-child(12) { animation-delay:4.9s; }
+        .terminal-line:nth-child(13) { animation-delay:5.3s; }
+        .terminal-line:nth-child(14) { animation-delay:5.7s; }
+        .terminal-line:nth-child(15) { animation-delay:6.1s; }
+        .terminal-line:nth-child(16) { animation-delay:6.5s; }
+        .terminal-line:nth-child(17) { animation-delay:6.9s; }
+        .terminal-line:nth-child(18) { animation-delay:7.3s; }
+        .terminal-line:nth-child(19) { animation-delay:7.7s; }
+        .terminal-line:nth-child(20) { animation-delay:8.1s; }
+        .terminal-line:nth-child(21) { animation-delay:8.5s; }
+        .terminal-line:nth-child(22) { animation-delay:8.9s; }
+        .terminal-line:nth-child(23) { animation-delay:9.3s; }
+        .table-row { transition:background 0.2s; }
+        .table-row:hover { background:rgba(245,158,11,0.05); }
+        .policy-table th { position:sticky; top:0; z-index:10; }
+        .badge { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:600; letter-spacing:0.5px; }
+        .badge-green { background:rgba(34,197,94,0.15); color:#22c55e; }
+        .badge-yellow { background:rgba(234,179,8,0.15); color:#eab308; }
+        .badge-gray { background:rgba(100,116,139,0.15); color:#94a3b8; }
+        .glow-card { transition:all 0.3s ease; border:1px solid #1f1f1f; }
+        .glow-card:hover { border-color:#22c55e33; transform:translateY(-2px); box-shadow:0 8px 32px rgba(34,197,94,0.08); }
+        .btn-primary { background:linear-gradient(135deg,#22c55e,#16a34a); color:#000; font-weight:600; padding:10px 24px; border-radius:8px; transition:all 0.2s; border:none; cursor:pointer; }
+        .btn-primary:hover { transform:translateY(-1px); box-shadow:0 4px 20px rgba(34,197,94,0.3); }
+        .btn-outline { border:1px solid #333; color:#e5e5e5; font-weight:500; padding:10px 24px; border-radius:8px; transition:all 0.2s; background:transparent; cursor:pointer; }
+        pre { white-space:pre-wrap; word-break:break-word; }
+        .hero-gradient { background:radial-gradient(ellipse at 50% 0%, rgba(34,197,94,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(245,158,11,0.04) 0%, transparent 50%), #000; }
+        @media (max-width:768px) { .terminal-wrap { font-size:11px; } .hero-title { font-size:2rem; } }
+    </style>
+    <script>
+        tailwind.config = { theme:{ extend:{ colors:{ brave:'#FF6000', bravehover:'#e55600', safe:'#22C55E', cardbg:'#000', bordercolor:'#1a1a1a', oled:'#000000' } } } }
+    </script>
+</head>
+<body class="min-h-screen relative overflow-x-hidden bg-black text-zinc-200">
+
+    <!-- Okuma Illeme Cubugu -->
+    <div id="progress-bar" style="position:fixed;top:0;left:0;height:3px;background:#FF6000;width:0%;z-index:100;transition:width 0.1s;box-shadow:0 0 10px rgba(255,96,0,0.5);"></div>
+
+    <!-- OLED Arka Plan Isiklandirmasi -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-[#FF6000]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+    <!-- Yukari Don Dugmesi -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 z-50 bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#FF6000]/50 hover:bg-black p-3 rounded-full shadow-lg transition-all cursor-pointer" style="opacity:0;visibility:hidden;transform:translateY(20px);transition:all 0.3s ease;">
+        <i data-lucide="chevron-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- Mobil Menu Kaplamasi -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[60] flex flex-col justify-center items-center gap-8" style="opacity:0;pointer-events:none;transition:opacity 0.3s;">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-zinc-400 hover:text-white">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-[#FF6000] transition-colors" data-i18n="nav_about">Hakkimizda</a>
+        <a href="#features" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-[#FF6000] transition-colors" data-i18n="nav_features">Ozellikler</a>
+        <a href="#lifecycle" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-[#FF6000] transition-colors" data-i18n="nav_lifecycle">Yasam Dongusu</a>
+        <a href="#policies" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-[#FF6000] transition-colors" data-i18n="nav_policies">Politikalar</a>
+        <a href="#security" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-[#FF6000] transition-colors" data-i18n="nav_security">Guvenlik</a>
+        <a href="#changelog" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-[#FF6000] transition-colors" data-i18n="nav_changelog">Surumler</a>
+        <div class="flex gap-4 mt-8 bg-zinc-900 p-1.5 rounded-lg border border-zinc-800">
+            <button onclick="setLang('tr'); toggleMobileMenu()" class="px-6 py-2 rounded-md text-sm font-bold bg-[#FF6000] text-white transition-all" id="mob-lang-tr">TR</button>
+            <button onclick="setLang('en'); toggleMobileMenu()" class="px-6 py-2 rounded-md text-sm font-semibold text-zinc-400 hover:text-white transition-all" id="mob-lang-en">EN</button>
+        </div>
+    </div>
+
+    <!-- Ust Cubuk -->
+    <header class="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-[#1a1a1a]/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl" style="filter:drop-shadow(0 0 10px rgba(255,96,0,0.5));">&#x1f981;</span>
+                <div class="leading-none">
+                    <span class="font-bold tracking-tight text-white block text-[15px]">BRAVE OMEGA</span>
+                    <span class="text-[9px] text-zinc-500 tracking-[0.2em] uppercase font-mono mt-0.5 block">Topluluk Surumu</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#about" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors" data-i18n="nav_about">Hakkimizda</a>
+                <a href="#features" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors" data-i18n="nav_features">Ozellikler</a>
+                <a href="#lifecycle" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors" data-i18n="nav_lifecycle">Yasam Dongusu</a>
+                <a href="#policies" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors" data-i18n="nav_policies">Politikalar</a>
+                <a href="#security" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors" data-i18n="nav_security">Guvenlik</a>
+                <a href="#changelog" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors" data-i18n="nav_changelog">Surumler</a>
+            </nav>
+            <div class="flex items-center gap-5">
+                <div class="hidden md:flex bg-black border border-[#1a1a1a] p-0.5 rounded-lg shadow-inner">
+                    <button id="lang-tr" onclick="setLang('tr')" class="px-3 py-1 rounded-md text-xs font-bold bg-[#FF6000] text-white transition-all shadow-md">TR</button>
+                    <button id="lang-en" onclick="setLang('en')" class="px-3 py-1 rounded-md text-xs font-semibold text-zinc-500 hover:text-white transition-all cursor-pointer">EN</button>
+                </div>
+                <div class="hidden md:block w-px h-5 bg-[#1a1a1a]"></div>
+                <a href="https://github.com/bayraktarozcan/Brave-Omega-Project" target="_blank" class="text-zinc-500 hover:text-white transition-colors">
+                    <i data-lucide="github" class="w-[22px] h-[22px]"></i>
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-zinc-400 hover:text-white">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+<section class="hero-gradient min-h-screen flex items-center pt-14 pb-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image:radial-gradient(circle at 25px 25px, #22c55e 1px, transparent 1px);background-size:50px 50px;"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="animate-fade-in">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="badge badge-green">v1.2</span>
+                    <span class="text-xs text-gray-500" data-i18n="hero_latest">En guncel kararli surum</span>
+                    <span class="text-xs text-gray-600">|</span>
+                    <span class="text-xs text-gray-500">Brave 1.91.171 <span class="text-gray-600">/</span> Chromium 149</span>
+                </div>
+                <h1 class="hero-title text-4xl sm:text-5xl lg:text-6xl font-black leading-snug mb-4">
+                    <span class="text-white">Brave</span> <span class="text-transparent bg-clip-text bg-gradient-to-br from-[#FF6000] to-orange-600 drop-shadow-sm">Omega</span>
+                    <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22c55e] to-[#f59e0b]" data-i18n="hero_title">Kurumsal Tarayici Gizliligi</span>
+                </h1>
+                <p class="text-lg text-gray-400 mb-6 max-w-lg" data-i18n="hero_subtitle">
+                    ADMX dogrulamali, acik kaynak PowerShell otomasyonu ile Brave Browser'inizi kurumsal duzeyde gizlilik sikilastirmasiyla koruyun.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#quickstart" class="btn-primary flex items-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        <span data-i18n="hero_cta_start">Hizli Baslangic</span>
+                    </a>
+                    <a href="https://github.com/bayraktarozcan/Brave-Omega-Project" target="_blank" rel="noopener" class="btn-outline flex items-center gap-2">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+                <div class="flex flex-wrap gap-6 mt-8 text-sm">
+                    <div><span class="text-[#22c55e] font-bold text-lg">17</span> <span class="text-gray-500" data-i18n="hero_stat_policies">ADMX Politika</span></div>
+                    <div><span class="text-[#22c55e] font-bold text-lg">3</span> <span class="text-gray-500" data-i18n="hero_stat_tiers">Zorunlu Kilma Katmani</span></div>
+                    <div><span class="text-[#22c55e] font-bold text-lg">2</span> <span class="text-gray-500" data-i18n="hero_stat_langs">Dil Surumu</span></div>
+                </div>
+            </div>
+            <div class="animate-fade-in-up-d1">
+                <div class="terminal-wrap bg-[#000] rounded-xl border border-[#1f1f1f] overflow-hidden shadow-2xl" style="animation:pulseGlow 3s ease-in-out infinite;">
+                    <div class="flex items-center gap-2 px-4 py-3 bg-[#000] border-b border-[#1f1f1f]">
+                        <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+                        <span class="text-xs text-gray-500 ml-2 font-mono">PowerShell 5.1 - Yonetici</span>
+                    </div>
+                    <div class="p-4 sm:p-5 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto">
+                        <div class="terminal-line"><span class="text-gray-500" data-i18n="term_title">Windows PowerShell</span></div>
+                        <div class="terminal-line"><span class="text-gray-500" data-i18n="term_copyright">Copyright (C) Microsoft Corporation. Tum haklari saklidir.</span></div>
+                        <div class="terminal-line"><br></div>
+                        <div class="terminal-line"><span class="text-[#569cd6]">PS</span><span class="text-gray-500"> C:</span><span class="text-[#f59e0b]">\Users\Downloads&gt; </span><span class="text-white">cd "C:\Users\Downloads\Brave-Omega"</span></div>
+                        <div class="terminal-line"><span class="text-[#569cd6]">PS</span><span class="text-gray-500"> C:</span><span class="text-[#f59e0b]">\Users\Downloads\Brave-Omega&gt; </span><span class="text-white" data-i18n="term_script">.\BraveOmega-TR.ps1</span></div>
+                        <div class="terminal-line"><br></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_start">Brave Omega v1.2 baslatiliyor...</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_check">Brave prosesi kontrol ediliyor...</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_not_running">Brave calismiyor. Devam ediliyor.</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_backup_start">HKLM yedegi aliniyor...</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_backup_file">Yedek: BraveOmega_HKLM_20260613_120000.reg</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_guid_scan">GUID taranmasi baslatildi...</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_hkcu">HKCU katmani yaziliyor...</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_hklm">HKLM katmani yaziliyor (15 politika)...</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_omaha">Omaha GUID katmani yaziliyor...</span></div>
+                        <div class="terminal-line"><br></div>
+                        <div class="terminal-line"><span class="text-[#22c55e] font-bold" data-i18n="term_summary">Yurutme Ozeti:</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hkcu">HKCU kullanici tercihi: 1 basarili</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hklm">HKLM kurumsal ilkeler: 15 basarili, 0 hata</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_omaha">Omaha GUID: 1 basarili</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_backup">Yedekleme: basarili</span></div>
+                        <div class="terminal-line"><br></div>
+                        <div class="terminal-line flex items-center gap-2">
+                            <span class="text-[#22c55e] font-bold" data-i18n="term_done">ISLEM TAMAMLANDI</span>
+                            <span class="text-gray-500" data-i18n="term_exit">- Cikis kodu: 0</span>
+                            <span class="terminal-cursor"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="about" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-fade-in-up">
+            <span class="badge badge-green mb-4" data-i18n="about_badge">Proje Hakkinda</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="about_heading">Brave Omega Nedir?</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-lg" data-i18n="about_desc1">
+                Brave Omega, Brave Browser'i resmî kurumsal politika kanallari araciligiyla sikilastiran acik kaynakli bir PowerShell otomasyon projesidir. Telemetri, analiz hizmetleri, arka plan pingleri ve gizliligi asindiran tum bilesenler sistematik bicimde devre disi birakilir.
+            </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="glow-card bg-[#000] rounded-xl p-6 animate-fade-in-up-d1">
+                <div class="w-10 h-10 rounded-lg bg-[#22c55e15] flex items-center justify-center mb-4">
+                    <i data-lucide="shield" class="w-5 h-5 text-[#22c55e]"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2" data-i18n="about_card1_title">ADMX Dogrulamali</h3>
+                <p class="text-gray-400 text-sm" data-i18n="about_card1_desc">Her politika Brave'in resmî ADMX sablon paketi ve Chromium kurumsal belgelendirmesi ile dogrulanmistir.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-6 animate-fade-in-up-d2">
+                <div class="w-10 h-10 rounded-lg bg-[#f59e0b15] flex items-center justify-center mb-4">
+                    <i data-lucide="layers" class="w-5 h-5 text-[#f59e0b]"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2" data-i18n="about_card2_title">Uc Katmanli Mimari</h3>
+                <p class="text-gray-400 text-sm" data-i18n="about_card2_desc">HKCU + HKLM + Omaha GUID seviyesinde bagimsiz zorunlu kilma. Kullanici mudahalesiyle asilamaz.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-6 animate-fade-in-up-d3">
+                <div class="w-10 h-10 rounded-lg bg-[#8b5cf615] flex items-center justify-center mb-4">
+                    <i data-lucide="globe" class="w-5 h-5 text-[#8b5cf6]"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2" data-i18n="about_card3_title">Iki Dilli</h3>
+                <p class="text-gray-400 text-sm" data-i18n="about_card3_desc">Tam Turkce ve Ingilizce arayuz. Birebir islevsellik, ayni guvence, sectiginiz dilde.</p>
+            </div>
+        </div>
+        <div class="glow-card bg-[#000] rounded-xl p-6 lg:p-8 animate-fade-in-up-d3">
+            <h3 class="font-bold text-lg mb-4" data-i18n="why_title">Brave Omega Neden Var?</h3>
+            <p class="text-gray-400 text-sm mb-4" data-i18n="why_desc1">
+                Kurumsal tarayici gizlilik sikilastirmasi ya ADMX politika cercevelerine derin teknik hakimiyet ya da pahali bir ucretli urun aboneligi gerektirir. Brave Omega her iki kisitlamayi da ortadan kaldirir.
+            </p>
+            <p class="text-gray-400 text-sm" data-i18n="why_desc2">
+                Gereken tum bilgi ve arac, ucretsiz ve acik kaynakli Brave Browser icinde zaten mevcuttur. Tek eksik olan, bu bilesenler arasinda dogrulanmis bir kofpriydti. Brave Omega o kofpruyu insa eder ve tarayicinin yasam dongusu boyunca onu guncel tutar.
+            </p>
+        </div>
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-500 italic" data-i18n="why_tagline">
+                Iki betik. Tek hedef. Sifir maliyet.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-fade-in-up">
+            <span class="badge badge-yellow mb-4" data-i18n="features_badge">Temel Ozellikler</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="features_heading">Neler Sunuyor?</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto" data-i18n="features_desc">Brave Omega, Brave Browser'inizi kurumsal duzeyde gizlilik sikilastirmasiyla donatir.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f512;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_tier_title">Uc Katmanli Model</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_tier_desc">HKCU + HKLM + Omaha GUID seviyesinde bagimsiz zorunlu kilma.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f4cb;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_admx_title">ADMX Dogrulamali</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_admx_desc">Her politika Brave resmî sablon paketi ile kaynakli ve dogrulanmis.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d3">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f504;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_idem_title">Kararsiz Olmayan Calisma</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_idem_desc">Istediginiz kadar calistirin, ayni guvenli ve tutarli sonuc.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f4be;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_backup_title">Otomatik Yedekleme</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_backup_desc">Zaman damgali .reg yedegi, tek komutla geri alma.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f6e1;&#xfe0f;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_guard_title">Brave Proses Koruyucusu</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_guard_desc">Calisan Brave orneklerini algilar, onay ister.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d3">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f4ca;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_summary_title">Yurutme Ozeti</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_summary_desc">Kategori bazinda basari/hata sayaclari ile seffaf raporlama.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f310;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_biling_title">Iki Dilli</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_biling_desc">Turkce ve Ingilizce, birebir islevsellikle.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x26a1;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_lifecycle_title">Yasam Dongusu Taahhudu</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_lifecycle_desc">Her Brave surumunde politika gozden gecirmesi, surum sabitleme.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="lifecycle" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-fade-in-up">
+            <span class="badge badge-green mb-4">&#x267b;&#xfe0f; <span data-i18n="lifecycle_badge">Yasam Dongusu Taahhudu</span></span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="lifecycle_heading">Her Daim Guncel</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto italic" data-i18n="lifecycle_quote">Guncelligini yitiren bir gizlilik sikilastirma araci, guvenlik guvencesi degil - yanlis bir guvenlik duygusudur.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_pin_title">Surum Sabitleme</div>
+                <p class="text-gray-500 text-xs" data-i18n="lc_pin_desc">Her betik surumu, basliginda dogrulanmis Brave + Chromium versiyonuyla etiketlidir.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_review_title">Her Surumde Gozden Gecirme</div>
+                <p class="text-gray-500 text-xs" data-i18n="lc_review_desc">Yeni Brave kararli surumunde ADMX sablonu karsilastirilir, politikalar guncellenir.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d3">
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_breaking_title">Kirici Degisiklik Bildirimleri</div>
+                <p class="text-gray-500 text-xs" data-i18n="lc_breaking_desc">Kaldirilan veya yeniden adlandirilan anahtarlar degisiklik gunlugunde belgelenir.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_community_title">Topluluk Gudemlu</div>
+                <p class="text-gray-500 text-xs" data-i18n="lc_community_desc">Katkida bulunanlarin tespit ettigi uyumsuzluklar hizla incelenip birlestirilir.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="architecture" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-fade-in-up">
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="arch_heading">Mimari: Uc Katmanli Zorunlu Kilma</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="arch_desc">Her katman bagimsiz calisir, tek bir noktadaki zafiyet tum korumayi dusurmez.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#22c55e] animate-fade-in-up-d1">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="badge badge-green">KATMAN 1</span>
+                    <span class="text-xs text-gray-500 font-mono">HKCU</span>
+                </div>
+                <h4 class="font-bold text-sm mb-2" data-i18n="tier1_title">Kullanici Tercihi Katmani</h4>
+                <code class="text-xs text-gray-400 block mb-2 font-mono break-all">HKCU:\Software\BraveSoftware\Brave-Browser</code>
+                <p class="text-gray-500 text-xs" data-i18n="tier1_desc">UsageStatsInSample = 0 ile Chromium kullanici duzeyi veri aktarimi orneklemesini devre disi birakir. Politika yayilma gecikmelerinde yedek guvence saglar.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#f59e0b] animate-fade-in-up-d2">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="badge badge-yellow">KATMAN 2</span>
+                    <span class="text-xs text-gray-500 font-mono">HKLM</span>
+                </div>
+                <h4 class="font-bold text-sm mb-2" data-i18n="tier2_title">Kurumsal Ilke Katmani (ADMX)</h4>
+                <code class="text-xs text-gray-400 block mb-2 font-mono break-all">HKLM:\SOFTWARE\Policies\BraveSoftware\Brave</code>
+                <p class="text-gray-500 text-xs" data-i18n="tier2_desc">15 ADMX dogrulamali kurumsal ilke. Tarayici Ayarlar arayuzunde gri/kilitli gorunur. Kullanici etkilesimiyle degistirilemez.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#8b5cf6] animate-fade-in-up-d3">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="badge" style="background:rgba(139,92,246,0.15);color:#8b5cf6;">KATMAN 3</span>
+                    <span class="text-xs text-gray-500 font-mono">Omaha GUID</span>
+                </div>
+                <h4 class="font-bold text-sm mb-2" data-i18n="tier3_title">Guncelleyici GUID Katmani</h4>
+                <code class="text-xs text-gray-400 block mb-2 font-mono break-all">HKCU:\...\Update\ClientState\{GUID}</code>
+                <p class="text-gray-500 text-xs" data-i18n="tier3_desc">Her uygulama GUID'i icin usagestats = 0. Guncelleme altyapisinin kendi veri aktarimini tarayici duzeyi ilkelerden bagimsiz kapatir.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="sources" class="py-20 border-t border-[#1f1f1f]">
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="sources_desc">Temel ilke: Sifir gayri resmî veya spekulatif kayit defteri degisikligi.</p>
+        </div>
+        <div class="overflow-x-auto animate-fade-in-up-d1">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="sources_col_source">Kaynak</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="sources_col_policies">Kapsanan Politikalar</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#1f1f1f]">
+                    <tr class="security-row">
+                        <td class="py-3 px-4 font-mono text-xs text-[#22c55e]">Brave Resmî ADMX Sablon Paketi</td>
+                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">BraveRewardsDisabled, BraveWalletDisabled, BraveVPNDisabled, BraveAIChatEnabled, BraveStatsPingEnabled</code></td>
+                    </tr>
+                    <tr class="security-row">
+                        <td class="py-3 px-4 font-mono text-xs text-[#f59e0b]">Chromium Kurumsal Politika Belgelendirmesi</td>
+                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">MetricsReportingEnabled, SafeBrowsingExtendedReportingEnabled</code></td>
+                    </tr>
+                    <tr class="security-row">
+                        <td class="py-3 px-4 font-mono text-xs text-[#8b5cf6]">Google Omaha Guncelleyici Mimarisi</td>
+                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">usagestats</code> (GUID basina, HKCU katmani)</td>
+                    </tr>
+                    <tr class="security-row">
+                        <td class="py-3 px-4 font-mono text-xs text-[#22c55e]">Chromium Tercihler Semasi</td>
+                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">UsageStatsInSample</code> (HKCU kullanici tercihi)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6 glow-card bg-[#000] rounded-xl p-5 border border-[#f59e0b22] animate-fade-in-up-d2">
+            <div class="flex items-start gap-3">
+                <span class="text-[#f59e0b] text-lg mt-0.5">&#x26a0;&#xfe0f;</span>
+                <div>
+                    <p class="text-sm font-semibold text-[#f59e0b] mb-1" data-i18n="source_note_title">BraveShieldsDefault neden haric tutuldu?</p>
+                    <p class="text-gray-500 text-xs" data-i18n="source_note_desc">Bazi topluluk kilavuzlarinda yer almasina ragmen BraveShieldsDefault, Brave'in resmî ADMX sablonlarinda bulunmamaktadir. Brave, kalkanlari URL bazli politikalarla yonetir. Taninmayan bir anahtar eklemek, gercekte hicbir etkisi olmayan bir kayit defteri kaydi birakirdi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="policies" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-green mb-4" data-i18n="policies_badge">Politika Basvuru Tablosu</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="policies_heading">17 ADMX Politikasi</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="policies_desc">v1.2 ile birlikte toplam 17 kurumsal politika - %143 kapsam genislemesi.</p>
+        </div>
+        <div class="overflow-x-auto animate-fade-in-up-d1">
+            <table class="w-full text-sm policy-table">
+                <thead>
+                    <tr class="bg-[#000] border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="policy_col_key">Kayit Defteri Anahtari</th>
+                        <th class="text-left py-3 px-4 font-medium">Kovan</th>
+                        <th class="text-left py-3 px-4 font-medium">Deger</th>
+                        <th class="text-left py-3 px-4 font-medium hidden md:table-cell" data-i18n="policy_col_effect">Etki</th>
+                        <th class="text-left py-3 px-4 font-medium hidden lg:table-cell">v1.2+</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#1f1f1f]">
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">UsageStatsInSample</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect1">Kullanim istatistikleri orneklemesini devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveRewardsDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect2">Rewards reklam sistemini ve BAT jeton kazanc motorunu kaldirir</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveWalletDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect3">Tumlesik kripto cuzdan modulunu kaldirir</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveVPNDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect4">VPN arac cubugu dugmesini ve arka plan hizmetini kaldirir</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveAIChatEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect5">Leo AI Chat motorunu ve API baglantilarini devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveStatsPingEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect6">Periyodik durum ve kimlik dogrulama pinglerini durdurur</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">MetricsReportingEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect7">Chromium ana olcum toplamayi devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">SafeBrowsingExtendedReportingEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect8">Genisletilmis site verisi raporlarini durdurur</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">usagestats</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect9">Omaha guncelleyici veri aktarimini GUID basina devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"></td></tr>
+                    <tr class="security-row border-t border-[#22c55e22]"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">BraveP3AEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect10">Gizlilik Korumali Urun Analitigini devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">BraveWebDiscoveryEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect11">Web Kesif Projesi veri katkisini devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">BraveTalkDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect12">Brave Talk video konferansini devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">BraveNewsDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect13">Brave News haber beslemesini devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">BravePlaylistEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect14">Brave Playlist ozelligini devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">BraveSpeedreaderEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect15">Speedreader modunu devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">BraveWaybackMachineEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect16">Wayback Machine entegrasyonunu devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#22c55e]">TorDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell" data-i18n="pol_effect17">Tor agi entegrasyonunu devre disi birakir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-green text-[10px]">v1.2</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section id="quickstart" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-green mb-4" data-i18n="quickstart_badge">Hizli Baslangic</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="quickstart_heading">5 Dakikada Baslayin</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="quickstart_desc">Asagidaki 4 adimla Brave Browser'inizi kurumsal duzeyde gizlilik sikilastirmasiyla koruyun.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-4 animate-fade-in-up-d1">
+                <div class="glow-card bg-[#000] rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="w-7 h-7 rounded-full bg-[#22c55e15] flex items-center justify-center text-[#22c55e] font-bold text-sm">1</span>
+                        <h4 class="font-semibold text-sm" data-i18n="qs_step1_title">PowerShell'i Yonetici Olarak Acin</h4>
+                    </div>
+                    <p class="text-gray-500 text-xs" data-i18n="qs_step1_desc">Baslat menusunde PowerShell'e sag tiklayin ve "Yonetici olarak calistir" secenegini secin.</p>
+                </div>
+                <div class="glow-card bg-[#000] rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="w-7 h-7 rounded-full bg-[#22c55e15] flex items-center justify-center text-[#22c55e] font-bold text-sm">2</span>
+                        <h4 class="font-semibold text-sm" data-i18n="qs_step2_title">Proje Klasorune Gidin</h4>
+                    </div>
+                    <div class="bg-[#000] rounded-lg p-3 font-mono text-xs">
+                        <span class="text-gray-500">PS&gt; </span><span class="text-white">cd "C:\Users\Downloads\Brave-Omega"</span>
+                    </div>
+                </div>
+                <div class="glow-card bg-[#000] rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="w-7 h-7 rounded-full bg-[#22c55e15] flex items-center justify-center text-[#22c55e] font-bold text-sm">3</span>
+                        <h4 class="font-semibold text-sm" data-i18n="qs_step3_title">Betigi Calistirin</h4>
+                    </div>
+                    <div class="bg-[#000] rounded-lg p-3 font-mono text-xs space-y-1">
+                        <div><span class="text-gray-500"># Turkce arayuz:</span></div>
+                        <div><span class="text-gray-500">PS&gt; </span><span class="text-[#22c55e]">.\BraveOmega-TR.ps1</span></div>
+                        <div class="mt-2"><span class="text-gray-500"># English interface:</span></div>
+                        <div><span class="text-gray-500">PS&gt; </span><span class="text-[#22c55e]">.\BraveOmega-EN.ps1</span></div>
+                    </div>
+                </div>
+                <div class="glow-card bg-[#000] rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="w-7 h-7 rounded-full bg-[#22c55e15] flex items-center justify-center text-[#22c55e] font-bold text-sm">4</span>
+                        <h4 class="font-semibold text-sm" data-i18n="qs_step4_title">Brave'i Yeniden Baslatin ve Dogrulayin</h4>
+                    </div>
+                    <p class="text-gray-500 text-xs mb-2" data-i18n="qs_step4_desc">Tum Brave pencerelerini kapatip acin. Ardindan brave://policy yazarak politikalari dogrulayin.</p>
+                </div>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-6 animate-fade-in-up-d2">
+                <h4 class="font-semibold text-sm mb-4" data-i18n="prereq_title">On Gereksinimler</h4>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3"><span class="text-[#22c55e] mt-0.5">&#x2714;&#xfe0f;</span><div><span class="text-xs font-medium" data-i18n="prereq_os_title">Isletim Sistemi</span><p class="text-gray-500 text-xs" data-i18n="prereq_os_desc">Windows 11 (oneri: en guncel 25H2 derlemesi)</p></div></div>
+                    <div class="flex items-start gap-3"><span class="text-[#22c55e] mt-0.5">&#x2714;&#xfe0f;</span><div><span class="text-xs font-medium" data-i18n="prereq_browser_title">Tarayici</span><p class="text-gray-500 text-xs" data-i18n="prereq_browser_desc">Brave Browser en guncel kararli surum (1.91.171 onerilir)</p></div></div>
+                    <div class="flex items-start gap-3"><span class="text-[#22c55e] mt-0.5">&#x2714;&#xfe0f;</span><div><span class="text-xs font-medium" data-i18n="prereq_ps_title">PowerShell</span><p class="text-gray-500 text-xs" data-i18n="prereq_ps_desc">5.1+ (Windows 11 ile birlikte gelir, ek kurulum gerekmez)</p></div></div>
+                    <div class="flex items-start gap-3"><span class="text-[#22c55e] mt-0.5">&#x2714;&#xfe0f;</span><div><span class="text-xs font-medium" data-i18n="prereq_priv_title">Ayricalik</span><p class="text-gray-500 text-xs" data-i18n="prereq_priv_desc">Yonetici olarak calistirmalisiniz (HKLM yazma icin zorunlu)</p></div></div>
+                    <div class="flex items-start gap-3"><span class="text-[#22c55e] mt-0.5">&#x2714;&#xfe0f;</span><div><span class="text-xs font-medium" data-i18n="prereq_pol_title">Calistirma Ilkesi</span><p class="text-gray-500 text-xs" data-i18n="prereq_pol_desc">RemoteSigned veya Bypass (Set-ExecutionPolicy ile ayarlayin)</p></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="security" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-yellow mb-4" data-i18n="security_badge">Guvenlik ve Emniyet</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="security_heading">Guvenilir Tasarim</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="security_desc">Tamamen acik kaynak, sifir gizleme, sifir harici ag cagrisi.</p>
+        </div>
+        <div class="overflow-x-auto animate-fade-in-up-d1">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="sec_col_concern">Endise</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="sec_col_approach">Brave Omega'nin Yaklasimi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#1f1f1f]">
+                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row1_title">Yetkisiz degisiklikler</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row1_desc">Kaynak tamamen acik incelemeye sunulmustur. Gizleme yok. Harici ag cagrisi yok. Calistirilabilir dosya yok.</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row2_title">Geri alinamaz durum</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row2_desc">Her HKLM yazma isleminden once otomatik zaman damgali .reg yedegi. reg import ile eski duruma donus.</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row3_title">Kismi uygulama</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row3_desc">Her islem icin ayri try-catch ve basari/hata sayaclari. Tam olarak neyin uygulandigini bilirsiniz.</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row4_title">Tarayici veri kaybi</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row4_desc">Degisiklik uygulanmadan once Brave surec tespiti ve acik devam/iptal istemi.</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row5_title">Yinelenen calistirma</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row5_desc">-Force parametresiyle kararsiz olmayan tasarim. Birden fazla calistirmanin yan etkisi yoktur.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6 glow-card bg-[#000] rounded-xl p-5 border border-[#f59e0b22] animate-fade-in-up-d2">
+            <div class="flex items-start gap-3">
+                <span class="text-[#f59e0b] text-lg mt-0.5">&#x26a0;&#xfe0f;</span>
+                <div>
+                    <p class="text-sm font-semibold text-[#f59e0b] mb-1" data-i18n="sec_warn_title">Onemli Uyari</p>
+                    <p class="text-gray-500 text-xs" data-i18n="sec_warn_desc">Bu betik Windows Kayit Defterini degistirmekte ve Yonetici ayricaliklari gerektirmektedir. Herhangi bir PowerShell betigini Yonetici olarak calistirmadan once kaynak kodu her zaman okuyup anlayin. Guvenilmeyen betikleri asla yukseltilmis ayricaliklarla calistirmayin.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="compatibility" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-green mb-4" data-i18n="compat_badge">Surum Uyumluluk Matrisi</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="compat_heading">Dogrulanmis Surumler</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="compat_desc">Her Brave Omega surumu belirtilen Brave ve Chromium versiyonlarina karsi bagimsiz olarak test edilmistir.</p>
+        </div>
+        <div class="overflow-x-auto animate-fade-in-up-d1">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
+                        <th class="text-left py-3 px-4 font-medium">Brave Omega</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_brave">Brave Surumu</th>
+                        <th class="text-left py-3 px-4 font-medium">Chromium</th>
+                        <th class="text-left py-3 px-4 font-medium">Windows</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_status">Durum</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#1f1f1f]">
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v1.2 <span class="text-[10px] font-normal text-gray-500" data-i18n="compat_current">(guncel)</span></td><td class="py-3 px-4 text-sm">1.91.171</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-green">&#x2705; Etkin</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.0</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1f512; Arsivlendi</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6 text-center text-xs text-gray-500 animate-fade-in-up-d2">
+            <span data-i18n="compat_tip1">Calistirmadan once yuklu Brave surumunuzu dogrulayin.</span>
+            <br>
+            <span data-i18n="compat_tip2">Daha yeni bir Brave surumu varsa GitHub Releases sayfasini kontrol edin.</span>
+        </div>
+    </div>
+</section>
+
+<section id="structure" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-green mb-4" data-i18n="structure_badge">Proje Yapisi</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="structure_heading">Dizin Agaci</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="structure_desc">Brave Omega proje dosyalari ve dizin yapisi.</p>
+        </div>
+        <div class="max-w-2xl mx-auto animate-fade-in-up-d1">
+            <div class="bg-[#000] rounded-xl p-6 border border-[#1f1f1f] font-mono text-sm">
+                <div class="text-gray-500 mb-2">BRAVE OMEGA PROJECT/</div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; .gitignore <span class="text-gray-600 text-xs ml-2" data-i18n="str_gitignore">Git dislama kurallari</span></div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; .gitattributes</div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; LICENSE <span class="text-gray-600 text-xs ml-2">MIT</span></div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; README.md <span class="text-gray-600 text-xs ml-2" data-i18n="str_readme">Belgelendirme (EN + TR)</span></div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; CHANGELOG.md <span class="text-gray-600 text-xs ml-2" data-i18n="str_changelog">Degisiklik gunlugu</span></div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; index.html <span class="text-gray-600 text-xs ml-2">GitHub Pages</span></div>
+                <div class="text-gray-500 ml-4">&#x2514;&#x2500;&#x2500; Brave Omega/ <span class="text-gray-600 text-xs ml-2" data-i18n="str_scripts">Betikler dizini</span></div>
+                <div class="text-gray-500 ml-8">&#x251c;&#x2500;&#x2500; BraveOmega-EN.ps1 <span class="text-gray-600 text-xs ml-2" data-i18n="str_script_en">Ana betik — Ingilizce arayuz</span></div>
+                <div class="text-gray-500 ml-8">&#x2514;&#x2500;&#x2500; BraveOmega-TR.ps1 <span class="text-gray-600 text-xs ml-2" data-i18n="str_script_tr">Ana betik — Turkce arayuz</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="troubleshooting" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-yellow mb-4" data-i18n="trouble_badge">Sorun Giderme</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="trouble_heading">Yaygin Sorunlar</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="trouble_desc">Karsilasabileceginiz sorunlar ve cozumleri.</p>
+        </div>
+        <div class="overflow-x-auto animate-fade-in-up-d1">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_symptom">Belirti</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_cause">OlasI Neden</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_solution">Cozum</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#1f1f1f]">
+                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s1_sym">Betik hemen "KRiTiK HATA" ile cikiyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s1_cause">Yonetici olarak calistirilmiyor</td><td class="py-2.5 px-4 text-sm"><span class="text-[#22c55e]" data-i18n="tr_s1_sol">PowerShell'e sag tikla &rarr; Yonetici olarak calistir</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s2_sym">brave://policy hic politika gostermiyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s2_cause">Brave yeniden baslatilmadi</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s2_sol">Tum Brave pencerelerini kapat ve yeniden ac</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s3_sym">Ciktida [HATA] satirlari gorunuyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s3_cause">HKLM yolu izin sorunu</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s3_sol">Yonetici modunu dogrula; betigi yeniden calistir</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s4_sym">Politika anahtari "Bilinmiyor" goruntuleniyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s4_cause">Chromium surumu uyusmazligi</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s4_sol">Yuklu Brave surumunun uyumluluk matrisiyle eslestigini dogrula</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s5_sym">Yedekleme adiminda reg export basarisiz oluyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s5_cause">Mevcut HKLM yolunda kisitli izin</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s5_sol">regedit ile yolu incele; ACL girdilerini kontrol et</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section id="roadmap" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-green mb-4" data-i18n="roadmap_badge">Yol Haritasi</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="roadmap_heading">Siradaki Hedefler</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="roadmap_desc">Brave Omega'nin gelecek surumlerinde planlanan ozellikler.</p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-3 animate-fade-in-up-d1">
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item1">Otomatik Brave surumu tespiti — yuklu surum dogrulanmis hedeften farkliysa uyar</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item2">BraveShieldsEnabledForUrls / BraveShieldsDisabledForUrls URL listesi yonetimi</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item3">-WhatIf parametresiyle kuru calistirma kipi — kayit defterine yazmadan tum degisiklikleri onizle</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item4">Sifirlama/kaldirma kipi — uygulanan tum Brave Omega politikalariini temiz bicimde sil</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item5">Ek dil surumleri (topluluk katkilari memnuniyetle karsilanir)</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item6">Her Brave kararli surumunde otomatik ADMX politika farki dogrulamasi icin GitHub Actions ardizi</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item7">Yapilandirilmis CONTRIBUTING.md ve sorun sablonlari</span></div>
+        </div>
+    </div>
+</section>
+<section id="contributing" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-green mb-4" data-i18n="contrib_badge">Katkida Bulunma</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="contrib_heading">Projeye Katkiniz</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="contrib_desc">Katkilar memnuniyetle karsilanir. Buyuk degisikliklerden once lutfen bir konu acin.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in-up-d1">
+            <div class="glow-card bg-[#000] rounded-xl p-5">
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="contrib_ver_title">Surum Guncellemeleri</div>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_ver_desc">Yeni Brave kararli surumunde politika degisikligi varsa, guncellenmis deger ve kaynak referansiyla PR acin.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5">
+                <div class="text-[#f59e0b] font-bold text-sm mb-2" data-i18n="contrib_pol_title">Yeni Politikalar</div>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_pol_desc">Brave resmî ADMX sablonlarindan veya Chromium kurumsal belgelendirmesinden kaynaklanmis olmalidir.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5">
+                <div class="text-[#8b5cf6] font-bold text-sm mb-2" data-i18n="contrib_bug_title">Hata Raporlari</div>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_bug_desc">Brave surumu, Windows surumu ve brave://policy ciktisi ile birlikte konu acin.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5">
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="contrib_trans_title">Ceviriler</div>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_trans_desc">EN/TR sablon yapisini izleyen ek dil surumleri. Islevsel esdegerlik korunmalidir.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="changelog" class="py-20 border-t border-[#1f1f1f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="badge badge-yellow mb-4" data-i18n="changelog_badge">Degisiklik Gunlugu</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="changelog_heading">Surum Gecmisi</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="changelog_desc">Keep a Changelog formatinda belgelenen tum kayda deger degisiklikler.</p>
+        </div>
+        <div class="overflow-x-auto mb-8 animate-fade-in-up-d1">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="cl_col_version">Surum</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="cl_col_date">Tarih</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="cl_col_policies">Politika</th>
+                        <th class="text-left py-3 px-4 font-medium hidden md:table-cell" data-i18n="cl_col_changes">Ana Degisiklikler</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#1f1f1f]">
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v1.2</td><td class="py-3 px-4 text-sm">2026-06-10</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v12_summary">+10 yeni politika, Brave 1.91.171 dogrulamasi, %143 kapsam genislemesi</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1</td><td class="py-3 px-4 text-sm">2026-06-05</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v11_summary">Hata yonetimi, yedeklemeler, surec koruyuculari, BraveShieldsDefault kaldirildi</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.0</td><td class="py-3 px-4 text-sm">2026-06-04</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v10_summary">Ilk surum, 3 katmanli mimari, iki dilli arayuz</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center animate-fade-in-up-d2">
+            <a href="CHANGELOG.md" class="btn-outline inline-flex items-center gap-2 text-sm">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span data-i18n="changelog_full">Tam Degisiklik Gunlugunu Goruntule</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="license" class="py-20 border-t border-[#1f1f1f]">
+            <div class="glow-card bg-[#000] rounded-xl p-6 mb-6 text-center">
+                <h3 class="font-bold text-lg mb-3">MIT License</h3>
+                <p class="text-gray-400 text-sm mb-3" data-i18n="license_desc">Bu proje MIT Lisansi kapsaminda yayimlanmistir. Tam kosullar icin LICENSE dosyasina bakin.</p>
+                <div class="bg-[#000] rounded-lg p-4 font-mono text-xs text-gray-500 leading-relaxed">
+MIT License<br><br>
+Copyright (c) 2026 bayraktarozcan<br><br>
+Permission is hereby granted, free of charge, to any person obtaining a copy<br>
+of this software and associated documentation files (the "Software"), to deal<br>
+in the Software without restriction, including without limitation the rights<br>
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>
+copies of the Software, and to permit persons to whom the Software is<br>
+furnished to do so, subject to the following conditions:<br><br>
+The above copyright notice and this permission notice shall be included in all<br>
+copies or substantial portions of the Software.<br><br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>
+SOFTWARE.
+                </div>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-6 text-center border border-[#f59e0b22]">
+                <span class="text-[#f59e0b] text-lg block mb-2">&#x26a0;&#xfe0f;</span>
+                <h3 class="font-bold text-sm mb-2" data-i18n="disclaimer_title">Sorumluluk Reddi</h3>
+                <p class="text-gray-500 text-xs" data-i18n="disclaimer_desc">Brave Omega bagimsiz bir topluluk projesidir ve hicbir sekilde Brave Software, Inc. ile baglantili, onun tarafindan onaylanmis veya resmî olarak iliskili degildir. Brave adi ve logosu Brave Software, Inc.'in tescilli markalaridir. Tum kayit defteri degisiklikleri kullanicinin kendi sorumlulugundadir.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="border-t border-[#1f1f1f] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="text-[#22c55e] text-lg">&#x1f981;</span>
+                <span class="font-bold text-white">Brave Omega</span>
+                <span class="text-gray-600">Project</span>
+                <span class="badge badge-green text-[10px]">Community Edition</span>
+            </div>
+            <div class="flex items-center gap-4 text-sm text-gray-500">
+                <span data-i18n="footer_built">Ozenle insa edildi. Amacla surduruluyor.</span>
+                <span class="text-gray-700">|</span>
+                <a href="https://github.com/bayraktarozcan/Brave-Omega-Project" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+        <div class="mt-6 text-center text-xs text-gray-600">
+            &copy; 2026 Brave Omega Project Contributors. MIT Licensed.
+            <br class="sm:hidden">
+            <span data-i18n="footer_independent">Brave Software, Inc. ile baglantili degildir.</span>
+        </div>
+    </div>
+</footer>
+<script>
+    lucide.createIcons();
+    const translations = {
+        tr: {
+            nav_about: "Hakk\u0131m\u0131zda",
+            nav_features: "\u00d6zellikler",
+            nav_policies: "Politikalar",
+            nav_security: "G\u00fcvenlik",
+            nav_lifecycle: "Ya\u015fam D\u00f6ng\u00fcs\u00fc",
+            nav_changelog: "S\u00fcr\u00fcmler",
+            hero_latest: "En g\u00fcncel kararl\u0131 s\u00fcr\u00fcm",
+            hero_title: "Kurumsal Taray\u0131c\u0131 Gizlili\u011fi",
+            hero_subtitle: "ADMX do\u011frulamal\u0131, a\u00e7\u0131k kaynak PowerShell otomasyonu ile Brave Browser\u2019\u0131n\u0131z\u0131 kurumsal d\u00fczeyde gizlilik s\u0131k\u0131la\u015ft\u0131rmas\u0131yla koruyun.",
+            hero_cta_start: "H\u0131zl\u0131 Ba\u015flang\u0131\u00e7",
+            hero_stat_policies: "ADMX Politika",
+            hero_stat_tiers: "Zorunlu K\u0131lma Katman\u0131",
+            hero_stat_langs: "Dil S\u00fcr\u00fcm\u00fc",
+            about_badge: "Proje Hakk\u0131nda",
+            about_heading: "Brave Omega Nedir?",
+            about_card1_title: "ADMX Do\u011frulamal\u0131",
+            about_card2_title: "\u00dc\u00e7 Katmanl\u0131 Mimari",
+            about_card3_title: "\u0130ki Dilli",
+            why_title: "Brave Omega Neden Var?",
+            features_badge: "Temel \u00d6zellikler",
+            features_heading: "Neler Sunuyor?",
+            feat_tier_title: "\u00dc\u00e7 Katmanl\u0131 Model",
+            feat_admx_title: "ADMX Do\u011frulamal\u0131",
+            feat_idem_title: "Karars\u0131z Olmayan \u00c7al\u0131\u015fma",
+            feat_backup_title: "Otomatik Yedekleme",
+            feat_guard_title: "Brave S\u00fcre\u00e7 Koruyucusu",
+            feat_summary_title: "Y\u00fcr\u00fctme \u00d6zeti",
+            feat_biling_title: "\u0130ki Dilli",
+            feat_lifecycle_title: "Ya\u015fam D\u00f6ng\u00fcs\u00fc Taahh\u00fcd\u00fc",
+            lifecycle_badge: "Ya\u015fam D\u00f6ng\u00fcs\u00fc Taahh\u00fcd\u00fc",
+            lifecycle_heading: "Her Daim G\u00fcncel",
+            arch_heading: "Mimari: \u00dc\u00e7 Katmanl\u0131 Zorunlu K\u0131lma",
+            sources_heading: "Politika Kaynaklar\u0131",
+            sources_col_source: "Kaynak",
+            sources_col_policies: "Kapsanan Politikalar",
+            security_badge: "G\u00fcvenlik ve Emniyet",
+            security_heading: "G\u00fcvenilir Tasar\u0131m",
+            compat_badge: "S\u00fcr\u00fcm Uyumluluk Matrisi",
+            compat_heading: "Do\u011frulanm\u0131\u015f S\u00fcr\u00fcmler",
+            compat_col_brave: "Brave S\u00fcr\u00fcm\u00fc",
+            compat_col_status: "Durum",
+            compat_current: "(g\u00fcncel)",
+            structure_badge: "Proje Yap\u0131s\u0131",
+            structure_heading: "Dizin A\u011fac\u0131",
+            trouble_badge: "Sorun Giderme",
+            trouble_heading: "Yayg\u0131n Sorunlar",
+            roadmap_badge: "Yol Haritas\u0131",
+            roadmap_heading: "S\u0131radaki Hedefler",
+            contrib_badge: "Katk\u0131da Bulunma",
+            contrib_heading: "Projeye Katk\u0131n\u0131z",
+            changelog_badge: "De\u011fi\u015fiklik G\u00fcnl\u00fc\u011f\u00fc",
+            changelog_heading: "S\u00fcr\u00fcm Ge\u00e7mi\u015fi",
+            license_heading: "Lisans ve Sorumluluk",
+            quickstart_badge: "H\u0131zl\u0131 Ba\u015flang\u0131\u00e7",
+            quickstart_heading: "5 Dakikada Ba\u015flay\u0131n",
+            prereq_title: "\u00d6n Gereksinimler",
+        },
+        en: {
+            nav_about: "About",
+            nav_features: "Features",
+            nav_policies: "Policies",
+            nav_security: "Security",
+            nav_lifecycle: "Lifecycle",
+            nav_changelog: "Releases",
+            hero_latest: "Latest stable release",
+            hero_title: "Enterprise Browser Privacy",
+            hero_subtitle: "Harden your Brave Browser with ADMX-validated, open-source PowerShell automation for enterprise-grade privacy protection.",
+            hero_cta_start: "Quick Start",
+            hero_stat_policies: "ADMX Policies",
+            hero_stat_tiers: "Enforcement Tiers",
+            hero_stat_langs: "Languages",
+            about_badge: "About the Project",
+            about_heading: "What is Brave Omega?",
+            about_card1_title: "ADMX-Validated",
+            about_card2_title: "Three-Tier Architecture",
+            about_card3_title: "Bilingual",
+            why_title: "Why Brave Omega Exists",
+            features_badge: "Key Features",
+            features_heading: "What We Offer",
+            feat_tier_title: "Three-Tier Model",
+            feat_admx_title: "ADMX-Validated",
+            feat_idem_title: "Idempotent Execution",
+            feat_backup_title: "Automatic Backup",
+            feat_guard_title: "Brave Process Guard",
+            feat_summary_title: "Execution Summary",
+            feat_biling_title: "Bilingual",
+            feat_lifecycle_title: "Lifecycle Commitment",
+            lifecycle_badge: "Lifecycle Commitment",
+            lifecycle_heading: "Always Up-to-Date",
+            arch_heading: "Architecture: Three-Tier Enforcement",
+            sources_heading: "Policy Sources",
+            sources_col_source: "Source",
+            sources_col_policies: "Policies Covered",
+            security_badge: "Security & Safety",
+            security_heading: "Trustworthy Design",
+            compat_badge: "Version Compatibility",
+            compat_heading: "Validated Versions",
+            compat_col_brave: "Brave Version",
+            compat_col_status: "Status",
+            compat_current: "(current)",
+            structure_badge: "Project Structure",
+            structure_heading: "Directory Tree",
+            trouble_badge: "Troubleshooting",
+            trouble_heading: "Common Issues",
+            roadmap_badge: "Roadmap",
+            roadmap_heading: "Upcoming Goals",
+            contrib_badge: "Contributing",
+            contrib_heading: "Your Contribution",
+            changelog_badge: "Changelog",
+            changelog_heading: "Version History",
+            license_heading: "License & Disclaimer",
+            quickstart_badge: "Quick Start",
+            quickstart_heading: "Start in 5 Minutes",
+            prereq_title: "Prerequisites",
+            about_desc1: "Brave Omega is an open-source PowerShell automation project that hardens Brave Browser through official enterprise policy channels. It systematically disables telemetry, analytics services, background pings, integrated monetization features, and other privacy-eroding components.",
+            about_card1_desc: "Every policy entry is sourced and verified against Brave\u2019s official enterprise template package and Chromium enterprise documentation.",
+            about_card2_desc: "Independent enforcement at HKCU + HKLM + Omaha GUID levels. Cannot be overridden by user interaction.",
+            about_card3_desc: "Full Turkish and English interfaces. Identical functionality, same guarantees, your chosen language.",
+            why_desc1: "Enterprise browser hardening typically demands deep ADMX policy expertise or an expensive premium subscription. Brave Omega rejects both constraints.",
+            why_desc2: "Everything needed for serious privacy hardening already exists in free, open-source Brave Browser. The only missing piece was a validated, automated bridge between these components. Brave Omega builds that bridge and keeps it current throughout the browser\u2019s lifecycle.",
+            why_tagline: "Two scripts. One goal. Zero cost.",
+            features_desc: "Brave Omega equips your Brave Browser with enterprise-grade privacy hardening.",
+            feat_tier_desc: "Independent enforcement at HKCU + HKLM + Omaha GUID levels.",
+            feat_admx_desc: "Every policy sourced from Brave\u2019s official templates.",
+            feat_idem_desc: "Run any number of times, same safe and consistent result.",
+            feat_backup_desc: "Timestamped .reg backup, one-command restore.",
+            feat_guard_desc: "Detects running Brave instances, prompts for confirmation.",
+            feat_summary_desc: "Per-category success/failure counters with transparent reporting.",
+            feat_biling_desc: "Turkish and English, identical functionality.",
+            feat_lifecycle_desc: "Policy review on every Brave release, version pinning.",
+            lifecycle_quote: "A privacy hardening tool that falls out of date is not a safeguard \u2014 it is a false sense of security.",
+            lc_pin_title: "Version Pinning",
+            lc_pin_desc: "Every script release is tagged with the validated Brave + Chromium version combination.",
+            lc_review_title: "Review on Every Release",
+            lc_review_desc: "When Brave ships a new stable version, the ADMX template package is reviewed against the previous version.",
+            lc_breaking_title: "Breaking Change Notices",
+            lc_breaking_desc: "Any removed or renamed policy key is documented in the changelog with a migration note.",
+            lc_community_title: "Community-Driven",
+            lc_community_desc: "Version mismatches and new policies identified by contributors are reviewed and merged promptly.",
+            arch_desc: "Each tier operates independently; a single point of weakness does not compromise the entire defense.",
+            tier1_title: "User Preference Tier",
+            tier1_desc: "UsageStatsInSample = 0 disables Chromium user-level telemetry sampling. Provides fallback safety during policy propagation delays.",
+            tier2_title: "Enterprise Policy Tier (ADMX)",
+            tier2_desc: "15 ADMX-validated enterprise policies. Appear gray/locked in Browser Settings UI. Cannot be overridden by user interaction.",
+            tier3_title: "Omaha Updater GUID Tier",
+            tier3_desc: "usagestats = 0 per application GUID. Targets the update infrastructure\u2019s own telemetry independently of browser-level policies.",
+            sources_desc: "Core principle: Zero unofficial or speculative registry changes.",
+            source_note_title: "Why was BraveShieldsDefault excluded?",
+            source_note_desc: "Despite appearing in some community guides, BraveShieldsDefault does not exist in Brave\u2019s official ADMX templates. Brave manages Shields via URL-based policies. Adding an unrecognized key would create a non-functional registry entry.",
+            security_desc: "Fully open source, zero obfuscation, zero external network calls.",
+            sec_col_concern: "Concern",
+            sec_col_approach: "How Brave Omega Addresses It",
+            sec_row1_title: "Unauthorized changes",
+            sec_row1_desc: "Full source is open for review. No obfuscation. No external network calls. No executables.",
+            sec_row2_title: "Unrecoverable state",
+            sec_row2_desc: "Automatic timestamped .reg backup before any HKLM writes. Restore with reg import.",
+            sec_row3_title: "Partial application",
+            sec_row3_desc: "Per-operation try-catch with individual success/failure counters. You know exactly what was applied.",
+            sec_row4_title: "Browser data loss",
+            sec_row4_desc: "Brave process detection with explicit continue/cancel prompt before any changes are made.",
+            sec_row5_title: "Repeated execution",
+            sec_row5_desc: "Idempotent design via -Force parameter. Running multiple times produces no side effects.",
+            sec_warn_title: "Important Warning",
+            sec_warn_desc: "This script modifies the Windows Registry and requires Administrator privileges. Always read and understand the source code before executing any PowerShell script as Administrator. Never run untrusted scripts with elevated privileges.",
+            compat_desc: "Each Brave Omega release is independently tested against its stated Brave and Chromium versions.",
+            compat_tip1: "Verify your Brave version before running.",
+            compat_tip2: "Check GitHub Releases if a newer Brave is available.",
+            structure_desc: "Brave Omega project files and directory layout.",
+            str_gitignore: "Git exclusion rules",
+            str_readme: "Documentation (EN + TR)",
+            str_changelog: "Changelog",
+            str_scripts: "Scripts directory",
+            str_script_en: "Main script \u2014 English interface",
+            str_script_tr: "Main script \u2014 Turkish interface",
+            trouble_desc: "Issues you may encounter and their solutions.",
+            trouble_col_symptom: "Symptom",
+            trouble_col_cause: "Likely Cause",
+            trouble_col_solution: "Resolution",
+            tr_s1_sym: "Script exits with CRITICAL ERROR immediately",
+            tr_s1_cause: "Not running as Administrator",
+            tr_s1_sol: "Right-click PowerShell \u2192 Run as Administrator",
+            tr_s2_sym: "brave://policy shows no policies",
+            tr_s2_cause: "Brave was not restarted",
+            tr_s2_sol: "Close all Brave windows and reopen",
+            tr_s3_sym: "[ERROR] lines appear in script output",
+            tr_s3_cause: "HKLM path permission issue",
+            tr_s3_sol: "Confirm Administrator mode; re-run the script",
+            tr_s4_sym: "A policy key shows Unknown status",
+            tr_s4_cause: "Chromium version mismatch",
+            tr_s4_sol: "Verify your Brave version matches the compatibility matrix",
+            tr_s5_sym: "reg export fails during backup",
+            tr_s5_cause: "Pre-existing restricted permissions on HKLM path",
+            tr_s5_sol: "Inspect path with regedit; check ACL entries",
+            roadmap_desc: "Planned features for future Brave Omega releases.",
+            rm_item1: "Automated Brave version detection \u2014 warn if installed version differs from validated target",
+            rm_item2: "BraveShieldsEnabledForUrls / BraveShieldsDisabledForUrls URL list management",
+            rm_item3: "Dry-run mode via -WhatIf parameter \u2014 preview all changes without writing to registry",
+            rm_item4: "Reset/uninstall mode \u2014 remove all applied Brave Omega policies cleanly",
+            rm_item5: "Additional language editions (community contributions welcome)",
+            rm_item6: "GitHub Actions pipeline for automated ADMX policy diff validation on each Brave stable release",
+            rm_item7: "Structured CONTRIBUTING.md and issue templates",
+            contrib_desc: "Contributions are welcome. Please open an issue for discussion before submitting large pull requests.",
+            contrib_ver_title: "Version Updates",
+            contrib_ver_desc: "When a Brave stable changes a policy, open a PR with updated values, source reference, and changelog entry.",
+            contrib_pol_title: "New Policies",
+            contrib_pol_desc: "Must be sourced from Brave\u2019s official ADMX templates or Chromium enterprise documentation.",
+            contrib_bug_title: "Bug Reports",
+            contrib_bug_desc: "Include Brave version, Windows version, and full brave://policy output.",
+            contrib_trans_title: "Translations",
+            contrib_trans_desc: "Additional language editions following the EN/TR template structure. Maintain functional parity.",
+            changelog_desc: "All notable changes documented in Keep a Changelog format.",
+            cl_col_version: "Version",
+            cl_col_date: "Date",
+            cl_col_policies: "Policies",
+            cl_col_changes: "Major Changes",
+            cl_v12_summary: "+10 new policies, Brave 1.91.171 validation, 143% coverage expansion",
+            cl_v11_summary: "Error handling, backups, process guards, BraveShieldsDefault removed",
+            cl_v10_summary: "Initial release, 3-tier architecture, bilingual interface",
+            changelog_full: "View Full Changelog",
+            license_desc: "This project is released under the MIT License. See LICENSE for full terms.",
+            disclaimer_title: "Disclaimer",
+            disclaimer_desc: "Brave Omega is an independent community project and is not affiliated with, endorsed by, or officially connected to Brave Software, Inc. in any way. The Brave name and logo are registered trademarks of Brave Software, Inc. All registry modifications are performed at the user\u2019s own risk.",
+            footer_built: "Built with care. Maintained with purpose.",
+            footer_independent: "Not affiliated with Brave Software, Inc.",
+            quickstart_desc: "Protect your Brave Browser with enterprise-grade privacy hardening in 4 simple steps.",
+            qs_step1_title: "Open PowerShell as Administrator",
+            qs_step1_desc: "Right-click the PowerShell icon in the Start menu and select Run as Administrator.",
+            qs_step2_title: "Navigate to the Project Folder",
+            qs_step3_title: "Run the Script",
+            qs_step4_title: "Restart Brave and Verify",
+            qs_step4_desc: "Close all Brave windows and reopen. Then navigate to brave://policy to verify the policies are active.",
+            prereq_os_title: "Operating System",
+            prereq_os_desc: "Windows 11 (recommended: latest stable 25H2 build)",
+            prereq_browser_title: "Browser",
+            prereq_browser_desc: "Brave Browser latest stable release (1.91.171 recommended)",
+            prereq_ps_title: "PowerShell",
+            prereq_ps_desc: "5.1+ (included with Windows 11, no additional installation needed)",
+            prereq_priv_title: "Privileges",
+            prereq_priv_desc: "Must run as Administrator (required for HKLM registry writes)",
+            prereq_pol_title: "Execution Policy",
+            prereq_pol_desc: "RemoteSigned or Bypass (configure via Set-ExecutionPolicy)",
+            page_title: "Brave Omega Project - Enterprise-Grade Browser Privacy Hardening",
+            term_title: "Windows PowerShell",
+            term_copyright: "Copyright (C) Microsoft Corporation. All rights reserved.",
+            term_script: ".\u005cBraveOmega-EN.ps1",
+            term_start: "Brave Omega v1.2 starting...",
+            term_check: "Checking Brave process...",
+            term_not_running: "Brave is not running. Continuing.",
+            term_backup_start: "Taking HKLM backup...",
+            term_backup_file: "Backup: BraveOmega_HKLM_20260613_120000.reg",
+            term_guid_scan: "GUID scan started...",
+            term_hkcu: "Writing HKCU tier...",
+            term_hklm: "Writing HKLM tier (15 policies)...",
+            term_omaha: "Writing Omaha GUID tier...",
+            term_summary: "Execution Summary:",
+            term_ok_hkcu: "HKCU user preference: 1 success",
+            term_ok_hklm: "HKLM enterprise policies: 15 success, 0 error",
+            term_ok_omaha: "Omaha GUID: 1 success",
+            term_ok_backup: "Backup: success",
+            term_done: "PROCESS COMPLETE",
+            term_exit: "- Exit code: 0",
+        }
+    };
+    let currentLang = localStorage.getItem("braveOmegaLang") || "tr";
+    function setLang(lang) {
+        currentLang = lang;
+        localStorage.setItem("braveOmegaLang", lang);
+        document.documentElement.lang = lang;
+        const trBtn = document.getElementById("lang-tr");
+        const enBtn = document.getElementById("lang-en");
+        const mobTr = document.getElementById("mob-lang-tr");
+        const mobEn = document.getElementById("mob-lang-en");
+        if (lang === "tr") {
+            trBtn.className = "px-3 py-1 rounded-md text-xs font-bold bg-[#FF6000] text-white transition-all shadow-md";
+            enBtn.className = "px-3 py-1 rounded-md text-xs font-semibold text-zinc-500 hover:text-white transition-all cursor-pointer";
+            if (mobTr) mobTr.className = "px-6 py-2 rounded-md text-sm font-bold bg-[#FF6000] text-white transition-all";
+            if (mobEn) mobEn.className = "px-6 py-2 rounded-md text-sm font-semibold text-zinc-400 hover:text-white transition-all";
+        } else {
+            trBtn.className = "px-3 py-1 rounded-md text-xs font-semibold text-zinc-500 hover:text-white transition-all cursor-pointer";
+            enBtn.className = "px-3 py-1 rounded-md text-xs font-bold bg-[#FF6000] text-white transition-all shadow-md";
+            if (mobTr) mobTr.className = "px-6 py-2 rounded-md text-sm font-semibold text-zinc-400 hover:text-white transition-all";
+            if (mobEn) mobEn.className = "px-6 py-2 rounded-md text-sm font-bold bg-[#FF6000] text-white transition-all";
+        }
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (translations[lang] && translations[lang][key]) {
+                if (el.tagName === "TITLE") {
+                    document.title = translations[lang][key];
+                } else {
+                    el.textContent = translations[lang][key];
+                }
+            }
+        });
+    }
+    function toggleMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        if (!menu) return;
+        const isOpen = menu.style.opacity === "1";
+        menu.style.opacity = isOpen ? "0" : "1";
+        menu.style.pointerEvents = isOpen ? "none" : "all";
+        document.body.style.overflow = isOpen ? "" : "hidden";
+    }
+    window.addEventListener("scroll", () => {
+        const bar = document.getElementById("progress-bar");
+        if (bar) {
+            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            bar.style.width = h > 0 ? Math.min((window.scrollY / h) * 100, 100) + "%" : "0%";
+        }
+        const btn = document.getElementById("back-to-top");
+        if (btn) {
+            if (window.scrollY > 200) {
+                btn.style.opacity = "1";
+                btn.style.visibility = "visible";
+                btn.style.transform = "translateY(0)";
+            } else {
+                btn.style.opacity = "0";
+                btn.style.visibility = "hidden";
+                btn.style.transform = "translateY(20px)";
+            }
+        }
+    });
+    Object.assign(translations.tr, {
+        page_title: "Brave Omega Project - Kurumsal D\u00fczeyde Taray\u0131c\u0131 Gizlilik S\u0131k\u0131la\u015ft\u0131rmas\u0131",
+        term_title: "Windows PowerShell",
+        term_copyright: "Copyright (C) Microsoft Corporation. Tum haklari saklidir.",
+        term_script: ".\u005cBraveOmega-TR.ps1",
+        term_start: "Brave Omega v1.2 baslatiliyor...",
+        term_check: "Brave prosesi kontrol ediliyor...",
+        term_not_running: "Brave calismiyor. Devam ediliyor.",
+        term_backup_start: "HKLM yedegi aliniyor...",
+        term_backup_file: "Yedek: BraveOmega_HKLM_20260613_120000.reg",
+        term_guid_scan: "GUID taranmasi baslatildi...",
+        term_hkcu: "HKCU katmani yaziliyor...",
+        term_hklm: "HKLM katmani yaziliyor (15 politika)...",
+        term_omaha: "Omaha GUID katmani yaziliyor...",
+        term_summary: "Yurutme Ozeti:",
+        term_ok_hkcu: "HKCU kullanici tercihi: 1 basarili",
+        term_ok_hklm: "HKLM kurumsal ilkeler: 15 basarili, 0 hata",
+        term_ok_omaha: "Omaha GUID: 1 basarili",
+        term_ok_backup: "Yedekleme: basarili",
+        term_done: "ISLEM TAMAMLANDI",
+        term_exit: "- Cikis kodu: 0",
+        about_desc1: "Brave Omega, Brave Browser\u2019\u0131 resm\u00ee kurumsal politika kanallar\u0131 arac\u0131l\u0131\u011f\u0131yla s\u0131k\u0131la\u015ft\u0131ran a\u00e7\u0131k kaynakl\u0131 bir PowerShell otomasyon projesidir. Veri aktar\u0131m\u0131 (telemetri), analiz hizmetleri, arka plan pingleri ve gizlili\u011fi a\u015f\u0131nd\u0131ran t\u00fcm bile\u015fenler sistematik bi\u00e7imde devre d\u0131\u015f\u0131 b\u0131rak\u0131l\u0131r.",
+        about_card1_desc: "Her politika Brave\u2019in resm\u00ee ADMX \u015fablon paketi ve Chromium kurumsal belgelendirmesi ile do\u011frulanm\u0131\u015ft\u0131r.",
+        about_card2_desc: "HKCU + HKLM + Omaha GUID seviyesinde ba\u011f\u0131ms\u0131z zorunlu k\u0131lma. Kullan\u0131c\u0131 m\u00fcdahalesiyle a\u015f\u0131lamaz.",
+        about_card3_desc: "Tam T\u00fcrk\u00e7e ve \u0130ngilizce aray\u00fcz. Birebir i\u015flevsellik, ayn\u0131 g\u00fcvence, se\u00e7ti\u011finiz dilde.",
+        why_desc1: "Kurumsal taray\u0131c\u0131 gizlilik s\u0131k\u0131la\u015ft\u0131rmas\u0131 ya ADMX politika \u00e7er\u00e7evelerine derin teknik h\u00e2kimiyet ya da pahal\u0131 bir \u00fccretli \u00fcr\u00fcn aboneli\u011fi gerektirir. Brave Omega her iki k\u0131s\u0131tlamay\u0131 da ortadan kald\u0131r\u0131r.",
+        why_desc2: "Gereken t\u00fcm bilgi ve ara\u00e7, \u00fccretsiz ve a\u00e7\u0131k kaynakl\u0131 Brave Browser i\u00e7inde zaten mevcuttur. Tek eksik olan, bu bile\u015fenler aras\u0131nda do\u011frulanm\u0131\u015f bir k\u00f6pr\u00fcyd\u00fc. Brave Omega o k\u00f6pr\u00fcy\u00fc in\u015fa eder ve taray\u0131c\u0131n\u0131n ya\u015fam d\u00f6ng\u00fcs\u00fc boyunca onu g\u00fcncel tutar.",
+        why_tagline: "\u0130ki betik. Tek hedef. S\u0131f\u0131r maliyet.",
+        features_desc: "Brave Omega, Brave Browser\u2019\u0131n\u0131z\u0131 kurumsal d\u00fczeyde gizlilik s\u0131k\u0131la\u015ft\u0131rmas\u0131yla donat\u0131r.",
+        feat_tier_desc: "HKCU + HKLM + Omaha GUID seviyesinde ba\u011f\u0131ms\u0131z zorunlu k\u0131lma.",
+        feat_admx_desc: "Her politika Brave resm\u00ee \u015fablon paketi ile kaynakl\u0131 ve do\u011frulanm\u0131\u015f.",
+        feat_idem_desc: "\u0130stedi\u011finiz kadar \u00e7al\u0131\u015ft\u0131r\u0131n, ayn\u0131 g\u00fcvenli ve tutarl\u0131 sonu\u00e7.",
+        feat_backup_desc: "Zaman damgal\u0131 .reg yede\u011fi, tek komutla geri alma.",
+        feat_guard_desc: "\u00c7al\u0131\u015fan Brave \u00f6rneklerini alg\u0131lar, onay ister.",
+        feat_summary_desc: "Kategori baz\u0131nda ba\u015far\u0131/hata saya\u00e7lar\u0131 ile \u015feffaf raporlama.",
+        feat_biling_desc: "T\u00fcrk\u00e7e ve \u0130ngilizce, birebir i\u015flevsellikle.",
+        feat_lifecycle_desc: "Her Brave s\u00fcr\u00fcm\u00fcnde politika g\u00f6zden ge\u00e7irmesi, s\u00fcr\u00fcm sabitleme.",
+        lifecycle_quote: "G\u00fcncelli\u011fini yitiren bir gizlilik s\u0131k\u0131la\u015ft\u0131rma arac\u0131, g\u00fcvenlik g\u00fcvencesi de\u011fil \u2014 yanl\u0131\u015f bir g\u00fcvenlik duygusudur.",
+        lc_pin_title: "S\u00fcr\u00fcm Sabitleme",
+        lc_pin_desc: "Her betik s\u00fcr\u00fcm\u00fc, ba\u015fl\u0131\u011f\u0131nda do\u011frulanm\u0131\u015f Brave + Chromium versiyonuyla etiketlidir.",
+        lc_review_title: "Her S\u00fcr\u00fcmde G\u00f6zden Ge\u00e7irme",
+        lc_review_desc: "Yeni Brave kararl\u0131 s\u00fcr\u00fcm\u00fcnde ADMX \u015fablonu kar\u015f\u0131la\u015ft\u0131r\u0131l\u0131r, politikalar g\u00fcncellenir.",
+        lc_breaking_title: "K\u0131r\u0131c\u0131 De\u011fi\u015fiklik Bildirimleri",
+        lc_breaking_desc: "Kald\u0131r\u0131lan veya yeniden adland\u0131r\u0131lan anahtarlar de\u011fi\u015fiklik g\u00fcnl\u00fc\u011f\u00fcnde belgelenir.",
+        lc_community_title: "Topluluk G\u00fcd\u00fcml\u00fc",
+        lc_community_desc: "Katk\u0131da bulunanlar\u0131n tespit etti\u011fi uyumsuzluklar h\u0131zla incelenip birle\u015ftirilir.",
+        arch_desc: "Her katman ba\u011f\u0131ms\u0131z \u00e7al\u0131\u015f\u0131r, tek bir noktadaki zafiyet t\u00fcm korumay\u0131 d\u00fc\u015f\u00fcrmez.",
+        tier1_title: "Kullan\u0131c\u0131 Tercihi Katman\u0131",
+        tier1_desc: "UsageStatsInSample = 0 ile Chromium kullan\u0131c\u0131 d\u00fczeyi veri aktar\u0131m\u0131 \u00f6rneklemesini devre d\u0131\u015f\u0131 b\u0131rak\u0131r. Politika yay\u0131lma gecikmelerinde yedek g\u00fcvence sa\u011flar.",
+        tier2_title: "Kurumsal \u0130lke Katman\u0131 (ADMX)",
+        tier2_desc: "15 ADMX do\u011frulamal\u0131 kurumsal ilke. Taray\u0131c\u0131 Ayarlar aray\u00fcz\u00fcnde gri/kilitli g\u00f6r\u00fcn\u00fcr. Kullan\u0131c\u0131 etkile\u015fimiyle de\u011fi\u015ftirilemez.",
+        tier3_title: "G\u00fcncelleyici GUID Katman\u0131",
+        tier3_desc: "Her uygulama GUID\u2019i i\u00e7in usagestats = 0. G\u00fcncelleme altyap\u0131s\u0131n\u0131n kendi veri aktar\u0131m\u0131n\u0131 taray\u0131c\u0131 d\u00fczeyi ilkelerden ba\u011f\u0131ms\u0131z kapat\u0131r.",
+        sources_desc: "Temel ilke: S\u0131f\u0131r gayr\u0131resm\u00ee veya spek\u00fclatif kay\u0131t defteri de\u011fi\u015fikli\u011fi.",
+        source_note_title: "BraveShieldsDefault neden h\u00e2ri\u00e7 tutuldu?",
+        source_note_desc: "Baz\u0131 topluluk k\u0131lavuzlar\u0131nda yer almas\u0131na ra\u011fmen BraveShieldsDefault, Brave\u2019in resm\u00ee ADMX \u015fablonlar\u0131nda bulunmamaktad\u0131r. Brave, kalkanlar\u0131 URL bazl\u0131 politikalarla y\u00f6netir. Tan\u0131nmayan bir anahtar eklemek, ger\u00e7ekte hi\u00e7bir etkisi olmayan bir kay\u0131t defteri kayd\u0131 b\u0131rak\u0131rd\u0131.",
+        security_desc: "Tamamen a\u00e7\u0131k kaynak, s\u0131f\u0131r gizleme, s\u0131f\u0131r harici a\u011f \u00e7a\u011fr\u0131s\u0131.",
+        sec_col_concern: "Endi\u015fe",
+        sec_col_approach: "Brave Omega\u2019n\u0131n Yakla\u015f\u0131m\u0131",
+        sec_row1_title: "Yetkisiz de\u011fi\u015fiklikler",
+        sec_row1_desc: "Kaynak tamamen a\u00e7\u0131k incelemeye sunulmu\u015ftur. Gizleme yok. Harici a\u011f \u00e7a\u011fr\u0131s\u0131 yok. \u00c7al\u0131\u015ft\u0131r\u0131labilir dosya yok.",
+        sec_row2_title: "Geri al\u0131namaz durum",
+        sec_row2_desc: "Her HKLM yazma i\u015fleminden \u00f6nce otomatik zaman damgal\u0131 .reg yede\u011fi. reg import ile eski duruma d\u00f6n\u00fc\u015f.",
+        sec_row3_title: "K\u0131sm\u00ee uygulama",
+        sec_row3_desc: "Her i\u015flem i\u00e7in ayr\u0131 try-catch ve ba\u015far\u0131/hata saya\u00e7lar\u0131. Tam olarak neyin uyguland\u0131\u011f\u0131n\u0131 bilirsiniz.",
+        sec_row4_title: "Taray\u0131c\u0131 veri kayb\u0131",
+        sec_row4_desc: "De\u011fi\u015fiklik uygulanmadan \u00f6nce Brave s\u00fcre\u00e7 tespiti ve a\u00e7\u0131k devam/iptal istemi.",
+        sec_row5_title: "Yinelenen \u00e7al\u0131\u015ft\u0131rma",
+        sec_row5_desc: "-Force parametresiyle karars\u0131z olmayan tasar\u0131m. Birden fazla \u00e7al\u0131\u015ft\u0131rman\u0131n yan etkisi yoktur.",
+        sec_warn_title: "\u00d6nemli Uyar\u0131",
+        sec_warn_desc: "Bu betik Windows Kay\u0131t Defteri\u2019ni de\u011fi\u015ftirmekte ve Y\u00f6netici ayr\u0131cal\u0131klar\u0131 gerektirmektedir. Herhangi bir PowerShell beti\u011fini Y\u00f6netici olarak \u00e7al\u0131\u015ft\u0131rmadan \u00f6nce kaynak kodu her zaman okuyup anlay\u0131n. G\u00fcvenilmeyen betikleri asla y\u00fckseltilmi\u015f ayr\u0131cal\u0131klarla \u00e7al\u0131\u015ft\u0131rmay\u0131n.",
+        compat_desc: "Her Brave Omega s\u00fcr\u00fcm\u00fc belirtilen Brave ve Chromium versiyonlar\u0131na kar\u015f\u0131 ba\u011f\u0131ms\u0131z olarak test edilmi\u015ftir.",
+        compat_tip1: "\u00c7al\u0131\u015ft\u0131rmadan \u00f6nce y\u00fckl\u00fc Brave s\u00fcr\u00fcm\u00fcn\u00fcz\u00fc do\u011frulay\u0131n.",
+        compat_tip2: "Daha yeni bir Brave s\u00fcr\u00fcm\u00fc varsa GitHub Releases sayfas\u0131n\u0131 kontrol edin.",
+        structure_desc: "Brave Omega proje dosyalar\u0131 ve dizin yap\u0131s\u0131.",
+        str_gitignore: "Git d\u0131\u015flama kurallar\u0131",
+        str_readme: "Belgelendirme (EN + TR)",
+        str_changelog: "De\u011fi\u015fiklik g\u00fcnl\u00fc\u011f\u00fc",
+        str_scripts: "Betikler dizini",
+        str_script_en: "Ana betik \u2014 \u0130ngilizce aray\u00fcz",
+        str_script_tr: "Ana betik \u2014 T\u00fcrk\u00e7e aray\u00fcz",
+        trouble_desc: "Kar\u015f\u0131la\u015fabilece\u011finiz sorunlar ve \u00e7\u00f6z\u00fcmleri.",
+        trouble_col_symptom: "Belirti",
+        trouble_col_cause: "Olas\u0131 Neden",
+        trouble_col_solution: "\u00c7\u00f6z\u00fcm",
+        tr_s1_sym: "Betik hemen \u201cKR\u0130T\u0130K HATA\u201d ile \u00e7\u0131k\u0131yor",
+        tr_s1_cause: "Y\u00f6netici olarak \u00e7al\u0131\u015ft\u0131r\u0131lm\u0131yor",
+        tr_s1_sol: "PowerShell\u2019e sa\u011f t\u0131kla \u2192 Y\u00f6netici olarak \u00e7al\u0131\u015ft\u0131r",
+        tr_s2_sym: "brave://policy hi\u00e7 politika g\u00f6stermiyor",
+        tr_s2_cause: "Brave yeniden ba\u015flat\u0131lmad\u0131",
+        tr_s2_sol: "T\u00fcm Brave pencerelerini kapat ve yeniden a\u00e7",
+        tr_s3_sym: "\u00c7\u0131kt\u0131da [HATA] sat\u0131rlar\u0131 g\u00f6r\u00fcn\u00fcyor",
+        tr_s3_cause: "HKLM yolu izin sorunu",
+        tr_s3_sol: "Y\u00f6netici modunu do\u011frula; beti\u011fi yeniden \u00e7al\u0131\u015ft\u0131r",
+        tr_s4_sym: "Politika anahtar\u0131 \u201cBilinmiyor\u201d g\u00f6r\u00fcnt\u00fcleniyor",
+        tr_s4_cause: "Chromium s\u00fcr\u00fcm\u00fc uyu\u015fmazl\u0131\u011f\u0131",
+        tr_s4_sol: "Y\u00fckl\u00fc Brave s\u00fcr\u00fcm\u00fcn\u00fcn uyumluluk matrisiyle e\u015fle\u015fti\u011fini do\u011frula",
+        tr_s5_sym: "Yedekleme ad\u0131m\u0131nda reg export ba\u015far\u0131s\u0131z oluyor",
+        tr_s5_cause: "Mevcut HKLM yolunda k\u0131s\u0131tl\u0131 izin",
+        tr_s5_sol: "regedit ile yolu incele; ACL girdilerini kontrol et",
+        roadmap_desc: "Brave Omega\u2019n\u0131n gelecek s\u00fcr\u00fcmlerinde planlanan \u00f6zellikler.",
+        rm_item1: "Otomatik Brave s\u00fcr\u00fcm\u00fc tespiti \u2014 y\u00fckl\u00fc s\u00fcr\u00fcm do\u011frulanm\u0131\u015f hedeften farkl\u0131ysa uyar",
+        rm_item2: "BraveShieldsEnabledForUrls / BraveShieldsDisabledForUrls URL listesi y\u00f6netimi",
+        rm_item3: "-WhatIf parametresiyle kuru \u00e7al\u0131\u015ft\u0131rma kipi \u2014 kay\u0131t defterine yazmadan t\u00fcm de\u011fi\u015fiklikleri \u00f6nizle",
+        rm_item4: "S\u0131f\u0131rlama/kald\u0131rma kipi \u2014 uygulanan t\u00fcm Brave Omega politikalar\u0131n\u0131 temiz bi\u00e7imde sil",
+        rm_item5: "Ek dil s\u00fcr\u00fcmleri (topluluk katk\u0131lar\u0131 memnuniyetle kar\u015f\u0131lan\u0131r)",
+        rm_item6: "Her Brave kararl\u0131 s\u00fcr\u00fcm\u00fcnde otomatik ADMX politika fark\u0131 do\u011frulamas\u0131 i\u00e7in GitHub Actions ard\u0131\u015f\u0131",
+        rm_item7: "Yap\u0131land\u0131r\u0131lm\u0131\u015f CONTRIBUTING.md ve sorun \u015fablonlar\u0131",
+        contrib_desc: "Katk\u0131lar memnuniyetle kar\u015f\u0131lan\u0131r. B\u00fcy\u00fck de\u011fi\u015fikliklerden \u00f6nce l\u00fctfen bir konu a\u00e7\u0131n.",
+        contrib_ver_title: "S\u00fcr\u00fcm G\u00fcncellemeleri",
+        contrib_ver_desc: "Yeni Brave kararl\u0131 s\u00fcr\u00fcm\u00fcnde politika de\u011fi\u015fikli\u011fi varsa, g\u00fcncellenmi\u015f de\u011fer ve kaynak referans\u0131yla PR a\u00e7\u0131n.",
+        contrib_pol_title: "Yeni Politikalar",
+        contrib_pol_desc: "Brave resm\u00ee ADMX \u015fablonlar\u0131ndan veya Chromium kurumsal belgelendirmesinden kaynaklanm\u0131\u015f olmal\u0131d\u0131r.",
+        contrib_bug_title: "Hata Raporlar\u0131",
+        contrib_bug_desc: "Brave s\u00fcr\u00fcm\u00fc, Windows s\u00fcr\u00fcm\u00fc ve brave://policy \u00e7\u0131kt\u0131s\u0131 ile birlikte konu a\u00e7\u0131n.",
+        contrib_trans_title: "\u00c7eviriler",
+        contrib_trans_desc: "EN/TR \u015fablon yap\u0131s\u0131n\u0131 izleyen ek dil s\u00fcr\u00fcmleri. \u0130\u015flevsel e\u015fde\u011ferlik korunmal\u0131d\u0131r.",
+        changelog_desc: "Keep a Changelog format\u0131nda belgelenen t\u00fcm kayda de\u011fer de\u011fi\u015fiklikler.",
+        cl_col_version: "S\u00fcr\u00fcm",
+        cl_col_date: "Tarih",
+        cl_col_policies: "Politika",
+        cl_col_changes: "Ana De\u011fi\u015fiklikler",
+        cl_v12_summary: "+10 yeni politika, Brave 1.91.171 do\u011frulamas\u0131, %143 kapsam geni\u015flemesi",
+        cl_v11_summary: "Hata y\u00f6netimi, yedeklemeler, s\u00fcre\u00e7 koruyucular\u0131, BraveShieldsDefault kald\u0131r\u0131ld\u0131",
+        cl_v10_summary: "\u0130lk s\u00fcr\u00fcm, 3 katmanl\u0131 mimari, iki dilli aray\u00fcz",
+        changelog_full: "Tam De\u011fi\u015fiklik G\u00fcnl\u00fc\u011f\u00fcn\u00fc G\u00f6r\u00fcnt\u00fcle",
+        license_desc: "Bu proje MIT Lisans\u0131 kapsam\u0131nda yay\u0131mlanm\u0131\u015ft\u0131r. Tam ko\u015fullar i\u00e7in LICENSE dosyas\u0131na bak\u0131n.",
+        disclaimer_title: "Sorumluluk Reddi",
+        disclaimer_desc: "Brave Omega ba\u011f\u0131ms\u0131z bir topluluk projesidir ve hi\u00e7bir \u015fekilde Brave Software, Inc. ile ba\u011flant\u0131l\u0131, onun taraf\u0131ndan onaylanm\u0131\u015f veya resm\u00ee olarak ili\u015fkili de\u011fildir. Brave ad\u0131 ve logosu Brave Software, Inc.\u2019in tescilli markalar\u0131d\u0131r. T\u00fcm kay\u0131t defteri de\u011fi\u015fiklikleri kullan\u0131c\u0131n\u0131n kendi sorumlulu\u011fundad\u0131r.",
+        footer_built: "\u00d6zenle in\u015fa edildi. Ama\u00e7la s\u00fcrd\u00fcr\u00fcl\u00fcyor.",
+        footer_independent: "Brave Software, Inc. ile ba\u011flant\u0131l\u0131 de\u011fildir.",
+        quickstart_desc: "A\u015fa\u011f\u0131daki 4 ad\u0131mla Brave Browser\u2019\u0131n\u0131z\u0131 kurumsal d\u00fczeyde gizlilik s\u0131k\u0131la\u015ft\u0131rmas\u0131yla koruyun.",
+        qs_step1_title: "PowerShell\u2019i Y\u00f6netici Olarak A\u00e7\u0131n",
+        qs_step1_desc: "Ba\u015flat men\u00fcs\u00fcnde PowerShell\u2019e sa\u011f t\u0131klay\u0131n ve \u201cY\u00f6netici olarak \u00e7al\u0131\u015ft\u0131r\u201d se\u00e7ene\u011fini se\u00e7in.",
+        qs_step2_title: "Proje Klas\u00f6r\u00fcne Gidin",
+        qs_step3_title: "Beti\u011fi \u00c7al\u0131\u015ft\u0131r\u0131n",
+        qs_step4_title: "Brave\u2019i Yeniden Ba\u015flat\u0131n ve Do\u011frulay\u0131n",
+        qs_step4_desc: "T\u00fcm Brave pencerelerini kapat\u0131p a\u00e7\u0131n. Ard\u0131ndan brave://policy yazarak politikalar\u0131 do\u011frulay\u0131n.",
+        prereq_os_title: "\u0130\u015fletim Sistemi",
+        prereq_os_desc: "Windows 11 (\u00f6neri: en g\u00fcncel 25H2 derlemesi)",
+        prereq_browser_title: "Taray\u0131c\u0131",
+        prereq_browser_desc: "Brave Browser en g\u00fcncel kararl\u0131 s\u00fcr\u00fcm (1.91.171 \u00f6nerilir)",
+        prereq_ps_title: "PowerShell",
+        prereq_ps_desc: "5.1+ (Windows 11 ile birlikte gelir, ek kurulum gerekmez)",
+        prereq_priv_title: "Ayr\u0131cal\u0131k",
+        prereq_priv_desc: "Y\u00f6netici olarak \u00e7al\u0131\u015ft\u0131rmal\u0131s\u0131n\u0131z (HKLM yazma i\u00e7in zorunlu)",
+        prereq_pol_title: "\u00c7al\u0131\u015ft\u0131rma \u0130lkesi",
+        prereq_pol_desc: "RemoteSigned veya Bypass (Set-ExecutionPolicy ile ayarlay\u0131n)",
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        setLang(currentLang);
+        setTimeout(() => { lucide.createIcons(); }, 100);
+    });
+</script>
+</body>
+</html>
