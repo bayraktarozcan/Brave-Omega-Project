@@ -27,7 +27,7 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v1.2 — 2026-06-10](#en-v12)
+2.  [v1.2 — 2026-06-12](#en-v12)
     *   [Summary](#en-v12-summary)
     *   [Added](#en-v12-added)
     *   [Statistics](#en-v12-statistics)
@@ -58,7 +58,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 <a id="en-v12"></a>
 
-## [v1.2] — 2026-06-10
+## [v1.2] — 2026-06-12
 
 <a id="en-v12-summary"></a>
 
@@ -66,7 +66,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 **Major expansion:** 10 new enterprise policies added, bringing total from **7 to 17 policies**. This represents a **143% expansion** in privacy hardening coverage. All new policies are ADMX-verified and Chromium 149 compatible.
 
-**Validated against Brave 1.91.171 (Chromium 149.0.7827.103).**
+**Validated against Brave 1.91.172 (Chromium 149.0.7827.115).**
 
 <a id="en-v12-added"></a>
 
@@ -240,7 +240,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
-| v1.2 | 2026-06-10 | 17 | +10 new policies, Brave 1.91.171 validation |
+| v1.2 | 2026-06-12 | 17 | +10 new policies, Brave 1.91.172 validation |
 | v1.1 | 2026-06-05 | 7 | Error handling, backups, process guards |
 | v1.0 | 2026-06-04 | 7 | Initial release, 3-tier architecture |
 
@@ -286,7 +286,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v1.2 — 2026-06-10](#tr-v12)
+2.  [v1.2 — 2026-06-12](#tr-v12)
     *   [Özet](#tr-v12-summary)
     *   [Eklendi](#tr-v12-added)
     *   [İstatistikler](#tr-v12-statistics)
@@ -317,7 +317,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 <a id="tr-v12"></a>
 
-## [v1.2] — 2026-06-10
+## [v1.2] — 2026-06-12
 
 <a id="tr-v12-summary"></a>
 
@@ -325,7 +325,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 **Büyük genişleme:** Toplam **7'den 17'ye** çıkarılan 10 yeni kurumsal politika eklendi. Bu, gizlilik sıkılaştırma kapsamının **%143 genişlemesi** anlamına geliyor. Tüm yeni politikalar ADMX doğrulamalı ve Chromium 149 ile uyumludur.
 
-**Brave 1.91.171 (Chromium 149.0.7827.103) ile doğrulandı.**
+**Brave 1.91.172 (Chromium 149.0.7827.115) ile doğrulandı.**
 
 <a id="tr-v12-added"></a>
 
@@ -499,7 +499,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
-| v1.2 | 2026-06-10 | 17 | +10 yeni politika, Brave 1.91.171 doğrulaması |
+| v1.2 | 2026-06-12 | 17 | +10 yeni politika, Brave 1.91.172 doğrulaması |
 | v1.1 | 2026-06-05 | 7 | Hata yönetimi, yedeklemeler, süreç koruyucuları |
 | v1.0 | 2026-06-04 | 7 | İlk sürüm, 3 katmanlı mimari |
 

@@ -6,7 +6,7 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8524)
-#                  Brave 1.91.168 — Resmî Derleme / Chromium 149.0.7827.54
+#                  Brave 1.91.172 — Resmî Derleme / Chromium 149.0.7827.115
 # DOSYA TÜRÜ     : Gelişmiş Değişken Kayıt Defteri Tümleşme ve Sıkılaştırma
 #                  Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
@@ -14,7 +14,7 @@
 #                  kendiliğinden işler hâle getirmek.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.91.168, 4 Mayıs 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.91.172, 12 Haziran 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
@@ -541,7 +541,7 @@ if ($HataSayaci -gt 0) {
 
 # Genel başarı mesajı
 if ($BasariSayaci -gt 0 -or $OmahaBasariSayaci -gt 0) {
-    Write-Host "`n  [BAŞARILI] Brave 1.91.168 kurumsal gizlilik politikaları" -ForegroundColor Green
+    Write-Host "`n  [BAŞARILI] Brave 1.91.172 kurumsal gizlilik politikaları" -ForegroundColor Green
     Write-Host "           Windows 11 25H2 sistemine başarıyla uygulandı." -ForegroundColor Green
     Write-Host "           Değişikliklerin devreye girmesi için Brave'i" -ForegroundColor White
     Write-Host "           tamamen kapatıp yeniden açmanız yeterlidir.`n" -ForegroundColor White
