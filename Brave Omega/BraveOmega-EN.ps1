@@ -6,7 +6,7 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8524)
-#                    Brave 1.91.168 — Official Build / Chromium 149.0.7827.54
+#                    Brave 1.91.172 — Official Build / Chromium 149.0.7827.115
 # FILE TYPE        : Advanced Dynamic Registry Integration and Hardening
 #                    Script (.ps1)
 # PURPOSE          : To protect user privacy, prevent data leaks, strip the
@@ -14,7 +14,7 @@
 #                    entire process.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.91.168, dated May 4, 2026, belongs to the Stable channel.
+#    Brave 1.91.172, dated June 12, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
@@ -539,7 +539,7 @@ if ($ErrorCount -gt 0) {
 
 # General success message
 if ($SuccessCount -gt 0 -or $OmahaSuccessCount -gt 0) {
-    Write-Host "`n  [SUCCESS] Brave 1.91.168 enterprise privacy policies were" -ForegroundColor Green
+    Write-Host "`n  [SUCCESS] Brave 1.91.172 enterprise privacy policies were" -ForegroundColor Green
     Write-Host "            successfully applied to the Windows 11 25H2 system." -ForegroundColor Green
     Write-Host "            Simply close Brave completely and reopen it for" -ForegroundColor White
     Write-Host "            the changes to take effect.`n" -ForegroundColor White

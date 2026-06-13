@@ -27,26 +27,29 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v1.2 — 2026-06-10](#en-v12)
+2.  [v1.2.1 — 2026-06-13](#en-v121)
+    *   [Summary](#en-v121-summary)
+    *   [Changed](#en-v121-changed)
+3.  [v1.2 — 2026-06-12](#en-v12)
     *   [Summary](#en-v12-summary)
     *   [Added](#en-v12-added)
     *   [Statistics](#en-v12-statistics)
     *   [Changed](#en-v12-changed)
     *   [Security](#en-v12-security)
-3.  [v1.1 — 2026-06-05](#en-v11)
+5.  [v1.1 — 2026-06-05](#en-v11)
     *   [Summary](#en-v11-summary)
     *   [Added](#en-v11-added)
     *   [Changed](#en-v11-changed)
     *   [Removed](#en-v11-removed)
     *   [Details](#en-v11-details)
-4.  [v1.0 — 2026-06-04](#en-v10)
+6.  [v1.0 — 2026-06-04](#en-v10)
     *   [Summary](#en-v10-summary)
     *   [Features](#en-v10-features)
     *   [Initial Policies](#en-v10-initial-policies)
     *   [Documentation](#en-v10-documentation)
-5.  [Version History Summary](#en-version-history-summary)
-6.  [Related Documentation](#en-related-documentation)
-7.  [Notes](#en-notes)
+7.  [Version History Summary](#en-version-history-summary)
+8.  [Related Documentation](#en-related-documentation)
+9.  [Notes](#en-notes)
 
 ---
 
@@ -56,9 +59,32 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ---
 
+<a id="en-v121"></a>
+
+## [v1.2.1] — 2026-06-13
+
+<a id="en-v121-summary"></a>
+
+### 🎯 Summary
+
+**Patch release:** Brave version upgrade to 1.91.172 (Chromium 149.0.7827.115). No policy changes from v1.2.
+
+**Changes:** Translation parity fix (22 missing policy effect keys added for EN/TR), added missing sources section heading, wired up license section translation, corrected orphaned translation keys.
+
+<a id="en-v121-changed"></a>
+
+### 🔧 Changed
+
+- **index.html**: Added 23 missing translation keys for EN and TR (pol_effect1–17, policies_badge/heading/desc, policy_col_key/effect, sources_badge)
+- **index.html**: Added missing `<h2>` heading and badge to sources section with data-i18n support
+- **index.html**: Wired up license_heading data-i18n to license section heading
+- **index.html**: Updated version references from v1.2 to v1.2.1
+- **README.md**: Updated version compatibility matrix to include v1.2.1
+- **CHANGELOG.md**: Added v1.2.1 changelog entry with full documentation
+
 <a id="en-v12"></a>
 
-## [v1.2] — 2026-06-10
+## [v1.2] — 2026-06-12
 
 <a id="en-v12-summary"></a>
 
@@ -66,7 +92,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 **Major expansion:** 10 new enterprise policies added, bringing total from **7 to 17 policies**. This represents a **143% expansion** in privacy hardening coverage. All new policies are ADMX-verified and Chromium 149 compatible.
 
-**Validated against Brave 1.91.171 (Chromium 149.0.7827.103).**
+**Validated against Brave 1.91.172 (Chromium 149.0.7827.115).**
 
 <a id="en-v12-added"></a>
 
@@ -240,7 +266,8 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
-| v1.2 | 2026-06-10 | 17 | +10 new policies, Brave 1.91.171 validation |
+| v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 upgrade, translation & structural fixes |
+| v1.2 | 2026-06-12 | 17 | +10 new policies, Brave 1.91.172 validation |
 | v1.1 | 2026-06-05 | 7 | Error handling, backups, process guards |
 | v1.0 | 2026-06-04 | 7 | Initial release, 3-tier architecture |
 
@@ -286,24 +313,27 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v1.2 — 2026-06-10](#tr-v12)
+2.  [v1.2.1 — 2026-06-13](#tr-v121)
+    *   [Özet](#tr-v121-summary)
+    *   [Değiştirildi](#tr-v121-changed)
+3.  [v1.2 — 2026-06-12](#tr-v12)
     *   [Özet](#tr-v12-summary)
     *   [Eklendi](#tr-v12-added)
     *   [İstatistikler](#tr-v12-statistics)
     *   [Değiştirildi](#tr-v12-changed)
     *   [Güvenlik](#tr-v12-security)
-3.  [v1.1 — 2026-06-05](#tr-v11)
+5.  [v1.1 — 2026-06-05](#tr-v11)
     *   [Özet](#tr-v11-summary)
     *   [Eklendi](#tr-v11-added)
     *   [Değiştirildi](#tr-v11-changed)
     *   [Kaldırıldı](#tr-v11-removed)
     *   [Detaylar](#tr-v11-details)
-4.  [v1.0 — 2026-06-04](#tr-v10)
+6.  [v1.0 — 2026-06-04](#tr-v10)
     *   [Özet](#tr-v10-summary)
     *   [Özellikler](#tr-v10-features)
     *   [Başlangıç Politikaları](#tr-v10-initial-policies)
     *   [Belgelendirme](#tr-v10-documentation)
-5.  [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+7.  [Sürüm Geçmişi Özeti](#tr-version-history-summary)
 6.  [İlgili Belgelendirme](#tr-related-documentation)
 7.  [Notlar](#tr-notes)
 
@@ -315,9 +345,32 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ---
 
+<a id="tr-v121"></a>
+
+## [v1.2.1] — 2026-06-13
+
+<a id="tr-v121-summary"></a>
+
+### 🎯 Özet
+
+**Yama sürümü:** Brave sürüm yükseltmesi 1.91.172 (Chromium 149.0.7827.115). v1.2'den itibaren politika değişikliği yok.
+
+**Değişiklikler:** Çeviri uyum düzeltmesi (22 eksik politika etkisi anahtarı EN/TR için eklendi), eksik kaynaklar bölüm başlığı eklendi, lisans bölümü çevirisi bağlandı, öksüz çeviri anahtarları düzeltildi.
+
+<a id="tr-v121-changed"></a>
+
+### 🔧 Değiştirildi
+
+- **index.html**: EN ve TR için 23 eksik çeviri anahtarı eklendi (pol_effect1–17, policies_badge/heading/desc, policy_col_key/effect, sources_badge)
+- **index.html**: Kaynaklar bölümüne eksik `<h2>` başlık ve rozet eklendi, data-i18n desteği ile
+- **index.html**: Lisans bölümü başlığına license_heading data-i18n bağlandı
+- **index.html**: Sürüm referansları v1.2'den v1.2.1'e güncellendi
+- **README.md**: Sürüm uyumluluk matrisi v1.2.1'i içerecek şekilde güncellendi
+- **CHANGELOG.md**: v1.2.1 değişiklik günlüğü eklendi
+
 <a id="tr-v12"></a>
 
-## [v1.2] — 2026-06-10
+## [v1.2] — 2026-06-12
 
 <a id="tr-v12-summary"></a>
 
@@ -325,7 +378,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 **Büyük genişleme:** Toplam **7'den 17'ye** çıkarılan 10 yeni kurumsal politika eklendi. Bu, gizlilik sıkılaştırma kapsamının **%143 genişlemesi** anlamına geliyor. Tüm yeni politikalar ADMX doğrulamalı ve Chromium 149 ile uyumludur.
 
-**Brave 1.91.171 (Chromium 149.0.7827.103) ile doğrulandı.**
+**Brave 1.91.172 (Chromium 149.0.7827.115) ile doğrulandı.**
 
 <a id="tr-v12-added"></a>
 
@@ -499,7 +552,8 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
-| v1.2 | 2026-06-10 | 17 | +10 yeni politika, Brave 1.91.171 doğrulaması |
+| v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 yükseltmesi, çeviri ve yapı düzeltmeleri |
+| v1.2 | 2026-06-12 | 17 | +10 yeni politika, Brave 1.91.172 doğrulaması |
 | v1.1 | 2026-06-05 | 7 | Hata yönetimi, yedeklemeler, süreç koruyucuları |
 | v1.0 | 2026-06-04 | 7 | İlk sürüm, 3 katmanlı mimari |
 
