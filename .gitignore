@@ -93,7 +93,13 @@ qodana.sarif.json
 *.swp
 *.swo
 
-# 7. VERSION CONTROL TRACKING / PROJE TAKİP KURALLARI
+# 7. GITHUB WIKI / GITHUB WIKI
+# ─────────────────────────────────────────────────────────────────────────────
+# [EN] Published to the separate .wiki.git repository, not tracked in main repo.
+# [TR] Ayrı .wiki.git deposunda yayınlanır, ana depoda takip edilmez.
+Wiki/
+
+# 8. VERSION CONTROL TRACKING / PROJE TAKİP KURALLARI
 # ─────────────────────────────────────────────────────────────────────────────
 # [EN] Essential project configuration files to be kept under version control.
 # [TR] Versiyon kontrolünde tutulması gereken temel proje yapılandırma dosyaları.
