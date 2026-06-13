@@ -27,7 +27,10 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v1.2.1 — 2026-06-13](#en-v121)
+2.  [v1.2.2 — 2026-06-13](#en-v122)
+    *   [Summary](#en-v122-summary)
+    *   [Changed](#en-v122-changed)
+3.  [v1.2.1 — 2026-06-13](#en-v121)
     *   [Summary](#en-v121-summary)
     *   [Changed](#en-v121-changed)
 3.  [v1.2 — 2026-06-12](#en-v12)
@@ -56,6 +59,31 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v122"></a>
+
+## [v1.2.2] — 2026-06-13
+
+<a id="en-v122-summary"></a>
+
+### 🎯 Summary
+
+**Patch release:** Execution policy fix — replaced `RemoteSigned -Scope CurrentUser` with session-scoped `Bypass -Scope Process`. No policy changes from v1.2.1.
+
+**Changes:** Execution policy instruction now uses `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` which affects only the current PowerShell window (no permanent registry change, no attack surface exposure). README Quick Start restructured for clarity. Turkish character corrections applied to visible UI text.
+
+<a id="en-v122-changed"></a>
+
+### 🔧 Changed
+
+- **index.html**: Updated `prereq_pol_desc` (EN + TR) to use session-scoped `-Scope Process Bypass` instead of permanent `RemoteSigned -Scope CurrentUser`
+- **index.html**: Fixed Turkish characters in `rm_item3` fallback text
+- **index.html**: Updated version references from v1.2.1 to v1.2.2
+- **README.md**: Replaced permanent execution policy step with session-scoped bypass in Quick Start (EN + TR)
+- **README.md**: Updated version compatibility matrix to include v1.2.2 + v1.2.1
+- **CHANGELOG.md**: Added v1.2.2 changelog entry with full documentation
 
 ---
 
@@ -266,6 +294,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v1.2.2 | 2026-06-13 | 17 | Safe execution policy fix, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 upgrade, translation & structural fixes |
 | v1.2 | 2026-06-12 | 17 | +10 new policies, Brave 1.91.172 validation |
 | v1.1 | 2026-06-05 | 7 | Error handling, backups, process guards |
@@ -313,10 +342,13 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v1.2.1 — 2026-06-13](#tr-v121)
+2.  [v1.2.2 — 2026-06-13](#tr-v122)
+    *   [Özet](#tr-v122-summary)
+    *   [Değiştirildi](#tr-v122-changed)
+3.  [v1.2.1 — 2026-06-13](#tr-v121)
     *   [Özet](#tr-v121-summary)
     *   [Değiştirildi](#tr-v121-changed)
-3.  [v1.2 — 2026-06-12](#tr-v12)
+4.  [v1.2 — 2026-06-12](#tr-v12)
     *   [Özet](#tr-v12-summary)
     *   [Eklendi](#tr-v12-added)
     *   [İstatistikler](#tr-v12-statistics)
@@ -334,14 +366,39 @@ Initial community release. Stable, tested hardening automation for Brave Browser
     *   [Başlangıç Politikaları](#tr-v10-initial-policies)
     *   [Belgelendirme](#tr-v10-documentation)
 7.  [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-6.  [İlgili Belgelendirme](#tr-related-documentation)
-7.  [Notlar](#tr-notes)
+8.  [İlgili Belgelendirme](#tr-related-documentation)
+9.  [Notlar](#tr-notes)
 
 ---
 
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v122"></a>
+
+## [v1.2.2] — 2026-06-13
+
+<a id="tr-v122-summary"></a>
+
+### 🎯 Özet
+
+**Yama sürümü:** Çalıştırma ilkesi düzeltmesi — kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `Bypass -Scope Process` kullanıldı. v1.2.1'den itibaren politika değişikliği yok.
+
+**Değişiklikler:** Çalıştırma ilkesi talimatı artık `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` kullanıyor; bu ayar yalnızca geçerli PowerShell penceresini etkiler (kalıcı kayıt defteri değişikliği yok, saldırı yüzeyi oluşmaz). README Hızlı Başlangıç yeniden yapılandırıldı. Görünür UI metinlerinde Türkçe karakter düzeltmeleri yapıldı.
+
+<a id="tr-v122-changed"></a>
+
+### 🔧 Değiştirildi
+
+- **index.html**: `prereq_pol_desc` (EN + TR) kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `-Scope Process Bypass` kullanacak şekilde güncellendi
+- **index.html**: `rm_item3` geri dönüş metnindeki Türkçe karakterler düzeltildi
+- **index.html**: Sürüm referansları v1.2.1'den v1.2.2'ye güncellendi
+- **README.md**: Hızlı Başlangıç'taki kalıcı çalıştırma ilkesi adımı oturum bazlı bypass ile değiştirildi (EN + TR)
+- **README.md**: Sürüm uyumluluk matrisi v1.2.2 + v1.2.1'i içerecek şekilde güncellendi
+- **CHANGELOG.md**: v1.2.2 değişiklik günlüğü eklendi
 
 ---
 
@@ -552,6 +609,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v1.2.2 | 2026-06-13 | 17 | Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 yükseltmesi, çeviri ve yapı düzeltmeleri |
 | v1.2 | 2026-06-12 | 17 | +10 yeni politika, Brave 1.91.172 doğrulaması |
 | v1.1 | 2026-06-05 | 7 | Hata yönetimi, yedeklemeler, süreç koruyucuları |

@@ -111,7 +111,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | **Browser** | **Brave Browser — latest stable release** (see [brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (included with Windows 11 — no additional installation needed) |
 | **Privileges** | Run as Administrator (required for HKLM registry writes) |
-| **Execution Policy** | `RemoteSigned` or `Bypass` |
+| **Execution Policy** | `Bypass` (session-scoped only — see Quick Start) |
 
 > [!IMPORTANT]
 > **Always use the latest stable Brave release before running this script.**
@@ -125,32 +125,28 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 ### 5. Quick Start
 
-**Step 1 — Allow script execution** *(run once, only if needed)*
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-**Step 2 — Open PowerShell as Administrator**
+**Step 1 — Open PowerShell as Administrator**
 Right-click the PowerShell icon → **Run as Administrator**
 
-**Step 3 — Navigate to the project folder**
+**Step 2 — Navigate to the project folder**
 ```powershell
-cd "D:\REPOS\BRAVE OMEGA PROJECT\Brave Omega"
+cd "C:\Users\Downloads\Brave-Omega"
 ```
 
-**Step 4 — Run the script**
+**Step 3 — Run the script with temporary bypass**
 ```powershell
 # English interface:
-.\BraveOmega-EN.ps1
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 # Turkish interface:
-.\BraveOmega-TR.ps1
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
+> The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
 
-**Step 5 — Restart Brave**
+**Step 4 — Restart Brave**
 Close all Brave windows completely and reopen. Changes take effect immediately on next launch.
 
-**Step 6 — Verify**
+**Step 5 — Verify**
 Navigate to `brave://policy` in Brave to confirm all enterprise policies are active and
 applied correctly.
 
@@ -248,7 +244,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v1.2.1** *(current)* | 1.91.172 | 149 | 11 25H2 | ✅ Active |
+| **v1.2.2** *(current)* | 1.91.172 | 149 | 11 25H2 | ✅ Active |
+| v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
@@ -464,7 +461,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | **Tarayıcı** | **Brave Browser — en güncel kararlı sürüm** (bkz. [brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir — ek kurulum gerekmez) |
 | **Ayrıcalık** | Yönetici olarak çalıştır (HKLM kayıt defteri yazma işlemi için zorunlu) |
-| **Çalıştırma İlkesi** | `RemoteSigned` veya `Bypass` |
+| **Çalıştırma İlkesi** | `Bypass` (yalnızca oturum bazında — bkz. Hızlı Başlangıç) |
 
 > [!IMPORTANT]
 > **Bu betiği çalıştırmadan önce her zaman en güncel kararlı Brave sürümünü kullanın.**
@@ -478,32 +475,28 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 ### 5. Hızlı Başlangıç
 
-**Adım 1 — Betik çalıştırma iznini ver** *(yalnızca gerekirse, bir kez)*
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-**Adım 2 — PowerShell'i Yönetici olarak aç**
+**Adım 1 — PowerShell'i Yönetici olarak aç**
 PowerShell simgesine sağ tıkla → **Yönetici olarak çalıştır**
 
-**Adım 3 — Proje klasörüne geç**
+**Adım 2 — Proje klasörüne geç**
 ```powershell
-cd "D:\REPOS\BRAVE OMEGA PROJECT\Brave Omega"
+cd "C:\Users\Downloads\Brave-Omega"
 ```
 
-**Adım 4 — Betiği çalıştır**
+**Adım 3 — Geçici bypass ile betiği çalıştır**
 ```powershell
 # Türkçe arayüz:
-.\BraveOmega-TR.ps1
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 
 # İngilizce arayüz:
-.\BraveOmega-EN.ps1
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ```
+> `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
 
-**Adım 5 — Brave'i yeniden başlat**
+**Adım 4 — Brave'i yeniden başlat**
 Tüm Brave pencerelerini tamamen kapat ve yeniden aç. Değişiklikler bir sonraki açılışta hemen devreye girer.
 
-**Adım 6 — Doğrula**
+**Adım 5 — Doğrula**
 Tüm kurumsal ilkelerin doğru biçimde etkin olduğunu onaylamak için Brave'de `brave://policy` adresine git.
 
 ---
@@ -604,7 +597,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v1.2.1** *(güncel)* | 1.91.172 | 149 | 11 25H2 | ✅ Etkin |
+| **v1.2.2** *(güncel)* | 1.91.172 | 149 | 11 25H2 | ✅ Etkin |
+| v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
