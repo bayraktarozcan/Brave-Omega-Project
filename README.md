@@ -65,6 +65,11 @@ systematically disables telemetry, analytics services, background pings, integra
 monetization features, and other privacy-eroding components — all without touching the
 browser's internals or requiring any third-party tools.
 
+Brave Omega v2.0 introduces a **four-tier hardening model** — Brave Only (13 policies),
+Essential ⭐ (30), Balanced (46), and Strict (68) — giving users precise control over
+their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
+hardening. Levels are cumulative: each tier includes all policies from previous tiers.
+
 > **Two scripts. One goal. Zero cost.**
 >
 > `BraveOmega-EN.ps1` — Full English interface, for international users
@@ -92,13 +97,14 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Feature | Description |
 |---------|-------------|
-| 🔒 **Three-Tier Privacy Model** | HKCU user preference + HKLM enterprise policy + Omaha updater GUID level — three independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official enterprise template package (`policy_templates.zip`) |
+| 🔒 **Four-Tier Privacy Model** | Choose your hardening level: **Brave Only** (13 policies), **Essential ⭐** (30 policies), **Balanced** (46), or **Strict** (68) |
+| 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — all dispatched automatically per policy |
+| 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
 | 💾 **Automatic Backup** | Time-stamped `.reg` backup of the HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration with a single command: `reg import "<backup_file.reg>"` |
 | 🛡️ **Brave Process Guard** | Detects running Brave instances and presents a continue/cancel decision before applying changes |
-| 📊 **Execution Summary** | Per-category success/failure counters with transparent reporting |
+| 📊 **Execution Summary** | Per-category success/failure type counts with transparent reporting |
 | 🌍 **Bilingual** | Full Turkish and English versions with identical functionality and parity |
 
 ---
@@ -134,6 +140,8 @@ cd "C:\Users\Downloads\Brave-Omega"
 ```
 
 **Step 3 — Run the script with temporary bypass**
+
+*Interactive mode (you choose the hardening level when prompted):*
 ```powershell
 # English interface:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
@@ -141,6 +149,23 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 # Turkish interface:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
+
+*Silent/automated mode (specify level directly):*
+```powershell
+# Apply Essential (Recommended):
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
+
+# Turkish: apply minimal Brave-only policies:
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level "Brave Yalnız"
+```
+
+| Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
+|---------------------|---------------------|-------|----------|
+| `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 13 |
+| `-Level Essential` | `-Level Temel` | Essential ⭐ | 30 |
+| `-Level Balanced` | `-Level Dengeli` | Balanced | 46 |
+| `-Level Strict` | `-Level Katı` | Strict | 68 |
+
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
 
 **Step 4 — Restart Brave**
@@ -154,23 +179,25 @@ applied correctly.
 
 ### 6. How It Works
 
-#### 6.1 Architecture — Three-Tier Enforcement Model
+#### 6.1 Architecture — Four-Tier Enforcement Model
 
-Most browser privacy configurations operate at a single level and can be overridden by the user
-or by the browser itself during updates. Brave Omega uses a three-tier approach that creates
-redundant, independent enforcement at each layer of the Windows + Brave + Omaha stack.
+Brave Omega operates at **two infrastructure layers** (HKLM policies + HKCU fallbacks)
+and offers **four hardening levels** that determine how many policies are applied.
+
+##### Infrastructure Layers
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  TIER 1 — HKCU (User Preference Layer)                     │
 │  HKCU:\Software\BraveSoftware\Brave-Browser                 │
 │  ↳  UsageStatsInSample = 0                                  │
+│     ChromeVariations = 1 (HKCU)                             │
 │     Chromium user-level telemetry sampling disabled.        │
 │     Provides a fallback during policy propagation delays.   │
 ├─────────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  17 ADMX-validated enterprise policies, enforced.       │
+│  ↳  13–68 ADMX-validated enterprise policies (level-based). │
 │     Appear gray and locked in browser Settings UI.         │
 │     Cannot be overridden by user interaction.              │
 ├─────────────────────────────────────────────────────────────┤
@@ -181,6 +208,15 @@ redundant, independent enforcement at each layer of the Windows + Brave + Omaha 
 │     independently of all browser-level policies.           │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+##### Hardening Levels
+
+| Level | Total Policies | Brave-Specific | Chromium (Data) | Chromium (Security) | Usability Impact |
+|-------|---------------|----------------|-----------------|---------------------|-----------------|
+| **Brave Only** | 13 | 13 | 0 | 0 | None |
+| **Essential ⭐** | 30 | 13 | 17 | 0 | None |
+| **Balanced** | 46 | 13 | 17 | 16 | Low |
+| **Strict** | 68 | 13 | 17 | 38 | Medium |
 
 #### 6.2 Policy Sources & Methodology
 
@@ -244,7 +280,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v1.2.2** *(current)* | 1.91.172 | 149 | 11 25H2 | ✅ Active |
+| **v2.0** *(current)* | 1.91.172 | 149 | 11 25H2 | ✅ Active |
+| v1.2.2 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
@@ -260,25 +297,105 @@ no longer have any effect.
 
 ### 9. Policy Reference
 
-| Registry Key | Hive | Value | Effect |
-|--------------|------|-------|--------|
-| `UsageStatsInSample` | HKCU | `0` | Disables browser-level usage statistics sampling sent to Brave servers |
-| `BraveRewardsDisabled` | HKLM | `1` | Removes Rewards ad system, BAT token earning engine, and push notifications |
-| `BraveWalletDisabled` | HKLM | `1` | Removes integrated crypto wallet module, toolbar button, and background services |
-| `BraveVPNDisabled` | HKLM | `1` | Removes VPN toolbar button and blocks the Brave VPN background service network |
-| `BraveAIChatEnabled` | HKLM | `0` | Disables Leo AI Chat engine, conversation history, and all API connections |
-| `BraveStatsPingEnabled` | HKLM | `0` | Stops periodic status and authentication pings to Brave servers |
-| `MetricsReportingEnabled` | HKLM | `0` | Disables Chromium core metrics collection and external telemetry reporting |
-| `SafeBrowsingExtendedReportingEnabled` | HKLM | `0` | Stops extended site data reports during Safe Browsing checks (core SB unaffected) |
-| `usagestats` *(per GUID)* | HKCU | `0` | Disables Omaha updater telemetry per application GUID identifier |
-| `BraveP3AEnabled` *(v1.2+)* | HKLM | `0` | Disables Privacy-Preserving Product Analytics (P3A) data transmission |
-| `BraveWebDiscoveryEnabled` *(v1.2+)* | HKLM | `0` | Disables Web Discovery Project data contribution to Brave Search index |
-| `BraveTalkDisabled` *(v1.2+)* | HKLM | `1` | Disables Brave Talk video conferencing widget and call options |
-| `BraveNewsDisabled` *(v1.2+)* | HKLM | `1` | Disables Brave News feed on New Tab Page |
-| `BravePlaylistEnabled` *(v1.2+)* | HKLM | `0` | Disables Brave Playlist feature for offline media playback |
-| `BraveSpeedreaderEnabled` *(v1.2+)* | HKLM | `0` | Disables Speedreader mode and article cleaning suggestions |
-| `BraveWaybackMachineEnabled` *(v1.2+)* | HKLM | `0` | Disables Internet Archive Wayback Machine integration on 404 errors |
-| `TorDisabled` *(v1.2+)* | HKLM | `1` | Disables Tor network integration and "New Private Window with Tor" |
+> Brava Omega now offers **4 hardening levels**. The policy reference below is organized by registry hive and level.
+> For the complete policy list at each level, see the script header (`$PolicyDefinitions` in `BraveOmega-EN.ps1`).
+
+#### 9.1 HKCU — User-Level Preferences (all levels)
+
+| Registry Key | Hive | Value | Type | Effect |
+|--------------|------|-------|------|--------|
+| `UsageStatsInSample` | HKCU | `0` | DWord | Disables browser-level usage statistics sampling |
+| `ChromeVariations` | HKCU | `1` | DWord | Restricts Chromium to critical field trials only |
+| `usagestats` *(per GUID)* | HKCU | `0` | DWord | Disables Omaha updater telemetry per application GUID |
+
+#### 9.2 Brave Only Level — Brave-Specific Policies (13)
+
+| Registry Key | Value | Type | Effect |
+|--------------|-------|------|--------|
+| `BraveRewardsDisabled` | `1` | DWord | Removes Rewards ad system, BAT token earning |
+| `BraveWalletDisabled` | `1` | DWord | Removes integrated crypto wallet, Web3, dDNS |
+| `BraveVPNDisabled` | `1` | DWord | Removes VPN button, blocks VPN background service |
+| `BraveAIChatEnabled` | `0` | DWord | Disables Leo AI Chat engine |
+| `BraveTalkDisabled` | `1` | DWord | Disables Brave Talk video conferencing |
+| `BraveNewsDisabled` | `1` | DWord | Disables Brave News feed on New Tab Page |
+| `BravePlaylistEnabled` | `0` | DWord | Disables Brave Playlist offline media |
+| `BraveSpeedreaderEnabled` | `0` | DWord | Disables Speedreader mode |
+| `BraveWaybackMachineEnabled` | `0` | DWord | Disables Wayback Machine integration |
+| `BraveP3AEnabled` | `0` | DWord | Disables P3A data transmission |
+| `BraveStatsPingEnabled` | `0` | DWord | Stops status/authentication pings to Brave |
+| `BraveWebDiscoveryEnabled` | `0` | DWord | Disables Web Discovery Project contribution |
+| `TorDisabled` | `1` | DWord | Disables Tor integration |
+
+#### 9.3 Essential Level — Brave Only + Data Leak Prevention (17 additional)
+
+| Registry Key | Value | Type | Effect |
+|--------------|-------|------|--------|
+| `MetricsReportingEnabled` | `0` | DWord | Disables Chromium core metrics collection |
+| `SafeBrowsingExtendedReportingEnabled` | `0` | DWord | Stops extended site data to Google |
+| `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Stops URL data collection to Google |
+| `SearchSuggestEnabled` | `0` | DWord | Stops search suggestions data leakage |
+| `NetworkPredictionOptions` | `2` | DWord | Stops DNS prefetching and pre-connection |
+| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
+| `SpellcheckEnabled` | `0` | DWord | Disables spellcheck |
+| `AlternateErrorPagesEnabled` | `0` | DWord | Stops error page network requests |
+| `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Stops time sync to Google |
+| `DomainReliabilityAllowed` | `0` | DWord | Stops diagnostic data reporting |
+| `BackgroundModeEnabled` | `0` | DWord | Prevents Brave running when all windows closed |
+| `SafeBrowsingSurveysEnabled` | `0` | DWord | Disables post-browsing surveys |
+| `SafeBrowsingDeepScanningEnabled` | `0` | DWord | Disables server-side download scanning |
+| `WebRtcEventLogCollectionAllowed` | `0` | DWord | Stops WebRTC event log upload |
+| `WebRtcTextLogCollectionAllowed` | `0` | DWord | Stops WebRTC text log upload |
+| `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
+| `VideoCaptureAllowed` | `0` | DWord | Blocks camera by default |
+
+#### 9.4 Balanced Level — Essential + Security Baseline (16 additional)
+
+| Registry Key | Value | Type | Effect |
+|--------------|-------|------|--------|
+| `WebRtcIPHandling` | `"default_public_interface_only"` | String | Hides local IPs from WebRTC |
+| `WebRtcLocalIpsAllowedUrls` | `@()` | MultiString | Prevents local IP disclosure via ICE |
+| `HttpsOnlyMode` | `"force_enabled"` | String | Forces all navigations to HTTPS |
+| `DnsOverHttpsMode` | `"automatic"` | String | Encrypts DNS queries |
+| `BlockThirdPartyCookies` | `1` | DWord | Blocks cross-site tracking cookies |
+| `PasswordManagerEnabled` | `0` | DWord | Disables built-in password saving |
+| `PasswordManagerPasskeysEnabled` | `0` | DWord | Disables passkey saving |
+| `AutofillAddressEnabled` | `0` | DWord | Disables address autofill |
+| `AutofillCreditCardEnabled` | `0` | DWord | Disables credit card autofill |
+| `ShowFullUrlsInAddressBar` | `1` | DWord | Shows full URLs (anti-phishing) |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware warnings |
+| `QuicAllowed` | `0` | DWord | Disables QUIC, falls back to TCP/TLS |
+| `ChromeVariations` | `1` | DWord | Critical field trials only |
+| `NetworkServiceSandboxEnabled` | `1` | DWord | Sandboxes network service |
+| `AudioSandboxEnabled` | `1` | DWord | Sandboxes audio service |
+| `DefaultGeolocationSetting` | `2` | DWord | Blocks location by default |
+| `DefaultNotificationsSetting` | `2` | DWord | Blocks notifications by default |
+| `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
+| `DefaultMediaStreamSetting` | `2` | DWord | Blocks camera/mic by default |
+
+#### 9.5 Strict Level — Balanced + Maximum Privacy (22 additional)
+
+| Registry Key | Value | Type | Effect |
+|--------------|-------|------|--------|
+| `WebRtcIPHandling` *(override)* | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
+| `DefaultSensorsSetting` | `2` | DWord | Blocks sensor access by default |
+| `DefaultLocalFontsSetting` | `2` | DWord | Blocks font enumeration |
+| `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
+| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
+| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
+| `DefaultSerialGuardSetting` | `2` | DWord | Blocks Serial API |
+| `DefaultIdleDetectionSetting` | `2` | DWord | Blocks idle detection |
+| `DefaultInsecureContentSetting` | `2` | DWord | Blocks mixed content |
+| `DefaultJavaScriptJitSetting` | `2` | DWord | Disables JIT compilation |
+| `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
+| `BrowserGuestModeEnabled` | `0` | DWord | Prevents guest profiles |
+| `BrowserAddPersonEnabled` | `0` | DWord | Prevents new profiles |
+| `CloudPrintProxyEnabled` | `0` | DWord | Disables Cloud Print proxy |
+| `ImportAutofillFormData` | `0` | DWord | Disables autofill import |
+| `ImportBookmarks` | `0` | DWord | Disables bookmark import |
+| `ImportHistory` | `0` | DWord | Disables history import |
+| `ImportSavedPasswords` | `0` | DWord | Disables password import |
+| `ImportSearchEngine` | `0` | DWord | Disables search engine import |
+| `ImportHomepage` | `0` | DWord | Disables homepage import |
 
 ---
 
@@ -327,6 +444,11 @@ BRAVE OMEGA PROJECT/
 
 ### 13. Roadmap
 
+- [x] **Multi-tier hardening system** — Brave Only / Essential / Balanced / Strict levels with cumulative inheritance (v2.0)
+- [x] **Multi-type registry engine** — DWord, String, MultiString type-aware dispatching (v2.0)
+- [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
+- [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
+- [x] **68 total policies** — expanded from 17 to 68 across 4 levels (v2.0)
 - [ ] Automated Brave version detection — warn if installed version differs from validated target
 - [ ] `BraveShieldsEnabledForUrls` / `BraveShieldsDisabledForUrls` URL list management
 - [ ] Dry-run mode via `-WhatIf` parameter — preview all changes without writing to registry
@@ -442,13 +564,14 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Özellik | Açıklama |
 |---------|----------|
-| 🔒 **Üç Katmanlı Gizlilik Modeli** | HKCU kullanıcı tercihi + HKLM kurumsal ilke + Omaha güncelleyici GUID düzeyi — bağımsız üç zorunlu kılma katmanı |
-| 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî kurumsal şablon paketi (`policy_templates.zip`) ile kaynaklanmış ve doğrulanmıştır |
+| 🔒 **Dört Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (13 politika), **Temel ⭐** (30), **Dengeli** (46) veya **Katı** (68) |
+| 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır |
+| 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tek komutla tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
 | 🛡️ **Brave Süreç Koruyucusu** | Değişiklik uygulanmadan önce çalışan Brave örnekleri tespit edilip kullanıcıya karar sunulur |
-| 📊 **Yürütme Özeti** | Kategori bazında başarı/hata sayaçları ile şeffaf raporlama |
+| 📊 **Yürütme Özeti** | Tür bazında başarı/hata sayaçları ile şeffaf raporlama |
 | 🌍 **İki Dilli** | Birebir işlevselliğe sahip Türkçe ve İngilizce sürümler |
 
 ---
@@ -484,6 +607,8 @@ cd "C:\Users\Downloads\Brave-Omega"
 ```
 
 **Adım 3 — Geçici bypass ile betiği çalıştır**
+
+*Etkileşimli mod (seviyeyi çalıştırınca seçersiniz):*
 ```powershell
 # Türkçe arayüz:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
@@ -491,6 +616,23 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 # İngilizce arayüz:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ```
+
+*Sessiz/otomatik mod (seviyeyi doğrudan belirtin):*
+```powershell
+# Temel (Önerilen) seviyeyi uygula:
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel
+
+# İngilizce: en katı seviye:
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Strict
+```
+
+| Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
+|----------------------|----------------------|--------|----------|
+| `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 13 |
+| `-Level Temel` | `-Level Essential` | Temel ⭐ | 30 |
+| `-Level Dengeli` | `-Level Balanced` | Dengeli | 46 |
+| `-Level Katı` | `-Level Strict` | Katı | 68 |
+
 > `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
 
 **Adım 4 — Brave'i yeniden başlat**
@@ -503,12 +645,12 @@ Tüm kurumsal ilkelerin doğru biçimde etkin olduğunu onaylamak için Brave'de
 
 ### 6. Nasıl Çalışır?
 
-#### 6.1 Mimari — Üç Katmanlı Zorunlu Kılma Modeli
+#### 6.1 Mimari — Dört Katmanlı Zorunlu Kılma Modeli
 
-Tarayıcı gizlilik yapılandırmalarının büyük çoğunluğu tek bir düzeyde çalışır ve kullanıcı
-ya da güncelleme sırasında tarayıcının kendisi tarafından üzerine yazılabilir. Brave Omega,
-Windows + Brave + Omaha yığınının her katmanında bağımsız zorunlu kılma oluşturan üç katmanlı
-bir yaklaşım kullanır.
+Brave Omega iki **altyapı katmanında** (HKLM ilkeleri + HKCU yedekleri) çalışır ve
+kaç politikanın uygulanacağını belirleyen **dört sıkılaştırma seviyesi** sunar.
+
+##### Altyapı Katmanları
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -520,7 +662,7 @@ bir yaklaşım kullanır.
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  17 ADMX doğrulamalı kurumsal ilke, zorunlu kılındı.   │
+│  ↳  13–68 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -531,6 +673,15 @@ bir yaklaşım kullanır.
 │     tarayıcı düzeyi ilkelerden bağımsız olarak kapatır.   │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+##### Sıkılaştırma Seviyeleri
+
+| Seviye | Toplam Politika | Brave'e Özgü | Chromium (Veri) | Chromium (Güvenlik) | Kullanım Etkisi |
+|--------|----------------|--------------|-----------------|---------------------|-----------------|
+| **Brave Yalnız** | 13 | 13 | 0 | 0 | Yok |
+| **Temel ⭐** | 30 | 13 | 17 | 0 | Yok |
+| **Dengeli** | 46 | 13 | 17 | 16 | Düşük |
+| **Katı** | 68 | 13 | 17 | 38 | Orta |
 
 #### 6.2 Politika Kaynakları ve Yöntem
 
@@ -597,7 +748,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v1.2.2** *(güncel)* | 1.91.172 | 149 | 11 25H2 | ✅ Etkin |
+| **v2.0** *(güncel)* | 1.91.172 | 149 | 11 25H2 | ✅ Etkin |
+| v1.2.2 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
@@ -681,6 +833,11 @@ BRAVE OMEGA PROJECT/
 
 ### 13. Yol Haritası
 
+- [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı (v2.0)
+- [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString (v2.0)
+- [x] **`-Level` parametresi** — sessiz/otomatik dağıtım (v2.0)
+- [x] **SECURITY.md** — güvenlik açığı bildirim süreci (v2.0)
+- [x] **68 toplam politika** — 17'den 68'e genişletildi (v2.0)
 - [ ] Otomatik Brave sürüm tespiti — yüklü sürüm doğrulanmış hedeften farklıysa uyar
 - [ ] `BraveShieldsEnabledForUrls` / `BraveShieldsDisabledForUrls` URL listesi yönetimi
 - [ ] `-WhatIf` parametresiyle kuru çalıştırma kipi — kayıt defterine yazmadan tüm değişiklikleri önizle

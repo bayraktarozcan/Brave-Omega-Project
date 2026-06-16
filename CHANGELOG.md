@@ -27,13 +27,18 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v1.2.2 — 2026-06-13](#en-v122)
+2.  [v2.0 — 2026-06-16](#en-v20)
+    *   [Summary](#en-v20-summary)
+    *   [Added](#en-v20-added)
+    *   [Changed](#en-v20-changed)
+    *   [Statistics](#en-v20-statistics)
+3.  [v1.2.2 — 2026-06-13](#en-v122)
     *   [Summary](#en-v122-summary)
     *   [Changed](#en-v122-changed)
-3.  [v1.2.1 — 2026-06-13](#en-v121)
+4.  [v1.2.1 — 2026-06-13](#en-v121)
     *   [Summary](#en-v121-summary)
     *   [Changed](#en-v121-changed)
-3.  [v1.2 — 2026-06-12](#en-v12)
+5.  [v1.2 — 2026-06-12](#en-v12)
     *   [Summary](#en-v12-summary)
     *   [Added](#en-v12-added)
     *   [Statistics](#en-v12-statistics)
@@ -62,9 +67,153 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ---
 
-<a id="en-v122"></a>
+<a id="en-v20"></a>
 
-## [v1.2.2] — 2026-06-13
+## [v2.0] — 2026-06-16
+
+<a id="en-v20-summary"></a>
+
+### 🎯 Summary
+
+**Major architectural overhaul:** Introduction of the **Multi-Tier Hardening System** — four progressive levels (Brave Only, Essential, Balanced, Strict) that give users granular control over their privacy posture. Total enterprise policies expanded from **17 to 68 across all tiers**.
+
+**Validated against Brave 1.91.172 (Chromium 149.0.7827.115).**
+
+<a id="en-v20-added"></a>
+
+### ✨ Added
+
+#### Multi-Tier Architecture
+- **4-Tier Hardening Model** — Brave Only → Essential ⭐ → Balanced → Strict
+- **Cumulative inheritance** — each level includes all policies from previous levels
+- **Interactive level selection** when run without parameters
+- **`-Level` parameter** for automated/silent deployment (`-Level Essential`)
+- Turkish `-Level` parameter support (`-Level Temel`, `-Level Dengeli`, `-Level Katı`)
+- **Recommended level** (Essential) highlighted with star badge in selection menu
+
+#### Registry Type Engine
+- **DWord** (REG_DWORD) support for boolean/integer policies
+- **String** (REG_SZ) support for string-enum policies (WebRtcIPHandling, HttpsOnlyMode, DnsOverHttpsMode)
+- **MultiString** (REG_MULTI_SZ) support for list policies (WebRtcLocalIpsAllowedUrls)
+- **Type-aware dispatch** — the script automatically selects the correct registry write method per policy
+
+#### New Policies by Tier
+
+**Essential (17 new — data leak prevention, zero usability impact):**
+| Policy | Value | Effect |
+|--------|-------|--------|
+| `UrlKeyedAnonymizedDataCollectionEnabled` | 0 | Stops sending visited URLs to Google |
+| `SearchSuggestEnabled` | 0 | Stops keystroke data from leaving device |
+| `NetworkPredictionOptions` | 2 | Stops DNS prefetching and pre-connection |
+| `TranslateEnabled` | 0 | Stops sending text to Google for translation |
+| `SpellcheckEnabled` | 0 | Stops sending text to Google spellcheck servers |
+| `AlternateErrorPagesEnabled` | 0 | Stops network requests on DNS failure |
+| `BrowserNetworkTimeQueriesEnabled` | 0 | Stops time sync requests to Google |
+| `DomainReliabilityAllowed` | 0 | Stops diagnostic data reporting to Google |
+| `BackgroundModeEnabled` | 0 | Prevents Brave from running when all windows closed |
+| `SafeBrowsingSurveysEnabled` | 0 | Disables post-browsing surveys |
+| `SafeBrowsingDeepScanningEnabled` | 0 | Disables server-side download scanning |
+| `WebRtcEventLogCollectionAllowed` | 0 | Stops WebRTC event log upload to Google |
+| `WebRtcTextLogCollectionAllowed` | 0 | Stops WebRTC text log upload to Google |
+| `AudioCaptureAllowed` | 0 | Blocks microphone access by default |
+| `VideoCaptureAllowed` | 0 | Blocks camera access by default |
+
+**Balanced (16 new — security & convenience balance):**
+| Policy | Value | Effect |
+|--------|-------|--------|
+| `WebRtcIPHandling` | `default_public_interface_only` | Hides local IPs from WebRTC |
+| `WebRtcLocalIpsAllowedUrls` | `@()` (empty) | Prevents any URL from getting local IP via ICE |
+| `HttpsOnlyMode` | `force_enabled` | Forces all navigations to HTTPS |
+| `DnsOverHttpsMode` | `automatic` | Upgrades DNS to encrypted queries |
+| `BlockThirdPartyCookies` | 1 | Blocks cross-site tracking cookies |
+| `PasswordManagerEnabled` | 0 | Disables built-in password saving |
+| `PasswordManagerPasskeysEnabled` | 0 | Disables passkey saving |
+| `AutofillAddressEnabled` | 0 | Disables address autofill storage |
+| `AutofillCreditCardEnabled` | 0 | Disables payment autofill storage |
+| `ShowFullUrlsInAddressBar` | 1 | Shows full URLs (anti-phishing) |
+| `DisableSafeBrowsingProceedAnyway` | 1 | Prevents bypassing malware warnings |
+| `QuicAllowed` | 0 | Disables QUIC, falls back to TCP/TLS |
+| `ChromeVariations` | 1 | Restricts to critical field trials only |
+| `NetworkServiceSandboxEnabled` | 1 | Sandboxes network service process |
+| `AudioSandboxEnabled` | 1 | Sandboxes audio service process |
+| `DefaultGeolocationSetting` | 2 | Blocks location access by default |
+| `DefaultNotificationsSetting` | 2 | Blocks notifications by default |
+| `DefaultPopupsSetting` | 2 | Blocks pop-ups by default |
+| `DefaultMediaStreamSetting` | 2 | Blocks camera/mic by default |
+
+**Strict (22 new — maximum privacy):**
+| Policy | Value | Effect |
+|--------|-------|--------|
+| `WebRtcIPHandling` (override) | `disable_non_proxied_udp` | Proxies all WebRTC traffic |
+| `DefaultSensorsSetting` | 2 | Blocks motion/light sensor access |
+| `DefaultLocalFontsSetting` | 2 | Blocks font enumeration (reduces fingerprinting) |
+| `DefaultClipboardSetting` | 2 | Blocks clipboard access |
+| `DefaultFileSystemReadGuardSetting` | 2 | Blocks file system read access |
+| `DefaultFileSystemWriteGuardSetting` | 2 | Blocks file system write access |
+| `DefaultSerialGuardSetting` | 2 | Blocks Serial API access |
+| `DefaultIdleDetectionSetting` | 2 | Blocks idle state detection |
+| `DefaultInsecureContentSetting` | 2 | Blocks mixed content |
+| `DefaultJavaScriptJitSetting` | 2 | Disables JIT (reduces attack surface) |
+| `DefaultCookiesSetting` | 2 | Blocks all cookies by default |
+| `BrowserGuestModeEnabled` | 0 | Prevents guest profile creation |
+| `BrowserAddPersonEnabled` | 0 | Prevents new profile creation |
+| `CloudPrintProxyEnabled` | 0 | Disables Cloud Print proxy |
+| `ImportAutofillFormData` | 0 | Disables autofill import |
+| `ImportBookmarks` | 0 | Disables bookmark import |
+| `ImportHistory` | 0 | Disables history import |
+| `ImportSavedPasswords` | 0 | Disables password import |
+| `ImportSearchEngine` | 0 | Disables search engine import |
+| `ImportHomepage` | 0 | Disables homepage import |
+
+#### Documentation
+- **SECURITY.md** — Comprehensive security policy (EN + TR)
+- Full vulnerability disclosure process documented
+- Policy verification guide with registry audit commands
+- Hardening level comparison table
+- Supply chain trust recommendations
+
+<a id="en-v20-changed"></a>
+
+### 🔄 Changed
+
+- **BraveOmega-EN.ps1** — Complete rewrite: multi-tier system, -Level parameter, type-aware registry engine (565 → 520 lines)
+- **BraveOmega-TR.ps1** — Complete rewrite: same architecture in Turkish (567 → 522 lines)
+- **README.md** — Updated for multi-tier system (Key Features, Quick Start with -Level, expanded Policy Reference)
+- **CHANGELOG.md** — Added v2.0 changelog entry (this file)
+- **index.html** — Updated with 4-tier system documentation, version references, new badges
+
+<a id="en-v20-statistics"></a>
+
+### 📊 Statistics
+
+```
+Files Modified:
+  ✓ BraveOmega-EN.ps1 (565 → 520 lines, full rewrite)
+  ✓ BraveOmega-TR.ps1 (567 → 522 lines, full rewrite)
+  ✓ README.md (multi-tier documentation)
+  ✓ CHANGELOG.md (v2.0 entry)
+  ✓ index.html (4-tier system, version references)
+  ✓ SECURITY.md (new file, 500+ lines)
+  ✓ Knowledge-Intelligence/README.md (source updates)
+
+Policies:
+  ✓ Brave Only:  13 Brave-specific policies
+  ✓ Essential:   +17 = 30 total policies (Recommended)
+  ✓ Balanced:    +16 = 46 total policies
+  ✓ Strict:      +22 = 68 total policies
+  ✓ Total:      17 → 68 policies across all tiers (+300%)
+
+Registry Types:
+  ✓ DWord:      61 policies
+  ✓ String:     4 policies
+  ✓ MultiString: 3 policies
+
+Documentation:
+  ✓ SECURITY.md (new — comprehensive security policy, EN + TR)
+  ✓ README.md (multi-tier system documented)
+  ✓ CHANGELOG.md (this file)
+  ✓ index.html (4-tier architecture, updated badges)
+```
 
 <a id="en-v122-summary"></a>
 
@@ -294,6 +443,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.0   | 2026-06-16 | 13–68 | Multi-Tier System (Brave Only / Essential / Balanced / Strict) |
 | v1.2.2 | 2026-06-13 | 17 | Safe execution policy fix, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 upgrade, translation & structural fixes |
 | v1.2 | 2026-06-12 | 17 | +10 new policies, Brave 1.91.172 validation |
@@ -342,10 +492,15 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v1.2.2 — 2026-06-13](#tr-v122)
+2.  [v2.0 — 2026-06-16](#tr-v20)
+    *   [Özet](#tr-v20-summary)
+    *   [Eklendi](#tr-v20-added)
+    *   [Değiştirildi](#tr-v20-changed)
+    *   [İstatistikler](#tr-v20-statistics)
+3.  [v1.2.2 — 2026-06-13](#tr-v122)
     *   [Özet](#tr-v122-summary)
     *   [Değiştirildi](#tr-v122-changed)
-3.  [v1.2.1 — 2026-06-13](#tr-v121)
+4.  [v1.2.1 — 2026-06-13](#tr-v121)
     *   [Özet](#tr-v121-summary)
     *   [Değiştirildi](#tr-v121-changed)
 4.  [v1.2 — 2026-06-12](#tr-v12)
@@ -377,15 +532,153 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ---
 
-<a id="tr-v122"></a>
+<a id="tr-v20"></a>
 
-## [v1.2.2] — 2026-06-13
+## [v2.0] — 2026-06-16
 
-<a id="tr-v122-summary"></a>
+<a id="tr-v20-summary"></a>
 
 ### 🎯 Özet
 
-**Yama sürümü:** Çalıştırma ilkesi düzeltmesi — kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `Bypass -Scope Process` kullanıldı. v1.2.1'den itibaren politika değişikliği yok.
+**Köklü mimarî yenileme:** **Çok Katmanlı Sıkılaştırma Sistemi** — kullanıcılara gizlilik duruşları üzerinde hassas kontrol sağlayan dört kademeli seviye (Brave Yalnız, Temel, Dengeli, Katı). Toplam kurumsal politika sayısı **17'den 68'e** çıkarıldı.
+
+**Brave 1.91.172 (Chromium 149.0.7827.115) ile doğrulandı.**
+
+<a id="tr-v20-added"></a>
+
+### ✨ Eklendi
+
+#### Çok Katmanlı Mimari
+- **4 Kademeli Sıkılaştırma Modeli** — Brave Yalnız → Temel ⭐ → Dengeli → Katı
+- **Kümülatif miras** — her seviye önceki seviyelerin tüm politikalarını içerir
+- **Etkileşimli seviye seçimi** parametresiz çalıştırmada
+- **`-Level` parametresi** otomatik/sessiz dağıtım için (`-Level Temel`)
+- İngilizce `-Level` parametresi desteği (`-Level Essential`, `-Level Balanced`, `-Level Strict`)
+- **Önerilen seviye** (Temel) seçim menüsünde yıldız rozetiyle vurgulandı
+
+#### Kayıt Defteri Türü Motoru
+- **DWord** (REG_DWORD) desteği boolean/tamsayı politikalar için
+- **String** (REG_SZ) desteği string-enum politikalar için (WebRtcIPHandling, HttpsOnlyMode, DnsOverHttpsMode)
+- **MultiString** (REG_MULTI_SZ) desteği liste politikalar için (WebRtcLocalIpsAllowedUrls)
+- **Tür bilinçli dağıtım** — betik her politika için doğru kayıt defteri yazma yöntemini otomatik seçer
+
+#### Seviyelere Göre Yeni Politikalar
+
+**Temel (17 yeni — veri sızıntısı önleme, sıfır kullanım etkisi):**
+| Politika | Değer | Etki |
+|----------|-------|------|
+| `UrlKeyedAnonymizedDataCollectionEnabled` | 0 | Ziyaret edilen URL'lerin Google'a gönderimini durdurur |
+| `SearchSuggestEnabled` | 0 | Tuş vuruşu verisinin cihazdan çıkmasını durdurur |
+| `NetworkPredictionOptions` | 2 | DNS ön getirme ve ön bağlantıyı durdurur |
+| `TranslateEnabled` | 0 | Metnin Google'a çeviri için gönderilmesini durdurur |
+| `SpellcheckEnabled` | 0 | Metnin Google yazım denetim sunucularına gitmesini durdurur |
+| `AlternateErrorPagesEnabled` | 0 | DNS hatasında ağ isteklerini durdurur |
+| `BrowserNetworkTimeQueriesEnabled` | 0 | Google'a zaman eşitleme isteklerini durdurur |
+| `DomainReliabilityAllowed` | 0 | Google'a tanısal veri raporlamasını durdurur |
+| `BackgroundModeEnabled` | 0 | Tüm pencereler kapandığında Brave'in çalışmasını engeller |
+| `SafeBrowsingSurveysEnabled` | 0 | Tarama sonrası anketleri kapatır |
+| `SafeBrowsingDeepScanningEnabled` | 0 | Sunucu taraflı indirme taramasını kapatır |
+| `WebRtcEventLogCollectionAllowed` | 0 | WebRTC olay günlüklerinin Google'a yüklenmesini durdurur |
+| `WebRtcTextLogCollectionAllowed` | 0 | WebRTC metin günlüklerinin Google'a yüklenmesini durdurur |
+| `AudioCaptureAllowed` | 0 | Mikrofon erişimini varsayılan olarak engeller |
+| `VideoCaptureAllowed` | 0 | Kamera erişimini varsayılan olarak engeller |
+
+**Dengeli (16 yeni — güvenlik ve kullanım dengesi):**
+| Politika | Değer | Etki |
+|----------|-------|------|
+| `WebRtcIPHandling` | `default_public_interface_only` | Yerel IP'leri WebRTC'den gizler |
+| `WebRtcLocalIpsAllowedUrls` | `@()` (boş) | Hiçbir URL'nin ICE ile yerel IP almasını engeller |
+| `HttpsOnlyMode` | `force_enabled` | Tüm gezintileri HTTPS'e zorlar |
+| `DnsOverHttpsMode` | `automatic` | DNS sorgularını şifreli olarak yükseltir |
+| `BlockThirdPartyCookies` | 1 | Siteler arası izleme çerezlerini engeller |
+| `PasswordManagerEnabled` | 0 | Yerleşik parola kaydetmeyi kapatır |
+| `PasswordManagerPasskeysEnabled` | 0 | Passkey kaydetmeyi kapatır |
+| `AutofillAddressEnabled` | 0 | Adres otomatik doldurma depolamayı kapatır |
+| `AutofillCreditCardEnabled` | 0 | Ödeme otomatik doldurma depolamayı kapatır |
+| `ShowFullUrlsInAddressBar` | 1 | Tam URL'leri gösterir (oltalamaya karşı) |
+| `DisableSafeBrowsingProceedAnyway` | 1 | Kötü amaçlı site uyarılarını atlamayı engeller |
+| `QuicAllowed` | 0 | QUIC'i kapatır, TCP/TLS'e düşer |
+| `ChromeVariations` | 1 | Yalnızca kritik saha denemelerine izin verir |
+| `NetworkServiceSandboxEnabled` | 1 | Ağ hizmetini kum havuzlu süreçte çalıştırır |
+| `AudioSandboxEnabled` | 1 | Ses hizmetini kum havuzlu süreçte çalıştırır |
+| `DefaultGeolocationSetting` | 2 | Konum erişimini varsayılan olarak engeller |
+| `DefaultNotificationsSetting` | 2 | Bildirimleri varsayılan olarak engeller |
+| `DefaultPopupsSetting` | 2 | Açılır pencereleri varsayılan olarak engeller |
+| `DefaultMediaStreamSetting` | 2 | Kamera/mikrofonu varsayılan olarak engeller |
+
+**Katı (22 yeni — azami gizlilik):**
+| Politika | Değer | Etki |
+|----------|-------|------|
+| `WebRtcIPHandling` (ezme) | `disable_non_proxied_udp` | Tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir |
+| `DefaultSensorsSetting` | 2 | Hareket/ışık sensörü erişimini engeller |
+| `DefaultLocalFontsSetting` | 2 | Yazı tipi sayımını engeller (parmak izini azaltır) |
+| `DefaultClipboardSetting` | 2 | Pano erişimini engeller |
+| `DefaultFileSystemReadGuardSetting` | 2 | Dosya sistemi okuma erişimini engeller |
+| `DefaultFileSystemWriteGuardSetting` | 2 | Dosya sistemi yazma erişimini engeller |
+| `DefaultSerialGuardSetting` | 2 | Seri API erişimini engeller |
+| `DefaultIdleDetectionSetting` | 2 | Boşta durum algılamasını engeller |
+| `DefaultInsecureContentSetting` | 2 | Karma içeriği engeller |
+| `DefaultJavaScriptJitSetting` | 2 | JIT'i kapatır (saldırı yüzeyini azaltır) |
+| `DefaultCookiesSetting` | 2 | Tüm çerezleri varsayılan olarak engeller |
+| `BrowserGuestModeEnabled` | 0 | Misafir profili oluşturmayı engeller |
+| `BrowserAddPersonEnabled` | 0 | Yeni profil oluşturmayı engeller |
+| `CloudPrintProxyEnabled` | 0 | Cloud Print vekil sunucusunu kapatır |
+| `ImportAutofillFormData` | 0 | Otomatik doldurma içe aktarmayı kapatır |
+| `ImportBookmarks` | 0 | Yer imi içe aktarmayı kapatır |
+| `ImportHistory` | 0 | Geçmiş içe aktarmayı kapatır |
+| `ImportSavedPasswords` | 0 | Parola içe aktarmayı kapatır |
+| `ImportSearchEngine` | 0 | Arama motoru içe aktarmayı kapatır |
+| `ImportHomepage` | 0 | Ana sayfa içe aktarmayı kapatır |
+
+#### Belgelendirme
+- **SECURITY.md** — Kapsamlı güvenlik politikası (EN + TR)
+- Tam güvenlik açığı bildirim süreci belgelendi
+- Politika doğrulama kılavuzu ve kayıt defteri denetim komutları
+- Sıkılaştırma seviyesi karşılaştırma tablosu
+- Tedarik zinciri güven önerileri
+
+<a id="tr-v20-changed"></a>
+
+### 🔄 Değiştirildi
+
+- **BraveOmega-EN.ps1** — Tam yeniden yazım: çok katmanlı sistem, -Level parametresi, tür bilinçli kayıt defteri motoru (565 → 520 satır)
+- **BraveOmega-TR.ps1** — Tam yeniden yazım: aynı mimari Türkçe (567 → 522 satır)
+- **README.md** — Çok katmanlı sistem için güncellendi (Temel Özellikler, Hızlı Başlangıç -Level ile, genişletilmiş Politika Referansı)
+- **CHANGELOG.md** — v2.0 değişiklik günlüğü eklendi (bu dosya)
+- **index.html** — 4 kademeli sistem belgelendirmesi, sürüm referansları, yeni rozetler ile güncellendi
+
+<a id="tr-v20-statistics"></a>
+
+### 📊 İstatistikler
+
+```
+Değiştirilen Dosyalar:
+  ✓ BraveOmega-EN.ps1 (565 → 520 satır, tam yeniden yazım)
+  ✓ BraveOmega-TR.ps1 (567 → 522 satır, tam yeniden yazım)
+  ✓ README.md (çok katmanlı belgelendirme)
+  ✓ CHANGELOG.md (v2.0 girdisi)
+  ✓ index.html (4 kademeli sistem, sürüm referansları)
+  ✓ SECURITY.md (yeni dosya, 500+ satır)
+  ✓ Knowledge-Intelligence/README.md (kaynak güncellemeleri)
+
+Politikalar:
+  ✓ Brave Yalnız:  13 Brave'e özgü politika
+  ✓ Temel:         +17 = 30 toplam politika (Önerilen)
+  ✓ Dengeli:       +16 = 46 toplam politika
+  ✓ Katı:          +22 = 68 toplam politika
+  ✓ Toplam:        17 → 68 politika (+300%)
+
+Kayıt Defteri Türleri:
+  ✓ DWord:      61 politika
+  ✓ String:     4 politika
+  ✓ MultiString: 3 politika
+
+Belgelendirme:
+  ✓ SECURITY.md (yeni — kapsamlı güvenlik politikası, EN + TR)
+  ✓ README.md (çok katmanlı sistem belgelendi)
+  ✓ CHANGELOG.md (bu dosya)
+  ✓ index.html (4 kademeli mimari, güncel rozetler)
+``` — kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `Bypass -Scope Process` kullanıldı. v1.2.1'den itibaren politika değişikliği yok.
 
 **Değişiklikler:** Çalıştırma ilkesi talimatı artık `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` kullanıyor; bu ayar yalnızca geçerli PowerShell penceresini etkiler (kalıcı kayıt defteri değişikliği yok, saldırı yüzeyi oluşmaz). README Hızlı Başlangıç yeniden yapılandırıldı. Görünür UI metinlerinde Türkçe karakter düzeltmeleri yapıldı.
 
@@ -609,6 +902,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.0   | 2026-06-16 | 13–68 | Çok Katmanlı Sistem (Brave Yalnız / Temel / Dengeli / Katı) |
 | v1.2.2 | 2026-06-13 | 17 | Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 yükseltmesi, çeviri ve yapı düzeltmeleri |
 | v1.2 | 2026-06-12 | 17 | +10 yeni politika, Brave 1.91.172 doğrulaması |

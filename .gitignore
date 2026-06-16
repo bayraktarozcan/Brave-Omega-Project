@@ -108,14 +108,16 @@ Wiki/
 # README.md
 # LICENSE
 
-# 9. INTELLIGENCE LAYERS / ZEKÂ KATMANLARI
+# 9. INTERNAL CONTEXT / DAHİLİ BAĞLAM
 # ─────────────────────────────────────────────────────────────────────────────
-# [EN] AI assistant context and knowledge layers — never tracked, never committed,
-#     never mentioned in any public output. Location-independent patterns ensure
-#     protection even if folders are moved or renamed.
-# [TR] AI asistan bağlam ve bilgi katmanları — asla takip edilmez, asla commit
-#     edilmez, hiçbir genel çıktıda anılmaz. Konum bağımsız desenlerle taşıma
-#     veya yeniden adlandırmaya karşı dahi korumalıdır.
+# [EN] NEVER referenced, tracked, committed, or pushed — not by name, not by
+#     path, not by implication. No file under version control contains or
+#     depends on content from these directories. Cross-check any PR diff for
+#     violations before merging.
+# [TR] Asla ismen, yoldan veya ima yoluyla referans gösterilmez, izlenmez,
+#     commit edilmez veya itelenmez. Sürüm kontrolündeki hiçbir dosya bu
+#     dizinlerden içerik barındırmaz veya bunlara bağımlı değildir. Her PR
+#     farkında ihlal olup olmadığı çapraz kontrol edilmelidir.
 **/Personal-Intelligence/
 **/Project-Intelligence/
 **/Business-Intelligence/

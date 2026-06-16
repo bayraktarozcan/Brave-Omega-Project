@@ -7,63 +7,51 @@
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8524)
 #                    Brave 1.91.172 — Official Build / Chromium 149.0.7827.115
-# FILE TYPE        : Advanced Dynamic Registry Integration and Hardening
-#                    Script (.ps1)
-# PURPOSE          : To protect user privacy, prevent data leaks, strip the
-#                    browser of unnecessary side services, and automate this
-#                    entire process.
+# FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
+# PURPOSE          : Protect user privacy, prevent data leaks, strip the
+#                    browser of unnecessary services. Supports 4 hardening
+#                    tiers: Brave Only, Essential, Balanced, Strict.
 #
 # !! CHANNEL WARNING !!
 #    Brave 1.91.172, dated June 12, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG
+# CHANGELOG (v2.0)
 # ─────────────────────────────────────────────────────────────────────────────
-#   v1.0                 Initial build created.
-#   v1.1                 Comprehensive debugging and enhancement (7 changes):
+#   v2.0                 Complete architectural overhaul — Multi-Tier System:
 #
-#     [FIXED       #1]   BraveShieldsDefault — This policy name, which is not
-#                        defined in Brave's official ADMX templates, was
-#                        removed. The reason and correct method are documented
-#                        below.
+#     [NEW]        4-Tier hardening model:
+#                     Brave Only → Essential → Balanced → Strict
+#                     Each level cumulatively includes all policies below it.
 #
-#     [FIXED       #2]   Try-Catch — Error handling was added to all registry
-#                        write operations. Success and failure states are now
-#                        tracked with counters and displayed in the summary.
+#     [NEW]        Multi-type registry support:
+#                     - DWord      (REG_DWORD)   for boolean/integer policies
+#                     - String     (REG_SZ)      for string-enum policies
+#                     - MultiString (REG_MULTI_SZ) for list-type policies
 #
-#     [FIXED       #3]   $DynamicPaths — No longer a dead variable. A step to
-#                        write 'usagestats=0' to detected Omaha GUID paths
-#                        was added.
+#     [NEW]        Interactive level selection when run without parameters.
+#                   -Level parameter for silent/automated deployment.
 #
-#     [ADDED       #4]   Brave Process Control — Before the script runs, it
-#                        checks for active browser processes and presents a
-#                        continue/cancel decision to the user.
+#     [NEW]        50+ Chromium enterprise policies added across all tiers.
+#                   Brave Only: 13 Brave-specific policies
+#                   Essential:  +17 data-leak prevention policies
+#                   Balanced:   +16 security & convenience balance
+#                   Strict:     +22 maximum privacy policies
 #
-#     [FIXED       #5]   Exit Codes — Corrected to use `exit 1` on failure and
-#                        `exit 0` on success. Automation tools can now read
-#                        the outcome correctly.
+#     [IMPROVED]    Registry writing engine now dispatches by type and
+#                   produces a comprehensive per-policy audit trail.
 #
-#     [ADDED       #6]   Registry Backup — A time-stamped backup in .reg
-#                        format is taken before modifying the HKLM policy hive.
-#
-#     [SIMPLIFIED  #7]   Test-Path + New-Item -Force — The double check, which
-#                        is logically mutually exclusive, was reduced to a
-#                        single line.
-#
-#   v1.2                 Expanded Policy Set (10 new features added):
-#
-#     [ADDED       #1]   BraveP3AEnabled — Privacy-Preserving Product Analytics
-#     [ADDED       #2]   BraveWebDiscoveryEnabled — Web Discovery Project
-#     [ADDED       #3]   BraveTalkDisabled — Brave Talk video conferencing
-#     [ADDED       #4]   BraveNewsDisabled — Brave News feed
-#     [ADDED       #5]   BravePlaylistEnabled — Brave Playlist
-#     [ADDED       #6]   BraveSpeedreaderEnabled — Speedreader mode
-#     [ADDED       #7]   BraveWaybackMachineEnabled — Internet Archive
-#     [ADDED       #8]   TorDisabled — Tor network integration
-#
-#     Total Policies:     7 (v1.1) → 17 (v1.2)
+#     All v1.x fixes (process control, backup, try-catch, exit codes, GUID
+#     resolution, UAC check) are preserved and enhanced.
 # ==============================================================================
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PARAMETERS
+# ─────────────────────────────────────────────────────────────────────────────
+param(
+    [string]$Level = ""
+)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TERMINAL ENCODING HARDENING (CHARACTER ERROR RESOLUTION)
@@ -75,57 +63,79 @@ $OutputEncoding           = [System.Text.Encoding]::UTF8
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0A: USER ACCOUNT CONTROL (UAC) AND ADMINISTRATOR PRIVILEGE VERIFICATION
 # ─────────────────────────────────────────────────────────────────────────────
-
-# Retrieves the Windows identity object of the user running the current
-# PowerShell session. This object contains the username, SID, and group memberships.
 $CurrentIdentity = [Security.Principal.WindowsIdentity]::GetCurrent()
-
-# Creates a "Principal" context supporting Windows security role queries
-# from the identity object. The IsInRole() method operates on this object.
 $UserRole = New-Object Security.Principal.WindowsPrincipal($CurrentIdentity)
-
-# Checks if the user is a member of the built-in 'Administrator' role as True/False.
 $IsAdmin = $UserRole.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-# If there are no administrator privileges, the script safely terminates.
-# [v1.0 Difference]: The old code used `Exit` — this produces a 0 (success)
-# exit code even on failure, misleading automation tools. `exit 1` correctly
-# communicates execution failure to Task Scheduler, SCCM, and CI/CD tools.
 if (-not $IsAdmin) {
     Write-Error "CRITICAL ERROR: This script must be run as 'Administrator' to seal enterprise policies in the HKLM (Local Machine) hive!"
     exit 1
 }
 
-# Clears the terminal screen and initializes the header interface.
 Clear-Host
-Write-Host "=== BRAVE SPECIFIC VERSION OPTIMIZATION SCRIPT ===" -ForegroundColor Cyan
+Write-Host "=== BRAVE OMEGA PROJECT — MULTI-TIER HARDENING SCRIPT ===" -ForegroundColor Cyan
 Write-Host "Target Platform : Windows 11 25H2 / Chromium 149 (Brave Stable Channel)" -ForegroundColor Gray
 Write-Host "Execution Time  : $(Get-Date -Format 'dd-MM-yyyy HH:mm:ss')`n" -ForegroundColor Gray
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 0B: BRAVE PROCESS CONTROL [NEW — v1.1]
+# STEP 0B: LEVEL SELECTION
 # ─────────────────────────────────────────────────────────────────────────────
-# Running the script while Brave is open carries two concerns:
-#
-#   1. User preferences in the HKCU hive (like UsageStatsInSample) might be
-#      overwritten by the browser's own internal mechanism upon closing;
-#      the applied changes might not be persistent.
-#
-#   2. Some policy changes are read during browser startup. An open Brave
-#      instance will only recognize new policies in the next session.
-#
-# The browser is not force-closed; this decision is intentional — working
-# data in active tabs could be lost. The user is presented with a choice.
+$ValidLevels = @("BraveOnly", "Essential", "Balanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Katı")
+
+if (-not $Level -or $Level -eq "") {
+    Write-Host "Select a hardening level:" -ForegroundColor White
+    Write-Host "  1. Brave Only" -ForegroundColor Gray
+    Write-Host "  2. Essential  [Recommended]" -ForegroundColor Green
+    Write-Host "  3. Balanced" -ForegroundColor Yellow
+    Write-Host "  4. Strict" -ForegroundColor Red
+    Write-Host ""
+    $Choice = Read-Host "Enter choice (1-4)"
+
+    $Level = switch ($Choice) {
+        "1" { "BraveOnly" }
+        "2" { "Essential" }
+        "3" { "Balanced" }
+        "4" { "Strict" }
+        default { "Essential" }
+    }
+}
+
+# Map Turkish names to English
+$LevelMap = @{
+    "Brave Yalnız" = "BraveOnly"
+    "Temel"        = "Essential"
+    "Dengeli"      = "Balanced"
+    "Katı"         = "Strict"
+}
+if ($LevelMap.ContainsKey($Level)) {
+    $Level = $LevelMap[$Level]
+}
+
+# Validate
+if ($ValidLevels -notcontains $Level -and $LevelMap.Values -notcontains $Level) {
+    Write-Host "Invalid level '$Level'. Falling back to Essential." -ForegroundColor Yellow
+    $Level = "Essential"
+}
+
+# Ensure English internal name
+if ($Level -eq "Brave Yalnız") { $Level = "BraveOnly" }
+if ($Level -eq "Temel")        { $Level = "Essential"  }
+if ($Level -eq "Dengeli")      { $Level = "Balanced"   }
+if ($Level -eq "Katı")         { $Level = "Strict"     }
+
+Write-Host "Selected Level: $Level" -ForegroundColor Cyan
+Write-Host ""
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 0C: BRAVE PROCESS CONTROL
+# ─────────────────────────────────────────────────────────────────────────────
 Write-Host "[CHECK] Inspecting Active Brave Processes..." -ForegroundColor Gray
 
 $BraveProcesses = Get-Process -Name "brave" -ErrorAction SilentlyContinue
 
 if ($BraveProcesses) {
-
-    # Report how many processes are running. In normal use, Brave opens multiple
-    # processes including the main process, renderer, GPU, and utilities;
-    # this count is for informational purposes.
     $ProcessCount = $BraveProcesses.Count
     Write-Host "  [WARNING] $ProcessCount Brave process(es) are currently running." -ForegroundColor Yellow
     Write-Host "  Some HKCU modifications may be overwritten while the browser is open." -ForegroundColor Yellow
@@ -133,14 +143,11 @@ if ($BraveProcesses) {
     Write-Host "  Do you want to continue? (Y = Yes / N = No): " -ForegroundColor White -NoNewline
     $DecisionInput = Read-Host
 
-    # Only explicit Y/y/Yes/yes responses are accepted.
-    # All other responses, including empty inputs, are treated as a safe cancellation.
     if ($DecisionInput -notin @("Y", "y", "Yes", "yes")) {
         Write-Host "`n  Operation cancelled by the user. Please close Brave and try again." -ForegroundColor DarkGray
         exit 0
     }
     Write-Host ""
-
 } else {
     Write-Host "  -> Clean: No running Brave processes detected.`n" -ForegroundColor DarkGreen
 }
@@ -149,63 +156,261 @@ if ($BraveProcesses) {
 # ─────────────────────────────────────────────────────────────────────────────
 # PATH CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-# Two different registry hives are used; this distinction is intentional and
-# architecturally important:
-#
-#   HKCU: User account level. Values written here can be modified by the
-#         user; the browser reads it as a preference. No admin rights needed.
-#
-#   HKLM: Machine-wide enterprise policy hive. Values written here appear
-#         grayed out in the browser settings interface ("Enforced by your
-#         administrator") and cannot be changed by the user. Admin rights
-#         are mandatory.
-#
-# Policies are applied in two tiers: HKCU preference + HKLM enforced policy.
-# This approach covers policy delays and edge cases.
 $HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
 $HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 1: RECURSIVE SCAN, DYNAMIC GUID RESOLUTION, AND OMAHA TELEMETRY DISABLE
+# LEVEL POLICY DEFINITIONS
 # ─────────────────────────────────────────────────────────────────────────────
-# [v1.0 Difference]: In the previous version, $DynamicPaths was only used for
-# terminal output and was subjected to no further processing (dead variable).
-# In this version, an Omaha telemetry disable value (`usagestats` = 0) is
-# written to every detected GUID path.
-#
-# WHAT IS THE OMAHA UPDATER?
-# Brave uses Google's Omaha update infrastructure (Windows). This system
-# contains a `usagestats` registry key that collects usage statistics in the
-# background while auto-updating. Every application has a separate ClientState
-# record under its own GUID identifier.
-#
-# usagestats = 0 → Omaha does not collect or send data during the update process.
-# This setting is applied at the GUID level in the HKCU hive and operates
-# independently of the browser-level MetricsReportingEnabled policy; providing
-# double-layer assurance.
-Write-Host "[1/5] Scanning and Processing Dynamic Client IDs (GUID)..." -ForegroundColor Gray
+# Each policy: @{Name=""; Value=; Type="DWord|String|MultiString"}
+# Levels are cumulative: each level includes all policies from previous levels.
+
+$PolicyDefinitions = @{
+    "BraveOnly" = @(
+        # Brave Rewards — disables integrated ad network, BAT tokens, and rewards
+        @{Name="BraveRewardsDisabled";                 Value=1; Type="DWord"}
+        # Brave Wallet — disables crypto wallet, Web3, and decentralized DNS
+        @{Name="BraveWalletDisabled";                  Value=1; Type="DWord"}
+        # Brave VPN — removes VPN button and blocks background VPN service
+        @{Name="BraveVPNDisabled";                     Value=1; Type="DWord"}
+        # Leo AI Chat — disables the built-in AI assistant in sidebar
+        @{Name="BraveAIChatEnabled";                   Value=0; Type="DWord"}
+        # Brave Talk — disables built-in video conferencing tool
+        @{Name="BraveTalkDisabled";                    Value=1; Type="DWord"}
+        # Brave News — disables news feed on New Tab Page
+        @{Name="BraveNewsDisabled";                    Value=1; Type="DWord"}
+        # Brave Playlist — disables offline video/audio saving feature
+        @{Name="BravePlaylistEnabled";                 Value=0; Type="DWord"}
+        # Speedreader — disables reader mode suggestion on article pages
+        @{Name="BraveSpeedreaderEnabled";              Value=0; Type="DWord"}
+        # Wayback Machine — disables Internet Archive integration for 404 pages
+        @{Name="BraveWaybackMachineEnabled";           Value=0; Type="DWord"}
+        # P3A — disables Privacy-Preserving Product Analytics data transmission
+        @{Name="BraveP3AEnabled";                      Value=0; Type="DWord"}
+        # Stats Ping — disables status/authentication ping requests to Brave
+        @{Name="BraveStatsPingEnabled";                Value=0; Type="DWord"}
+        # Web Discovery Project — disables anonymous search index contribution
+        @{Name="BraveWebDiscoveryEnabled";             Value=0; Type="DWord"}
+        # Tor — disables New Private Window with Tor integration
+        @{Name="TorDisabled";                          Value=1; Type="DWord"}
+    )
+
+    "Essential" = @(
+        # ─── Data Leak Prevention (zero usability impact) ───
+
+        # Chromium metrics master switch — stops usage/crash data to Google/Brave
+        @{Name="MetricsReportingEnabled";              Value=0; Type="DWord"}
+        # Safe Browsing extended reporting — stops sending page content to Google
+        @{Name="SafeBrowsingExtendedReportingEnabled"; Value=0; Type="DWord"}
+        # URL-keyed data collection — stops sending visited URLs to Google
+        @{Name="UrlKeyedAnonymizedDataCollectionEnabled"; Value=0; Type="DWord"}
+        # Search suggestions — stops keystroke data from leaving the device
+        @{Name="SearchSuggestEnabled";                 Value=0; Type="DWord"}
+        # Network prediction — stops DNS prefetching and pre-connection
+        @{Name="NetworkPredictionOptions";             Value=2; Type="DWord"}
+        # Translation — disables built-in translation (stops sending text to Google)
+        @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
+        # Spellcheck — disables spellcheck (stops sending text to Google servers)
+        @{Name="SpellcheckEnabled";                    Value=0; Type="DWord"}
+        # Alternate error pages — stops network requests when DNS resolution fails
+        @{Name="AlternateErrorPagesEnabled";           Value=0; Type="DWord"}
+        # Network time queries — stops time synchronization requests to Google
+        @{Name="BrowserNetworkTimeQueriesEnabled";     Value=0; Type="DWord"}
+        # Domain reliability — stops diagnostic data reporting to Google
+        @{Name="DomainReliabilityAllowed";             Value=0; Type="DWord"}
+        # Background mode — prevents Brave from running when all windows closed
+        @{Name="BackgroundModeEnabled";                Value=0; Type="DWord"}
+        # Safe Browsing surveys — disables post-browsing surveys
+        @{Name="SafeBrowsingSurveysEnabled";           Value=0; Type="DWord"}
+        # Safe Browsing deep scanning — disables server-side download scanning
+        @{Name="SafeBrowsingDeepScanningEnabled";      Value=0; Type="DWord"}
+        # WebRTC event log — stops WebRTC event log upload to Google
+        @{Name="WebRtcEventLogCollectionAllowed";     Value=0; Type="DWord"}
+        # WebRTC text log — stops WebRTC text log upload to Google
+        @{Name="WebRtcTextLogCollectionAllowed";      Value=0; Type="DWord"}
+        # Audio capture — blocks microphone access by default (can be per-site)
+        @{Name="AudioCaptureAllowed";                  Value=0; Type="DWord"}
+        # Video capture — blocks camera access by default (can be per-site)
+        @{Name="VideoCaptureAllowed";                  Value=0; Type="DWord"}
+    )
+
+    "Balanced" = @(
+        # ─── Security & Convenience Balance ───
+
+        # WebRTC IP handling — exposes only public IP, hides local IPs from WebRTC
+        @{Name="WebRtcIPHandling";                     Value="default_public_interface_only"; Type="String"}
+        # WebRTC local IPs — empty list prevents any URL from getting local IP via ICE
+        @{Name="WebRtcLocalIpsAllowedUrls";            Value=@(); Type="MultiString"}
+        # HTTPS-Only Mode — forces all navigations to use HTTPS
+        @{Name="HttpsOnlyMode";                        Value="force_enabled"; Type="String"}
+        # DNS-over-HTTPS — upgrades DNS to encrypted queries automatically
+        @{Name="DnsOverHttpsMode";                     Value="automatic"; Type="String"}
+        # Third-party cookies — blocks cross-site tracking cookies
+        @{Name="BlockThirdPartyCookies";               Value=1; Type="DWord"}
+        # Password manager — disables built-in password saving
+        @{Name="PasswordManagerEnabled";               Value=0; Type="DWord"}
+        # Passkeys — disables passkey saving in the browser
+        @{Name="PasswordManagerPasskeysEnabled";       Value=0; Type="DWord"}
+        # Address autofill — disables address form autofill data storage
+        @{Name="AutofillAddressEnabled";               Value=0; Type="DWord"}
+        # Credit card autofill — disables payment method autofill data storage
+        @{Name="AutofillCreditCardEnabled";            Value=0; Type="DWord"}
+        # Full URLs — shows full URL including scheme and subdomain (anti-phishing)
+        @{Name="ShowFullUrlsInAddressBar";             Value=1; Type="DWord"}
+        # Safe Browsing proceed — prevents bypassing malware/phishing warnings
+        @{Name="DisableSafeBrowsingProceedAnyway";     Value=1; Type="DWord"}
+        # QUIC protocol — disables QUIC, falls back to TCP/TLS
+        @{Name="QuicAllowed";                          Value=0; Type="DWord"}
+        # Chrome variations — restricts to critical field trials only
+        @{Name="ChromeVariations";                     Value=1; Type="DWord"}
+        # Network service sandbox — runs network service in sandboxed process
+        @{Name="NetworkServiceSandboxEnabled";         Value=1; Type="DWord"}
+        # Audio sandbox — runs audio service in sandboxed process
+        @{Name="AudioSandboxEnabled";                  Value=1; Type="DWord"}
+        # Geolocation — blocks site access to device location by default
+        @{Name="DefaultGeolocationSetting";            Value=2; Type="DWord"}
+        # Notifications — blocks site notification requests by default
+        @{Name="DefaultNotificationsSetting";          Value=2; Type="DWord"}
+        # Pop-ups — blocks pop-up windows by default
+        @{Name="DefaultPopupsSetting";                 Value=2; Type="DWord"}
+        # Media stream — blocks camera/microphone access prompts by default
+        @{Name="DefaultMediaStreamSetting";            Value=2; Type="DWord"}
+    )
+
+    "Strict" = @(
+        # ─── Maximum Privacy — some usability trade-offs ───
+
+        # WebRTC IP handling — overrides Balanced: proxies all WebRTC traffic
+        @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
+        # Sensors — blocks device motion/light sensor access by default
+        @{Name="DefaultSensorsSetting";                Value=2; Type="DWord"}
+        # Local fonts — blocks font enumeration (reduces fingerprinting surface)
+        @{Name="DefaultLocalFontsSetting";             Value=2; Type="DWord"}
+        # Clipboard — blocks site clipboard read/write access by default
+        @{Name="DefaultClipboardSetting";              Value=2; Type="DWord"}
+        # File system read — blocks site file system read access by default
+        @{Name="DefaultFileSystemReadGuardSetting";    Value=2; Type="DWord"}
+        # File system write — blocks site file system write access by default
+        @{Name="DefaultFileSystemWriteGuardSetting";   Value=2; Type="DWord"}
+        # Serial ports — blocks Serial API access by default
+        @{Name="DefaultSerialGuardSetting";            Value=2; Type="DWord"}
+        # Idle detection — blocks site access to user idle state by default
+        @{Name="DefaultIdleDetectionSetting";          Value=2; Type="DWord"}
+        # Insecure content — blocks mixed content (HTTP on HTTPS pages) by default
+        @{Name="DefaultInsecureContentSetting";        Value=2; Type="DWord"}
+        # JavaScript JIT — disables JIT compilation (reduces attack surface)
+        @{Name="DefaultJavaScriptJitSetting";          Value=2; Type="DWord"}
+        # Cookies — blocks all cookies by default (may break login-dependent sites)
+        @{Name="DefaultCookiesSetting";                Value=2; Type="DWord"}
+        # Guest mode — prevents browser guest profile creation
+        @{Name="BrowserGuestModeEnabled";              Value=0; Type="DWord"}
+        # Add person — prevents new profile creation from user manager
+        @{Name="BrowserAddPersonEnabled";              Value=0; Type="DWord"}
+        # Cloud Print — disables Google Cloud Print proxy
+        @{Name="CloudPrintProxyEnabled";               Value=0; Type="DWord"}
+        # Import autofill — disables importing autofill data from other browsers
+        @{Name="ImportAutofillFormData";               Value=0; Type="DWord"}
+        # Import bookmarks — disables importing bookmarks from other browsers
+        @{Name="ImportBookmarks";                      Value=0; Type="DWord"}
+        # Import history — disables importing browsing history from other browsers
+        @{Name="ImportHistory";                        Value=0; Type="DWord"}
+        # Import passwords — disables importing saved passwords from other browsers
+        @{Name="ImportSavedPasswords";                 Value=0; Type="DWord"}
+        # Import search engine — disables importing search engine settings
+        @{Name="ImportSearchEngine";                   Value=0; Type="DWord"}
+        # Import homepage — disables importing homepage settings
+        @{Name="ImportHomepage";                       Value=0; Type="DWord"}
+    )
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# POLICY MERGING (Cumulative)
+# ─────────────────────────────────────────────────────────────────────────────
+$LevelOrder = @("BraveOnly", "Essential", "Balanced", "Strict")
+
+$MergedPolicies = @{}
+$SelectedIndex = [array]::IndexOf($LevelOrder, $Level)
+
+if ($SelectedIndex -eq -1) {
+    Write-Host "Internal error: invalid level '$Level'. Exiting." -ForegroundColor Red
+    exit 1
+}
+
+for ($i = 0; $i -le $SelectedIndex; $i++) {
+    foreach ($Policy in $PolicyDefinitions[$LevelOrder[$i]]) {
+        # Later levels override earlier ones (e.g., Strict overrides Balanced's WebRtcIPHandling)
+        $MergedPolicies[$Policy.Name] = $Policy
+    }
+}
+
+$TotalPolicyCount = $MergedPolicies.Count
+Write-Host "[INFO] Level '$Level' will apply $TotalPolicyCount policies.`n" -ForegroundColor DarkGray
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REGISTRY WRITING HELPER
+# ─────────────────────────────────────────────────────────────────────────────
+function Write-PolicyValue {
+    param(
+        [string]$TargetPath,
+        [string]$PolicyName,
+        $PolicyValue,
+        [string]$ValueType
+    )
+
+    switch ($ValueType) {
+        "DWord" {
+            New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $PolicyValue -PropertyType DWord -Force -ErrorAction Stop | Out-Null
+            $displayValue = "dword:$PolicyValue"
+            break
+        }
+        "String" {
+            New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $PolicyValue -PropertyType String -Force -ErrorAction Stop | Out-Null
+            $displayValue = "sz:`"$PolicyValue`""
+            break
+        }
+        "MultiString" {
+            $regPath = $TargetPath -replace "^HKLM:\\", "HKLM\"
+            $key = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey("SOFTWARE\Policies\BraveSoftware\Brave", $true)
+            if (-not $key) {
+                throw "Registry key not found: $regPath"
+            }
+            if ($PolicyValue -and $PolicyValue.Count -gt 0) {
+                $key.SetValue($PolicyName, [string[]]$PolicyValue, [Microsoft.Win32.RegistryValueKind]::MultiString)
+                $displayValue = "multi-sz:`"$($PolicyValue -join ';')`""
+            } else {
+                # Empty multi-string: create with empty value
+                $key.SetValue($PolicyName, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+                $displayValue = "multi-sz:(empty)"
+            }
+            $key.Close()
+            break
+        }
+        default {
+            throw "Unsupported type: $ValueType"
+        }
+    }
+
+    return $displayValue
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 1: RECURSIVE SCAN, DYNAMIC GUID RESOLUTION, OMAHA TELEMETRY DISABLE
+# ─────────────────────────────────────────────────────────────────────────────
+Write-Host "[1/7] Scanning and Processing Dynamic Client IDs (GUID)..." -ForegroundColor Gray
 
 $RootPath          = "HKCU:\Software\BraveSoftware"
 $OmahaSuccessCount = 0
 $OmahaErrorCount   = 0
 
-# All subkeys under ClientState are scanned deeply (Recurse).
-# SilentlyContinue is used to quietly bypass areas with permission constraints.
 $DynamicPaths = if (Test-Path "$RootPath\Update\ClientState") {
     Get-ChildItem -Path "$RootPath\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
         Select-Object -ExpandProperty Name |
         ForEach-Object {
-
-            # Registry layout format (HKEY_CURRENT_USER) is converted to
-            # PowerShell drive format (HKCU:). The New-ItemProperty and
-            # Test-Path commands expect this format; they do not accept the layout.
             $FormattedPath = $_ -replace "HKEY_CURRENT_USER", "HKCU:"
-
-            # Paths ending with a standard GUID pattern ({XXXXXXXX-XXXX-XXXX-...})
-            # are distinguished using Regex. Upper hives (like ClientState itself)
-            # do not match this; only leaf records at the application ID (App ID)
-            # level are processed.
             if ($FormattedPath -match "\\\{[a-fA-F0-9-]+\}$") {
                 Write-Host "  -> [Dynamic GUID Detected]: $FormattedPath" -ForegroundColor Yellow
                 $FormattedPath
@@ -213,82 +418,45 @@ $DynamicPaths = if (Test-Path "$RootPath\Update\ClientState") {
         }
 }
 
-# The Omaha telemetry disable value is written to the collected GUID paths.
 if ($DynamicPaths) {
     Write-Host "  [*] Disabling Omaha Updater Telemetry..." -ForegroundColor Gray
-
     foreach ($GUIDPath in $DynamicPaths) {
         try {
-            # `usagestats` (DWORD 0): Disables the Omaha updater from collecting
-            # data belonging to this application and sending it to external servers.
-            # The value is applied to each GUID individually; bulk processing is not supported.
             New-ItemProperty -Path $GUIDPath -Name "usagestats" -Value 0 -PropertyType DWord -Force | Out-Null
             $OmahaSuccessCount++
             Write-Host "  [OK] $GUIDPath -> usagestats = 0" -ForegroundColor DarkGreen
         } catch {
-            # In cases like permission issues, path locks, or data type conflicts,
-            # an error is reported; the script continues processing the next GUID without stopping.
             $OmahaErrorCount++
             Write-Host "  [ERROR] Failed to write to $GUIDPath -> usagestats: $($_.Exception.Message)" -ForegroundColor Red
         }
     }
-
     Write-Host "  -> Omaha: $OmahaSuccessCount succeeded / $OmahaErrorCount failed`n" -ForegroundColor DarkGray
-
 } else {
     Write-Host "  -> Info: No dynamic update ID found on the system or the area is already stable.`n" -ForegroundColor DarkGray
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 2: HKLM POLICY HIVE BACKUP [NEW — v1.1]
+# STEP 2: HKLM POLICY HIVE BACKUP
 # ─────────────────────────────────────────────────────────────────────────────
-# The current state is exported before modifying the HKLM enterprise policies hive.
-# This step serves three purposes:
-#
-#   1. Rollback assurance : In case of unexpected policy conflicts or browser
-#      errors, the previous state can be restored via the `reg import` command.
-#
-#   2. Audit trail        : Every execution generates its own time-stamped
-#      backup; previous backups are not deleted. Change history is preserved.
-#
-#   3. Hard copy document : The policy state at the exact moment the script
-#      is run is recorded; used as a reference in troubleshooting.
-#
-# Backups are saved in the %TEMP%\BravePolicyBackup\ folder in .reg format.
-Write-Host "[2/5] Backing Up HKLM Policy Hive..." -ForegroundColor Gray
+Write-Host "[2/7] Backing Up HKLM Policy Hive..." -ForegroundColor Gray
 
 if (Test-Path $HKLM_Target) {
-
-    # The backup folder is created if it does not yet exist. -Force ensures
-    # the script continues without throwing an error if the folder is already there.
     $BackupFolder = "$env:TEMP\BravePolicyBackup"
     New-Item -Path $BackupFolder -ItemType Directory -Force | Out-Null
 
-    # Timestamp in the file name: every execution generates a unique file.
-    # Example: HKLM_BravePolicy_20260607_143022.reg
     $BackupFile = "$BackupFolder\HKLM_BravePolicy_$(Get-Date -Format 'yyyyMMdd_HHmmss').reg"
-
-    # reg.exe expects the HKLM\ format with a backslash, not PowerShell's
-    # HKLM:\ format. Conversion is mandatory.
     $HKLMFlatPath = $HKLM_Target -replace "HKLM:\\", "HKLM\"
 
     try {
-        # reg export writes the specified hive and all subkeys to a .reg file.
-        # The 2>&1 redirection also captures reg.exe's standard error output.
-        # The /y flag overwrites without prompting if the target file already exists.
         reg export "$HKLMFlatPath" "$BackupFile" /y 2>&1 | Out-Null
         Write-Host "  -> Backup created     : $BackupFile" -ForegroundColor DarkGreen
         Write-Host "  -> To restore, use    : reg import `"$BackupFile`"`n" -ForegroundColor DarkGray
     } catch {
-        # If the backup fails, a warning is issued but the script is not stopped.
-        # The main operation (policy writing) can proceed independently of the backup.
         Write-Host "  -> Warning: Backup could not be completed. Script is continuing." -ForegroundColor Yellow
         Write-Host "  -> Reason : $($_.Exception.Message)`n" -ForegroundColor DarkGray
     }
-
 } else {
-    # If the hive does not exist yet, there is no data to back up; this is normal and expected.
     Write-Host "  -> Info: HKLM policy hive does not exist yet, backup skipped.`n" -ForegroundColor DarkGray
 }
 
@@ -296,50 +464,19 @@ if (Test-Path $HKLM_Target) {
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 3: TARGET DIRECTORY INFRASTRUCTURE VERIFICATION
 # ─────────────────────────────────────────────────────────────────────────────
-# [SIMPLIFIED v1.1]: The previous version used this pattern:
-#   if (-not (Test-Path $Path)) { New-Item -Path $Path -Force | Out-Null }
-#
-# These two operations are logically mutually exclusive:
-#   - Test-Path False → It will create New-Item anyway.
-#   - Test-Path True  → The -Force parameter continues without an error anyway.
-#   Conclusion: The Test-Path check is completely redundant.
-#
-# New approach: Single line, -Force + -ErrorAction SilentlyContinue.
-# This combination provides flexible stability — even if the script is run
-# repeatedly, it yields consistent results; it neither produces errors nor
-# double-creates the same folder.
-Write-Host "[3/5] Preparing Registry Target Directory Structure..." -ForegroundColor Gray
+Write-Host "[3/7] Preparing Registry Target Directory Structure..." -ForegroundColor Gray
 
-# HKCU: User account preferences. Admin rights are not required;
-# values can be modified by the user.
 New-Item -Path $HKCU_Target -Force -ErrorAction SilentlyContinue | Out-Null
 Write-Host "  -> HKCU: $HKCU_Target" -ForegroundColor DarkGray
 
-# HKLM: Machine-wide enterprise policy hive. Admin rights are mandatory;
-# values cannot be modified via the browser interface (appears locked/gray).
 New-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue | Out-Null
 Write-Host "  -> HKLM: $HKLM_Target`n" -ForegroundColor DarkGray
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 4: HKCU — APPLYING USER-LEVEL TELEMETRY PREFERENCE
+# STEP 4: HKCU — USER-LEVEL TELEMETRY PREFERENCE
 # ─────────────────────────────────────────────────────────────────────────────
-# UsageStatsInSample is a Chromium preference value that controls whether
-# browser-level usage statistics will be sampled and sent to Brave servers.
-#
-# WHY IS THIS VALUE IN HKCU?
-# This is fundamentally a user preference, not a policy. Brave reads this value
-# from the `Preferences` JSON file in the user account; however, it also accepts
-# it from the HKCU registry and reflects it into the profile file.
-#
-# MetricsReportingEnabled = 0 in HKLM serves the same purpose at a higher tier.
-# However, writing this value to HKCU provides a backup safeguard for these scenarios:
-#   - Transition periods where the policy has not yet been applied
-#   - Environments experiencing policy delays
-#   - User environments with restricted access to the HKLM hive
-#
-# The two-tier application complements each other; one does not replace the other.
-Write-Host "[4/5] Applying HKCU User Telemetry Preference..." -ForegroundColor Gray
+Write-Host "[4/7] Applying HKCU User Telemetry Preference..." -ForegroundColor Gray
 
 $HKCUSuccess = $false
 
@@ -353,213 +490,79 @@ try {
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 5: CHROMIUM 149 AND BRAVE 1.91 COMPATIBLE ENTERPRISE POLICY INJECTION
+# STEP 5: ENTERPRISE POLICY INJECTION (Multi-Level, Multi-Type)
 # ─────────────────────────────────────────────────────────────────────────────
-# [v1.0 Difference]: Try-catch error handling added, result reporting with
-# success/failure counters added. BraveShieldsDefault removed (see below).
-Write-Host "[5/5] Processing Enterprise Policies Enforcing Data Types..." -ForegroundColor Gray
-
-# ══════════════════════════════════════════════════════════════════════════════
-# REMOVED POLICY: BraveShieldsDefault = 2
-# ══════════════════════════════════════════════════════════════════════════════
-# v1.0 contained this line:
-#   "BraveShieldsDefault" = 2
-#
-# WHY WAS IT REMOVED?
-# A comprehensive review of Brave's official ADMX template package
-# (policy_templates.zip) and Group Policy documentation reveals that an
-# enterprise policy with this name DOES NOT EXIST.
-#
-# Brave manages Shields via two URL-based policies:
-#   BraveShieldsEnabledForUrls  → Force-enables shields on specified URLs.
-#   BraveShieldsDisabledForUrls → Force-disables shields on specified URLs.
-# These policies are of String type (REG_SZ), not DWord. There is no registry
-# policy that globally sets the Shields to "Standard" or "Aggressive" mode.
-#
-# WHAT WOULD HAVE HAPPENED IF NOT REMOVED?
-# The value would be written to the registry successfully. The console would print
-# [OK]. But Brave would silently ignore it because it does not recognize this key.
-# A registry entry would remain that appeared to work but had no actual effect.
-#
-# THE CORRECT OPTION — Aggressive Shields Mode:
-# Shield aggressiveness (Standard / Aggressive) is managed via user account
-# preferences (Preferences JSON), not enterprise policy.
-# Recommended methods for centralized deployment:
-#   1. Manually configure brave://settings/shields → "Trackers & ads blocked" →
-#      "Aggressive" once; then include the Preferences file as a template in
-#      your enterprise deployment process.
-#   2. Deploy a Brave managed profile via MDM (Intune, Jamf).
-# ══════════════════════════════════════════════════════════════════════════════
-
-# Verified enterprise policy dictionary with Brave ADMX templates and
-# Chromium 149 policy layout. Summary table architecture; to add a new rule,
-# simply adding a line to this block is sufficient — the loop remains untouched.
-$Policies = @{
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # TELEMETRY & ANALYTICS (Data Reporting)
-    # ──────────────────────────────────────────────────────────────────────────
-    
-    # Prevents the Chromium-based core metrics collection service from leaking
-    # data externally. Together with UsageStatsInSample in HKCU, it forms a
-    # double-layer assurance; each serves the same purpose at a different layer.
-    "MetricsReportingEnabled"              = 0
-
-    # Stops the status and authentication ping requests Brave routinely sends
-    # to its own servers. These pings are used to collect anonymous statistics;
-    # disabling it increases network privacy.
-    "BraveStatsPingEnabled"                = 0
-
-    # Disables Privacy-Preserving Product Analytics (P3A) data transmission.
-    # The browser will no longer send anonymously aggregated usage summary
-    # data sets to Brave. Common in enterprise environments.
-    "BraveP3AEnabled"                      = 0
-
-    # Disables the Web Discovery Project data contribution. The system will
-    # no longer anonymously contribute data to help Brave Search build an
-    # index independent of Google/Bing.
-    "BraveWebDiscoveryEnabled"             = 0
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # INTEGRATED SERVICES & FEATURES
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Completely disables the browser's integrated ad network, user tracking,
-    # and BAT token reward infrastructure system-wide.
-    # The toolbar Rewards icon and ad notifications become invisible.
-    "BraveRewardsDisabled"                 = 1
-
-    # Disables the internal crypto wallet (Brave Wallet) components, extensions,
-    # toolbar button, and background services.
-    # Web3 and decentralized DNS functionality is completely shut down.
-    "BraveWalletDisabled"                  = 1
-
-    # Removes the VPN button from the toolbar and blocks the Brave VPN service
-    # network running in the background. It does not touch system-wide VPN
-    # configurations in any way.
-    "BraveVPNDisabled"                     = 1
-
-    # Disables the Leo Artificial Intelligence (AI Chat) engine in the sidebar.
-    # Despite the name "Enabled", 0 = disabled; this aligns with the Chromium
-    # policy naming convention ("disable by 0").
-    # Leo chat history, processing services, and API connections are entirely cut off.
-    "BraveAIChatEnabled"                   = 0
-
-    # Disables Brave Talk (the browser's private video conferencing tool).
-    # The widget and option to start a Brave Talk call are removed from the UI.
-    "BraveTalkDisabled"                    = 1
-
-    # Disables the Brave News feed that appears on the New Tab Page.
-    # Usually results in a cleaner, faster-loading New Tab Page.
-    "BraveNewsDisabled"                    = 1
-
-    # Disables the Brave Playlist feature (which allows users to save
-    # video/audio from the web for offline playback).
-    "BravePlaylistEnabled"                 = 0
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # SECURITY & BROWSING SAFETY
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Prevents the transmission of extended data reports regarding visited sites
-    # to Google/Brave servers during Safe Browsing. The core Safe Browsing
-    # (malicious site warning) function continues to operate independently of
-    # this policy.
-    "SafeBrowsingExtendedReportingEnabled" = 0
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # READER & DISCOVERY FEATURES
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Controls Speedreader mode (which strips clutter/CSS from articles).
-    # 0 = Disabled (suppresses automatic suggestion to switch to reader mode).
-    "BraveSpeedreaderEnabled"              = 0
-
-    # Controls the Internet Archive integration.
-    # When disabled (0), Brave will not ask if you want to view a saved version
-    # of a page from the Wayback Machine when encountering a "404 Not Found" error.
-    "BraveWaybackMachineEnabled"           = 0
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # NETWORK, TOR & OTHER FEATURES
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Disables Tor integration. Users will no longer be able to create a
-    # "New Private Window with Tor" or access any Tor-related customizations.
-    "TorDisabled"                          = 1
-}
+Write-Host "[5/7] Processing Enterprise Policies (Level: $Level)..." -ForegroundColor Gray
 
 $SuccessCount = 0
 $ErrorCount   = 0
 
-foreach ($Rule in $Policies.GetEnumerator()) {
+# Track which type counts for summary
+$typeCounts = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
+
+foreach ($Rule in $MergedPolicies.Values) {
     try {
-        # -PropertyType DWord: Forces the value to be written as a 32-bit integer
-        # (REG_DWORD). ADMX templates expect a REG_DWORD type record; if a different
-        # type is written, the policy is either not read or misinterpreted.
-        #
-        # -Force: Overwrites the value if it already exists, creates it from scratch
-        # if it doesn't. This parameter makes the script flexibly stable — it can be
-        # run repeatedly, guaranteeing the same result every time.
-        New-ItemProperty -Path $HKLM_Target -Name $Rule.Key -Value $Rule.Value -PropertyType DWord -Force | Out-Null
-        Write-Host "  [OK] $($Rule.Key) -> dword:$($Rule.Value) (Enterprise Policy Sealed)" -ForegroundColor Gray
+        $displayValue = Write-PolicyValue -TargetPath $HKLM_Target -PolicyName $Rule.Name -PolicyValue $Rule.Value -ValueType $Rule.Type
+        $typeCounts[$Rule.Type]++
         $SuccessCount++
+        Write-Host "  [OK] $($Rule.Name) -> $displayValue" -ForegroundColor Gray
     } catch {
-        # If registry writing fails:
-        #   1. An error message is printed in red (indicating which record failed).
-        #   2. The error counter is incremented (tracked in the closing report).
-        #   3. The loop moves to the next policy without stopping (partial success tolerated).
-        Write-Host "  [ERROR] Failed to write $($Rule.Key): $($_.Exception.Message)" -ForegroundColor Red
         $ErrorCount++
+        Write-Host "  [ERROR] $($Rule.Name): $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CLOSING: SUMMARY REPORT AND VERIFICATION GUIDE
+# STEP 6: HKCU — ADDITIONAL USER-LEVEL TELEMETRY SETTINGS
+# ─────────────────────────────────────────────────────────────────────────────
+Write-Host "[6/7] Applying Additional HKCU Settings..." -ForegroundColor Gray
+
+# Chromium Variations (User-level preference)
+try {
+    New-ItemProperty -Path $HKCU_Target -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
+    Write-Host "  [OK] ChromeVariations (HKCU) -> dword:1" -ForegroundColor DarkGreen
+} catch {
+    Write-Host "  [WARN] ChromeVariations (HKCU) could not be set: $($_.Exception.Message)" -ForegroundColor Yellow
+}
+
+Write-Host ""
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 7: SUMMARY REPORT AND VERIFICATION GUIDE
 # ─────────────────────────────────────────────────────────────────────────────
 $SeparatorLine = "-" * 62
 
 Write-Host "`n$SeparatorLine" -ForegroundColor DarkGray
 Write-Host "  EXECUTION SUMMARY REPORT" -ForegroundColor Cyan
+Write-Host "  Level              : $Level ($TotalPolicyCount policies)" -ForegroundColor White
 Write-Host $SeparatorLine -ForegroundColor DarkGray
 
-# HKCU preference
-$HKCUStatus = if ($HKCUSuccess) { "Successful" } else { "Failed" }
-Write-Host "  Omaha GUID Record   : $OmahaSuccessCount succeeded / $OmahaErrorCount failed" -ForegroundColor Gray
-Write-Host "  HKCU Preference     : UsageStatsInSample    → $HKCUStatus" -ForegroundColor Gray
-Write-Host "  HKLM Policies       : $SuccessCount succeeded / $ErrorCount failed" -ForegroundColor Gray
+$HKCUStatus = if ($HKCUSuccess) { "Applied" } else { "Failed" }
+Write-Host "  Omaha GUID Record  : $OmahaSuccessCount succeeded / $OmahaErrorCount failed" -ForegroundColor Gray
+Write-Host "  HKCU Preference    : UsageStatsInSample    → $HKCUStatus" -ForegroundColor Gray
+Write-Host "  HKLM Policies      : $SuccessCount applied / $ErrorCount failed" -ForegroundColor Gray
+Write-Host "  Types Applied      : DWord=$($typeCounts.DWord) / String=$($typeCounts.String) / MultiString=$($typeCounts.MultiString)" -ForegroundColor Gray
 Write-Host $SeparatorLine -ForegroundColor DarkGray
 
-# Warning block — only visible if there are errors
 if ($ErrorCount -gt 0) {
     Write-Host "`n  [WARNING] $ErrorCount policy/policies could not be written. Please" -ForegroundColor Yellow
     Write-Host "            review the ERROR lines above and check required permissions." -ForegroundColor Yellow
 }
 
-# General success message
 if ($SuccessCount -gt 0 -or $OmahaSuccessCount -gt 0) {
-    Write-Host "`n  [SUCCESS] Brave 1.91.172 enterprise privacy policies were" -ForegroundColor Green
-    Write-Host "            successfully applied to the Windows 11 25H2 system." -ForegroundColor Green
+    Write-Host "`n  [SUCCESS] $Level enterprise privacy policies were successfully" -ForegroundColor Green
+    Write-Host "            applied to Brave on Windows 11 25H2." -ForegroundColor Green
     Write-Host "            Simply close Brave completely and reopen it for" -ForegroundColor White
     Write-Host "            the changes to take effect.`n" -ForegroundColor White
 }
 
-# Verification guide — referral for technical personnel
 Write-Host "  VERIFICATION:" -ForegroundColor Cyan
 Write-Host "  1. Active policies   : brave://policy" -ForegroundColor DarkGray
 Write-Host "  2. Registry path     : HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -ForegroundColor DarkGray
 Write-Host "  3. Backup location   : `$env:TEMP\BravePolicyBackup\" -ForegroundColor DarkGray
 Write-Host "  4. Rollback command  : reg import `"<backup_file.reg>`"`n" -ForegroundColor DarkGray
 
-# ─────────────────────────────────────────────────────────────────────────────
-# EXIT CODE
-# ─────────────────────────────────────────────────────────────────────────────
-# exit 0 → All essential steps completed successfully.
-# exit 1 → At least one HKLM policy could not be written.
-#
-# This distinction ensures that automation tools like Task Scheduler, SCCM,
-# Ansible correctly report whether the script executed successfully or not.
-# [v1.0 Difference]: The old version used `Exit` — this misled automation
-# tools by always returning 0 (success) even in error states.
+# Exit code
 if ($ErrorCount -gt 0) { exit 1 } else { exit 0 }

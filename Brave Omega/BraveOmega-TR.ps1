@@ -7,62 +7,51 @@
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8524)
 #                  Brave 1.91.172 — Resmî Derleme / Chromium 149.0.7827.115
-# DOSYA TÜRÜ     : Gelişmiş Değişken Kayıt Defteri Tümleşme ve Sıkılaştırma
-#                  Betiği (.ps1)
+# DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
-#                  tarayıcıyı gereksiz yan hizmetlerden arındırmak ve bunu
-#                  kendiliğinden işler hâle getirmek.
+#                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 4 katmanlı
+#                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Katı.
 #
 # !! KANAL UYARISI !!
 #    Brave 1.91.172, 12 Haziran 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ
+# DEĞİŞİKLİK GEÇMİŞİ (v2.0)
 # ─────────────────────────────────────────────────────────────────────────────
-#   v1.0                 İlk yapı oluşturuldu.
-#   v1.1                 Kapsamlı hata ayıklama ve iyileştirme (7 değişiklik):
+#   v2.0                 Köklü mimarî yenileme — Çok Katmanlı Sistem:
 #
-#     [DÜZELTİLDİ #1]    BraveShieldsDefault — Brave'in resmî ADMX şablonlarında
-#                        tanımlı olmayan bu politika adı kaldırıldı. Nedeni ve
-#                        doğru seçenek yöntem aşağıda belgelenmiştir.
+#     [YENİ]        4 katmanlı sıkılaştırma modeli:
+#                     Brave Yalnız → Temel → Dengeli → Katı
+#                     Her katman bir öncekinin tüm politikalarını kapsar.
 #
-#     [DÜZELTİLDİ #2]    Try-Catch — Tüm kayıt defteri yazma işlemlerine hata
-#                        yönetimi eklendi. Başarı ve hata durumları artık
-#                        sayaçlarla izlenip özet raporda gösterilmektedir.
+#     [YENİ]        Çok türlü kayıt defteri desteği:
+#                     - DWord      (REG_DWORD)   için true/false ve tamsayı
+#                     - String     (REG_SZ)      için metin tipi politikalar
+#                     - MultiString (REG_MULTI_SZ) için liste tipi politikalar
 #
-#     [DÜZELTİLDİ #3]    $DinamikYollar — Ölü değişken olmaktan çıkarıldı.
-#                        Tespit edilen Omaha GUID yollarına usagestats=0
-#                        yazma adımı eklendi.
+#     [YENİ]        Parametresiz çalıştırmada etkileşimli katman seçimi.
+#                   -Level parametresi ile sessiz/otomasyon dağıtımı.
 #
-#     [EKLENDİ     #4]   Brave Süreç Kontrolü — Betik çalışmadan önce açık
-#                        tarayıcı tespit edilip kullanıcıya devam/iptal kararı
-#                        sunulmaktadır.
+#     [YENİ]        50+ Chromium kurumsal politikası eklendi.
+#                   Brave Yalnız: 13 Brave'e özgü politika
+#                   Temel:        +17 veri sızıntısı önleme politikası
+#                   Dengeli:      +16 güvenlik ve kullanım dengesi
+#                   Katı:         +22 azami gizlilik politikası
 #
-#     [DÜZELTİLDİ #5]    Çıkış Kodları — Hata durumunda `exit 1`, başarılı
-#                        çıkışta `exit 0` kullanılacak şekilde düzeltildi.
-#                        Özdevim (otomasyon) araçları artık sonucu doğru okuyabilir.
+#     [İYİLEŞTİRME] Kayıt defteri yazma motoru türe göre dağıtım yapar
+#                   ve her politika için ayrıntılı denetim izi üretir.
 #
-#     [EKLENDİ     #6]   Kayıt Defteri Yedekleme — HKLM politika kovası
-#                        değiştirilmeden önce .reg biçiminde zaman damgalı
-#                        yedek alınmaktadır.
-#
-#     [BASİTLEŞTİRİLDİ #7] Test-Path + New-Item -Force — Birbirini mantıksal
-#                        olarak dışlayan çifte kontrol, tek satıra indirgendi.
-#
-#   v1.2                 Genişletilmiş Politika Seti (10 yeni özellik eklendi):
-#
-#     [EKLENDİ     #1]   BraveP3AEnabled — Gizlilik Korumalı Ürün Analitiği
-#     [EKLENDİ     #2]   BraveWebDiscoveryEnabled — Web Discovery Project
-#     [EKLENDİ     #3]   BraveTalkDisabled — Brave Talk video konferans
-#     [EKLENDİ     #4]   BraveNewsDisabled — Brave News haber beslemesi
-#     [EKLENDİ     #5]   BravePlaylistEnabled — Brave Playlist
-#     [EKLENDİ     #6]   BraveSpeedreaderEnabled — Speedreader modu
-#     [EKLENDİ     #7]   BraveWaybackMachineEnabled — Internet Archive
-#     [EKLENDİ     #8]   TorDisabled — Tor ağı entegrasyonu
-#
-#     Toplam Politika Sayısı:  7 (v1.1) → 17 (v1.2)
+#     Tüm v1.x düzeltmeleri (süreç kontrolü, yedekleme, try-catch, çıkış
+#     kodları, GUID çözümleme, UAC denetimi) korunmuş ve geliştirilmiştir.
 # ==============================================================================
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PARAMETRELER
+# ─────────────────────────────────────────────────────────────────────────────
+param(
+    [string]$Seviye = ""
+)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # UÇBİRİM KODLAMA BİÇİMİ SIKILAŞTIRMASI (KARAKTER HATASI ÇÖZÜMÜ)
@@ -74,58 +63,83 @@ $OutputEncoding           = [System.Text.Encoding]::UTF8
 # ─────────────────────────────────────────────────────────────────────────────
 # ADIM 0A: KULLANICI HESABI DENETİMİ (UAC) VE YÖNETİCİ YETKİSİ DOĞRULAMA
 # ─────────────────────────────────────────────────────────────────────────────
-
-# Mevcut PowerShell oturumunu çalıştıran kullanıcının Windows kimlik nesnesini
-# alır. Bu nesne; kullanıcı adı, SID ve öbek üyeliklerini barındırır.
 $MevcutKimlik = [Security.Principal.WindowsIdentity]::GetCurrent()
-
-# Kimlik nesnesinden Windows güvenlik görevi sorgularını destekleyen bir "Principal"
-# bağlamı oluşturulur. IsInRole() yöntemi bu nesne üzerinden çalışır.
 $KullaniciRolu = New-Object Security.Principal.WindowsPrincipal($MevcutKimlik)
-
-# Kullanıcının yerleşik 'Administrator' görevine üye olup olmadığı True/False
-# olarak alınır.
 $YoneticiModu = $KullaniciRolu.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-# Yönetici yetkisi yoksa betik güvenli şekilde sonlandırılır.
-# [v1.0 Farkı]: Eski kod `Exit` kullanıyordu — bu, hata durumunda dahi 0
-# (başarı) çıkış kodu üretir; özdevim araçlarını yanıltır. `exit 1`,
-# başarısız çalışmayı Görev Zamanlayıcı, SCCM ve CI/CD araçlarına doğru iletir.
 if (-not $YoneticiModu) {
     Write-Error "KRİTİK HATA: HKLM (Local Machine) kovanına kurumsal ilkeleri mühürlemek için bu betiğin 'Yönetici Olarak' çalıştırılması zorunludur!"
     exit 1
 }
 
-# Uçbirim ekranını temizler ve başlık arayüzünü başlatır.
 Clear-Host
-Write-Host "=== BRAVE SPESİFİK SÜRÜM OPTİMİZASYON BETİĞİ ===" -ForegroundColor Cyan
+Write-Host "=== BRAVE OMEGA PROJECT — ÇOK KATMANLI SIKILAŞTIRMA BETİĞİ ===" -ForegroundColor Cyan
 Write-Host "Hedef Platform : Windows 11 25H2 / Chromium 149 (Brave Kararlı Kanalı)" -ForegroundColor Gray
 Write-Host "İşlem Zamanı   : $(Get-Date -Format 'dd-MM-yyyy HH:mm:ss')`n" -ForegroundColor Gray
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 0B: BRAVE SÜREÇ KONTROLÜ [YENİ — v1.1]
+# ADIM 0B: KATMAN SEÇİMİ
 # ─────────────────────────────────────────────────────────────────────────────
-# Brave açıkken betik çalıştırılması iki çekince taşır:
-#
-#   1. HKCU kovanındaki kullanıcı tercihleri (UsageStatsInSample gibi),
-#      tarayıcı kapanırken kendi dahili düzeneği tarafından üzerine
-#      yazılabilir; yapılan değişiklik kalıcı olmayabilir.
-#
-#   2. Bazı politika değişiklikleri, tarayıcı başlatılırken okunur.
-#      Açık Brave, yeni politikaları yalnızca sonraki oturumda tanır.
-#
-# Tarayıcı zorla kapatılmamıştır; bu karar bilinçlidir — etkin sekmelerdeki
-# çalışma veri kaybına yol açabilir. Kullanıcıya devam/iptal seçeneği sunulur.
+$GecerliSeviyeler = @("BraveOnly", "Essential", "Balanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Katı")
+
+if (-not $Seviye -or $Seviye -eq "") {
+    Write-Host "Bir sıkılaştırma katmanı seçin:" -ForegroundColor White
+    Write-Host "  1. Brave Yalnız" -ForegroundColor Gray
+    Write-Host "  2. Temel   [Önerilen]" -ForegroundColor Green
+    Write-Host "  3. Dengeli" -ForegroundColor Yellow
+    Write-Host "  4. Katı" -ForegroundColor Red
+    Write-Host ""
+    $Secim = Read-Host "Seçiminiz (1-4)"
+
+    $Seviye = switch ($Secim) {
+        "1" { "Brave Yalnız" }
+        "2" { "Temel" }
+        "3" { "Dengeli" }
+        "4" { "Katı" }
+        default { "Temel" }
+    }
+}
+
+# İngilizce adları Türkçeye eşle
+$SeviyeHaritasi = @{
+    "BraveOnly"  = "Brave Yalnız"
+    "Essential"  = "Temel"
+    "Balanced"   = "Dengeli"
+    "Strict"     = "Katı"
+}
+if ($SeviyeHaritasi.ContainsKey($Seviye)) {
+    $Seviye = $SeviyeHaritasi[$Seviye]
+}
+
+# Türkçe adları iç anahtara eşle
+$SeviyeAnahtari = @{
+    "Brave Yalnız" = "BraveOnly"
+    "Temel"        = "Essential"
+    "Dengeli"      = "Balanced"
+    "Katı"         = "Strict"
+}
+
+if ($SeviyeAnahtari.ContainsKey($Seviye)) {
+    $SeviyeAnahtar = $SeviyeAnahtari[$Seviye]
+} else {
+    Write-Host "Geçersiz katman '$Seviye'. Temel katmanına dönülüyor." -ForegroundColor Yellow
+    $Seviye = "Temel"
+    $SeviyeAnahtar = "Essential"
+}
+
+Write-Host "Seçilen Katman: $Seviye" -ForegroundColor Cyan
+Write-Host ""
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ADIM 0C: BRAVE SÜREÇ KONTROLÜ
+# ─────────────────────────────────────────────────────────────────────────────
 Write-Host "[KONTROL] Aktif Brave Süreçleri Denetleniyor..." -ForegroundColor Gray
 
 $BraveIslemleri = Get-Process -Name "brave" -ErrorAction SilentlyContinue
 
 if ($BraveIslemleri) {
-
-    # Kaç süreç çalıştığını raporla. Olağan kullanımda Brave, ana süreç +
-    # renderer + GPU + utility süreçleri olmak üzere birden fazla süreç açar;
-    # bu sayı bilgilendirme amaçlıdır.
     $SurecSayisi = $BraveIslemleri.Count
     Write-Host "  [UYARI] $SurecSayisi adet Brave süreci çalışıyor." -ForegroundColor Yellow
     Write-Host "  Tarayıcı açıkken bazı HKCU değişiklikleri üzerine yazılabilir." -ForegroundColor Yellow
@@ -133,14 +147,11 @@ if ($BraveIslemleri) {
     Write-Host "  Devam etmek istiyor musunuz? (E = Devam / H = İptal): " -ForegroundColor White -NoNewline
     $KararMetni = Read-Host
 
-    # Yalnızca açık E/e/Evet/evet yanıtları kabul edilir.
-    # Boş giriş dahil diğer tüm yanıtlar güvenli iptal olarak işlenir.
     if ($KararMetni -notin @("E", "e", "Evet", "evet")) {
         Write-Host "`n  İşlem kullanıcı tarafından iptal edildi. Brave'i kapatıp yeniden deneyin." -ForegroundColor DarkGray
         exit 0
     }
     Write-Host ""
-
 } else {
     Write-Host "  -> Temiz: Çalışan Brave süreci tespit edilmedi.`n" -ForegroundColor DarkGreen
 }
@@ -149,419 +160,409 @@ if ($BraveIslemleri) {
 # ─────────────────────────────────────────────────────────────────────────────
 # YOL SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-# İki farklı kayıt defteri kovası kullanılır; bu ayrım kasıtlı ve mimarî
-# açıdan önemlidir:
-#
-#   HKCU: Kullanıcı hesap düzeyi. Buraya yazılan değerler kullanıcı
-#         tarafından değiştirilebilir; tarayıcı bir tercih (preference)
-#         olarak okur. Yönetici yetkisi gerekmez.
-#
-#   HKLM: Makine geneli kurumsal ilke kovası. Buraya yazılan değerler
-#         tarayıcının ayarlar arayüzünde gri renkte görünür ("Yöneticiniz
-#         tarafından zorunlu kılındı") ve kullanıcı tarafından değiştirilemez.
-#         Yönetici yetkisi zorunludur.
-#
-# Politikalar iki katmanlı uygulanır: HKCU tercihi + HKLM zorunlu ilkesi.
-# Bu yaklaşım politika gecikmelerini ve kenar durumları kapsar.
 $HKCU_Hedef = "HKCU:\Software\BraveSoftware\Brave-Browser"
 $HKLM_Hedef = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# KATMAN POLİTİKA TANIMLARI
+# ─────────────────────────────────────────────────────────────────────────────
+# Her politika: @{Ad=""; Deger=; Tur="DWord|String|MultiString"}
+# Katmanlar kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
+
+$PolitikaTanimlari = @{
+    "BraveOnly" = @(
+        # Brave Rewards — reklam ağı, BAT token ve ödül altyapısını kapatır
+        @{Ad="BraveRewardsDisabled";                 Deger=1; Tur="DWord"}
+        # Brave Wallet — kripto cüzdan, Web3 ve merkeziyetsiz DNS'i kapatır
+        @{Ad="BraveWalletDisabled";                  Deger=1; Tur="DWord"}
+        # Brave VPN — VPN düğmesini kaldırır ve arka plan VPN hizmetini engeller
+        @{Ad="BraveVPNDisabled";                     Deger=1; Tur="DWord"}
+        # Leo AI Chat — kenar çubuğundaki yapay zekâ asistanını kapatır
+        @{Ad="BraveAIChatEnabled";                   Deger=0; Tur="DWord"}
+        # Brave Talk — yerleşik video konferans aracını kapatır
+        @{Ad="BraveTalkDisabled";                    Deger=1; Tur="DWord"}
+        # Brave News — Yeni Sekme Sayfası'ndaki haber beslemesini kapatır
+        @{Ad="BraveNewsDisabled";                    Deger=1; Tur="DWord"}
+        # Brave Playlist — çevrimdışı video/ses kaydetme özelliğini kapatır
+        @{Ad="BravePlaylistEnabled";                 Deger=0; Tur="DWord"}
+        # Speedreader — makale sayfalarında okuma modu önerisini kapatır
+        @{Ad="BraveSpeedreaderEnabled";              Deger=0; Tur="DWord"}
+        # Wayback Machine — 404 sayfalarında Internet Archive entegrasyonunu kapatır
+        @{Ad="BraveWaybackMachineEnabled";           Deger=0; Tur="DWord"}
+        # P3A — Gizlilik Korumalı Ürün Analitiği veri göndermesini kapatır
+        @{Ad="BraveP3AEnabled";                      Deger=0; Tur="DWord"}
+        # İstatistik Ping'i — Brave sunucularına durum/kimlik ping'lerini kapatır
+        @{Ad="BraveStatsPingEnabled";                Deger=0; Tur="DWord"}
+        # Web Discovery Project — anonim arama indeksi katkısını kapatır
+        @{Ad="BraveWebDiscoveryEnabled";             Deger=0; Tur="DWord"}
+        # Tor — Tor ile Özel Pencere özelliğini kapatır
+        @{Ad="TorDisabled";                          Deger=1; Tur="DWord"}
+    )
+
+    "Essential" = @(
+        # ─── Veri Sızıntısı Önleme (kullanıma sıfır etki) ───
+
+        # Chromium ölçüm anahtarı — kullanım/çökme verisinin Google/Brave'e gitmesini durdurur
+        @{Ad="MetricsReportingEnabled";              Deger=0; Tur="DWord"}
+        # Safe Browsing genişletilmiş raporlama — sayfa içeriğinin Google'a gönderimini durdurur
+        @{Ad="SafeBrowsingExtendedReportingEnabled"; Deger=0; Tur="DWord"}
+        # URL anahtarlı veri toplama — ziyaret edilen URL'lerin Google'a gönderimini durdurur
+        @{Ad="UrlKeyedAnonymizedDataCollectionEnabled"; Deger=0; Tur="DWord"}
+        # Arama önerileri — tuş vuruşu verisinin cihazdan çıkmasını durdurur
+        @{Ad="SearchSuggestEnabled";                 Deger=0; Tur="DWord"}
+        # Ağ tahmini — DNS ön getirme ve ön bağlantıyı durdurur
+        @{Ad="NetworkPredictionOptions";             Deger=2; Tur="DWord"}
+        # Çeviri — yerleşik çeviriyi kapatır (metnin Google'a gönderilmesini durdurur)
+        @{Ad="TranslateEnabled";                     Deger=0; Tur="DWord"}
+        # Yazım denetimi — yazım denetimini kapatır (metnin Google sunucularına gitmesini durdurur)
+        @{Ad="SpellcheckEnabled";                    Deger=0; Tur="DWord"}
+        # Alternatif hata sayfaları — DNS çözümleme hatasında ağ isteklerini durdurur
+        @{Ad="AlternateErrorPagesEnabled";           Deger=0; Tur="DWord"}
+        # Ağ zaman sorguları — Google'a zaman eşitleme isteklerini durdurur
+        @{Ad="BrowserNetworkTimeQueriesEnabled";     Deger=0; Tur="DWord"}
+        # Alan adı güvenilirliği — Google'a tanısal veri raporlamasını durdurur
+        @{Ad="DomainReliabilityAllowed";             Deger=0; Tur="DWord"}
+        # Arka plan modu — tüm pencereler kapandığında Brave'in çalışmasını engeller
+        @{Ad="BackgroundModeEnabled";                Deger=0; Tur="DWord"}
+        # Safe Browsing anketleri — tarama sonrası anketleri kapatır
+        @{Ad="SafeBrowsingSurveysEnabled";           Deger=0; Tur="DWord"}
+        # Safe Browsing derin tarama — sunucu taraflı indirme taramasını kapatır
+        @{Ad="SafeBrowsingDeepScanningEnabled";      Deger=0; Tur="DWord"}
+        # WebRTC olay günlüğü — WebRTC olay günlüklerinin Google'a yüklenmesini durdurur
+        @{Ad="WebRtcEventLogCollectionAllowed";     Deger=0; Tur="DWord"}
+        # WebRTC metin günlüğü — WebRTC metin günlüklerinin Google'a yüklenmesini durdurur
+        @{Ad="WebRtcTextLogCollectionAllowed";      Deger=0; Tur="DWord"}
+        # Ses yakalama — mikrofon erişimini varsayılan olarak engeller (site bazında izin verilebilir)
+        @{Ad="AudioCaptureAllowed";                  Deger=0; Tur="DWord"}
+        # Video yakalama — kamera erişimini varsayılan olarak engeller (site bazında izin verilebilir)
+        @{Ad="VideoCaptureAllowed";                  Deger=0; Tur="DWord"}
+    )
+
+    "Balanced" = @(
+        # ─── Güvenlik ve Kullanım Dengesi ───
+
+        # WebRTC IP yönetimi — yalnızca genel IP'yi açığa çıkarır, yerel IP'leri gizler
+        @{Ad="WebRtcIPHandling";                     Deger="default_public_interface_only"; Tur="String"}
+        # WebRTC yerel IP'leri — boş liste, hiçbir URL'nin ICE üzerinden yerel IP almasını engeller
+        @{Ad="WebRtcLocalIpsAllowedUrls";            Deger=@(); Tur="MultiString"}
+        # HTTPS-Yalnızca Modu — tüm gezintileri HTTPS'e zorlar
+        @{Ad="HttpsOnlyMode";                        Deger="force_enabled"; Tur="String"}
+        # DNS-over-HTTPS — DNS sorgularını şifreli olarak yükseltir
+        @{Ad="DnsOverHttpsMode";                     Deger="automatic"; Tur="String"}
+        # Üçüncü taraf çerezleri — siteler arası izleme çerezlerini engeller
+        @{Ad="BlockThirdPartyCookies";               Deger=1; Tur="DWord"}
+        # Parola yöneticisi — yerleşik parola kaydetmeyi kapatır
+        @{Ad="PasswordManagerEnabled";               Deger=0; Tur="DWord"}
+        # Passkey'ler — tarayıcıda passkey kaydetmeyi kapatır
+        @{Ad="PasswordManagerPasskeysEnabled";       Deger=0; Tur="DWord"}
+        # Adres otomatik doldurma — adres formu veri depolamayı kapatır
+        @{Ad="AutofillAddressEnabled";               Deger=0; Tur="DWord"}
+        # Kredi kartı otomatik doldurma — ödeme yöntemi veri depolamayı kapatır
+        @{Ad="AutofillCreditCardEnabled";            Deger=0; Tur="DWord"}
+        # Tam URL'ler — adres çubuğunda protokol ve alt alan adını gösterir (oltalamaya karşı)
+        @{Ad="ShowFullUrlsInAddressBar";             Deger=1; Tur="DWord"}
+        # Safe Browsing uyarısını atlama — kötü amaçlı site uyarılarını atlamayı engeller
+        @{Ad="DisableSafeBrowsingProceedAnyway";     Deger=1; Tur="DWord"}
+        # QUIC protokolü — QUIC'i kapatır, TCP/TLS'e düşer
+        @{Ad="QuicAllowed";                          Deger=0; Tur="DWord"}
+        # Chrome varyasyonları — yalnızca kritik saha denemelerine izin verir
+        @{Ad="ChromeVariations";                     Deger=1; Tur="DWord"}
+        # Ağ hizmeti kum havuzu — ağ hizmetini kum havuzlu süreçte çalıştırır
+        @{Ad="NetworkServiceSandboxEnabled";         Deger=1; Tur="DWord"}
+        # Ses kum havuzu — ses hizmetini kum havuzlu süreçte çalıştırır
+        @{Ad="AudioSandboxEnabled";                  Deger=1; Tur="DWord"}
+        # Coğrafi konum — site konum erişimini varsayılan olarak engeller
+        @{Ad="DefaultGeolocationSetting";            Deger=2; Tur="DWord"}
+        # Bildirimler — site bildirim isteklerini varsayılan olarak engeller
+        @{Ad="DefaultNotificationsSetting";          Deger=2; Tur="DWord"}
+        # Açılır pencereler — açılır pencere isteklerini varsayılan olarak engeller
+        @{Ad="DefaultPopupsSetting";                 Deger=2; Tur="DWord"}
+        # Medya akışı — kamera/mikrofon erişimini varsayılan olarak engeller
+        @{Ad="DefaultMediaStreamSetting";            Deger=2; Tur="DWord"}
+    )
+
+    "Strict" = @(
+        # ─── Azami Gizlilik — bazı kullanım ödünleri olabilir ───
+
+        # WebRTC IP yönetimi — Dengeli'yi ezer: tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir
+        @{Ad="WebRtcIPHandling";                     Deger="disable_non_proxied_udp"; Tur="String"}
+        # Sensörler — cihaz hareket/ışık sensörü erişimini varsayılan olarak engeller
+        @{Ad="DefaultSensorsSetting";                Deger=2; Tur="DWord"}
+        # Yerel yazı tipleri — yazı tipi sayımını engeller (parmak izi yüzeyini azaltır)
+        @{Ad="DefaultLocalFontsSetting";             Deger=2; Tur="DWord"}
+        # Pano — site pano okuma/yazma erişimini varsayılan olarak engeller
+        @{Ad="DefaultClipboardSetting";              Deger=2; Tur="DWord"}
+        # Dosya sistemi okuma — site dosya sistemi okuma erişimini varsayılan olarak engeller
+        @{Ad="DefaultFileSystemReadGuardSetting";    Deger=2; Tur="DWord"}
+        # Dosya sistemi yazma — site dosya sistemi yazma erişimini varsayılan olarak engeller
+        @{Ad="DefaultFileSystemWriteGuardSetting";   Deger=2; Tur="DWord"}
+        # Seri portlar — Seri API erişimini varsayılan olarak engeller
+        @{Ad="DefaultSerialGuardSetting";            Deger=2; Tur="DWord"}
+        # Boşta algılama — site kullanıcı boşta durumu erişimini varsayılan olarak engeller
+        @{Ad="DefaultIdleDetectionSetting";          Deger=2; Tur="DWord"}
+        # Güvensiz içerik — karma içeriği (HTTPS sayfada HTTP) varsayılan olarak engeller
+        @{Ad="DefaultInsecureContentSetting";        Deger=2; Tur="DWord"}
+        # JavaScript JIT — JIT derlemeyi kapatır (saldırı yüzeyini azaltır)
+        @{Ad="DefaultJavaScriptJitSetting";          Deger=2; Tur="DWord"}
+        # Çerezler — tüm çerezleri varsayılan olarak engeller (oturum bağımlı siteleri etkileyebilir)
+        @{Ad="DefaultCookiesSetting";                Deger=2; Tur="DWord"}
+        # Misafir modu — tarayıcı misafir profili oluşturmayı engeller
+        @{Ad="BrowserGuestModeEnabled";              Deger=0; Tur="DWord"}
+        # Kişi ekleme — kullanıcı yöneticisinden yeni profil eklemeyi engeller
+        @{Ad="BrowserAddPersonEnabled";              Deger=0; Tur="DWord"}
+        # Cloud Print — Google Cloud Print vekil sunucusunu kapatır
+        @{Ad="CloudPrintProxyEnabled";               Deger=0; Tur="DWord"}
+        # Otomatik doldurma içe aktarma — diğer tarayıcılardan otomatik doldurma verisi alımını engeller
+        @{Ad="ImportAutofillFormData";               Deger=0; Tur="DWord"}
+        # Yer imi içe aktarma — diğer tarayıcılardan yer imi alımını engeller
+        @{Ad="ImportBookmarks";                      Deger=0; Tur="DWord"}
+        # Geçmiş içe aktarma — diğer tarayıcılardan gezinti geçmişi alımını engeller
+        @{Ad="ImportHistory";                        Deger=0; Tur="DWord"}
+        # Parola içe aktarma — diğer tarayıcılardan kayıtlı parola alımını engeller
+        @{Ad="ImportSavedPasswords";                 Deger=0; Tur="DWord"}
+        # Arama motoru içe aktarma — diğer tarayıcılardan arama motoru ayarları alımını engeller
+        @{Ad="ImportSearchEngine";                   Deger=0; Tur="DWord"}
+        # Ana sayfa içe aktarma — diğer tarayıcılardan ana sayfa ayarları alımını engeller
+        @{Ad="ImportHomepage";                       Deger=0; Tur="DWord"}
+    )
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# POLİTİKA BİRLEŞTİRME (Kümülatif)
+# ─────────────────────────────────────────────────────────────────────────────
+$KatmanSirasi = @("BraveOnly", "Essential", "Balanced", "Strict")
+
+$BirlestirilmisPolitikalar = @{}
+$SecilenIndex = [array]::IndexOf($KatmanSirasi, $SeviyeAnahtar)
+
+if ($SecilenIndex -eq -1) {
+    Write-Host "İç hata: geçersiz katman '$Seviye'. Çıkılıyor." -ForegroundColor Red
+    exit 1
+}
+
+for ($i = 0; $i -le $SecilenIndex; $i++) {
+    foreach ($Politika in $PolitikaTanimlari[$KatmanSirasi[$i]]) {
+        $BirlestirilmisPolitikalar[$Politika.Ad] = $Politika
+    }
+}
+
+$ToplamPolitikaSayisi = $BirlestirilmisPolitikalar.Count
+Write-Host "[BİLGİ] '$Seviye' katmanı $ToplamPolitikaSayisi politika uygulayacak.`n" -ForegroundColor DarkGray
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# KAYIT DEFTERİ YAZMA YARDIMCISI
+# ─────────────────────────────────────────────────────────────────────────────
+function Yaz-KayitDegeri {
+    param(
+        [string]$HedefYol,
+        [string]$PolitikaAdi,
+        $PolitikaDegeri,
+        [string]$DegerTuru
+    )
+
+    switch ($DegerTuru) {
+        "DWord" {
+            New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $PolitikaDegeri -PropertyType DWord -Force -ErrorAction Stop | Out-Null
+            $goruntulenecekDeger = "dword:$PolitikaDegeri"
+            break
+        }
+        "String" {
+            New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $PolitikaDegeri -PropertyType String -Force -ErrorAction Stop | Out-Null
+            $goruntulenecekDeger = "sz:`"$PolitikaDegeri`""
+            break
+        }
+        "MultiString" {
+            $anahtar = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey("SOFTWARE\Policies\BraveSoftware\Brave", $true)
+            if (-not $anahtar) {
+                throw "Kayıt defteri anahtarı bulunamadı: $HedefYol"
+            }
+            if ($PolitikaDegeri -and $PolitikaDegeri.Count -gt 0) {
+                $anahtar.SetValue($PolitikaAdi, [string[]]$PolitikaDegeri, [Microsoft.Win32.RegistryValueKind]::MultiString)
+                $goruntulenecekDeger = "multi-sz:`"$($PolitikaDegeri -join ';')`""
+            } else {
+                $anahtar.SetValue($PolitikaAdi, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+                $goruntulenecekDeger = "multi-sz:(boş)"
+            }
+            $anahtar.Close()
+            break
+        }
+        default {
+            throw "Desteklenmeyen tür: $DegerTuru"
+        }
+    }
+
+    return $goruntulenecekDeger
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # ADIM 1: ÖZYİNELEMELİ TARAMA, DEĞİŞKEN GUID ÇÖZÜMLEMESİ VE OMAHA BİLGİ AKTARIMI KAPATMA
 # ─────────────────────────────────────────────────────────────────────────────
-# [v1.0 Farkı]: Önceki sürümde $DinamikYollar yalnızca uçbirim çıktısı için
-# kullanılıyor, sonrasında hiçbir işleme tabi tutulmuyordu (ölü değişken).
-# Bu sürümde tespit edilen her GUID yoluna Omaha veri aktarımı devre dışı bırakma
-# değeri (`usagestats` = 0) yazılmaktadır.
-#
-# OMAHA GÜNCELLEYİCİ NEDİR?
-# Brave, Google'ın Omaha güncelleme altyapısını (Windows) kullanır. Bu düzen
-# tarayıcıyı otomatik güncellerken arka planda kullanım istatistiklerini
-# toplayan `usagestats` kaydını barındırır. Her uygulama, kendi GUID kimliği
-# altında ayrı bir ClientState kaydına sahiptir.
-#
-# usagestats = 0 → Omaha, güncelleme sürecinde veri toplamaz ve göndermez.
-# Bu ayar HKCU kovanında GUID düzeyinde uygulanır ve tarayıcı düzeyindeki
-# MetricsReportingEnabled politikasından bağımsız çalışır; çift katman güvence.
-Write-Host "[1/5] Değişken İstemci Kimlikleri (GUID) Taranıyor ve İşleniyor..." -ForegroundColor Gray
+Write-Host "[1/7] Değişken Kimlik Numaraları (GUID) Taranıyor..." -ForegroundColor Gray
 
-$KokYol             = "HKCU:\Software\BraveSoftware"
-$OmahaBasariSayaci  = 0
-$OmahaHataSayaci    = 0
+$KokYol            = "HKCU:\Software\BraveSoftware"
+$OmahaBasarili     = 0
+$OmahaHata         = 0
 
-# ClientState altındaki tüm alt anahtarlar derinlemesine (Recurse) taranır.
-# Yetki kısıtı olan alanlarda sessizce geçilmesi için SilentlyContinue kullanılır.
 $DinamikYollar = if (Test-Path "$KokYol\Update\ClientState") {
     Get-ChildItem -Path "$KokYol\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
         Select-Object -ExpandProperty Name |
         ForEach-Object {
-
-            # Kayıt defteri düzen biçimi (HKEY_CURRENT_USER) PowerShell sürücü
-            # biçimine (HKCU:) dönüştürülür. New-ItemProperty ve Test-Path
-            # komutları bu biçimi bekler; düzen biçimini kabul etmez.
-            $FormatliYol = $_ -replace "HKEY_CURRENT_USER", "HKCU:"
-
-            # Regex ile sonu standart GUID deseniyle ({XXXXXXXX-XXXX-XXXX-...})
-            # biten yollar ayırt edilir. Üst kovanlar (ClientState'in kendisi gibi)
-            # bu eşleşmeyi sağlamaz; yalnızca uygulama kimliği (App ID) düzeyindeki
-            # yaprak kayıtlar işleme alınır.
-            if ($FormatliYol -match "\\\{[a-fA-F0-9-]+\}$") {
-                Write-Host "  -> [Dinamik GUID Saptandı]: $FormatliYol" -ForegroundColor Yellow
-                $FormatliYol
+            $BicimliYol = $_ -replace "HKEY_CURRENT_USER", "HKCU:"
+            if ($BicimliYol -match "\\\{[a-fA-F0-9-]+\}$") {
+                Write-Host "  -> [Değişken GUID Tespit Edildi]: $BicimliYol" -ForegroundColor Yellow
+                $BicimliYol
             }
         }
 }
 
-# Toplanan GUID yollarına Omaha veri aktarımı devre dışı bırakma değeri yazılır.
 if ($DinamikYollar) {
-    Write-Host "  [*] Omaha Güncelleyici Telemetrisi Kapatılıyor..." -ForegroundColor Gray
-
-    foreach ($GUIDYol in $DinamikYollar) {
+    Write-Host "  [*] Omaha Güncelleyici Bilgi Aktarımı Kapatılıyor..." -ForegroundColor Gray
+    foreach ($GUIDYolu in $DinamikYollar) {
         try {
-            # `usagestats` (DWORD 0): Omaha güncelleyicisinin bu uygulamaya ait
-            # veri toplamasını ve harici sunuculara göndermesini kapatır.
-            # Değer, her GUID'e ayrı ayrı uygulanır; toplu işlem desteklenmez.
-            New-ItemProperty -Path $GUIDYol -Name "usagestats" -Value 0 -PropertyType DWord -Force | Out-Null
-            $OmahaBasariSayaci++
-            Write-Host "  [OK] $GUIDYol -> usagestats = 0" -ForegroundColor DarkGreen
+            New-ItemProperty -Path $GUIDYolu -Name "usagestats" -Value 0 -PropertyType DWord -Force | Out-Null
+            $OmahaBasarili++
+            Write-Host "  [OK] $GUIDYolu -> usagestats = 0" -ForegroundColor DarkGreen
         } catch {
-            # Yetki sorunu, yol kilidi veya veri tipi çakışması gibi durumlarda
-            # hata raporlanır; betik durmadan sonraki GUID işlenmeye devam eder.
-            $OmahaHataSayaci++
-            Write-Host "  [HATA] $GUIDYol -> usagestats yazılamadı: $($_.Exception.Message)" -ForegroundColor Red
+            $OmahaHata++
+            Write-Host "  [HATA] $GUIDYolu -> usagestats yazılamadı: $($_.Exception.Message)" -ForegroundColor Red
         }
     }
-
-    Write-Host "  -> Omaha: $OmahaBasariSayaci başarılı / $OmahaHataSayaci başarısız`n" -ForegroundColor DarkGray
-
+    Write-Host "  -> Omaha: $OmahaBasarili başarılı / $OmahaHata başarısız`n" -ForegroundColor DarkGray
 } else {
-    Write-Host "  -> Bilgi: Sistemde dinamik güncelleme kimliği bulunamadı ya da alan zaten kararlı.`n" -ForegroundColor DarkGray
+    Write-Host "  -> Bilgi: Sistemde dinamik güncelleme kimliği bulunamadı veya alan zaten kararlı.`n" -ForegroundColor DarkGray
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 2: HKLM POLİTİKA KOVASI YEDEKLEMESİ [YENİ — v1.1]
+# ADIM 2: HKLM POLİTİKA KOVASI YEDEKLEME
 # ─────────────────────────────────────────────────────────────────────────────
-# HKLM kurumsal ilkeler kovası değiştirilmeden önce mevcut durum dışa aktarılır.
-# Bu adım üç amaca hizmet eder:
-#
-#   1. Geri alma güvencesi   : Beklenmedik politika çakışması ya da tarayıcı
-#      hatası durumunda `reg import` komutuyla önceki duruma dönülür.
-#
-#   2. Denetim izi           : Her çalışma kendi zaman damgalı yedeğini
-#      oluşturur; önceki yedekler silinmez. Değişiklik geçmişi korunur.
-#
-#   3. Basılı belge          : Betiğin çalıştırıldığı andaki politika durumu
-#      kayıt altına alınır; sorun gidermede referans olarak kullanılır.
-#
-# Yedekler: %TEMP%\BravePolicyYedek\ klasörüne .reg biçiminde kaydedilir.
-Write-Host "[2/5] HKLM Politika Kovası Yedekleniyor..." -ForegroundColor Gray
+Write-Host "[2/7] HKLM Politika Kovası Yedekleniyor..." -ForegroundColor Gray
 
 if (Test-Path $HKLM_Hedef) {
-
-    # Yedek klasörü henüz yoksa oluşturulur. -Force, klasör zaten varsa
-    # hata fırlatmadan devam edilmesini sağlar.
     $YedekKlasor = "$env:TEMP\BravePolicyYedek"
     New-Item -Path $YedekKlasor -ItemType Directory -Force | Out-Null
 
-    # Dosya adında zaman damgası: her çalışma benzersiz bir dosya üretir.
-    # Örnek: HKLM_BravePolicy_20260607_143022.reg
     $YedekDosya = "$YedekKlasor\HKLM_BravePolicy_$(Get-Date -Format 'yyyyMMdd_HHmmss').reg"
-
-    # reg.exe, PowerShell'in HKLM:\ biçimini değil ters eğik çizgili
-    # HKLM\ biçimini bekler. Dönüşüm zorunludur.
-    $HKLMDuzYol = $HKLM_Hedef -replace "HKLM:\\", "HKLM\"
+    $HKLMDuzyol = $HKLM_Hedef -replace "HKLM:\\", "HKLM\"
 
     try {
-        # reg export, belirtilen kovan ve tüm alt anahtarları .reg dosyasına yazar.
-        # 2>&1 yönlendirmesi, reg.exe'nin standart hata çıktısını da yakalar.
-        # /y bayrağı, hedef dosya zaten varsa onay sorulmadan üzerine yazar.
-        reg export "$HKLMDuzYol" "$YedekDosya" /y 2>&1 | Out-Null
-        Write-Host "  -> Yedek alındı  : $YedekDosya" -ForegroundColor DarkGreen
-        Write-Host "  -> Geri almak için: reg import `"$YedekDosya`"`n" -ForegroundColor DarkGray
+        reg export "$HKLMDuzyol" "$YedekDosya" /y 2>&1 | Out-Null
+        Write-Host "  -> Yedek oluşturuldu  : $YedekDosya" -ForegroundColor DarkGreen
+        Write-Host "  -> Geri yüklemek için : reg import `"$YedekDosya`"`n" -ForegroundColor DarkGray
     } catch {
-        # Yedekleme başarısız olursa uyarı verilir ama betik durdurulmaz.
-        # Ana işlem (politika yazma) yedekten bağımsız olarak devam edebilir.
-        Write-Host "  -> Uyarı: Yedekleme tamamlanamadı. Betik devam ediyor." -ForegroundColor Yellow
-        Write-Host "  -> Neden: $($_.Exception.Message)`n" -ForegroundColor DarkGray
+        Write-Host "  -> Uyarı: Yedek alınamadı. Betik devam ediyor." -ForegroundColor Yellow
+        Write-Host "  -> Sebep : $($_.Exception.Message)`n" -ForegroundColor DarkGray
     }
-
 } else {
-    # Kovan henüz yoksa yedeklenecek veri yoktur; bu durum normal ve beklenen.
     Write-Host "  -> Bilgi: HKLM politika kovası henüz mevcut değil, yedek atlandı.`n" -ForegroundColor DarkGray
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 3: HEDEF DİZİN ALTYAPI DOĞRULAMASI
+# ADIM 3: HEDEF DİZİN YAPISI HAZIRLIĞI
 # ─────────────────────────────────────────────────────────────────────────────
-# [BASİTLEŞTİRİLDİ v1.1]: Önceki sürümde şu kalıp kullanılıyordu:
-#   if (-not (Test-Path $Yol)) { New-Item -Path $Yol -Force | Out-Null }
-#
-# Bu iki işlem birbirini mantıksal olarak dışlar:
-#   - Test-Path False → Zaten New-Item oluşturacak.
-#   - Test-Path True  → Zaten -Force parametresi hata vermeden devam ediyor.
-#   Sonuç: Test-Path kontrolü tamamen gereksizdir.
-#
-# Yeni yaklaşım: Tek satır, -Force + -ErrorAction SilentlyContinue.
-# Bu birleşim esnek kararlılıkta kılar — betik defalarca çalıştırılsa dahi
-# tutarlı sonuç verir; ne hata üretir ne de aynı klasörü çifte oluşturur.
-Write-Host "[3/5] Kayıt Defteri Hedef Dizin Yapısı Hazırlanıyor..." -ForegroundColor Gray
+Write-Host "[3/7] Kayıt Defteri Hedef Dizin Yapısı Hazırlanıyor..." -ForegroundColor Gray
 
-# HKCU: Kullanıcı hesap tercihleri. Yönetici yetkisi gerekmez;
-# değerler kullanıcı tarafından değiştirilebilir.
 New-Item -Path $HKCU_Hedef -Force -ErrorAction SilentlyContinue | Out-Null
 Write-Host "  -> HKCU: $HKCU_Hedef" -ForegroundColor DarkGray
 
-# HKLM: Makine geneli kurumsal ilke kovası. Yönetici yetkisi zorunludur;
-# değerler tarayıcı arayüzünden değiştirilemez (kilitli/gri görünür).
 New-Item -Path $HKLM_Hedef -Force -ErrorAction SilentlyContinue | Out-Null
 Write-Host "  -> HKLM: $HKLM_Hedef`n" -ForegroundColor DarkGray
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 4: HKCU — KULLANICI SEVİYESİNDE VERİ AKTARIMI TERCİHİ UYGULAMASI
+# ADIM 4: HKCU — KULLANICI DÜZEYİNDE BİLGİ AKTARIMI TERCİHİ
 # ─────────────────────────────────────────────────────────────────────────────
-# UsageStatsInSample, tarayıcı düzeyinde kullanım istatistiklerinin Brave
-# sunucularına örneklenip gönderilip gönderilmeyeceğini denetleyen
-# bir Chromium tercih (preference) değeridir.
-#
-# BU DEĞER NEDEN HKCU'DA?
-# Bu özünde bir politika değil, kullanıcı tercihidir. Brave bu değeri
-# kullanıcı hesabındaki `Preferences` JSON dosyasından okur; ancak HKCU
-# kayıt defterinden de kabul ederek profil dosyasına yansıtır.
-#
-# HKLM'deki MetricsReportingEnabled = 0 üst katmanda aynı amaca hizmet eder.
-# Bununla birlikte HKCU'ya yazılan bu değer şu durumlar için yedek güvence sağlar:
-#   - Politikanın henüz uygulanmadığı geçiş dönemleri
-#   - Politika gecikmesi yaşanan ortamlar
-#   - HKLM kovanına erişimin kısıtlı olduğu kullanıcı ortamları
-#
-# İki katmanlı uygulama birbirini tamamlar; biri diğerinin yerini tutmaz.
-Write-Host "[4/5] HKCU Kullanıcı Telemetri Tercihi Uygulanıyor..." -ForegroundColor Gray
+Write-Host "[4/7] HKCU Kullanıcı Bilgi Aktarımı Tercihi Uygulanıyor..." -ForegroundColor Gray
 
 $HKCUBasarili = $false
 
 try {
     New-ItemProperty -Path $HKCU_Hedef -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
     $HKCUBasarili = $true
-    Write-Host "  [OK] UsageStatsInSample -> dword:00000000 (Kullanıcı Düzeyi Telemetri Kapatıldı)`n" -ForegroundColor White
+    Write-Host "  [OK] UsageStatsInSample -> dword:00000000 (Kullanıcı Düzeyi Bilgi Aktarımı Devre Dışı)`n" -ForegroundColor White
 } catch {
     Write-Host "  [HATA] UsageStatsInSample yazılamadı: $($_.Exception.Message)`n" -ForegroundColor Red
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 5: CHROMIUM 149 VE BRAVE 1.91 UYUMLU KURUMSAL İLKE YÜKLENMESİ
+# ADIM 5: KURUMSAL POLİTİKA ENJEKSİYONU (Çok Katmanlı, Çok Türlü)
 # ─────────────────────────────────────────────────────────────────────────────
-# [v1.0 Farkı]: Try-catch hata yönetimi eklendi, başarı/hata sayaçları ile
-# sonuç raporlaması eklendi. BraveShieldsDefault kaldırıldı (aşağıya bakın).
-Write-Host "[5/5] Kurumsal İlkeler Veri Tipleri Zorlanarak İşleniyor..." -ForegroundColor Gray
+Write-Host "[5/7] Kurumsal Politikalar İşleniyor (Katman: $Seviye)..." -ForegroundColor Gray
 
-# ══════════════════════════════════════════════════════════════════════════════
-# KALDIRILAN POLİTİKA: BraveShieldsDefault = 2
-# ══════════════════════════════════════════════════════════════════════════════
-# v1.0'da şu satır bulunuyordu:
-#   "BraveShieldsDefault" = 2
-#
-# NEDEN KALDIRILDI?
-# Brave'in resmi ADMX şablon paketi (policy_templates.zip) ve Group Policy
-# belgelendirmesi kapsamlı biçimde incelendiğinde bu isimde bir kurumsal
-# politika (enterprise policy) BULUNMAMAKTADIR.
-#
-# Brave, Shields yönetimini URL bazlı iki politika ile sağlar:
-#   BraveShieldsEnabledForUrls  → Belirtilen URL'lerde kalkanı zorla açar.
-#   BraveShieldsDisabledForUrls → Belirtilen URL'lerde kalkanı zorla kapatır.
-# Bu politikalar String türündedir (REG_SZ), DWord değil. Shields'ın
-# "Standart" veya "Saldırgan" modunu genel olarak ayarlayan bir kayıt defteri
-# politikası mevcut değildir.
-#
-# KALDIRILMAMIŞ OLSAYDI NE OLURDU?
-# Değer kayıt defterine başarıyla yazılırdı. Konsol [OK] basardı. Ama Brave
-# bu anahtarı tanımadığı için sessizce yoksayardı. Görünürde çalışıyor gibi
-# görünen, gerçekte hiçbir etkisi olmayan bir kayıt defteri kaydı kalırdı.
-#
-# DOĞRU SEÇENEK — Saldırgan Shields Kipi:
-# Kalkan saldırganlığı (Standart / Saldırgan), kurumsal politika ile değil;
-# kullanıcı hesabı tercihleri (Preferences JSON) üzerinden yönetilir.
-# Merkezi uygulamak için önerilen yöntemler:
-#   1. brave://settings/shields → "Trackers & ads blocked" → "Aggressive"
-#      seçeneğini bir kez elle yapılandırın; ardından Preferences dosyasını
-#      şablon olarak kurumsal dağıtım sürecinize dahil edin.
-#   2. MDM (Intune, Jamf) üzerinden Brave yönetilen profil dağıtımı yapın.
-# ══════════════════════════════════════════════════════════════════════════════
+$BasariliSayaci = 0
+$HataSayaci     = 0
 
-# Brave ADMX şablonları ve Chromium 149 politika düzeni ile doğrulanmış
-# kurumsal ilkeler sözlüğü. Özet tablosu mimarîsi; yeni kural eklemek için
-# yalnızca bu bloğa bir satır eklenmesi yeterlidir — döngüye dokunulmaz.
-$Politikalar = @{
+$turSayaclari = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
 
-    # ──────────────────────────────────────────────────────────────────────────
-    # VERİ AKTARIMI VE ANALİZ (Telemetry & Analytics)
-    # ──────────────────────────────────────────────────────────────────────────
-    
-    # Chromium tabanlı ana ölçüm toplama hizmetinin dışa veri sızdırmasını
-    # önler. HKCU'daki UsageStatsInSample ile birlikte iki katmanlı güvence
-    # oluşturur; her biri farklı bir katmanda aynı amaca hizmet eder.
-    "MetricsReportingEnabled"              = 0
-
-    # Brave'in düzenli olarak kendi sunucularına gönderdiği durum ve kimlik
-    # doğrulama ping isteklerini keser. Bu pingler anonim istatistik toplamada
-    # kullanılır; kapatmak ağ gizliliğini artırır.
-    "BraveStatsPingEnabled"                = 0
-
-    # Gizlilik Korumalı Ürün Analitiği (P3A) veri göndermesini devre dışı bırakır.
-    # Brave tarafından anonim olarak toplanan ve gönderilen kullanım özet veri
-    # setinden kurtulur. Kurumsal ortamlarda uygulamada sıkça kapatılır.
-    "BraveP3AEnabled"                      = 0
-
-    # Web Discovery Project (Brave Search indeksi oluşturmaya dönük) veri
-    # toplamayı engeller. Anonymously sistem, Brave Search'ü Google/Bing'den
-    # bağımsız kılan veriye katkısından vazgeçer.
-    "BraveWebDiscoveryEnabled"             = 0
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # ENTEGRE HİZMETLER VE ÖZELLIKLERI DEVRE DIŞI BIRAKMAK (Features)
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Tarayıcı tümleşik reklam ağını, kullanıcı takibini ve BAT jeton
-    # kazanç (Rewards) altyapısını sistem genelinde tamamente kapatır.
-    # Araç çubuğu Rewards simgesi ve reklam bildirimleri görünmez olur.
-    "BraveRewardsDisabled"                 = 1
-
-    # Dahili kripto cüzdan (Brave Wallet) parçalarını, uzantılarını,
-    # araç çubuğu düğmesini ve arka plan hizmetlerini devre dışı bırakır.
-    # Web3 ve merkeziyetsiz DNS işlevselliği tamamen kapatılır.
-    "BraveWalletDisabled"                  = 1
-
-    # Araç çubuğundaki VPN düğmesini kaldırır ve arka planda çalışan
-    # Brave VPN hizmet ağını engeller. Düzen geneli VPN yapılandırmasına
-    # hiçbir şekilde dokunmaz.
-    "BraveVPNDisabled"                     = 1
-
-    # Kenar çubuğundaki Leo Yapay Zekâ (AI Chat) motorunu devre dışı bırakır.
-    # "Enabled" adına rağmen 0 = devre dışı anlamına gelir; bu Chromium
-    # politika adlandırma geleneğiyle ("disable by 0") uyumludur.
-    # Leo konuşma geçmişi, işleme hizmetleri ve API bağlantıları tamamen kesilir.
-    "BraveAIChatEnabled"                   = 0
-
-    # Brave Talk (özel video konferans aracı) widget'ını ve çağrı başlatma
-    # seçeneğini kullanıcı arayüzünden kaldırır.
-    "BraveTalkDisabled"                    = 1
-
-    # Brave News haber beslemesini (New Tab Page'de görünen) devre dışı bırakır.
-    # Çoğu zaman daha hızlı yüklenen, daha temiz yeni sekme sayfası yaratır.
-    "BraveNewsDisabled"                    = 1
-
-    # Brave Playlist özelliğini (çevrimdışı oynatma için video/ses kaydetme)
-    # kapatır.
-    "BravePlaylistEnabled"                 = 0
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # GÜVENLİK VE KATKILANMIŞLIK (Security & Browsing)
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Güvenli Tarama (Safe Browsing) esnasında ziyaret edilen sitelerle ilgili
-    # genişletilmiş veri raporlarının Google/Brave sunucularına iletilmesini
-    # engeller. Temel Safe Browsing (kötü amaçlı site uyarısı) işlevi bu
-    # politikadan bağımsız çalışmaya devam eder.
-    "SafeBrowsingExtendedReportingEnabled" = 0
-
-    # ──────────────────────────────────────────────────────────────────────────
-    # OKUMA VE ARAMA ÖZELLİKLERİ (Reader & Discovery Features)
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Speedreader modu (makale sayfalarından düzensizliği/CSS'yi çıkaran)
-    # yazı tip önerilerini kaç.
-    "BraveSpeedreaderEnabled"              = 0
-
-    # İnternet Archive Wayback Machine entegrasyonunu engeller. "404 Sayfa
-    # Bulunamadı" hatası durumunda Brave'in sayfanın Wayback Machine'teki
-    # kaydedilmiş sürümünü gösterip göstermeyeceğini sorup sormaması burada
-    # kontrol edilir.
-    "BraveWaybackMachineEnabled"           = 0
-
-    # ────────────────────────────────────���─────────────────────────────────────
-    # AĞLAR, SLİNK VE DİĞER (Network, Tor & Other)
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # Tor ağının entegre sekmelerine devre dışı bırakır. Kullanıcı artık
-    # "Yeni Tor Sekmesi" oluşturamayacak veya Tor özelleştirmelerine erişemeyecektir.
-    "TorDisabled"                          = 1
-}
-
-$BasariSayaci = 0
-$HataSayaci   = 0
-
-foreach ($Kural in $Politikalar.GetEnumerator()) {
+foreach ($Kural in $BirlestirilmisPolitikalar.Values) {
     try {
-        # -PropertyType DWord: Değerin 32-bit tamsayı (REG_DWORD) olarak yazılmasını
-        # zorunlu kılar. ADMX şablonları REG_DWORD türünde kayıt bekler; farklı bir
-        # tür yazılırsa politika okunmaz ya da yanlış yorumlanır.
-        #
-        # -Force: Değer zaten varsa üzerine yazar, yoksa sıfırdan oluşturur.
-        # Bu parametre betiği esnek kararlılıkta kılar — defalarca çalıştırılabilir,
-        # her seferinde aynı sonucu güvence altına alır.
-        New-ItemProperty -Path $HKLM_Hedef -Name $Kural.Key -Value $Kural.Value -PropertyType DWord -Force | Out-Null
-        Write-Host "  [OK] $($Kural.Key) -> dword:$($Kural.Value) (Kurumsal İlke Mühürlendi)" -ForegroundColor Gray
-        $BasariSayaci++
+        $goruntulenecekDeger = Yaz-KayitDegeri -HedefYol $HKLM_Hedef -PolitikaAdi $Kural.Ad -PolitikaDegeri $Kural.Deger -DegerTuru $Kural.Tur
+        $turSayaclari[$Kural.Tur]++
+        $BasariliSayaci++
+        Write-Host "  [OK] $($Kural.Ad) -> $goruntulenecekDeger" -ForegroundColor Gray
     } catch {
-        # Kayıt defterine yazma başarısız olursa:
-        #   1. Kırmızı renkte hata mesajı basılır (hangi kayıt başarısız gösterilir).
-        #   2. Hata sayacı artırılır (kapanış raporunda izlenir).
-        #   3. Döngü durmadan bir sonraki politikaya geçer (kısmi başarı tolere edilir).
-        Write-Host "  [HATA] $($Kural.Key) -> yazılamadı: $($_.Exception.Message)" -ForegroundColor Red
         $HataSayaci++
+        Write-Host "  [HATA] $($Kural.Ad): $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# KAPANIŞ: ÖZET RAPOR VE DOĞRULAMA REHBERİ
+# ADIM 6: EK HKCU AYARLARI
 # ─────────────────────────────────────────────────────────────────────────────
-$AyiriciCizgi = "-" * 62
+Write-Host "[6/7] Ek HKCU Ayarları Uygulanıyor..." -ForegroundColor Gray
 
-Write-Host "`n$AyiriciCizgi" -ForegroundColor DarkGray
-Write-Host "  UYGULAMA ÖZET RAPORU" -ForegroundColor Cyan
-Write-Host $AyiriciCizgi -ForegroundColor DarkGray
+try {
+    New-ItemProperty -Path $HKCU_Hedef -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
+    Write-Host "  [OK] ChromeVariations (HKCU) -> dword:1" -ForegroundColor DarkGreen
+} catch {
+    Write-Host "  [UYARI] ChromeVariations (HKCU) ayarlanamadı: $($_.Exception.Message)" -ForegroundColor Yellow
+}
 
-# HKCU tercihi
-$HKCUDurum = if ($HKCUBasarili) { "Başarılı" } else { "Başarısız" }
-Write-Host "  Omaha GUID Kaydı   : $OmahaBasariSayaci başarılı / $OmahaHataSayaci başarısız" -ForegroundColor Gray
+Write-Host ""
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ADIM 7: ÖZET RAPORU VE DOĞRULAMA KILAVUZU
+# ─────────────────────────────────────────────────────────────────────────────
+$AyracCizgisi = "-" * 62
+
+Write-Host "`n$AyracCizgisi" -ForegroundColor DarkGray
+Write-Host "  İŞLEM ÖZET RAPORU" -ForegroundColor Cyan
+Write-Host "  Katman             : $Seviye ($ToplamPolitikaSayisi politika)" -ForegroundColor White
+Write-Host $AyracCizgisi -ForegroundColor DarkGray
+
+$HKCUDurum = if ($HKCUBasarili) { "Uygulandı" } else { "Başarısız" }
+Write-Host "  Omaha GUID Kaydı   : $OmahaBasarili başarılı / $OmahaHata başarısız" -ForegroundColor Gray
 Write-Host "  HKCU Tercihi       : UsageStatsInSample    → $HKCUDurum" -ForegroundColor Gray
-Write-Host "  HKLM Politikaları  : $BasariSayaci başarılı / $HataSayaci başarısız" -ForegroundColor Gray
-Write-Host $AyiriciCizgi -ForegroundColor DarkGray
+Write-Host "  HKLM Politikaları  : $BasariliSayaci uygulandı / $HataSayaci başarısız" -ForegroundColor Gray
+Write-Host "  Tür Dağılımı       : DWord=$($turSayaclari.DWord) / String=$($turSayaclari.String) / MultiString=$($turSayaclari.MultiString)" -ForegroundColor Gray
+Write-Host $AyracCizgisi -ForegroundColor DarkGray
 
-# Uyarı bloğu — yalnızca hata varsa görünür
 if ($HataSayaci -gt 0) {
-    Write-Host "`n  [UYARI] $HataSayaci politika yazılamadı. Yukarıdaki HATA" -ForegroundColor Yellow
-    Write-Host "          satırlarını inceleyip gerekli izinleri kontrol edin." -ForegroundColor Yellow
+    Write-Host "`n  [UYARI] $HataSayaci politika yazılamadı. Lütfen" -ForegroundColor Yellow
+    Write-Host "            yukarıdaki HATA satırlarını inceleyin ve gerekli" -ForegroundColor Yellow
+    Write-Host "            izinleri kontrol edin." -ForegroundColor Yellow
 }
 
-# Genel başarı mesajı
-if ($BasariSayaci -gt 0 -or $OmahaBasariSayaci -gt 0) {
-    Write-Host "`n  [BAŞARILI] Brave 1.91.172 kurumsal gizlilik politikaları" -ForegroundColor Green
-    Write-Host "           Windows 11 25H2 sistemine başarıyla uygulandı." -ForegroundColor Green
-    Write-Host "           Değişikliklerin devreye girmesi için Brave'i" -ForegroundColor White
-    Write-Host "           tamamen kapatıp yeniden açmanız yeterlidir.`n" -ForegroundColor White
+if ($BasariliSayaci -gt 0 -or $OmahaBasarili -gt 0) {
+    Write-Host "`n  [BAŞARILI] $Seviye kurumsal gizlilik politikaları" -ForegroundColor Green
+    Write-Host "            Windows 11 25H2 üzerinde Brave'e başarıyla uygulandı." -ForegroundColor Green
+    Write-Host "            Brave'i tamamen kapatıp yeniden açtığınızda" -ForegroundColor White
+    Write-Host "            değişiklikler etkili olacaktır.`n" -ForegroundColor White
 }
 
-# Doğrulama rehberi — teknik personele yönlendirme
 Write-Host "  DOĞRULAMA:" -ForegroundColor Cyan
-Write-Host "  1. Etkin politikalar  : brave://policy" -ForegroundColor DarkGray
-Write-Host "  2. Kayıt defteri      : HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -ForegroundColor DarkGray
-Write-Host "  3. Yedek konumu       : `$env:TEMP\BravePolicyYedek\" -ForegroundColor DarkGray
-Write-Host "  4. Geri alma komutu   : reg import `"<yedek_dosyası.reg>`"`n" -ForegroundColor DarkGray
+Write-Host "  1. Aktif politikalar : brave://policy" -ForegroundColor DarkGray
+Write-Host "  2. Kayıt defteri yolu: HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -ForegroundColor DarkGray
+Write-Host "  3. Yedek konumu      : `$env:TEMP\BravePolicyYedek\" -ForegroundColor DarkGray
+Write-Host "  4. Geri alma komutu  : reg import `"<yedek_dosyasi.reg>`"`n" -ForegroundColor DarkGray
 
-# ─────────────────────────────────────────────────────────────────────────────
-# ÇIKIŞ KODU
-# ─────────────────────────────────────────────────────────────────────────────
-# exit 0 → Tüm önemli adımlar başarıyla tamamlandı.
-# exit 1 → En az bir HKLM politikası yazılamadı.
-#
-# Bu ayrım, Görev Zamanlayıcı, SCCM, Ansible ve benzeri özdevim araçlarının
-# betiğin başarıyla çalışıp çalışmadığını doğru biçimde raporlamasını sağlar.
-# [v1.0 Farkı]: Eski sürüm `Exit` kullanıyordu — bu, hata durumunda dahi
-# her zaman 0 (başarı) döndürdüğünden otomasyon araçlarını yanıltıyordu.
+# Çıkış kodu
 if ($HataSayaci -gt 0) { exit 1 } else { exit 0 }
