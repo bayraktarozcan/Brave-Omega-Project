@@ -107,3 +107,16 @@ Wiki/
 # .editorconfig
 # README.md
 # LICENSE
+
+# 9. INTELLIGENCE LAYERS / ZEKÂ KATMANLARI
+# ─────────────────────────────────────────────────────────────────────────────
+# [EN] AI assistant context and knowledge layers — never tracked, never committed,
+#     never mentioned in any public output. Location-independent patterns ensure
+#     protection even if folders are moved or renamed.
+# [TR] AI asistan bağlam ve bilgi katmanları — asla takip edilmez, asla commit
+#     edilmez, hiçbir genel çıktıda anılmaz. Konum bağımsız desenlerle taşıma
+#     veya yeniden adlandırmaya karşı dahi korumalıdır.
+**/Personal-Intelligence/
+**/Project-Intelligence/
+**/Business-Intelligence/
+**/Knowledge-Intelligence/
