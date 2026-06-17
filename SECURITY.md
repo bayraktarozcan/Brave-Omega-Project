@@ -212,7 +212,7 @@ Every policy in Brave Omega can be traced to its authoritative source:
 
 Project maintainers sign releases and tags using GPG. Verify signatures:
 ```powershell
-git tag -v v2.0.0
+git tag -v v2.0
 ```
 
 #### 6.3 Supply Chain Recommendations
@@ -491,7 +491,7 @@ Brave Omega'daki her politika yetkili kaynağına kadar izlenebilir:
 Proje bakımcıları sürümleri ve etiketleri GPG kullanarak imzalar:
 
 ```powershell
-git tag -v v2.0.0
+git tag -v v2.0
 ```
 
 #### 6.3 Tedarik Zinciri Önerileri

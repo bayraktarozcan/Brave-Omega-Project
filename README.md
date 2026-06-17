@@ -65,7 +65,7 @@ systematically disables telemetry, analytics services, background pings, integra
 monetization features, and other privacy-eroding components — all without touching the
 browser's internals or requiring any third-party tools.
 
-Brave Omega v2.0 introduces a **four-tier hardening model** — Brave Only (13 policies),
+Brave Omega v2.0 introduced a **four-tier hardening model** — Brave Only (13 policies),
 Essential ⭐ (30), Balanced (46), and Strict (68) — giving users precise control over
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
