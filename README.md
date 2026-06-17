@@ -420,10 +420,24 @@ no longer have any effect.
 ```
 BRAVE OMEGA PROJECT/
 │
-├── .gitignore                   Git exclusion rules
+├── .gitignore                          Git exclusion rules
+├── .gitattributes
+├── LICENSE                             MIT
+├── README.md                           Documentation (EN + TR)
+├── CHANGELOG.md                        Changelog
+├── CONTRIBUTING.md                     Contributing guide (EN + TR)
+├── SECURITY.md                         Security policy (EN + TR)
+├── index.html                          Landing page (GitHub Pages)
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yaml             Bug report template
+│   │   └── feature_request.yaml        Feature request template
+│   └── workflows/
+│       ├── admx-validate.ps1           ADMX validation script
+│       └── admx-validate.yml           ADMX validation pipeline
 └── Brave Omega/
-        BraveOmega-EN.ps1        Main script — English interface
-        BraveOmega-TR.ps1        Main script — Turkish interface
+        BraveOmega-EN.ps1               Main script — English interface
+        BraveOmega-TR.ps1               Main script — Turkish interface
 ```
 
 ---
@@ -906,10 +920,24 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 ```
 BRAVE OMEGA PROJECT/
 │
-├── .gitignore                  Git dışlama kuralları
+├── .gitignore                          Git dışlama kuralları
+├── .gitattributes
+├── LICENSE                             MIT
+├── README.md                           Belgelendirme (EN + TR)
+├── CHANGELOG.md                        Değişiklik günlüğü
+├── CONTRIBUTING.md                     Katkı rehberi (EN + TR)
+├── SECURITY.md                         Güvenlik politikası (EN + TR)
+├── index.html                          Açılış sayfası (GitHub Pages)
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yaml             Hata raporu şablonu
+│   │   └── feature_request.yaml        Özellik talebi şablonu
+│   └── workflows/
+│       ├── admx-validate.ps1           ADMX doğrulama betiği
+│       └── admx-validate.yml           ADMX doğrulama hattı
 └── Brave Omega/
-        BraveOmega-EN.ps1       Ana betik — İngilizce arayüz
-        BraveOmega-TR.ps1       Ana betik — Türkçe arayüz
+        BraveOmega-EN.ps1               Ana betik — İngilizce arayüz
+        BraveOmega-TR.ps1               Ana betik — Türkçe arayüz
 ```
 
 ---
