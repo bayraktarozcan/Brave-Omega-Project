@@ -314,8 +314,7 @@ no longer have any effect.
 
 ### 9. Policy Reference
 
-> Brave Omega now offers **4 hardening levels**. The policy reference below is organized by registry hive and level.
-> For the complete policy list at each level, see the script header (`$PolicyDefinitions` in `BraveOmega-EN.ps1`).
+> Brave Omega offers **4 hardening levels** with **68 enterprise policies** total. The policy reference below is organized by registry hive and level. All 68 policies are listed — no need to consult the script.
 
 #### 9.1 HKCU — User-Level Preferences (all levels)
 
@@ -365,7 +364,7 @@ no longer have any effect.
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
 | `VideoCaptureAllowed` | `0` | DWord | Blocks camera by default |
 
-#### 9.4 Balanced Level — Essential + Security Baseline (16 additional)
+#### 9.4 Balanced Level — Essential + Security Baseline (19 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -389,7 +388,7 @@ no longer have any effect.
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
 | `DefaultMediaStreamSetting` | `2` | DWord | Blocks camera/mic by default |
 
-#### 9.5 Strict Level — Balanced + Maximum Privacy (22 additional)
+#### 9.5 Strict Level — Balanced + Maximum Privacy (20 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -801,8 +800,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 9. Politika Başvuru Tablosu
 
-> Brave Omega artık **4 sıkılaştırma seviyesi** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
-> Tam politika listesi için betik başlığına bakın (`$PolitikaTanimlari` içinde `BraveOmega-TR.ps1`).
+> Brave Omega **4 sıkılaştırma seviyesi** ve **68 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir. 68 politikanın tamamı aşağıda listelenmiştir — betiğe bakmaya gerek yoktur.
 
 #### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -876,7 +874,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
 | `DefaultMediaStreamSetting` | `2` | DWord | Varsayılan olarak kamera/mikrofonu engeller |
 
-#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (22 ek)
+#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (20 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
