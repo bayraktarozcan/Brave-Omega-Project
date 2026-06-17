@@ -104,6 +104,10 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | 💾 **Automatic Backup** | Time-stamped `.reg` backup of the HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration with a single command: `reg import "<backup_file.reg>"` |
 | 🛡️ **Brave Process Guard** | Detects running Brave instances and presents a continue/cancel decision before applying changes |
+| 🔍 **Version Check** | Automatically detects installed Brave version and warns on mismatch with validated target |
+| 👁️ **Dry-Run Mode** | `-WhatIf` parameter previews all changes without writing to the registry |
+| 🧹 **Clean Uninstall** | `-Reset` parameter removes all applied Brave Omega policies from HKLM, HKCU, and Omaha GUIDs |
+| 🔄 **CI/CD Validation** | GitHub Actions pipeline validates policy definitions against official ADMX templates weekly |
 | 📊 **Execution Summary** | Per-category success/failure type counts with transparent reporting |
 | 🌍 **Bilingual** | Full Turkish and English versions with identical functionality and parity |
 
@@ -157,6 +161,16 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
 
 # Turkish: apply minimal Brave-only policies:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level "Brave Yalnız"
+```
+
+*Preview mode (show all changes without writing to registry):*
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential -WhatIf
+```
+
+*Reset/clean uninstall (remove all applied policies):*
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 ```
 
 | Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
@@ -280,7 +294,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.0** *(current)* | 1.91.172 | 149 | 11 25H2 | ✅ Active |
+| **v2.1** *(current)* | 1.91.172 | 149 | 11 25H2 | ✅ Active |
+| v2.0 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.2.2 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
@@ -449,35 +464,30 @@ BRAVE OMEGA PROJECT/
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
 - [x] **68 total policies** — expanded from 17 to 68 across 4 levels (v2.0)
-- [ ] Automated Brave version detection — warn if installed version differs from validated target
-- [ ] `BraveShieldsEnabledForUrls` / `BraveShieldsDisabledForUrls` URL list management
-- [ ] Dry-run mode via `-WhatIf` parameter — preview all changes without writing to registry
-- [ ] Reset/uninstall mode — remove all applied Brave Omega policies cleanly
-- [ ] Additional language editions (community contributions welcome)
-- [ ] GitHub Actions pipeline for automated ADMX policy diff validation on each Brave stable release
-- [ ] Structured `CONTRIBUTING.md` and issue templates
+- [x] **Automated Brave version detection** — warn if installed version differs from validated target (v2.1)
+- [x] **Dry-run mode** via `-WhatIf` parameter — preview all changes without writing to registry (v2.1)
+- [x] **Reset/uninstall mode** via `-Reset` parameter — remove all applied policies cleanly (v2.1)
+- [x] **CONTRIBUTING.md** and GitHub issue templates (v2.1)
+- [x] **GitHub Actions ADMX validation pipeline** — weekly automated policy diff validation (v2.1)
+- [ ] Additional language editions (community contributions welcome — see CONTRIBUTING.md)
+- [ ] Per-policy override support — explicitly include/exclude individual policies from any level
+- [ ] PowerShell help system (`Get-Help BraveOmega-EN.ps1 -Detailed`)
+- [ ] Signed releases with SHA-256 checksums
 
 ---
 
 ### 14. Contributing
 
-Contributions are welcome. Priority areas:
+Contributions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full
+contributing guide, including:
 
-**Version Updates** — When a new Brave stable is released and a policy has changed, open a
-pull request with the updated value, source reference, and changelog entry.
-
-**New Policies** — Must be sourced from Brave's official ADMX templates or Chromium's
-enterprise policy documentation. Undocumented or community-speculated registry keys will
-not be merged.
-
-**Bug Reports** — If a policy causes unexpected behavior on a specific Brave version, open
-an issue including your Brave version, Windows version, the full `brave://policy` page output,
-and a description of the unexpected behavior.
-
-**Translations** — Additional language editions following the EN/TR template structure are
-welcome. Maintain functional parity with the English version.
-
-Please open an issue for discussion before submitting large pull requests.
+- Code of conduct
+- Priority areas (version bumps, new policies, bug fixes, translations)
+- Requirements for new policy submissions (must be ADMX-sourced and verified)
+- Bug report and feature request templates
+- Pull request workflow
+- Style guide for PowerShell scripts, Markdown, and HTML
+- Security disclosure process
 
 ---
 
@@ -571,6 +581,10 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tek komutla tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
 | 🛡️ **Brave Süreç Koruyucusu** | Değişiklik uygulanmadan önce çalışan Brave örnekleri tespit edilip kullanıcıya karar sunulur |
+| 🔍 **Sürüm Denetimi** | Yüklü Brave sürümünü otomatik algılar ve doğrulanmış hedefle uyuşmazlıkta uyarır |
+| 👁️ **Kuru Çalıştırma Kipi** | `-WhatIf` parametresi kayıt defterine yazmadan tüm değişiklikleri önizler |
+| 🧹 **Temiz Kaldırma** | `-Sıfırla` parametresi uygulanan tüm Brave Omega politikalarını HKLM, HKCU ve Omaha GUID'lerinden kaldırır |
+| 🔄 **CI/CD Doğrulaması** | GitHub Actions ardışık düzeni, politika tanımlarını haftalık olarak resmî ADMX şablonlarına karşı doğrular |
 | 📊 **Yürütme Özeti** | Tür bazında başarı/hata sayaçları ile şeffaf raporlama |
 | 🌍 **İki Dilli** | Birebir işlevselliğe sahip Türkçe ve İngilizce sürümler |
 
@@ -624,6 +638,16 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel
 
 # İngilizce: en katı seviye:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Strict
+```
+
+*Önizleme kipi (kayıt defterine yazmadan tüm değişiklikleri göster):*
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel -WhatIf
+```
+
+*Sıfırlama (uygulanan tüm politikaları kaldır):*
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
 ```
 
 | Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
@@ -748,7 +772,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.0** *(güncel)* | 1.91.172 | 149 | 11 25H2 | ✅ Etkin |
+| **v2.1** *(güncel)* | 1.91.172 | 149 | 11 25H2 | ✅ Etkin |
+| v2.0 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.2.2 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
@@ -838,36 +863,30 @@ BRAVE OMEGA PROJECT/
 - [x] **`-Level` parametresi** — sessiz/otomatik dağıtım (v2.0)
 - [x] **SECURITY.md** — güvenlik açığı bildirim süreci (v2.0)
 - [x] **68 toplam politika** — 17'den 68'e genişletildi (v2.0)
-- [ ] Otomatik Brave sürüm tespiti — yüklü sürüm doğrulanmış hedeften farklıysa uyar
-- [ ] `BraveShieldsEnabledForUrls` / `BraveShieldsDisabledForUrls` URL listesi yönetimi
-- [ ] `-WhatIf` parametresiyle kuru çalıştırma kipi — kayıt defterine yazmadan tüm değişiklikleri önizle
-- [ ] Sıfırlama/kaldırma kipi — uygulanan tüm Brave Omega politikalarını temiz biçimde sil
-- [ ] Ek dil sürümleri (topluluk katkıları memnuniyetle karşılanır)
-- [ ] Her Brave kararlı sürümünde otomatik ADMX politika farkı doğrulaması için GitHub Actions ardışık düzeni
-- [ ] Yapılandırılmış `CONTRIBUTING.md` ve sorun şablonları
+- [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar (v2.1)
+- [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi** — kayıt defterine yazmadan tüm değişiklikleri önizle (v2.1)
+- [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle (v2.1)
+- [x] **CONTRIBUTING.md** ve GitHub sorun şablonları (v2.1)
+- [x] **GitHub Actions ADMX doğrulama ardışık düzeni** — haftalık otomatik politika farkı doğrulaması (v2.1)
+- [ ] Ek dil sürümleri (topluluk katkıları memnuniyetle karşılanır — bkz. CONTRIBUTING.md)
+- [ ] Politika bazında ezme desteği — herhangi bir seviyeden tek tek politikaları dahil et/hariç tut
+- [ ] PowerShell yardım sistemi (`Get-Help BraveOmega-EN.ps1 -Detailed`)
+- [ ] SHA-256 sağlama toplamlarıyla imzalı sürümler
 
 ---
 
 ### 14. Katkıda Bulunma
 
-Katkılar memnuniyetle karşılanır. Öncelikli alanlar:
+Katkılar memnuniyetle karşılanır. Tam katkı rehberi için [`CONTRIBUTING.md`](CONTRIBUTING.md)
+dosyasına bakın:
 
-**Sürüm Güncellemeleri** — Yeni bir Brave kararlı sürümü yayımlandıysa ve bir politika
-değiştiyse, güncellenmiş değer, kaynak referansı ve değişiklik günlüğü girdisiyle birlikte
-bir çekme isteği (PR) açın.
-
-**Yeni Politikalar** — Brave'in resmî ADMX şablonlarından veya Chromium'un kurumsal
-politika belgelendirmesinden kaynaklanmış olmalıdır. Belgelenmemiş veya topluluk kaynaklı
-spekülatif kayıt defteri anahtarları birleştirilmeyecektir.
-
-**Hata Raporları** — Belirli bir Brave sürümünde beklenmedik davranış oluşursa; Brave
-sürümünüzü, Windows sürümünüzü, tam `brave://policy` sayfası çıktısını ve beklenmedik
-davranışın açıklamasını ekleyerek bir sorun bildirin.
-
-**Çeviriler** — EN/TR şablon yapısını izleyen ek dil sürümleri memnuniyetle karşılanır.
-İngilizce sürümle işlevsel eşdeğerlik korunmalıdır.
-
-Büyük çekme istekleri göndermeden önce tartışma için bir sorun açın.
+- Davranış kuralları
+- Öncelikli alanlar (sürüm güncellemeleri, yeni politikalar, hata düzeltmeleri, çeviriler)
+- Yeni politika gönderimleri için gereksinimler (ADMX kaynaklı ve doğrulanmış olmalı)
+- Hata raporu ve özellik talebi şablonları
+- Pull request iş akışı
+- PowerShell betikleri, Markdown ve HTML için stil rehberi
+- Güvenlik bildirim süreci
 
 ---
 

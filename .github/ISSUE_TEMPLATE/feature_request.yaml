@@ -1,0 +1,51 @@
+name: "Feature Request / Özellik Talebi"
+description: "Suggest an idea for Brave Omega"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 💡 Feature Request / Özellik Talebi
+
+        Before opening, please search existing issues to see if your idea has
+        already been proposed. / Açmadan önce, fikrinizin daha önce önerilip
+        önerilmediğini görmek için mevcut sorunları arayın.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem / Sorun"
+      description: "What problem does this feature solve?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed Solution / Önerilen Çözüm"
+      description: "How should this feature work?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "References / Referanslar"
+      description: "Links to ADMX docs, Chromium policy lists, discussions, etc."
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives Considered / Değerlendirilen Alternatifler"
+      description: "What else have you considered?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Context / Ek Bilgi"
+    validations:
+      required: false

@@ -17,8 +17,23 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.0)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.1                 Özellik genişletmesi — Sürüm denetimi, -WhatIf, -Sıfırla:
+#
+#     [YENİ]        Otomatik Brave sürüm tespiti.
+#                   Yüklü Brave doğrulanmış sürümden farklıysa uyarı verir.
+#
+#     [YENİ]        -WhatIf parametresi (standart PowerShell semantiği).
+#                   Kayıt defterine yazmadan tüm değişiklikleri önizler.
+#
+#     [YENİ]        -Sıfırla parametresi.
+#                   HKCU, HKLM ve Omaha GUID'deki tüm Brave Omega politikalarını
+#                   kaldırır — tek komutla temiz kaldırma.
+#
+#     [İYİLEŞTİRME] Yaz-KayitDegeri artık -WhatIf parametresi alıyor.
+#                   Yedekleme ve dizin oluşturma adımları -WhatIf modunda atlanır.
+#
 #   v2.0                 Köklü mimarî yenileme — Çok Katmanlı Sistem:
 #
 #     [YENİ]        4 katmanlı sıkılaştırma modeli:
@@ -50,8 +65,17 @@
 # PARAMETRELER
 # ─────────────────────────────────────────────────────────────────────────────
 param(
-    [string]$Seviye = ""
+    [string]$Seviye = "",
+    [switch]$WhatIf,
+    [switch]$Sifirla
 )
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BETİK SÜRÜM SABİTLERİ
+# ─────────────────────────────────────────────────────────────────────────────
+$BetikSurum    = "v2.1"
+$DogrulananBrave = "1.91.172"
+$DogrulananChromium = "149"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # UÇBİRİM KODLAMA BİÇİMİ SIKILAŞTIRMASI (KARAKTER HATASI ÇÖZÜMÜ)
@@ -59,6 +83,34 @@ param(
 [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding           = [System.Text.Encoding]::UTF8
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SÜRÜM ALGILAMA İŞLEVLERİ
+# ─────────────────────────────────────────────────────────────────────────────
+function Get-BraveVersion {
+    $yollar = @(
+        "${env:ProgramFiles}\BraveSoftware\Brave-Browser\Application\brave.exe",
+        "${env:ProgramFiles(x86)}\BraveSoftware\Brave-Browser\Application\brave.exe",
+        "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\Application\brave.exe"
+    )
+    foreach ($yol in $yollar) {
+        if (Test-Path $yol) {
+            try {
+                $ver = (Get-Item $yol).VersionInfo.FileVersion
+                if ($ver) { return @{ Yol = $yol; Surum = $ver } }
+            } catch { continue }
+        }
+    }
+    return $null
+}
+
+function Compare-BraveVersion {
+    param([string]$Yuklu, [string]$Beklenen)
+    if (-not $Yuklu) { return $false }
+    $y = $Yuklu.Split('.')[0..2] -join '.'
+    $b = $Beklenen.Split('.')[0..2] -join '.'
+    return $y -eq $b
+}
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ADIM 0A: KULLANICI HESABI DENETİMİ (UAC) VE YÖNETİCİ YETKİSİ DOĞRULAMA
@@ -73,13 +125,135 @@ if (-not $YoneticiModu) {
 }
 
 Clear-Host
-Write-Host "=== BRAVE OMEGA PROJECT — ÇOK KATMANLI SIKILAŞTIRMA BETİĞİ ===" -ForegroundColor Cyan
-Write-Host "Hedef Platform : Windows 11 25H2 / Chromium 149 (Brave Kararlı Kanalı)" -ForegroundColor Gray
+Write-Host "=== BRAVE OMEGA PROJECT $BetikSurum — ÇOK KATMANLI SIKILAŞTIRMA BETİĞİ ===" -ForegroundColor Cyan
+Write-Host "Hedef Platform : Windows 11 25H2 / Chromium $DogrulananChromium (Brave $DogrulananBrave)" -ForegroundColor Gray
 Write-Host "İşlem Zamanı   : $(Get-Date -Format 'dd-MM-yyyy HH:mm:ss')`n" -ForegroundColor Gray
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 0B: KATMAN SEÇİMİ
+# ADIM 0B: SÜRÜM DENETİMİ
+# ─────────────────────────────────────────────────────────────────────────────
+$braveBilgi = Get-BraveVersion
+$surumUygun = $false
+
+if ($braveBilgi) {
+    $surumUygun = Compare-BraveVersion -Yuklu $braveBilgi.Surum -Beklenen $DogrulananBrave
+    if (-not $surumUygun) {
+        Write-Host "[SÜRÜM DENETİMİ] Yüklü Brave $($braveBilgi.Surum) doğrulanan sürümden ($DogrulananBrave) farklı!" -ForegroundColor Yellow
+        Write-Host "  Yol: $($braveBilgi.Yol)" -ForegroundColor DarkGray
+        Write-Host "  Bu tarayıcı sürümünde bazı politikalar tanınmayabilir." -ForegroundColor Yellow
+        Write-Host "  Devam etmek istiyor musunuz? (E = Evet / H = Hayır): " -ForegroundColor White -NoNewline
+        $devam = Read-Host
+        if ($devam -notin @("E", "e", "Evet", "evet")) {
+            Write-Host "İşlem kullanıcı tarafından iptal edildi." -ForegroundColor DarkGray
+            exit 0
+        }
+    } else {
+        Write-Host "[SÜRÜM DENETİMİ] Brave $DogrulananBrave tespit edildi — sürüm doğrulama hedefiyle eşleşiyor.`n" -ForegroundColor DarkGreen
+    }
+} else {
+    Write-Host "[SÜRÜM DENETİMİ] Brave kurulum yolu tespit edilemedi." -ForegroundColor Yellow
+    Write-Host "  Devam ediliyor — ancak brave://settings/help adresinden uyumluluğu kontrol edin.`n" -ForegroundColor DarkGray
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ADIM 0C: SIĞIRLA (RESET) MODU
+# ─────────────────────────────────────────────────────────────────────────────
+$HKCU_Hedef = "HKCU:\Software\BraveSoftware\Brave-Browser"
+$HKLM_Hedef = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
+
+if ($Sifirla) {
+    Write-Host "[SIĞIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
+    Write-Host ""
+
+    $tumPolitikalar = @(
+        "UsageStatsInSample", "ChromeVariations",
+        "BraveRewardsDisabled", "BraveWalletDisabled", "BraveVPNDisabled",
+        "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
+        "BravePlaylistEnabled", "BraveSpeedreaderEnabled", "BraveWaybackMachineEnabled",
+        "BraveP3AEnabled", "BraveStatsPingEnabled", "BraveWebDiscoveryEnabled", "TorDisabled",
+        "MetricsReportingEnabled", "SafeBrowsingExtendedReportingEnabled",
+        "UrlKeyedAnonymizedDataCollectionEnabled", "SearchSuggestEnabled",
+        "NetworkPredictionOptions", "TranslateEnabled", "SpellcheckEnabled",
+        "AlternateErrorPagesEnabled", "BrowserNetworkTimeQueriesEnabled",
+        "DomainReliabilityAllowed", "BackgroundModeEnabled", "SafeBrowsingSurveysEnabled",
+        "SafeBrowsingDeepScanningEnabled", "WebRtcEventLogCollectionAllowed",
+        "WebRtcTextLogCollectionAllowed", "AudioCaptureAllowed", "VideoCaptureAllowed",
+        "WebRtcIPHandling", "WebRtcLocalIpsAllowedUrls", "HttpsOnlyMode", "DnsOverHttpsMode",
+        "BlockThirdPartyCookies", "PasswordManagerEnabled", "PasswordManagerPasskeysEnabled",
+        "AutofillAddressEnabled", "AutofillCreditCardEnabled", "ShowFullUrlsInAddressBar",
+        "DisableSafeBrowsingProceedAnyway", "QuicAllowed", "ChromeVariations",
+        "NetworkServiceSandboxEnabled", "AudioSandboxEnabled",
+        "DefaultGeolocationSetting", "DefaultNotificationsSetting", "DefaultPopupsSetting",
+        "DefaultMediaStreamSetting",
+        "DefaultSensorsSetting", "DefaultLocalFontsSetting", "DefaultClipboardSetting",
+        "DefaultFileSystemReadGuardSetting", "DefaultFileSystemWriteGuardSetting",
+        "DefaultSerialGuardSetting", "DefaultIdleDetectionSetting",
+        "DefaultInsecureContentSetting", "DefaultJavaScriptJitSetting", "DefaultCookiesSetting",
+        "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
+        "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
+        "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage"
+    )
+
+    # HKLM'den kaldır
+    $hkSayac = 0
+    if (Test-Path $HKLM_Hedef) {
+        foreach ($ad in $tumPolitikalar) {
+            try {
+                Remove-ItemProperty -Path $HKLM_Hedef -Name $ad -ErrorAction SilentlyContinue
+                $hkSayac++
+                if (-not $WhatIf) { Write-Host "  [OK] HKLM\$ad kaldırıldı" -ForegroundColor DarkGreen }
+            } catch { }
+        }
+    }
+
+    # HKCU'dan kaldır
+    $hcSayac = 0
+    if (Test-Path $HKCU_Hedef) {
+        foreach ($ad in @("UsageStatsInSample", "ChromeVariations")) {
+            try {
+                Remove-ItemProperty -Path $HKCU_Hedef -Name $ad -ErrorAction SilentlyContinue
+                $hcSayac++
+                if (-not $WhatIf) { Write-Host "  [OK] HKCU\$ad kaldırıldı" -ForegroundColor DarkGreen }
+            } catch { }
+        }
+    }
+
+    # Omaha usagestats kaldır
+    $omahaSayac = 0
+    $kokYol = "HKCU:\Software\BraveSoftware"
+    if (Test-Path "$kokYol\Update\ClientState") {
+        $guids = Get-ChildItem -Path "$kokYol\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty Name |
+            ForEach-Object { $_ -replace "HKEY_CURRENT_USER", "HKCU:" } |
+            Where-Object { $_ -match "\\\{[a-fA-F0-9-]+\}$" }
+        foreach ($guidYol in $guids) {
+            try {
+                Remove-ItemProperty -Path $guidYol -Name "usagestats" -ErrorAction SilentlyContinue
+                $omahaSayac++
+                if (-not $WhatIf) { Write-Host "  [OK] Omaha GUID: usagestats kaldırıldı" -ForegroundColor DarkGreen }
+            } catch { }
+        }
+    }
+
+    # Boş HKLM anahtarını temizle
+    $hkPolicies = Get-ItemProperty -Path $HKLM_Hedef -ErrorAction SilentlyContinue
+    if ($hkPolicies -and @($hkPolicies.PSObject.Properties).Count -le 1) {
+        try {
+            Remove-Item -Path $HKLM_Hedef -Force -ErrorAction SilentlyContinue
+            Write-Host "  [OK] HKLM politika anahtarı kaldırıldı (hiç politika kalmadı)" -ForegroundColor DarkGreen
+        } catch { }
+    }
+
+    Write-Host "`n[SIĞIRLA TAMAMLANDI] HKLM: $hkSayac / HKCU: $hcSayac / Omaha: $omahaSayac girdi kaldırıldı." -ForegroundColor Cyan
+    Write-Host "  Brave'i kapatıp yeniden açın.`n" -ForegroundColor White
+    exit 0
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ADIM 0D: KATMAN SEÇİMİ
 # ─────────────────────────────────────────────────────────────────────────────
 $GecerliSeviyeler = @("BraveOnly", "Essential", "Balanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Katı")
 
@@ -128,6 +302,9 @@ if ($SeviyeAnahtari.ContainsKey($Seviye)) {
     $SeviyeAnahtar = "Essential"
 }
 
+if ($WhatIf) {
+    Write-Host "Mod: -WhatIf (yalnızca önizleme — kayıt defterine yazılmaz)" -ForegroundColor Magenta
+}
 Write-Host "Seçilen Katman: $Seviye" -ForegroundColor Cyan
 Write-Host ""
 
@@ -360,8 +537,11 @@ function Yaz-KayitDegeri {
         [string]$HedefYol,
         [string]$PolitikaAdi,
         $PolitikaDegeri,
-        [string]$DegerTuru
+        [string]$DegerTuru,
+        [switch]$WhatIf
     )
+
+    if ($WhatIf) { return "[WhatIf] yazma atlandı" }
 
     switch ($DegerTuru) {
         "DWord" {
@@ -423,9 +603,13 @@ if ($DinamikYollar) {
     Write-Host "  [*] Omaha Güncelleyici Bilgi Aktarımı Kapatılıyor..." -ForegroundColor Gray
     foreach ($GUIDYolu in $DinamikYollar) {
         try {
-            New-ItemProperty -Path $GUIDYolu -Name "usagestats" -Value 0 -PropertyType DWord -Force | Out-Null
+            $etiket = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
+            $renk   = if ($WhatIf) { "Magenta" } else { "DarkGreen" }
+            if (-not $WhatIf) {
+                New-ItemProperty -Path $GUIDYolu -Name "usagestats" -Value 0 -PropertyType DWord -Force | Out-Null
+            }
             $OmahaBasarili++
-            Write-Host "  [OK] $GUIDYolu -> usagestats = 0" -ForegroundColor DarkGreen
+            Write-Host "  $etiket $GUIDYolu -> usagestats = 0" -ForegroundColor $renk
         } catch {
             $OmahaHata++
             Write-Host "  [HATA] $GUIDYolu -> usagestats yazılamadı: $($_.Exception.Message)" -ForegroundColor Red
@@ -442,7 +626,9 @@ if ($DinamikYollar) {
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host "[2/7] HKLM Politika Kovası Yedekleniyor..." -ForegroundColor Gray
 
-if (Test-Path $HKLM_Hedef) {
+if ($WhatIf) {
+    Write-Host "  -> [WhatIf] Yedekleme atlandı (yalnızca önizleme).`n" -ForegroundColor Magenta
+} elseif (Test-Path $HKLM_Hedef) {
     $YedekKlasor = "$env:TEMP\BravePolicyYedek"
     New-Item -Path $YedekKlasor -ItemType Directory -Force | Out-Null
 
@@ -467,11 +653,16 @@ if (Test-Path $HKLM_Hedef) {
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host "[3/7] Kayıt Defteri Hedef Dizin Yapısı Hazırlanıyor..." -ForegroundColor Gray
 
-New-Item -Path $HKCU_Hedef -Force -ErrorAction SilentlyContinue | Out-Null
-Write-Host "  -> HKCU: $HKCU_Hedef" -ForegroundColor DarkGray
+if ($WhatIf) {
+    Write-Host "  [WhatIf] HKCU: $HKCU_Hedef" -ForegroundColor Magenta
+    Write-Host "  [WhatIf] HKLM: $HKLM_Hedef`n" -ForegroundColor Magenta
+} else {
+    New-Item -Path $HKCU_Hedef -Force -ErrorAction SilentlyContinue | Out-Null
+    Write-Host "  -> HKCU: $HKCU_Hedef" -ForegroundColor DarkGray
 
-New-Item -Path $HKLM_Hedef -Force -ErrorAction SilentlyContinue | Out-Null
-Write-Host "  -> HKLM: $HKLM_Hedef`n" -ForegroundColor DarkGray
+    New-Item -Path $HKLM_Hedef -Force -ErrorAction SilentlyContinue | Out-Null
+    Write-Host "  -> HKLM: $HKLM_Hedef`n" -ForegroundColor DarkGray
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -481,10 +672,15 @@ Write-Host "[4/7] HKCU Kullanıcı Bilgi Aktarımı Tercihi Uygulanıyor..." -Fo
 
 $HKCUBasarili = $false
 
+$etiket = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
+$renk   = if ($WhatIf) { "Magenta" } else { "White" }
+
 try {
-    New-ItemProperty -Path $HKCU_Hedef -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
+    if (-not $WhatIf) {
+        New-ItemProperty -Path $HKCU_Hedef -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
+    }
     $HKCUBasarili = $true
-    Write-Host "  [OK] UsageStatsInSample -> dword:00000000 (Kullanıcı Düzeyi Bilgi Aktarımı Devre Dışı)`n" -ForegroundColor White
+    Write-Host "  $etiket UsageStatsInSample -> dword:00000000 (Kullanıcı Düzeyi Bilgi Aktarımı Devre Dışı)`n" -ForegroundColor $renk
 } catch {
     Write-Host "  [HATA] UsageStatsInSample yazılamadı: $($_.Exception.Message)`n" -ForegroundColor Red
 }
@@ -502,7 +698,7 @@ $turSayaclari = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
 
 foreach ($Kural in $BirlestirilmisPolitikalar.Values) {
     try {
-        $goruntulenecekDeger = Yaz-KayitDegeri -HedefYol $HKLM_Hedef -PolitikaAdi $Kural.Ad -PolitikaDegeri $Kural.Deger -DegerTuru $Kural.Tur
+        $goruntulenecekDeger = Yaz-KayitDegeri -HedefYol $HKLM_Hedef -PolitikaAdi $Kural.Ad -PolitikaDegeri $Kural.Deger -DegerTuru $Kural.Tur -WhatIf:$WhatIf
         $turSayaclari[$Kural.Tur]++
         $BasariliSayaci++
         Write-Host "  [OK] $($Kural.Ad) -> $goruntulenecekDeger" -ForegroundColor Gray
@@ -518,9 +714,14 @@ foreach ($Kural in $BirlestirilmisPolitikalar.Values) {
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host "[6/7] Ek HKCU Ayarları Uygulanıyor..." -ForegroundColor Gray
 
+$etiket = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
+$renk   = if ($WhatIf) { "Magenta" } else { "DarkGreen" }
+
 try {
-    New-ItemProperty -Path $HKCU_Hedef -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
-    Write-Host "  [OK] ChromeVariations (HKCU) -> dword:1" -ForegroundColor DarkGreen
+    if (-not $WhatIf) {
+        New-ItemProperty -Path $HKCU_Hedef -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
+    }
+    Write-Host "  $etiket ChromeVariations (HKCU) -> dword:1" -ForegroundColor $renk
 } catch {
     Write-Host "  [UYARI] ChromeVariations (HKCU) ayarlanamadı: $($_.Exception.Message)" -ForegroundColor Yellow
 }
@@ -536,6 +737,7 @@ $AyracCizgisi = "-" * 62
 Write-Host "`n$AyracCizgisi" -ForegroundColor DarkGray
 Write-Host "  İŞLEM ÖZET RAPORU" -ForegroundColor Cyan
 Write-Host "  Katman             : $Seviye ($ToplamPolitikaSayisi politika)" -ForegroundColor White
+if ($WhatIf) { Write-Host "  Mod                : WhatIf (yalnızca önizleme)" -ForegroundColor Magenta }
 Write-Host $AyracCizgisi -ForegroundColor DarkGray
 
 $HKCUDurum = if ($HKCUBasarili) { "Uygulandı" } else { "Başarısız" }

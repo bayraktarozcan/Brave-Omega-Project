@@ -1,0 +1,80 @@
+name: "Bug Report / Hata Raporu"
+description: "Report unexpected behavior with Brave Omega scripts / Brave Omega betiklerinde beklenmeyen davranış bildir"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Bug Report / Hata Raporu
+
+        Thanks for taking the time to fill out this report.
+        Please fill in **either** English or Turkish sections (or both).
+
+  - type: input
+    id: brave_version
+    attributes:
+      label: "Brave Version / Brave Sürümü"
+      description: "Output of brave://version"
+      placeholder: "e.g. 1.91.172 Chromium: 149.0.7827.115"
+    validations:
+      required: true
+
+  - type: input
+    id: windows_version
+    attributes:
+      label: "Windows Version / Windows Sürümü"
+      description: "Output of winver"
+      placeholder: "e.g. Windows 11 25H2 Build 26200.8524"
+    validations:
+      required: true
+
+  - type: input
+    id: script_version
+    attributes:
+      label: "Script Version / Betik Sürümü"
+      description: "Version from the script header"
+      placeholder: "e.g. v2.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behavior / Beklenen Davranış"
+      description: "What did you expect to happen?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Actual Behavior / Gerçek Davranış"
+      description: "What actually happened?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Reproduction Steps / Tekrarlama Adımları"
+      description: "Exact command and parameters you used"
+      placeholder: |
+        .\BraveOmega-EN.ps1 -Level Essential
+    validations:
+      required: true
+
+  - type: textarea
+    id: policy_output
+    attributes:
+      label: "brave://policy Output / Politikalar Çıktısı"
+      description: "Please paste or screenshot the full brave://policy page"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Context / Ek Bilgi"
+      description: "Any other relevant information"
+    validations:
+      required: false

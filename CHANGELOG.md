@@ -67,6 +67,88 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ---
 
+<a id="en-v21"></a>
+
+## [v2.1] — 2026-06-16
+
+<a id="en-v21-summary"></a>
+
+### 🎯 Summary
+
+**Feature expansion:** Automated Brave version detection, dry-run preview (`-WhatIf`),
+clean uninstall (`-Reset`), structured `CONTRIBUTING.md` with GitHub issue templates,
+and a GitHub Actions ADMX validation pipeline that runs weekly and on demand.
+
+<a id="en-v21-added"></a>
+
+### ✨ Added
+
+#### Version Detection
+- **Automated Brave binary discovery** — Searches `%ProgramFiles%`, `%ProgramFiles(x86)%`,
+  and `%LOCALAPPDATA%` for `brave.exe`.
+- **Version comparison** — Compares `major.minor.patch` against validated version `1.91.172`.
+- **User prompt on mismatch** — Warns if installed version differs and asks to continue.
+- **Silent skip** — If Brave is not found, script proceeds with a gentle reminder to check
+  compatibility at `brave://settings/help`.
+
+#### -WhatIf Parameter (Preview Mode)
+- **Standard PowerShell semantics** — `-WhatIf` switch on both the script and
+  `Write-PolicyValue` / `Yaz-KayitDegeri` functions.
+- **No registry writes** — All write operations (HKLM, HKCU, Omaha) are guarded by an
+  `if (-not $WhatIf)` check.
+- **Skipped steps** — Backup export and directory creation are entirely skipped in WhatIf mode.
+- **Magenta [WhatIf] tags** — Every output line that would have written a value is prefixed
+  with `[WhatIf]` in magenta for clear visual identification.
+- **Summary indication** — Summary report shows `Mode: -WhatIf (preview only)`.
+
+#### -Reset Parameter (Clean Uninstall)
+- **Full policy removal** — Removes all 68 Brave Omega policies from HKLM, HKCU (UsageStats,
+  ChromeVariations), and all detected Omaha GUIDs.
+- **Empty key cleanup** — Removes `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` if no
+  policies remain after deletion.
+- **Detailed counters** — Reports removed counts per hive: `HKLM: 68 / HKCU: 2 / Omaha: N`.
+- **WhatIf-aware** — Respects `-WhatIf` silently (no actual deletion in preview mode).
+
+#### Documentation
+- **CONTRIBUTING.md** — Comprehensive contributing guide (EN + TR) covering code of conduct,
+  priority areas, version updates, new policy requirements, bug report templates, feature
+  requests, translations, PR workflow, development setup, style guide, and security disclosures.
+- **Issue Templates** — Structured YAML templates for bug reports and feature requests
+  (`.github/ISSUE_TEMPLATE/bug_report.yaml`, `feature_request.yaml`).
+
+#### CI/CD
+- **ADMX Validation Pipeline** (`.github/workflows/admx-validate.yml` + `.ps1`):
+  - Runs weekly (Monday 06:00 UTC) and on `workflow_dispatch`.
+  - Downloads Chromium ADMX templates, parses policy definitions, and compares against
+    the script's policy list.
+  - Reports type mismatches, new policies available in ADMX, and policies in script not in ADMX.
+  - Creates a GitHub issue automatically when mismatches are found.
+  - Companion script (`admx-validate.ps1`) also usable standalone.
+
+### 🔧 Changed
+
+- **BraveOmega-EN.ps1** — v2.1 features: version check, -WhatIf, -Reset, `$ScriptVersion = "v2.1"`
+- **BraveOmega-TR.ps1** — v2.1 features mirrored in Turkish
+- **CHANGELOG.md** — Added v2.1 changelog entry (this section)
+
+### 📊 Statistics
+
+```
+Files Modified/Added:
+  ✓ BraveOmega-EN.ps1 (v2.1: version check, -WhatIf, -Reset)
+  ✓ BraveOmega-TR.ps1 (v2.1: mirrored changes)
+  ✓ CONTRIBUTING.md (new — comprehensive contributing guide, EN + TR)
+  ✓ .github/ISSUE_TEMPLATE/bug_report.yaml (new)
+  ✓ .github/ISSUE_TEMPLATE/feature_request.yaml (new)
+  ✓ .github/workflows/admx-validate.yml (new — weekly + manual dispatch)
+  ✓ .github/workflows/admx-validate.ps1 (new — standalone validation script)
+  ✓ CHANGELOG.md (v2.1 entry)
+  ✓ README.md (updated roadmap, contributing reference)
+  ✓ index.html (updated changelog, quick-start, badges)
+```
+
+---
+
 <a id="en-v20"></a>
 
 ## [v2.0] — 2026-06-16
@@ -443,6 +525,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.1   | 2026-06-16 | 68    | Version check, -WhatIf, -Reset, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Multi-Tier System (Brave Only / Essential / Balanced / Strict) |
 | v1.2.2 | 2026-06-13 | 17 | Safe execution policy fix, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 upgrade, translation & structural fixes |
@@ -457,6 +540,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## 🔗 Related Documentation
 
 - **README.md** — Complete user documentation (EN + TR)
+- **CONTRIBUTING.md** — Contributor guidelines (EN + TR)
 - **LICENSE** — MIT License terms
 - **Brave Omega/** — PowerShell scripts directory
 
@@ -529,6 +613,94 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v21"></a>
+
+## [v2.1] — 2026-06-16
+
+<a id="tr-v21-summary"></a>
+
+### 🎯 Özet
+
+**Özellik genişletmesi:** Otomatik Brave sürüm tespiti, kuru çalıştırma önizlemesi
+(`-WhatIf`), temiz kaldırma (`-Sıfırla`), yapılandırılmış `CONTRIBUTING.md` ve GitHub
+sorun şablonları ile haftalık ve isteğe bağlı çalışan bir GitHub Actions ADMX doğrulama
+boru hattı.
+
+<a id="tr-v21-added"></a>
+
+### ✨ Eklendi
+
+#### Sürüm Tespiti
+- **Otomatik Brave ikili dosya keşfi** — `%ProgramFiles%`, `%ProgramFiles(x86)%` ve
+  `%LOCALAPPDATA%` dizinlerinde `brave.exe` arar.
+- **Sürüm karşılaştırması** — `major.minor.patch` değerini doğrulanmış sürüm `1.91.172`
+  ile karşılaştırır.
+- **Uyuşmazlıkta kullanıcı istemi** — Yüklü sürüm farklıysa uyarır ve devam etmeyi sorar.
+- **Sessiz atlama** — Brave bulunamazsa, `brave://settings/help` adresinden uyumluluk
+  kontrolü hatırlatması ile devam eder.
+
+#### -WhatIf Parametresi (Önizleme Modu)
+- **Standart PowerShell semantiği** — Hem betikte hem de `Write-PolicyValue` /
+  `Yaz-KayitDegeri` fonksiyonlarında `-WhatIf` anahtarı.
+- **Kayıt defterine yazılmaz** — Tüm yazma işlemleri (HKLM, HKCU, Omaha) bir
+  `if (-not $WhatIf)` denetimi ile korunur.
+- **Atlanan adımlar** — Yedekleme dışa aktarma ve dizin oluşturma WhatIf modunda tamamen
+  atlanır.
+- **Magenta [WhatIf] etiketleri** — Değer yazacak her çıktı satırı, net görsel tanımlama
+  için macenta renkte `[WhatIf]` ön eki alır.
+- **Özet göstergesi** — Özet raporunda `Mod: WhatIf (yalnızca önizleme)` gösterilir.
+
+#### -Sıfırla Parametresi (Temiz Kaldırma)
+- **Tam politika kaldırma** — HKLM, HKCU (UsageStats, ChromeVariations) ve tespit edilen
+  tüm Omaha GUID'lerinden 68 Brave Omega politikasının tamamını kaldırır.
+- **Boş anahtar temizliği** — Kaldırma sonrası hiç politika kalmazsa
+  `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` anahtarını siler.
+- **Ayrıntılı sayaçlar** — Kovan başına kaldırma sayısını raporlar: `HKLM: 68 / HKCU: 2 / Omaha: N`.
+- **WhatIf duyarlılığı** — `-WhatIf` modunda sessizce çalışır (önizlemede gerçek silme yapılmaz).
+
+#### Belgelendirme
+- **CONTRIBUTING.md** — Kapsamlı katkı rehberi (EN + TR) — davranış kuralları, öncelikli
+  alanlar, sürüm güncellemeleri, yeni politika gereksinimleri, hata raporu şablonları,
+  özellik talepleri, çeviriler, PR iş akışı, geliştirme ortamı kurulumu, stil rehberi ve
+  güvenlik bildirimleri.
+- **Sorun Şablonları** — Hata raporları ve özellik talepleri için yapılandırılmış YAML
+  şablonları (`.github/ISSUE_TEMPLATE/bug_report.yaml`, `feature_request.yaml`).
+
+#### CI/CD
+- **ADMX Doğrulama Boru Hattı** (`.github/workflows/admx-validate.yml` + `.ps1`):
+  - Haftalık (Pazartesi 06:00 UTC) ve `workflow_dispatch` ile çalışır.
+  - Chromium ADMX şablonlarını indirir, politika tanımlarını ayrıştırır ve betiğin
+    politika listesiyle karşılaştırır.
+  - Tür uyuşmazlıklarını, ADMX'te bulunan yeni politikaları ve betikte olup ADMX'te
+    olmayan politikaları raporlar.
+  - Uyuşmazlık bulunduğunda otomatik olarak bir GitHub sorunu oluşturur.
+  - Yardımcı betik (`admx-validate.ps1`) bağımsız olarak da kullanılabilir.
+
+### 🔧 Değiştirildi
+
+- **BraveOmega-EN.ps1** — v2.1 özellikleri: sürüm denetimi, -WhatIf, -Sıfırla,
+  `$ScriptVersion = "v2.1"`
+- **BraveOmega-TR.ps1** — v2.1 özellikleri Türkçe olarak yansıtıldı
+- **CHANGELOG.md** — v2.1 değişiklik günlüğü eklendi (bu bölüm)
+
+### 📊 İstatistikler
+
+```
+Eklenen/Değiştirilen Dosyalar:
+  ✓ BraveOmega-EN.ps1 (v2.1: sürüm denetimi, -WhatIf, -Sıfırla)
+  ✓ BraveOmega-TR.ps1 (v2.1: yansıtılan değişiklikler)
+  ✓ CONTRIBUTING.md (yeni — kapsamlı katkı rehberi, EN + TR)
+  ✓ .github/ISSUE_TEMPLATE/bug_report.yaml (yeni)
+  ✓ .github/ISSUE_TEMPLATE/feature_request.yaml (yeni)
+  ✓ .github/workflows/admx-validate.yml (yeni — haftalık + manuel)
+  ✓ .github/workflows/admx-validate.ps1 (yeni — bağımsız doğrulama betiği)
+  ✓ CHANGELOG.md (v2.1 girdisi)
+  ✓ README.md (güncel yol haritası, katkı referansı)
+  ✓ index.html (güncel değişiklik günlüğü, hızlı başlangıç, rozetler)
+```
 
 ---
 
@@ -902,6 +1074,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.1   | 2026-06-16 | 68    | Sürüm denetimi, -WhatIf, -Sıfırla, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Çok Katmanlı Sistem (Brave Yalnız / Temel / Dengeli / Katı) |
 | v1.2.2 | 2026-06-13 | 17 | Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 yükseltmesi, çeviri ve yapı düzeltmeleri |
@@ -916,6 +1089,7 @@ Belgelendirme:
 ## 🔗 İlgili Belgelendirme
 
 - **README.md** — Tam kullanıcı belgelendirmesi (EN + TR)
+- **CONTRIBUTING.md** — Katkıda bulunan rehberi (EN + TR)
 - **LICENSE** — MIT Lisans koşulları
 - **Brave Omega/** — PowerShell betikleri dizini
 

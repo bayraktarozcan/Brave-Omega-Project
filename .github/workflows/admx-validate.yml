@@ -1,0 +1,82 @@
+name: ADMX Policy Validation
+
+on:
+  schedule:
+    # Run weekly on Monday at 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      brave_version:
+        description: "Brave version to validate against (e.g. 1.91.172)"
+        required: false
+        default: "1.91.172"
+      chromium_version:
+        description: "Chromium version for ADMX URL (e.g. 149)"
+        required: false
+        default: "149"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run ADMX validation
+        shell: pwsh
+        run: |
+          .github/workflows/admx-validate.ps1 `
+            -AdmxUrl "https://dl.google.com/update2/installers/ChromePolicyTemplate_${{ github.event.inputs.chromium_version || '149' }}.zip" `
+            -BraveVersion "${{ github.event.inputs.brave_version || '1.91.172' }}" `
+            -PolicyFile "Brave Omega/BraveOmega-EN.ps1"
+
+      - name: Check for validation failures
+        id: check_results
+        shell: pwsh
+        run: |
+          $report = ".github/workflows/admx-validation-report.json"
+          if (Test-Path $report) {
+            $data = Get-Content $report | ConvertFrom-Json
+            if ($data.mismatches.Count -gt 0) {
+              Write-Host "Mismatches found: $($data.mismatches.Count)" -ForegroundColor Red
+              Write-Host "##[set-output name=has_mismatches;]true"
+            } else {
+              Write-Host "All policies match ADMX definitions." -ForegroundColor Green
+              Write-Host "##[set-output name=has_mismatches;]false"
+            }
+          } else {
+            Write-Host "No report file found — assuming validation skipped or failed."
+            Write-Host "##[set-output name=has_mismatches;]false"
+          }
+
+      - name: Create issue on mismatch
+        if: steps.check_results.outputs.has_mismatches == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('.github/workflows/admx-validation-report.json', 'utf8'));
+            let body = `## ADMX Validation Report\n\n`;
+            body += `**Brave Version:** ${report.braveVersion}\n`;
+            body += `**Date:** ${report.date}\n\n`;
+            body += `### Mismatches (${report.mismatches.length} found)\n\n`;
+            body += `| Policy | Script Type | ADMX Type | Script Value | ADMX Value |\n`;
+            body += `|--------|-------------|-----------|-------------|------------|\n`;
+            for (const m of report.mismatches) {
+              body += `| ${m.policy} | ${m.scriptType} | ${m.admxType} | ${m.scriptValue} | ${m.admxValue} |\n`;
+            }
+            body += `\n### Policies in ADMX not in script\n\n`;
+            body += report.unmatchedAdmx.map(p => `- ${p}`).join('\n') || '*None*';
+            body += `\n\n### Policies in script not in ADMX\n\n`;
+            body += report.unmatchedScript.map(p => `- ${p}`).join('\n') || '*None*';
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[ADMX Validate] Policy mismatches for Brave ${report.braveVersion}`,
+              body: body,
+              labels: ['admx-validation', 'automated']
+            });

@@ -17,8 +17,23 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.0)
+# CHANGELOG (v2.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.1                 Feature expansion — Version check, -WhatIf, -Reset:
+#
+#     [NEW]        Automated Brave version detection.
+#                   Warns when installed Brave differs from validated version.
+#
+#     [NEW]        -WhatIf parameter (standard PowerShell semantics).
+#                   Preview all changes without writing to the registry.
+#
+#     [NEW]        -Reset parameter.
+#                   Removes all Brave Omega policies across HKCU, HKLM, and
+#                   Omaha GUID — clean uninstall in one command.
+#
+#     [IMPROVED]    Write-PolicyValue now accepts -WhatIf for preview mode.
+#                   Backup and directory steps skipped in -WhatIf mode.
+#
 #   v2.0                 Complete architectural overhaul — Multi-Tier System:
 #
 #     [NEW]        4-Tier hardening model:
@@ -50,8 +65,17 @@
 # PARAMETERS
 # ─────────────────────────────────────────────────────────────────────────────
 param(
-    [string]$Level = ""
+    [string]$Level = "",
+    [switch]$WhatIf,
+    [switch]$Reset
 )
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SCRIPT VERSION CONSTANTS
+# ─────────────────────────────────────────────────────────────────────────────
+$ScriptVersion   = "v2.1"
+$ValidatedBrave  = "1.91.172"
+$ValidatedChromium = "149"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TERMINAL ENCODING HARDENING (CHARACTER ERROR RESOLUTION)
@@ -59,6 +83,34 @@ param(
 [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding           = [System.Text.Encoding]::UTF8
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BRAVE VERSION DETECTION
+# ─────────────────────────────────────────────────────────────────────────────
+function Get-BraveVersion {
+    $paths = @(
+        "${env:ProgramFiles}\BraveSoftware\Brave-Browser\Application\brave.exe",
+        "${env:ProgramFiles(x86)}\BraveSoftware\Brave-Browser\Application\brave.exe",
+        "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\Application\brave.exe"
+    )
+    foreach ($path in $paths) {
+        if (Test-Path $path) {
+            try {
+                $ver = (Get-Item $path).VersionInfo.FileVersion
+                if ($ver) { return @{ Path = $path; Version = $ver } }
+            } catch { continue }
+        }
+    }
+    return $null
+}
+
+function Compare-BraveVersion {
+    param([string]$Installed, [string]$Expected)
+    if (-not $Installed) { return $false }
+    $i = $Installed.Split('.')[0..2] -join '.'
+    $e = $Expected.Split('.')[0..2] -join '.'
+    return $i -eq $e
+}
 
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0A: USER ACCOUNT CONTROL (UAC) AND ADMINISTRATOR PRIVILEGE VERIFICATION
@@ -73,13 +125,136 @@ if (-not $IsAdmin) {
 }
 
 Clear-Host
-Write-Host "=== BRAVE OMEGA PROJECT — MULTI-TIER HARDENING SCRIPT ===" -ForegroundColor Cyan
-Write-Host "Target Platform : Windows 11 25H2 / Chromium 149 (Brave Stable Channel)" -ForegroundColor Gray
+Write-Host "=== BRAVE OMEGA PROJECT $ScriptVersion — MULTI-TIER HARDENING SCRIPT ===" -ForegroundColor Cyan
+Write-Host "Target Platform : Windows 11 25H2 / Chromium $ValidatedChromium (Brave $ValidatedBrave)" -ForegroundColor Gray
 Write-Host "Execution Time  : $(Get-Date -Format 'dd-MM-yyyy HH:mm:ss')`n" -ForegroundColor Gray
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 0B: LEVEL SELECTION
+# STEP 0B: VERSION CHECK
+# ─────────────────────────────────────────────────────────────────────────────
+$braveInfo = Get-BraveVersion
+$versionOk = $false
+
+if ($braveInfo) {
+    $versionOk = Compare-BraveVersion -Installed $braveInfo.Version -Expected $ValidatedBrave
+    if (-not $versionOk) {
+        Write-Host "[VERSION CHECK] Installed Brave $($braveInfo.Version) differs from validated $ValidatedBrave" -ForegroundColor Yellow
+        Write-Host "  Path: $($braveInfo.Path)" -ForegroundColor DarkGray
+        Write-Host "  Some policies may not be recognized by this browser version." -ForegroundColor Yellow
+        Write-Host "  Continue? (Y = Yes / N = No): " -ForegroundColor White -NoNewline
+        $cont = Read-Host
+        if ($cont -notin @("Y", "y", "Yes", "yes")) {
+            Write-Host "Operation cancelled by the user." -ForegroundColor DarkGray
+            exit 0
+        }
+    } else {
+        Write-Host "[VERSION CHECK] Brave $ValidatedBrave detected — version matches validation target.`n" -ForegroundColor DarkGreen
+    }
+} else {
+    Write-Host "[VERSION CHECK] Could not detect Brave installation path." -ForegroundColor Yellow
+    Write-Host "  Proceeding — but verify compatibility at brave://settings/help`n" -ForegroundColor DarkGray
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 0C: RESET MODE
+# ─────────────────────────────────────────────────────────────────────────────
+$HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
+$HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
+
+if ($Reset) {
+    Write-Host "[RESET MODE] Removing all Brave Omega policies..." -ForegroundColor Magenta
+    Write-Host ""
+
+    # All known policy names across all levels (hardcoded for safety before definitions load)
+    $allPolicyNames = @(
+        "UsageStatsInSample", "ChromeVariations",
+        "BraveRewardsDisabled", "BraveWalletDisabled", "BraveVPNDisabled",
+        "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
+        "BravePlaylistEnabled", "BraveSpeedreaderEnabled", "BraveWaybackMachineEnabled",
+        "BraveP3AEnabled", "BraveStatsPingEnabled", "BraveWebDiscoveryEnabled", "TorDisabled",
+        "MetricsReportingEnabled", "SafeBrowsingExtendedReportingEnabled",
+        "UrlKeyedAnonymizedDataCollectionEnabled", "SearchSuggestEnabled",
+        "NetworkPredictionOptions", "TranslateEnabled", "SpellcheckEnabled",
+        "AlternateErrorPagesEnabled", "BrowserNetworkTimeQueriesEnabled",
+        "DomainReliabilityAllowed", "BackgroundModeEnabled", "SafeBrowsingSurveysEnabled",
+        "SafeBrowsingDeepScanningEnabled", "WebRtcEventLogCollectionAllowed",
+        "WebRtcTextLogCollectionAllowed", "AudioCaptureAllowed", "VideoCaptureAllowed",
+        "WebRtcIPHandling", "WebRtcLocalIpsAllowedUrls", "HttpsOnlyMode", "DnsOverHttpsMode",
+        "BlockThirdPartyCookies", "PasswordManagerEnabled", "PasswordManagerPasskeysEnabled",
+        "AutofillAddressEnabled", "AutofillCreditCardEnabled", "ShowFullUrlsInAddressBar",
+        "DisableSafeBrowsingProceedAnyway", "QuicAllowed", "ChromeVariations",
+        "NetworkServiceSandboxEnabled", "AudioSandboxEnabled",
+        "DefaultGeolocationSetting", "DefaultNotificationsSetting", "DefaultPopupsSetting",
+        "DefaultMediaStreamSetting",
+        "DefaultSensorsSetting", "DefaultLocalFontsSetting", "DefaultClipboardSetting",
+        "DefaultFileSystemReadGuardSetting", "DefaultFileSystemWriteGuardSetting",
+        "DefaultSerialGuardSetting", "DefaultIdleDetectionSetting",
+        "DefaultInsecureContentSetting", "DefaultJavaScriptJitSetting", "DefaultCookiesSetting",
+        "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
+        "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
+        "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage"
+    )
+
+    # Remove from HKLM
+    $hkCount = 0
+    if (Test-Path $HKLM_Target) {
+        foreach ($name in $allPolicyNames) {
+            try {
+                Remove-ItemProperty -Path $HKLM_Target -Name $name -ErrorAction SilentlyContinue
+                $hkCount++
+                if (-not $WhatIf) { Write-Host "  [OK] HKLM\$name removed" -ForegroundColor DarkGreen }
+            } catch { }
+        }
+    }
+
+    # Remove from HKCU
+    $hcCount = 0
+    if (Test-Path $HKCU_Target) {
+        foreach ($name in @("UsageStatsInSample", "ChromeVariations")) {
+            try {
+                Remove-ItemProperty -Path $HKCU_Target -Name $name -ErrorAction SilentlyContinue
+                $hcCount++
+                if (-not $WhatIf) { Write-Host "  [OK] HKCU\$name removed" -ForegroundColor DarkGreen }
+            } catch { }
+        }
+    }
+
+    # Remove Omaha usagestats from GUIDs
+    $omahaCount = 0
+    $rootPath = "HKCU:\Software\BraveSoftware"
+    if (Test-Path "$rootPath\Update\ClientState") {
+        $guids = Get-ChildItem -Path "$rootPath\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty Name |
+            ForEach-Object { $_ -replace "HKEY_CURRENT_USER", "HKCU:" } |
+            Where-Object { $_ -match "\\\{[a-fA-F0-9-]+\}$" }
+        foreach ($guidPath in $guids) {
+            try {
+                Remove-ItemProperty -Path $guidPath -Name "usagestats" -ErrorAction SilentlyContinue
+                $omahaCount++
+                if (-not $WhatIf) { Write-Host "  [OK] Omaha GUID: usagestats removed" -ForegroundColor DarkGreen }
+            } catch { }
+        }
+    }
+
+    # Optionally remove empty HKLM key
+    $hkPolicies = Get-ItemProperty -Path $HKLM_Target -ErrorAction SilentlyContinue
+    if ($hkPolicies -and @($hkPolicies.PSObject.Properties).Count -le 1) {
+        try {
+            Remove-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue
+            Write-Host "  [OK] HKLM policy key removed (no policies remain)" -ForegroundColor DarkGreen
+        } catch { }
+    }
+
+    Write-Host "`n[RESET COMPLETE] HKLM: $hkCount / HKCU: $hcCount / Omaha: $omahaCount entries removed." -ForegroundColor Cyan
+    Write-Host "  Close Brave and reopen for changes to take effect.`n" -ForegroundColor White
+    exit 0
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 0D: LEVEL SELECTION
 # ─────────────────────────────────────────────────────────────────────────────
 $ValidLevels = @("BraveOnly", "Essential", "Balanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Katı")
 
@@ -124,6 +299,9 @@ if ($Level -eq "Temel")        { $Level = "Essential"  }
 if ($Level -eq "Dengeli")      { $Level = "Balanced"   }
 if ($Level -eq "Katı")         { $Level = "Strict"     }
 
+if ($WhatIf) {
+    Write-Host "Mode: -WhatIf (preview only — no registry changes will be made)" -ForegroundColor Magenta
+}
 Write-Host "Selected Level: $Level" -ForegroundColor Cyan
 Write-Host ""
 
@@ -357,18 +535,29 @@ function Write-PolicyValue {
         [string]$TargetPath,
         [string]$PolicyName,
         $PolicyValue,
-        [string]$ValueType
+        [string]$ValueType,
+        [switch]$WhatIf
     )
+
+    $displayValue = switch ($ValueType) {
+        "DWord"      { "dword:$PolicyValue" }
+        "String"     { "sz:`"$PolicyValue`"" }
+        "MultiString" { "multi-sz:`"$($PolicyValue -join ';')`"" }
+        default      { "unknown:$PolicyValue" }
+    }
+
+    if ($WhatIf) {
+        Write-Host "  [WhatIf] $($TargetPath -replace '^HKLM:\\', 'HKLM\') :: $PolicyName -> $displayValue" -ForegroundColor Magenta
+        return $displayValue
+    }
 
     switch ($ValueType) {
         "DWord" {
             New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $PolicyValue -PropertyType DWord -Force -ErrorAction Stop | Out-Null
-            $displayValue = "dword:$PolicyValue"
             break
         }
         "String" {
             New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $PolicyValue -PropertyType String -Force -ErrorAction Stop | Out-Null
-            $displayValue = "sz:`"$PolicyValue`""
             break
         }
         "MultiString" {
@@ -379,11 +568,8 @@ function Write-PolicyValue {
             }
             if ($PolicyValue -and $PolicyValue.Count -gt 0) {
                 $key.SetValue($PolicyName, [string[]]$PolicyValue, [Microsoft.Win32.RegistryValueKind]::MultiString)
-                $displayValue = "multi-sz:`"$($PolicyValue -join ';')`""
             } else {
-                # Empty multi-string: create with empty value
                 $key.SetValue($PolicyName, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
-                $displayValue = "multi-sz:(empty)"
             }
             $key.Close()
             break
@@ -422,9 +608,12 @@ if ($DynamicPaths) {
     Write-Host "  [*] Disabling Omaha Updater Telemetry..." -ForegroundColor Gray
     foreach ($GUIDPath in $DynamicPaths) {
         try {
-            New-ItemProperty -Path $GUIDPath -Name "usagestats" -Value 0 -PropertyType DWord -Force | Out-Null
+            if (-not $WhatIf) {
+                New-ItemProperty -Path $GUIDPath -Name "usagestats" -Value 0 -PropertyType DWord -Force | Out-Null
+            }
             $OmahaSuccessCount++
-            Write-Host "  [OK] $GUIDPath -> usagestats = 0" -ForegroundColor DarkGreen
+            $msg = if ($WhatIf) { "[WhatIf] $GUIDPath -> usagestats = 0" } else { "[OK] $GUIDPath -> usagestats = 0" }
+            Write-Host "  $msg" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
         } catch {
             $OmahaErrorCount++
             Write-Host "  [ERROR] Failed to write to $GUIDPath -> usagestats: $($_.Exception.Message)" -ForegroundColor Red
@@ -437,40 +626,46 @@ if ($DynamicPaths) {
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 2: HKLM POLICY HIVE BACKUP
+# STEP 2: HKLM POLICY HIVE BACKUP (skipped in -WhatIf mode)
 # ─────────────────────────────────────────────────────────────────────────────
-Write-Host "[2/7] Backing Up HKLM Policy Hive..." -ForegroundColor Gray
+if (-not $WhatIf) {
+    Write-Host "[2/7] Backing Up HKLM Policy Hive..." -ForegroundColor Gray
 
-if (Test-Path $HKLM_Target) {
-    $BackupFolder = "$env:TEMP\BravePolicyBackup"
-    New-Item -Path $BackupFolder -ItemType Directory -Force | Out-Null
+    if (Test-Path $HKLM_Target) {
+        $BackupFolder = "$env:TEMP\BravePolicyBackup"
+        New-Item -Path $BackupFolder -ItemType Directory -Force | Out-Null
 
-    $BackupFile = "$BackupFolder\HKLM_BravePolicy_$(Get-Date -Format 'yyyyMMdd_HHmmss').reg"
-    $HKLMFlatPath = $HKLM_Target -replace "HKLM:\\", "HKLM\"
+        $BackupFile = "$BackupFolder\HKLM_BravePolicy_$(Get-Date -Format 'yyyyMMdd_HHmmss').reg"
+        $HKLMFlatPath = $HKLM_Target -replace "HKLM:\\", "HKLM\"
 
-    try {
-        reg export "$HKLMFlatPath" "$BackupFile" /y 2>&1 | Out-Null
-        Write-Host "  -> Backup created     : $BackupFile" -ForegroundColor DarkGreen
-        Write-Host "  -> To restore, use    : reg import `"$BackupFile`"`n" -ForegroundColor DarkGray
-    } catch {
-        Write-Host "  -> Warning: Backup could not be completed. Script is continuing." -ForegroundColor Yellow
-        Write-Host "  -> Reason : $($_.Exception.Message)`n" -ForegroundColor DarkGray
+        try {
+            reg export "$HKLMFlatPath" "$BackupFile" /y 2>&1 | Out-Null
+            Write-Host "  -> Backup created     : $BackupFile" -ForegroundColor DarkGreen
+            Write-Host "  -> To restore, use    : reg import `"$BackupFile`"`n" -ForegroundColor DarkGray
+        } catch {
+            Write-Host "  -> Warning: Backup could not be completed. Script is continuing." -ForegroundColor Yellow
+            Write-Host "  -> Reason : $($_.Exception.Message)`n" -ForegroundColor DarkGray
+        }
+    } else {
+        Write-Host "  -> Info: HKLM policy hive does not exist yet, backup skipped.`n" -ForegroundColor DarkGray
     }
 } else {
-    Write-Host "  -> Info: HKLM policy hive does not exist yet, backup skipped.`n" -ForegroundColor DarkGray
+    Write-Host "[2/7] Backup Skipped (-WhatIf mode)`n" -ForegroundColor DarkGray
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 3: TARGET DIRECTORY INFRASTRUCTURE VERIFICATION
+# STEP 3: TARGET DIRECTORY INFRASTRUCTURE VERIFICATION (skipped in -WhatIf mode)
 # ─────────────────────────────────────────────────────────────────────────────
-Write-Host "[3/7] Preparing Registry Target Directory Structure..." -ForegroundColor Gray
-
-New-Item -Path $HKCU_Target -Force -ErrorAction SilentlyContinue | Out-Null
-Write-Host "  -> HKCU: $HKCU_Target" -ForegroundColor DarkGray
-
-New-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue | Out-Null
-Write-Host "  -> HKLM: $HKLM_Target`n" -ForegroundColor DarkGray
+if (-not $WhatIf) {
+    Write-Host "[3/7] Preparing Registry Target Directory Structure..." -ForegroundColor Gray
+    New-Item -Path $HKCU_Target -Force -ErrorAction SilentlyContinue | Out-Null
+    Write-Host "  -> HKCU: $HKCU_Target" -ForegroundColor DarkGray
+    New-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue | Out-Null
+    Write-Host "  -> HKLM: $HKLM_Target`n" -ForegroundColor DarkGray
+} else {
+    Write-Host "[3/7] Directory Verification Skipped (-WhatIf mode)`n" -ForegroundColor DarkGray
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -481,9 +676,13 @@ Write-Host "[4/7] Applying HKCU User Telemetry Preference..." -ForegroundColor G
 $HKCUSuccess = $false
 
 try {
-    New-ItemProperty -Path $HKCU_Target -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
+    if (-not $WhatIf) {
+        New-ItemProperty -Path $HKCU_Target -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
+    }
     $HKCUSuccess = $true
-    Write-Host "  [OK] UsageStatsInSample -> dword:00000000 (User-Level Telemetry Disabled)`n" -ForegroundColor White
+    $tag = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
+    $fg  = if ($WhatIf) { "Magenta" } else { "White" }
+    Write-Host "  $tag UsageStatsInSample -> dword:00000000 (User-Level Telemetry Disabled)`n" -ForegroundColor $fg
 } catch {
     Write-Host "  [ERROR] Failed to write UsageStatsInSample: $($_.Exception.Message)`n" -ForegroundColor Red
 }
@@ -502,10 +701,15 @@ $typeCounts = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
 
 foreach ($Rule in $MergedPolicies.Values) {
     try {
-        $displayValue = Write-PolicyValue -TargetPath $HKLM_Target -PolicyName $Rule.Name -PolicyValue $Rule.Value -ValueType $Rule.Type
-        $typeCounts[$Rule.Type]++
-        $SuccessCount++
-        Write-Host "  [OK] $($Rule.Name) -> $displayValue" -ForegroundColor Gray
+        $displayValue = Write-PolicyValue -TargetPath $HKLM_Target -PolicyName $Rule.Name -PolicyValue $Rule.Value -ValueType $Rule.Type -WhatIf:$WhatIf
+        if (-not $WhatIf) {
+            $typeCounts[$Rule.Type]++
+            $SuccessCount++
+            Write-Host "  [OK] $($Rule.Name) -> $displayValue" -ForegroundColor Gray
+        } else {
+            $typeCounts[$Rule.Type]++
+            $SuccessCount++
+        }
     } catch {
         $ErrorCount++
         Write-Host "  [ERROR] $($Rule.Name): $($_.Exception.Message)" -ForegroundColor Red
@@ -520,8 +724,12 @@ Write-Host "[6/7] Applying Additional HKCU Settings..." -ForegroundColor Gray
 
 # Chromium Variations (User-level preference)
 try {
-    New-ItemProperty -Path $HKCU_Target -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
-    Write-Host "  [OK] ChromeVariations (HKCU) -> dword:1" -ForegroundColor DarkGreen
+    if (-not $WhatIf) {
+        New-ItemProperty -Path $HKCU_Target -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
+    }
+    $tag = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
+    $fg  = if ($WhatIf) { "Magenta" } else { "DarkGreen" }
+    Write-Host "  $tag ChromeVariations (HKCU) -> dword:1" -ForegroundColor $fg
 } catch {
     Write-Host "  [WARN] ChromeVariations (HKCU) could not be set: $($_.Exception.Message)" -ForegroundColor Yellow
 }
@@ -536,7 +744,9 @@ $SeparatorLine = "-" * 62
 
 Write-Host "`n$SeparatorLine" -ForegroundColor DarkGray
 Write-Host "  EXECUTION SUMMARY REPORT" -ForegroundColor Cyan
-Write-Host "  Level              : $Level ($TotalPolicyCount policies)" -ForegroundColor White
+Write-Host "  Script Version    : $ScriptVersion" -ForegroundColor White
+Write-Host "  Level             : $Level ($TotalPolicyCount policies)" -ForegroundColor White
+if ($WhatIf) { Write-Host "  Mode              : -WhatIf (preview only — no changes written)" -ForegroundColor Magenta }
 Write-Host $SeparatorLine -ForegroundColor DarkGray
 
 $HKCUStatus = if ($HKCUSuccess) { "Applied" } else { "Failed" }
@@ -551,11 +761,15 @@ if ($ErrorCount -gt 0) {
     Write-Host "            review the ERROR lines above and check required permissions." -ForegroundColor Yellow
 }
 
-if ($SuccessCount -gt 0 -or $OmahaSuccessCount -gt 0) {
+if (-not $WhatIf -and ($SuccessCount -gt 0 -or $OmahaSuccessCount -gt 0)) {
     Write-Host "`n  [SUCCESS] $Level enterprise privacy policies were successfully" -ForegroundColor Green
     Write-Host "            applied to Brave on Windows 11 25H2." -ForegroundColor Green
     Write-Host "            Simply close Brave completely and reopen it for" -ForegroundColor White
     Write-Host "            the changes to take effect.`n" -ForegroundColor White
+}
+
+if ($WhatIf) {
+    Write-Host "  [WhatIf] No registry changes were made. Run without -WhatIf to apply.`n" -ForegroundColor Magenta
 }
 
 Write-Host "  VERIFICATION:" -ForegroundColor Cyan
