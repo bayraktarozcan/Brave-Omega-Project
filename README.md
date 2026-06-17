@@ -98,18 +98,20 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | Feature | Description |
 |---------|-------------|
 | 🔒 **Four-Tier Privacy Model** | Choose your hardening level: **Brave Only** (13 policies), **Essential ⭐** (30 policies), **Balanced** (46), or **Strict** (68) |
-| 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — all dispatched automatically per policy |
+| 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
-| 💾 **Automatic Backup** | Time-stamped `.reg` backup of the HKLM policy hive before any modifications |
+| 💾 **Automatic Backup** | Time-stamped `.reg` backup of the HKLM policy hive before any modifications (stored at `$env:TEMP\BravePolicyBackup\`) |
 | 🔁 **One-Command Rollback** | Full restoration with a single command: `reg import "<backup_file.reg>"` |
 | 🛡️ **Brave Process Guard** | Detects running Brave instances and presents a continue/cancel decision before applying changes |
 | 🔍 **Version Check** | Automatically detects installed Brave version and warns on mismatch with validated target |
-| 👁️ **Dry-Run Mode** | `-WhatIf` parameter previews all changes without writing to the registry |
+| 👁️ **Dry-Run Mode** | `-WhatIf` parameter previews all changes without writing to the registry — cascades through every nested function for full fidelity |
 | 🧹 **Clean Uninstall** | `-Reset` parameter removes all applied Brave Omega policies from HKLM, HKCU, and Omaha GUIDs |
+| 🎯 **Dynamic Omaha GUID Discovery** | Scans registry recursively with regex to find Omaha updater GUIDs — no hardcoded IDs, resilient to version changes |
 | 🔄 **CI/CD Validation** | GitHub Actions pipeline validates policy definitions against official ADMX templates weekly |
-| 📊 **Execution Summary** | Per-category success/failure type counts with transparent reporting |
+| 📊 **Execution Summary** | Per-category success/failure type counts with transparent reporting; exit code 0 (success) / 1 (failure) for CI/CD integration |
 | 🌍 **Bilingual** | Full Turkish and English versions with identical functionality and parity |
+| 🧹 **Terminal Encoding Hardening** | Sets `[Console]::Input/OutputEncoding` to UTF-8 on launch — prevents Turkish character corruption, ensures clean text throughout execution |
 
 ---
 
@@ -312,7 +314,7 @@ no longer have any effect.
 
 ### 9. Policy Reference
 
-> Brava Omega now offers **4 hardening levels**. The policy reference below is organized by registry hive and level.
+> Brave Omega now offers **4 hardening levels**. The policy reference below is organized by registry hive and level.
 > For the complete policy list at each level, see the script header (`$PolicyDefinitions` in `BraveOmega-EN.ps1`).
 
 #### 9.1 HKCU — User-Level Preferences (all levels)
@@ -446,6 +448,9 @@ BRAVE OMEGA PROJECT/
 
 ### 12. Troubleshooting
 
+> [!NOTE]
+> Brave Omega is validated against the **Stable channel only** (currently Brave 1.91.172 / Chromium 149). ADMX policy behaviors have not been tested on Beta/Nightly builds and may behave differently.
+
 | Symptom | Likely Cause | Resolution |
 |---------|-------------|------------|
 | Script exits with "CRITICAL ERROR" immediately | Not running as Administrator | Right-click PowerShell → **Run as Administrator** |
@@ -547,6 +552,10 @@ aktarımı (telemetri), analiz hizmetleri, arka plan pinglari, tümleşik para k
 ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı bırakılır. Tarayıcının iç
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
+Brave Omega v2.0 ile birlikte **dört katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (13 politika),
+Temel ⭐ (30), Dengeli (46) ve Katı (68) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
+sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
+
 > **İki betik. Tek hedef. Sıfır maliyet.**
 >
 > `BraveOmega-EN.ps1` — Tam İngilizce arayüz, uluslararası kullanıcılar için
@@ -575,18 +584,20 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | Özellik | Açıklama |
 |---------|----------|
 | 🔒 **Dört Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (13 politika), **Temel ⭐** (30), **Dengeli** (46) veya **Katı** (68) |
-| 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır |
+| 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır, PowerShell'de `REG_MULTI_SZ` cmdlet'i bulunmadığından |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
-| 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
+| 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği (`$env:TEMP\BravePolicyBackup\` konumunda saklanır) |
 | 🔁 **Tek Komutla Geri Alma** | Tek komutla tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
 | 🛡️ **Brave Süreç Koruyucusu** | Değişiklik uygulanmadan önce çalışan Brave örnekleri tespit edilip kullanıcıya karar sunulur |
 | 🔍 **Sürüm Denetimi** | Yüklü Brave sürümünü otomatik algılar ve doğrulanmış hedefle uyuşmazlıkta uyarır |
-| 👁️ **Kuru Çalıştırma Kipi** | `-WhatIf` parametresi kayıt defterine yazmadan tüm değişiklikleri önizler |
+| 👁️ **Kuru Çalıştırma Kipi** | `-WhatIf` parametresi kayıt defterine yazmadan tüm değişiklikleri önizler — her iç içe fonksiyona yayılarak tam sadakat sağlar |
 | 🧹 **Temiz Kaldırma** | `-Sıfırla` parametresi uygulanan tüm Brave Omega politikalarını HKLM, HKCU ve Omaha GUID'lerinden kaldırır |
+| 🎯 **Dinamik Omaha GUID Keşfi** | Kayıt defterini regex ile tarayarak Omaha güncelleyici GUID'lerini bulur — sabit kodlanmış ID yok, sürüm değişikliklerine karşı dayanıklı |
 | 🔄 **CI/CD Doğrulaması** | GitHub Actions ardışık düzeni, politika tanımlarını haftalık olarak resmî ADMX şablonlarına karşı doğrular |
-| 📊 **Yürütme Özeti** | Tür bazında başarı/hata sayaçları ile şeffaf raporlama |
+| 📊 **Yürütme Özeti** | Tür bazında başarı/hata sayaçları ile şeffaf raporlama; çıkış kodu 0 (başarı) / 1 (hata) ile CI/CD entegrasyonu |
 | 🌍 **İki Dilli** | Birebir işlevselliğe sahip Türkçe ve İngilizce sürümler |
+| 🧹 **Terminal Kodlama Sağlamlaştırması** | `[Console]::Input/OutputEncoding` başlangıçta UTF-8'e ayarlanır — Türkçe karakter bozulmasını önler, temiz metin çıktısı sağlar |
 
 ---
 
@@ -790,25 +801,105 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 9. Politika Başvuru Tablosu
 
-| Kayıt Defteri Anahtarı | Kovan | Değer | Etki |
-|------------------------|-------|-------|------|
-| `UsageStatsInSample` | HKCU | `0` | Brave sunucularına gönderilen tarayıcı düzeyi kullanım istatistikleri örneklemesini devre dışı bırakır |
-| `BraveRewardsDisabled` | HKLM | `1` | Rewards reklam sistemini, BAT jeton kazanç motorunu ve bildirim altyapısını kaldırır |
-| `BraveWalletDisabled` | HKLM | `1` | Tümleşik kripto cüzdan modülünü, araç çubuğu düğmesini ve arka plan hizmetlerini kaldırır |
-| `BraveVPNDisabled` | HKLM | `1` | VPN araç çubuğu düğmesini kaldırır ve Brave VPN arka plan hizmet ağını engeller |
-| `BraveAIChatEnabled` | HKLM | `0` | Leo Yapay Zekâ Chat motorunu, konuşma geçmişini ve tüm API bağlantılarını devre dışı bırakır |
-| `BraveStatsPingEnabled` | HKLM | `0` | Brave sunucularına gönderilen periyodik durum ve kimlik doğrulama pinglerini durdurur |
-| `MetricsReportingEnabled` | HKLM | `0` | Chromium ana ölçüm toplamayı ve harici veri aktarımı raporlamasını devre dışı bırakır |
-| `SafeBrowsingExtendedReportingEnabled` | HKLM | `0` | Güvenli Tarama sırasında genişletilmiş site veri raporlarını durdurur (temel SB işlevi etkilenmez) |
-| `usagestats` *(GUID başına)* | HKCU | `0` | Uygulama GUID tanımlayıcısı başına Omaha güncelleyici veri aktarımını devre dışı bırakır |
-| `BraveP3AEnabled` *(v1.2+)* | HKLM | `0` | Gizlilik Korumalı Ürün Analitiği (P3A) veri transmisyonunu devre dışı bırakır |
-| `BraveWebDiscoveryEnabled` *(v1.2+)* | HKLM | `0` | Web Discovery Project'in Brave Search indeksine veri katkısını devre dışı bırakır |
-| `BraveTalkDisabled` *(v1.2+)* | HKLM | `1` | Brave Talk video konferans widget'ını ve çağrı seçeneklerini kapatır |
-| `BraveNewsDisabled` *(v1.2+)* | HKLM | `1` | Yeni Sekme Sayfasındaki Brave News haber beslemesini devre dışı bırakır |
-| `BravePlaylistEnabled` *(v1.2+)* | HKLM | `0` | Çevrimdışı ortam oynatması için Brave Playlist özelliğini kapatır |
-| `BraveSpeedreaderEnabled` *(v1.2+)* | HKLM | `0` | Speedreader modunu ve makale temizliği önerilerini devre dışı bırakır |
-| `BraveWaybackMachineEnabled` *(v1.2+)* | HKLM | `0` | 404 hatalarında İnternet Archive Wayback Machine entegrasyonunu kapatır |
-| `TorDisabled` *(v1.2+)* | HKLM | `1` | Tor ağı entegrasyonunu ve "Tor İle Yeni Gizli Pencere" seçeneğini kapatır |
+> Brave Omega artık **4 sıkılaştırma seviyesi** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
+> Tam politika listesi için betik başlığına bakın (`$PolitikaTanimlari` içinde `BraveOmega-TR.ps1`).
+
+#### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
+
+| Kayıt Defteri Anahtarı | Kovan | Değer | Tür | Etki |
+|------------------------|-------|-------|-----|------|
+| `UsageStatsInSample` | HKCU | `0` | DWord | Tarayıcı düzeyi kullanım istatistikleri örneklemesini devre dışı bırakır |
+| `ChromeVariations` | HKCU | `1` | DWord | Chromium'u yalnızca kritik alan denemeleriyle sınırlar |
+| `usagestats` *(GUID başına)* | HKCU | `0` | DWord | Uygulama GUID tanımlayıcısı başına Omaha güncelleyici veri aktarımını devre dışı bırakır |
+
+#### 9.2 Brave Yalnız Seviyesi — Brave'e Özgü Politikalar (13)
+
+| Kayıt Defteri Anahtarı | Değer | Tür | Etki |
+|------------------------|-------|-----|------|
+| `BraveRewardsDisabled` | `1` | DWord | Rewards reklam sistemini, BAT jeton kazancını kaldırır |
+| `BraveWalletDisabled` | `1` | DWord | Tümleşik kripto cüzdan, Web3, dDNS'yi kaldırır |
+| `BraveVPNDisabled` | `1` | DWord | VPN düğmesini kaldırır, VPN arka plan hizmetini engeller |
+| `BraveAIChatEnabled` | `0` | DWord | Leo AI Chat motorunu devre dışı bırakır |
+| `BraveTalkDisabled` | `1` | DWord | Brave Talk video konferansını devre dışı bırakır |
+| `BraveNewsDisabled` | `1` | DWord | Yeni Sekme Sayfasında Brave News beslemesini devre dışı bırakır |
+| `BravePlaylistEnabled` | `0` | DWord | Brave Playlist çevrimdışı ortamını devre dışı bırakır |
+| `BraveSpeedreaderEnabled` | `0` | DWord | Speedreader modunu devre dışı bırakır |
+| `BraveWaybackMachineEnabled` | `0` | DWord | Wayback Machine entegrasyonunu devre dışı bırakır |
+| `BraveP3AEnabled` | `0` | DWord | P3A veri iletimini devre dışı bırakır |
+| `BraveStatsPingEnabled` | `0` | DWord | Brave sunucularına durum/kimlik doğrulama pinglerini durdurur |
+| `BraveWebDiscoveryEnabled` | `0` | DWord | Web Discovery Project katkısını devre dışı bırakır |
+| `TorDisabled` | `1` | DWord | Tor entegrasyonunu devre dışı bırakır |
+
+#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (17 ek)
+
+| Kayıt Defteri Anahtarı | Değer | Tür | Etki |
+|------------------------|-------|-----|------|
+| `MetricsReportingEnabled` | `0` | DWord | Chromium temel ölçüm toplamayı devre dışı bırakır |
+| `SafeBrowsingExtendedReportingEnabled` | `0` | DWord | Google'a genişletilmiş site verisi raporlamasını durdurur |
+| `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Google'a URL verisi toplamayı durdurur |
+| `SearchSuggestEnabled` | `0` | DWord | Arama önerileri veri sızıntısını durdurur |
+| `NetworkPredictionOptions` | `2` | DWord | DNS ön getirmeyi ve ön bağlantıyı durdurur |
+| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
+| `SpellcheckEnabled` | `0` | DWord | Yazım denetimini devre dışı bırakır |
+| `AlternateErrorPagesEnabled` | `0` | DWord | Hata sayfası ağ isteklerini durdurur |
+| `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Google'a saat senkronizasyonunu durdurur |
+| `DomainReliabilityAllowed` | `0` | DWord | Tanılama verisi raporlamasını durdurur |
+| `BackgroundModeEnabled` | `0` | DWord | Tüm pencereler kapandığında Brave'in çalışmasını engeller |
+| `SafeBrowsingSurveysEnabled` | `0` | DWord | Gezinti sonrası anketleri devre dışı bırakır |
+| `SafeBrowsingDeepScanningEnabled` | `0` | DWord | Sunucu tarafı indirme taramasını devre dışı bırakır |
+| `WebRtcEventLogCollectionAllowed` | `0` | DWord | WebRTC olay günlüğü yüklemeyi durdurur |
+| `WebRtcTextLogCollectionAllowed` | `0` | DWord | WebRTC metin günlüğü yüklemeyi durdurur |
+| `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |
+| `VideoCaptureAllowed` | `0` | DWord | Varsayılan olarak kameraya izin vermez |
+
+#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (19 ek)
+
+| Kayıt Defteri Anahtarı | Değer | Tür | Etki |
+|------------------------|-------|-----|------|
+| `WebRtcIPHandling` | `"default_public_interface_only"` | String | Yerel IP'leri WebRTC'den gizler |
+| `WebRtcLocalIpsAllowedUrls` | `@()` | MultiString | ICE yoluyla yerel IP ifşasını engeller |
+| `HttpsOnlyMode` | `"force_enabled"` | String | Tüm gezintileri HTTPS'ye zorlar |
+| `DnsOverHttpsMode` | `"automatic"` | String | DNS sorgularını şifreler |
+| `BlockThirdPartyCookies` | `1` | DWord | Siteler arası izleme çerezlerini engeller |
+| `PasswordManagerEnabled` | `0` | DWord | Yerleşik parola kaydetmeyi devre dışı bırakır |
+| `PasswordManagerPasskeysEnabled` | `0` | DWord | Passkey kaydetmeyi devre dışı bırakır |
+| `AutofillAddressEnabled` | `0` | DWord | Adres otomatik doldurmayı devre dışı bırakır |
+| `AutofillCreditCardEnabled` | `0` | DWord | Kredi kartı otomatik doldurmayı devre dışı bırakır |
+| `ShowFullUrlsInAddressBar` | `1` | DWord | Tam URL'leri gösterir (oltalamaya karşı) |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım uyarılarını atlamayı engeller |
+| `QuicAllowed` | `0` | DWord | QUIC'i devre dışı bırakır, TCP/TLS'ye döner |
+| `ChromeVariations` | `1` | DWord | Yalnızca kritik alan denemeleri |
+| `NetworkServiceSandboxEnabled` | `1` | DWord | Ağ hizmetini kum havuzuna alır |
+| `AudioSandboxEnabled` | `1` | DWord | Ses hizmetini kum havuzuna alır |
+| `DefaultGeolocationSetting` | `2` | DWord | Varsayılan olarak konumu engeller |
+| `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
+| `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
+| `DefaultMediaStreamSetting` | `2` | DWord | Varsayılan olarak kamera/mikrofonu engeller |
+
+#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (22 ek)
+
+| Kayıt Defteri Anahtarı | Değer | Tür | Etki |
+|------------------------|-------|-----|------|
+| `WebRtcIPHandling` *(üzerine yaz)* | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
+| `DefaultSensorsSetting` | `2` | DWord | Varsayılan olarak sensör erişimini engeller |
+| `DefaultLocalFontsSetting` | `2` | DWord | Yazı tipi numaralandırmayı engeller |
+| `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
+| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
+| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
+| `DefaultSerialGuardSetting` | `2` | DWord | Serial API'yi engeller |
+| `DefaultIdleDetectionSetting` | `2` | DWord | Boşta algılamayı engeller |
+| `DefaultInsecureContentSetting` | `2` | DWord | Karma içeriği engeller |
+| `DefaultJavaScriptJitSetting` | `2` | DWord | JIT derlemeyi devre dışı bırakır |
+| `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
+| `BrowserGuestModeEnabled` | `0` | DWord | Misafir profillerini engeller |
+| `BrowserAddPersonEnabled` | `0` | DWord | Yeni profilleri engeller |
+| `CloudPrintProxyEnabled` | `0` | DWord | Cloud Print proxy'sini devre dışı bırakır |
+| `ImportAutofillFormData` | `0` | DWord | Otomatik doldurma verisi içe aktarmayı devre dışı bırakır |
+| `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
+| `ImportHistory` | `0` | DWord | Geçmiş içe aktarmayı devre dışı bırakır |
+| `ImportSavedPasswords` | `0` | DWord | Parola içe aktarmayı devre dışı bırakır |
+| `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
+| `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 
 ---
 
@@ -844,6 +935,9 @@ BRAVE OMEGA PROJECT/
 ---
 
 ### 12. Sorun Giderme
+
+> [!NOTE]
+> Brave Omega yalnızca **Kararlı (Stable) kanalda** doğrulanmıştır (güncel Brave 1.91.172 / Chromium 149). ADMX politika davranışları Beta/Nightly yapılarında test edilmemiştir ve farklılık gösterebilir.
 
 | Belirti | Olası Neden | Çözüm |
 |---------|------------|-------|

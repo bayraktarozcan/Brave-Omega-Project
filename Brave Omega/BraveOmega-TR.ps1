@@ -158,13 +158,13 @@ if ($braveBilgi) {
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 0C: SIĞIRLA (RESET) MODU
+# ADIM 0C: SIFIRLA (RESET) MODU
 # ─────────────────────────────────────────────────────────────────────────────
 $HKCU_Hedef = "HKCU:\Software\BraveSoftware\Brave-Browser"
 $HKLM_Hedef = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 if ($Sifirla) {
-    Write-Host "[SIĞIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
+    Write-Host "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
     Write-Host ""
 
     $tumPolitikalar = @(
@@ -246,7 +246,7 @@ if ($Sifirla) {
         } catch { }
     }
 
-    Write-Host "`n[SIĞIRLA TAMAMLANDI] HKLM: $hkSayac / HKCU: $hcSayac / Omaha: $omahaSayac girdi kaldırıldı." -ForegroundColor Cyan
+    Write-Host "`n[SIFIRLA TAMAMLANDI] HKLM: $hkSayac / HKCU: $hcSayac / Omaha: $omahaSayac girdi kaldırıldı." -ForegroundColor Cyan
     Write-Host "  Brave'i kapatıp yeniden açın.`n" -ForegroundColor White
     exit 0
 }
@@ -541,30 +541,37 @@ function Yaz-KayitDegeri {
         [switch]$WhatIf
     )
 
-    if ($WhatIf) { return "[WhatIf] yazma atlandı" }
+    $goruntulenecekDeger = switch ($DegerTuru) {
+        "DWord"      { "dword:$PolitikaDegeri" }
+        "String"     { "sz:`"$PolitikaDegeri`"" }
+        "MultiString" { "multi-sz:`"$(if ($PolitikaDegeri) { $PolitikaDegeri -join ';' } else { 'boş' })`"" }
+        default      { "unknown:$PolitikaDegeri" }
+    }
+
+    if ($WhatIf) {
+        Write-Host "  [WhatIf] $(($HedefYol -replace '^HKLM:\\', 'HKLM\')) :: $PolitikaAdi -> $goruntulenecekDeger" -ForegroundColor Magenta
+        return $goruntulenecekDeger
+    }
 
     switch ($DegerTuru) {
         "DWord" {
             New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $PolitikaDegeri -PropertyType DWord -Force -ErrorAction Stop | Out-Null
-            $goruntulenecekDeger = "dword:$PolitikaDegeri"
             break
         }
         "String" {
             New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $PolitikaDegeri -PropertyType String -Force -ErrorAction Stop | Out-Null
-            $goruntulenecekDeger = "sz:`"$PolitikaDegeri`""
             break
         }
         "MultiString" {
+            $kayitYolu = $HedefYol -replace "^HKLM:\\", "HKLM\"
             $anahtar = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey("SOFTWARE\Policies\BraveSoftware\Brave", $true)
             if (-not $anahtar) {
-                throw "Kayıt defteri anahtarı bulunamadı: $HedefYol"
+                throw "Kayıt defteri anahtarı bulunamadı: $kayitYolu"
             }
             if ($PolitikaDegeri -and $PolitikaDegeri.Count -gt 0) {
                 $anahtar.SetValue($PolitikaAdi, [string[]]$PolitikaDegeri, [Microsoft.Win32.RegistryValueKind]::MultiString)
-                $goruntulenecekDeger = "multi-sz:`"$($PolitikaDegeri -join ';')`""
             } else {
                 $anahtar.SetValue($PolitikaAdi, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
-                $goruntulenecekDeger = "multi-sz:(boş)"
             }
             $anahtar.Close()
             break
@@ -699,9 +706,14 @@ $turSayaclari = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
 foreach ($Kural in $BirlestirilmisPolitikalar.Values) {
     try {
         $goruntulenecekDeger = Yaz-KayitDegeri -HedefYol $HKLM_Hedef -PolitikaAdi $Kural.Ad -PolitikaDegeri $Kural.Deger -DegerTuru $Kural.Tur -WhatIf:$WhatIf
-        $turSayaclari[$Kural.Tur]++
-        $BasariliSayaci++
-        Write-Host "  [OK] $($Kural.Ad) -> $goruntulenecekDeger" -ForegroundColor Gray
+        if (-not $WhatIf) {
+            $turSayaclari[$Kural.Tur]++
+            $BasariliSayaci++
+            Write-Host "  [OK] $($Kural.Ad) -> $goruntulenecekDeger" -ForegroundColor Gray
+        } else {
+            $turSayaclari[$Kural.Tur]++
+            $BasariliSayaci++
+        }
     } catch {
         $HataSayaci++
         Write-Host "  [HATA] $($Kural.Ad): $($_.Exception.Message)" -ForegroundColor Red
@@ -753,11 +765,15 @@ if ($HataSayaci -gt 0) {
     Write-Host "            izinleri kontrol edin." -ForegroundColor Yellow
 }
 
-if ($BasariliSayaci -gt 0 -or $OmahaBasarili -gt 0) {
+if (-not $WhatIf -and ($BasariliSayaci -gt 0 -or $OmahaBasarili -gt 0)) {
     Write-Host "`n  [BAŞARILI] $Seviye kurumsal gizlilik politikaları" -ForegroundColor Green
     Write-Host "            Windows 11 25H2 üzerinde Brave'e başarıyla uygulandı." -ForegroundColor Green
     Write-Host "            Brave'i tamamen kapatıp yeniden açtığınızda" -ForegroundColor White
     Write-Host "            değişiklikler etkili olacaktır.`n" -ForegroundColor White
+}
+
+if ($WhatIf) {
+    Write-Host "  [WhatIf] Hiçbir kayıt defteri değişikliği yapılmadı. Uygulamak için -WhatIf kullanmadan çalıştırın.`n" -ForegroundColor Magenta
 }
 
 Write-Host "  DOĞRULAMA:" -ForegroundColor Cyan

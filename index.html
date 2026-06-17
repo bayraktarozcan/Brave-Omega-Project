@@ -308,14 +308,14 @@
                     <span class="text-xl">&#x2699;&#xfe0f;</span>
                     <h4 class="font-bold text-sm" data-i18n="feat_multi_title">Coklu Tur Motoru</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_multi_desc">DWord, String ve MultiString kayit türlerini otomatik tanir ve dagitir.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_multi_desc">DWord, String ve MultiString kayit türlerini otomatik tanir ve dagitir — .NET API ile REG_MULTI_SZ destegi.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="text-xl">&#x1f4be;</span>
                     <h4 class="font-bold text-sm" data-i18n="feat_backup_title">Otomatik Yedekleme</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_backup_desc">Zaman damgali .reg yedegi, tek komutla geri alma.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_backup_desc">Zaman damgali .reg yedegi (%TEMP%\BravePolicyBackup\), tek komutla geri alma.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
                 <div class="flex items-center gap-3 mb-3">
@@ -329,7 +329,7 @@
                     <span class="text-xl">&#x1f4ca;</span>
                     <h4 class="font-bold text-sm" data-i18n="feat_summary_title">Yurutme Ozeti</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_summary_desc">Tur bazinda basari/hata sayaclari ile seffaf raporlama.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_summary_desc">Tur bazinda basari/hata sayaclari; cikis kodu 0/1 ile CI/CD entegrasyonu.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
                 <div class="flex items-center gap-3 mb-3">
@@ -351,6 +351,20 @@
                     <h4 class="font-bold text-sm" data-i18n="feat_lifecycle_title">Yasam Dongusu Taahhudu</h4>
                 </div>
                 <p class="text-gray-500 text-xs" data-i18n="feat_lifecycle_desc">Her Brave surumunde politika gozden gecirmesi, surum sabitleme.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f50d;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_guid_title">Dinamik GUID Kesfi</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_guid_desc">Kayit defterini regex ile tarayarak Omaha GUID'lerini bulur — sabit ID yok, surum degisikliklerine karsi dayanikli.</p>
+            </div>
+            <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xl">&#x1f4dd;</span>
+                    <h4 class="font-bold text-sm" data-i18n="feat_enc_title">Terminal Kodlama Saglamlastirmasi</h4>
+                </div>
+                <p class="text-gray-500 text-xs" data-i18n="feat_enc_desc">Baslangicta UTF-8 kodlamasi zorlanarak Turkce karakter bozulmasi onlenir.</p>
             </div>
         </div>
     </div>
@@ -536,10 +550,10 @@
                 <thead>
                     <tr class="bg-[#000] border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
                         <th class="text-left py-3 px-4 font-medium" data-i18n="policy_col_key">Kayıt Defteri Anahtarı</th>
-                        <th class="text-left py-3 px-4 font-medium">Kovan</th>
-                        <th class="text-left py-3 px-4 font-medium">Değer</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="policy_col_hive">Kovan</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="policy_col_value">Değer</th>
                         <th class="text-left py-3 px-4 font-medium hidden md:table-cell" data-i18n="policy_col_effect">Etki</th>
-                        <th class="text-left py-3 px-4 font-medium hidden lg:table-cell">Seviye</th>
+                        <th class="text-left py-3 px-4 font-medium hidden lg:table-cell" data-i18n="policy_col_level">Seviye</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
@@ -719,10 +733,10 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
-                        <th class="text-left py-3 px-4 font-medium">Brave Omega</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_omega">Brave Omega</th>
                         <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_brave">Brave Surumu</th>
-                        <th class="text-left py-3 px-4 font-medium">Chromium</th>
-                        <th class="text-left py-3 px-4 font-medium">Windows</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_chromium">Chromium</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_windows">Windows</th>
                         <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_status">Durum</th>
                     </tr>
                 </thead>
@@ -970,6 +984,9 @@ SOFTWARE.
             feat_summary_title: "Y\u00fcr\u00fctme \u00d6zeti",
             feat_biling_title: "\u0130ki Dilli",
             feat_lifecycle_title: "Ya\u015fam D\u00f6ng\u00fcs\u00fc Taahh\u00fcd\u00fc",
+            feat_multi_title: "\u00c7oklu T\u00fcr Motoru",
+            feat_guid_title: "Dinamik GUID Ke\u015ffi",
+            feat_enc_title: "Terminal Kodlama Sa\u011flamla\u015ft\u0131rmas\u0131",
             lifecycle_badge: "Ya\u015fam D\u00f6ng\u00fcs\u00fc Taahh\u00fcd\u00fc",
             lifecycle_heading: "Her Daim G\u00fcncel",
             arch_heading: "Mimari: Altyap\u0131 Katmanlar\u0131 + S\u0131k\u0131la\u015ft\u0131rma Seviyeleri",
@@ -1028,6 +1045,9 @@ SOFTWARE.
             feat_summary_title: "Execution Summary",
             feat_biling_title: "Bilingual",
             feat_lifecycle_title: "Lifecycle Commitment",
+            feat_multi_title: "Multi-Type Engine",
+            feat_guid_title: "Dynamic GUID Discovery",
+            feat_enc_title: "Terminal Encoding Hardening",
             lifecycle_badge: "Lifecycle Commitment",
             lifecycle_heading: "Always Up-to-Date",
             arch_heading: "Architecture: Infrastructure Layers + Hardening Levels",
@@ -1066,11 +1086,14 @@ SOFTWARE.
             feat_tier_desc: "Brave Only / Essential / Balanced / Strict \u2014 13 to 68 policies, cumulative inheritance.",
             feat_admx_desc: "Every policy sourced from Brave\u2019s official templates.",
             feat_idem_desc: "Run any number of times, same safe and consistent result.",
-            feat_backup_desc: "Timestamped .reg backup, one-command restore.",
+            feat_multi_desc: "Auto-detects DWord, String, MultiString \u2014 uses .NET API for REG_MULTI_SZ since PowerShell lacks native support.",
+            feat_backup_desc: "Timestamped .reg backup at %TEMP%\\BravePolicyBackup\\, one-command restore.",
             feat_guard_desc: "Detects running Brave instances, prompts for confirmation.",
-            feat_summary_desc: "Per-category success/failure counters with transparent reporting.",
+            feat_summary_desc: "Per-category success/failure counters with exit code 0/1 for CI/CD integration.",
             feat_biling_desc: "Turkish and English, identical functionality.",
             feat_lifecycle_desc: "Policy review on every Brave release, version pinning.",
+            feat_guid_desc: "Scans registry with regex for Omaha updater GUIDs \u2014 no hardcoded IDs, version-resilient.",
+            feat_enc_desc: "Forces UTF-8 encoding on launch to prevent Turkish character corruption.",
             lifecycle_quote: "A privacy hardening tool that falls out of date is not a safeguard \u2014 it is a false sense of security.",
             lc_pin_title: "Version Pinning",
             lc_pin_desc: "Every script release is tagged with the validated Brave + Chromium version combination.",
@@ -1193,10 +1216,8 @@ SOFTWARE.
             term_menu: "Brave Omega v2.1 - Select Hardening Level:",
             term_start: "Brave Omega v2.1 starting...",
             term_check: "Checking Brave process...",
-            term_not_running: "Brave is not running. Continuing.",
             term_backup_start: "Taking HKLM backup...",
             term_backup_file: "Backup: BraveOmega_HKLM_20260613_120000.reg",
-            term_guid_scan: "GUID scan started...",
             term_hkcu: "Writing HKCU tier...",
             term_hklm: "Writing HKLM tier (DWord, String, MultiString)...",
             term_omaha: "Writing Omaha GUID tier...",
@@ -1212,7 +1233,6 @@ SOFTWARE.
             policies_desc: "A total of 68 enterprise policies across 4 tiers with v2.1 \u2014 300% coverage expansion.",
             policy_col_key: "Registry Key",
             policy_col_effect: "Effect",
-            policy_col_version: "Version",
             pol_effect1: "Disables usage statistics sampling",
             pol_effect2: "Removes Rewards ad system and BAT token earnings",
             pol_effect3: "Removes integrated cryptocurrency wallet module",
@@ -1231,6 +1251,33 @@ SOFTWARE.
             pol_effect16: "Disables Wayback Machine integration",
             pol_effect17: "Disables Tor private network integration",
             sources_badge: "Policy Sources",
+            policy_col_hive: "Hive",
+            policy_col_value: "Value",
+            compat_col_omega: "Brave Omega",
+            compat_col_chromium: "Chromium",
+            compat_col_windows: "Windows",
+            levels_badge: "Hardening Levels",
+            levels_heading: "Choose Your Level",
+            levels_desc: "Four levels, cumulative inheritance. Each level encompasses all policies of the previous one.",
+            level1_title: "Brave Only",
+            level1_desc: "Brave-specific policies only. Zero Chromium policies. Pure Brave hardening.",
+            level1_impact: "Usability Impact: None",
+            level2_title: "Essential",
+            level2_desc: "+17 data leak prevention policies. Zero usability impact. Best starting point.",
+            level2_impact: "Usability Impact: None",
+            level3_title: "Balanced",
+            level3_desc: "+16 security policies. WebRTC protection, HTTPS enforcement, DNS encryption.",
+            level3_impact: "Usability Impact: Low",
+            level4_title: "Strict",
+            level4_desc: "+22 maximum privacy policies. JIT disabled, cookie blocking, sensor permission restriction.",
+            level4_impact: "Usability Impact: Medium",
+            pol_group_all: "Common Across All Levels (HKCU)",
+            pol_group_braveonly: "Level 1: Brave Only (13 Brave-Specific Policies)",
+            pol_group_essential: "Level 2: Essential (+17 Data Leak Prevention Policies) \u2014 Recommended",
+            pol_group_balanced: "Level 3: Balanced (+16 Security Policies) \u2014 WebRTC, HTTPS, DNS protection",
+            pol_group_strict: "Level 4: Strict (+22 Maximum Privacy Policies) \u2014 See PowerShell script for full list",
+            policy_note_title: "Where can I find the full policy list?",
+            policy_note_desc: "This table shows sample policies from each level. For the complete list of all 68 policies with exact registry keys, values, and types, see the $PolicyDefinitions section in the PowerShell script header.",
         }
     };
     let currentLang = localStorage.getItem("braveOmegaLang") || "tr";
@@ -1299,10 +1346,8 @@ SOFTWARE.
         term_menu: "Brave Omega v2.1 - S\u0131k\u0131la\u015ft\u0131rma Seviyesi Se\u00e7in:",
         term_start: "Brave Omega v2.1 ba\u015flat\u0131l\u0131yor...",
         term_check: "Brave prosesi kontrol ediliyor...",
-        term_not_running: "Brave \u00e7al\u0131\u015fm\u0131yor. Devam ediliyor.",
         term_backup_start: "HKLM yede\u011fi al\u0131n\u0131yor...",
         term_backup_file: "Yedek: BraveOmega_HKLM_20260613_120000.reg",
-        term_guid_scan: "GUID taramas\u0131 ba\u015flat\u0131ld\u0131...",
         term_hkcu: "HKCU katman\u0131 yaz\u0131l\u0131yor...",
         term_hklm: "HKLM katman\u0131 yaz\u0131l\u0131yor (DWord, String, MultiString)...",
         term_omaha: "Omaha GUID katman\u0131 yaz\u0131l\u0131yor...",
@@ -1323,12 +1368,15 @@ SOFTWARE.
         features_desc: "Brave Omega, Brave Browser\u2019\u0131n\u0131z\u0131 kurumsal d\u00fczeyde gizlilik s\u0131k\u0131la\u015ft\u0131rmas\u0131yla donat\u0131r.",
         feat_tier_desc: "Brave Yaln\u0131z / Temel / Dengeli / Kat\u0131 \u2014 13'ten 68 politikaya kademeli s\u0131k\u0131la\u015ft\u0131rma.",
         feat_admx_desc: "Her politika Brave resm\u00ee \u015fablon paketi ile kaynakl\u0131 ve do\u011frulanm\u0131\u015f.",
+        feat_multi_desc: "DWord, String ve MultiString t\u00fcrlerini otomatik tan\u0131r \u2014 .NET API ile REG_MULTI_SZ deste\u011fi.",
         feat_idem_desc: "\u0130stedi\u011finiz kadar \u00e7al\u0131\u015ft\u0131r\u0131n, ayn\u0131 g\u00fcvenli ve tutarl\u0131 sonu\u00e7.",
-        feat_backup_desc: "Zaman damgal\u0131 .reg yede\u011fi, tek komutla geri alma.",
+        feat_backup_desc: "Zaman damgal\u0131 .reg yede\u011fi (%TEMP%\\BravePolicyBackup\\), tek komutla geri alma.",
         feat_guard_desc: "\u00c7al\u0131\u015fan Brave \u00f6rneklerini alg\u0131lar, onay ister.",
-        feat_summary_desc: "Kategori baz\u0131nda ba\u015far\u0131/hata saya\u00e7lar\u0131 ile \u015feffaf raporlama.",
+        feat_summary_desc: "Kategori baz\u0131nda ba\u015far\u0131/hata saya\u00e7lar\u0131; \u00e7\u0131k\u0131\u015f kodu 0/1 ile CI/CD entegrasyonu.",
         feat_biling_desc: "T\u00fcrk\u00e7e ve \u0130ngilizce, birebir i\u015flevsellikle.",
         feat_lifecycle_desc: "Her Brave s\u00fcr\u00fcm\u00fcnde politika g\u00f6zden ge\u00e7irmesi, s\u00fcr\u00fcm sabitleme.",
+        feat_guid_desc: "Kay\u0131t defterini regex ile tarayarak Omaha GUID\u2019lerini bulur \u2014 sabit ID yok, s\u00fcr\u00fcm de\u011fi\u015fikliklerine kar\u015f\u0131 dayan\u0131kl\u0131.",
+        feat_enc_desc: "Ba\u015flang\u0131\u00e7ta UTF-8 kodlamas\u0131 zorlanarak T\u00fcrk\u00e7e karakter bozulmas\u0131 \u00f6nlenir.",
         lifecycle_quote: "G\u00fcncelli\u011fini yitiren bir gizlilik s\u0131k\u0131la\u015ft\u0131rma arac\u0131, g\u00fcvenlik g\u00fcvencesi de\u011fil \u2014 yanl\u0131\u015f bir g\u00fcvenlik duygusudur.",
         lc_pin_title: "S\u00fcr\u00fcm Sabitleme",
         lc_pin_desc: "Her betik s\u00fcr\u00fcm\u00fc, ba\u015fl\u0131\u011f\u0131nda do\u011frulanm\u0131\u015f Brave + Chromium versiyonuyla etiketlidir.",
@@ -1449,7 +1497,6 @@ SOFTWARE.
         policies_desc: "v2.1 ile birlikte 4 seviyede toplam 68 kurumsal politika \u2014 %300 kapsam geni\u015flemesi.",
         policy_col_key: "Kayit Defteri Anahtari",
         policy_col_effect: "Etki",
-        policy_col_version: "S\u00fcr\u00fcm",
         pol_effect1: "Kullanim istatistikleri orneklemesini devre disi birakir",
         pol_effect2: "Rewards reklam sistemini ve BAT jeton kazanc motorunu kaldirir",
         pol_effect3: "Tumlesik kripto cuzdan modulunu kaldirir",
@@ -1468,6 +1515,34 @@ SOFTWARE.
         pol_effect16: "Wayback Machine entegrasyonunu devre disi birakir",
         pol_effect17: "Tor agi entegrasyonunu devre disi birakir",
         sources_badge: "Politika Kaynaklari",
+        policy_col_hive: "Kayit Defteri Kovan\u0131",
+        policy_col_value: "Deger",
+        policy_col_level: "Seviye",
+        compat_col_omega: "Brave Omega",
+        compat_col_chromium: "Chromium",
+        compat_col_windows: "Windows",
+        levels_badge: "Sikilastirma Seviyeleri",
+        levels_heading: "Seviyenizi Secin",
+        levels_desc: "Dort seviye, kumulatif miras. Her seviye bir oncekinin tum politikalarini kapsar.",
+        level1_title: "Brave Yalniz",
+        level1_desc: "Yalnizca Brave'e ozel politikalar. Sifir Chromium politikasi. Tam Brave sikilastirmasi.",
+        level1_impact: "Kullanim Etkisi: Yok",
+        level2_title: "Temel",
+        level2_desc: "+17 veri sizintisi onleme politikasi. Sifir kullanim etkisi. En iyi baslangic noktasi.",
+        level2_impact: "Kullanim Etkisi: Yok",
+        level3_title: "Dengeli",
+        level3_desc: "+16 guvenlik politikasi. WebRTC korumasi, HTTPS zorlamasi, DNS sifrelemesi.",
+        level3_impact: "Kullanim Etkisi: Dusuk",
+        level4_title: "Kati",
+        level4_desc: "+22 azami gizlilik politikasi. JIT devre disi, cookie engelleme, sensor izni kisitlamasi.",
+        level4_impact: "Kullanim Etkisi: Orta",
+        pol_group_all: "Tum Seviyelerde Ortak (HKCU)",
+        pol_group_braveonly: "Seviye 1: Brave Yalniz (13 Brave'e Ozel Politika)",
+        pol_group_essential: "Seviye 2: Temel (+17 Veri Sizintisi Onleme Politikasi) \u2014 Onerilen",
+        pol_group_balanced: "Seviye 3: Dengeli (+16 Guvenlik Politikasi) \u2014 WebRTC, HTTPS, DNS korumasi",
+        pol_group_strict: "Seviye 4: Kati (+22 Azami Gizlilik Politikasi) \u2014 Tam liste icin PowerShell betigine bakin",
+        policy_note_title: "Tam politika listesini nerede bulabilirim?",
+        policy_note_desc: "Bu tablo her seviyeden ornek politikalar gosterir. 68 politikanin tam listesi, kesin kayit defteri anahtarlari, degerleri ve turleri icin PowerShell betigi basligindaki $PolicyDefinitions bolumune bakin.",
     });
     document.addEventListener("DOMContentLoaded", () => {
         setLang(currentLang);

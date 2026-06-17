@@ -302,6 +302,8 @@ Documentation:
   ✓ index.html (4-tier architecture, updated badges)
 ```
 
+## [v1.2.2] — 2026-06-13
+
 <a id="en-v122-summary"></a>
 
 ### 🎯 Summary
@@ -860,7 +862,15 @@ Belgelendirme:
   ✓ README.md (çok katmanlı sistem belgelendi)
   ✓ CHANGELOG.md (bu dosya)
   ✓ index.html (4 kademeli mimari, güncel rozetler)
-``` — kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `Bypass -Scope Process` kullanıldı. v1.2.1'den itibaren politika değişikliği yok.
+```
+
+## [v1.2.2] — 2026-06-13
+
+<a id="tr-v122-summary"></a>
+
+### 🎯 Özet
+
+**Yama sürümü:** Çalıştırma ilkesi düzeltmesi — kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `Bypass -Scope Process` kullanıldı. v1.2.1'den itibaren politika değişikliği yok.
 
 **Değişiklikler:** Çalıştırma ilkesi talimatı artık `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` kullanıyor; bu ayar yalnızca geçerli PowerShell penceresini etkiler (kalıcı kayıt defteri değişikliği yok, saldırı yüzeyi oluşmaz). README Hızlı Başlangıç yeniden yapılandırıldı. Görünür UI metinlerinde Türkçe karakter düzeltmeleri yapıldı.
 
