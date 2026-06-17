@@ -73,7 +73,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.1"
+$BetikSurum    = "v2.1.1"
 $DogrulananBrave = "1.91.172"
 $DogrulananChromium = "149"
 
@@ -96,20 +96,20 @@ function Get-BraveVersion {
     foreach ($yol in $yollar) {
         if (Test-Path $yol) {
             try {
-                $ver = (Get-Item $yol).VersionInfo.FileVersion
-                if ($ver) { return @{ Yol = $yol; Surum = $ver } }
+                $surumBilgi = (Get-Item $yol).VersionInfo
+                $dosyaSurum = $surumBilgi.FileVersion
+                if ($dosyaSurum) {
+                    $parcalar = $dosyaSurum.Split('.')
+                    return @{
+                        Yol          = $yol
+                        BraveSurum   = "$($parcalar[1]).$($parcalar[2]).$($parcalar[3])"
+                        ChromiumAna  = $parcalar[0]
+                    }
+                }
             } catch { continue }
         }
     }
     return $null
-}
-
-function Compare-BraveVersion {
-    param([string]$Yuklu, [string]$Beklenen)
-    if (-not $Yuklu) { return $false }
-    $y = $Yuklu.Split('.')[0..2] -join '.'
-    $b = $Beklenen.Split('.')[0..2] -join '.'
-    return $y -eq $b
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -134,13 +134,18 @@ Write-Host "İşlem Zamanı   : $(Get-Date -Format 'dd-MM-yyyy HH:mm:ss')`n" -Fo
 # ADIM 0B: SÜRÜM DENETİMİ
 # ─────────────────────────────────────────────────────────────────────────────
 $braveBilgi = Get-BraveVersion
-$surumUygun = $false
+$surumlerUygun = $false
 
 if ($braveBilgi) {
-    $surumUygun = Compare-BraveVersion -Yuklu $braveBilgi.Surum -Beklenen $DogrulananBrave
-    if (-not $surumUygun) {
-        Write-Host "[SÜRÜM DENETİMİ] Yüklü Brave $($braveBilgi.Surum) doğrulanan sürümden ($DogrulananBrave) farklı!" -ForegroundColor Yellow
+    $braveUygun  = $braveBilgi.BraveSurum  -eq $DogrulananBrave
+    $chromeUygun = $braveBilgi.ChromiumAna -eq $DogrulananChromium
+    $surumlerUygun = $braveUygun -and $chromeUygun
+
+    if (-not $surumlerUygun) {
+        Write-Host "[SÜRÜM DENETİMİ] Sürüm uyuşmazlığı tespit edildi!" -ForegroundColor Yellow
         Write-Host "  Yol: $($braveBilgi.Yol)" -ForegroundColor DarkGray
+        Write-Host "  Tespit: Brave $($braveBilgi.BraveSurum) / Chromium $($braveBilgi.ChromiumAna)" -ForegroundColor Yellow
+        Write-Host "  Beklenen: Brave $DogrulananBrave / Chromium $DogrulananChromium" -ForegroundColor Yellow
         Write-Host "  Bu tarayıcı sürümünde bazı politikalar tanınmayabilir." -ForegroundColor Yellow
         Write-Host "  Devam etmek istiyor musunuz? (E = Evet / H = Hayır): " -ForegroundColor White -NoNewline
         $devam = Read-Host
@@ -149,7 +154,7 @@ if ($braveBilgi) {
             exit 0
         }
     } else {
-        Write-Host "[SÜRÜM DENETİMİ] Brave $DogrulananBrave tespit edildi — sürüm doğrulama hedefiyle eşleşiyor.`n" -ForegroundColor DarkGreen
+        Write-Host "[SÜRÜM DENETİMİ] Brave $DogrulananBrave / Chromium $DogrulananChromium tespit edildi — sürümler doğrulama hedefiyle eşleşiyor.`n" -ForegroundColor DarkGreen
     }
 } else {
     Write-Host "[SÜRÜM DENETİMİ] Brave kurulum yolu tespit edilemedi." -ForegroundColor Yellow

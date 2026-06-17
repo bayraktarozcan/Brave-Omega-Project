@@ -27,7 +27,9 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v2.1 — 2026-06-16](#en-v21)
+2.  [v2.1.1 — 2026-06-17](#en-v211)
+    *   [Fixed](#en-v211-fixed)
+3.  [v2.1 — 2026-06-16](#en-v21)
     *   [Summary](#en-v21-summary)
     *   [Added](#en-v21-added)
     *   [Changed](#en-v21-changed)
@@ -150,6 +152,42 @@ Files Modified/Added:
   ✓ CHANGELOG.md (v2.1 entry)
   ✓ README.md (updated roadmap, contributing reference)
   ✓ index.html (updated changelog, quick-start, badges)
+```
+
+---
+
+<a id="en-v211"></a>
+
+## [v2.1.1] — 2026-06-17
+
+<a id="en-v211-fixed"></a>
+
+### 🐛 Fixed
+
+- **Brave version check parsing both Brave and Chromium versions** — The `FileVersion`
+  property of `brave.exe` returns the Chromium version string (e.g., `149.1.91.172`),
+  but the script was comparing the entire string against the expected Brave version
+  (`1.91.172`), causing a false mismatch warning. Now correctly parses the file version
+  to extract and compare both the **Chromium major** (`149`) and **Brave version**
+  (`1.91.172`) independently.
+- **Version mismatch message now shows both detected versions** — Displays
+  `Brave X.X.XX / Chromium XX` in both the warning and success messages.
+- **Removed `Compare-BraveVersion` function** — No longer needed after replacing with
+  direct parsed comparison.
+
+### 🔧 Changed
+
+- **BraveOmega-EN.ps1** — v2.1.1: fixed dual-version detection, `$ScriptVersion = "v2.1.1"`
+- **BraveOmega-TR.ps1** — v2.1.1: same fix in Turkish, `$BetikSurum = "v2.1.1"`
+- **CHANGELOG.md** — Added v2.1.1 changelog entry
+
+### 📊 Statistics
+
+```
+Files Modified:
+  ✓ BraveOmega-EN.ps1 (v2.1.1: dual-version check parsing)
+  ✓ BraveOmega-TR.ps1 (v2.1.1: same fix in Turkish)
+  ✓ CHANGELOG.md (v2.1.1 entry)
 ```
 
 ---
@@ -532,6 +570,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.1.1 | 2026-06-17 | 68    | Fixed dual-version detection (Brave + Chromium parsing) |
 | v2.1   | 2026-06-16 | 68    | Version check, -WhatIf, -Reset, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Multi-Tier System (Brave Only / Essential / Balanced / Strict) |
 | v1.2.2 | 2026-06-13 | 17 | Safe execution policy fix, v1.2.2 branding |
@@ -583,7 +622,9 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v2.1 — 2026-06-16](#tr-v21)
+2.  [v2.1.1 — 2026-06-17](#tr-v211)
+    *   [Düzeltildi](#tr-v211-fixed)
+3.  [v2.1 — 2026-06-16](#tr-v21)
     *   [Özet](#tr-v21-summary)
     *   [Eklendi](#tr-v21-added)
     *   [Değiştirildi](#tr-v21-changed)
@@ -712,6 +753,42 @@ Eklenen/Değiştirilen Dosyalar:
   ✓ CHANGELOG.md (v2.1 girdisi)
   ✓ README.md (güncel yol haritası, katkı referansı)
   ✓ index.html (güncel değişiklik günlüğü, hızlı başlangıç, rozetler)
+```
+
+---
+
+<a id="tr-v211"></a>
+
+## [v2.1.1] — 2026-06-17
+
+<a id="tr-v211-fixed"></a>
+
+### 🐛 Düzeltildi
+
+- **Brave ve Chromium sürümlerini ayrıştıran sürüm denetimi düzeltmesi** —
+  `brave.exe` dosyasının `FileVersion` özelliği Chromium sürüm dizesini döndürür
+  (ör. `149.1.91.172`), ancak betik tüm dizeyi beklenen Brave sürümüyle (`1.91.172`)
+  karşılaştırarak hatalı uyuşmazlık uyarısı veriyordu. Artık dosya sürümü doğru şekilde
+  ayrıştırılarak hem **Chromium ana sürümü** (`149`) hem de **Brave sürümü** (`1.91.172`)
+  bağımsız olarak karşılaştırılıyor.
+- **Sürüm uyuşmazlık mesajı artık her iki sürümü de gösteriyor** —
+  Uyarı ve başarı mesajlarında `Brave X.X.XX / Chromium XX` görüntülenir.
+- **`Compare-BraveVersion` fonksiyonu kaldırıldı** — Doğrudan ayrıştırılmış
+  karşılaştırma ile değiştirildiği için artık gerekmiyor.
+
+### 🔧 Değiştirildi
+
+- **BraveOmega-EN.ps1** — v2.1.1: çift sürüm algılama düzeltmesi, `$ScriptVersion = "v2.1.1"`
+- **BraveOmega-TR.ps1** — v2.1.1: aynı düzeltme Türkçe, `$BetikSurum = "v2.1.1"`
+- **CHANGELOG.md** — v2.1.1 değişiklik günlüğü eklendi
+
+### 📊 İstatistikler
+
+```
+Değiştirilen Dosyalar:
+  ✓ BraveOmega-EN.ps1 (v2.1.1: çift sürüm denetimi ayrıştırması)
+  ✓ BraveOmega-TR.ps1 (v2.1.1: aynı düzeltme Türkçe)
+  ✓ CHANGELOG.md (v2.1.1 girdisi)
 ```
 
 ---
@@ -1094,6 +1171,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.1.1 | 2026-06-17 | 68    | Çift sürüm algılama düzeltmesi (Brave + Chromium ayrıştırma) |
 | v2.1   | 2026-06-16 | 68    | Sürüm denetimi, -WhatIf, -Sıfırla, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Çok Katmanlı Sistem (Brave Yalnız / Temel / Dengeli / Katı) |
 | v1.2.2 | 2026-06-13 | 17 | Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding |

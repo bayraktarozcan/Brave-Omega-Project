@@ -73,7 +73,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.1"
+$ScriptVersion   = "v2.1.1"
 $ValidatedBrave  = "1.91.172"
 $ValidatedChromium = "149"
 
@@ -96,20 +96,20 @@ function Get-BraveVersion {
     foreach ($path in $paths) {
         if (Test-Path $path) {
             try {
-                $ver = (Get-Item $path).VersionInfo.FileVersion
-                if ($ver) { return @{ Path = $path; Version = $ver } }
+                $verInfo = (Get-Item $path).VersionInfo
+                $fileVer = $verInfo.FileVersion
+                if ($fileVer) {
+                    $parts = $fileVer.Split('.')
+                    return @{
+                        Path          = $path
+                        BraveVersion  = "$($parts[1]).$($parts[2]).$($parts[3])"
+                        ChromiumMajor = $parts[0]
+                    }
+                }
             } catch { continue }
         }
     }
     return $null
-}
-
-function Compare-BraveVersion {
-    param([string]$Installed, [string]$Expected)
-    if (-not $Installed) { return $false }
-    $i = $Installed.Split('.')[0..2] -join '.'
-    $e = $Expected.Split('.')[0..2] -join '.'
-    return $i -eq $e
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -134,13 +134,18 @@ Write-Host "Execution Time  : $(Get-Date -Format 'dd-MM-yyyy HH:mm:ss')`n" -Fore
 # STEP 0B: VERSION CHECK
 # ─────────────────────────────────────────────────────────────────────────────
 $braveInfo = Get-BraveVersion
-$versionOk = $false
+$versionsMatch = $false
 
 if ($braveInfo) {
-    $versionOk = Compare-BraveVersion -Installed $braveInfo.Version -Expected $ValidatedBrave
-    if (-not $versionOk) {
-        Write-Host "[VERSION CHECK] Installed Brave $($braveInfo.Version) differs from validated $ValidatedBrave" -ForegroundColor Yellow
+    $braveMatch  = $braveInfo.BraveVersion  -eq $ValidatedBrave
+    $chromeMatch = $braveInfo.ChromiumMajor -eq $ValidatedChromium
+    $versionsMatch = $braveMatch -and $chromeMatch
+
+    if (-not $versionsMatch) {
+        Write-Host "[VERSION CHECK] Version mismatch detected!" -ForegroundColor Yellow
         Write-Host "  Path: $($braveInfo.Path)" -ForegroundColor DarkGray
+        Write-Host "  Detected: Brave $($braveInfo.BraveVersion) / Chromium $($braveInfo.ChromiumMajor)" -ForegroundColor Yellow
+        Write-Host "  Expected: Brave $ValidatedBrave / Chromium $ValidatedChromium" -ForegroundColor Yellow
         Write-Host "  Some policies may not be recognized by this browser version." -ForegroundColor Yellow
         Write-Host "  Continue? (Y = Yes / N = No): " -ForegroundColor White -NoNewline
         $cont = Read-Host
@@ -149,7 +154,7 @@ if ($braveInfo) {
             exit 0
         }
     } else {
-        Write-Host "[VERSION CHECK] Brave $ValidatedBrave detected — version matches validation target.`n" -ForegroundColor DarkGreen
+        Write-Host "[VERSION CHECK] Brave $ValidatedBrave / Chromium $ValidatedChromium detected — versions match validation target.`n" -ForegroundColor DarkGreen
     }
 } else {
     Write-Host "[VERSION CHECK] Could not detect Brave installation path." -ForegroundColor Yellow
