@@ -51,8 +51,8 @@
 #     [YENİ]        50+ Chromium kurumsal politikası eklendi.
 #                   Brave Yalnız: 13 Brave'e özgü politika
 #                   Temel:        +17 veri sızıntısı önleme politikası
-#                   Dengeli:      +16 güvenlik ve kullanım dengesi
-#                   Katı:         +22 azami gizlilik politikası
+#                   Dengeli:      +19 güvenlik ve kullanım dengesi
+#                   Katı:         +20 azami gizlilik politikası
 #
 #     [İYİLEŞTİRME] Kayıt defteri yazma motoru türe göre dağıtım yapar
 #                   ve her politika için ayrıntılı denetim izi üretir.
@@ -100,6 +100,7 @@ function Get-BraveVersion {
                 $dosyaSurum = $surumBilgi.FileVersion
                 if ($dosyaSurum) {
                     $parcalar = $dosyaSurum.Split('.')
+                    if ($parcalar.Count -lt 4) { continue }
                     return @{
                         Yol          = $yol
                         BraveSurum   = "$($parcalar[1]).$($parcalar[2]).$($parcalar[3])"
@@ -206,9 +207,11 @@ if ($Sifirla) {
     if (Test-Path $HKLM_Hedef) {
         foreach ($ad in $tumPolitikalar) {
             try {
-                Remove-ItemProperty -Path $HKLM_Hedef -Name $ad -ErrorAction SilentlyContinue
+                if (-not $WhatIf) {
+                    Remove-ItemProperty -Path $HKLM_Hedef -Name $ad -ErrorAction SilentlyContinue
+                }
                 $hkSayac++
-                if (-not $WhatIf) { Write-Host "  [OK] HKLM\$ad kaldırıldı" -ForegroundColor DarkGreen }
+                Write-Host "  [OK] HKLM\$ad kaldırıldı" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
             } catch { }
         }
     }
@@ -218,9 +221,11 @@ if ($Sifirla) {
     if (Test-Path $HKCU_Hedef) {
         foreach ($ad in @("UsageStatsInSample", "ChromeVariations")) {
             try {
-                Remove-ItemProperty -Path $HKCU_Hedef -Name $ad -ErrorAction SilentlyContinue
+                if (-not $WhatIf) {
+                    Remove-ItemProperty -Path $HKCU_Hedef -Name $ad -ErrorAction SilentlyContinue
+                }
                 $hcSayac++
-                if (-not $WhatIf) { Write-Host "  [OK] HKCU\$ad kaldırıldı" -ForegroundColor DarkGreen }
+                Write-Host "  [OK] HKCU\$ad kaldırıldı" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
             } catch { }
         }
     }
@@ -235,19 +240,24 @@ if ($Sifirla) {
             Where-Object { $_ -match "\\\{[a-fA-F0-9-]+\}$" }
         foreach ($guidYol in $guids) {
             try {
-                Remove-ItemProperty -Path $guidYol -Name "usagestats" -ErrorAction SilentlyContinue
+                if (-not $WhatIf) {
+                    Remove-ItemProperty -Path $guidYol -Name "usagestats" -ErrorAction SilentlyContinue
+                }
                 $omahaSayac++
-                if (-not $WhatIf) { Write-Host "  [OK] Omaha GUID: usagestats kaldırıldı" -ForegroundColor DarkGreen }
+                Write-Host "  [OK] Omaha GUID: usagestats kaldırıldı" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
             } catch { }
         }
     }
 
     # Boş HKLM anahtarını temizle
     $hkPolicies = Get-ItemProperty -Path $HKLM_Hedef -ErrorAction SilentlyContinue
-    if ($hkPolicies -and @($hkPolicies.PSObject.Properties).Count -le 1) {
+    $hkGercekOzelikler = @($hkPolicies.PSObject.Properties | Where-Object { $_.Name -notin @('PSPath','PSParentPath','PSChildName','PSDrive','PSProvider') })
+    if ($hkPolicies -and $hkGercekOzelikler.Count -eq 0) {
         try {
-            Remove-Item -Path $HKLM_Hedef -Force -ErrorAction SilentlyContinue
-            Write-Host "  [OK] HKLM politika anahtarı kaldırıldı (hiç politika kalmadı)" -ForegroundColor DarkGreen
+            if (-not $WhatIf) {
+                Remove-Item -Path $HKLM_Hedef -Force -ErrorAction SilentlyContinue
+            }
+            Write-Host "  [OK] HKLM politika anahtarı kaldırıldı (hiç politika kalmadı)" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
         } catch { }
     }
 

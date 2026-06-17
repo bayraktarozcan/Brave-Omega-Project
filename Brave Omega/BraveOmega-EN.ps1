@@ -51,8 +51,8 @@
 #     [NEW]        50+ Chromium enterprise policies added across all tiers.
 #                   Brave Only: 13 Brave-specific policies
 #                   Essential:  +17 data-leak prevention policies
-#                   Balanced:   +16 security & convenience balance
-#                   Strict:     +22 maximum privacy policies
+#                   Balanced:   +19 security & convenience balance
+#                   Strict:     +20 maximum privacy policies
 #
 #     [IMPROVED]    Registry writing engine now dispatches by type and
 #                   produces a comprehensive per-policy audit trail.
@@ -100,6 +100,7 @@ function Get-BraveVersion {
                 $fileVer = $verInfo.FileVersion
                 if ($fileVer) {
                     $parts = $fileVer.Split('.')
+                    if ($parts.Count -lt 4) { continue }
                     return @{
                         Path          = $path
                         BraveVersion  = "$($parts[1]).$($parts[2]).$($parts[3])"
@@ -207,9 +208,11 @@ if ($Reset) {
     if (Test-Path $HKLM_Target) {
         foreach ($name in $allPolicyNames) {
             try {
-                Remove-ItemProperty -Path $HKLM_Target -Name $name -ErrorAction SilentlyContinue
+                if (-not $WhatIf) {
+                    Remove-ItemProperty -Path $HKLM_Target -Name $name -ErrorAction SilentlyContinue
+                }
                 $hkCount++
-                if (-not $WhatIf) { Write-Host "  [OK] HKLM\$name removed" -ForegroundColor DarkGreen }
+                Write-Host "  [OK] HKLM\$name removed" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
             } catch { }
         }
     }
@@ -219,9 +222,11 @@ if ($Reset) {
     if (Test-Path $HKCU_Target) {
         foreach ($name in @("UsageStatsInSample", "ChromeVariations")) {
             try {
-                Remove-ItemProperty -Path $HKCU_Target -Name $name -ErrorAction SilentlyContinue
+                if (-not $WhatIf) {
+                    Remove-ItemProperty -Path $HKCU_Target -Name $name -ErrorAction SilentlyContinue
+                }
                 $hcCount++
-                if (-not $WhatIf) { Write-Host "  [OK] HKCU\$name removed" -ForegroundColor DarkGreen }
+                Write-Host "  [OK] HKCU\$name removed" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
             } catch { }
         }
     }
@@ -236,19 +241,24 @@ if ($Reset) {
             Where-Object { $_ -match "\\\{[a-fA-F0-9-]+\}$" }
         foreach ($guidPath in $guids) {
             try {
-                Remove-ItemProperty -Path $guidPath -Name "usagestats" -ErrorAction SilentlyContinue
+                if (-not $WhatIf) {
+                    Remove-ItemProperty -Path $guidPath -Name "usagestats" -ErrorAction SilentlyContinue
+                }
                 $omahaCount++
-                if (-not $WhatIf) { Write-Host "  [OK] Omaha GUID: usagestats removed" -ForegroundColor DarkGreen }
+                Write-Host "  [OK] Omaha GUID: usagestats removed" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
             } catch { }
         }
     }
 
     # Optionally remove empty HKLM key
     $hkPolicies = Get-ItemProperty -Path $HKLM_Target -ErrorAction SilentlyContinue
-    if ($hkPolicies -and @($hkPolicies.PSObject.Properties).Count -le 1) {
+    $hkRealProperties = @($hkPolicies.PSObject.Properties | Where-Object { $_.Name -notin @('PSPath','PSParentPath','PSChildName','PSDrive','PSProvider') })
+    if ($hkPolicies -and $hkRealProperties.Count -eq 0) {
         try {
-            Remove-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue
-            Write-Host "  [OK] HKLM policy key removed (no policies remain)" -ForegroundColor DarkGreen
+            if (-not $WhatIf) {
+                Remove-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue
+            }
+            Write-Host "  [OK] HKLM policy key removed (no policies remain)" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
         } catch { }
     }
 

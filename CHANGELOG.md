@@ -1,4 +1,4 @@
-<!-- ================================================================== -->
+﻿<!-- ================================================================== -->
 <!--            BRAVE OMEGA PROJECT — CHANGELOG                         -->
 <!--          Community Edition · Open Source · Privacy First           -->
 <!-- ================================================================== -->
@@ -34,7 +34,7 @@
     *   [Added](#en-v21-added)
     *   [Changed](#en-v21-changed)
     *   [Statistics](#en-v21-statistics)
-3.  [v2.0 — 2026-06-16](#en-v20)
+4.  [v2.0 — 2026-06-16](#en-v20)
     *   [Summary](#en-v20-summary)
     *   [Added](#en-v20-added)
     *   [Changed](#en-v20-changed)
@@ -71,6 +71,42 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v211"></a>
+
+## [v2.1.1] — 2026-06-17
+
+<a id="en-v211-fixed"></a>
+
+### 🐛 Fixed
+
+- **Brave version check parsing both Brave and Chromium versions** — The `FileVersion`
+  property of `brave.exe` returns the Chromium version string (e.g., `149.1.91.172`),
+  but the script was comparing the entire string against the expected Brave version
+  (`1.91.172`), causing a false mismatch warning. Now correctly parses the file version
+  to extract and compare both the **Chromium major** (`149`) and **Brave version**
+  (`1.91.172`) independently.
+- **Version mismatch message now shows both detected versions** — Displays
+  `Brave X.X.XX / Chromium XX` in both the warning and success messages.
+- **Removed `Compare-BraveVersion` function** — No longer needed after replacing with
+  direct parsed comparison.
+
+### 🔧 Changed
+
+- **BraveOmega-EN.ps1** — v2.1.1: fixed dual-version detection, `$ScriptVersion = "v2.1.1"`
+- **BraveOmega-TR.ps1** — v2.1.1: same fix in Turkish, `$BetikSurum = "v2.1.1"`
+- **CHANGELOG.md** — Added v2.1.1 changelog entry
+
+### 📊 Statistics
+
+```
+Files Modified:
+  ✓ BraveOmega-EN.ps1 (v2.1.1: dual-version check parsing)
+  ✓ BraveOmega-TR.ps1 (v2.1.1: same fix in Turkish)
+  ✓ CHANGELOG.md (v2.1.1 entry)
+```
 
 ---
 
@@ -132,11 +168,15 @@ and a GitHub Actions ADMX validation pipeline that runs weekly and on demand.
   - Creates a GitHub issue automatically when mismatches are found.
   - Companion script (`admx-validate.ps1`) also usable standalone.
 
+<a id="en-v21-changed"></a>
+
 ### 🔧 Changed
 
 - **BraveOmega-EN.ps1** — v2.1 features: version check, -WhatIf, -Reset, `$ScriptVersion = "v2.1"`
 - **BraveOmega-TR.ps1** — v2.1 features mirrored in Turkish
 - **CHANGELOG.md** — Added v2.1 changelog entry (this section)
+
+<a id="en-v21-statistics"></a>
 
 ### 📊 Statistics
 
@@ -152,42 +192,6 @@ Files Modified/Added:
   ✓ CHANGELOG.md (v2.1 entry)
   ✓ README.md (updated roadmap, contributing reference)
   ✓ index.html (updated changelog, quick-start, badges)
-```
-
----
-
-<a id="en-v211"></a>
-
-## [v2.1.1] — 2026-06-17
-
-<a id="en-v211-fixed"></a>
-
-### 🐛 Fixed
-
-- **Brave version check parsing both Brave and Chromium versions** — The `FileVersion`
-  property of `brave.exe` returns the Chromium version string (e.g., `149.1.91.172`),
-  but the script was comparing the entire string against the expected Brave version
-  (`1.91.172`), causing a false mismatch warning. Now correctly parses the file version
-  to extract and compare both the **Chromium major** (`149`) and **Brave version**
-  (`1.91.172`) independently.
-- **Version mismatch message now shows both detected versions** — Displays
-  `Brave X.X.XX / Chromium XX` in both the warning and success messages.
-- **Removed `Compare-BraveVersion` function** — No longer needed after replacing with
-  direct parsed comparison.
-
-### 🔧 Changed
-
-- **BraveOmega-EN.ps1** — v2.1.1: fixed dual-version detection, `$ScriptVersion = "v2.1.1"`
-- **BraveOmega-TR.ps1** — v2.1.1: same fix in Turkish, `$BetikSurum = "v2.1.1"`
-- **CHANGELOG.md** — Added v2.1.1 changelog entry
-
-### 📊 Statistics
-
-```
-Files Modified:
-  ✓ BraveOmega-EN.ps1 (v2.1.1: dual-version check parsing)
-  ✓ BraveOmega-TR.ps1 (v2.1.1: same fix in Turkish)
-  ✓ CHANGELOG.md (v2.1.1 entry)
 ```
 
 ---
@@ -243,7 +247,7 @@ Files Modified:
 | `AudioCaptureAllowed` | 0 | Blocks microphone access by default |
 | `VideoCaptureAllowed` | 0 | Blocks camera access by default |
 
-**Balanced (16 new — security & convenience balance):**
+**Balanced (19 new — security & convenience balance):**
 | Policy | Value | Effect |
 |--------|-------|--------|
 | `WebRtcIPHandling` | `default_public_interface_only` | Hides local IPs from WebRTC |
@@ -266,7 +270,7 @@ Files Modified:
 | `DefaultPopupsSetting` | 2 | Blocks pop-ups by default |
 | `DefaultMediaStreamSetting` | 2 | Blocks camera/mic by default |
 
-**Strict (22 new — maximum privacy):**
+**Strict (20 new — maximum privacy):**
 | Policy | Value | Effect |
 |--------|-------|--------|
 | `WebRtcIPHandling` (override) | `disable_non_proxied_udp` | Proxies all WebRTC traffic |
@@ -324,8 +328,8 @@ Files Modified:
 Policies:
   ✓ Brave Only:  13 Brave-specific policies
   ✓ Essential:   +17 = 30 total policies (Recommended)
-  ✓ Balanced:    +16 = 46 total policies
-  ✓ Strict:      +22 = 68 total policies
+  ✓ Balanced:    +19 = 49 total policies
+  ✓ Strict:      +20 = 68 total policies
   ✓ Total:      17 → 68 policies across all tiers (+300%)
 
 Registry Types:
@@ -925,8 +929,8 @@ Değiştirilen Dosyalar:
 Politikalar:
   ✓ Brave Yalnız:  13 Brave'e özgü politika
   ✓ Temel:         +17 = 30 toplam politika (Önerilen)
-  ✓ Dengeli:       +16 = 46 toplam politika
-  ✓ Katı:          +22 = 68 toplam politika
+  ✓ Dengeli:       +19 = 49 toplam politika
+  ✓ Katı:          +20 = 68 toplam politika
   ✓ Toplam:        17 → 68 politika (+300%)
 
 Kayıt Defteri Türleri:
@@ -1211,3 +1215,4 @@ Belgelendirme:
 *Gizlilik odaklı tarayıcı sıkılaştırması inşa ediliyor, her seferinde bir politika.*
 
 </div>
+
