@@ -136,7 +136,7 @@ Additional language editions following the EN/TR template structure are welcome:
 
 ```powershell
 # Clone the repository
-git clone https://github.com/your-username/Brave-Omega-Project.git
+git clone https://github.com/bayraktarozcan/Brave-Omega-Project.git
 cd Brave-Omega-Project
 
 # (Optional) Create a branch for your changes
@@ -296,7 +296,7 @@ EN/TR şablon yapısını takip eden ek dil sürümleri memnuniyetle karşılan�
 
 ```powershell
 # Depoyu klonlayın
-git clone https://github.com/kullanici-adi/Brave-Omega-Project.git
+git clone https://github.com/bayraktarozcan/Brave-Omega-Project.git
 cd Brave-Omega-Project
 
 # (İsteğe bağlı) Değişiklikleriniz için bir dal oluşturun
