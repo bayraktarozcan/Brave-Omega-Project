@@ -62,6 +62,11 @@
         .terminal-line:nth-child(21) { animation-delay:8.5s; }
         .terminal-line:nth-child(22) { animation-delay:8.9s; }
         .terminal-line:nth-child(23) { animation-delay:9.3s; }
+        .terminal-line:nth-child(24) { animation-delay:9.7s; }
+        .terminal-line:nth-child(25) { animation-delay:10.1s; }
+        .terminal-line:nth-child(26) { animation-delay:10.5s; }
+        .terminal-line:nth-child(27) { animation-delay:10.9s; }
+        .terminal-line:nth-child(28) { animation-delay:11.3s; }
         .table-row { transition:background 0.2s; }
         .table-row:hover { background:rgba(245,158,11,0.05); }
         .policy-table th { position:sticky; top:0; z-index:10; }
@@ -204,14 +209,14 @@
                         <div class="terminal-line"><br></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_start">Brave Omega v2.1 baslatiliyor...</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_check">Brave prosesi kontrol ediliyor...</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_omaha">Omaha GUID katmani yaziliyor...</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_backup_start">HKLM yedeği aliniyor...</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_backup_file">Yedek: BraveOmega_HKLM_20260616_120000.reg</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_hkcu">HKCU katmani yaziliyor...</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_hklm">HKLM katmani yaziliyor (DWord, String, MultiString)...</span></div>
-                        <div class="terminal-line"><span class="text-[#22c55e]">>></span> <span class="text-gray-300" data-i18n="term_omaha">Omaha GUID katmani yaziliyor...</span></div>
                         <div class="terminal-line"><br></div>
                         <div class="terminal-line"><span class="text-[#22c55e] font-bold" data-i18n="term_summary">Yurutme Ozeti:</span></div>
-                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hkcu">HKCU kullanici tercihi: 3 basarili</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hkcu">HKCU kullanici tercihi: 1 basarili</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hklm">HKLM kurumsal ilkeler: 30 basarili, 0 hata</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_omaha">Omaha GUID: 1 basarili</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_backup">Yedekleme: başarılı</span></div>
@@ -524,7 +529,7 @@
         <div class="text-center mb-12 animate-fade-in-up">
                     <span class="badge badge-green mb-4" data-i18n="policies_badge">Politika Başvuru Tablosu</span>
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="policies_heading">68 ADMX Politikasi (4 Seviyede)</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="policies_desc">v2.0 ile birlikte 4 seviyede toplam 68 kurumsal politika — %300 kapsam genişlemesi. Asagidaki tablo varsayilan (Temel) seviyeyi gosterir. Tam liste icin PowerShell betigine bakin.</p>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="policies_desc">v2.1 ile birlikte 4 seviyede toplam 68 kurumsal politika — %300 kapsam genişlemesi. Asagidaki tablo varsayilan (Temel) seviyeyi gosterir. Tam liste icin PowerShell betigine bakin.</p>
         </div>
         <div class="overflow-x-auto animate-fade-in-up-d1">
             <table class="w-full text-sm policy-table">
@@ -1079,7 +1084,7 @@ SOFTWARE.
             tier1_title: "User Preference Tier",
             tier1_desc: "UsageStatsInSample = 0 disables Chromium user-level telemetry sampling. Provides fallback safety during policy propagation delays.",
             tier2_title: "Enterprise Policy Tier (ADMX)",
-            tier2_desc: "15 ADMX-validated enterprise policies. Appear gray/locked in Browser Settings UI. Cannot be overridden by user interaction.",
+            tier2_desc: "13–68 ADMX-validated enterprise policies (level-based). Appear gray/locked in Browser Settings UI. Cannot be overridden by user interaction.",
             tier3_title: "Omaha Updater GUID Tier",
             tier3_desc: "usagestats = 0 per application GUID. Targets the update infrastructure\u2019s own telemetry independently of browser-level policies.",
             sources_desc: "Core principle: Zero unofficial or speculative registry changes.",
@@ -1195,7 +1200,7 @@ SOFTWARE.
             term_omaha: "Writing Omaha GUID tier...",
             term_summary: "Execution Summary:",
             term_ok_hkcu: "HKCU user preference: 1 success",
-            term_ok_hklm: "HKLM enterprise policies: 15 success, 0 error",
+            term_ok_hklm: "HKLM enterprise policies: 30 success, 0 error",
             term_ok_omaha: "Omaha GUID: 1 success",
             term_ok_backup: "Backup: success",
             term_done: "PROCESS COMPLETE",
@@ -1300,7 +1305,7 @@ SOFTWARE.
         term_omaha: "Omaha GUID katman\u0131 yaz\u0131l\u0131yor...",
         term_summary: "Y\u00fcr\u00fctme \u00d6zeti:",
         term_ok_hkcu: "HKCU kullan\u0131c\u0131 tercihi: 1 ba\u015far\u0131l\u0131",
-        term_ok_hklm: "HKLM kurumsal ilkeler: 15 ba\u015far\u0131l\u0131, 0 hata",
+        term_ok_hklm: "HKLM kurumsal ilkeler: 30 ba\u015far\u0131l\u0131, 0 hata",
         term_ok_omaha: "Omaha GUID: 1 ba\u015far\u0131l\u0131",
         term_ok_backup: "Yedekleme: ba\u015far\u0131l\u0131",
         term_done: "\u0130\u015eLEM TAMAMLANDI",
@@ -1334,7 +1339,7 @@ SOFTWARE.
         tier1_title: "Kullan\u0131c\u0131 Tercihi Katman\u0131",
         tier1_desc: "UsageStatsInSample = 0 ile Chromium kullan\u0131c\u0131 d\u00fczeyi veri aktar\u0131m\u0131 \u00f6rneklemesini devre d\u0131\u015f\u0131 b\u0131rak\u0131r. Politika yay\u0131lma gecikmelerinde yedek g\u00fcvence sa\u011flar.",
         tier2_title: "Kurumsal \u0130lke Katman\u0131 (ADMX)",
-        tier2_desc: "15 ADMX do\u011frulamal\u0131 kurumsal ilke. Taray\u0131c\u0131 Ayarlar aray\u00fcz\u00fcnde gri/kilitli g\u00f6r\u00fcn\u00fcr. Kullan\u0131c\u0131 etkile\u015fimiyle de\u011fi\u015ftirilemez.",
+        tier2_desc: "13\u201368 ADMX do\u011frulamal\u0131 kurumsal ilke (seviye bazl\u0131). Taray\u0131c\u0131 Ayarlar aray\u00fcz\u00fcnde gri/kilitli g\u00f6r\u00fcn\u00fcr. Kullan\u0131c\u0131 etkile\u015fimiyle de\u011fi\u015ftirilemez.",
         tier3_title: "G\u00fcncelleyici GUID Katman\u0131",
         tier3_desc: "Her uygulama GUID\u2019i i\u00e7in usagestats = 0. G\u00fcncelleme altyap\u0131s\u0131n\u0131n kendi veri aktar\u0131m\u0131n\u0131 taray\u0131c\u0131 d\u00fczeyi ilkelerden ba\u011f\u0131ms\u0131z kapat\u0131r.",
         sources_desc: "Temel ilke: S\u0131f\u0131r gayr\u0131resm\u00ee veya spek\u00fclatif kay\u0131t defteri de\u011fi\u015fikli\u011fi.",
