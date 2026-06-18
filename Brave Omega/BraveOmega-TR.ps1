@@ -790,7 +790,7 @@ if ($WhatIf) {
 Write-Host "  DOĞRULAMA:" -ForegroundColor Cyan
 Write-Host "  1. Aktif politikalar : brave://policy" -ForegroundColor DarkGray
 Write-Host "  2. Kayıt defteri yolu: HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -ForegroundColor DarkGray
-Write-Host "  3. Yedek konumu      : `$env:TEMP\BravePolicyYedek\" -ForegroundColor DarkGray
+Write-Host "  3. Yedek konumu      : `$env:TEMP\BravePolicyBackup\" -ForegroundColor DarkGray
 Write-Host "  4. Geri alma komutu  : reg import `"<yedek_dosyasi.reg>`"`n" -ForegroundColor DarkGray
 
 # Çıkış kodu
