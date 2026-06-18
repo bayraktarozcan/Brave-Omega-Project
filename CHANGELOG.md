@@ -27,9 +27,11 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v2.1.1 — 2026-06-17](#en-v211)
+2.  [v2.1.2 — 2026-06-18](#en-v212)
+    *   [Changed](#en-v212-changed)
+3.  [v2.1.1 — 2026-06-17](#en-v211)
     *   [Fixed](#en-v211-fixed)
-3.  [v2.1 — 2026-06-16](#en-v21)
+4.  [v2.1 — 2026-06-16](#en-v21)
     *   [Summary](#en-v21-summary)
     *   [Added](#en-v21-added)
     *   [Changed](#en-v21-changed)
@@ -73,6 +75,18 @@
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
 
 ---
+
+<a id="en-v212"></a>
+
+## [v2.1.2] — 2026-06-18
+
+<a id="en-v212-changed"></a>
+
+### Changed
+
+- **Brave version bump** — Validated against Brave **1.91.175** (Chromium 149.0.7827.155). No policy changes from v2.1.1.
+- **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.91.175.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, validated version constants bumped.
 
 <a id="en-v211"></a>
 
@@ -580,6 +594,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.1.2 | 2026-06-18 | 67    | Brave 1.91.175 / Chromium 149.0.7827.155 validation; version bump |
 | v2.1.1 | 2026-06-18 | 67    | Dual-version detection; policy rebalance: TranslateEnabled→Strict, DefaultMediaStreamSetting removed |
 | v2.1   | 2026-06-16 | 68    | Version check, -WhatIf, -Reset, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Multi-Tier System (Brave Only / Essential / Balanced / Strict) |
@@ -632,19 +647,21 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v2.1.1 — 2026-06-17](#tr-v211)
+2.  [v2.1.2 — 2026-06-18](#tr-v212)
+    *   [Değiştirildi](#tr-v212-changed)
+3.  [v2.1.1 — 2026-06-17](#tr-v211)
     *   [Düzeltildi](#tr-v211-fixed)
-3.  [v2.1 — 2026-06-16](#tr-v21)
+4.  [v2.1 — 2026-06-16](#tr-v21)
     *   [Özet](#tr-v21-summary)
     *   [Eklendi](#tr-v21-added)
     *   [Değiştirildi](#tr-v21-changed)
     *   [İstatistikler](#tr-v21-statistics)
-3.  [v2.0 — 2026-06-16](#tr-v20)
+5.  [v2.0 — 2026-06-16](#tr-v20)
     *   [Özet](#tr-v20-summary)
     *   [Eklendi](#tr-v20-added)
     *   [Değiştirildi](#tr-v20-changed)
     *   [İstatistikler](#tr-v20-statistics)
-4.  [v1.2.2 — 2026-06-13](#tr-v122)
+6.  [v1.2.2 — 2026-06-13](#tr-v122)
     *   [Özet](#tr-v122-summary)
     *   [Değiştirildi](#tr-v122-changed)
 5.  [v1.2.1 — 2026-06-13](#tr-v121)
@@ -766,6 +783,18 @@ Eklenen/Değiştirilen Dosyalar:
 ```
 
 ---
+
+<a id="tr-v212"></a>
+
+## [v2.1.2] — 2026-06-18
+
+<a id="tr-v212-changed"></a>
+
+### Değiştirildi
+
+- **Brave sürüm yükseltmesi** — Brave **1.91.175** (Chromium 149.0.7827.155) ile doğrulandı. v2.1.1'den itibaren politika değişikliği yok.
+- **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.175'e güncellendi.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, doğrulanmış sürüm sabitleri güncellendi.
 
 <a id="tr-v211"></a>
 
@@ -1187,6 +1216,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.1.2 | 2026-06-18 | 67    | Brave 1.91.175 / Chromium 149.0.7827.155 doğrulaması; sürüm yükseltmesi |
 | v2.1.1 | 2026-06-18 | 67    | Çift sürüm algılama; politika yeniden dengesi: TranslateEnabled→Katı, DefaultMediaStreamSetting kaldırıldı |
 | v2.1   | 2026-06-16 | 68    | Sürüm denetimi, -WhatIf, -Sıfırla, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Çok Katmanlı Sistem (Brave Yalnız / Temel / Dengeli / Katı) |

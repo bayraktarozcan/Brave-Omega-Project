@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       brave_version:
-        description: "Brave version to validate against (e.g. 1.91.172)"
+        description: "Brave version to validate against (e.g. 1.91.175)"
         required: false
-        default: "1.91.172"
+        default: "1.91.175"
       chromium_version:
         description: "Chromium version for ADMX URL (e.g. 149)"
         required: false
@@ -31,7 +31,7 @@ jobs:
         run: |
           .github/workflows/admx-validate.ps1 `
             -AdmxUrl "https://dl.google.com/update2/installers/ChromePolicyTemplate_${{ github.event.inputs.chromium_version || '149' }}.zip" `
-            -BraveVersion "${{ github.event.inputs.brave_version || '1.91.172' }}" `
+            -BraveVersion "${{ github.event.inputs.brave_version || '1.91.175' }}" `
             -PolicyFile "Brave Omega/BraveOmega-EN.ps1"
 
       - name: Check for validation failures
