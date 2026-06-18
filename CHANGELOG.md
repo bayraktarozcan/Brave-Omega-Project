@@ -99,7 +99,7 @@ All notable changes to this project are documented below, following the [Keep a 
 - **BraveOmega-TR.ps1** — v2.1.1: same fix in Turkish, `$BetikSurum = "v2.1.1"`
 - **DefaultMediaStreamSetting removed from Balanced** — Deprecated Chromium 104+ policy, does not work. Camera/mic blocking already covered by `AudioCaptureAllowed` and `VideoCaptureAllowed` in Essential.
 - **TranslateEnabled moved from Essential to Strict** — Right-click translate feature now works at Essential and Balanced levels. Only disabled at Strict (max privacy).
-- **Policy counts updated** — Essential: +16, Balanced: +18, Strict: +21. Cumulative: Brave Only 13, Essential 29, Balanced 47, Strict 68.
+- **Policy counts updated** — Essential: +16, Balanced: +18, Strict: +21. Cumulative: Brave Only 13, Essential 29, Balanced 47, Strict 67.
 - **CHANGELOG.md** — Added v2.1.1 policy changes
 
 ### 📊 Statistics
@@ -580,7 +580,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
-| v2.1.1 | 2026-06-18 | 68    | Dual-version detection; policy rebalance: TranslateEnabled→Strict, DefaultMediaStreamSetting removed |
+| v2.1.1 | 2026-06-18 | 67    | Dual-version detection; policy rebalance: TranslateEnabled→Strict, DefaultMediaStreamSetting removed |
 | v2.1   | 2026-06-16 | 68    | Version check, -WhatIf, -Reset, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Multi-Tier System (Brave Only / Essential / Balanced / Strict) |
 | v1.2.2 | 2026-06-13 | 17 | Safe execution policy fix, v1.2.2 branding |
@@ -792,7 +792,7 @@ Eklenen/Değiştirilen Dosyalar:
 - **BraveOmega-TR.ps1** — v2.1.1: aynı düzeltme Türkçe, `$BetikSurum = "v2.1.1"`
 - **DefaultMediaStreamSetting Dengeli'den kaldırıldı** — Kullanımdan kaldırılmış Chromium 104+ politikası, çalışmıyor. Kamera/mikrofon engelleme zaten Temel'deki `AudioCaptureAllowed` ve `VideoCaptureAllowed` tarafından karşılanıyor.
 - **TranslateEnabled Temel'den Katı'ya taşındı** — Sağ tık çeviri özelliği artık Temel ve Dengeli seviyelerinde çalışıyor. Yalnızca Katı'da devre dışı (azami gizlilik).
-- **Politika sayıları güncellendi** — Temel: +16, Dengeli: +18, Katı: +21. Kümülatif: Brave Yalnız 13, Temel 29, Dengeli 47, Katı 68.
+- **Politika sayıları güncellendi** — Temel: +16, Dengeli: +18, Katı: +21. Kümülatif: Brave Yalnız 13, Temel 29, Dengeli 47, Katı 67.
 - **CHANGELOG.md** — v2.1.1 politika değişiklikleri eklendi
 
 ### 📊 İstatistikler
@@ -1187,7 +1187,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
-| v2.1.1 | 2026-06-18 | 68    | Çift sürüm algılama; politika yeniden dengesi: TranslateEnabled→Katı, DefaultMediaStreamSetting kaldırıldı |
+| v2.1.1 | 2026-06-18 | 67    | Çift sürüm algılama; politika yeniden dengesi: TranslateEnabled→Katı, DefaultMediaStreamSetting kaldırıldı |
 | v2.1   | 2026-06-16 | 68    | Sürüm denetimi, -WhatIf, -Sıfırla, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Çok Katmanlı Sistem (Brave Yalnız / Temel / Dengeli / Katı) |
 | v1.2.2 | 2026-06-13 | 17 | Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding |

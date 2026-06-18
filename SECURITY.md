@@ -1,4 +1,4 @@
-﻿<!-- ================================================================== -->
+<!-- ================================================================== -->
 <!--                  BRAVE OMEGA PROJECT â€” SECURITY.MD              -->
 <!--          Community Edition Â· Open Source Â· Privacy First        -->
 <!-- ================================================================== -->
@@ -275,9 +275,9 @@ Brave Omega offers four progressive hardening tiers:
 | Level | Policies | Description | Usability Impact |
 |-------|----------|-------------|-----------------|
 | **Brave Only** | 13 Brave-specific | Disables Brave's integrated services only | None |
-| **Essential â­** | 30 (Brave Only + 17) | Brave + zero-impact data leak prevention | None |
+| **Essential ⭐** | 29 (Brave Only + 16) | Brave + zero-impact data leak prevention | None |
 | **Balanced** | 47 (Essential + 18) | Full security baseline with minor changes | Low |
-| **Strict** | 68 (Balanced + 20) | Maximum privacy preservation | Medium |
+| **Strict** | 67 (Balanced + 20) | Maximum privacy preservation | Medium |
 
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.
 
@@ -554,9 +554,9 @@ Brave Omega dÃ¶rt kademeli sÄ±kÄ±laÅŸtÄ±rma seviyesi sunar:
 | Seviye | Politika SayÄ±sÄ± | AÃ§Ä±klama | KullanÄ±m Etkisi |
 |--------|----------------|----------|----------------|
 | **Brave YalnÄ±z** | 13 Brave'e Ã¶zgÃ¼ | YalnÄ±zca Brave'in tÃ¼mleÅŸik hizmetlerini kapatÄ±r | Yok |
-| **Temel â­** | 30 (Brave YalnÄ±z + 17) | Brave + sÄ±fÄ±r etkili veri sÄ±zÄ±ntÄ±sÄ± Ã¶nleme | Yok |
+| **Temel â­** | 29 (Brave Yalnız + 16) | Brave + sÄ±fÄ±r etkili veri sÄ±zÄ±ntÄ±sÄ± Ã¶nleme | Yok |
 | **Dengeli** | 47 (Temel + 18) | Tam gÃ¼venlik temeli, kÃ¼Ã§Ã¼k deÄŸiÅŸiklikler | DÃ¼ÅŸÃ¼k |
-| **KatÄ±** | 68 (Dengeli + 20) | Azami gizlilik korumasÄ± | Orta |
+| **KatÄ±** | 67 (Dengeli + 20) | Azami gizlilik korumasÄ± | Orta |
 
 Her seviye, Ã¶nceki seviyelerdeki tÃ¼m politikalarÄ± kÃ¼mÃ¼latif olarak iÃ§erir. Tam politika referansÄ± iÃ§in [README.md](README.md) dosyasÄ±na bakÄ±n.
 
@@ -597,6 +597,8 @@ C: Politika kayÄ±t defteri yollarÄ± farklÄ±dÄ±r. Brave `HKLM\SOFTWARE\Po
 <br>
 
 </div>
+
+
 
 
 
