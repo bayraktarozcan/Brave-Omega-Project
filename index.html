@@ -1350,7 +1350,7 @@ SOFTWARE.
             if (mobTr) mobTr.className = "px-6 py-2 rounded-md text-sm font-semibold text-zinc-400 hover:text-white transition-all";
             if (mobEn) mobEn.className = "px-6 py-2 rounded-md text-sm font-bold bg-[#FF6000] text-white transition-all";
         }
-        document.querySelectorAll("[data-i18n]").forEaçh(el => {
+        document.querySelectorAll("[data-i18n]").forEach(el => {
             const key = el.getAttribute("data-i18n");
             if (translations[lang] && translations[lang][key]) {
                 if (el.tagName === "TITLE") {
