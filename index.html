@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -8,8 +8,8 @@
     <meta name="theme-color" content="#0f0f0f">
     <meta name="keywords" content="brave, browser, privacy, hardening, powershell, security, windows, enterprise, admx, group-policy">
     <meta name="author" content="Brave Omega Project Contributors">
-    <meta property="og:title" content="Brave Omega Project - Kurumsal Duzeyde Tarayıcı Gizlilik Sikilastirmasi">
-    <meta property="og:description" content="Açık kaynak PowerShell otomasyonu ile Brave Browser gizlilik sikilastirmasi.">
+    <meta property="og:title" content="Brave Omega Project - Kurumsal Düzeyde Tarayıcı Gizlilik Sıkılaştırması">
+    <meta property="og:description" content="Açık kaynak PowerShell otomasyonu ile Brave Browser gizlilik sıkılaştırmasi.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bayraktarozcan.github.io/Brave-Omega-Project/">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop stop-color='%2322c55e'/%3E%3Cstop offset='1' stop-color='%2316a34a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M32 4L56 16V34C56 48 32 60 32 60C32 60 8 48 8 34V16Z' fill='none' stroke='url(%23g)' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M22 44Q22 36 28 34Q32 32 36 34Q42 36 42 44' fill='none' stroke='url(%23g)' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='20' y1='44' x2='44' y2='44' stroke='url(%23g)' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -124,7 +124,7 @@
                 <span class="text-2xl" style="filter:drop-shadow(0 0 10px rgba(255,96,0,0.5));">&#x1f981;</span>
                 <div class="leading-none">
                     <span class="font-bold tracking-tight text-white block text-[15px]">BRAVE OMEGA</span>
-                    <span class="text-[9px] text-zinc-500 tracking-[0.2em] uppercase font-mono mt-0.5 block">Topluluk Sürümu</span>
+                    <span class="text-[9px] text-zinc-500 tracking-[0.2em] uppercase font-mono mt-0.5 block">Topluluk sürümü</span>
                 </div>
             </div>
             <nav class="hidden md:flex items-center gap-6">
@@ -235,10 +235,10 @@
 <section id="about" class="py-20 border-t border-[#1f1f1f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 animate-fade-in-up">
-            <span class="badge badge-green mb-4" data-i18n="about_badge">Proje Hakkinda</span>
+            <span class="badge badge-green mb-4" data-i18n="about_badge">Proje Hakkında</span>
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="about_heading">Brave Omega Nedir?</h2>
             <p class="text-gray-400 max-w-3xl mx-auto text-lg" data-i18n="about_desc1">
-                Brave Omega, Brave Browser'i resmî kurumsal politika kanallari araçiligiyla sikilastiran açık kaynaklı bir PowerShell otomasyon projesidir. Telemetri, analiz hizmetleri, arka plan pingleri ve gizliliği aşındıran tüm bileşenler sistematik biçimde devre disi bırakılır.
+                Brave Omega, Brave Browser'i resmî kurumsal politika kanalları aracılığıyla sıkılaştıran açık kaynaklı bir PowerShell otomasyon projesidir. Telemetri, analiz hizmetleri, arka plan pingleri ve gizliliği aşındıran tüm bileşenler sistematik biçimde devre dışı bırakılır.
             </p>
         </div>
         <div class="grid md:grid-cols-3 gap-6 mb-12">
@@ -246,15 +246,15 @@
                 <div class="w-10 h-10 rounded-lg bg-[#22c55e15] flex items-center justify-center mb-4">
                     <i data-lucide="shield" class="w-5 h-5 text-[#22c55e]"></i>
                 </div>
-                <h3 class="font-bold text-lg mb-2" data-i18n="about_card1_title">ADMX Dogrulamali</h3>
-                <p class="text-gray-400 text-sm" data-i18n="about_card1_desc">Her politika Brave'in resmî ADMX şablon paketi ve Chromium kurumsal belgelendirmesi ile doğrulanmıştir.</p>
+                <h3 class="font-bold text-lg mb-2" data-i18n="about_card1_title">ADMX Doğrulamalı</h3>
+                <p class="text-gray-400 text-sm" data-i18n="about_card1_desc">Her politika Brave'in resmî ADMX şablon paketi ve Chromium kurumsal belgelendirmesi ile doğrulanmıştır.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-6 animate-fade-in-up-d2">
                 <div class="w-10 h-10 rounded-lg bg-[#f59e0b15] flex items-center justify-center mb-4">
                     <i data-lucide="layers" class="w-5 h-5 text-[#f59e0b]"></i>
                 </div>
-                <h3 class="font-bold text-lg mb-2" data-i18n="about_card2_title">Dort Seviyeli Model</h3>
-                <p class="text-gray-400 text-sm" data-i18n="about_card2_desc">Brave Yalnız / Temel / Dengeli / Kati — 13'ten 67 politikaya kadar kademeli sıkılaştırma. Kumulatif miras ile her seviye bir öncekinin tümunu kapsar.</p>
+                <h3 class="font-bold text-lg mb-2" data-i18n="about_card2_title">Dört Seviyeli Model</h3>
+                <p class="text-gray-400 text-sm" data-i18n="about_card2_desc">Brave Yalnız / Temel / Dengeli / Katı — 13'ten 67 politikaya kadar kademeli sıkılaştırma. Kümülatif miras ile her seviye bir öncekinin tümünü kapsar.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-6 animate-fade-in-up-d3">
                 <div class="w-10 h-10 rounded-lg bg-[#8b5cf615] flex items-center justify-center mb-4">
@@ -267,10 +267,10 @@
         <div class="glow-card bg-[#000] rounded-xl p-6 lg:p-8 animate-fade-in-up-d3">
             <h3 class="font-bold text-lg mb-4" data-i18n="why_title">Brave Omega Neden Var?</h3>
             <p class="text-gray-400 text-sm mb-4" data-i18n="why_desc1">
-                Kurumsal tarayıcı gizlilik sikilastirmasi ya ADMX politika çerçevelerine derin teknik hakimiyet ya da pahalı bir ücretli ürün aboneligi gerektirir. Brave Omega her iki kısıtlamayı da ortadan kaldirir.
+                Kurumsal tarayıcı gizlilik sıkılaştırmasi ya ADMX politika çerçevelerine derin teknik hâkimiyet ya da pahalı bir ücretli ürün aboneliği gerektirir. Brave Omega her iki kısıtlamayı da ortadan kaldırır.
             </p>
             <p class="text-gray-400 text-sm" data-i18n="why_desc2">
-                Gereken tüm bilgi ve araç, ücretsiz ve açık kaynaklı Brave Browser içinde zaten mevcuttur. Tek eksik olan, bu bileşenler arasında doğrulanmış bir kofpriydti. Brave Omega o kofpruyu insa eder ve tarayıcınin yaşam döngüsü boyunca onu güncel tutar.
+                Gereken tüm bilgi ve araç, ücretsiz ve açık kaynaklı Brave Browser içinde zaten mevcuttur. Tek eksik olan, bu bileşenler arasında doğrulanmış bir köprüydü. Brave Omega o köprüyü inşa eder ve tarayıcının yaşam döngüsü boyunca onu güncel tutar.
             </p>
         </div>
         <div class="mt-8 text-center">
@@ -286,22 +286,22 @@
         <div class="text-center mb-16 animate-fade-in-up">
             <span class="badge badge-yellow mb-4" data-i18n="features_badge">Temel Özellikler</span>
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="features_heading">Neler Sunuyor?</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto" data-i18n="features_desc">Brave Omega, Brave Browser'inizi kurumsal düzeyde gizlilik sikilastirmasiyla donatır.</p>
+            <p class="text-gray-400 max-w-3xl mx-auto" data-i18n="features_desc">Brave Omega, Brave Browser'inizi kurumsal düzeyde gizlilik sıkılaştırmasıyla donatır.</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="text-xl">&#x1f512;</span>
-                    <h4 class="font-bold text-sm" data-i18n="feat_tier_title">Dort Seviyeli Model</h4>
+                    <h4 class="font-bold text-sm" data-i18n="feat_tier_title">Dört Seviyeli Model</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_tier_desc">Brave Yalnız / Temel / Dengeli / Kati — 13'ten 67 politikaya kademeli sikilastirma.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_tier_desc">Brave Yalnız / Temel / Dengeli / Katı — 13'ten 67 politikaya kademeli sıkılaştırma.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="text-xl">&#x1f4cb;</span>
-                    <h4 class="font-bold text-sm" data-i18n="feat_admx_title">ADMX Dogrulamali</h4>
+                    <h4 class="font-bold text-sm" data-i18n="feat_admx_title">ADMX Doğrulamalı</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_admx_desc">Her politika Brave resmî ADMX şablonlari ve Chromium politika belgelendirmesi ile doğrulanmış.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_admx_desc">Her politika Brave resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmış.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d3">
                 <div class="flex items-center gap-3 mb-3">
@@ -322,19 +322,19 @@
                     <span class="text-xl">&#x1f6e1;&#xfe0f;</span>
                     <h4 class="font-bold text-sm" data-i18n="feat_guard_title">Brave Proses Koruyucusu</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_guard_desc">Calisan Brave orneklerini algilar, onay ister.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_guard_desc">Çalışan Brave örneklerini algilar, onay ister.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d3">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="text-xl">&#x1f4ca;</span>
                     <h4 class="font-bold text-sm" data-i18n="feat_summary_title">Yürütme Özeti</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_summary_desc">Tur bazında basari/hata sayaçlari; çıkış kodu 0/1 ile CI/CD entegrasyonu.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_summary_desc">Tur bazında başarı/hata sayaçları; çıkış kodu 0/1 ile CI/CD entegrasyonu.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="text-xl">&#x1f504;</span>
-                    <h4 class="font-bold text-sm" data-i18n="feat_idem_title">Kararsiz Olmayan Calisma</h4>
+                    <h4 class="font-bold text-sm" data-i18n="feat_idem_title">Kararsız Olmayan Çalışma</h4>
                 </div>
                 <p class="text-gray-500 text-xs" data-i18n="feat_idem_desc">İstediğiniz kadar çalıştırın, aynı güvenli ve tutarlı sonuç.</p>
             </div>
@@ -348,9 +348,9 @@
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d3">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="text-xl">&#x26a1;</span>
-                    <h4 class="font-bold text-sm" data-i18n="feat_lifecycle_title">Yaşam Döngüsü Taahhudu</h4>
+                    <h4 class="font-bold text-sm" data-i18n="feat_lifecycle_title">Yaşam Döngüsü Taahhüdü</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_lifecycle_desc">Her Brave sürümunde politika gözden geçirmesi, sürüm sabitleme.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_lifecycle_desc">Her Brave sürümünde politika gözden geçirmesi, sürüm sabitleme.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
                 <div class="flex items-center gap-3 mb-3">
@@ -364,7 +364,7 @@
                     <span class="text-xl">&#x1f4dd;</span>
                     <h4 class="font-bold text-sm" data-i18n="feat_enc_title">Terminal Kodlama Sağlamlaştırması</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_enc_desc">Başlangıçta UTF-8 kodlaması zorlanarak Türkçe karakter bozulması onlenir.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_enc_desc">Başlangıçta UTF-8 kodlaması zorlanarak Türkçe karakter bozulması önlenir.</p>
             </div>
         </div>
     </div>
@@ -372,26 +372,26 @@
 <section id="lifecycle" class="py-20 border-t border-[#1f1f1f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 animate-fade-in-up">
-            <span class="badge badge-green mb-4">&#x267b;&#xfe0f; <span data-i18n="lifecycle_badge">Yaşam Döngüsü Taahhudu</span></span>
+            <span class="badge badge-green mb-4">&#x267b;&#xfe0f; <span data-i18n="lifecycle_badge">Yaşam Döngüsü Taahhüdü</span></span>
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="lifecycle_heading">Her Daim Güncel</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto italic" data-i18n="lifecycle_quote">Güncelligini yitiren bir gizlilik sikilastirma araçi, güvenlik güvencesi degil - yanlis bir güvenlik duygusudur.</p>
+            <p class="text-gray-400 max-w-3xl mx-auto italic" data-i18n="lifecycle_quote">Güncelliğini yitiren bir gizlilik sıkılaştırma araç, güvenlik güvencesi değil - yanlış bir güvenlik duygusudur.</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
                 <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_pin_title">Sürüm Sabitleme</div>
-                <p class="text-gray-500 text-xs" data-i18n="lc_pin_desc">Her betik sürümu, başlığında doğrulanmış Brave + Chromium versiyonuyla etiketlidir.</p>
+                <p class="text-gray-500 text-xs" data-i18n="lc_pin_desc">Her betik sürümü, başlığında doğrulanmış Brave + Chromium versiyonuyla etiketlidir.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
                 <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_review_title">Her Sürümde Gözden Geçirme</div>
-                <p class="text-gray-500 text-xs" data-i18n="lc_review_desc">Yeni Brave kararlı sürümunde ADMX şablonu karşılastirilir, politikalar güncellenir.</p>
+                <p class="text-gray-500 text-xs" data-i18n="lc_review_desc">Yeni Brave kararlı sürümünde ADMX şablonu karşılaştırılır, politikalar güncellenir.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d3">
                 <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_breaking_title">Kırıcı Değişiklik Bildirimleri</div>
                 <p class="text-gray-500 text-xs" data-i18n="lc_breaking_desc">Kaldırılan veya yeniden adlandırılan anahtarlar değişiklik günlüğünde belgelenir.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
-                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_community_title">Topluluk Gudemlu</div>
-                <p class="text-gray-500 text-xs" data-i18n="lc_community_desc">Katkida bulunanlarin tespit ettigi uyumsuzluklar hizla incelenip birlestirilir.</p>
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_community_title">Topluluk Güdümlü</div>
+                <p class="text-gray-500 text-xs" data-i18n="lc_community_desc">Katkıda bulunanların tespit ettigi uyumsuzluklar hızla incelenip birleştirilir.</p>
             </div>
         </div>
     </div>
@@ -401,7 +401,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 animate-fade-in-up">
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="arch_heading">Mimari: Altyapı Katmanları + Sıkılaştırma Seviyeleri</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="arch_desc">İki zorunlu kilma katmanı (HKCU + HKLM + Omaha GUID) ve dört kullanıcı seçeneği seviyesi. Seviyeler kümülatif: her biri bir öncekinin tüm politikalarini içerir.</p>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="arch_desc">İki zorunlu kılma katmanı (HKCU + HKLM + Omaha GUID) ve dört kullanıcı seçeneği seviyesi. Seviyeler kümülatif: her biri bir öncekinin tüm politikalarını içerir.</p>
         </div>
         <div class="grid md:grid-cols-3 gap-4">
             <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#22c55e] animate-fade-in-up-d1">
@@ -411,7 +411,7 @@
                 </div>
                 <h4 class="font-bold text-sm mb-2" data-i18n="tier1_title">Kullanıcı Tercihi Katmanı</h4>
                 <code class="text-xs text-gray-400 block mb-2 font-mono break-all">HKCU:\Software\BraveSoftware\Brave-Browser</code>
-                <p class="text-gray-500 text-xs" data-i18n="tier1_desc">UsageStatsInSample = 0 ile Chromium kullanıcı düzeyi veri aktarımı örneklemesini devre disi bırakır. Politika yayılma gecikmelerinde yedek güvence sağlar.</p>
+                <p class="text-gray-500 text-xs" data-i18n="tier1_desc">UsageStatsInSample = 0 ile Chromium kullanıcı düzeyi veri aktarımı örneklemesini devre dışı bırakır. Politika yayılma gecikmelerinde yedek güvence sağlar.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#f59e0b] animate-fade-in-up-d2">
                 <div class="flex items-center gap-2 mb-3">
@@ -420,7 +420,7 @@
                 </div>
                 <h4 class="font-bold text-sm mb-2" data-i18n="tier2_title">Kurumsal İlke Katmanı (ADMX)</h4>
                 <code class="text-xs text-gray-400 block mb-2 font-mono break-all">HKLM:\SOFTWARE\Policies\BraveSoftware\Brave</code>
-                <p class="text-gray-500 text-xs" data-i18n="tier2_desc">13-67 ADMX doğrulamalı kurumsal ilke (seçili seviyeye göre). Tarayıcı Ayarlar arayüzunde gri/kilitli görünür. Kullanıcı etkilesimiyle değiştirilemez.</p>
+                <p class="text-gray-500 text-xs" data-i18n="tier2_desc">13-67 ADMX doğrulamalı kurumsal ilke (seçili seviyeye göre). Tarayıcı Ayarlar arayüzünde gri/kilitli görünür. Kullanıcı etkileşimiyle değiştirilemez.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#8b5cf6] animate-fade-in-up-d3">
                 <div class="flex items-center gap-2 mb-3">
@@ -429,7 +429,7 @@
                 </div>
                 <h4 class="font-bold text-sm mb-2" data-i18n="tier3_title">Güncelleyici GUID Katmanı</h4>
                 <code class="text-xs text-gray-400 block mb-2 font-mono break-all">HKCU:\...\Update\ClientState\{GUID}</code>
-                <p class="text-gray-500 text-xs" data-i18n="tier3_desc">Her uygulama GUID'i için usagestats = 0. Güncelleme altyapısının kendi veri aktarımıni tarayıcı düzeyi ilkelerden bağımsız kapatır.</p>
+                <p class="text-gray-500 text-xs" data-i18n="tier3_desc">Her uygulama GUID'i için usagestats = 0. Güncelleme altyapısının kendi veri aktarımını tarayıcı düzeyi ilkelerden bağımsız kapatır.</p>
             </div>
         </div>
     </div>
@@ -440,7 +440,7 @@
         <div class="text-center mb-12 animate-fade-in-up">
             <span class="badge badge-yellow mb-4" data-i18n="levels_badge">Sıkılaştırma Seviyeleri</span>
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="levels_heading">Seviyenizi Seçin</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="levels_desc">Dort seviye, kümülatif miras. Her seviye bir öncekinin tüm politikalarini kapsar. Seçiminizi etkilesimli menüden yapın veya -Level parametresiyle doğrudan belirtin.</p>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="levels_desc">Dört seviye, kümülatif miras. Her seviye bir öncekinin tüm politikalarını kapsar. Seçiminizi etkilesimli menüden yapın veya -Level parametresiyle doğrudan belirtin.</p>
         </div>
         <div class="grid md:grid-cols-4 gap-4">
             <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#555] animate-fade-in-up-d1">
@@ -449,7 +449,7 @@
                 </div>
                 <h4 class="font-bold text-sm mb-2" data-i18n="level1_title">Brave Yalnız</h4>
                 <div class="text-3xl font-black text-white mb-2">13</div>
-                <p class="text-gray-500 text-xs mb-3" data-i18n="level1_desc">Yalnızca Brave'e özgü politikalar. Sıfır Chromium politikası. Saf Brave sikilastirmasi.</p>
+                <p class="text-gray-500 text-xs mb-3" data-i18n="level1_desc">Yalnızca Brave'e özgü politikalar. Sıfır Chromium politikası. Saf Brave sıkılaştırmasi.</p>
                 <div class="text-xs text-gray-600" data-i18n="level1_impact">Kullanım Etkisi: Yok</div>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 border-l-2 border-[#22c55e] animate-fade-in-up-d2">
@@ -477,7 +477,7 @@
                 <div class="flex items-center gap-2 mb-3">
                     <span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">SEVIYE 4</span>
                 </div>
-                <h4 class="font-bold text-sm mb-2" data-i18n="level4_title">Kati</h4>
+                <h4 class="font-bold text-sm mb-2" data-i18n="level4_title">Katı</h4>
                 <div class="text-3xl font-black text-white mb-2">67</div>
                 <p class="text-gray-500 text-xs mb-3" data-i18n="level4_desc">+21 azami gizlilik politikası. JIT kapama, çeviri engelleme, cookie engelleme, sensör izni kısıtlaması.</p>
                 <div class="text-xs text-gray-600" data-i18n="level4_impact">Kullanım Etkisi: Orta</div>
@@ -489,9 +489,9 @@
 <section id="sources" class="py-20 border-t border-[#1f1f1f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-in-up">
-            <span class="badge badge-green mb-4" data-i18n="sources_badge">Politika Kaynaklari</span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="sources_heading">Politika Kaynaklari</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="sources_desc">Temel ilke: Sıfır gayrı resmî veya spekulatif kayıt defteri değişikliği.</p>
+            <span class="badge badge-green mb-4" data-i18n="sources_badge">Politika Kaynakları</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="sources_heading">Politika Kaynakları</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="sources_desc">Temel ilke: Sıfır gayrı resmî veya spekülatif kayıt defteri değişikliği.</p>
         </div>
         <div class="overflow-x-auto animate-fade-in-up-d1">
             <table class="w-full text-sm">
@@ -503,7 +503,7 @@
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
                     <tr class="security-row">
-                        <td class="py-3 px-4 font-mono text-xs text-[#22c55e]">Brave Resmî ADMX Sablon Paketi</td>
+                        <td class="py-3 px-4 font-mono text-xs text-[#22c55e]">Brave Resmî ADMX Şablon Paketi</td>
                         <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">BraveRewardsDisabled, BraveWalletDisabled, BraveVPNDisabled, BraveAIChatEnabled, BraveStatsPingEnabled</code></td>
                     </tr>
                     <tr class="security-row">
@@ -520,11 +520,11 @@
                     </tr>
                     <tr class="security-row">
                         <td class="py-3 px-4 font-mono text-xs text-[#22c55e]"><a href="https://support.brave.app/hc/tr/articles/360039248271-Grup-%C4%B0lkesi" target="_blank" class="hover:underline">Brave Support — Grup İlkesi</a></td>
-                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">Tüm Brave politikalarini iceren kurumsal rehber</code></td>
+                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">Tüm Brave politikalarını içeren kurumsal rehber</code></td>
                     </tr>
                     <tr class="security-row">
                         <td class="py-3 px-4 font-mono text-xs text-[#f59e0b]"><a href="https://chromeenterprise.google/policies/" target="_blank" class="hover:underline">Chrome Enterprise Policies</a></td>
-                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">1459 Chromium politikasınin tam listesi (resmî kaynak)</code></td>
+                        <td class="py-3 px-4 text-gray-400 text-xs"><code class="font-mono">1459 Chromium politikasının tam listesi (resmî kaynak)</code></td>
                     </tr>
                 </tbody>
             </table>
@@ -533,8 +533,8 @@
             <div class="flex items-start gap-3">
                 <span class="text-[#f59e0b] text-lg mt-0.5">&#x26a0;&#xfe0f;</span>
                 <div>
-                    <p class="text-sm font-semibold text-[#f59e0b] mb-1" data-i18n="source_note_title">BraveShieldsDefault neden haric tutuldu?</p>
-                    <p class="text-gray-500 text-xs" data-i18n="source_note_desc">Bazı topluluk kılavuzlarında yer almasina rağmen BraveShieldsDefault, Brave'in resmî ADMX şablonlarinda bulunmamaktadır. Brave, kalkanları URL bazli politikalarla yönetir. Tanınmayan bir anahtar eklemek, gerçekte hiçbir etkisi olmayan bir kayıt defteri kaydı bırakırdi.</p>
+                    <p class="text-sm font-semibold text-[#f59e0b] mb-1" data-i18n="source_note_title">BraveShieldsDefault neden hariç tutuldu?</p>
+                    <p class="text-gray-500 text-xs" data-i18n="source_note_desc">Bazı topluluk kılavuzlarında yer almasina rağmen BraveShieldsDefault, Brave'in resmî ADMX şablonlarında bulunmamaktadır. Brave, kalkanları URL bazlı politikalarla yönetir. Tanınmayan bir anahtar eklemek, gerçekte hiçbir etkisi olmayan bir kayıt defteri kaydı bırakırdı.</p>
                 </div>
             </div>
         </div>
@@ -545,7 +545,7 @@
         <div class="text-center mb-12 animate-fade-in-up">
                     <span class="badge badge-green mb-4" data-i18n="policies_badge">Politika Başvuru Tablosu</span>
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="policies_heading">67 ADMX Politikası (4 Seviyede)</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="policies_desc">v2.1.2 ile birlikte 4 seviyede toplam 67 kurumsal politika — %295 kapsam genişlemesi. Asağidaki tablo tüm politikaları seviyelerine göre gosterir.</p>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="policies_desc">v2.1.2 ile birlikte 4 seviyede toplam 67 kurumsal politika — %295 kapsam genişlemesi. Aşağıdaki tablo tüm politikaları seviyelerine göre gösterir.</p>
         </div>
         <div class="overflow-x-auto animate-fade-in-up-d1">
             <table class="w-full text-sm policy-table">
@@ -561,24 +561,24 @@
                 <tbody class="divide-y divide-[#1f1f1f]">
 <!-- Tüm seviyelerde ortak (HKCU) -->
                     <tr class="security-row bg-[#22c55e08]"><td class="py-2.5 px-4 font-mono text-xs font-semibold text-[#22c55e]" colspan="5" data-i18n="pol_group_all">Tüm Seviyelerde Ortak (HKCU)</td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">UsageStatsInSample</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kullanım istatistikleri örneklemesini devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">Tüm</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ChromeVariations</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kritik saha denemeleri hariçini kisitlar</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">Tüm</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">usagestats</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Omaha güncelleyici veri aktarımıni GUID başına kapatır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">Tüm</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">UsageStatsInSample</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kullanım istatistikleri örneklemesini devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">Tüm</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ChromeVariations</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kritik saha denemeleri hariç kısıtlar</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">Tüm</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">usagestats</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-green text-[10px]">HKCU</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Omaha güncelleyici veri aktarımını GUID başına kapatır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">Tüm</span></td></tr>
 <!-- Brave Yalnız -- 13 Brave politikası -->
-                    <tr class="security-row bg-[#333]"><td class="py-2.5 px-4 font-mono text-xs font-semibold text-[#999]" colspan="5" data-i18n="pol_group_braveonly">Seviye 1: Brave Yalnız (13 Brave'e Ozgu Politika)</td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveRewardsDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Rewards reklam ve BAT jeton kazancini kaldirir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveWalletDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kripto cuzdan, Web3, dDNS modulunu kaldirir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveVPNDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">VPN dugmesini ve arka plan hizmetini kaldirir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveAIChatEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Leo AI Chat motorunu devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row bg-[#333]"><td class="py-2.5 px-4 font-mono text-xs font-semibold text-[#999]" colspan="5" data-i18n="pol_group_braveonly">Seviye 1: Brave Yalnız (13 Brave'e Özgü Politika)</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveRewardsDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Rewards reklam ve BAT jeton kazançini kaldırır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveWalletDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kripto cüzdan, Web3, dDNS modülünü kaldırır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveVPNDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">VPN düğmesini ve arka plan hizmetini kaldırır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveAIChatEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Leo AI Chat motorunu devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveStatsPingEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Periyodik status/authentication pinglerini durdurur</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveP3AEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">P3A veri iletimini devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveWebDiscoveryEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Web Keşif Projesi veri katkısını devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveP3AEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">P3A veri iletimini devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveWebDiscoveryEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Web Keşif Projesi veri katkısını devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveTalkDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Brave Talk video konferansını kapatır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveNewsDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Brave News haber beşlemesini kapatır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BravePlaylistEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Brave Playlist'i devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveSpeedreaderEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Speedreader modunu devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveNewsDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Brave News haber beslemesini kapatır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BravePlaylistEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Brave Playlist'i devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveSpeedreaderEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Speedreader modunu devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BraveWaybackMachineEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Wayback Machine entegrasyonunu kapatır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">TorDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tor agi entegrasyonunu devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">TorDisabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tor ağı entegrasyonunu devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-gray text-[10px]">1</span></td></tr>
 <!-- Temel -- +16 veri sızıntısı önleme -->
                     <tr class="security-row bg-[#22c55e15]"><td class="py-2.5 px-4 font-mono text-xs font-semibold text-[#22c55e]" colspan="5" data-i18n="pol_group_essential">Seviye 2: Temel (+16 Veri Sızıntısı Önleme Politikası) -- Önerilen</td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">MetricsReportingEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Chromium ana ölçüm toplamayı kapatır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(34,197,94,0.15);color:#22c55e;">Temel</span></td></tr>
@@ -605,41 +605,41 @@
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">DefaultGeolocationSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Konum erişimini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">DefaultNotificationsSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Bildirimleri varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">DefaultPopupsSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Popup pencerelerini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">PasswordManagerEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Şifre yöneticisini devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">PasswordManagerPasskeysEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Passkey kaydetmeyi devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">AutofillAddressEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Adres otomatik doldurmayı devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">AutofillCreditCardEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kredi kartı otomatik doldurmayı devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ShowFullUrlsInAddressBar</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tam URL gosterimini etkinlestirir (oltalama karşıti)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">PasswordManagerEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Şifre yöneticisini devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">PasswordManagerPasskeysEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Passkey kaydetmeyi devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">AutofillAddressEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Adres otomatik doldurmayı devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">AutofillCreditCardEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kredi kartı otomatik doldurmayı devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ShowFullUrlsInAddressBar</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tam URL gösterimini etkinleştirir (oltalama karşıtı)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">DisableSafeBrowsingProceedAnyway</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Güvenli gezinti uyarısını geçmeyi engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">QuicAllowed</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">QUIC protokolunu devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ChromeVariations</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kritik saha denemeleri hariçini kisitlar</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">NetworkServiceSandboxEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Ağ hizmetini sandbox'ta çalıştırir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">AudioSandboxEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Ses hizmetini sandbox'ta çalıştırir</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">QuicAllowed</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">QUIC protokolunu devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ChromeVariations</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kritik saha denemeleri hariç kısıtlar</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">NetworkServiceSandboxEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Ağ hizmetini sandbox'ta çalıştırır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">AudioSandboxEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Ses hizmetini sandbox'ta çalıştırır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">WebRtcLocalIpsAllowedUrls</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">@()</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yerel IP listesini temizler (MultiString)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">DnsOverHttpsMode</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">"automatic"</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">DNS sorgularını otomatik şifreler (String)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge badge-yellow text-[10px]">Dengeli</span></td></tr>
-<!-- Kati özeti -->
-                    <tr class="security-row bg-[#ef444415]"><td class="py-2.5 px-4 font-mono text-xs font-semibold text-[#ef4444]" colspan="5" data-i18n="pol_group_strict">Seviye 4: Kati (+21 Azami Gizlilik Politikası) -- Tam API/Sensor/Import/Çeviri engelleme</td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">TranslateEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Metnin Google'a çeviri için gönderilmesini durdurur</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultJavaScriptJitSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">JIT'i kapatır — saldırı yüzeyini azaltır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultCookiesSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tüm çerezleri varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultSensorsSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Hareket/ışık sensöru erişimini engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultLocalFontsSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yazı tipi sayımını engeller (parmak izi)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">WebRtcIPHandling</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">"disable_..."</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tüm WebRTC traffiğini proxy üzerinden yönlendirir (String)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultClipboardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Pano erişimini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultFileSystemReadGuardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Dosya sistemi okuma erişimini engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultFileSystemWriteGuardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Dosya sistemi yazma erişimini engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultSerialGuardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Seri port API erişimini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultIdleDetectionSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kullanıcı boşluk tespitini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultInsecureContentSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Güvenli olmayan içeriği varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">BrowserGuestModeEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Misafir modunu devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">BrowserAddPersonEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yeni profil oluşturmayı engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">CloudPrintProxyEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Google Cloud Print'i devre disi bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportAutofillFormData</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Otomatik doldurma veri aktarımıni engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportBookmarks</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yer imi aktarımıni engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportHistory</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Geçmiş aktarımıni engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportSavedPasswords</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Şifre aktarımıni engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportSearchEngine</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Arama motoru aktarımıni engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportHomepage</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Ana sayfa aktarımıni engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Kati</span></td></tr>
+<!-- Katı özeti -->
+                    <tr class="security-row bg-[#ef444415]"><td class="py-2.5 px-4 font-mono text-xs font-semibold text-[#ef4444]" colspan="5" data-i18n="pol_group_strict">Seviye 4: Katı (+21 Azami Gizlilik Politikası) -- Tam API/Sensor/Import/Çeviri engelleme</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">TranslateEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Metnin Google'a çeviri için gönderilmesini durdurur</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultJavaScriptJitSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">JIT'i kapatır — saldırı yüzeyini azaltır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultCookiesSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tüm çerezleri varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultSensorsSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Hareket/ışık sensörü erişimini engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultLocalFontsSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yazı tipi sayımını engeller (parmak izi)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">WebRtcIPHandling</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">"disable_..."</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tüm WebRTC trafiğini proxy üzerinden yönlendirir (String)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultClipboardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Pano erişimini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultFileSystemReadGuardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Dosya sistemi okuma erişimini engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultFileSystemWriteGuardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Dosya sistemi yazma erişimini engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultSerialGuardSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Seri port API erişimini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultIdleDetectionSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Kullanıcı boşluk tespitini varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultInsecureContentSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Güvenli olmayan içeriği varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">BrowserGuestModeEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Misafir modunu devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">BrowserAddPersonEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yeni profil oluşturmayı engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">CloudPrintProxyEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Google Cloud Print'i devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportAutofillFormData</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Otomatik doldurma veri aktarımını engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportBookmarks</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yer imi aktarımını engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportHistory</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Geçmiş aktarımını engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportSavedPasswords</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Şifre aktarımını engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportSearchEngine</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Arama motoru aktarımını engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportHomepage</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Ana sayfa aktarımını engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                 </tbody>
             </table>
         </div>
@@ -648,7 +648,7 @@
                 <span class="text-[#22c55e] text-lg mt-0.5">&#x2139;&#xfe0f;</span>
                 <div>
                     <p class="text-sm font-semibold text-[#22c55e] mb-1" data-i18n="policy_note_title">Tam politika listesini nerede bulabilirim?</p>
-                    <p class="text-gray-500 text-xs" data-i18n="policy_note_desc">Bu tablo 4 seviyedeki tüm 67 politikayi kapsar. Politikalar kümülatif miras ilkesiyle çalışır: her seviye bir öncekinin tüm politikalarini içerir.</p>
+                    <p class="text-gray-500 text-xs" data-i18n="policy_note_desc">Bu tablo 4 seviyedeki tüm 67 politikayı kapsar. Politikalar kümülatif miras ilkesiyle çalışır: her seviye bir öncekinin tüm politikalarını içerir.</p>
                 </div>
             </div>
         </div>
@@ -658,9 +658,9 @@
 <section id="quickstart" class="py-20 border-t border-[#1f1f1f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-in-up">
-            <span class="badge badge-green mb-4" data-i18n="quickstart_badge">Hizli Başlangıç</span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="quickstart_heading">5 Dakikada Baslayin</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="quickstart_desc">Asağidaki 4 adimla Brave Browser'inizi kurumsal düzeyde gizlilik sikilastirmasiyla koruyun.</p>
+            <span class="badge badge-green mb-4" data-i18n="quickstart_badge">Hızlı Başlangıç</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="quickstart_heading">5 Dakikada Başlayın</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="quickstart_desc">Aşağıdaki 4 adimla Brave Browser'inizi kurumsal düzeyde gizlilik sıkılaştırmasıyla koruyun.</p>
         </div>
         <div class="grid md:grid-cols-2 gap-8">
             <div class="space-y-4 animate-fade-in-up-d1">
@@ -722,8 +722,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-in-up">
             <span class="badge badge-yellow mb-4" data-i18n="security_badge">Güvenlik ve Emniyet</span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="security_heading">Guvenilir Tasarim</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="security_desc">Tamamen açık kaynak, sıfır gizleme, sıfır harici ağ cagrisi.</p>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="security_heading">Güvenilir Tasarım</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="security_desc">Tamamen açık kaynak, sıfır gizleme, sıfır hariçi ağ çağrısı.</p>
         </div>
         <div class="overflow-x-auto animate-fade-in-up-d1">
             <table class="w-full text-sm">
@@ -734,9 +734,9 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
-                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row1_title">Yetkisiz değişiklikler</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row1_desc">Kaynak tamamen açık incelemeye sunulmuştur. Gizleme yok. Harici ağ cagrisi yok. Çalıştırılabilir dosya yok.</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row1_title">Yetkisiz değişiklikler</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row1_desc">Kaynak tamamen açık incelemeye sunulmuştur. Gizleme yok. hariçi ağ çağrısı yok. Çalıştırılabilir dosya yok.</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row2_title">Geri alınamaz durum</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row2_desc">Her HKLM yazma işleminden önce otomatik zaman damgalı .reg yedeği. reg import ile eski duruma dönüş.</td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row3_title">Kısmi uygulama</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row3_desc">Her işlem için ayrı try-catch ve basari/hata sayaçlari. Tam olarak neyin uygulandığını bilirsiniz.</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row3_title">Kısmi uygulama</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row3_desc">Her işlem için ayrı try-catch ve başarı/hata sayaçları. Tam olarak neyin uygulandığını bilirsiniz.</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row4_title">Tarayıcı veri kaybı</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row4_desc">Değişiklik uygulanmadan önce Brave süreç tespiti ve açık devam/iptal istemi.</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-medium text-sm" data-i18n="sec_row5_title">Yinelenen çalıştırma</td><td class="py-3 px-4 text-gray-400 text-sm" data-i18n="sec_row5_desc">-Force parametresiyle kararsız olmayan tasarım. Birden fazla çalıştırmanin yan etkisi yoktur.</td></tr>
                 </tbody>
@@ -757,15 +757,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-in-up">
             <span class="badge badge-green mb-4" data-i18n="compat_badge">Sürüm Uyumluluk Matrisi</span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="compat_heading">Dogrulanmis Sürümler</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="compat_desc">Her Brave Omega sürümu belirtilen Brave ve Chromium versiyonlarına karşı bağımsız olarak test edilmiştir.</p>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="compat_heading">Doğrulanmış Sürümler</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="compat_desc">Her Brave Omega sürümü belirtilen Brave ve Chromium versiyonlarına karşı bağımsız olarak test edilmiştir.</p>
         </div>
         <div class="overflow-x-auto animate-fade-in-up-d1">
             <table class="w-full text-sm">
                 <thead>
                     <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
                         <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_omega">Brave Omega</th>
-                        <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_brave">Brave Sürümu</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_brave">Brave sürümü</th>
                         <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_chromium">Chromium</th>
                         <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_windows">Windows</th>
                         <th class="text-left py-3 px-4 font-medium" data-i18n="compat_col_status">Durum</th>
@@ -773,21 +773,21 @@
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.2 <span class="text-[10px] font-normal text-gray-500" data-i18n="compat_current">(güncel)</span></td><td class="py-3 px-4 text-sm">1.91.175</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-green">&#x2705; Etkin</span></td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.1</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.0</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.2</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.1</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Onceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.1</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.0</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.2</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.1</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.0</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1f512; Arsivlendi</span></td></tr>
                 </tbody>
             </table>
         </div>
         <div class="mt-6 text-center text-xs text-gray-500 animate-fade-in-up-d2">
-            <span data-i18n="compat_tip1">Calistirmadan önce yüklü Brave sürümunuzu doğrulayın.</span>
+            <span data-i18n="compat_tip1">Çalıştırmadan önce yüklü Brave sürümünüzü doğrulayın.</span>
             <br>
-            <span data-i18n="compat_tip2">Daha yeni bir Brave sürümu varsa GitHub Releases sayfasini kontrol edin.</span>
+            <span data-i18n="compat_tip2">Daha yeni bir Brave sürümü varsa GitHub Releases sayfasini kontrol edin.</span>
         </div>
     </div>
 </section>
@@ -802,16 +802,16 @@
         <div class="max-w-2xl mx-auto animate-fade-in-up-d1">
             <div class="bg-[#000] rounded-xl p-6 border border-[#1f1f1f] font-mono text-sm">
                 <div class="text-gray-500 mb-2">BRAVE OMEGA PROJECT/</div>
-                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; .gitignore <span class="text-gray-600 text-xs ml-2" data-i18n="str_gitignore">Git dislama kurallari</span></div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; .gitignore <span class="text-gray-600 text-xs ml-2" data-i18n="str_gitignore">Git dışlama kurallari</span></div>
                 <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; .gitattributes</div>
                 <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; LICENSE <span class="text-gray-600 text-xs ml-2">MIT</span></div>
                 <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; README.md <span class="text-gray-600 text-xs ml-2" data-i18n="str_readme">Belgelendirme (EN + TR)</span></div>
                 <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; CHANGELOG.md <span class="text-gray-600 text-xs ml-2" data-i18n="str_changelog">Değişiklik günlüğü</span></div>
-                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; CONTRIBUTING.md <span class="text-gray-600 text-xs ml-2" data-i18n="str_contributing">Katki rehberi (EN + TR)</span></div>
+                <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; CONTRIBUTING.md <span class="text-gray-600 text-xs ml-2" data-i18n="str_contributing">Katkı rehberi (EN + TR)</span></div>
                 <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; SECURITY.md <span class="text-gray-600 text-xs ml-2" data-i18n="str_security">Güvenlik politikası (EN + TR)</span></div>
                 <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; index.html <span class="text-gray-600 text-xs ml-2">GitHub Pages</span></div>
                 <div class="text-gray-500 ml-4">&#x251c;&#x2500;&#x2500; .github/ <span class="text-gray-600 text-xs ml-2" data-i18n="str_github">GitHub & CI/CD</span></div>
-                <div class="text-gray-500 ml-8">&#x251c;&#x2500;&#x2500; ISSUE_TEMPLATE/ <span class="text-gray-600 text-xs ml-2" data-i18n="str_issue_templates">Soru şablonlari</span></div>
+                <div class="text-gray-500 ml-8">&#x251c;&#x2500;&#x2500; ISSUE_TEMPLATE/ <span class="text-gray-600 text-xs ml-2" data-i18n="str_issue_templates">Soru şablonları</span></div>
                 <div class="text-gray-500 ml-12">&#x251c;&#x2500;&#x2500; bug_report.yaml</div>
                 <div class="text-gray-500 ml-12">&#x2514;&#x2500;&#x2500; feature_request.yaml</div>
                 <div class="text-gray-500 ml-8">&#x2514;&#x2500;&#x2500; workflows/ <span class="text-gray-600 text-xs ml-2" data-i18n="str_workflows">CI/CD is akislari</span></div>
@@ -837,15 +837,15 @@
                 <thead>
                     <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
                         <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_symptom">Belirti</th>
-                        <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_cause">OlasI Neden</th>
-                        <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_solution">Cozum</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_cause">Olası Neden</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="trouble_col_solution">Çözüm</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
                     <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s1_sym">Betik hemen "KRiTiK HATA" ile çıkıyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s1_cause">Yönetici olarak çalıştırilmiyor</td><td class="py-2.5 px-4 text-sm"><span class="text-[#22c55e]" data-i18n="tr_s1_sol">PowerShell'e sağ tikla &rarr; Yönetici olarak çalıştır</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s2_sym">brave://policy hiç politika göstermiyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s2_cause">Brave yeniden başlatılmadı</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s2_sol">Tüm Brave pencerelerini kapat ve yeniden aç</td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s3_sym">Ciktida [HATA] satırları görünüyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s3_cause">HKLM yolu izin sorunu</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s3_sol">Yönetici modunu doğrula; betiği yeniden çalıştır</td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s4_sym">Politika anahtarı "Bilinmiyor" görüntüleniyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s4_cause">Chromium sürümu uyuşmazlığı</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s4_sol">Yuklu Brave sürümunun uyumluluk matrisiyle eşleştiğini doğrula</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s3_sym">Çıktıda [HATA] satırları görünüyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s3_cause">HKLM yolu izin sorunu</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s3_sol">Yönetici modunu doğrula; betiği yeniden çalıştır</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s4_sym">Politika anahtarı "Bilinmiyor" görüntüleniyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s4_cause">Chromium sürümü uyuşmazlığı</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s4_sol">Yüklü Brave sürümünün uyumluluk matrisiyle eşleştiğini doğrula</td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 text-sm" data-i18n="tr_s5_sym">Yedekleme adımında reg export başarısız oluyor</td><td class="py-2.5 px-4 text-gray-400 text-sm" data-i18n="tr_s5_cause">Mevcut HKLM yolunda kısıtlı izin</td><td class="py-2.5 px-4 text-sm" data-i18n="tr_s5_sol">regedit ile yolu incele; ACL girdilerini kontrol et</td></tr>
                 </tbody>
             </table>
@@ -856,43 +856,43 @@
 <section id="roadmap" class="py-20 border-t border-[#1f1f1f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-in-up">
-            <span class="badge badge-green mb-4" data-i18n="roadmap_badge">Yol Haritasi</span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="roadmap_heading">Siradaki Hedefler</h2>
+            <span class="badge badge-green mb-4" data-i18n="roadmap_badge">Yol Haritası</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="roadmap_heading">Sıradaki Hedefler</h2>
             <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="roadmap_desc">Brave Omega'nin gelecek sürümlerinde planlanan özellikler.</p>
         </div>
         <div class="max-w-3xl mx-auto space-y-3 animate-fade-in-up-d1">
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item1">Otomatik Brave sürümu tespiti — yüklü sürüm doğrulanmış hedeften farklıysa uyar</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item1">Otomatik Brave sürümü tespiti — yüklü sürüm doğrulanmış hedeften farklıysa uyar</span></div>
             <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item3">-WhatIf parametresiyle kuru çalıştırma kipi — kayıt defterine yazmadan tüm değişiklikleri önizle</span></div>
             <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item4">Sıfırlama/kaldırma kipi — uygulanan tüm Brave Omega politikalarını temiz biçimde sil</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item5">Ek dil sürümleri (topluluk katkıları memnuniyetle karşılanir)</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item6">Her Brave kararlı sürümunde otomatik ADMX politika farkı doğrulamasi için GitHub Actions ardışı</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item7">Yapılandırılmış CONTRIBUTING.md ve sorun şablonlari</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item5">Ek dil sürümleri (topluluk katkıları memnuniyetle karşılanır)</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item6">Her Brave kararlı sürümünde otomatik ADMX politika farkı doğrulamasi için GitHub Actions ardışı</span></div>
+            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item7">Yapılandırılmış CONTRIBUTING.md ve sorun şablonları</span></div>
         </div>
     </div>
 </section>
 <section id="contributing" class="py-20 border-t border-[#1f1f1f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-in-up">
-            <span class="badge badge-green mb-4" data-i18n="contrib_badge">Katkida Bulunma</span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="contrib_heading">Projeye Katkiniz</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="contrib_desc">Katkilar memnuniyetle karşılanir. Büyük değişikliklerden önce lütfen bir konu açın.</p>
+            <span class="badge badge-green mb-4" data-i18n="contrib_badge">Katkıda Bulunma</span>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="contrib_heading">Projeye Katkıniz</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="contrib_desc">Katkılar memnuniyetle karşılanır. Büyük değişikliklerden önce lütfen bir konu açın.</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in-up-d1">
             <div class="glow-card bg-[#000] rounded-xl p-5">
                 <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="contrib_ver_title">Sürüm Güncellemeleri</div>
-                <p class="text-gray-500 text-xs" data-i18n="contrib_ver_desc">Yeni Brave kararlı sürümunde politika değişikliği varsa, güncellenmis değer ve kaynak referansıyla PR açın.</p>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_ver_desc">Yeni Brave kararlı sürümünde politika değişikliği varsa, güncellenmis değer ve kaynak referansıyla PR açın.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5">
                 <div class="text-[#f59e0b] font-bold text-sm mb-2" data-i18n="contrib_pol_title">Yeni Politikalar</div>
-                <p class="text-gray-500 text-xs" data-i18n="contrib_pol_desc">Brave resmî ADMX şablonlarindan veya Chromium kurumsal belgelendirmesinden kaynaklanmış olmalıdır.</p>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_pol_desc">Brave resmî ADMX şablonlarından veya Chromium kurumsal belgelendirmesinden kaynaklanmış olmalıdır.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5">
                 <div class="text-[#8b5cf6] font-bold text-sm mb-2" data-i18n="contrib_bug_title">Hata Raporlari</div>
-                <p class="text-gray-500 text-xs" data-i18n="contrib_bug_desc">Brave sürümu, Windows sürümu ve brave://policy çıktısı ile birlikte konu açın.</p>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_bug_desc">Brave sürümü, Windows sürümü ve brave://policy çıktısı ile birlikte konu açın.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5">
                 <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="contrib_trans_title">Ceviriler</div>
-                <p class="text-gray-500 text-xs" data-i18n="contrib_trans_desc">EN/TR şablon yapısını izleyen ek dil sürümleri. İşlevsel esdeğerlik korunmalıdır.</p>
+                <p class="text-gray-500 text-xs" data-i18n="contrib_trans_desc">EN/TR şablon yapısını izleyen ek dil sürümleri. İşlevsel eşdeğerlik korunmalıdır.</p>
             </div>
         </div>
     </div>
@@ -919,9 +919,9 @@
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.2</td><td class="py-3 px-4 text-sm">2026-06-18</td><td class="py-3 px-4 text-sm">67</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v212_summary">Brave 1.91.175 / Chromium 149.0.7827.155 validation; version bump</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.1</td><td class="py-3 px-4 text-sm">2026-06-18</td><td class="py-3 px-4 text-sm">67</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v211_summary">Dual-version detection; policy rebalance: TranslateEnabled→Strict, DefaultMediaStreamSetting removed</td></tr>
 <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1</td><td class="py-3 px-4 text-sm">2026-06-16</td><td class="py-3 px-4 text-sm">68</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v21_summary">Sürüm denetimi, -WhatIf, -Sıfırla, CONTRIBUTING.md, GitHub Actions</td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v2.0</td><td class="py-3 px-4 text-sm">2026-06-16</td><td class="py-3 px-4 text-sm">13-68</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v20_summary">Çok katmanlı sistem (Brave Yalnız/Temel/Dengeli/Kati), -Level parametresi, SECURITY.md, 68 politika</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v2.0</td><td class="py-3 px-4 text-sm">2026-06-16</td><td class="py-3 px-4 text-sm">13-68</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v20_summary">Çok katmanlı sistem (Brave Yalnız/Temel/Dengeli/Katı), -Level parametresi, SECURITY.md, 68 politika</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.2</td><td class="py-3 px-4 text-sm">2026-06-13</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v122_summary">Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding</td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.1</td><td class="py-3 px-4 text-sm">2026-06-13</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v121_summary">Brave 1.91.172 / Chromium 149 yükseltmesi, çeviri ve yapi duzeltmeleri</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.1</td><td class="py-3 px-4 text-sm">2026-06-13</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v121_summary">Brave 1.91.172 / Chromium 149 yükseltmesi, çeviri ve yapı düzeltmeleri</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2</td><td class="py-3 px-4 text-sm">2026-06-12</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v12_summary">+10 yeni politika, Brave 1.91.172 doğrulamasi, %143 kapsam genişlemesi</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1</td><td class="py-3 px-4 text-sm">2026-06-05</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v11_summary">Hata yonetimi, yedeklemeler, süreç koruyuculari, BraveShieldsDefault kaldırıldı</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.0</td><td class="py-3 px-4 text-sm">2026-06-04</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v10_summary">İlk sürüm, 3 katmanlı mimari, iki dilli arayüz</td></tr>
@@ -965,7 +965,7 @@ SOFTWARE.
         <div class="glow-card bg-[#000] rounded-xl p-6 text-center border border-[#f59e0b22]">
             <span class="text-[#f59e0b] text-lg block mb-2">&#x26a0;&#xfe0f;</span>
             <h3 class="font-bold text-sm mb-2" data-i18n="disclaimer_title">Sorumluluk Reddi</h3>
-            <p class="text-gray-500 text-xs" data-i18n="disclaimer_desc">Brave Omega bağımsız bir topluluk projesidir ve hiçbir şekilde Brave Software, Inc. ile bağlantılı, onun tarafından onaylanmış veya resmî olarak ilişkili değildir. Brave adi ve logosu Brave Software, Inc.'in tescilli markalarıdır. Tüm kayıt defteri değişiklikleri kullanıcınin kendi sorumluluğundadır.</p>
+            <p class="text-gray-500 text-xs" data-i18n="disclaimer_desc">Brave Omega bağımsız bir topluluk projesidir ve hiçbir şekilde Brave Software, Inc. ile bağlantılı, onun tarafından onaylanmış veya resmî olarak ilişkili değildir. Brave adi ve logosu Brave Software, Inc.'in tescilli markalarıdır. Tüm kayıt defteri değişiklikleri kullanıcının kendi sorumluluğundadır.</p>
         </div>
     </div>
 </section>
@@ -979,7 +979,7 @@ SOFTWARE.
                 <span class="badge badge-green text-[10px]">Community Edition</span>
             </div>
             <div class="flex items-center gap-4 text-sm text-gray-500">
-                <span data-i18n="footer_built">Özenle insa edildi. Amaçla sürdürülüyor.</span>
+                <span data-i18n="footer_built">Özenle inşa edildi. Amaçla sürdürülüyor.</span>
                 <span class="text-gray-700">|</span>
                 <a href="https://github.com/bayraktarozcan/Brave-Omega-Project" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-1.5">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -1408,7 +1408,7 @@ SOFTWARE.
         term_ok_backup: "Yedekleme: ba\u015far\u0131l\u0131",
         term_done: "\u0130\u015eLEM TAMAMLANDI",
         term_exit: "- \u00c7\u0131k\u0131\u015f kodu: 0",
-        about_desc1: "Brave Omega, Brave Browser\u2019\u0131 resm\u00ee kurumsal politika kanallar\u0131 araç\u0131l\u0131\u011f\u0131yla s\u0131k\u0131la\u015ft\u0131ran a\u00e7\u0131k kaynakl\u0131 bir PowerShell otomasyon projesidir. Veri aktar\u0131m\u0131 (telemetri), analiz hizmetleri, arka plan pingleri ve gizlili\u011fi a\u015f\u0131nd\u0131ran t\u00fcm bile\u015fenler sistematik bi\u00e7imde devre d\u0131\u015f\u0131 b\u0131rak\u0131l\u0131r.",
+        about_desc1: "Brave Omega, Brave Browser\u2019\u0131 resm\u00ee kurumsal politika kanallar\u0131 arac\u0131l\u0131\u011f\u0131yla s\u0131k\u0131la\u015ft\u0131ran a\u00e7\u0131k kaynakl\u0131 bir PowerShell otomasyon projesidir. Veri aktar\u0131m\u0131 (telemetri), analiz hizmetleri, arka plan pingleri ve gizlili\u011fi a\u015f\u0131nd\u0131ran t\u00fcm bile\u015fenler sistematik bi\u00e7imde devre d\u0131\u015f\u0131 b\u0131rak\u0131l\u0131r.",
         about_card1_desc: "Her politika Brave\u2019in resm\u00ee ADMX \u015fablon paketi ve Chromium kurumsal belgelendirmesi ile do\u011frulanm\u0131\u015ft\u0131r.",
         about_card2_desc: "Brave Yaln\u0131z / Temel / Dengeli / Kat\u0131 \u2014 13'ten 67 politikaya kademeli s\u0131k\u0131la\u015ft\u0131rma. K\u00fcm\u00fclatif miras ile her seviye bir \u00f6ncekinin t\u00fcm\u00fcn\u00fc kapsar.",
         about_card3_desc: "Tam T\u00fcrk\u00e7e ve \u0130ngilizce aray\u00fcz. Birebir i\u015flevsellik, ayn\u0131 g\u00fcvence, se\u00e7ti\u011finiz dilde.",
@@ -1440,17 +1440,17 @@ SOFTWARE.
         tier1_title: "Kullan\u0131c\u0131 Tercihi Katman\u0131",
         tier1_desc: "UsageStatsInSample = 0 ile Chromium kullan\u0131c\u0131 d\u00fczeyi veri aktar\u0131m\u0131 \u00f6rneklemesini devre d\u0131\u015f\u0131 b\u0131rak\u0131r. Politika yay\u0131lma gecikmelerinde yedek g\u00fcvence sa\u011flar.",
         tier2_title: "Kurumsal \u0130lke Katman\u0131 (ADMX)",
-        tier2_desc: "13\u201368 ADMX do\u011frulamal\u0131 kurumsal ilke (seviye bazl\u0131). Taray\u0131c\u0131 Ayarlar aray\u00fcz\u00fcnde gri/kilitli g\u00f6r\u00fcn\u00fcr. Kullan\u0131c\u0131 etkile\u015fimiyle de\u011fi\u015ftirilemez.",
+        tier2_desc: "13\u201367 ADMX do\u011frulamal\u0131 kurumsal ilke (seviye bazl\u0131). Taray\u0131c\u0131 Ayarlar aray\u00fcz\u00fcnde gri/kilitli g\u00f6r\u00fcn\u00fcr. Kullan\u0131c\u0131 etkile\u015fimiyle de\u011fi\u015ftirilemez.",
         tier3_title: "G\u00fcncelleyici GUID Katman\u0131",
         tier3_desc: "Her uygulama GUID\u2019i i\u00e7in usagestats = 0. G\u00fcncelleme altyap\u0131s\u0131n\u0131n kendi veri aktar\u0131m\u0131n\u0131 taray\u0131c\u0131 d\u00fczeyi ilkelerden ba\u011f\u0131ms\u0131z kapat\u0131r.",
         sources_desc: "Temel ilke: S\u0131f\u0131r gayr\u0131resm\u00ee veya spek\u00fclatif kay\u0131t defteri de\u011fi\u015fikli\u011fi.",
         source_note_title: "BraveShieldsDefault neden h\u00e2ri\u00e7 tutuldu?",
         source_note_desc: "Baz\u0131 topluluk k\u0131lavuzlar\u0131nda yer almas\u0131na ra\u011fmen BraveShieldsDefault, Brave\u2019in resm\u00ee ADMX \u015fablonlar\u0131nda bulunmamaktad\u0131r. Brave, kalkanlar\u0131 URL bazl\u0131 politikalarla y\u00f6netir. Tan\u0131nmayan bir anahtar eklemek, ger\u00e7ekte hi\u00e7bir etkisi olmayan bir kay\u0131t defteri kayd\u0131 b\u0131rak\u0131rd\u0131.",
-        security_desc: "Tamamen a\u00e7\u0131k kaynak, s\u0131f\u0131r gizleme, s\u0131f\u0131r harici a\u011f \u00e7a\u011fr\u0131s\u0131.",
+        security_desc: "Tamamen a\u00e7\u0131k kaynak, s\u0131f\u0131r gizleme, s\u0131f\u0131r hariçi a\u011f \u00e7a\u011fr\u0131s\u0131.",
         sec_col_cöncern: "Endi\u015fe",
         sec_col_approaçh: "Brave Omega\u2019n\u0131n Yakla\u015f\u0131m\u0131",
         sec_row1_title: "Yetkisiz de\u011fi\u015fiklikler",
-        sec_row1_desc: "Kaynak tamamen a\u00e7\u0131k incelemeye sunulmu\u015ftur. Gizleme yok. Harici a\u011f \u00e7a\u011fr\u0131s\u0131 yok. \u00c7al\u0131\u015ft\u0131r\u0131labilir dosya yok.",
+        sec_row1_desc: "Kaynak tamamen a\u00e7\u0131k incelemeye sunulmu\u015ftur. Gizleme yok. hariçi a\u011f \u00e7a\u011fr\u0131s\u0131 yok. \u00c7al\u0131\u015ft\u0131r\u0131labilir dosya yok.",
         sec_row2_title: "Geri al\u0131namaz durum",
         sec_row2_desc: "Her HKLM yazma i\u015fleminden \u00f6nce otomatik zaman damgal\u0131 .reg yede\u011fi. reg import ile eski duruma d\u00f6n\u00fc\u015f.",
         sec_row3_title: "K\u0131sm\u00ee uygulama",
@@ -1550,27 +1550,27 @@ SOFTWARE.
         prereq_pol_desc: "PowerShell -ExecutionPolicy Bypass ile \u00e7al\u0131\u015ft\u0131r\u0131n (oturum baz\u0131nda)",
         policies_badge: "Politika Ba\u015fvuru Tablosu",
         policies_heading: "67 ADMX Politikas\u0131 (4 Seviyede)",
-        policies_desc: "v2.1.2 ile birlikte 4 seviyede toplam 67 kurumsal politika \u2014 %295 kapsam geni\u015flemesi. Asağidaki tablo tüm politikalar\u0131 seviyelerine göre gosterir.",
-        policy_col_key: "Kayıt Defteri Anahtari",
+        policies_desc: "v2.1.2 ile birlikte 4 seviyede toplam 67 kurumsal politika \u2014 %295 kapsam geni\u015flemesi. Aşağıdaki tablo tüm politikalar\u0131 seviyelerine göre gösterir.",
+        policy_col_key: "Kayıt Defteri Anahtarı",
         policy_col_effect: "Etki",
-        pol_effect1: "Kullanım istatistikleri örneklemesini devre disi bırakır",
-        pol_effect2: "Rewards reklam sistemini ve BAT jeton kazanc motorunu kaldirir",
-        pol_effect3: "Tümlesik kripto cuzdan modulunu kaldirir",
-        pol_effect4: "VPN araç cubugu dugmesini ve arka plan hizmetini kaldirir",
-        pol_effect5: "Leo AI Chat motorunu ve API baglantilarini devre disi bırakır",
+        pol_effect1: "Kullanım istatistikleri örneklemesini devre dışı bırakır",
+        pol_effect2: "Rewards reklam sistemini ve BAT jeton kazanç motorunu kaldırır",
+        pol_effect3: "Tümleşik kripto cüzdan modülünü kaldırır",
+        pol_effect4: "VPN araç çubuğu düğmesini ve arka plan hizmetini kaldırır",
+        pol_effect5: "Leo AI Chat motorunu ve API bağlantılarını devre dışı bırakır",
         pol_effect6: "Periyodik durum ve kimlik doğrulama pinglerini durdurur",
-        pol_effect7: "Chromium ana ölçüm toplamayı devre disi bırakır",
+        pol_effect7: "Chromium ana ölçüm toplamayı devre dışı bırakır",
         pol_effect8: "Genişletilmiş site verisi raporlarını durdurur",
-        pol_effect9: "Omaha güncelleyici veri aktarımıni GUID başına devre disi bırakır",
-        pol_effect10: "Gizlilik Korumali Urun Analitigini devre disi bırakır",
-        pol_effect11: "Web Keşif Projesi veri katkısını devre disi bırakır",
-        pol_effect12: "Brave Talk video konferansını devre disi bırakır",
-        pol_effect13: "Brave News haber beşlemesini devre disi bırakır",
-        pol_effect14: "Brave Playlist ozelligini devre disi bırakır",
-        pol_effect15: "Speedreader modunu devre disi bırakır",
-        pol_effect16: "Wayback Machine entegrasyonunu devre disi bırakır",
-        pol_effect17: "Tor agi entegrasyonunu devre disi bırakır",
-        sources_badge: "Politika Kaynaklari",
+        pol_effect9: "Omaha güncelleyici veri aktarımını GUID başına devre dışı bırakır",
+        pol_effect10: "Gizlilik Korumalı Ürün Analitiğini devre dışı bırakır",
+        pol_effect11: "Web Keşif Projesi veri katkısını devre dışı bırakır",
+        pol_effect12: "Brave Talk video konferansını devre dışı bırakır",
+        pol_effect13: "Brave News haber beslemesini devre dışı bırakır",
+        pol_effect14: "Brave Playlist Özelliğini devre dışı bırakır",
+        pol_effect15: "Speedreader modunu devre dışı bırakır",
+        pol_effect16: "Wayback Machine entegrasyonunu devre dışı bırakır",
+        pol_effect17: "Tor ağı entegrasyonunu devre dışı bırakır",
+        sources_badge: "Politika Kaynakları",
         policy_col_hive: "Kayıt Defteri Kovan\u0131",
         policy_col_value: "Değer",
         policy_col_level: "Seviye",
@@ -1579,26 +1579,26 @@ SOFTWARE.
         compat_col_windows: "Windows",
         levels_badge: "Sıkılaştırma Seviyeleri",
         levels_heading: "Seviyenizi Seçin",
-        levels_desc: "Dort seviye, kümülatif miras. Her seviye bir öncekinin tüm politikalarini kapsar.",
+        levels_desc: "Dört seviye, kümülatif miras. Her seviye bir öncekinin tüm politikalarını kapsar.",
         level1_title: "Brave Yalnız",
-        level1_desc: "Yalnızca Brave'e ozel politikalar. Sıfır Chromium politikası. Tam Brave sikilastirmasi.",
+        level1_desc: "Yalnızca Brave'e Özel politikalar. Sıfır Chromium politikası. Tam Brave sıkılaştırmasi.",
         level1_impact: "Kullanım Etkisi: Yok",
         level2_title: "Temel",
-        level2_desc: "+16 veri sızıntısı önleme politikası. Sıfır kullanım etkisi. En iyi başlangıç noktasi.",
+        level2_desc: "+16 veri sızıntısı önleme politikası. Sıfır kullanım etkisi. En iyi başlangıç noktası.",
         level2_impact: "Kullanım Etkisi: Yok",
         level3_title: "Dengeli",
         level3_desc: "+18 güvenlik politikası. WebRTC koruması, HTTPS zorlaması, DNS şifrelemesi.",
         level3_impact: "Kullanım Etkisi: Düşük",
-        level4_title: "Kati",
-        level4_desc: "+21 azami gizlilik politikası. Çeviri devre disi, JIT devre disi, cookie engelleme, sensör izni kısıtlaması.",
+        level4_title: "Katı",
+        level4_desc: "+21 azami gizlilik politikası. Çeviri devre dışı, JIT devre dışı, cookie engelleme, sensör izni kısıtlaması.",
         level4_impact: "Kullanım Etkisi: Orta",
         pol_group_all: "Tüm Seviyelerde Ortak (HKCU)",
-        pol_group_braveonly: "Seviye 1: Brave Yalnız (13 Brave'e Ozel Politika)",
+        pol_group_braveonly: "Seviye 1: Brave Yalnız (13 Brave'e Özel Politika)",
         pol_group_essential: "Seviye 2: Temel (+16 Veri Sızıntısı Önleme Politikası) \u2014 Önerilen",
         pol_group_balanced: "Seviye 3: Dengeli (+18 Güvenlik Politikası) \u2014 WebRTC, HTTPS, DNS, sandbox, izinler",
-        pol_group_strict: "Seviye 4: Kati (+21 Azami Gizlilik Politikası) \u2014 Tam API/Sensor/Import/Çeviri engelleme",
+        pol_group_strict: "Seviye 4: Katı (+21 Azami Gizlilik Politikası) \u2014 Tam API/Sensor/Import/Çeviri engelleme",
         policy_note_title: "Tam politika listesini nerede bulabilirim?",
-        policy_note_desc: "Bu tablo 4 seviyedeki tüm 67 politikayi kapsar. Politikalar kümülatif miras ilkesiyle çalışır: her seviye bir öncekinin tüm politikalarini içerir.",
+        policy_note_desc: "Bu tablo 4 seviyedeki tüm 67 politikayı kapsar. Politikalar kümülatif miras ilkesiyle çalışır: her seviye bir öncekinin tüm politikalarını içerir.",
     });
     document.addEventListener("DOMContentLoaded", () => {
         setLang(currentLang);
