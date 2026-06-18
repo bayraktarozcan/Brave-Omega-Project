@@ -28,8 +28,10 @@
 
 1.  [Introduction](#en-introduction)
 2.  [v2.1.2 — 2026-06-18](#en-v212)
+    *   [Summary](#en-v212-summary)
     *   [Changed](#en-v212-changed)
 3.  [v2.1.1 — 2026-06-17](#en-v211)
+    *   [Summary](#en-v211-summary)
     *   [Fixed](#en-v211-fixed)
 4.  [v2.1 — 2026-06-16](#en-v21)
     *   [Summary](#en-v21-summary)
@@ -80,6 +82,12 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ## [v2.1.2] — 2026-06-18
 
+<a id="en-v212-summary"></a>
+
+### 🎯 Summary
+
+**Validation release:** Brave **1.91.175** / Chromium **149.0.7827.155** compatibility confirmed. Structural, HTML/CSS, and documentation fixes from v2.1.1 — no new policies, no policy count changes.
+
 <a id="en-v212-changed"></a>
 
 ### Changed
@@ -91,6 +99,12 @@ All notable changes to this project are documented below, following the [Keep a 
 <a id="en-v211"></a>
 
 ## [v2.1.1] — 2026-06-18
+
+<a id="en-v211-summary"></a>
+
+### 🎯 Summary
+
+**Bugfix and policy rebalance:** Fixed dual Brave/Chromium version detection false-positive warning. Moved `TranslateEnabled` from Essential to Strict, removed deprecated `DefaultMediaStreamSetting` from Balanced. Policy counts adjusted to 67 total.
 
 <a id="en-v211-fixed"></a>
 
@@ -648,8 +662,10 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 1.  [Giriş](#tr-introduction)
 2.  [v2.1.2 — 2026-06-18](#tr-v212)
+    *   [Özet](#tr-v212-summary)
     *   [Değiştirildi](#tr-v212-changed)
 3.  [v2.1.1 — 2026-06-17](#tr-v211)
+    *   [Özet](#tr-v211-summary)
     *   [Düzeltildi](#tr-v211-fixed)
 4.  [v2.1 — 2026-06-16](#tr-v21)
     *   [Özet](#tr-v21-summary)
@@ -788,6 +804,12 @@ Eklenen/Değiştirilen Dosyalar:
 
 ## [v2.1.2] — 2026-06-18
 
+<a id="tr-v212-summary"></a>
+
+### 🎯 Özet
+
+**Doğrulama sürümü:** Brave **1.91.175** / Chromium **149.0.7827.155** uyumluluğu onaylandı. v2.1.1'den yapısal, HTML/CSS ve belge düzeltmeleri — yeni politika yok, politika sayılarında değişiklik yok.
+
 <a id="tr-v212-changed"></a>
 
 ### Değiştirildi
@@ -799,6 +821,12 @@ Eklenen/Değiştirilen Dosyalar:
 <a id="tr-v211"></a>
 
 ## [v2.1.1] — 2026-06-18
+
+<a id="tr-v211-summary"></a>
+
+### 🎯 Özet
+
+**Hata düzeltmesi ve politika yeniden dengesi:** Çift Brave/Chromium sürüm algılamasındaki hatalı pozitif uyarı düzeltildi. `TranslateEnabled` Temel'den Katı'ya taşındı, kullanımdan kaldırılmış `DefaultMediaStreamSetting` Dengeli'den kaldırıldı. Politika sayıları toplam 67'ye ayarlandı.
 
 <a id="tr-v211-fixed"></a>
 
