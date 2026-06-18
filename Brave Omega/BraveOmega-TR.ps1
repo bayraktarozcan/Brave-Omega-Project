@@ -50,9 +50,9 @@
 #
 #     [YENİ]        50+ Chromium kurumsal politikası eklendi.
 #                   Brave Yalnız: 13 Brave'e özgü politika
-#                   Temel:        +17 veri sızıntısı önleme politikası
-#                   Dengeli:      +19 güvenlik ve kullanım dengesi
-#                   Katı:         +20 azami gizlilik politikası
+#                   Temel:        +16 veri sızıntısı önleme politikası
+#                   Dengeli:      +18 güvenlik ve kullanım dengesi
+#                   Katı:         +21 azami gizlilik politikası
 #
 #     [İYİLEŞTİRME] Kayıt defteri yazma motoru türe göre dağıtım yapar
 #                   ve her politika için ayrıntılı denetim izi üretir.
@@ -405,8 +405,6 @@ $PolitikaTanimlari = @{
         @{Ad="SearchSuggestEnabled";                 Deger=0; Tur="DWord"}
         # Ağ tahmini — DNS ön getirme ve ön bağlantıyı durdurur
         @{Ad="NetworkPredictionOptions";             Deger=2; Tur="DWord"}
-        # Çeviri — yerleşik çeviriyi kapatır (metnin Google'a gönderilmesini durdurur)
-        @{Ad="TranslateEnabled";                     Deger=0; Tur="DWord"}
         # Yazım denetimi — yazım denetimini kapatır (metnin Google sunucularına gitmesini durdurur)
         @{Ad="SpellcheckEnabled";                    Deger=0; Tur="DWord"}
         # Alternatif hata sayfaları — DNS çözümleme hatasında ağ isteklerini durdurur
@@ -470,13 +468,13 @@ $PolitikaTanimlari = @{
         @{Ad="DefaultNotificationsSetting";          Deger=2; Tur="DWord"}
         # Açılır pencereler — açılır pencere isteklerini varsayılan olarak engeller
         @{Ad="DefaultPopupsSetting";                 Deger=2; Tur="DWord"}
-        # Medya akışı — kamera/mikrofon erişimini varsayılan olarak engeller
-        @{Ad="DefaultMediaStreamSetting";            Deger=2; Tur="DWord"}
     )
 
     "Strict" = @(
         # ─── Azami Gizlilik — bazı kullanım ödünleri olabilir ───
 
+        # Çeviri — yerleşik çeviriyi kapatır (metnin Google'a gönderilmesini durdurur)
+        @{Ad="TranslateEnabled";                     Deger=0; Tur="DWord"}
         # WebRTC IP yönetimi — Dengeli'yi ezer: tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir
         @{Ad="WebRtcIPHandling";                     Deger="disable_non_proxied_udp"; Tur="String"}
         # Sensörler — cihaz hareket/ışık sensörü erişimini varsayılan olarak engeller

@@ -50,9 +50,9 @@
 #
 #     [NEW]        50+ Chromium enterprise policies added across all tiers.
 #                   Brave Only: 13 Brave-specific policies
-#                   Essential:  +17 data-leak prevention policies
-#                   Balanced:   +19 security & convenience balance
-#                   Strict:     +20 maximum privacy policies
+#                   Essential:  +16 data-leak prevention policies
+#                   Balanced:   +18 security & convenience balance
+#                   Strict:     +21 maximum privacy policies
 #
 #     [IMPROVED]    Registry writing engine now dispatches by type and
 #                   produces a comprehensive per-policy audit trail.
@@ -402,8 +402,6 @@ $PolicyDefinitions = @{
         @{Name="SearchSuggestEnabled";                 Value=0; Type="DWord"}
         # Network prediction — stops DNS prefetching and pre-connection
         @{Name="NetworkPredictionOptions";             Value=2; Type="DWord"}
-        # Translation — disables built-in translation (stops sending text to Google)
-        @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
         # Spellcheck — disables spellcheck (stops sending text to Google servers)
         @{Name="SpellcheckEnabled";                    Value=0; Type="DWord"}
         # Alternate error pages — stops network requests when DNS resolution fails
@@ -467,13 +465,13 @@ $PolicyDefinitions = @{
         @{Name="DefaultNotificationsSetting";          Value=2; Type="DWord"}
         # Pop-ups — blocks pop-up windows by default
         @{Name="DefaultPopupsSetting";                 Value=2; Type="DWord"}
-        # Media stream — blocks camera/microphone access prompts by default
-        @{Name="DefaultMediaStreamSetting";            Value=2; Type="DWord"}
     )
 
     "Strict" = @(
         # ─── Maximum Privacy — some usability trade-offs ───
 
+        # Translation — disables built-in translation (stops sending text to Google)
+        @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
         # WebRTC IP handling — overrides Balanced: proxies all WebRTC traffic
         @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
         # Sensors — blocks device motion/light sensor access by default

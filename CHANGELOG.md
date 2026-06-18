@@ -76,7 +76,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 <a id="en-v211"></a>
 
-## [v2.1.1] — 2026-06-17
+## [v2.1.1] — 2026-06-18
 
 <a id="en-v211-fixed"></a>
 
@@ -97,15 +97,21 @@ All notable changes to this project are documented below, following the [Keep a 
 
 - **BraveOmega-EN.ps1** — v2.1.1: fixed dual-version detection, `$ScriptVersion = "v2.1.1"`
 - **BraveOmega-TR.ps1** — v2.1.1: same fix in Turkish, `$BetikSurum = "v2.1.1"`
-- **CHANGELOG.md** — Added v2.1.1 changelog entry
+- **DefaultMediaStreamSetting removed from Balanced** — Deprecated Chromium 104+ policy, does not work. Camera/mic blocking already covered by `AudioCaptureAllowed` and `VideoCaptureAllowed` in Essential.
+- **TranslateEnabled moved from Essential to Strict** — Right-click translate feature now works at Essential and Balanced levels. Only disabled at Strict (max privacy).
+- **Policy counts updated** — Essential: +16, Balanced: +18, Strict: +21. Cumulative: Brave Only 13, Essential 29, Balanced 47, Strict 68.
+- **CHANGELOG.md** — Added v2.1.1 policy changes
 
 ### 📊 Statistics
 
 ```
 Files Modified:
-  ✓ BraveOmega-EN.ps1 (v2.1.1: dual-version check parsing)
-  ✓ BraveOmega-TR.ps1 (v2.1.1: same fix in Turkish)
-  ✓ CHANGELOG.md (v2.1.1 entry)
+  ✓ BraveOmega-EN.ps1 (v2.1.1: dual-version check + policy changes)
+  ✓ BraveOmega-TR.ps1 (v2.1.1: same fixes in Turkish)
+  ✓ index.html (policy table/cards/i18n updated)
+  ✓ README.md (policy counts updated)
+  ✓ SECURITY.md (policy counts updated)
+  ✓ CHANGELOG.md (v2.1.1 policy changes entry)
 ```
 
 ---
@@ -574,7 +580,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
-| v2.1.1 | 2026-06-17 | 68    | Fixed dual-version detection (Brave + Chromium parsing) |
+| v2.1.1 | 2026-06-18 | 68    | Dual-version detection; policy rebalance: TranslateEnabled→Strict, DefaultMediaStreamSetting removed |
 | v2.1   | 2026-06-16 | 68    | Version check, -WhatIf, -Reset, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Multi-Tier System (Brave Only / Essential / Balanced / Strict) |
 | v1.2.2 | 2026-06-13 | 17 | Safe execution policy fix, v1.2.2 branding |
@@ -763,7 +769,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 <a id="tr-v211"></a>
 
-## [v2.1.1] — 2026-06-17
+## [v2.1.1] — 2026-06-18
 
 <a id="tr-v211-fixed"></a>
 
@@ -784,15 +790,21 @@ Eklenen/Değiştirilen Dosyalar:
 
 - **BraveOmega-EN.ps1** — v2.1.1: çift sürüm algılama düzeltmesi, `$ScriptVersion = "v2.1.1"`
 - **BraveOmega-TR.ps1** — v2.1.1: aynı düzeltme Türkçe, `$BetikSurum = "v2.1.1"`
-- **CHANGELOG.md** — v2.1.1 değişiklik günlüğü eklendi
+- **DefaultMediaStreamSetting Dengeli'den kaldırıldı** — Kullanımdan kaldırılmış Chromium 104+ politikası, çalışmıyor. Kamera/mikrofon engelleme zaten Temel'deki `AudioCaptureAllowed` ve `VideoCaptureAllowed` tarafından karşılanıyor.
+- **TranslateEnabled Temel'den Katı'ya taşındı** — Sağ tık çeviri özelliği artık Temel ve Dengeli seviyelerinde çalışıyor. Yalnızca Katı'da devre dışı (azami gizlilik).
+- **Politika sayıları güncellendi** — Temel: +16, Dengeli: +18, Katı: +21. Kümülatif: Brave Yalnız 13, Temel 29, Dengeli 47, Katı 68.
+- **CHANGELOG.md** — v2.1.1 politika değişiklikleri eklendi
 
 ### 📊 İstatistikler
 
 ```
 Değiştirilen Dosyalar:
-  ✓ BraveOmega-EN.ps1 (v2.1.1: çift sürüm denetimi ayrıştırması)
-  ✓ BraveOmega-TR.ps1 (v2.1.1: aynı düzeltme Türkçe)
-  ✓ CHANGELOG.md (v2.1.1 girdisi)
+  ✓ BraveOmega-EN.ps1 (v2.1.1: çift sürüm denetimi + politika değişiklikleri)
+  ✓ BraveOmega-TR.ps1 (v2.1.1: aynı düzeltmeler Türkçe)
+  ✓ index.html (politika tablosu/kartlar/i18n güncellendi)
+  ✓ README.md (politika sayıları güncellendi)
+  ✓ SECURITY.md (politika sayıları güncellendi)
+  ✓ CHANGELOG.md (v2.1.1 politika değişiklikleri girdisi)
 ```
 
 ---
@@ -1175,7 +1187,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
-| v2.1.1 | 2026-06-17 | 68    | Çift sürüm algılama düzeltmesi (Brave + Chromium ayrıştırma) |
+| v2.1.1 | 2026-06-18 | 68    | Çift sürüm algılama; politika yeniden dengesi: TranslateEnabled→Katı, DefaultMediaStreamSetting kaldırıldı |
 | v2.1   | 2026-06-16 | 68    | Sürüm denetimi, -WhatIf, -Sıfırla, CONTRIBUTING.md, GitHub Actions |
 | v2.0   | 2026-06-16 | 13–68 | Çok Katmanlı Sistem (Brave Yalnız / Temel / Dengeli / Katı) |
 | v1.2.2 | 2026-06-13 | 17 | Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding |
