@@ -174,7 +174,7 @@ if ($Sifirla) {
     Write-Host ""
 
     $tumPolitikalar = @(
-        "UsageStatsInSample", "ChromeVariations",
+        "UsageStatsInSample", "OmahaMachineLevelUserMetrics",
         "BraveRewardsDisabled", "BraveWalletDisabled", "BraveVPNDisabled",
         "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
         "BravePlaylistEnabled", "BraveSpeedreaderEnabled", "BraveWaybackMachineEnabled",
@@ -192,7 +192,6 @@ if ($Sifirla) {
         "DisableSafeBrowsingProceedAnyway", "QuicAllowed", "ChromeVariations",
         "NetworkServiceSandboxEnabled", "AudioSandboxEnabled",
         "DefaultGeolocationSetting", "DefaultNotificationsSetting", "DefaultPopupsSetting",
-        "DefaultMediaStreamSetting",
         "DefaultSensorsSetting", "DefaultLocalFontsSetting", "DefaultClipboardSetting",
         "DefaultFileSystemReadGuardSetting", "DefaultFileSystemWriteGuardSetting",
         "DefaultSerialGuardSetting", "DefaultIdleDetectionSetting",
@@ -270,8 +269,6 @@ if ($Sifirla) {
 # ─────────────────────────────────────────────────────────────────────────────
 # ADIM 0D: KATMAN SEÇİMİ
 # ─────────────────────────────────────────────────────────────────────────────
-$GecerliSeviyeler = @("BraveOnly", "Essential", "Balanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Katı")
-
 if (-not $Seviye -or $Seviye -eq "") {
     Write-Host "Bir sıkılaştırma katmanı seçin:" -ForegroundColor White
     Write-Host "  1. Brave Yalnız" -ForegroundColor Gray
@@ -325,7 +322,7 @@ Write-Host ""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ADIM 0C: BRAVE SÜREÇ KONTROLÜ
+# ADIM 0E: BRAVE SÜREÇ KONTROLÜ
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host "[KONTROL] Aktif Brave Süreçleri Denetleniyor..." -ForegroundColor Gray
 
@@ -649,7 +646,7 @@ Write-Host "[2/7] HKLM Politika Kovası Yedekleniyor..." -ForegroundColor Gray
 if ($WhatIf) {
     Write-Host "  -> [WhatIf] Yedekleme atlandı (yalnızca önizleme).`n" -ForegroundColor Magenta
 } elseif (Test-Path $HKLM_Hedef) {
-    $YedekKlasor = "$env:TEMP\BravePolicyYedek"
+    $YedekKlasor = "$env:TEMP\BravePolicyBackup"
     New-Item -Path $YedekKlasor -ItemType Directory -Force | Out-Null
 
     $YedekDosya = "$YedekKlasor\HKLM_BravePolicy_$(Get-Date -Format 'yyyyMMdd_HHmmss').reg"
@@ -761,6 +758,7 @@ $AyracCizgisi = "-" * 62
 
 Write-Host "`n$AyracCizgisi" -ForegroundColor DarkGray
 Write-Host "  İŞLEM ÖZET RAPORU" -ForegroundColor Cyan
+Write-Host "  Betik Sürümü      : $BetikSurum" -ForegroundColor White
 Write-Host "  Katman             : $Seviye ($ToplamPolitikaSayisi politika)" -ForegroundColor White
 if ($WhatIf) { Write-Host "  Mod                : WhatIf (yalnızca önizleme)" -ForegroundColor Magenta }
 Write-Host $AyracCizgisi -ForegroundColor DarkGray

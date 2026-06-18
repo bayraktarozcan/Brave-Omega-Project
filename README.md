@@ -178,7 +178,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 | Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
 |---------------------|---------------------|-------|----------|
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 13 |
-| `-Level Essential` | `-Level Temel` | Essential ⭐ | 30 |
+| `-Level Essential` | `-Level Temel` | Essential ⭐ | 29 |
 | `-Level Balanced` | `-Level Dengeli` | Balanced | 47 |
 | `-Level Strict` | `-Level Katı` | Strict | 67 |
 
@@ -213,7 +213,7 @@ and offers **four hardening levels** that determine how many policies are applie
 ├─────────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  13–68 ADMX-validated enterprise policies (level-based). │
+│  ↳  13–67 ADMX-validated enterprise policies (level-based). │
 │     Appear gray and locked in browser Settings UI.         │
 │     Cannot be overridden by user interaction.              │
 ├─────────────────────────────────────────────────────────────┤
@@ -344,7 +344,7 @@ no longer have any effect.
 | `BraveWebDiscoveryEnabled` | `0` | DWord | Disables Web Discovery Project contribution |
 | `TorDisabled` | `1` | DWord | Disables Tor integration |
 
-#### 9.3 Essential Level — Brave Only + Data Leak Prevention (17 additional)
+#### 9.3 Essential Level — Brave Only + Data Leak Prevention (16 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -353,7 +353,6 @@ no longer have any effect.
 | `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Stops URL data collection to Google |
 | `SearchSuggestEnabled` | `0` | DWord | Stops search suggestions data leakage |
 | `NetworkPredictionOptions` | `2` | DWord | Stops DNS prefetching and pre-connection |
-| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
 | `SpellcheckEnabled` | `0` | DWord | Disables spellcheck |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Stops error page network requests |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Stops time sync to Google |
@@ -366,7 +365,7 @@ no longer have any effect.
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
 | `VideoCaptureAllowed` | `0` | DWord | Blocks camera by default |
 
-#### 9.4 Balanced Level — Essential + Security Baseline (19 additional)
+#### 9.4 Balanced Level — Essential + Security Baseline (18 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -388,13 +387,13 @@ no longer have any effect.
 | `DefaultGeolocationSetting` | `2` | DWord | Blocks location by default |
 | `DefaultNotificationsSetting` | `2` | DWord | Blocks notifications by default |
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
-| `DefaultMediaStreamSetting` | `2` | DWord | Blocks camera/mic by default |
 
-#### 9.5 Strict Level — Balanced + Maximum Privacy (20 additional)
+#### 9.5 Strict Level — Balanced + Maximum Privacy (21 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
 | `WebRtcIPHandling` *(override)* | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
+| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
 | `DefaultSensorsSetting` | `2` | DWord | Blocks sensor access by default |
 | `DefaultLocalFontsSetting` | `2` | DWord | Blocks font enumeration |
 | `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
@@ -483,7 +482,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Multi-type registry engine** — DWord, String, MultiString type-aware dispatching (v2.0)
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
-- [x] **68 total policies** — expanded from 17 to 68 across 4 levels (v2.0)
+- [x] **67 total policies** — expanded from 17 to 67 across 4 levels (v2.0)
 - [x] **Automated Brave version detection** — warn if installed version differs from validated target (v2.1)
 - [x] **Dry-run mode** via `-WhatIf` parameter — preview all changes without writing to registry (v2.1)
 - [x] **Reset/uninstall mode** via `-Reset` parameter — remove all applied policies cleanly (v2.1)
@@ -679,7 +678,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
 | Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
 |----------------------|----------------------|--------|----------|
 | `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 13 |
-| `-Level Temel` | `-Level Essential` | Temel ⭐ | 30 |
+| `-Level Temel` | `-Level Essential` | Temel ⭐ | 29 |
 | `-Level Dengeli` | `-Level Balanced` | Dengeli | 47 |
 | `-Level Katı` | `-Level Strict` | Katı | 67 |
 
@@ -712,7 +711,7 @@ kaç politikanın uygulanacağını belirleyen **dört sıkılaştırma seviyesi
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  13–68 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
+│  ↳  13–67 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -846,7 +845,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `BraveWebDiscoveryEnabled` | `0` | DWord | Web Discovery Project katkısını devre dışı bırakır |
 | `TorDisabled` | `1` | DWord | Tor entegrasyonunu devre dışı bırakır |
 
-#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (17 ek)
+#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (16 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -855,7 +854,6 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Google'a URL verisi toplamayı durdurur |
 | `SearchSuggestEnabled` | `0` | DWord | Arama önerileri veri sızıntısını durdurur |
 | `NetworkPredictionOptions` | `2` | DWord | DNS ön getirmeyi ve ön bağlantıyı durdurur |
-| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
 | `SpellcheckEnabled` | `0` | DWord | Yazım denetimini devre dışı bırakır |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Hata sayfası ağ isteklerini durdurur |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Google'a saat senkronizasyonunu durdurur |
@@ -868,7 +866,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |
 | `VideoCaptureAllowed` | `0` | DWord | Varsayılan olarak kameraya izin vermez |
 
-#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (19 ek)
+#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (18 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -890,13 +888,13 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultGeolocationSetting` | `2` | DWord | Varsayılan olarak konumu engeller |
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
-| `DefaultMediaStreamSetting` | `2` | DWord | Varsayılan olarak kamera/mikrofonu engeller |
 
-#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (20 ek)
+#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (21 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
 | `WebRtcIPHandling` *(üzerine yaz)* | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
+| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
 | `DefaultSensorsSetting` | `2` | DWord | Varsayılan olarak sensör erişimini engeller |
 | `DefaultLocalFontsSetting` | `2` | DWord | Yazı tipi numaralandırmayı engeller |
 | `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
@@ -986,7 +984,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString (v2.0)
 - [x] **`-Level` parametresi** — sessiz/otomatik dağıtım (v2.0)
 - [x] **SECURITY.md** — güvenlik açığı bildirim süreci (v2.0)
-- [x] **68 toplam politika** — 17'den 68'e genişletildi (v2.0)
+- [x] **67 toplam politika** — 17'den 67'e genişletildi (v2.0)
 - [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar (v2.1)
 - [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi** — kayıt defterine yazmadan tüm değişiklikleri önizle (v2.1)
 - [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle (v2.1)

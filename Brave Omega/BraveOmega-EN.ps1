@@ -175,7 +175,7 @@ if ($Reset) {
 
     # All known policy names across all levels (hardcoded for safety before definitions load)
     $allPolicyNames = @(
-        "UsageStatsInSample", "ChromeVariations",
+        "UsageStatsInSample", "OmahaMachineLevelUserMetrics",
         "BraveRewardsDisabled", "BraveWalletDisabled", "BraveVPNDisabled",
         "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
         "BravePlaylistEnabled", "BraveSpeedreaderEnabled", "BraveWaybackMachineEnabled",
@@ -193,7 +193,6 @@ if ($Reset) {
         "DisableSafeBrowsingProceedAnyway", "QuicAllowed", "ChromeVariations",
         "NetworkServiceSandboxEnabled", "AudioSandboxEnabled",
         "DefaultGeolocationSetting", "DefaultNotificationsSetting", "DefaultPopupsSetting",
-        "DefaultMediaStreamSetting",
         "DefaultSensorsSetting", "DefaultLocalFontsSetting", "DefaultClipboardSetting",
         "DefaultFileSystemReadGuardSetting", "DefaultFileSystemWriteGuardSetting",
         "DefaultSerialGuardSetting", "DefaultIdleDetectionSetting",
@@ -308,12 +307,6 @@ if ($ValidLevels -notcontains $Level -and $LevelMap.Values -notcontains $Level) 
     $Level = "Essential"
 }
 
-# Ensure English internal name
-if ($Level -eq "Brave Yalnız") { $Level = "BraveOnly" }
-if ($Level -eq "Temel")        { $Level = "Essential"  }
-if ($Level -eq "Dengeli")      { $Level = "Balanced"   }
-if ($Level -eq "Katı")         { $Level = "Strict"     }
-
 if ($WhatIf) {
     Write-Host "Mode: -WhatIf (preview only — no registry changes will be made)" -ForegroundColor Magenta
 }
@@ -322,7 +315,7 @@ Write-Host ""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 0C: BRAVE PROCESS CONTROL
+# STEP 0E: BRAVE PROCESS CONTROL
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host "[CHECK] Inspecting Active Brave Processes..." -ForegroundColor Gray
 
