@@ -30,7 +30,7 @@
 2.  [v2.1.2 — 2026-06-18](#en-v212)
     *   [Summary](#en-v212-summary)
     *   [Changed](#en-v212-changed)
-3.  [v2.1.1 — 2026-06-17](#en-v211)
+3.  [v2.1.1 — 2026-06-18](#en-v211)
     *   [Summary](#en-v211-summary)
     *   [Fixed](#en-v211-fixed)
 4.  [v2.1 — 2026-06-16](#en-v21)
@@ -66,9 +66,9 @@
     *   [Features](#en-v10-features)
     *   [Initial Policies](#en-v10-initial-policies)
     *   [Documentation](#en-v10-documentation)
-9.  [Version History Summary](#en-version-history-summary)
-10. [Related Documentation](#en-related-documentation)
-11. [Notes](#en-notes)
+11. [Version History Summary](#en-version-history-summary)
+12. [Related Documentation](#en-related-documentation)
+13. [Notes](#en-notes)
 
 ---
 
@@ -664,7 +664,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 2.  [v2.1.2 — 2026-06-18](#tr-v212)
     *   [Özet](#tr-v212-summary)
     *   [Değiştirildi](#tr-v212-changed)
-3.  [v2.1.1 — 2026-06-17](#tr-v211)
+3.  [v2.1.1 — 2026-06-18](#tr-v211)
     *   [Özet](#tr-v211-summary)
     *   [Düzeltildi](#tr-v211-fixed)
 4.  [v2.1 — 2026-06-16](#tr-v21)
@@ -700,9 +700,9 @@ Initial community release. Stable, tested hardening automation for Brave Browser
     *   [Özellikler](#tr-v10-features)
     *   [Başlangıç Politikaları](#tr-v10-initial-policies)
     *   [Belgelendirme](#tr-v10-documentation)
-9.  [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-10. [İlgili Belgelendirme](#tr-related-documentation)
-11. [Notlar](#tr-notes)
+11. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+12. [İlgili Belgelendirme](#tr-related-documentation)
+13. [Notlar](#tr-notes)
 
 ---
 

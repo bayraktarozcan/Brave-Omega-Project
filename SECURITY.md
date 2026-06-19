@@ -1,13 +1,13 @@
 <!-- ================================================================== -->
-<!--                  BRAVE OMEGA PROJECT â€” SECURITY.MD              -->
-<!--          Community Edition Â· Open Source Â· Privacy First        -->
+<!--                  BRAVE OMEGA PROJECT — SECURITY.MD              -->
+<!--          Community Edition · Open Source · Privacy First        -->
 <!-- ================================================================== -->
 
 <div align="center">
 
 <br>
 
-# ğŸ›¡ï¸ Brave Omega â€” Security Policy
+# 🛡️ Brave Omega — Security Policy
 
 <br>
 
@@ -20,7 +20,7 @@
 <br>
 
 > **Language / Dil** &nbsp;
-> [EN English](#-english-security-policy) &nbsp;Â·&nbsp; [TR TÃ¼rkÃ§e](#-tÃ¼rkÃ§e-gÃ¼venlik-politikasÄ±)
+> [EN English](#-english-security-policy) &nbsp;·&nbsp; [TR Türkçe](#-türkçe-güvenlik-politikası)
 
 <br>
 
@@ -59,10 +59,10 @@ Brave Omega is a registry-hardening tool designed to **enhance** browser privacy
 
 | Branch | Status | Supported |
 |--------|--------|-----------|
-| **v2.x (current)** | Active development | âœ… Security patches, policy updates, feature improvements |
-| v1.2.x | Maintained | âœ… Critical security patches only |
-| v1.1.x | End of life | âŒ No longer supported |
-| v1.0 | Archived | âŒ No longer supported |
+| **v2.x (current)** | Active development | ✅ Security patches, policy updates, feature improvements |
+| v1.2.x | Maintained | ✅ Critical security patches only |
+| v1.1.x | End of life | ❌ No longer supported |
+| v1.0 | Archived | ❌ No longer supported |
 
 > [!NOTE]
 > To receive security updates, always use the latest stable release. Older versions may contain unpatched policy gaps as Chromium's enterprise policy landscape evolves.
@@ -73,7 +73,7 @@ Brave Omega is a registry-hardening tool designed to **enhance** browser privacy
 
 #### 3.1 Reporting a Vulnerability
 
-If you discover a security-related issue in Brave Omega â€” whether a policy that has an unintended side effect, a registry path that behaves unexpectedly, or any other concern â€” please report it privately:
+If you discover a security-related issue in Brave Omega — whether a policy that has an unintended side effect, a registry path that behaves unexpectedly, or any other concern — please report it privately:
 
 - **Email**: Open a [GitHub Security Advisory](https://github.com/bayraktarozcan/Brave-Omega-Project/security/advisories/new)
 - **Issue**: For non-critical security concerns, open a standard [GitHub Issue](https://github.com/bayraktarozcan/Brave-Omega-Project/issues) with the `security` label
@@ -82,7 +82,7 @@ If you discover a security-related issue in Brave Omega â€” whether a polic
 
 | Timeframe | Action |
 |-----------|--------|
-| **24â€“48 hours** | Initial acknowledgment |
+| **24–48 hours** | Initial acknowledgment |
 | **5 business days** | Triage and severity assessment |
 | **14 calendar days** | Fix released or mitigation documented |
 | **30 calendar days** | Full disclosure if applicable |
@@ -110,22 +110,22 @@ If you discover a security-related issue in Brave Omega â€” whether a polic
 Brave Omega implements browser hardening through **three independent enforcement layers**:
 
 ```
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  TIER 1 â€” HKCU User Preference                           â”‚
-â”‚  â†³ UsageStatsInSample = 0                                 â”‚
-â”‚  â†³ ChromeVariations = 1 (HKCU mirror)                     â”‚
-â”‚  â†³ User-modifiable, provides fallback protection          â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚  TIER 2 â€” HKLM Enterprise Policy (ADMX)                  â”‚
-â”‚  â†³ 13â€“68 policies depending on hardening level            â”‚
-â”‚  â†³ Locked/gray in browser UI â€” user cannot override       â”‚
-â”‚  â†³ Requires Administrator privileges to write             â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚  TIER 3 â€” Omaha Updater GUID Layer                       â”‚
-â”‚  â†³ usagestats = 0 per application GUID                   â”‚
-â”‚  â†³ Independent of browser-level policies                  â”‚
-â”‚  â†³ Disables update infrastructure telemetry              â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌──────────────────────────────────────────────────────────┐
+│  TIER 1 — HKCU User Preference                           │
+│  ↳ UsageStatsInSample = 0                                 │
+│  ↳ ChromeVariations = 1 (HKCU mirror)                     │
+│  ↳ User-modifiable, provides fallback protection          │
+├──────────────────────────────────────────────────────────┤
+│  TIER 2 — HKLM Enterprise Policy (ADMX)                  │
+│  ↳ 13–67 policies depending on hardening level            │
+│  ↳ Locked/gray in browser UI — user cannot override       │
+│  ↳ Requires Administrator privileges to write             │
+├──────────────────────────────────────────────────────────┤
+│  TIER 3 — Omaha Updater GUID Layer                       │
+│  ↳ usagestats = 0 per application GUID                   │
+│  ↳ Independent of browser-level policies                  │
+│  ↳ Disables update infrastructure telemetry              │
+└──────────────────────────────────────────────────────────┘
 ```
 
 #### 4.2 Principle of Least Privilege
@@ -203,10 +203,10 @@ Every policy in Brave Omega can be traced to its authoritative source:
 
 #### 6.1 Code Integrity
 
-- **Fully open source** â€” every line is public at [github.com/bayraktarozcan/Brave-Omega-Project](https://github.com/bayraktarozcan/Brave-Omega-Project)
-- **No obfuscation** â€” the PowerShell source is plain text, human-readable, and reviewable
-- **No compiled binaries** â€” no `.exe`, `.dll`, or `.msi` files
-- **No external dependencies** â€” requires only PowerShell 5.1+, included with Windows 11
+- **Fully open source** — every line is public at [github.com/bayraktarozcan/Brave-Omega-Project](https://github.com/bayraktarozcan/Brave-Omega-Project)
+- **No obfuscation** — the PowerShell source is plain text, human-readable, and reviewable
+- **No compiled binaries** — no `.exe`, `.dll`, or `.msi` files
+- **No external dependencies** — requires only PowerShell 5.1+, included with Windows 11
 
 #### 6.2 Commit Signing
 
@@ -305,282 +305,282 @@ A: The policies registry path differs. Brave uses `HKLM\SOFTWARE\Policies\BraveS
 
 ---
 
-<a id="-tÃ¼rkÃ§e-gÃ¼venlik-politikasÄ±"></a>
+<a id="-türkçe-güvenlik-politikası"></a>
 
-## TR TÃ¼rkÃ§e GÃ¼venlik PolitikasÄ±
+## TR Türkçe Güvenlik Politikası
 
-### Ä°Ã§indekiler
+### İçindekiler
 
-1. [Genel BakÄ±ÅŸ](#tr-genel-bakÄ±ÅŸ)
-2. [Desteklenen SÃ¼rÃ¼mler](#tr-desteklenen-sÃ¼rÃ¼mler)
-3. [GÃ¼venlik AÃ§Ä±ÄŸÄ± Bildirimi](#tr-gÃ¼venlik-aÃ§Ä±ÄŸÄ±-bildirimi)
-4. [GÃ¼venlik DuruÅŸu](#tr-gÃ¼venlik-duruÅŸu)
-5. [Politika DoÄŸrulama](#tr-politika-doÄŸrulama)
-6. [GÃ¼ven ve Tedarik Zinciri](#tr-gÃ¼ven-ve-tedarik-zinciri)
-7. [KayÄ±t Defteri GÃ¼venliÄŸi](#tr-kayÄ±t-defteri-gÃ¼venliÄŸi)
-8. [SÄ±kÄ±laÅŸtÄ±rma Seviyeleri](#tr-sÄ±kÄ±laÅŸtÄ±rma-seviyeleri)
-9. [GÃ¼venlik SSS](#tr-gÃ¼venlik-sss)
+1. [Genel Bakış](#tr-genel-bakış)
+2. [Desteklenen Sürümler](#tr-desteklenen-sürümler)
+3. [Güvenlik Açığı Bildirimi](#tr-güvenlik-açığı-bildirimi)
+4. [Güvenlik Duruşu](#tr-güvenlik-duruşu)
+5. [Politika Doğrulama](#tr-politika-doğrulama)
+6. [Güven ve Tedarik Zinciri](#tr-güven-ve-tedarik-zinciri)
+7. [Kayıt Defteri Güvenliği](#tr-kayıt-defteri-güvenliği)
+8. [Sıkılaştırma Seviyeleri](#tr-sıkılaştırma-seviyeleri)
+9. [Güvenlik SSS](#tr-güvenlik-sss)
 
 ---
 
-### 1. Genel BakÄ±ÅŸ
+### 1. Genel Bakış
 
-Brave Omega, tarayÄ±cÄ± gizliliÄŸini artÄ±rmak iÃ§in tasarlanmÄ±ÅŸ bir kayÄ±t defteri sÄ±kÄ±laÅŸtÄ±rma aracÄ±dÄ±r. Yeni saldÄ±rÄ± yÃ¼zeyleri oluÅŸturmaz, mevcut gÃ¼venlik aÃ§Ä±klarÄ±nÄ± kapatÄ±r. Bu belge, projenin gÃ¼venlik duruÅŸunu, gÃ¼venlik aÃ§Ä±ÄŸÄ± bildirim sÃ¼reÃ§lerini ve betiÄŸin yaptÄ±ÄŸÄ± deÄŸiÅŸikliklerin bÃ¼tÃ¼nlÃ¼ÄŸÃ¼nÃ¼ doÄŸrulama yÃ¶ntemlerini aÃ§Ä±klar.
+Brave Omega, tarayıcı gizliliğini artırmak için tasarlanmış bir kayıt defteri sıkılaştırma aracıdır. Yeni saldırı yüzeyleri oluşturmaz, mevcut güvenlik açıklarını kapatır. Bu belge, projenin güvenlik duruşunu, güvenlik açığı bildirim süreçlerini ve betiğin yaptığı değişikliklerin bütünlüğünü doğrulama yöntemlerini açıklar.
 
 > [!IMPORTANT]
-> Brave Omega, Ã§alÄ±ÅŸma sÄ±rasÄ±nda **hiÃ§bir aÄŸ Ã§aÄŸrÄ±sÄ± yapmaz**, **harici yÃ¼k indirmez** ve **tarayÄ±cÄ± uzantÄ±sÄ± veya ikili dosya yazmaz**. YalnÄ±zca Windows KayÄ±t Defteri Grup Ä°lkesi mekanizmalarÄ± ve Brave'in resmÃ® ADMX ÅŸablon tanÄ±mlarÄ± aracÄ±lÄ±ÄŸÄ±yla Ã§alÄ±ÅŸÄ±r.
+> Brave Omega, çalışma sırasında **hiçbir ağ çağrısı yapmaz**, **harici yük indirmez** ve **tarayıcı uzantısı veya ikili dosya yazmaz**. Yalnızca Windows Kayıt Defteri Grup İlkesi mekanizmaları ve Brave'in resmî ADMX şablon tanımları aracılığıyla çalışır.
 
 ---
 
-### 2. Desteklenen SÃ¼rÃ¼mler
+### 2. Desteklenen Sürümler
 
 | Dal | Durum | Destek |
 |-----|-------|--------|
-| **v2.x (gÃ¼ncel)** | Aktif geliÅŸtirme | âœ… GÃ¼venlik yamalarÄ±, politika gÃ¼ncellemeleri, yeni Ã¶zellikler |
-| v1.2.x | BakÄ±mda | âœ… YalnÄ±zca kritik gÃ¼venlik yamalarÄ± |
-| v1.1.x | KullanÄ±m Ã¶mrÃ¼ sonu | âŒ ArtÄ±k desteklenmiyor |
-| v1.0 | ArÅŸivlendi | âŒ ArtÄ±k desteklenmiyor |
+| **v2.x (güncel)** | Aktif geliştirme | ✅ Güvenlik yamaları, politika güncellemeleri, yeni özellikler |
+| v1.2.x | Bakımda | ✅ Yalnızca kritik güvenlik yamaları |
+| v1.1.x | Kullanım ömrü sonu | ❌ Artık desteklenmiyor |
+| v1.0 | Arşivlendi | ❌ Artık desteklenmiyor |
 
 > [!NOTE]
-> GÃ¼venlik gÃ¼ncellemelerini almak iÃ§in her zaman en gÃ¼ncel kararlÄ± sÃ¼rÃ¼mÃ¼ kullanÄ±n. Eski sÃ¼rÃ¼mler, Chromium'un kurumsal politika yapÄ±sÄ± geliÅŸtikÃ§e gÃ¼ncelliÄŸini yitirebilir.
+> Güvenlik güncellemelerini almak için her zaman en güncel kararlı sürümü kullanın. Eski sürümler, Chromium'un kurumsal politika yapısı geliştikçe güncelliğini yitirebilir.
 
 ---
 
-### 3. GÃ¼venlik AÃ§Ä±ÄŸÄ± Bildirimi
+### 3. Güvenlik Açığı Bildirimi
 
-#### 3.1 GÃ¼venlik AÃ§Ä±ÄŸÄ± Bildirme
+#### 3.1 Güvenlik Açığı Bildirme
 
-Brave Omega ile ilgili bir gÃ¼venlik sorunu keÅŸfederseniz â€” istenmeyen yan etkiye sahip bir politika, beklenmedik davranÄ±ÅŸ gÃ¶steren bir kayÄ±t defteri yolu veya baÅŸka bir endiÅŸe â€” lÃ¼tfen Ã¶zel olarak bildirin:
+Brave Omega ile ilgili bir güvenlik sorunu keşfederseniz — istenmeyen yan etkiye sahip bir politika, beklenmedik davranış gösteren bir kayıt defteri yolu veya başka bir endişe — lütfen özel olarak bildirin:
 
-- **E-posta**: [GitHub Security Advisory](https://github.com/bayraktarozcan/Brave-Omega-Project/security/advisories/new) sayfasÄ±nÄ± kullanÄ±n
-- **Sorun**: Kritik olmayan gÃ¼venlik endiÅŸeleri iÃ§in `security` etiketiyle standart bir [GitHub Issue](https://github.com/bayraktarozcan/Brave-Omega-Project/issues) aÃ§Ä±n
+- **E-posta**: [GitHub Security Advisory](https://github.com/bayraktarozcan/Brave-Omega-Project/security/advisories/new) sayfasını kullanın
+- **Sorun**: Kritik olmayan güvenlik endişeleri için `security` etiketiyle standart bir [GitHub Issue](https://github.com/bayraktarozcan/Brave-Omega-Project/issues) açın
 
-#### 3.2 YanÄ±t SÃ¼resi
+#### 3.2 Yanıt Süresi
 
-| Zaman AralÄ±ÄŸÄ± | Eylem |
+| Zaman Aralığı | Eylem |
 |---------------|-------|
-| **24â€“48 saat** | Ä°lk bildirim onayÄ± |
-| **5 iÅŸ gÃ¼nÃ¼** | Ã–n deÄŸerlendirme ve ciddiyet belirleme |
-| **14 takvim gÃ¼nÃ¼** | DÃ¼zeltme yayÄ±mlanÄ±r veya geÃ§ici Ã§Ã¶zÃ¼m belgelenir |
-| **30 takvim gÃ¼nÃ¼** | Gerekirse tam aÃ§Ä±klama |
+| **24–48 saat** | İlk bildirim onayı |
+| **5 iş günü** | Ön değerlendirme ve ciddiyet belirleme |
+| **14 takvim günü** | Düzeltme yayımlanır veya geçici çözüm belgelenir |
+| **30 takvim günü** | Gerekirse tam açıklama |
 
 #### 3.3 Kapsam
 
 **Kapsam dahilinde:**
-- Belgelenen davranÄ±ÅŸÄ±n Ã¶tesinde veri sÄ±zdÄ±ran kayÄ±t defteri politikalarÄ±
-- YanlÄ±ÅŸ veya gÃ¼vensiz varsayÄ±lan deÄŸerlere sahip politikalar
-- Yetkisiz ayrÄ±calÄ±k yÃ¼kseltme yollarÄ±
-- HatalÄ± ADMX-kayÄ±t defteri tÃ¼rÃ¼ eÅŸlemesi
+- Belgelenen davranışın ötesinde veri sızdıran kayıt defteri politikaları
+- Yanlış veya güvensiz varsayılan değerlere sahip politikalar
+- Yetkisiz ayrıcalık yükseltme yolları
+- Hatalı ADMX-kayıt defteri türü eşlemesi
 
-**Kapsam dÄ±ÅŸÄ±nda:**
-- Brave Browser'Ä±n kendisindeki gÃ¼venlik aÃ§Ä±klarÄ± ([Brave Security](https://hackerone.com/brave) adresine bildirin)
-- Windows veya PowerShell'deki gÃ¼venlik aÃ§Ä±klarÄ±
-- Fiziksel eriÅŸim gerektiren sosyal mÃ¼hendislik saldÄ±rÄ±larÄ±
-- KayÄ±t defteri deÄŸiÅŸikliÄŸi yoluyla hizmet reddi (araÃ§ doÄŸasÄ± gereÄŸi)
+**Kapsam dışında:**
+- Brave Browser'ın kendisindeki güvenlik açıkları ([Brave Security](https://hackerone.com/brave) adresine bildirin)
+- Windows veya PowerShell'deki güvenlik açıkları
+- Fiziksel erişim gerektiren sosyal mühendislik saldırıları
+- Kayıt defteri değişikliği yoluyla hizmet reddi (araç doğası gereği)
 
 ---
 
-### 4. GÃ¼venlik DuruÅŸu
+### 4. Güvenlik Duruşu
 
 #### 4.1 Derinlemesine Savunma Mimarisi
 
-Brave Omega, tarayÄ±cÄ± sÄ±kÄ±laÅŸtÄ±rmasÄ±nÄ± **Ã¼Ã§ baÄŸÄ±msÄ±z zorunlu kÄ±lma katmanÄ±** aracÄ±lÄ±ÄŸÄ±yla uygular:
+Brave Omega, tarayıcı sıkılaştırmasını **üç bağımsız zorunlu kılma katmanı** aracılığıyla uygular:
 
 ```
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  KATMAN 1 â€” HKCU KullanÄ±cÄ± Tercihi                       â”‚
-â”‚  â†³ UsageStatsInSample = 0                                 â”‚
-â”‚  â†³ ChromeVariations = 1 (HKCU yansÄ±masÄ±)                  â”‚
-â”‚  â†³ KullanÄ±cÄ± tarafÄ±ndan deÄŸiÅŸtirilebilir, yedek koruma    â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚  KATMAN 2 â€” HKLM Kurumsal Politika (ADMX)                â”‚
-â”‚  â†³ SÄ±kÄ±laÅŸtÄ±rma seviyesine baÄŸlÄ± olarak 13â€“68 politika    â”‚
-â”‚  â†³ TarayÄ±cÄ± arayÃ¼zÃ¼nde kilitli/gri â€” kullanÄ±cÄ± deÄŸiÅŸtiremezâ”‚
-â”‚  â†³ Yazmak iÃ§in YÃ¶netici ayrÄ±calÄ±klarÄ± gerekir            â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚  KATMAN 3 â€” Omaha GÃ¼ncelleyici GUID KatmanÄ±              â”‚
-â”‚  â†³ Her uygulama GUID'i iÃ§in usagestats = 0               â”‚
-â”‚  â†³ TarayÄ±cÄ± dÃ¼zeyi politikalarÄ±ndan baÄŸÄ±msÄ±z             â”‚
-â”‚  â†³ GÃ¼ncelleme altyapÄ±sÄ± veri aktarÄ±mÄ±nÄ± kapatÄ±r          â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌──────────────────────────────────────────────────────────┐
+│  KATMAN 1 — HKCU Kullanıcı Tercihi                       │
+│  ↳ UsageStatsInSample = 0                                 │
+│  ↳ ChromeVariations = 1 (HKCU yansıması)                  │
+│  ↳ Kullanıcı tarafından değiştirilebilir, yedek koruma    │
+├──────────────────────────────────────────────────────────┤
+│  KATMAN 2 — HKLM Kurumsal Politika (ADMX)                │
+│  ↳ Sıkılaştırma seviyesine bağlı olarak 13–67 politika    │
+│  ↳ Tarayıcı arayüzünde kilitli/gri — kullanıcı değiştiremez│
+│  ↳ Yazmak için Yönetici ayrıcalıkları gerekir            │
+├──────────────────────────────────────────────────────────┤
+│  KATMAN 3 — Omaha Güncelleyici GUID Katmanı              │
+│  ↳ Her uygulama GUID'i için usagestats = 0               │
+│  ↳ Tarayıcı düzeyi politikalarından bağımsız             │
+│  ↳ Güncelleme altyapısı veri aktarımını kapatır          │
+└──────────────────────────────────────────────────────────┘
 ```
 
-#### 4.2 En Az AyrÄ±calÄ±k Ä°lkesi
+#### 4.2 En Az Ayrıcalık İlkesi
 
-- Betik, HKLM kayÄ±t defteri kovanÄ±na yazdÄ±ÄŸÄ± iÃ§in **YÃ¶netici ayrÄ±calÄ±klarÄ±** gerektirir
-- KalÄ±cÄ± yetki yÃ¼kseltmesi yok: betik biter, yetkiler kaybolur
-- Arka plan hizmeti, zamanlanmÄ±ÅŸ gÃ¶rev veya baÅŸlangÄ±Ã§ kaydÄ± yok
+- Betik, HKLM kayıt defteri kovanına yazdığı için **Yönetici ayrıcalıkları** gerektirir
+- Kalıcı yetki yükseltmesi yok: betik biter, yetkiler kaybolur
+- Arka plan hizmeti, zamanlanmış görev veya başlangıç kaydı yok
 
-#### 4.3 Veri AktarÄ±mÄ± Yok
+#### 4.3 Veri Aktarımı Yok
 
-Brave Omega'nÄ±n kendisi **sÄ±fÄ±r veri aktarÄ±mÄ±** toplar:
-- HiÃ§bir aÄŸ Ã§aÄŸrÄ±sÄ± yapmaz
-- Harici iÃ§erik indirmez
-- KullanÄ±m gÃ¼nlÃ¼ÄŸÃ¼ yazmaz
-- DÄ±ÅŸarÄ±ya bilgi gÃ¶ndermez
+Brave Omega'nın kendisi **sıfır veri aktarımı** toplar:
+- Hiçbir ağ çağrısı yapmaz
+- Harici içerik indirmez
+- Kullanım günlüğü yazmaz
+- Dışarıya bilgi göndermez
 
-#### 4.4 Ã‡alÄ±ÅŸtÄ±rma Ä°lkesi GÃ¼venliÄŸi
+#### 4.4 Çalıştırma İlkesi Güvenliği
 
-Ã–nerilen Ã§alÄ±ÅŸtÄ±rma yÃ¶ntemi **oturum bazlÄ± bypass** kullanÄ±r:
+Önerilen çalıştırma yöntemi **oturum bazlı bypass** kullanır:
 
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
 
-Bu ayar yalnÄ±zca geÃ§erli PowerShell penceresini etkiler. KalÄ±cÄ± bir Ã§alÄ±ÅŸtÄ±rma ilkesi deÄŸiÅŸikliÄŸi yapÄ±lmaz. HiÃ§bir saldÄ±rÄ± yÃ¼zeyi oluÅŸturulmaz.
+Bu ayar yalnızca geçerli PowerShell penceresini etkiler. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz. Hiçbir saldırı yüzeyi oluşturulmaz.
 
 ---
 
-### 5. Politika DoÄŸrulama
+### 5. Politika Doğrulama
 
-#### 5.1 Uygulanan PolitikalarÄ± DoÄŸrulama
+#### 5.1 Uygulanan Politikaları Doğrulama
 
-Betik Ã§alÄ±ÅŸtÄ±ktan sonra Brave'de aktif politikalarÄ± kontrol edin:
+Betik çalıştıktan sonra Brave'de aktif politikaları kontrol edin:
 
 1. `brave://policy` adresine gidin
-2. Beklenen tÃ¼m politikalarÄ±n listede gÃ¶rÃ¼ndÃ¼ÄŸÃ¼nÃ¼ doÄŸrulayÄ±n
-3. Politika deÄŸerlerinin beklenen ayarlarla eÅŸleÅŸtiÄŸini kontrol edin
+2. Beklenen tüm politikaların listede göründüğünü doğrulayın
+3. Politika değerlerinin beklenen ayarlarla eşleştiğini kontrol edin
 
-#### 5.2 KayÄ±t Defterini DoÄŸrudan DoÄŸrulama
+#### 5.2 Kayıt Defterini Doğrudan Doğrulama
 
 ```powershell
-# Uygulanan tÃ¼m Brave kurumsal politikalarÄ±nÄ± listele
+# Uygulanan tüm Brave kurumsal politikalarını listele
 Get-ChildItem -Path "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
-# Belirli bir politika deÄŸerini kontrol et
+# Belirli bir politika değerini kontrol et
 Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -Name "MetricsReportingEnabled"
 ```
 
-#### 5.3 Yedek BÃ¼tÃ¼nlÃ¼ÄŸÃ¼nÃ¼ DoÄŸrulama
+#### 5.3 Yedek Bütünlüğünü Doğrulama
 
-Yedekler zaman damgalarÄ±yla `%TEMP%\BravePolicyYedek\` klasÃ¶rÃ¼nde saklanÄ±r:
+Yedekler zaman damgalarıyla `%TEMP%\BravePolicyYedek\` klasöründe saklanır:
 
 ```powershell
 notepad "$env:TEMP\BravePolicyYedek\*"
 ```
 
-Ã–nceki duruma dÃ¶nmek iÃ§in:
+Önceki duruma dönmek için:
 ```powershell
 reg import "$env:TEMP\BravePolicyYedek\HKLM_BravePolicy_20260607_143022.reg"
 ```
 
-#### 5.4 Kaynak DoÄŸrulama
+#### 5.4 Kaynak Doğrulama
 
-Brave Omega'daki her politika yetkili kaynaÄŸÄ±na kadar izlenebilir:
+Brave Omega'daki her politika yetkili kaynağına kadar izlenebilir:
 
-| Kaynak | Konum | DoÄŸrulama YÃ¶ntemi |
+| Kaynak | Konum | Doğrulama Yöntemi |
 |--------|-------|-------------------|
-| Brave ADMX ÅablonlarÄ± | `policy_templates.zip` | ADMX/ADML XML'ini Ã§Ä±kar ve incele |
-| Chromium Politika DokÃ¼manlarÄ± | `policy_templates_en-US.json` (1459 politika) | JSON ÅŸema doÄŸrulamasÄ± |
+| Brave ADMX Şablonları | `policy_templates.zip` | ADMX/ADML XML'ini çıkar ve incele |
+| Chromium Politika Dokümanları | `policy_templates_en-US.json` (1459 politika) | JSON şema doğrulaması |
 | Chromium Tercihleri | Brave Preferences JSON | `brave://version` profil yolunda incele |
-| Omaha GÃ¼ncelleyici ÅemasÄ± | Windows kayÄ±t defteri `ClientState` anahtarlarÄ± | GUID yollarÄ±nda `Get-ChildItem` |
+| Omaha Güncelleyici Şeması | Windows kayıt defteri `ClientState` anahtarları | GUID yollarında `Get-ChildItem` |
 
 ---
 
-### 6. GÃ¼ven ve Tedarik Zinciri
+### 6. Güven ve Tedarik Zinciri
 
-#### 6.1 Kod BÃ¼tÃ¼nlÃ¼ÄŸÃ¼
+#### 6.1 Kod Bütünlüğü
 
-- **Tamamen aÃ§Ä±k kaynak** â€” her satÄ±r [github.com/bayraktarozcan/Brave-Omega-Project](https://github.com/bayraktarozcan/Brave-Omega-Project) adresinde kamuya aÃ§Ä±ktÄ±r
-- **Gizleme yok** â€” PowerShell kaynaÄŸÄ± dÃ¼z metin, insan tarafÄ±ndan okunabilir ve incelenebilir
-- **DerlenmiÅŸ ikili dosya yok** â€” `.exe`, `.dll` veya `.msi` dosyasÄ± yok
-- **Harici baÄŸÄ±mlÄ±lÄ±k yok** â€” yalnÄ±zca Windows 11 ile birlikte gelen PowerShell 5.1+ gerektirir
+- **Tamamen açık kaynak** — her satır [github.com/bayraktarozcan/Brave-Omega-Project](https://github.com/bayraktarozcan/Brave-Omega-Project) adresinde kamuya açıktır
+- **Gizleme yok** — PowerShell kaynağı düz metin, insan tarafından okunabilir ve incelenebilir
+- **Derlenmiş ikili dosya yok** — `.exe`, `.dll` veya `.msi` dosyası yok
+- **Harici bağımlılık yok** — yalnızca Windows 11 ile birlikte gelen PowerShell 5.1+ gerektirir
 
-#### 6.2 Ä°mza DoÄŸrulama
+#### 6.2 İmza Doğrulama
 
-Proje bakÄ±mcÄ±larÄ± sÃ¼rÃ¼mleri ve etiketleri GPG kullanarak imzalar:
+Proje bakımcıları sürümleri ve etiketleri GPG kullanarak imzalar:
 
 ```powershell
 git tag -v v2.0
 ```
 
-#### 6.3 Tedarik Zinciri Ã–nerileri
+#### 6.3 Tedarik Zinciri Önerileri
 
-Kurumsal daÄŸÄ±tÄ±mlar iÃ§in:
-1. Depoyu forklayÄ±n ve kodu dahili olarak denetleyin
-2. Ãœretim ortamÄ±ndan Ã¶nce test ortamÄ±nda Ã§alÄ±ÅŸtÄ±rÄ±n
-3. `main` dalÄ± deÄŸil, belirli bir sÃ¼rÃ¼m etiketine sabitleyin
-4. Ä°ndirilen sÃ¼rÃ¼m yapÄ±tlarÄ±nÄ±n SHA256 saÄŸlama toplamlarÄ±nÄ± doÄŸrulayÄ±n
+Kurumsal dağıtımlar için:
+1. Depoyu forklayın ve kodu dahili olarak denetleyin
+2. Üretim ortamından önce test ortamında çalıştırın
+3. `main` dalı değil, belirli bir sürüm etiketine sabitleyin
+4. İndirilen sürüm yapıtlarının SHA256 sağlama toplamlarını doğrulayın
 
 ---
 
-### 7. KayÄ±t Defteri GÃ¼venliÄŸi
+### 7. Kayıt Defteri Güvenliği
 
 #### 7.1 Otomatik Yedekleme
 
-Her HKLM politikasÄ± yazmadan Ã¶nce, betik mevcut durumu dÄ±ÅŸa aktarÄ±r:
+Her HKLM politikası yazmadan önce, betik mevcut durumu dışa aktarır:
 
 ```powershell
 reg export "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" "yedek.reg" /y
 ```
 
-#### 7.2 KararsÄ±z Olmayan TasarÄ±m
+#### 7.2 Kararsız Olmayan Tasarım
 
-TÃ¼m kayÄ±t defteri yazma iÅŸlemleri `-Force` bayraÄŸÄ±nÄ± kullanÄ±r. BetiÄŸi birden fazla kez Ã§alÄ±ÅŸtÄ±rmak:
-- Yinelenen kayÄ±t oluÅŸturmaz
+Tüm kayıt defteri yazma işlemleri `-Force` bayrağını kullanır. Betiği birden fazla kez çalıştırmak:
+- Yinelenen kayıt oluşturmaz
 - Yan etkiye neden olmaz
-- Her seferinde aynÄ± sonucu Ã¼retir
+- Her seferinde aynı sonucu üretir
 
-#### 7.3 Hata YÃ¶netimi
+#### 7.3 Hata Yönetimi
 
-Her kayÄ±t defteri yazma iÅŸlemi ayrÄ± ayrÄ± try-catch bloÄŸuyla sarÄ±lÄ±r:
-- BaÅŸarÄ±sÄ±z politikalar tÃ¼m betiÄŸi durdurmaz
-- BaÅŸarÄ± ve baÅŸarÄ±sÄ±zlÄ±k sayaÃ§larla takip edilir
-- Nihai Ã¶zet raporu tam olarak neyin uygulandÄ±ÄŸÄ±nÄ± gÃ¶sterir
+Her kayıt defteri yazma işlemi ayrı ayrı try-catch bloğuyla sarılır:
+- Başarısız politikalar tüm betiği durdurmaz
+- Başarı ve başarısızlık sayaçlarla takip edilir
+- Nihai özet raporu tam olarak neyin uygulandığını gösterir
 
 #### 7.4 Geri Alma
 
-Tek komutla tam durum geri yÃ¼kleme:
+Tek komutla tam durum geri yükleme:
 ```powershell
 reg import "%TEMP%\BravePolicyYedek\HKLM_BravePolicy_20260607_143022.reg"
 ```
 
-#### 7.5 Politika TÃ¼rleri
+#### 7.5 Politika Türleri
 
-Betik Ã¼Ã§ kayÄ±t defteri deÄŸer tÃ¼rÃ¼nÃ¼ iÅŸler:
+Betik üç kayıt defteri değer türünü işler:
 
-| KayÄ±t Defteri TÃ¼rÃ¼ | PowerShell TÃ¼rÃ¼ | Ã–rnekler |
+| Kayıt Defteri Türü | PowerShell Türü | Örnekler |
 |--------------------|----------------|----------|
-| `REG_DWORD` | `DWord` | Boolean ve tamsayÄ± politikalarÄ± (en yaygÄ±n) |
-| `REG_SZ` | `String` | Enum string politikalarÄ± (WebRTC, DNS, HTTPS) |
-| `REG_MULTI_SZ` | `MultiString` | Liste politikalarÄ± (URL listeleri, senkronizasyon tÃ¼rleri) |
+| `REG_DWORD` | `DWord` | Boolean ve tamsayı politikaları (en yaygın) |
+| `REG_SZ` | `String` | Enum string politikaları (WebRTC, DNS, HTTPS) |
+| `REG_MULTI_SZ` | `MultiString` | Liste politikaları (URL listeleri, senkronizasyon türleri) |
 
 ---
 
-### 8. SÄ±kÄ±laÅŸtÄ±rma Seviyeleri
+### 8. Sıkılaştırma Seviyeleri
 
-Brave Omega dÃ¶rt kademeli sÄ±kÄ±laÅŸtÄ±rma seviyesi sunar:
+Brave Omega dört kademeli sıkılaştırma seviyesi sunar:
 
-| Seviye | Politika SayÄ±sÄ± | AÃ§Ä±klama | KullanÄ±m Etkisi |
+| Seviye | Politika Sayısı | Açıklama | Kullanım Etkisi |
 |--------|----------------|----------|----------------|
-| **Brave YalnÄ±z** | 13 Brave'e Ã¶zgÃ¼ | YalnÄ±zca Brave'in tÃ¼mleÅŸik hizmetlerini kapatÄ±r | Yok |
-| **Temel â­** | 29 (Brave Yalnız + 16) | Brave + sÄ±fÄ±r etkili veri sÄ±zÄ±ntÄ±sÄ± Ã¶nleme | Yok |
-| **Dengeli** | 47 (Temel + 18) | Tam gÃ¼venlik temeli, kÃ¼Ã§Ã¼k deÄŸiÅŸiklikler | DÃ¼ÅŸÃ¼k |
-| **KatÄ±** | 67 (Dengeli + 20) | Azami gizlilik korumasÄ± | Orta |
+| **Brave Yalnız** | 13 Brave'e özgü | Yalnızca Brave'in tümleşik hizmetlerini kapatır | Yok |
+| **Temel ⭐** | 29 (Brave Yalnız + 16) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
+| **Dengeli** | 47 (Temel + 18) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
+| **Katı** | 67 (Dengeli + 20) | Azami gizlilik koruması | Orta |
 
-Her seviye, Ã¶nceki seviyelerdeki tÃ¼m politikalarÄ± kÃ¼mÃ¼latif olarak iÃ§erir. Tam politika referansÄ± iÃ§in [README.md](README.md) dosyasÄ±na bakÄ±n.
+Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 
 ---
 
-### 9. GÃ¼venlik SSS
+### 9. Güvenlik SSS
 
-**S: Brave Omega, Brave tarayÄ±cÄ± ikili dosyasÄ±nÄ± deÄŸiÅŸtirir mi?**
-C: HayÄ±r. YalnÄ±zca Windows KayÄ±t Defteri'ne yazar. TarayÄ±cÄ± ikili dosyasÄ±na dokunulmaz.
+**S: Brave Omega, Brave tarayıcı ikili dosyasını değiştirir mi?**
+C: Hayır. Yalnızca Windows Kayıt Defteri'ne yazar. Tarayıcı ikili dosyasına dokunulmaz.
 
-**S: Bu politikalar yedek olmadan geri alÄ±nabilir mi?**
-C: Evet. TÃ¼m politikalarÄ± kaldÄ±rmak iÃ§in `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` kayÄ±t defteri anahtarÄ±nÄ± silin. Denetim amaÃ§lÄ± tam yedek Ã¶nerilir.
+**S: Bu politikalar yedek olmadan geri alınabilir mi?**
+C: Evet. Tüm politikaları kaldırmak için `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` kayıt defteri anahtarını silin. Denetim amaçlı tam yedek önerilir.
 
-**S: Brave Omega tÃ¼m izlemeye karÅŸÄ± korur mu?**
-C: HiÃ§bir araÃ§ mutlak gizlilik saÄŸlayamaz. Brave Omega, kurumsal politika kanallarÄ± aracÄ±lÄ±ÄŸÄ±yla **birinci taraf veri aktarÄ±mÄ± ve veri sÄ±zÄ±ntÄ±sÄ± Ã¶nlemeye** odaklanÄ±r. Ek korumalar (VPN'ler, parmak izine karÅŸÄ± koruma vb.) tamamlayÄ±cÄ±dÄ±r.
+**S: Brave Omega tüm izlemeye karşı korur mu?**
+C: Hiçbir araç mutlak gizlilik sağlayamaz. Brave Omega, kurumsal politika kanalları aracılığıyla **birinci taraf veri aktarımı ve veri sızıntısı önlemeye** odaklanır. Ek korumalar (VPN'ler, parmak izine karşı koruma vb.) tamamlayıcıdır.
 
-**S: Bu betiÄŸi yÃ¶netilen bir kurumsal ortamda Ã§alÄ±ÅŸtÄ±rabilir miyim?**
-C: Evet, ancak Ã¶nce Ã¼retim dÄ±ÅŸÄ± bir ortamda test edin. Betik, kararsÄ±z olmayan Ã§alÄ±ÅŸma ve otomatik yedeklemelerle kurumsal daÄŸÄ±tÄ±m iÃ§in tasarlanmÄ±ÅŸtÄ±r. Sessiz daÄŸÄ±tÄ±m iÃ§in `-Level` parametresini kullanÄ±n.
+**S: Bu betiği yönetilen bir kurumsal ortamda çalıştırabilir miyim?**
+C: Evet, ancak önce üretim dışı bir ortamda test edin. Betik, kararsız olmayan çalışma ve otomatik yedeklemelerle kurumsal dağıtım için tasarlanmıştır. Sessiz dağıtım için `-Level` parametresini kullanın.
 
-**S: Brave gÃ¼ncellendiÄŸinde ne olur?**
-C: KayÄ±t defteri politikalarÄ± tarayÄ±cÄ± gÃ¼ncellemeleri arasÄ±nda kalÄ±cÄ±dÄ±r. Ancak yeni Brave/Chromium sÃ¼rÃ¼mleri yeni politikalar ekleyebilir veya mevcutlarÄ± kullanÄ±mdan kaldÄ±rabilir. Ä°lgili Brave sÃ¼rÃ¼mÃ¼ iÃ§in her zaman en gÃ¼ncel Brave Omega sÃ¼rÃ¼mÃ¼nÃ¼ kullanÄ±n.
+**S: Brave güncellendiğinde ne olur?**
+C: Kayıt defteri politikaları tarayıcı güncellemeleri arasında kalıcıdır. Ancak yeni Brave/Chromium sürümleri yeni politikalar ekleyebilir veya mevcutları kullanımdan kaldırabilir. İlgili Brave sürümü için her zaman en güncel Brave Omega sürümünü kullanın.
 
-**S: Bu betik Chrome ile Ã§alÄ±ÅŸÄ±r mÄ±?**
-C: Politika kayÄ±t defteri yollarÄ± farklÄ±dÄ±r. Brave `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` kullanÄ±rken Chrome `HKLM\SOFTWARE\Policies\Google\Chrome` kullanÄ±r. Yol ikamesiyle birÃ§ok politika uyumludur ancak bu proje Ã¶zellikle Brave'i hedefler.
+**S: Bu betik Chrome ile çalışır mı?**
+C: Politika kayıt defteri yolları farklıdır. Brave `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` kullanırken Chrome `HKLM\SOFTWARE\Policies\Google\Chrome` kullanır. Yol ikamesiyle birçok politika uyumludur ancak bu proje özellikle Brave'i hedefler.
 
 ---
 
@@ -588,18 +588,12 @@ C: Politika kayÄ±t defteri yollarÄ± farklÄ±dÄ±r. Brave `HKLM\SOFTWARE\Po
 
 <br>
 
-**ğŸ¦ Brave Omega Project** â€” Community Edition
+**🦁 Brave Omega Project** — Community Edition
 
 *Security is not a feature. It is a foundation.*
 
-*GÃ¼venlik bir Ã¶zellik deÄŸildir. Temeldir.*
+*Güvenlik bir özellik değildir. Temeldir.*
 
 <br>
 
 </div>
-
-
-
-
-
-
