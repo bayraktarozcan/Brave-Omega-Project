@@ -1,6 +1,6 @@
 param(
     [string]$AdmxUrl = "https://dl.google.com/update2/installers/ChromePolicyTemplate_149.zip",
-    [string]$BraveVersion = "1.91.175",
+    [string]$BraveVersion = "1.91.178",
     [string]$PolicyFile = "Brave Omega/BraveOmega-EN.ps1"
 )
 
