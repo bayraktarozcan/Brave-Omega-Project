@@ -14,7 +14,7 @@ Write-Host "ADMX URL      : $AdmxUrl`n" -ForegroundColor Gray
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 1: Download and extract ADMX
 # ─────────────────────────────────────────────────────────────────────────────
-$tmpDir = Join-Path $env:TEMP "admx-validate-$(Get-Random)"
+$tmpDir = Join-Path ([System.IO.Path]::GetTempPath()) "admx-validate-$(Get-Random)"
 New-Item -Path $tmpDir -ItemType Directory -Force | Out-Null
 
 $zipPath = Join-Path $tmpDir "admx.zip"
