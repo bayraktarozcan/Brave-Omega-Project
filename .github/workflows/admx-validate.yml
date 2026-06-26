@@ -1,6 +1,8 @@
 name: ADMX Policy Validation
 
 on:
+  pull_request:
+    branches: [main]
   schedule:
     # Run weekly on Monday at 06:00 UTC
     - cron: "0 6 * * 1"
