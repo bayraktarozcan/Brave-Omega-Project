@@ -27,10 +27,13 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v2.1.3 — 2026-06-26](#en-v213)
+2.  [v2.1.4 — 2026-06-27](#en-v214)
+    *   [Summary](#en-v214-summary)
+    *   [Changed](#en-v214-changed)
+3.  [v2.1.3 — 2026-06-26](#en-v213)
     *   [Summary](#en-v213-summary)
     *   [Changed](#en-v213-changed)
-3.  [v2.1.2 — 2026-06-18](#en-v212)
+4.  [v2.1.2 — 2026-06-18](#en-v212)
     *   [Summary](#en-v212-summary)
     *   [Changed](#en-v212-changed)
 4.  [v2.1.1 — 2026-06-18](#en-v211)
@@ -98,6 +101,36 @@ All notable changes to this project are documented below, following the [Keep a 
 - **Brave version bump** — Validated against Brave **1.91.175** (Chromium 149.0.7827.155). No policy changes from v2.1.1.
 - **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.91.175.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, validated version constants bumped.
+
+<a id="en-v214"></a>
+
+## [v2.1.4] — 2026-06-27
+
+<a id="en-v214-summary"></a>
+
+### 🎯 Summary
+
+**Validation release:** Brave **1.91.180** / Chromium **149.0.7827.201** compatibility confirmed. No policy changes — structural version bump only.
+
+<a id="en-v214-changed"></a>
+
+### Changed
+
+- **Brave version bump** — Validated against Brave **1.91.180** (Chromium 149.0.7827.201). No policy changes from v2.1.3.
+- **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.91.180.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.4"`, validated version constants bumped.
+- **.github templates enhanced** — pull_request_template.md created, config.yml fixed, bug_report.yaml and feature_request.yaml enriched with dropdowns.
+- **Branch protection corrected** — Required status check name fixed from workflow name to job name.
+
+### Added
+
+- **PR template** — `.github/pull_request_template.md` with checklist for PR hygiene.
+- **Issue form enhancements** — `bug_report.yaml`: severity dropdown; `feature_request.yaml`: category/priority/contribution dropdowns.
+
+### Fixed
+
+- **config.yml corruption** — Replaced broken `???` characters with proper YAML key syntax.
+- **Branch protection rule** — Status check name changed from `ADMX Policy Validation` (workflow) to `validate` (job name).
 
 <a id="en-v213"></a>
 
@@ -629,6 +662,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 validation; version bump |
 | v2.1.2 | 2026-06-18 | 67    | Brave 1.91.175 / Chromium 149.0.7827.155 validation; version bump |
 | v2.1.1 | 2026-06-18 | 67    | Dual-version detection; policy rebalance: TranslateEnabled→Strict, DefaultMediaStreamSetting removed |
@@ -683,10 +717,13 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v2.1.3 — 2026-06-26](#tr-v213)
+2.  [v2.1.4 — 2026-06-27](#tr-v214)
+    *   [Özet](#tr-v214-summary)
+    *   [Değiştirildi](#tr-v214-changed)
+3.  [v2.1.3 — 2026-06-26](#tr-v213)
     *   [Özet](#tr-v213-summary)
     *   [Değiştirildi](#tr-v213-changed)
-3.  [v2.1.2 — 2026-06-18](#tr-v212)
+4.  [v2.1.2 — 2026-06-18](#tr-v212)
     *   [Özet](#tr-v212-summary)
     *   [Değiştirildi](#tr-v212-changed)
 4.  [v2.1.1 — 2026-06-18](#tr-v211)
@@ -842,6 +879,36 @@ Eklenen/Değiştirilen Dosyalar:
 - **Brave sürüm yükseltmesi** — Brave **1.91.175** (Chromium 149.0.7827.155) ile doğrulandı. v2.1.1'den itibaren politika değişikliği yok.
 - **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.175'e güncellendi.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, doğrulanmış sürüm sabitleri güncellendi.
+
+<a id="tr-v214"></a>
+
+## [v2.1.4] — 2026-06-27
+
+<a id="tr-v214-summary"></a>
+
+### 🎯 Özet
+
+**Doğrulama sürümü:** Brave **1.91.180** / Chromium **149.0.7827.201** uyumluluğu onaylandı. Politika değişikliği yok — yalnızca yapısal sürüm yükseltmesi.
+
+<a id="tr-v214-changed"></a>
+
+### Değiştirildi
+
+- **Brave sürüm yükseltmesi** — Brave **1.91.180** (Chromium 149.0.7827.201) ile doğrulandı. v2.1.3'ten itibaren politika değişikliği yok.
+- **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.180'e güncellendi.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.4"`, doğrulanmış sürüm sabitleri güncellendi.
+- **.github şablonları iyileştirildi** — pull_request_template.md oluşturuldu, config.yml düzeltildi, bug_report.yaml ve feature_request.yaml açılır menülerle zenginleştirildi.
+- **Dal koruması düzeltildi** — Gerekli durum denetimi adı iş akışı adından iş adına düzeltildi.
+
+### Eklendi
+
+- **PR şablonu** — `.github/pull_request_template.md` PR hijyeni için kontrol listesiyle.
+- **Sorun formu iyileştirmeleri** — `bug_report.yaml`: önem derecesi açılır menüsü; `feature_request.yaml`: kategori/öncelik/katkı açılır menüleri.
+
+### Düzeltildi
+
+- **config.yml bozulması** — Bozuk `???` karakterleri uygun YAML anahtar sözdizimi ile değiştirildi.
+- **Dal koruma kuralı** — Durum denetimi adı `ADMX Policy Validation` (iş akışı) yerine `validate` (iş adı) olarak değiştirildi.
 
 <a id="tr-v213"></a>
 
@@ -1287,6 +1354,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 doğrulaması; sürüm yükseltmesi |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 doğrulaması; sürüm yükseltmesi |
 | v2.1.2 | 2026-06-18 | 67    | Brave 1.91.175 / Chromium 149.0.7827.155 doğrulaması; sürüm yükseltmesi |
 | v2.1.1 | 2026-06-18 | 67    | Çift sürüm algılama; politika yeniden dengesi: TranslateEnabled→Katı, DefaultMediaStreamSetting kaldırıldı |

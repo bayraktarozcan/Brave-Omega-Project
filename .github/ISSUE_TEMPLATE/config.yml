@@ -1,11 +1,11 @@
-???blank_issues_enabled: true
+blank_issues_enabled: true
 contact_links:
-  - name: ???? GitHub Discussions
+  - name: GitHub Discussions
     url: https://github.com/bayraktarozcan/Brave-Omega-Project/discussions
-    about: Questions, ideas, and general discussion ??? EN / TR
-  - name: ??????? Security Disclosure
+    about: "Questions, ideas, and general discussion — EN / TR"
+  - name: Security Disclosure
     url: https://github.com/bayraktarozcan/Brave-Omega-Project/security/policy
-    about: Report a vulnerability privately ??? SECURITY.md
-  - name: ???? Wiki
+    about: "Report a vulnerability privately — SECURITY.md"
+  - name: Wiki
     url: https://github.com/bayraktarozcan/Brave-Omega-Project/wiki
-    about: Installation, troubleshooting, policy reference
+    about: "Installation, troubleshooting, policy reference"
