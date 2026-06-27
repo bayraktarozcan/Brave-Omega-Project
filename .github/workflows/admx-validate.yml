@@ -17,10 +17,10 @@ on:
         description: "Brave version to validate against"
         required: false
         default: "1.91.180"
-      chromium_version:
-        description: "Chromium version for ADMX URL"
+      admx_url:
+        description: "ADMX template ZIP URL (default: latest Chrome stable)"
         required: false
-        default: "149"
+        default: "https://dl.google.com/dl/edgedl/chrome/policy/policy_templates.zip"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -45,10 +45,9 @@ jobs:
         id: run_validation
         shell: pwsh
         run: |
-          $chromium = "${{ github.event.inputs.chromium_version || '149' }}"
+          $admxUrl = "${{ github.event.inputs.admx_url || 'https://dl.google.com/dl/edgedl/chrome/policy/policy_templates.zip' }}"
           $brave = "${{ github.event.inputs.brave_version || '1.91.180' }}"
-          $admxUrl = "https://dl.google.com/update2/installers/ChromePolicyTemplate_${chromium}.zip"
-          Write-Host "::notice::Validating Brave $brave against Chromium $chromium"
+          Write-Host "::notice::Validating Brave $brave against Chrome ADMX templates"
           .github/workflows/admx-validate.ps1 `
             -AdmxUrl $admxUrl `
             -BraveVersion $brave `
