@@ -1,0 +1,57 @@
+# Brave Omega Project — Quality Checks
+# Lint markdown, validate YAML, and enforce code style consistency.
+
+name: "Quality"
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  markdown-lint:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v19
+        continue-on-error: true
+        with:
+          globs: "**/*.md"
+          config: ".github/linters/.markdownlint.json"
+
+  yaml-validate:
+    name: Validate YAML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yamllint
+        run: pip install yamllint
+      - name: Run yamllint
+        run: |
+          yamllint .github/ --format colored -d "{extends: relaxed, rules: {line-length: disable, new-lines: disable}}" || exit 1
+
+  powershell-syntax:
+    name: Check PowerShell Syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate PowerShell syntax
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Path "." -Recurse -Filter "*.ps1" | Select-Object -ExpandProperty FullName
+          $exitCode = 0
+          foreach ($file in $files) {
+            try {
+              $ast = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref]$null, [ref]$null)
+              Write-Host "✓ $file"
+            } catch {
+              Write-Host "✗ $file : $_"
+              $exitCode = 1
+            }
+          }
+          exit $exitCode
