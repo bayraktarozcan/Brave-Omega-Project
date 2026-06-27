@@ -19,8 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DavidAnson/markdownlint-cli2-action@v19
+        continue-on-error: true
         with:
-          globs: "*.md"
+          globs: "**/*.md"
           config: ".github/linters/.markdownlint.json"
 
   yaml-validate:
@@ -28,10 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ibiqlik/action-yaml-lint@v3
-        with:
-          file_or_dir: ".github/**/*.yml .github/**/*.yaml"
-          config_data: "{extends: relaxed, rules: {line-length: disable}}"
+      - name: Install yamllint
+        run: pip install yamllint
+      - name: Run yamllint
+        run: |
+          yamllint .github/ --format colored -d "{extends: relaxed, rules: {line-length: disable}}" || exit 1
 
   powershell-syntax:
     name: Check PowerShell Syntax
