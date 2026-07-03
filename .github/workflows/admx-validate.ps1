@@ -1,6 +1,6 @@
 param(
     [string]$AdmxUrl = "https://dl.google.com/dl/edgedl/chrome/policy/policy_templates.zip",
-    [string]$BraveVersion = "1.91.180",
+    [string]$BraveVersion = "1.92.134",
     [string]$PolicyFile = "Brave Omega/BraveOmega-EN.ps1",
     [string]$OutputPath = ".github/workflows/admx-validation-report.json"
 )
