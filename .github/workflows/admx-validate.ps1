@@ -39,7 +39,8 @@ Write-Host "Using ADMX: $($admxFile.FullName)"
 Write-Host "::group::Parse ADMX policies"
 
 [xml]$admxXml = Get-Content -Path $admxFile.FullName -Raw
-$ns = @{admx = "http://schemas.microsoft.com/GroupPolicy/2006/07/GroupPolicy.ADMX"}
+$ns = New-Object -TypeName System.Xml.XmlNamespaceManager -ArgumentList $admxXml.NameTable
+$ns.AddNamespace("admx", "http://schemas.microsoft.com/GroupPolicy/2006/07/GroupPolicy.ADMX")
 
 # Extract all policies
 $admxPolicies = @{}
