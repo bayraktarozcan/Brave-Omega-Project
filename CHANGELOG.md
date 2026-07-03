@@ -27,54 +27,57 @@
 ### Table of Contents
 
 1.  [Introduction](#en-introduction)
-2.  [v2.1.4 — 2026-06-27](#en-v214)
+2.  [v2.1.5 — 2026-07-03](#en-v215)
+    *   [Summary](#en-v215-summary)
+    *   [Changed](#en-v215-changed)
+3.  [v2.1.4 — 2026-06-27](#en-v214)
     *   [Summary](#en-v214-summary)
     *   [Changed](#en-v214-changed)
-3.  [v2.1.3 — 2026-06-26](#en-v213)
+4.  [v2.1.3 — 2026-06-26](#en-v213)
     *   [Summary](#en-v213-summary)
     *   [Changed](#en-v213-changed)
-4.  [v2.1.2 — 2026-06-18](#en-v212)
+5.  [v2.1.2 — 2026-06-18](#en-v212)
     *   [Summary](#en-v212-summary)
     *   [Changed](#en-v212-changed)
-4.  [v2.1.1 — 2026-06-18](#en-v211)
+5.  [v2.1.1 — 2026-06-18](#en-v211)
     *   [Summary](#en-v211-summary)
     *   [Fixed](#en-v211-fixed)
-5.  [v2.1 — 2026-06-16](#en-v21)
+6.  [v2.1 — 2026-06-16](#en-v21)
     *   [Summary](#en-v21-summary)
     *   [Added](#en-v21-added)
     *   [Changed](#en-v21-changed)
     *   [Statistics](#en-v21-statistics)
-6.  [v2.0 — 2026-06-16](#en-v20)
+7.  [v2.0 — 2026-06-16](#en-v20)
     *   [Summary](#en-v20-summary)
     *   [Added](#en-v20-added)
     *   [Changed](#en-v20-changed)
     *   [Statistics](#en-v20-statistics)
-7.  [v1.2.2 — 2026-06-13](#en-v122)
+8.  [v1.2.2 — 2026-06-13](#en-v122)
     *   [Summary](#en-v122-summary)
     *   [Changed](#en-v122-changed)
-8.  [v1.2.1 — 2026-06-13](#en-v121)
+9.  [v1.2.1 — 2026-06-13](#en-v121)
     *   [Summary](#en-v121-summary)
     *   [Changed](#en-v121-changed)
-9.  [v1.2 — 2026-06-12](#en-v12)
+10. [v1.2 — 2026-06-12](#en-v12)
     *   [Summary](#en-v12-summary)
     *   [Added](#en-v12-added)
     *   [Statistics](#en-v12-statistics)
     *   [Changed](#en-v12-changed)
     *   [Security](#en-v12-security)
-10. [v1.1 — 2026-06-05](#en-v11)
+11. [v1.1 — 2026-06-05](#en-v11)
     *   [Summary](#en-v11-summary)
     *   [Added](#en-v11-added)
     *   [Changed](#en-v11-changed)
     *   [Removed](#en-v11-removed)
     *   [Details](#en-v11-details)
-11. [v1.0 — 2026-06-04](#en-v10)
+12. [v1.0 — 2026-06-04](#en-v10)
     *   [Summary](#en-v10-summary)
     *   [Features](#en-v10-features)
     *   [Initial Policies](#en-v10-initial-policies)
     *   [Documentation](#en-v10-documentation)
-12. [Version History Summary](#en-version-history-summary)
-13. [Related Documentation](#en-related-documentation)
-14. [Notes](#en-notes)
+13. [Version History Summary](#en-version-history-summary)
+14. [Related Documentation](#en-related-documentation)
+15. [Notes](#en-notes)
 
 ---
 
@@ -83,6 +86,25 @@
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
 
 ---
+
+<a id="en-v215"></a>
+
+## [v2.1.5] — 2026-07-03
+
+<a id="en-v215-summary"></a>
+
+### 🎯 Summary
+
+**Version bump:** Brave **1.92.134** / Chromium **150.0.7871.63** compatibility confirmed. Chromium 149→150 upgrade — no policy changes from v2.1.4.
+
+<a id="en-v215-changed"></a>
+
+### Changed
+
+- **Brave version bump** — Validated against Brave **1.92.134** (Chromium 150.0.7871.63). No policy changes from v2.1.4.
+- **Chromium major upgrade** — Chromium 149 → 150. Verified no new relevant enterprise policies or deprecations affecting existing 67-policy set.
+- **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.92.134 / Chromium 150.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.5"`, validated version constants bumped.
 
 <a id="en-v212"></a>
 
@@ -662,6 +684,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149→150, no policy changes |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 validation; version bump |
 | v2.1.2 | 2026-06-18 | 67    | Brave 1.91.175 / Chromium 149.0.7827.155 validation; version bump |
@@ -717,54 +740,57 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1.  [Giriş](#tr-introduction)
-2.  [v2.1.4 — 2026-06-27](#tr-v214)
+2.  [v2.1.5 — 2026-07-03](#tr-v215)
+    *   [Özet](#tr-v215-summary)
+    *   [Değiştirildi](#tr-v215-changed)
+3.  [v2.1.4 — 2026-06-27](#tr-v214)
     *   [Özet](#tr-v214-summary)
     *   [Değiştirildi](#tr-v214-changed)
-3.  [v2.1.3 — 2026-06-26](#tr-v213)
+4.  [v2.1.3 — 2026-06-26](#tr-v213)
     *   [Özet](#tr-v213-summary)
     *   [Değiştirildi](#tr-v213-changed)
-4.  [v2.1.2 — 2026-06-18](#tr-v212)
+5.  [v2.1.2 — 2026-06-18](#tr-v212)
     *   [Özet](#tr-v212-summary)
     *   [Değiştirildi](#tr-v212-changed)
-4.  [v2.1.1 — 2026-06-18](#tr-v211)
+5.  [v2.1.1 — 2026-06-18](#tr-v211)
     *   [Özet](#tr-v211-summary)
     *   [Düzeltildi](#tr-v211-fixed)
-5.  [v2.1 — 2026-06-16](#tr-v21)
+6.  [v2.1 — 2026-06-16](#tr-v21)
     *   [Özet](#tr-v21-summary)
     *   [Eklendi](#tr-v21-added)
     *   [Değiştirildi](#tr-v21-changed)
     *   [İstatistikler](#tr-v21-statistics)
-6.  [v2.0 — 2026-06-16](#tr-v20)
+7.  [v2.0 — 2026-06-16](#tr-v20)
     *   [Özet](#tr-v20-summary)
     *   [Eklendi](#tr-v20-added)
     *   [Değiştirildi](#tr-v20-changed)
     *   [İstatistikler](#tr-v20-statistics)
-7.  [v1.2.2 — 2026-06-13](#tr-v122)
+8.  [v1.2.2 — 2026-06-13](#tr-v122)
     *   [Özet](#tr-v122-summary)
     *   [Değiştirildi](#tr-v122-changed)
-8.  [v1.2.1 — 2026-06-13](#tr-v121)
+9.  [v1.2.1 — 2026-06-13](#tr-v121)
     *   [Özet](#tr-v121-summary)
     *   [Değiştirildi](#tr-v121-changed)
-9.  [v1.2 — 2026-06-12](#tr-v12)
+10. [v1.2 — 2026-06-12](#tr-v12)
     *   [Özet](#tr-v12-summary)
     *   [Eklendi](#tr-v12-added)
     *   [İstatistikler](#tr-v12-statistics)
     *   [Değiştirildi](#tr-v12-changed)
     *   [Güvenlik](#tr-v12-security)
-10. [v1.1 — 2026-06-05](#tr-v11)
+11. [v1.1 — 2026-06-05](#tr-v11)
     *   [Özet](#tr-v11-summary)
     *   [Eklendi](#tr-v11-added)
     *   [Değiştirildi](#tr-v11-changed)
     *   [Kaldırıldı](#tr-v11-removed)
     *   [Detaylar](#tr-v11-details)
-11. [v1.0 — 2026-06-04](#tr-v10)
+12. [v1.0 — 2026-06-04](#tr-v10)
     *   [Özet](#tr-v10-summary)
     *   [Özellikler](#tr-v10-features)
     *   [Başlangıç Politikaları](#tr-v10-initial-policies)
     *   [Belgelendirme](#tr-v10-documentation)
-12. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-13. [İlgili Belgelendirme](#tr-related-documentation)
-14. [Notlar](#tr-notes)
+13. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+14. [İlgili Belgelendirme](#tr-related-documentation)
+15. [Notlar](#tr-notes)
 
 ---
 
@@ -879,6 +905,25 @@ Eklenen/Değiştirilen Dosyalar:
 - **Brave sürüm yükseltmesi** — Brave **1.91.175** (Chromium 149.0.7827.155) ile doğrulandı. v2.1.1'den itibaren politika değişikliği yok.
 - **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.175'e güncellendi.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, doğrulanmış sürüm sabitleri güncellendi.
+
+<a id="tr-v215"></a>
+
+## [v2.1.5] — 2026-07-03
+
+<a id="tr-v215-summary"></a>
+
+### 🎯 Özet
+
+**Sürüm yükseltmesi:** Brave **1.92.134** / Chromium **150.0.7871.63** uyumluluğu onaylandı. Chromium 149→150 yükseltmesi — v2.1.4'ten itibaren politika değişikliği yok.
+
+<a id="tr-v215-changed"></a>
+
+### Değiştirildi
+
+- **Brave sürüm yükseltmesi** — Brave **1.92.134** (Chromium 150.0.7871.63) ile doğrulandı. v2.1.4'ten itibaren politika değişikliği yok.
+- **Chromium ana sürüm yükseltmesi** — Chromium 149 → 150. Mevcut 67 politikalık seti etkileyen yeni kurumsal politika veya kullanımdan kaldırma olmadığı doğrulandı.
+- **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.92.134 / Chromium 150'ye güncellendi.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.5"`, doğrulanmış sürüm sabitleri güncellendi.
 
 <a id="tr-v214"></a>
 
@@ -1354,6 +1399,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 yükseltmesi; Chromium 149→150, politika değişikliği yok |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 doğrulaması; sürüm yükseltmesi |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 doğrulaması; sürüm yükseltmesi |
 | v2.1.2 | 2026-06-18 | 67    | Brave 1.91.175 / Chromium 149.0.7827.155 doğrulaması; sürüm yükseltmesi |

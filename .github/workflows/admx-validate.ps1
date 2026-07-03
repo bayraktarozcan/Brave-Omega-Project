@@ -1,6 +1,6 @@
 param(
     [string]$AdmxUrl = "https://dl.google.com/dl/edgedl/chrome/policy/policy_templates.zip",
-    [string]$BraveVersion = "1.91.180",
+    [string]$BraveVersion = "1.92.134",
     [string]$PolicyFile = "Brave Omega/BraveOmega-EN.ps1",
     [string]$OutputPath = ".github/workflows/admx-validation-report.json"
 )
@@ -11,8 +11,8 @@ $ErrorActionPreference = "Stop"
 # 1. Download and extract Chrome ADMX template
 # -------------------------------------------------------------------
 Write-Host "::group::Download ADMX template"
-$zipPath = Join-Path $env:TEMP "chrome-policy-template.zip"
-$admxDir = Join-Path $env:TEMP "chrome-admx"
+$zipPath = Join-Path ([System.IO.Path]::GetTempPath()) "chrome-policy-template.zip"
+$admxDir = Join-Path ([System.IO.Path]::GetTempPath()) "chrome-admx"
 
 if (Test-Path $admxDir) { Remove-Item -Path $admxDir -Recurse -Force }
 New-Item -Path $admxDir -ItemType Directory -Force | Out-Null
@@ -39,7 +39,8 @@ Write-Host "Using ADMX: $($admxFile.FullName)"
 Write-Host "::group::Parse ADMX policies"
 
 [xml]$admxXml = Get-Content -Path $admxFile.FullName -Raw
-$ns = @{admx = "http://schemas.microsoft.com/GroupPolicy/2006/07/GroupPolicy.ADMX"}
+$ns = New-Object -TypeName System.Xml.XmlNamespaceManager -ArgumentList $admxXml.NameTable
+$ns.AddNamespace("admx", "http://schemas.microsoft.com/GroupPolicy/2006/07/GroupPolicy.ADMX")
 
 # Extract all policies
 $admxPolicies = @{}
