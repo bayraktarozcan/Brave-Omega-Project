@@ -17,8 +17,8 @@ jobs:
     name: Lint Markdown
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v19
+      - uses: actions/checkout@v7
+      - uses: DavidAnson/markdownlint-cli2-action@v23
         continue-on-error: true
         with:
           globs: "**/*.md"
@@ -28,7 +28,7 @@ jobs:
     name: Validate YAML
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install yamllint
         run: pip install yamllint
       - name: Run yamllint
@@ -39,7 +39,7 @@ jobs:
     name: Check PowerShell Syntax
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Validate PowerShell syntax
         shell: pwsh
         run: |
