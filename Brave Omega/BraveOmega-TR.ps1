@@ -120,8 +120,8 @@ $MevcutKimlik = [Security.Principal.WindowsIdentity]::GetCurrent()
 $KullaniciRolu = New-Object Security.Principal.WindowsPrincipal($MevcutKimlik)
 $YoneticiModu = $KullaniciRolu.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-if (-not $YoneticiModu) {
-    Write-Error "KRİTİK HATA: HKLM (Local Machine) kovanına kurumsal ilkeleri mühürlemek için bu betiğin 'Yönetici Olarak' çalıştırılması zorunludur!"
+if (-not $YoneticiModu -and -not $WhatIf) {
+    Write-Error "KRİTİK HATA: HKLM (Local Machine) kovanına kurumsal ilkeleri mühürlemek için bu betiğin 'Yönetici Olarak' çalıştırılması zorunludur! (Önizleme için -WhatIf kullanın.)"
     exit 1
 }
 
