@@ -11,8 +11,8 @@ $ErrorActionPreference = "Stop"
 # 1. Download and extract Chrome ADMX template
 # -------------------------------------------------------------------
 Write-Host "::group::Download ADMX template"
-$zipPath = Join-Path $env:TEMP "chrome-policy-template.zip"
-$admxDir = Join-Path $env:TEMP "chrome-admx"
+$zipPath = Join-Path ([System.IO.Path]::GetTempPath()) "chrome-policy-template.zip"
+$admxDir = Join-Path ([System.IO.Path]::GetTempPath()) "chrome-admx"
 
 if (Test-Path $admxDir) { Remove-Item -Path $admxDir -Recurse -Force }
 New-Item -Path $admxDir -ItemType Directory -Force | Out-Null
