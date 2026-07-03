@@ -1,4 +1,4 @@
-# ==============================================================================
+﻿# ==============================================================================
 # ==============================================================================
 #
 #                   BRAVE OMEGA PROJECT (Community Edition)
@@ -120,8 +120,8 @@ $CurrentIdentity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $UserRole = New-Object Security.Principal.WindowsPrincipal($CurrentIdentity)
 $IsAdmin = $UserRole.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-if (-not $IsAdmin) {
-    Write-Error "CRITICAL ERROR: This script must be run as 'Administrator' to seal enterprise policies in the HKLM (Local Machine) hive!"
+if (-not $IsAdmin -and -not $WhatIf) {
+    Write-Error "CRITICAL ERROR: This script must be run as 'Administrator' to seal enterprise policies in the HKLM (Local Machine) hive! (Use -WhatIf to preview without elevation.)"
     exit 1
 }
 

@@ -74,7 +74,11 @@ $RECYCLE.BIN/
 .LSOverride
 ._*
 
-# 6. CACHE & TEMP FILES / ÖNBELLEK VE GEÇİCİ DOSYALAR
+# 6. CACHE, TEMP & NODE FILES / ÖNBELLEK, GEÇİCİ VE NODE DOSYALARI
+# ─────────────────────────────────────────────────────────────────────────────
+# [EN] Exclude npm/node dependency directories from the repository.
+# [TR] npm/node bağımlılık dizinlerini deponun dışında tutar.
+node_modules/
 # ─────────────────────────────────────────────────────────────────────────────
 # [EN] Exclude cache directories and temporary processing files.
 # [TR] Önbellek dizinlerini ve geçici işlem dosyalarını dışarıda tutar.
