@@ -982,22 +982,56 @@ BRAVE OMEGA PROJECT/
 
 ---
 
-### 13. Yol Haritası
+### 13. Yol Haritası — 6 Aşamalı Uygulama Planı
 
-- [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı (v2.0)
-- [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString (v2.0)
-- [x] **`-Level` parametresi** — sessiz/otomatik dağıtım (v2.0)
-- [x] **SECURITY.md** — güvenlik açığı bildirim süreci (v2.0)
-- [x] **67 toplam politika** — 17'den 67'e genişletildi (v2.0)
-- [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar (v2.1)
-- [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi** — kayıt defterine yazmadan tüm değişiklikleri önizle (v2.1)
-- [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle (v2.1)
-- [x] **CONTRIBUTING.md** ve GitHub sorun şablonları (v2.1)
-- [x] **GitHub Actions ADMX doğrulama ardışık düzeni** — haftalık otomatik politika farkı doğrulaması (v2.1)
-- [ ] Ek dil sürümleri (topluluk katkıları memnuniyetle karşılanır — bkz. CONTRIBUTING.md)
-- [ ] Politika bazında ezme desteği — herhangi bir seviyeden tek tek politikaları dahil et/hariç tut
-- [ ] PowerShell yardım sistemi (`Get-Help BraveOmega-EN.ps1 -Detailed`)
-- [ ] SHA-256 sağlama toplamlarıyla imzalı sürümler
+#### ✅ Tamamlanan (Önceki Sürümler)
+
+- [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı
+- [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString
+- [x] **`-Level` parametresi** — sessiz/otomatik dağıtım
+- [x] **67 toplam politika** — 17'den 67'e genişletildi
+- [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar
+- [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi**
+- [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle
+- [x] **CONTRIBUTING.md** ve GitHub sorun şablonları
+- [x] **GitHub Actions ADMX doğrulama ardışık düzeni**
+- [x] **13 sıralı prompt dosyası** — `01-surum-guncelleme.md` - `13-moduler-mimari.md`
+- [x] **4 parçalı sürümleme şeması** — version.major.minor.revision
+- [x] **GitHub Project #4** — 6 açık issue (#25-#30), 5 kapalı (#10-#14)
+- [x] **Kalite hattı temiz** — markdownlint (13/13), yamllint, PowerShell sözdizimi
+
+#### 🔲 Aşama 0 — Hazırlık
+
+- [ ] **01-surum-guncelleme.md** — Brave sürüm referanslarını tüm dosyalarda güncelle
+
+#### 🔲 Aşama 1 — Denetim (Paralel 4 Prompt)
+
+- [ ] **02-politika-bosluk-analizi.md** — 13 eksik Brave politikasını belirle
+- [ ] **03-politika-deger-dogrulama.md** — ADMX değer ve aralıklarını doğrula
+- [ ] **04-deprecated-temizlik.md** — 4 kullanımdan kaldırılmış Chromium politikasını kaldır
+- [ ] **05-referans-guncelleme.md** — Referans dokümanı satır numaralarını güncelle
+
+#### 🔲 Aşama 2 — Uygulama
+
+- [ ] **06-politika-ekleme-brave.md** — 13 eksik Brave politikasını ekle (67→80)
+
+#### 🔲 Aşama 3 — Kalite & Test
+
+- [ ] **07-pester-test.md** — Pester test takımı (birim + entegrasyon)
+- [ ] **08-pssa-ekleme.md** — PSScriptAnalyzer CI entegrasyonu
+
+#### 🔲 Aşama 4 — Dokümantasyon/Yaygınlaştırma
+
+- [ ] **11-politika-katalogu.md** — docs/policy-catalog.md (tam meta veri)
+
+#### 🔲 Aşama 5 — Gelişmiş
+
+- [ ] **09-cross-platform-config.md** — Linux JSON + macOS .plist çıktı
+- [ ] **10-intune-mdm.md** — Intune/MDM dağıtım kılavuzu
+- [ ] **12-web-arayuzu.md** — Web tabanlı politika yapılandırıcı
+- [ ] **13-moduler-mimari.md** — Modüler mimari (modules/*.psm1)
+
+> Tüm aşamalı çalışmalar **GitHub Project #4** ile takip edilir.
 
 ---
 
