@@ -127,8 +127,8 @@ Wiki/
 **/Business-Intelligence/
 **/Knowledge-Intelligence/
 
-# 10. PROJECT KNOWLEDGE BASE / PROJE BİLGİ TABANI
+# 10. PROMPT TEMPORARY / GEÇİCİ PROMPT DOSYALARI
 # ─────────────────────────────────────────────────────────────────────────────
-# [EN] General-purpose reference documents for the agent, not committed to Git.
-# [TR] Ajan için genel amaçlı referans belgeleri, Git'e eklenmez.
-docs/
+# [EN] Scratch / WIP prompt files, not committed to Git.
+# [TR] Karalama / Yapım aşamasındaki prompt dosyaları, Git'e eklenmez.
+docs/prompts/_tmp/
