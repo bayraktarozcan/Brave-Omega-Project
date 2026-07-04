@@ -995,41 +995,36 @@ BRAVE OMEGA PROJECT/
 - [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle
 - [x] **CONTRIBUTING.md** ve GitHub sorun şablonları
 - [x] **GitHub Actions ADMX doğrulama ardışık düzeni**
-- [x] **13 sıralı prompt dosyası** — `01-surum-guncelleme.md` - `13-moduler-mimari.md`
 - [x] **4 parçalı sürümleme şeması** — version.major.minor.revision
 - [x] **GitHub Project #4** — 6 açık issue (#25-#30), 5 kapalı (#10-#14)
 - [x] **Kalite hattı temiz** — markdownlint (13/13), yamllint, PowerShell sözdizimi
 
-#### 🔲 Aşama 0 — Hazırlık
+#### 🔲 Aşama 1 — Denetim
 
-- [ ] **01-surum-guncelleme.md** — Brave sürüm referanslarını tüm dosyalarda güncelle
-
-#### 🔲 Aşama 1 — Denetim (Paralel 4 Prompt)
-
-- [ ] **02-politika-bosluk-analizi.md** — 13 eksik Brave politikasını belirle
-- [ ] **03-politika-deger-dogrulama.md** — ADMX değer ve aralıklarını doğrula
-- [ ] **04-deprecated-temizlik.md** — 4 kullanımdan kaldırılmış Chromium politikasını kaldır
-- [ ] **05-referans-guncelleme.md** — Referans dokümanı satır numaralarını güncelle
+- [ ] **Eksik politika analizi** — 13 eksik Brave politikasını belirle
+- [ ] **ADMX değer doğrulama** — politika değer aralıklarını ve varsayılanlarını doğrula
+- [ ] **Deprecated temizlik** — 4 kullanımdan kaldırılmış Chromium politikasını kaldır
+- [ ] **Referans güncelleme** — referans dokümanı satır numaralarını güncelle
 
 #### 🔲 Aşama 2 — Uygulama
 
-- [ ] **06-politika-ekleme-brave.md** — 13 eksik Brave politikasını ekle (67→80)
+- [ ] **Politika ekleme** — 13 eksik Brave politikasını betiğe ekle
 
 #### 🔲 Aşama 3 — Kalite & Test
 
-- [ ] **07-pester-test.md** — Pester test takımı (birim + entegrasyon)
-- [ ] **08-pssa-ekleme.md** — PSScriptAnalyzer CI entegrasyonu
+- [ ] **Pester test takımı** — birim + entegrasyon testleri
+- [ ] **PSScriptAnalyzer** — statik analiz CI entegrasyonu
 
 #### 🔲 Aşama 4 — Dokümantasyon/Yaygınlaştırma
 
-- [ ] **11-politika-katalogu.md** — docs/policy-catalog.md (tam meta veri)
+- [ ] **Politika kataloğu** — tam meta verili politika listesi
 
 #### 🔲 Aşama 5 — Gelişmiş
 
-- [ ] **09-cross-platform-config.md** — Linux JSON + macOS .plist çıktı
-- [ ] **10-intune-mdm.md** — Intune/MDM dağıtım kılavuzu
-- [ ] **12-web-arayuzu.md** — Web tabanlı politika yapılandırıcı
-- [ ] **13-moduler-mimari.md** — Modüler mimari (modules/*.psm1)
+- [ ] **Platformlar arası yapılandırma** — Linux JSON + macOS .plist çıktı
+- [ ] **Intune/MDM dağıtım kılavuzu** — kurumsal yönetim rehberi
+- [ ] **Web tabanlı politika yapılandırıcı** — interaktif arayüz
+- [ ] **Modüler mimari** — modüllere ayrılmış PowerShell modülleri
 
 > Tüm aşamalı çalışmalar **GitHub Project #4** ile takip edilir.
 

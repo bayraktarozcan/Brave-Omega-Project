@@ -861,15 +861,9 @@
         <div class="text-center mb-12 animate-fade-in-up">
             <span class="badge badge-green mb-4" data-i18n="roadmap_badge">Yol Haritası</span>
             <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="roadmap_heading">Aşamalı Uygulama Planı</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="roadmap_desc">Brave Omega 6 aşamalı uygulama planı.</p>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="roadmap_desc">Brave Omega 5 aşamalı uygulama planı.</p>
         </div>
         <div class="max-w-4xl mx-auto animate-fade-in-up-d1">
-            <div class="text-left mb-6">
-                <span class="text-xs font-bold text-[#f59e0b] uppercase tracking-wider" data-i18n="rm_phase0_title">Aşama 0 — Hazırlık</span>
-                <div class="mt-2 space-y-2">
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase0_1">Version sync: align all version references across the project</span></div>
-                </div>
-            </div>
             <div class="text-left mb-6">
                 <span class="text-xs font-bold text-[#8b5cf6] uppercase tracking-wider" data-i18n="rm_phase1_title">Aşama 1 — Denetim</span>
                 <div class="mt-2 space-y-2">
@@ -1253,26 +1247,24 @@ SOFTWARE.
             tr_s5_sym: "reg export fails during backup",
             tr_s5_cause: "Pre-existing restricted permissions on HKLM path",
             tr_s5_sol: "Inspect path with regedit; check ACL entries",
-            roadmap_desc: "Brave Omega phased execution plan \u2014 6 phases.",
-            rm_phase0_title: "Phase 0 \u2014 Preparation",
-            rm_phase0_1: "Version sync: align all version references across the project",
+            roadmap_desc: "Brave Omega phased execution plan \u2014 5 phases.",
             rm_phase1_title: "Phase 1 \u2014 Audit",
-            rm_phase1_1: "Gap analysis: identify missing policies",
-            rm_phase1_2: "Value audit: validate policy values and ranges",
-            rm_phase1_3: "Cleanup: remove deprecated policies",
-            rm_phase1_4: "Ref docs: refresh line numbers in reference",
+            rm_phase1_1: "Gap analysis: identify 13 missing Brave-specific policies",
+            rm_phase1_2: "Value audit: validate ADMX policy values, ranges and defaults",
+            rm_phase1_3: "Cleanup: remove 4 deprecated Chromium policies",
+            rm_phase1_4: "Ref docs: refresh line numbers after removals",
             rm_phase2_title: "Phase 2 \u2014 Implementation",
-            rm_phase2_1: "Implement: add missing Brave-specific policies to the script",
+            rm_phase2_1: "Policy addition: add 13 missing Brave-specific policies to the script",
             rm_phase3_title: "Phase 3 \u2014 Quality & Testing",
-            rm_phase3_1: "Test suite: add unit and integration tests",
-            rm_phase3_2: "Static analysis: add CI linting integration",
+            rm_phase3_1: "Test suite: build Pester unit and integration tests",
+            rm_phase3_2: "Static analysis: integrate PSScriptAnalyzer into CI",
             rm_phase4_title: "Phase 4 \u2014 Documentation & Distribution",
-            rm_phase4_1: "Policy catalog: generate a full metadata listing",
+            rm_phase4_1: "Policy catalog: generate complete metadata listing for all policies",
             rm_phase5_title: "Phase 5 \u2014 Advanced",
-            rm_phase5_1: "Cross-platform: Linux JSON + macOS plist outputs",
-            rm_phase5_2: "MDM: deployment guide for enterprise management",
-            rm_phase5_3: "Web UI: policy configurator interface",
-            rm_phase5_4: "Modular: refactor into module architecture",
+            rm_phase5_1: "Cross-platform: export Linux JSON and macOS plist configurations",
+            rm_phase5_2: "MDM: create Intune/MDM enterprise deployment guide",
+            rm_phase5_3: "Web UI: build interactive policy configurator",
+            rm_phase5_4: "Modular: refactor monolithic script into module-based architecture",
             contrib_desc: "Contributions are welcome. Please open an issue for discussion before submitting large pull requests.",
             contrib_ver_title: "Version Updates",
             contrib_ver_desc: "When a Brave stable changes a policy, open a PR with updated values, source reference, and changelog entry.",
@@ -1564,26 +1556,24 @@ SOFTWARE.
         tr_s5_sym: "Yedekleme ad\u0131m\u0131nda reg export ba\u015far\u0131s\u0131z oluyor",
         tr_s5_cause: "Mevcut HKLM yolunda k\u0131s\u0131tl\u0131 izin",
         tr_s5_sol: "regedit ile yolu incele; ACL girdilerini kontrol et",
-        roadmap_desc: "Brave Omega a\u015famal\u0131 uygulama plan\u0131 \u2014 6 a\u015fama.",
-        rm_phase0_title: "A\u015fama 0 \u2014 Haz\u0131rl\u0131k",
-        rm_phase0_1: "S\u00fcr\u00fcm senkronizasyonu: T\u00fcm dosyalardaki versiyon referanslar\u0131n\u0131 hizala",
+        roadmap_desc: "Brave Omega a\u015famal\u0131 uygulama plan\u0131 \u2014 5 a\u015fama.",
         rm_phase1_title: "A\u015fama 1 \u2014 Denetim",
-        rm_phase1_1: "Bo\u015fluk analizi: Eksik politikalar\u0131 belirle",
-        rm_phase1_2: "De\u011fer denetimi: Politika de\u011fer ve aral\u0131klar\u0131n\u0131 do\u011frula",
-        rm_phase1_3: "Temizlik: Kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f politikalar\u0131 kald\u0131r",
-        rm_phase1_4: "Referans: Referans d\u00f6k\u00fcman\u0131 sat\u0131r numaralar\u0131n\u0131 g\u00fcncelle",
+        rm_phase1_1: "Bo\u015fluk analizi: 13 eksik Brave politikas\u0131n\u0131 belirle",
+        rm_phase1_2: "De\u011fer denetimi: ADMX politika de\u011fer, aral\u0131k ve varsay\u0131lanlar\u0131n\u0131 do\u011frula",
+        rm_phase1_3: "Temizlik: 4 kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f Chromium politikas\u0131n\u0131 kald\u0131r",
+        rm_phase1_4: "Referans: Kald\u0131rma sonras\u0131 sat\u0131r numaralar\u0131n\u0131 g\u00fcncelle",
         rm_phase2_title: "A\u015fama 2 \u2014 Uygulama",
-        rm_phase2_1: "Uygulama: Eksik Brave politikalar\u0131n\u0131 beti\u011fe ekle",
+        rm_phase2_1: "Politika ekleme: 13 eksik Brave politikas\u0131n\u0131 beti\u011fe ekle",
         rm_phase3_title: "A\u015fama 3 \u2014 Kalite & Test",
-        rm_phase3_1: "Test tak\u0131m\u0131: Birim ve entegrasyon testleri ekle",
-        rm_phase3_2: "Statik analiz: CI linting entegrasyonu",
+        rm_phase3_1: "Test tak\u0131m\u0131: Pester birim ve entegrasyon testleri olu\u015ftur",
+        rm_phase3_2: "Statik analiz: PSScriptAnalyzer\u2019\u0131 CI\u2019a entegre et",
         rm_phase4_title: "A\u015fama 4 \u2014 Dok\u00fcmantasyon/Yayg\u0131nla\u015ft\u0131rma",
-        rm_phase4_1: "Politika katalo\u011fu: Tam meta veri listesi olu\u015ftur",
+        rm_phase4_1: "Politika katalo\u011fu: T\u00fcm politikalar i\u00e7in tam meta veri listesi olu\u015ftur",
         rm_phase5_title: "A\u015fama 5 \u2014 Geli\u015fmi\u015f",
-        rm_phase5_1: "Platformlar aras\u0131: Linux JSON + macOS plist \u00e7\u0131kt\u0131lar\u0131",
-        rm_phase5_2: "MDM: Kurumsal y\u00f6netim i\u00e7in da\u011f\u0131t\u0131m k\u0131lavuzu",
-        rm_phase5_3: "Web aray\u00fcz\u00fc: Politika yap\u0131land\u0131rma arac\u0131",
-        rm_phase5_4: "Mod\u00fcler: Mod\u00fcl mimarisine ge\u00e7i\u015f",
+        rm_phase5_1: "Platformlar aras\u0131: Linux JSON ve macOS plist yap\u0131land\u0131rmalar\u0131n\u0131 \u00fcret",
+        rm_phase5_2: "MDM: Intune/Kurumsal da\u011f\u0131t\u0131m k\u0131lavuzu olu\u015ftur",
+        rm_phase5_3: "Web aray\u00fcz\u00fc: Etkile\u015fimli politika yap\u0131land\u0131r\u0131c\u0131 geli\u015ftir",
+        rm_phase5_4: "Mod\u00fcler: Tek par\u00e7a beti\u011fi mod\u00fcl tabanl\u0131 mimariye d\u00f6n\u00fc\u015ft\u00fcr",
         contrib_desc: "Katk\u0131lar memnuniyetle kar\u015f\u0131lan\u0131r. B\u00fcy\u00fck de\u011fi\u015fikliklerden \u00f6nce l\u00fctfen bir konu a\u00e7\u0131n.",
         contrib_ver_title: "S\u00fcr\u00fcm G\u00fcncellemeleri",
         contrib_ver_desc: "Yeni Brave kararl\u0131 s\u00fcr\u00fcm\u00fcnde politika de\u011fi\u015fikli\u011fi varsa, g\u00fcncellenmi\u015f de\u011fer ve kaynak referans\u0131yla PR a\u00e7\u0131n.",
