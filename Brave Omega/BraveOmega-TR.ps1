@@ -19,6 +19,27 @@
 #
 # DEĞİŞİKLİK GEÇMİŞİ (v2.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.1.6               Faz 2 — Brave politika genişletmesi (+15 politika):
+#
+#     [YENİ]        Kapsamlı politika boşluk analizi sonucu 15 yeni Brave
+#                   kurumsal politikası tüm katmanlara eklendi.
+#
+#     [YENİ]        Temel:        BraveGlobalPrivacyControlEnabled
+#     [YENİ]        Brave Yalnız: 10 politika (DeAmp, Debouncing, Shields,
+#                                 ReduceLanguage, TrackingParams, Adblock,
+#                                 Fingerprinting, ShieldUrlLists, LocalAI,
+#                                 EmailAliases)
+#     [YENİ]        Dengeli:      DefaultBraveHttpsUpgradeSetting (Strict),
+#                                 DefaultBraveReferrersSetting (Cap),
+#                                 BraveSyncUrl
+#     [YENİ]        Katı:         DefaultBraveRemember1PStorageSetting
+#
+#     [KALDIRILDI]   CloudPrintProxyEnabled kaldırıldı (Chromium tarafından
+#                   kullanımdan kaldırıldı).
+#
+#     [İYİLEŞTİRME] Politika sayıları güncellendi: Brave Yalnız 13→23,
+#                   Temel 16→17, Dengeli 18→21 (kümülatif katman korundu).
+#
 #   v2.1                 Özellik genişletmesi — Sürüm denetimi, -WhatIf, -Sıfırla:
 #
 #     [YENİ]        Otomatik Brave sürüm tespiti.
@@ -49,9 +70,9 @@
 #                   -Level parametresi ile sessiz/otomasyon dağıtımı.
 #
 #     [YENİ]        50+ Chromium kurumsal politikası eklendi.
-#                   Brave Yalnız: 13 Brave'e özgü politika
-#                   Temel:        +16 veri sızıntısı önleme politikası
-#                   Dengeli:      +18 güvenlik ve kullanım dengesi
+#                   Brave Yalnız: 23 Brave'e özgü politika
+#                   Temel:        +17 veri sızıntısı önleme politikası
+#                   Dengeli:      +21 güvenlik ve kullanım dengesi
 #                   Katı:         +21 azami gizlilik politikası
 #
 #     [İYİLEŞTİRME] Kayıt defteri yazma motoru türe göre dağıtım yapar
@@ -73,7 +94,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.1.5"
+$BetikSurum    = "v2.1.6.0"
 $DogrulananBrave = "1.92.134"
 $DogrulananChromium = "150"
 
@@ -179,6 +200,13 @@ if ($Sifirla) {
         "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
         "BravePlaylistEnabled", "BraveSpeedreaderEnabled", "BraveWaybackMachineEnabled",
         "BraveP3AEnabled", "BraveStatsPingEnabled", "BraveWebDiscoveryEnabled", "TorDisabled",
+        "BraveDeAmpEnabled", "BraveDebouncingEnabled", "BraveReduceLanguageEnabled",
+        "BraveTrackingQueryParametersFilteringEnabled", "DefaultBraveAdblockSetting",
+        "DefaultBraveFingerprintingV2Setting", "BraveShieldsDisabledForUrls", "BraveShieldsEnabledForUrls",
+        "BraveLocalAIEnabled", "EmailAliasesEnabled",
+        "BraveGlobalPrivacyControlEnabled",
+        "DefaultBraveHttpsUpgradeSetting", "DefaultBraveReferrersSetting", "BraveSyncUrl",
+        "DefaultBraveRemember1PStorageSetting",
         "MetricsReportingEnabled", "SafeBrowsingExtendedReportingEnabled",
         "UrlKeyedAnonymizedDataCollectionEnabled", "SearchSuggestEnabled",
         "NetworkPredictionOptions", "TranslateEnabled", "SpellcheckEnabled",
@@ -387,6 +415,27 @@ $PolitikaTanimlari = @{
         @{Ad="BraveWebDiscoveryEnabled";             Deger=0; Tur="DWord"}
         # Tor — Tor ile Özel Pencere özelliğini kapatır
         @{Ad="TorDisabled";                          Deger=1; Tur="DWord"}
+        # ─── Yeni Brave Yalnız Politikaları (Faz 2) ───
+        # De-AMP — Google AMP sayfalarını atlar, doğrudan yayıncıya yönlendirir
+        @{Ad="BraveDeAmpEnabled";                    Deger=1; Tur="DWord"}
+        # Bounce tracking — bilinen izleme alan adlarını otomatik atlar
+        @{Ad="BraveDebouncingEnabled";               Deger=1; Tur="DWord"}
+        # Dil parmak izi azaltma — sitelerin tam yereli okumasını engeller
+        @{Ad="BraveReduceLanguageEnabled";            Deger=1; Tur="DWord"}
+        # İzleme sorgu parametre filtreleme — URL'lerden bilinen izleyicileri temizler
+        @{Ad="BraveTrackingQueryParametersFilteringEnabled"; Deger=1; Tur="DWord"}
+        # Reklam engelleme — Shields reklam engellemeyi kilitle (Brave varsayılanı)
+        @{Ad="DefaultBraveAdblockSetting";           Deger=2; Tur="DWord"}
+        # Parmak izi koruma — Shields parmak izi korumasını sıkı moda kilitle
+        @{Ad="DefaultBraveFingerprintingV2Setting";  Deger=3; Tur="DWord"}
+        # Shields kapalı URL'ler — boş küme, hiçbir URL beyaz listeye alınmaz
+        @{Ad="BraveShieldsDisabledForUrls";          Deger=@(); Tur="MultiString"}
+        # Shields açık URL'ler — boş küme, hiçbir URL kara listeye alınmaz
+        @{Ad="BraveShieldsEnabledForUrls";           Deger=@(); Tur="MultiString"}
+        # Yerel AI — cihaz içi AI özelliklerini kapatır (geçmiş gömmeleri, yüzeyler)
+        @{Ad="BraveLocalAIEnabled";                  Deger=0; Tur="DWord"}
+        # E-posta takma adları — anonim e-posta takma adı özelliğini kapatır
+        @{Ad="EmailAliasesEnabled";                  Deger=0; Tur="DWord"}
     )
 
     "Essential" = @(
@@ -424,6 +473,9 @@ $PolitikaTanimlari = @{
         @{Ad="AudioCaptureAllowed";                  Deger=0; Tur="DWord"}
         # Video yakalama — kamera erişimini varsayılan olarak engeller (site bazında izin verilebilir)
         @{Ad="VideoCaptureAllowed";                  Deger=0; Tur="DWord"}
+        # ─── Yeni Temel Politikaları (Faz 2) ───
+        # GPC — Küresel Gizlilik Kontrolü Sec-GPC başlığı gönderir, veri satışını reddeder
+        @{Ad="BraveGlobalPrivacyControlEnabled";     Deger=1; Tur="DWord"}
     )
 
     "Balanced" = @(
@@ -465,6 +517,13 @@ $PolitikaTanimlari = @{
         @{Ad="DefaultNotificationsSetting";          Deger=2; Tur="DWord"}
         # Açılır pencereler — açılır pencere isteklerini varsayılan olarak engeller
         @{Ad="DefaultPopupsSetting";                 Deger=2; Tur="DWord"}
+        # ─── Yeni Dengeli Politikaları (Faz 2) ───
+        # HTTPS yükseltme — Sıkı mod, HTTPS gerektirir, hata sayfası gösterir
+        @{Ad="DefaultBraveHttpsUpgradeSetting";      Deger=2; Tur="DWord"}
+        # Referrer politikası — strict-origin-when-cross-origin ile sınırla
+        @{Ad="DefaultBraveReferrersSetting";         Deger=2; Tur="DWord"}
+        # Sync sunucusu — varsayılan Brave sync sunucu adresini belirtir
+        @{Ad="BraveSyncUrl";                         Deger="https://sync-v2.brave.com/v2"; Tur="String"}
     )
 
     "Strict" = @(
@@ -498,8 +557,9 @@ $PolitikaTanimlari = @{
         @{Ad="BrowserGuestModeEnabled";              Deger=0; Tur="DWord"}
         # Kişi ekleme — kullanıcı yöneticisinden yeni profil eklemeyi engeller
         @{Ad="BrowserAddPersonEnabled";              Deger=0; Tur="DWord"}
-        # Cloud Print — Google Cloud Print vekil sunucusunu kapatır
-        @{Ad="CloudPrintProxyEnabled";               Deger=0; Tur="DWord"}
+        # ─── Yeni Katı Politikaları (Faz 2) ───
+        # Birinci taraf depolama — sekme/gezinti sonunda temizle (her oturumda login kaybı)
+        @{Ad="DefaultBraveRemember1PStorageSetting"; Deger=2; Tur="DWord"}
         # Otomatik doldurma içe aktarma — diğer tarayıcılardan otomatik doldurma verisi alımını engeller
         @{Ad="ImportAutofillFormData";               Deger=0; Tur="DWord"}
         # Yer imi içe aktarma — diğer tarayıcılardan yer imi alımını engeller
@@ -760,7 +820,7 @@ Write-Host "`n$AyracCizgisi" -ForegroundColor DarkGray
 Write-Host "  İŞLEM ÖZET RAPORU" -ForegroundColor Cyan
 Write-Host "  Betik Sürümü      : $BetikSurum" -ForegroundColor White
 Write-Host "  Katman             : $Seviye ($ToplamPolitikaSayisi politika)" -ForegroundColor White
-if ($WhatIf) { Write-Host "  Mod                : WhatIf (yalnızca önizleme)" -ForegroundColor Magenta }
+if ($WhatIf) { Write-Host "  Mod                : -WhatIf (yalnızca önizleme)" -ForegroundColor Magenta }
 Write-Host $AyracCizgisi -ForegroundColor DarkGray
 
 $HKCUDurum = if ($HKCUBasarili) { "Uygulandı" } else { "Başarısız" }

@@ -26,57 +26,52 @@
 
 ### Table of Contents
 
-1.  [Introduction](#en-introduction)
-2.  [v2.1.5 — 2026-07-03](#en-v215)
-    *   [Summary](#en-v215-summary)
-    *   [Changed](#en-v215-changed)
-3.  [v2.1.4 — 2026-06-27](#en-v214)
-    *   [Summary](#en-v214-summary)
-    *   [Changed](#en-v214-changed)
-4.  [v2.1.3 — 2026-06-26](#en-v213)
-    *   [Summary](#en-v213-summary)
-    *   [Changed](#en-v213-changed)
-5.  [v2.1.2 — 2026-06-18](#en-v212)
-    *   [Summary](#en-v212-summary)
-    *   [Changed](#en-v212-changed)
-5.  [v2.1.1 — 2026-06-18](#en-v211)
-    *   [Summary](#en-v211-summary)
-    *   [Fixed](#en-v211-fixed)
-6.  [v2.1 — 2026-06-16](#en-v21)
-    *   [Summary](#en-v21-summary)
-    *   [Added](#en-v21-added)
-    *   [Changed](#en-v21-changed)
-    *   [Statistics](#en-v21-statistics)
-7.  [v2.0 — 2026-06-16](#en-v20)
-    *   [Summary](#en-v20-summary)
-    *   [Added](#en-v20-added)
-    *   [Changed](#en-v20-changed)
-    *   [Statistics](#en-v20-statistics)
-8.  [v1.2.2 — 2026-06-13](#en-v122)
-    *   [Summary](#en-v122-summary)
-    *   [Changed](#en-v122-changed)
-9.  [v1.2.1 — 2026-06-13](#en-v121)
-    *   [Summary](#en-v121-summary)
-    *   [Changed](#en-v121-changed)
+1. [Introduction](#en-introduction)
+2. [v2.1.6 — 2026-07-04](#en-v216)
+    * [Summary](#en-v216-summary)
+    * [Added](#en-v216-added)
+    * [Removed](#en-v216-removed)
+    * [Changed](#en-v216-changed)
+3. [v2.1.5 — 2026-07-03](#en-v215)
+    * [Summary](#en-v215-summary)
+    * [Changed](#en-v215-changed)
+4. [v2.1.4 — 2026-06-27](#en-v214)
+    * [Summary](#en-v214-summary)
+    * [Changed](#en-v214-changed)
+5. [v2.1.3 — 2026-06-26](#en-v213)
+    * [Summary](#en-v213-summary)
+    * [Changed](#en-v213-changed)
+6. [v2.1.2 — 2026-06-18](#en-v212)
+    * [Summary](#en-v212-summary)
+    * [Changed](#en-v212-changed)
+7. [v2.1.1 — 2026-06-18](#en-v211)
+    * [Summary](#en-v211-summary)
+    * [Fixed](#en-v211-fixed)
+8. [v2.1 — 2026-06-16](#en-v21)
+    * [Summary](#en-v21-summary)
+    * [Added](#en-v21-added)
+    * [Changed](#en-v21-changed)
+    * [Statistics](#en-v21-statistics)
+9. [v2.0 — 2026-06-16](#en-v20)
+    * [Summary](#en-v20-summary)
+    * [Added](#en-v20-added)
+    * [Changed](#en-v20-changed)
+    * [Statistics](#en-v20-statistics)
+8. [v1.2.2 — 2026-06-13](#en-v122)
+    * [Summary](#en-v122-summary)
+    * [Changed](#en-v122-changed)
+9. [v1.2.1 — 2026-06-13](#en-v121)
+    * [Changed](#en-v121-changed)
 10. [v1.2 — 2026-06-12](#en-v12)
-    *   [Summary](#en-v12-summary)
-    *   [Added](#en-v12-added)
-    *   [Statistics](#en-v12-statistics)
-    *   [Changed](#en-v12-changed)
-    *   [Security](#en-v12-security)
-11. [v1.1 — 2026-06-05](#en-v11)
-    *   [Summary](#en-v11-summary)
-    *   [Added](#en-v11-added)
-    *   [Changed](#en-v11-changed)
-    *   [Removed](#en-v11-removed)
-    *   [Details](#en-v11-details)
-12. [v1.0 — 2026-06-04](#en-v10)
-    *   [Summary](#en-v10-summary)
-    *   [Features](#en-v10-features)
-    *   [Initial Policies](#en-v10-initial-policies)
-    *   [Documentation](#en-v10-documentation)
-13. [Version History Summary](#en-version-history-summary)
-14. [Related Documentation](#en-related-documentation)
+    * [Summary](#en-v12-summary)
+11. [v1.1.1 — 2026-06-12](#en-v111)
+    * [Fixed](#en-v111-fixed)
+12. [v1.1 — 2026-06-12](#en-v11)
+    * [Summary](#en-v11-summary)
+13. [v1.0.1 — 2026-06-11](#en-v101)
+    * [Fixed](#en-v101-fixed)
+14. [v1.0 — 2026-06-08](#en-v10)
+    * [Summary](#en-v10-summary)
 15. [Notes](#en-notes)
 
 ---
@@ -86,6 +81,46 @@
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
 
 ---
+
+<a id="en-v216"></a>
+
+## [v2.1.6] — 2026-07-04
+
+<a id="en-v216-summary"></a>
+
+### 🎯 Summary
+
+**Policy expansion release:** 15 new Brave-specific enterprise policies added across all four hardening tiers following a comprehensive policy gap analysis. One deprecated Chromium policy removed.
+
+| Metric | Before (v2.1.5) | After (v2.1.6) |
+|--------|-----------------|----------------|
+| Brave Only policies | 13 | 23 |
+| Essential additions | 16 | 17 |
+| Balanced additions | 18 | 21 |
+| Strict additions | 21 | 21 |
+
+<a id="en-v216-added"></a>
+
+### Added
+
+- **Essential (1):** `BraveGlobalPrivacyControlEnabled` = 1 — Sends Global Privacy Control `Sec-GPC` header.
+- **BraveOnly (10):** `BraveDeAmpEnabled`, `BraveDebouncingEnabled`, `BraveReduceLanguageEnabled`, `BraveTrackingQueryParametersFilteringEnabled`, `DefaultBraveAdblockSetting`, `DefaultBraveFingerprintingV2Setting`, `BraveShieldsDisabledForUrls`, `BraveShieldsEnabledForUrls`, `BraveLocalAIEnabled`, `EmailAliasesEnabled`.
+- **Balanced (3):** `DefaultBraveHttpsUpgradeSetting` (Strict), `DefaultBraveReferrersSetting` (Cap), `BraveSyncUrl`.
+- **Strict (1):** `DefaultBraveRemember1PStorageSetting` (Forget).
+
+<a id="en-v216-removed"></a>
+
+### Removed
+
+- **`CloudPrintProxyEnabled`** — Removed from Strict tier. Deprecated by Chromium; Google Cloud Print service has been fully shut down.
+
+<a id="en-v216-changed"></a>
+
+### Changed
+
+- **Script version** — `$ScriptVersion = "v2.1.6.0"` in both EN and TR scripts.
+- **Policy counts** — Documentation comments updated to reflect new per-level totals.
+- **CHANGELOG, README, index.html** — Version tables and references updated.
 
 <a id="en-v215"></a>
 
@@ -684,6 +719,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.1.6 | 2026-07-04 | 81    | Phase 2: 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149→150, no policy changes |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 validation; version bump |
@@ -739,55 +775,60 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 ### İçindekiler
 
-1.  [Giriş](#tr-introduction)
-2.  [v2.1.5 — 2026-07-03](#tr-v215)
-    *   [Özet](#tr-v215-summary)
-    *   [Değiştirildi](#tr-v215-changed)
-3.  [v2.1.4 — 2026-06-27](#tr-v214)
-    *   [Özet](#tr-v214-summary)
-    *   [Değiştirildi](#tr-v214-changed)
-4.  [v2.1.3 — 2026-06-26](#tr-v213)
-    *   [Özet](#tr-v213-summary)
-    *   [Değiştirildi](#tr-v213-changed)
-5.  [v2.1.2 — 2026-06-18](#tr-v212)
-    *   [Özet](#tr-v212-summary)
-    *   [Değiştirildi](#tr-v212-changed)
-5.  [v2.1.1 — 2026-06-18](#tr-v211)
-    *   [Özet](#tr-v211-summary)
-    *   [Düzeltildi](#tr-v211-fixed)
-6.  [v2.1 — 2026-06-16](#tr-v21)
-    *   [Özet](#tr-v21-summary)
-    *   [Eklendi](#tr-v21-added)
-    *   [Değiştirildi](#tr-v21-changed)
-    *   [İstatistikler](#tr-v21-statistics)
-7.  [v2.0 — 2026-06-16](#tr-v20)
-    *   [Özet](#tr-v20-summary)
-    *   [Eklendi](#tr-v20-added)
-    *   [Değiştirildi](#tr-v20-changed)
-    *   [İstatistikler](#tr-v20-statistics)
-8.  [v1.2.2 — 2026-06-13](#tr-v122)
-    *   [Özet](#tr-v122-summary)
-    *   [Değiştirildi](#tr-v122-changed)
-9.  [v1.2.1 — 2026-06-13](#tr-v121)
-    *   [Özet](#tr-v121-summary)
-    *   [Değiştirildi](#tr-v121-changed)
+1. [Giriş](#tr-introduction)
+2. [v2.1.6 — 2026-07-04](#tr-v216)
+    * [Özet](#tr-v216-summary)
+    * [Eklendi](#tr-v216-added)
+    * [Kaldırıldı](#tr-v216-removed)
+    * [Değiştirildi](#tr-v216-changed)
+3. [v2.1.5 — 2026-07-03](#tr-v215)
+    * [Özet](#tr-v215-summary)
+    * [Değiştirildi](#tr-v215-changed)
+4. [v2.1.4 — 2026-06-27](#tr-v214)
+    * [Özet](#tr-v214-summary)
+    * [Değiştirildi](#tr-v214-changed)
+5. [v2.1.3 — 2026-06-26](#tr-v213)
+    * [Özet](#tr-v213-summary)
+    * [Değiştirildi](#tr-v213-changed)
+6. [v2.1.2 — 2026-06-18](#tr-v212)
+    * [Özet](#tr-v212-summary)
+    * [Değiştirildi](#tr-v212-changed)
+7. [v2.1.1 — 2026-06-18](#tr-v211)
+    * [Özet](#tr-v211-summary)
+    * [Düzeltildi](#tr-v211-fixed)
+8. [v2.1 — 2026-06-16](#tr-v21)
+    * [Özet](#tr-v21-summary)
+    * [Eklendi](#tr-v21-added)
+    * [Değiştirildi](#tr-v21-changed)
+    * [İstatistikler](#tr-v21-statistics)
+9. [v2.0 — 2026-06-16](#tr-v20)
+    * [Özet](#tr-v20-summary)
+    * [Eklendi](#tr-v20-added)
+    * [Değiştirildi](#tr-v20-changed)
+    * [İstatistikler](#tr-v20-statistics)
+8. [v1.2.2 — 2026-06-13](#tr-v122)
+    * [Özet](#tr-v122-summary)
+    * [Değiştirildi](#tr-v122-changed)
+9. [v1.2.1 — 2026-06-13](#tr-v121)
+    * [Özet](#tr-v121-summary)
+    * [Değiştirildi](#tr-v121-changed)
 10. [v1.2 — 2026-06-12](#tr-v12)
-    *   [Özet](#tr-v12-summary)
-    *   [Eklendi](#tr-v12-added)
-    *   [İstatistikler](#tr-v12-statistics)
-    *   [Değiştirildi](#tr-v12-changed)
-    *   [Güvenlik](#tr-v12-security)
+    * [Özet](#tr-v12-summary)
+    * [Eklendi](#tr-v12-added)
+    * [İstatistikler](#tr-v12-statistics)
+    * [Değiştirildi](#tr-v12-changed)
+    * [Güvenlik](#tr-v12-security)
 11. [v1.1 — 2026-06-05](#tr-v11)
-    *   [Özet](#tr-v11-summary)
-    *   [Eklendi](#tr-v11-added)
-    *   [Değiştirildi](#tr-v11-changed)
-    *   [Kaldırıldı](#tr-v11-removed)
-    *   [Detaylar](#tr-v11-details)
+    * [Özet](#tr-v11-summary)
+    * [Eklendi](#tr-v11-added)
+    * [Değiştirildi](#tr-v11-changed)
+    * [Kaldırıldı](#tr-v11-removed)
+    * [Detaylar](#tr-v11-details)
 12. [v1.0 — 2026-06-04](#tr-v10)
-    *   [Özet](#tr-v10-summary)
-    *   [Özellikler](#tr-v10-features)
-    *   [Başlangıç Politikaları](#tr-v10-initial-policies)
-    *   [Belgelendirme](#tr-v10-documentation)
+    * [Özet](#tr-v10-summary)
+    * [Özellikler](#tr-v10-features)
+    * [Başlangıç Politikaları](#tr-v10-initial-policies)
+    * [Belgelendirme](#tr-v10-documentation)
 13. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
 14. [İlgili Belgelendirme](#tr-related-documentation)
 15. [Notlar](#tr-notes)
@@ -905,6 +946,46 @@ Eklenen/Değiştirilen Dosyalar:
 - **Brave sürüm yükseltmesi** — Brave **1.91.175** (Chromium 149.0.7827.155) ile doğrulandı. v2.1.1'den itibaren politika değişikliği yok.
 - **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.175'e güncellendi.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, doğrulanmış sürüm sabitleri güncellendi.
+
+<a id="tr-v216"></a>
+
+## [v2.1.6] — 2026-07-04
+
+<a id="tr-v216-summary"></a>
+
+### 🎯 Özet
+
+**Politika genişletme sürümü:** Kapsamlı politika boşluk analizi sonucu 15 yeni Brave'e özgü kurumsal politika dört sıkılaştırma katmanına eklendi. Kullanımdan kaldırılan bir Chromium politikası kaldırıldı.
+
+| Metrik | Önce (v2.1.5) | Sonra (v2.1.6) |
+|--------|---------------|----------------|
+| Brave Yalnız politikaları | 13 | 23 |
+| Temel eklemeleri | 16 | 17 |
+| Dengeli eklemeleri | 18 | 21 |
+| Katı eklemeleri | 21 | 21 |
+
+<a id="tr-v216-added"></a>
+
+### Eklendi
+
+- **Temel (1):** `BraveGlobalPrivacyControlEnabled` = 1 — Küresel Gizlilik Kontrolü `Sec-GPC` başlığı gönderir.
+- **Brave Yalnız (10):** `BraveDeAmpEnabled`, `BraveDebouncingEnabled`, `BraveReduceLanguageEnabled`, `BraveTrackingQueryParametersFilteringEnabled`, `DefaultBraveAdblockSetting`, `DefaultBraveFingerprintingV2Setting`, `BraveShieldsDisabledForUrls`, `BraveShieldsEnabledForUrls`, `BraveLocalAIEnabled`, `EmailAliasesEnabled`.
+- **Dengeli (3):** `DefaultBraveHttpsUpgradeSetting` (Strict), `DefaultBraveReferrersSetting` (Cap), `BraveSyncUrl`.
+- **Katı (1):** `DefaultBraveRemember1PStorageSetting` (Forget).
+
+<a id="tr-v216-removed"></a>
+
+### Kaldırıldı
+
+- **`CloudPrintProxyEnabled`** — Katı katmanından kaldırıldı. Chromium tarafından kullanımdan kaldırıldı; Google Cloud Print hizmeti tamamen kapatıldı.
+
+<a id="tr-v216-changed"></a>
+
+### Değiştirildi
+
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.1.6.0"`.
+- **Politika sayıları** — Belgeleme yorumları yeni katman toplamlarını yansıtacak şekilde güncellendi.
+- **CHANGELOG, README, index.html** — Sürüm tabloları ve referansları güncellendi.
 
 <a id="tr-v215"></a>
 
@@ -1399,6 +1480,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.1.6 | 2026-07-04 | 81    | Faz 2: 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 yükseltmesi; Chromium 149→150, politika değişikliği yok |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 doğrulaması; sürüm yükseltmesi |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 doğrulaması; sürüm yükseltmesi |
