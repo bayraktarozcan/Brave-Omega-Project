@@ -19,6 +19,26 @@
 #
 # CHANGELOG (v2.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.1.6               Phase 2 — Brave policy expansion (+15 policies):
+#
+#     [NEW]        15 new Brave-specific enterprise policies added across all
+#                   tiers from comprehensive policy gap analysis.
+#
+#     [NEW]        Essential:    BraveGlobalPrivacyControlEnabled
+#     [NEW]        BraveOnly:    10 policies (DeAmp, Debouncing, Shields,
+#                                 ReduceLanguage, TrackingParams, Adblock,
+#                                 Fingerprinting, ShieldUrlLists, LocalAI,
+#                                 EmailAliases)
+#     [NEW]        Balanced:     DefaultBraveHttpsUpgradeSetting (Strict),
+#                                 DefaultBraveReferrersSetting (Cap),
+#                                 BraveSyncUrl
+#     [NEW]        Strict:       DefaultBraveRemember1PStorageSetting
+#
+#     [REMOVED]     CloudPrintProxyEnabled removed (deprecated by Chromium).
+#
+#     [IMPROVED]    Policy counts updated: BraveOnly 13→23, Essential 16→17,
+#                   Balanced 18→21 (cumulative tier architecture preserved).
+#
 #   v2.1                 Feature expansion — Version check, -WhatIf, -Reset:
 #
 #     [NEW]        Automated Brave version detection.
@@ -49,9 +69,9 @@
 #                   -Level parameter for silent/automated deployment.
 #
 #     [NEW]        50+ Chromium enterprise policies added across all tiers.
-#                   Brave Only: 13 Brave-specific policies
-#                   Essential:  +16 data-leak prevention policies
-#                   Balanced:   +18 security & convenience balance
+#                   Brave Only: 23 Brave-specific policies
+#                   Essential:  +17 data-leak prevention policies
+#                   Balanced:   +21 security & convenience balance
 #                   Strict:     +21 maximum privacy policies
 #
 #     [IMPROVED]    Registry writing engine now dispatches by type and
@@ -73,7 +93,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.1.5"
+$ScriptVersion   = "v2.1.6.0"
 $ValidatedBrave  = "1.92.134"
 $ValidatedChromium = "150"
 
@@ -180,6 +200,13 @@ if ($Reset) {
         "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
         "BravePlaylistEnabled", "BraveSpeedreaderEnabled", "BraveWaybackMachineEnabled",
         "BraveP3AEnabled", "BraveStatsPingEnabled", "BraveWebDiscoveryEnabled", "TorDisabled",
+        "BraveDeAmpEnabled", "BraveDebouncingEnabled", "BraveReduceLanguageEnabled",
+        "BraveTrackingQueryParametersFilteringEnabled", "DefaultBraveAdblockSetting",
+        "DefaultBraveFingerprintingV2Setting", "BraveShieldsDisabledForUrls", "BraveShieldsEnabledForUrls",
+        "BraveLocalAIEnabled", "EmailAliasesEnabled",
+        "BraveGlobalPrivacyControlEnabled",
+        "DefaultBraveHttpsUpgradeSetting", "DefaultBraveReferrersSetting", "BraveSyncUrl",
+        "DefaultBraveRemember1PStorageSetting",
         "MetricsReportingEnabled", "SafeBrowsingExtendedReportingEnabled",
         "UrlKeyedAnonymizedDataCollectionEnabled", "SearchSuggestEnabled",
         "NetworkPredictionOptions", "TranslateEnabled", "SpellcheckEnabled",
@@ -302,7 +329,7 @@ if ($LevelMap.ContainsKey($Level)) {
 }
 
 # Validate
-if ($ValidLevels -notcontains $Level -and $LevelMap.Values -notcontains $Level) {
+if ($ValidLevels -notcontains $Level) {
     Write-Host "Invalid level '$Level'. Falling back to Essential." -ForegroundColor Yellow
     $Level = "Essential"
 }
@@ -380,6 +407,27 @@ $PolicyDefinitions = @{
         @{Name="BraveWebDiscoveryEnabled";             Value=0; Type="DWord"}
         # Tor — disables New Private Window with Tor integration
         @{Name="TorDisabled";                          Value=1; Type="DWord"}
+        # ─── New BraveOnly Policies (Phase 2) ───
+        # De-AMP — bypass Google AMP pages, redirect to publisher directly
+        @{Name="BraveDeAmpEnabled";                    Value=1; Type="DWord"}
+        # Bounce tracking — skip known tracking domains automatically
+        @{Name="BraveDebouncingEnabled";               Value=1; Type="DWord"}
+        # Language fingerprint reduction — prevent sites from reading exact locale
+        @{Name="BraveReduceLanguageEnabled";            Value=1; Type="DWord"}
+        # Tracking query param filtering — strip known trackers from URLs
+        @{Name="BraveTrackingQueryParametersFilteringEnabled"; Value=1; Type="DWord"}
+        # Ad blocking — lock Shields ad blocking to Block (default Brave behavior)
+        @{Name="DefaultBraveAdblockSetting";           Value=2; Type="DWord"}
+        # Fingerprinting — lock Shields fingerprinting to strict mode
+        @{Name="DefaultBraveFingerprintingV2Setting";  Value=3; Type="DWord"}
+        # Shields disabled for URLs — empty set, no URLs whitelisted
+        @{Name="BraveShieldsDisabledForUrls";          Value=@(); Type="MultiString"}
+        # Shields enabled for URLs — empty set, no URLs blacklisted
+        @{Name="BraveShieldsEnabledForUrls";           Value=@(); Type="MultiString"}
+        # Local AI — disable on-device AI features (history embeddings, surfaces)
+        @{Name="BraveLocalAIEnabled";                  Value=0; Type="DWord"}
+        # Email aliases — disable anonymous email alias feature for sign-ups
+        @{Name="EmailAliasesEnabled";                  Value=0; Type="DWord"}
     )
 
     "Essential" = @(
@@ -417,6 +465,9 @@ $PolicyDefinitions = @{
         @{Name="AudioCaptureAllowed";                  Value=0; Type="DWord"}
         # Video capture — blocks camera access by default (can be per-site)
         @{Name="VideoCaptureAllowed";                  Value=0; Type="DWord"}
+        # ─── New Essential Policies (Phase 2) ───
+        # GPC — sends Global Privacy Control Sec-GPC header to opt out of sale
+        @{Name="BraveGlobalPrivacyControlEnabled";     Value=1; Type="DWord"}
     )
 
     "Balanced" = @(
@@ -458,6 +509,13 @@ $PolicyDefinitions = @{
         @{Name="DefaultNotificationsSetting";          Value=2; Type="DWord"}
         # Pop-ups — blocks pop-up windows by default
         @{Name="DefaultPopupsSetting";                 Value=2; Type="DWord"}
+        # ─── New Balanced Policies (Phase 2) ───
+        # HTTPS upgrade — Strict mode, requires HTTPS with interstitial on failure
+        @{Name="DefaultBraveHttpsUpgradeSetting";      Value=2; Type="DWord"}
+        # Referrer policy — caps to strict-origin-when-cross-origin
+        @{Name="DefaultBraveReferrersSetting";         Value=2; Type="DWord"}
+        # Sync server — explicit default Brave sync server URL
+        @{Name="BraveSyncUrl";                         Value="https://sync-v2.brave.com/v2"; Type="String"}
     )
 
     "Strict" = @(
@@ -491,8 +549,9 @@ $PolicyDefinitions = @{
         @{Name="BrowserGuestModeEnabled";              Value=0; Type="DWord"}
         # Add person — prevents new profile creation from user manager
         @{Name="BrowserAddPersonEnabled";              Value=0; Type="DWord"}
-        # Cloud Print — disables Google Cloud Print proxy
-        @{Name="CloudPrintProxyEnabled";               Value=0; Type="DWord"}
+        # ─── New Strict Policies (Phase 2) ───
+        # First-party storage — forget on tab/nav end (causes login loss per session)
+        @{Name="DefaultBraveRemember1PStorageSetting"; Value=2; Type="DWord"}
         # Import autofill — disables importing autofill data from other browsers
         @{Name="ImportAutofillFormData";               Value=0; Type="DWord"}
         # Import bookmarks — disables importing bookmarks from other browsers
