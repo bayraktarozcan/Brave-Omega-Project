@@ -27,7 +27,6 @@ _Describe the change and what problem it solves._
 - [ ] CHANGELOG.md updated
 - [ ] index.html updated (if applicable — version table, i18n keys)
 - [ ] README.md updated (if applicable)
-- [ ] Wiki pages updated on disk (if applicable — `Wiki/*.md`)
 - [ ] ADMX validation passes (GitHub Actions)
 
 ---

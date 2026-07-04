@@ -126,3 +126,9 @@ Wiki/
 **/Project-Intelligence/
 **/Business-Intelligence/
 **/Knowledge-Intelligence/
+
+# 10. PROJECT KNOWLEDGE BASE / PROJE BİLGİ TABANI
+# ─────────────────────────────────────────────────────────────────────────────
+# [EN] General-purpose reference documents for the agent, not committed to Git.
+# [TR] Ajan için genel amaçlı referans belgeleri, Git'e eklenmez.
+docs/
