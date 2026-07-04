@@ -122,6 +122,7 @@ Wiki/
 #     commit edilmez veya itelenmez. Sürüm kontrolündeki hiçbir dosya bu
 #     dizinlerden içerik barındırmaz veya bunlara bağımlı değildir. Her PR
 #     farkında ihlal olup olmadığı çapraz kontrol edilmelidir.
+**/Intelligence/
 **/Personal-Intelligence/
 **/Project-Intelligence/
 **/Business-Intelligence/
