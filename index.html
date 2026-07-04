@@ -866,18 +866,18 @@
         </div>
         <div class="max-w-4xl mx-auto animate-fade-in-up-d1">
             <div class="text-left mb-6">
-                <span class="text-xs font-bold text-[#8b5cf6] uppercase tracking-wider" data-i18n="rm_phase1_title">Aşama 1 — Denetim</span>
+                <span class="text-xs font-bold text-[#22c55e] uppercase tracking-wider" data-i18n="rm_phase1_title">Aşama 1 — Denetim ✓ Tamamlandı</span>
                 <div class="mt-2 space-y-2">
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_1">Gap analysis: identify missing policies</span></div>
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_2">Value audit: validate policy values and ranges</span></div>
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_3">Cleanup: remove deprecated policies</span></div>
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_4">Ref docs: refresh line numbers in reference</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_1">Gap analysis: 15 missing Brave-specific policies identified</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_2">Value audit: ADMX policy values, ranges and defaults validated</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_3">Cleanup: 1 deprecated Chromium policy removed (CloudPrintProxyEnabled)</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_4">Ref docs: line numbers refreshed after removals</span></div>
                 </div>
             </div>
             <div class="text-left mb-6">
-                <span class="text-xs font-bold text-[#22c55e] uppercase tracking-wider" data-i18n="rm_phase2_title">Aşama 2 — Uygulama</span>
+                <span class="text-xs font-bold text-[#22c55e] uppercase tracking-wider" data-i18n="rm_phase2_title">Aşama 2 — Uygulama ✓ Tamamlandı</span>
                 <div class="mt-2 space-y-2">
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase2_1">Implement: add missing Brave-specific policies to the script</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase2_1">15 missing Brave-specific policies added (merged v2.1.6.0)</span></div>
                 </div>
             </div>
             <div class="text-left mb-6">
@@ -1250,13 +1250,13 @@ SOFTWARE.
             tr_s5_cause: "Pre-existing restricted permissions on HKLM path",
             tr_s5_sol: "Inspect path with regedit; check ACL entries",
             roadmap_desc: "Brave Omega phased execution plan \u2014 5 phases.",
-            rm_phase1_title: "Phase 1 \u2014 Audit",
-            rm_phase1_1: "Gap analysis: identify 13 missing Brave-specific policies",
-            rm_phase1_2: "Value audit: validate ADMX policy values, ranges and defaults",
-            rm_phase1_3: "Cleanup: remove 4 deprecated Chromium policies",
-            rm_phase1_4: "Ref docs: refresh line numbers after removals",
-            rm_phase2_title: "Phase 2 \u2014 Implementation",
-            rm_phase2_1: "Policy addition: add 13 missing Brave-specific policies to the script",
+            rm_phase1_title: "Phase 1 \u2014 Audit \u2713 Completed",
+            rm_phase1_1: "Gap analysis: 15 missing Brave-specific policies identified",
+            rm_phase1_2: "Value audit: ADMX policy values, ranges and defaults validated",
+            rm_phase1_3: "Cleanup: 1 deprecated Chromium policy removed (CloudPrintProxyEnabled)",
+            rm_phase1_4: "Ref docs: line numbers refreshed after removals",
+            rm_phase2_title: "Phase 2 \u2014 Implementation \u2713 Completed",
+            rm_phase2_1: "Policy addition: added 15 missing Brave-specific policies (merged v2.1.6.0)",
             rm_phase3_title: "Phase 3 \u2014 Quality & Testing",
             rm_phase3_1: "Test suite: build Pester unit and integration tests",
             rm_phase3_2: "Static analysis: integrate PSScriptAnalyzer into CI",
@@ -1560,13 +1560,13 @@ SOFTWARE.
         tr_s5_cause: "Mevcut HKLM yolunda k\u0131s\u0131tl\u0131 izin",
         tr_s5_sol: "regedit ile yolu incele; ACL girdilerini kontrol et",
         roadmap_desc: "Brave Omega a\u015famal\u0131 uygulama plan\u0131 \u2014 5 a\u015fama.",
-        rm_phase1_title: "A\u015fama 1 \u2014 Denetim",
-        rm_phase1_1: "Bo\u015fluk analizi: 13 eksik Brave politikas\u0131n\u0131 belirle",
-        rm_phase1_2: "De\u011fer denetimi: ADMX politika de\u011fer, aral\u0131k ve varsay\u0131lanlar\u0131n\u0131 do\u011frula",
-        rm_phase1_3: "Temizlik: 4 kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f Chromium politikas\u0131n\u0131 kald\u0131r",
-        rm_phase1_4: "Referans: Kald\u0131rma sonras\u0131 sat\u0131r numaralar\u0131n\u0131 g\u00fcncelle",
-        rm_phase2_title: "A\u015fama 2 \u2014 Uygulama",
-        rm_phase2_1: "Politika ekleme: 13 eksik Brave politikas\u0131n\u0131 beti\u011fe ekle",
+        rm_phase1_title: "A\u015fama 1 \u2014 Denetim \u2713 Tamamland\u0131",
+        rm_phase1_1: "Bo\u015fluk analizi: 15 eksik Brave politikas\u0131 belirlendi",
+        rm_phase1_2: "De\u011fer denetimi: ADMX politika de\u011fer, aral\u0131k ve varsay\u0131lanlar\u0131 do\u011fruland\u0131",
+        rm_phase1_3: "Temizlik: 1 kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f Chromium politikas\u0131 kald\u0131r\u0131ld\u0131 (CloudPrintProxyEnabled)",
+        rm_phase1_4: "Referans: Kald\u0131rma sonras\u0131 sat\u0131r numaralar\u0131 g\u00fcncellendi",
+        rm_phase2_title: "A\u015fama 2 \u2014 Uygulama \u2713 Tamamland\u0131",
+        rm_phase2_1: "Politika ekleme: 15 eksik Brave politikas\u0131 beti\u011fe eklendi (merged v2.1.6.0)",
         rm_phase3_title: "A\u015fama 3 \u2014 Kalite & Test",
         rm_phase3_1: "Test tak\u0131m\u0131: Pester birim ve entegrasyon testleri olu\u015ftur",
         rm_phase3_2: "Statik analiz: PSScriptAnalyzer\u2019\u0131 CI\u2019a entegre et",
