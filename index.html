@@ -860,16 +860,53 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 animate-fade-in-up">
             <span class="badge badge-green mb-4" data-i18n="roadmap_badge">Yol Haritası</span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="roadmap_heading">Sıradaki Hedefler</h2>
-            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="roadmap_desc">Brave Omega'nin gelecek sürümlerinde planlanan özellikler.</p>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4" data-i18n="roadmap_heading">Aşamalı Uygulama Planı</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm" data-i18n="roadmap_desc">Brave Omega 6 aşamalı uygulama planı.</p>
         </div>
-        <div class="max-w-3xl mx-auto space-y-3 animate-fade-in-up-d1">
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item1">Otomatik Brave sürümü tespiti — yüklü sürüm doğrulanmış hedeften farklıysa uyar</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item3">-WhatIf parametresiyle kuru çalıştırma kipi — kayıt defterine yazmadan tüm değişiklikleri önizle</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item4">Sıfırlama/kaldırma kipi — uygulanan tüm Brave Omega politikalarını temiz biçimde sil</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-gray-600 text-lg">&#x25a1;</span><span class="text-gray-400 text-sm" data-i18n="rm_item5">Ek dil sürümleri (topluluk katkıları memnuniyetle karşılanır)</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item6">Her Brave kararlı sürümünde otomatik ADMX politika farkı doğrulamasi için GitHub Actions ardışı</span></div>
-            <div class="glow-card bg-[#000] rounded-xl p-4 flex items-center gap-4"><span class="text-[#22c55e] text-lg">&#x2611;</span><span class="text-gray-400 text-sm" data-i18n="rm_item7">Yapılandırılmış CONTRIBUTING.md ve sorun şablonları</span></div>
+        <div class="max-w-4xl mx-auto animate-fade-in-up-d1">
+            <div class="text-left mb-6">
+                <span class="text-xs font-bold text-[#f59e0b] uppercase tracking-wider" data-i18n="rm_phase0_title">Aşama 0 — Hazırlık</span>
+                <div class="mt-2 space-y-2">
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase0_1">Version sync: align all version references across the project</span></div>
+                </div>
+            </div>
+            <div class="text-left mb-6">
+                <span class="text-xs font-bold text-[#8b5cf6] uppercase tracking-wider" data-i18n="rm_phase1_title">Aşama 1 — Denetim</span>
+                <div class="mt-2 space-y-2">
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_1">Gap analysis: identify missing policies</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_2">Value audit: validate policy values and ranges</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_3">Cleanup: remove deprecated policies</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase1_4">Ref docs: refresh line numbers in reference</span></div>
+                </div>
+            </div>
+            <div class="text-left mb-6">
+                <span class="text-xs font-bold text-[#22c55e] uppercase tracking-wider" data-i18n="rm_phase2_title">Aşama 2 — Uygulama</span>
+                <div class="mt-2 space-y-2">
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase2_1">Implement: add missing Brave-specific policies to the script</span></div>
+                </div>
+            </div>
+            <div class="text-left mb-6">
+                <span class="text-xs font-bold text-[#3b82f6] uppercase tracking-wider" data-i18n="rm_phase3_title">Aşama 3 — Kalite & Test</span>
+                <div class="mt-2 space-y-2">
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase3_1">Test suite: add unit and integration tests</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase3_2">Static analysis: add CI linting integration</span></div>
+                </div>
+            </div>
+            <div class="text-left mb-6">
+                <span class="text-xs font-bold text-[#06b6d4] uppercase tracking-wider" data-i18n="rm_phase4_title">Aşama 4 — Dokümantasyon/Yaygınlaştırma</span>
+                <div class="mt-2 space-y-2">
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase4_1">Policy catalog: generate a full metadata listing</span></div>
+                </div>
+            </div>
+            <div class="text-left mb-6">
+                <span class="text-xs font-bold text-[#ec4899] uppercase tracking-wider" data-i18n="rm_phase5_title">Aşama 5 — Gelişmiş</span>
+                <div class="mt-2 space-y-2">
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase5_1">Cross-platform: Linux JSON + macOS plist outputs</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase5_2">MDM: deployment guide for enterprise management</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase5_3">Web UI: policy configurator interface</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase5_4">Modular: refactor into module architecture</span></div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -1216,13 +1253,26 @@ SOFTWARE.
             tr_s5_sym: "reg export fails during backup",
             tr_s5_cause: "Pre-existing restricted permissions on HKLM path",
             tr_s5_sol: "Inspect path with regedit; check ACL entries",
-            roadmap_desc: "Planned features for future Brave Omega releases.",
-            rm_item1: "Automated Brave version detection \u2014 warn if installed version differs from validated target",
-            rm_item3: "Dry-run mode via -WhatIf parameter \u2014 preview all changes without writing to registry",
-            rm_item4: "Reset/uninstall mode \u2014 remove all applied Brave Omega policies cleanly",
-            rm_item5: "Additional language editions (community contributions welcome)",
-            rm_item6: "GitHub Actions pipeline for automated ADMX policy diff validation on each Brave stable release",
-            rm_item7: "Structured CONTRIBUTING.md and issue templates",
+            roadmap_desc: "Brave Omega phased execution plan \u2014 6 phases.",
+            rm_phase0_title: "Phase 0 \u2014 Preparation",
+            rm_phase0_1: "Version sync: align all version references across the project",
+            rm_phase1_title: "Phase 1 \u2014 Audit",
+            rm_phase1_1: "Gap analysis: identify missing policies",
+            rm_phase1_2: "Value audit: validate policy values and ranges",
+            rm_phase1_3: "Cleanup: remove deprecated policies",
+            rm_phase1_4: "Ref docs: refresh line numbers in reference",
+            rm_phase2_title: "Phase 2 \u2014 Implementation",
+            rm_phase2_1: "Implement: add missing Brave-specific policies to the script",
+            rm_phase3_title: "Phase 3 \u2014 Quality & Testing",
+            rm_phase3_1: "Test suite: add unit and integration tests",
+            rm_phase3_2: "Static analysis: add CI linting integration",
+            rm_phase4_title: "Phase 4 \u2014 Documentation & Distribution",
+            rm_phase4_1: "Policy catalog: generate a full metadata listing",
+            rm_phase5_title: "Phase 5 \u2014 Advanced",
+            rm_phase5_1: "Cross-platform: Linux JSON + macOS plist outputs",
+            rm_phase5_2: "MDM: deployment guide for enterprise management",
+            rm_phase5_3: "Web UI: policy configurator interface",
+            rm_phase5_4: "Modular: refactor into module architecture",
             contrib_desc: "Contributions are welcome. Please open an issue for discussion before submitting large pull requests.",
             contrib_ver_title: "Version Updates",
             contrib_ver_desc: "When a Brave stable changes a policy, open a PR with updated values, source reference, and changelog entry.",
@@ -1514,13 +1564,26 @@ SOFTWARE.
         tr_s5_sym: "Yedekleme ad\u0131m\u0131nda reg export ba\u015far\u0131s\u0131z oluyor",
         tr_s5_cause: "Mevcut HKLM yolunda k\u0131s\u0131tl\u0131 izin",
         tr_s5_sol: "regedit ile yolu incele; ACL girdilerini kontrol et",
-        roadmap_desc: "Brave Omega\u2019n\u0131n gelecek s\u00fcr\u00fcmlerinde planlanan \u00f6zellikler.",
-        rm_item1: "Otomatik Brave s\u00fcr\u00fcm\u00fc tespiti \u2014 y\u00fckl\u00fc s\u00fcr\u00fcm do\u011frulanm\u0131\u015f hedeften farkl\u0131ysa uyar",
-        rm_item3: "-WhatIf parametresiyle kuru \u00e7al\u0131\u015ft\u0131rma kipi \u2014 kay\u0131t defterine yazmadan t\u00fcm de\u011fi\u015fiklikleri \u00f6nizle",
-        rm_item4: "S\u0131f\u0131rlama/kald\u0131rma kipi \u2014 uygulanan t\u00fcm Brave Omega politikalar\u0131n\u0131 temiz bi\u00e7imde sil",
-        rm_item5: "Ek dil s\u00fcr\u00fcmleri (topluluk katk\u0131lar\u0131 memnuniyetle kar\u015f\u0131lan\u0131r)",
-        rm_item6: "Her Brave kararl\u0131 s\u00fcr\u00fcm\u00fcnde otomatik ADMX politika fark\u0131 do\u011frulamas\u0131 i\u00e7in GitHub Actions ard\u0131\u015f\u0131",
-        rm_item7: "Yap\u0131land\u0131r\u0131lm\u0131\u015f CONTRIBUTING.md ve sorun \u015fablonlar\u0131",
+        roadmap_desc: "Brave Omega a\u015famal\u0131 uygulama plan\u0131 \u2014 6 a\u015fama.",
+        rm_phase0_title: "A\u015fama 0 \u2014 Haz\u0131rl\u0131k",
+        rm_phase0_1: "S\u00fcr\u00fcm senkronizasyonu: T\u00fcm dosyalardaki versiyon referanslar\u0131n\u0131 hizala",
+        rm_phase1_title: "A\u015fama 1 \u2014 Denetim",
+        rm_phase1_1: "Bo\u015fluk analizi: Eksik politikalar\u0131 belirle",
+        rm_phase1_2: "De\u011fer denetimi: Politika de\u011fer ve aral\u0131klar\u0131n\u0131 do\u011frula",
+        rm_phase1_3: "Temizlik: Kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f politikalar\u0131 kald\u0131r",
+        rm_phase1_4: "Referans: Referans d\u00f6k\u00fcman\u0131 sat\u0131r numaralar\u0131n\u0131 g\u00fcncelle",
+        rm_phase2_title: "A\u015fama 2 \u2014 Uygulama",
+        rm_phase2_1: "Uygulama: Eksik Brave politikalar\u0131n\u0131 beti\u011fe ekle",
+        rm_phase3_title: "A\u015fama 3 \u2014 Kalite & Test",
+        rm_phase3_1: "Test tak\u0131m\u0131: Birim ve entegrasyon testleri ekle",
+        rm_phase3_2: "Statik analiz: CI linting entegrasyonu",
+        rm_phase4_title: "A\u015fama 4 \u2014 Dok\u00fcmantasyon/Yayg\u0131nla\u015ft\u0131rma",
+        rm_phase4_1: "Politika katalo\u011fu: Tam meta veri listesi olu\u015ftur",
+        rm_phase5_title: "A\u015fama 5 \u2014 Geli\u015fmi\u015f",
+        rm_phase5_1: "Platformlar aras\u0131: Linux JSON + macOS plist \u00e7\u0131kt\u0131lar\u0131",
+        rm_phase5_2: "MDM: Kurumsal y\u00f6netim i\u00e7in da\u011f\u0131t\u0131m k\u0131lavuzu",
+        rm_phase5_3: "Web aray\u00fcz\u00fc: Politika yap\u0131land\u0131rma arac\u0131",
+        rm_phase5_4: "Mod\u00fcler: Mod\u00fcl mimarisine ge\u00e7i\u015f",
         contrib_desc: "Katk\u0131lar memnuniyetle kar\u015f\u0131lan\u0131r. B\u00fcy\u00fck de\u011fi\u015fikliklerden \u00f6nce l\u00fctfen bir konu a\u00e7\u0131n.",
         contrib_ver_title: "S\u00fcr\u00fcm G\u00fcncellemeleri",
         contrib_ver_desc: "Yeni Brave kararl\u0131 s\u00fcr\u00fcm\u00fcnde politika de\u011fi\u015fikli\u011fi varsa, g\u00fcncellenmi\u015f de\u011fer ve kaynak referans\u0131yla PR a\u00e7\u0131n.",
