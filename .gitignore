@@ -94,6 +94,7 @@ qodana.sarif.json
 *.temp
 *.orig
 *.rej
+test-results.xml
 *.swp
 *.swo
 

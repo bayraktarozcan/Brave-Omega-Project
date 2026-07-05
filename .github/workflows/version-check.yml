@@ -1,0 +1,45 @@
+# Brave Omega Project — Version Check
+# Ensures EN and TR script version strings stay in sync.
+
+name: "Version Check"
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "Brave Omega/*.ps1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  version-sync:
+    name: Check Version Sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Extract version strings
+        shell: pwsh
+        run: |
+          $enContent = Get-Content -Path "Brave Omega/BraveOmega-EN.ps1" -Raw
+          $trContent = Get-Content -Path "Brave Omega/BraveOmega-TR.ps1" -Raw
+
+          $enMatch = [regex]::Match($enContent, '\$ScriptVersion\s*=\s*"([^"]+)"')
+          $trMatch = [regex]::Match($trContent, '\$BetikSurum\s*=\s*"([^"]+)"')
+
+          if (-not $enMatch.Success) { Write-Error "EN script version not found"; exit 1 }
+          if (-not $trMatch.Success) { Write-Error "TR script version not found"; exit 1 }
+
+          $enVer = $enMatch.Groups[1].Value
+          $trVer = $trMatch.Groups[1].Value
+
+          Write-Host "EN version: $enVer"
+          Write-Host "TR version: $trVer"
+
+          if ($enVer -ne $trVer) {
+            Write-Error "Version mismatch: EN='$enVer' vs TR='$trVer'"
+            exit 1
+          }
+
+          Write-Host "✓ Versions match: $enVer"

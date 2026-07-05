@@ -1,5 +1,5 @@
 # Brave Omega Project — Quality Checks
-# Lint markdown, validate YAML, and enforce code style consistency.
+# Lint markdown, validate YAML, enforce code style, run tests, and validate policies.
 
 name: "Quality"
 
@@ -55,3 +55,69 @@ jobs:
             }
           }
           exit $exitCode
+
+  pester-tests:
+    name: Pester Tests (${{ matrix.os }})
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Pester
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module -Name Pester -RequiredVersion 5.7.1 -Force -SkipPublisherCheck
+      - name: Run Pester tests
+        shell: pwsh
+        run: |
+          Import-Module Pester -PassThru
+          $config = New-PesterConfiguration
+          $config.Run.Path = "Tests/"
+          $config.Run.PassThru = $true
+          $config.TestResult.Enabled = $true
+          $config.TestResult.OutputFormat = "NUnitXml"
+          $config.TestResult.OutputPath = "test-results.xml"
+          $config.Output.Verbosity = "Detailed"
+          $result = Invoke-Pester -Configuration $config
+          if ($result.FailedCount -gt 0) { exit 1 }
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: test-results.xml
+
+  ps-script-analyzer:
+    name: PSScriptAnalyzer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module -Name PSScriptAnalyzer -RequiredVersion 1.23.0 -Force -SkipPublisherCheck
+      - name: Run Invoke-ScriptAnalyzer on EN script
+        shell: pwsh
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-EN.ps1" -Severity Warning
+          if ($results) { $results | Format-Table; exit 1 }
+      - name: Run Invoke-ScriptAnalyzer on TR script
+        shell: pwsh
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-TR.ps1" -Severity Warning
+          if ($results) { $results | Format-Table; exit 1 }
+
+  policy-integrity:
+    name: Policy Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Validate ADMX cross-references
+        shell: pwsh
+        run: |
+          & "admx/admx-validate.ps1"
+          if ($LASTEXITCODE -ne 0) { exit 1 }

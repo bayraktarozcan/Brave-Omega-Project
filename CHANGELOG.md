@@ -122,6 +122,22 @@ All notable changes to this project are documented below, following the [Keep a 
 - **Policy counts** — Documentation comments updated to reflect new per-level totals.
 - **CHANGELOG, README, index.html** — Version tables and references updated.
 
+<a id="en-v216-phase3"></a>
+
+### 🧪 Phase 3 — Quality & Test Infrastructure (2026-07-05)
+
+#### Added
+
+- **Test Framework** — 16 Pester 5 test files (`Tests/`) covering unit and integration scenarios for both EN and TR scripts. Two test helpers (`TestHelper.ps1`, `ADMXFixture.psm1`) provide shared fixtures.
+- **CI — PSScriptAnalyzer** — `quality.yml` now runs `Invoke-ScriptAnalyzer` on both PowerShell scripts with custom rule severity.
+- **CI — Policy Integrity** — New `quality.yml` job validates ADMX cross-references against script policy lists using `admx-validate.ps1`.
+- **CI — Platform Matrix** — `quality.yml` expanded to execute Pester and PSScriptAnalyzer on both `ubuntu-latest` and `windows-latest`.
+- **CI — Version Check** — New `version-check.yml` workflow ensures EN/TR script version strings stay in sync.
+- **Documentation — ADMX-validate fix** — `admx-validate.yml` path corrected from `BraveOmega/` → `Brave Omega/` (space in directory name).
+- **Documentation — Wiki** — All 14 Wiki pages updated with Phase 3 test references, version bumps to v2.1.6.0.
+- **Documentation — README / index.html** — Test badge, CI badge, and compatibility table test row added.
+- **Issue [#30](https://github.com/brave-omega/brave-omega/issues/30)** — Tracks Phase 3 completion.
+
 <a id="en-v215"></a>
 
 ## [v2.1.5] — 2026-07-03
@@ -986,6 +1002,22 @@ Eklenen/Değiştirilen Dosyalar:
 - **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.1.6.0"`.
 - **Politika sayıları** — Belgeleme yorumları yeni katman toplamlarını yansıtacak şekilde güncellendi.
 - **CHANGELOG, README, index.html** — Sürüm tabloları ve referansları güncellendi.
+
+<a id="tr-v216-phase3"></a>
+
+### 🧪 Aşama 3 — Kalite ve Test Altyapısı (2026-07-05)
+
+#### Eklendi
+
+- **Test Çerçevesi** — 16 Pester 5 test dosyası (`Tests/`), hem EN hem TR betikleri için birim ve entegrasyon senaryolarını kapsar. İki yardımcı (`TestHelper.ps1`, `ADMXFixture.psm1`) ortak fikstürler sağlar.
+- **CI — PSScriptAnalyzer** — `quality.yml` artık her iki PowerShell betiğinde özel kural ciddiyetiyle `Invoke-ScriptAnalyzer` çalıştırır.
+- **CI — Politika Bütünlüğü** — `quality.yml`'de `admx-validate.ps1` kullanarak ADMX çapraz referanslarını betik politika listelerine karşı doğrulayan yeni iş.
+- **CI — Platform Matrisi** — `quality.yml`, Pester ve PSScriptAnalyzer'ı hem `ubuntu-latest` hem de `windows-latest` üzerinde çalıştıracak şekilde genişletildi.
+- **CI — Sürüm Kontrolü** — EN/TR betik sürüm dizelerinin senkronize kalmasını sağlayan yeni `version-check.yml` iş akışı.
+- **Belgeler — ADMX-validate düzeltmesi** — `admx-validate.yml` yol hatası `BraveOmega/` → `Brave Omega/` olarak düzeltildi.
+- **Belgeler — Wiki** — 14 Wiki sayfasının tümü Aşama 3 test referansları ve v2.1.6.0 sürüm yükseltmeleriyle güncellendi.
+- **Belgeler — README / index.html** — Test rozeti, CI rozeti ve uyumluluk tablosu test satırı eklendi.
+- **Issue [#30](https://github.com/brave-omega/brave-omega/issues/30)** — Aşama 3 tamamlanmasını takip eder.
 
 <a id="tr-v215"></a>
 

@@ -184,6 +184,13 @@
                     <div><span class="text-[#22c55e] font-bold text-lg">4</span> <span class="text-gray-500" data-i18n="hero_stat_tiers">Sıkılaştırma Seviyesi</span></div>
                     <div><span class="text-[#22c55e] font-bold text-lg">2</span> <span class="text-gray-500" data-i18n="hero_stat_langs">Dil Sürümü</span></div>
                 </div>
+                <div class="flex flex-wrap gap-3 mt-4 text-xs">
+                    <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/quality.yml" target="_blank" rel="noopener" class="text-gray-500 hover:text-gray-300 transition-colors">CI Tests</a>
+                    <span class="text-gray-700">|</span>
+                    <a href="https://github.com/brave-omega/brave-omega/issues/30" target="_blank" rel="noopener" class="text-gray-500 hover:text-gray-300 transition-colors">Issue #30</a>
+                    <span class="text-gray-700">|</span>
+                    <span class="text-gray-600">Pester 5</span>
+                </div>
             </div>
             <div class="animate-fade-in-up-d1">
                 <div class="terminal-wrap bg-[#000] rounded-xl border border-[#1f1f1f] overflow-hidden shadow-2xl" style="animation:pulseGlow 3s ease-in-out infinite;">
@@ -881,10 +888,14 @@
                 </div>
             </div>
             <div class="text-left mb-6">
-                <span class="text-xs font-bold text-[#3b82f6] uppercase tracking-wider" data-i18n="rm_phase3_title">Aşama 3 — Kalite & Test</span>
+                <span class="text-xs font-bold text-[#22c55e] uppercase tracking-wider" data-i18n="rm_phase3_title">Aşama 3 — Kalite & Test ✓ Tamamlandı</span>
                 <div class="mt-2 space-y-2">
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase3_1">Test suite: add unit and integration tests</span></div>
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-600 text-lg min-w-[20px]">&#x25a0;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase3_2">Static analysis: add CI linting integration</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase3_1">16 Pester 5 test files (unit + integration) — Tests/ directory</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_phase3_2">PSScriptAnalyzer static analysis in CI pipeline</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs">Policy integrity CI — ADMX cross-reference validation via admx-validate.ps1</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs">Platform matrix — Pester + PSScriptAnalyzer on ubuntu + windows</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs">Version check CI — EN/TR script version sync workflow</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-gray-500 text-lg min-w-[20px]">&#x2197;</span><span class="text-gray-500 text-xs">Issue <a href="https://github.com/brave-omega/brave-omega/issues/30" class="text-[#3b82f6] hover:underline">#30</a></span></div>
                 </div>
             </div>
             <div class="text-left mb-6">
