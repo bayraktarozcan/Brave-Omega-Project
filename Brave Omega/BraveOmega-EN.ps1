@@ -596,6 +596,7 @@ Write-Host "[INFO] Level '$Level' will apply $TotalPolicyCount policies.`n" -For
 # REGISTRY WRITING HELPER
 # ─────────────────────────────────────────────────────────────────────────────
 function Write-PolicyValue {
+    [CmdletBinding(SupportsShouldProcess)]
     param(
         [string]$TargetPath,
         [string]$PolicyName,
