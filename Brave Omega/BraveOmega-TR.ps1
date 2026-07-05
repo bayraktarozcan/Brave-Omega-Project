@@ -603,7 +603,6 @@ Write-Host "[BİLGİ] '$Seviye' katmanı $ToplamPolitikaSayisi politika uygulaya
 # KAYIT DEFTERİ YAZMA YARDIMCISI
 # ─────────────────────────────────────────────────────────────────────────────
 function Yaz-KayitDegeri {
-    [CmdletBinding(SupportsShouldProcess)]
     param(
         [string]$HedefYol,
         [string]$PolitikaAdi,
