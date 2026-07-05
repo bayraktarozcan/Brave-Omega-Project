@@ -19,6 +19,8 @@
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-22C55E?style=flat-square)](https://github.com/bayraktarozcan/Brave-Omega-Project)
 [![Community](https://img.shields.io/badge/Community-Open%20Source-8B5CF6?style=flat-square)](https://github.com/bayraktarozcan/Brave-Omega-Project)
+[![Tests](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/quality.yml?branch=main&label=Tests&style=flat-square&logo=github)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/quality.yml)
+[![Pester](https://img.shields.io/badge/Pester-5.0%2B-FF60A0?style=flat-square&logo=powershell&logoColor=white)](https://pester.dev)
 
 <br>
 
@@ -65,8 +67,8 @@ systematically disables telemetry, analytics services, background pings, integra
 monetization features, and other privacy-eroding components — all without touching the
 browser's internals or requiring any third-party tools.
 
-Brave Omega v2.0 introduced a **four-tier hardening model** — Brave Only (13 policies),
-Essential ⭐ (29), Balanced (47), and Strict (67) — giving users precise control over
+Brave Omega v2.1.6 introduced a **four-tier hardening model** — Brave Only (23 policies),
+Essential ⭐ (40), Balanced (61), and Strict (81) — giving users precise control over
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
 
@@ -97,7 +99,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Feature | Description |
 |---------|-------------|
-| 🔒 **Four-Tier Privacy Model** | Choose your hardening level: **Brave Only** (13 policies), **Essential ⭐** (29 policies), **Balanced** (47), or **Strict** (67) |
+| 🔒 **Four-Tier Privacy Model** | Choose your hardening level: **Brave Only** (23 policies), **Essential ⭐** (40 policies), **Balanced** (61), or **Strict** (81) |
 | 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
@@ -213,7 +215,7 @@ and offers **four hardening levels** that determine how many policies are applie
 ├─────────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  13–67 ADMX-validated enterprise policies (level-based). │
+│  ↳  23–81 ADMX-validated enterprise policies (level-based).     │
 │     Appear gray and locked in browser Settings UI.         │
 │     Cannot be overridden by user interaction.              │
 ├─────────────────────────────────────────────────────────────┤
@@ -229,10 +231,10 @@ and offers **four hardening levels** that determine how many policies are applie
 
 | Level | Total Policies | Brave-Specific | Chromium (Data) | Chromium (Security) | Usability Impact |
 |-------|---------------|----------------|-----------------|---------------------|-----------------|
-| **Brave Only** | 13 | 13 | 0 | 0 | None |
-| **Essential ⭐** | 29 | 13 | 16 | 0 | None |
-| **Balanced** | 47 | 13 | 16 | 18 | Low |
-| **Strict** | 67 | 13 | 17 | 37 | Medium |
+| **Brave Only** | 23 | 23 | 0 | 0 | None |
+| **Essential ⭐** | 40 | 23 | 17 | 0 | None |
+| **Balanced** | 61 | 23 | 17 | 21 | Low |
+| **Strict** | 81 | 23 | 17 | 41 | Medium |
 
 #### 6.2 Policy Sources & Methodology
 
@@ -319,7 +321,7 @@ no longer have any effect.
 
 ### 9. Policy Reference
 
-> Brave Omega offers **4 hardening levels** with **67 enterprise policies** total. The policy reference below is organized by registry hive and level. All 67 policies are listed — no need to consult the script.
+> Brave Omega offers **4 hardening levels** with **81 enterprise policies** total. The policy reference below is organized by registry hive and level.
 
 #### 9.1 HKCU — User-Level Preferences (all levels)
 
@@ -329,7 +331,7 @@ no longer have any effect.
 | `ChromeVariations` | HKCU | `1` | DWord | Restricts Chromium to critical field trials only |
 | `usagestats` *(per GUID)* | HKCU | `0` | DWord | Disables Omaha updater telemetry per application GUID |
 
-#### 9.2 Brave Only Level — Brave-Specific Policies (13)
+#### 9.2 Brave Only Level — Brave-Specific Policies (23)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -346,8 +348,18 @@ no longer have any effect.
 | `BraveStatsPingEnabled` | `0` | DWord | Stops status/authentication pings to Brave |
 | `BraveWebDiscoveryEnabled` | `0` | DWord | Disables Web Discovery Project contribution |
 | `TorDisabled` | `1` | DWord | Disables Tor integration |
+| `BraveDeAmpEnabled` | `1` | DWord | Bypasses Google AMP pages, redirects to publisher |
+| `BraveDebouncingEnabled` | `1` | DWord | Skips known tracking redirect domains |
+| `BraveReduceLanguageEnabled` | `1` | DWord | Reduces language fingerprint exposure |
+| `BraveTrackingQueryParametersFilteringEnabled` | `1` | DWord | Strips tracking params from URLs |
+| `DefaultBraveAdblockSetting` | `2` | DWord | Locks Shields ad blocking to Block |
+| `DefaultBraveFingerprintingV2Setting` | `3` | DWord | Locks Shields fingerprinting to Strict |
+| `BraveShieldsDisabledForUrls` | `@()` | MultiString | Empty — no Shields whitelist |
+| `BraveShieldsEnabledForUrls` | `@()` | MultiString | Empty — no Shields blacklist |
+| `BraveLocalAIEnabled` | `0` | DWord | Disables on-device AI features |
+| `EmailAliasesEnabled` | `0` | DWord | Disables anonymous email alias feature |
 
-#### 9.3 Essential Level — Brave Only + Data Leak Prevention (16 additional)
+#### 9.3 Essential Level — Brave Only + Data Leak Prevention (17 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -367,8 +379,9 @@ no longer have any effect.
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | Stops WebRTC text log upload |
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
 | `VideoCaptureAllowed` | `0` | DWord | Blocks camera by default |
+| `BraveGlobalPrivacyControlEnabled` | `1` | DWord | Sends Global Privacy Control opt-out signal |
 
-#### 9.4 Balanced Level — Essential + Security Baseline (18 additional)
+#### 9.4 Balanced Level — Essential + Security Baseline (21 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -390,8 +403,11 @@ no longer have any effect.
 | `DefaultGeolocationSetting` | `2` | DWord | Blocks location by default |
 | `DefaultNotificationsSetting` | `2` | DWord | Blocks notifications by default |
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
+| `DefaultBraveHttpsUpgradeSetting` | `2` | DWord | Strict HTTPS upgrade with interstitial |
+| `DefaultBraveReferrersSetting` | `2` | DWord | Caps referrer to strict-origin-when-cross-origin |
+| `BraveSyncUrl` | `"https://sync-v2.brave.com/v2"` | String | Explicit Brave sync server endpoint |
 
-#### 9.5 Strict Level — Balanced + Maximum Privacy (21 additional)
+#### 9.5 Strict Level — Balanced + Maximum Privacy (20 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -409,7 +425,7 @@ no longer have any effect.
 | `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
 | `BrowserGuestModeEnabled` | `0` | DWord | Prevents guest profiles |
 | `BrowserAddPersonEnabled` | `0` | DWord | Prevents new profiles |
-| `CloudPrintProxyEnabled` | `0` | DWord | Disables Cloud Print proxy |
+| `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Forgets first-party storage on tab/nav end |
 | `ImportAutofillFormData` | `0` | DWord | Disables autofill import |
 | `ImportBookmarks` | `0` | DWord | Disables bookmark import |
 | `ImportHistory` | `0` | DWord | Disables history import |
@@ -485,12 +501,13 @@ BRAVE OMEGA PROJECT/
 - [x] **Multi-type registry engine** — DWord, String, MultiString type-aware dispatching (v2.0)
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
-- [x] **67 total policies** — expanded from 17 to 67 across 4 levels (v2.0)
+- [x] **81 total policies** — expanded from 17 to 81 across 4 levels (v2.0 / v2.1.6)
 - [x] **Automated Brave version detection** — warn if installed version differs from validated target (v2.1)
 - [x] **Dry-run mode** via `-WhatIf` parameter — preview all changes without writing to registry (v2.1)
 - [x] **Reset/uninstall mode** via `-Reset` parameter — remove all applied policies cleanly (v2.1)
 - [x] **CONTRIBUTING.md** and GitHub issue templates (v2.1)
 - [x] **GitHub Actions ADMX validation pipeline** — weekly automated policy diff validation (v2.1)
+- [x] **Phase 3 — Quality & Test Infrastructure** — 56 Pester 5 tests (16 test files), PSScriptAnalyzer, policy integrity CI, platform matrix (Ubuntu + Windows), version-check workflow (v2.1.6)
 - [ ] Additional language editions (community contributions welcome — see CONTRIBUTING.md)
 - [ ] Per-policy override support — explicitly include/exclude individual policies from any level
 - [ ] PowerShell help system (`Get-Help BraveOmega-EN.ps1 -Detailed`)
@@ -1012,10 +1029,13 @@ BRAVE OMEGA PROJECT/
 
 - [ ] **Politika ekleme** — 13 eksik Brave politikasını betiğe ekle
 
-#### 🔲 Aşama 3 — Kalite & Test
+#### ✅ Aşama 3 — Kalite & Test
 
-- [ ] **Pester test takımı** — birim + entegrasyon testleri
-- [ ] **PSScriptAnalyzer** — statik analiz CI entegrasyonu
+- [x] **Pester test takımı** — 16 birim + entegrasyon test dosyası ([#30](https://github.com/brave-omega/brave-omega/issues/30))
+- [x] **PSScriptAnalyzer** — statik analiz CI entegrasyonu
+- [x] **Politika bütünlük CI** — ADMX çapraz referans doğrulama
+- [x] **Platform matrisi** — ubuntu + windows CI
+- [x] **Sürüm kontrolü** — EN/TR betik sürüm senkronizasyonu
 
 #### 🔲 Aşama 4 — Dokümantasyon/Yaygınlaştırma
 
