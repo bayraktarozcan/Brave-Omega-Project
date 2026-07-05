@@ -10,6 +10,7 @@
 **Brave Omega** is an open-source PowerShell automation project that hardens **Brave Browser** through **official enterprise policy channels**.
 
 Using **Windows Registry Group Policy architecture** and **Brave's official ADMX policy framework**, it systematically disables:
+
 - Telemetry & analytics services
 - Background pings & network calls
 - Integrated monetization features (Rewards, Wallet, VPN)
@@ -20,6 +21,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 **All without touching browser internals or requiring third-party tools.**
 
 > **Two scripts. One goal. Zero cost.**
+>
 > - `BraveOmega-EN.ps1` — Full English interface
 > - `BraveOmega-TR.ps1` — Full Turkish interface
 
@@ -28,12 +30,14 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 ## Why Brave Omega Exists
 
 Enterprise browser hardening typically demands one of two things:
+
 1. Deep technical expertise in ADMX policy frameworks and registry architecture
 2. An expensive premium product subscription
 
 **Brave Omega rejects both constraints.**
 
 **Everything needed to achieve serious, registry-enforced browser privacy hardening is already present in the free, open-source Brave Browser.**
+
 - The enforcement architecture lives in Brave's official ADMX templates
 - The mechanism is built into Windows Registry Group Policy
 - The knowledge exists in the official documentation
@@ -47,9 +51,9 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 ## Key Features
 
 | Feature | Description |
-|---------|-------------|
+| --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement (HKCU + HKLM + Omaha)** | HKCU (user) + HKLM (enterprise/ADMX) + Omaha GUID — three independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 68 ADMX-Validated Policies (4 Levels), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 82 ADMX-Validated Policies (4 Levels), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -62,10 +66,11 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 ## Current Version
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
-|-------------|---------------|----------|---------|--------|
+| ------------- | --------------- | ---------- | --------- | -------- |
 | **v2.1.6.0** *(current)* | 1.92.134 | 150 | 11 25H2 | ✅ Current |
+| **v2.1.5** | 1.91.180 | 149 | 11 25H2 | 📦 Previous |
 | **v2.1.4** | 1.91.180 | 149 | 11 25H2 | 📦 Previous |
-| **v2.1.3** | 1.91.178 | 149 | 11 25H2 | ✅ Active |
+| **v2.1.3** | 1.91.178 | 149 | 11 25H2 | 📦 Previous |
 | v2.1.2 | 1.91.175 | 149 | 11 25H2 | 📦 Previous |
 | v2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
 | v2.0 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
@@ -117,6 +122,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 **Brave Omega**, **Brave Browser**'ı **resmî kurumsal politika kanalları** aracılığıyla sıkılaştıran açık kaynaklı bir PowerShell özdevim projesidir.
 
 **Windows Kayıt Defteri Grup İlkesi mimarisi** ve **Brave'in resmî ADMX politika çerçevesi** kullanılarak sistematik biçimde devre dışı bırakılanlar:
+
 - Veri aktarımı (telemetri) ve analiz hizmetleri
 - Arka plan pingleri ve ağ çağrıları
 - Tümleşik para kazanma özellikleri (Rewards, Cüzdan, VPN)
@@ -127,6 +133,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 **Tümü, tarayıcının iç yapısına dokunmadan veya üçüncü taraf araç gerektirmeden.**
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
+>
 > - `BraveOmega-EN.ps1` — Tam İngilizce arayüz
 > - `BraveOmega-TR.ps1` — Tam Türkçe arayüz
 
@@ -135,12 +142,14 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 ## Brave Omega Neden Var?
 
 Kurumsal düzeyde tarayıcı gizlilik sıkılaştırması iki şeyden birini gerektirir:
+
 1. ADMX politika çerçeveleri ve kayıt defteri mimarisine derin teknik hâkimiyet
 2. Pahalı bir ücretli ürün aboneliği
 
 **Brave Omega her iki kısıtlamayı da ortadan kaldırır.**
 
 **Ciddi, kayıt defteri düzeyinde zorunlu kılınan tarayıcı gizlilik sıkılaştırması için gereken her şey, ücretsiz ve açık kaynaklı Brave Browser içinde zaten mevcuttur.**
+
 - Zorunlu kılma mimarisi Brave'in resmî ADMX şablonlarında hazır durumdadır
 - Düzenek, Windows Kayıt Defteri Grup İlkesi içine yerleşik şekilde çalışır
 - Bilgi resmî belgelendirmede açıktır
@@ -154,9 +163,9 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 ## Temel Özellikler
 
 | Özellik | Açıklama |
-|---------|----------|
+| --------- | ---------- |
 | 🔒 **Çok Katmanlı Zorunlu Kılma (HKCU + HKLM + Omaha)** | HKCU (kullanıcı) + HKLM (kurumsal/ADMX) + Omaha GUID — üç bağımsız zorunlu kılma katmanı |
-| 📋 **ADMX Doğrulamalı Politikalar** | 68 ADMX Doğrulamalı Politika (4 Seviye), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 82 ADMX Doğrulamalı Politika (4 Seviye), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
@@ -169,10 +178,10 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 ## Güncel Sürüm
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
-|-------------|--------------|----------|---------|-------|
+| ------------- | -------------- | ---------- | --------- | ------- |
 | **v2.1.6.0** *(güncel)* | 1.92.134 | 150 | 11 25H2 | ✅ Etkin |
 | **v2.1.5** | 1.91.180 | 149 | 11 25H2 | 📦 Önceki |
-| **v2.1.3** | 1.91.178 | 149 | 11 25H2 | ✅ Etkin |
+| **v2.1.3** | 1.91.178 | 149 | 11 25H2 | 📦 Önceki |
 | v2.1.2 | 1.91.175 | 149 | 11 25H2 | 📦 Önceki |
 | v2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
 | v2.0 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |

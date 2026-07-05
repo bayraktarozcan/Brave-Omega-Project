@@ -12,7 +12,7 @@
 ## Prerequisites
 
 | Requirement | Detail |
-|-------------|--------|
+| ------------- | -------- |
 | **OS** | Windows 11 (latest stable 25H2 build recommended) |
 | **Browser** | **Brave Browser — latest stable** ([brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (included with Windows 11) |
@@ -26,11 +26,13 @@
 ## One-Line Execution
 
 ### Turkish Interface
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
 
 ### English Interface
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ```
@@ -40,15 +42,19 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ---
 
 ### Preview Mode (-WhatIf)
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
 ```
+
 Shows what would change without writing to the registry.
 
 ### Clean Uninstall (-Reset)
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
 ```
+
 Removes all Brave Omega policies from HKLM, HKCU, and Omaha GUIDs.
 
 ---
@@ -82,16 +88,20 @@ Available levels: `BraveOnly`, `Essential`, `Balanced`, `Strict` (EN) or `BraveY
 ## Step-by-Step (Expanded)
 
 ### 1. Open PowerShell as Administrator
+
 - Press `Win` → type `PowerShell`
 - Right-click **Windows PowerShell** → **Run as Administrator**
 
 ### 2. Navigate to Project Folder
+
 ```powershell
 cd "C:\Users\Downloads\Brave-Omega"
 ```
+
 > Adjust path if you extracted elsewhere.
 
 ### 3. Run the Script
+
 ```powershell
 # Turkish
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
@@ -101,10 +111,12 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ```
 
 ### 4. Restart Brave
+
 - Close **all** Brave windows completely
 - Reopen Brave
 
 ### 5. Verify
+
 Navigate to `brave://policy` in Brave — all policies (30 for Essential level) should show as **Active**.
 
 ---
@@ -112,7 +124,7 @@ Navigate to `brave://policy` in Brave — all policies (30 for Essential level) 
 ## What the Script Does
 
 | Phase | Action |
-|-------|--------|
+| ------- | -------- |
 | **1. Pre-flight** | Detects running Brave, prompts continue/cancel |
 | **2. Backup** | Creates timestamped `.reg` backup of HKLM policy hive |
 | **3. Apply** | Writes policies across 3 tiers based on selected level (13/30/49/68) |
@@ -126,6 +138,7 @@ Navigate to `brave://policy` in Brave — all policies (30 for Essential level) 
 ```powershell
 reg import "BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg"
 ```
+
 The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.reg`).
 
 ---
@@ -133,7 +146,7 @@ The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.
 ## Common Issues
 
 | Issue | Resolution |
-|-------|------------|
+| ------- | ------------ |
 | "CRITICAL ERROR" on launch | Right-click PowerShell → **Run as Administrator** |
 | No policies in `brave://policy` | Close **all** Brave windows and reopen |
 | `[ERROR]` in output | Confirm Administrator mode; re-run |
@@ -163,7 +176,7 @@ The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.
 ## Ön Gereksinimler
 
 | Gereksinim | Ayrıntı |
-|------------|---------|
+| ------------ | --------- |
 | **İşletim Sistemi** | Windows 11 (önerilen: en güncel kararlı 25H2 derlemesi) |
 | **Tarayıcı** | **Brave Browser — en güncel kararlı** ([brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir) |
@@ -177,11 +190,13 @@ The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.
 ## Tek Satırda Çalıştırma
 
 ### Türkçe Arayüz
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
 
 ### İngilizce Arayüz
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ```
@@ -191,15 +206,19 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ---
 
 ### Ön İzleme Kipi (-WhatIf)
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
 ```
+
 Kayıt defterine yazmadan nelerin değişeceğini gösterir.
 
 ### Temiz Kaldırma (-Reset)
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
 ```
+
 Tüm Brave Omega politikalarını HKLM, HKCU ve Omaha GUID'lerinden kaldırır.
 
 ---
@@ -233,16 +252,20 @@ Kullanılabilir seviyeler: `BraveOnly`/`BraveYalniz`, `Essential`/`Temel`, `Bala
 ## Adım Adım (Genişletilmiş)
 
 ### 1. PowerShell'i Yönetici Olarak Aç
+
 - `Win` tuşuna bas → `PowerShell` yaz
 - **Windows PowerShell**'e sağ tıkla → **Yönetici olarak çalıştır**
 
 ### 2. Proje Klasörüne Git
+
 ```powershell
 cd "C:\Users\Downloads\Brave-Omega"
 ```
+
 > Farklı bir yere çıkardıysanız yolu buna göre ayarlayın.
 
 ### 3. Betiği Çalıştır
+
 ```powershell
 # Türkçe
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
@@ -252,10 +275,12 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ```
 
 ### 4. Brave'i Yeniden Başlat
+
 - **Tüm** Brave pencerelerini tamamen kapat
 - Brave'i yeniden aç
 
 ### 5. Doğrula
+
 Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 30) **Etkin** olarak görünmelidir.
 
 ---
@@ -263,7 +288,7 @@ Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 30) 
 ## Betik Ne Yapar?
 
 | Aşama | Eylem |
-|-------|-------|
+| ------- | ------- |
 | **1. Ön Kontrol** | Çalışan Brave'i tespit eder, devam/iptal istemi gösterir |
 | **2. Yedekleme** | HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur |
 | **3. Uygulama** | Seçilen seviyeye göre 3 katmanda politikaları yazar (13/30/49/68) |
@@ -277,6 +302,7 @@ Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 30) 
 ```powershell
 reg import "BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg"
 ```
+
 Yedek dosyası zaman damgasıyla adlandırılır (ör. `BraveOmega_HKLM_20260613_120000.reg`).
 
 ---
@@ -284,7 +310,7 @@ Yedek dosyası zaman damgasıyla adlandırılır (ör. `BraveOmega_HKLM_20260613
 ## Sık Karşılaşılan Sorunlar
 
 | Sorun | Çözüm |
-|-------|-------|
+| ------- | ------- |
 | Başlatmada "KRİTİK HATA" | PowerShell'e sağ tıkla → **Yönetici olarak çalıştır** |
 | `brave://policy`'de politika yok | **Tüm** Brave pencerelerini kapat ve yeniden aç |
 | Çıktıda `[HATA]` satırları | Yönetici modunu doğrula; yeniden çalıştır |

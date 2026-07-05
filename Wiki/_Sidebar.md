@@ -1,6 +1,7 @@
 ﻿# 🦁 Brave Omega Wiki
 
 ## 🇬🇧 English
+
 - [Home](Home#-english)
 - [Overview](Overview#-english)
 - [Quick Start](Quick-Start#-english)
@@ -16,6 +17,7 @@
 - [🧪 Tests](https://github.com/bayraktarozcan/Brave-Omega-Project/tree/main/Tests) — Pester test suite
 
 ## 🇹🇷 Türkçe
+
 - [Ana Sayfa](Home#-türkçe)
 - [Genel Bakış](Overview#-türkçe)
 - [Hızlı Başlangıç](Quick-Start#-türkçe)
@@ -33,6 +35,7 @@
 ---
 
 ## 🔗 External Links
+
 - [📥 Latest Release](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 - [📖 Main README](https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/README.md)
 - [🐛 Issue Tracker](https://github.com/bayraktarozcan/Brave-Omega-Project/issues)

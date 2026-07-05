@@ -12,7 +12,7 @@ Quick-reference guide for common Brave Omega issues.
 ## Quick Diagnostic
 
 | Symptom | Likely Cause | Quick Fix |
-|---------|--------------|-----------|
+| --------- | -------------- | ----------- |
 | Script exits with "CRITICAL ERROR" | Not running as Administrator | Right-click PowerShell → **Run as Administrator** |
 | `brave://policy` shows **no policies** | Brave not restarted | Close **all** Brave windows and reopen |
 | `[ERROR]` lines in output | HKLM permission issue | Confirm Admin mode; re-run |
@@ -34,6 +34,7 @@ Quick-reference guide for common Brave Omega issues.
 **Cause:** Script not running with elevated privileges.
 
 **Resolution:**
+
 1. Close PowerShell
 2. Press `Win` → type `PowerShell`
 3. Right-click **Windows PowerShell** → **Run as Administrator**
@@ -48,6 +49,7 @@ Quick-reference guide for common Brave Omega issues.
 **Cause:** Brave was running when policies were applied, or Brave not restarted.
 
 **Resolution:**
+
 1. Close **all** Brave windows (check system tray)
 2. Wait 2 seconds
 3. Reopen Brave
@@ -63,6 +65,7 @@ Quick-reference guide for common Brave Omega issues.
 **Cause:** Permission denied writing to HKLM registry path.
 
 **Resolution:**
+
 1. Verify running as Administrator (check title bar says "Administrator")
 2. Close any registry editors (`regedit`) that might lock the path
 3. Re-run script
@@ -75,6 +78,7 @@ Quick-reference guide for common Brave Omega issues.
 **Cause:** Brave was running during script execution.
 
 **Resolution:**
+
 1. Close **all** Brave windows before running script
 2. Use script's built-in process guard (prompts continue/cancel if Brave detected)
 3. If missed: Close Brave, re-run script with `-Force`
@@ -90,6 +94,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Cause:** Brave version mismatch — policy key renamed/deprecated in newer Brave.
 
 **Resolution:**
+
 1. Check Brave version: `brave://version`
 2. Check [Compatibility Matrix](Version-Compatibility-Matrix) for your Brave Omega version
 3. If Brave newer than matrix: Check [Releases](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) for updated Brave Omega
@@ -104,6 +109,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Cause:** Restricted ACL on `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
 
 **Resolution:**
+
 1. Open `regedit` as Administrator
 2. Navigate to `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
 3. Right-click → **Permissions**
@@ -121,6 +127,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Cause:** Brave process detection waiting for user input (hidden prompt).
 
 **Resolution:**
+
 1. Check if PowerShell is waiting for input (look at title bar)
 2. Close all Brave windows manually
 3. Press `Enter` in PowerShell if prompted
@@ -137,6 +144,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Error:** `Running scripts is disabled on this system`
 
 **Resolution:** Use the bypass flag (built into v1.2.2+):
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
@@ -150,6 +158,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 **Cause:** Registry value type mismatch (DWORD vs String) or invalid value.
 
 **Resolution:**
+
 1. Verify registry value types in `regedit`:
    - DWORD policies: `0` or `1` (not `"0"` or `"1"`)
 2. Re-run script — it enforces correct types
@@ -170,23 +179,31 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 **Cause:** Test environment issue — wrong directory, missing module, or admin requirement.
 
 **Resolution:**
+
 1. Ensure you are in the project root (where `Tests/` folder exists):
+
    ```powershell
    cd "C:\path\to\Brave-Omega-Project"
    ```
+
 2. Verify Pester is installed:
+
    ```powershell
    Install-Module Pester -Force -SkipPublisherCheck
    ```
+
 3. Run a single test file to isolate failures:
+
    ```powershell
    Invoke-Pester -Path .\Tests\01-BraveOnly.Tests.ps1
    ```
+
 4. Check CI status badges on the repo README.
 
 **Common failures:**
+
 | Symptom | Cause |
-|---------|-------|
+| --------- | ------- |
 | All tests skipped | Not running from project root |
 | Registry test fails | Running without `-WhatIf` mock |
 | CI test not triggered | Branch not pushed / PR not open |
@@ -194,6 +211,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 **Cause:** Registry value type mismatch (DWORD vs String) or invalid value.
 
 **Resolution:**
+
 1. Verify registry value types in `regedit`:
    - DWORD policies: `0` or `1` (not `"0"` or `"1"`)
 2. Re-run script — it enforces correct types
@@ -212,7 +230,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ## Error Code Reference
 
 | Exit Code | Meaning |
-|-----------|---------|
+| ----------- | --------- |
 | `0` | Success — all policies applied |
 | `1` | General failure (see output) |
 | `2` | Administrator check failed |
@@ -266,7 +284,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 ## Hızlı Tanı
 
 | Belirti | Olası Neden | Hızlı Çözüm |
-|---------|-------------|-------------|
+| --------- | ------------- | ------------- |
 | Betik "KRİTİK HATA" ile çıkıyor | Yönetici olarak çalışmıyor | PowerShell'e sağ tıkla → **Yönetici olarak çalıştır** |
 | `brave://policy` **politika göstermiyor** | Brave yeniden başlatılmadı | **Tüm** Brave pencerelerini kapat ve yeniden aç |
 | Çıktıda `[HATA]` satırları | HKLM izin sorunu | Yönetici modunu doğrula; yeniden çalıştır |
@@ -286,6 +304,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 **Neden:** Betik yükseltilmiş ayrıcalıklarla çalışmıyor.
 
 **Çözüm:**
+
 1. PowerShell'i kapat
 2. `Win` tuşuna bas → `PowerShell` yaz
 3. **Windows PowerShell**'e sağ tıkla → **Yönetici olarak çalıştır**
@@ -300,6 +319,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 **Neden:** Politikalar uygulanırken Brave çalışıyordu veya Brave yeniden başlatılmadı.
 
 **Çözüm:**
+
 1. **Tüm** Brave pencerelerini kapat (sistem tepsisini kontrol et)
 2. 2 saniye bekle
 3. Brave'i yeniden aç
@@ -315,6 +335,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 **Neden:** HKLM kayıt defteri yoluna yazma izni reddedildi.
 
 **Çözüm:**
+
 1. Yönetici olarak çalıştırdığınızı doğrulayın (başlık çubuğunda "Yönetici" yazdığını kontrol edin)
 2. Yolu kilitleyebilecek kayıt defteri düzenleyicilerini (`regedit`) kapatın
 3. Betiği yeniden çalıştırın
@@ -327,6 +348,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 **Neden:** Betik çalıştırma sırasında Brave çalışıyordu.
 
 **Çözüm:**
+
 1. Betiği çalıştırmadan önce **tüm** Brave pencerelerini kapatın
 2. Betiğin yerleşik süreç koruyucusunu kullanın (Brave tespit edilirse devam/iptal istemi gösterir)
 3. Kaçırıldıysa: Brave'i kapatın, `-Force` ile betiği yeniden çalıştırın
@@ -342,6 +364,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Neden:** Brave sürüm uyuşmazlığı — politika anahtarı yeniden adlandırılmış/kullanımdan kaldırılmış.
 
 **Çözüm:**
+
 1. Brave sürümünü kontrol edin: `brave://version`
 2. Brave Omega sürümünüz için [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe)'ni kontrol edin
 3. Brave matristen yeniyse: Güncellenmiş Brave Omega için [Sürümlere](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) bakın
@@ -356,6 +379,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Neden:** `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` üzerinde kısıtlı ACL
 
 **Çözüm:**
+
 1. `regedit`'i Yönetici olarak açın
 2. `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` yoluna gidin
 3. Sağ tıkla → **İzinler**
@@ -373,6 +397,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Neden:** Brave süreç tespiti kullanıcı girişi bekliyor (gizli istem).
 
 **Çözüm:**
+
 1. PowerShell'in giriş bekleyip beklemediğini kontrol edin (başlık çubuğuna bakın)
 2. Tüm Brave pencerelerini manuel kapatın
 3. İstem varsa PowerShell'de `Enter` tuşuna basın
@@ -389,6 +414,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 **Hata:** `Bu sistemde betik çalıştırma devre dışı bırakılmıştır`
 
 **Çözüm:** Bayrak kullanın (v1.2.2+ içinde yerleşik):
+
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
@@ -402,6 +428,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 **Neden:** Kayıt defteri değer türü uyuşmazlığı (DWORD vs String) veya geçersiz değer.
 
 **Çözüm:**
+
 1. Kayıt defteri değer türlerini `regedit`'te doğrulayın:
    - DWORD politikaları: `0` veya `1` (`"0"` veya `"1"` değil)
 2. Betiği yeniden çalıştırın — doğru türleri zorlar
@@ -420,7 +447,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ## Hata Kodu Referansı
 
 | Çıkış Kodu | Anlamı |
-|------------|--------|
+| ------------ | -------- |
 | `0` | Başarılı — tüm politikalar uygulandı |
 | `1` | Genel hata (çıktıya bakın) |
 | `2` | Yönetici kontrolü başarısız |

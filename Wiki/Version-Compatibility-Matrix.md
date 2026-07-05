@@ -12,7 +12,7 @@ Complete compatibility reference for Brave Omega versions.
 ## Current Compatibility Matrix
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
-|-------------|---------------|----------|---------|--------|--------------|
+| ------------- | --------------- | ---------- | --------- | -------- | -------------- |
 | **v2.1.6.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | ✅ Current | 2026-07-05 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-03 |
 | **v2.1.4** | 1.91.180 | 149.0.7827.201 | Windows 11 25H2 | 📦 Previous | 2026-06-27 |
@@ -21,7 +21,7 @@ Complete compatibility reference for Brave Omega versions.
 | v2.1.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-17 |
 | v2.1 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Previous | 2026-06-16 |
 | v2.0 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Previous | |
-| v1.2.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | ✅ Active | 2026-06-13 |
+| v1.2.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-13 |
 | v1.2.1 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-13 |
 | v1.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-12 |
 | v1.1 | 1.91.168 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-05 |
@@ -32,7 +32,7 @@ Complete compatibility reference for Brave Omega versions.
 ## Legend
 
 | Status | Meaning |
-|--------|---------|
+| -------- | --------- |
 | ✅ **Active** | Current recommended version; fully tested and supported |
 | 📦 **Previous** | Functional but superseded; upgrade recommended |
 | 🔒 **Archived** | Legacy version; no longer supported or tested |
@@ -42,6 +42,7 @@ Complete compatibility reference for Brave Omega versions.
 ## Version Pinning Policy
 
 Every Brave Omega release is **explicitly pinned** to:
+
 - Exact Brave Browser version
 - Exact Chromium version
 - Validated Windows build
@@ -51,18 +52,21 @@ Every Brave Omega release is **explicitly pinned** to:
 ---
 
 ## Version Selection Guide
-### Use Current (v2.1.6.0) If:
+
+### Use Current (v2.1.6.0) If
 
 - Running Brave 1.92.134 (latest stable)
 - Want latest security fixes and execution policy fix
 - Need simplified one-line execution workflow
 
-### Use Previous (v1.2.1) If:
+### Use Previous (v1.2.1) If
+
 - Cannot update to v1.2.2 immediately
 - Running Brave 1.91.172
 - Need translation parity fixes
 
-### Avoid Archived (v1.0) If:
+### Avoid Archived (v1.0) If
+
 - Policies outdated (only 7 vs 17 current)
 - No backup/rollback, no process guard
 - No lifecycle commitment features
@@ -72,11 +76,13 @@ Every Brave Omega release is **explicitly pinned** to:
 ## Brave Version Verification
 
 ### Check Your Brave Version
+
 1. Open Brave
 2. Navigate to `brave://version`
 3. Compare **Version** and **Chromium** fields with matrix above
 
 ### Quick Check (PowerShell)
+
 ```powershell
 # Get installed Brave version
 $bravePath = "${env:ProgramFiles}\BraveSoftware\Brave-Browser\Application\brave.exe"
@@ -90,7 +96,7 @@ if (Test-Path $bravePath) {
 ## Compatibility Rules
 
 | Scenario | Recommendation |
-|----------|----------------|
+| ---------- | ---------------- |
 | Brave newer than matrix | Check [Releases](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) for updated Brave Omega |
 | Brave older than matrix | Update Brave to latest stable first |
 | Brave matches matrix | Use corresponding Brave Omega version |
@@ -101,11 +107,15 @@ if (Test-Path $bravePath) {
 ## Policy Coverage by Version
 
 | Version | Policies | Coverage | New Policies |
-|---------|----------|----------|--------------|
-| v2.1.5 | 68 | 100% | --- (v2.0+) |
-| v2.1.4 | 68 | 100% | --- (v2.0+) |
-| v2.1.3 | 68 | 100% | --- (v2.0+) |
-| v2.1.2 | 68 | 100% | --- (v2.0+) |
+| --------- | ---------- | ---------- | -------------- |
+| v2.1.6.0 | 82 | 100% | BraveOnly enrichment (10), Chromium telemetry (6) |
+| v2.1.5 | 68 | 100% | Chromium telemetry & data leakage policies |
+| v2.1.4 | 68 | 100% | --- (Phase 3 prep) |
+| v2.1.3 | 68 | 100% | --- |
+| v2.1.2 | 68 | 100% | --- |
+| v2.1.1 | 68 | 100% | --- |
+| v2.1 | 68 | 100% | +61 (v2.1+) |
+| v2.0 | 68 | 100% | --- |
 | v1.2.2 | 17 | 100% | --- |
 | v1.2.1 | 17 | 100% | --- |
 | v1.2 | 17 | 100% | +10 (v1.2+) |
@@ -117,7 +127,7 @@ if (Test-Path $bravePath) {
 ## Windows Compatibility
 
 | Windows Version | Support |
-|-----------------|---------|
+| ----------------- | --------- |
 | Windows 11 25H2 | ✅ Fully Tested |
 | Windows 11 24H2 | ✅ Likely Compatible |
 | Windows 11 23H2 | ⚠️ Untested |
@@ -161,7 +171,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 ## Güncel Uyumluluk Matrisi
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
-|-------------|--------------|----------|---------|-------|--------------|
+| ------------- | -------------- | ---------- | --------- | ------- | -------------- |
 | **v2.1.6.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | ✅ Güncel | 2026-07-05 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-03 |
 | **v2.1.4** | 1.91.180 | 149.0.7827.201 | Windows 11 25H2 | 📦 Önceki | 2026-06-27 |
@@ -170,7 +180,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 | v2.1.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-17 |
 | v2.1 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Önceki | 2026-06-16 |
 | v2.0 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Önceki | |
-| v1.2.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | ✅ Etkin | 2026-06-13 |
+| v1.2.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-13 |
 | v1.2.1 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-13 |
 | v1.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-12 |
 | v1.1 | 1.91.168 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-05 |
@@ -181,7 +191,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 ## Gösterge
 
 | Durum | Anlamı |
-|-------|--------|
+| ------- | -------- |
 | ✅ **Etkin** | Geçerli önerilen sürüm; tam test edilmiş ve destekleniyor |
 | 📦 **Önceki** | İşlevsel ancak yerine yenisi geldi; yükseltme önerilir |
 | 🔒 **Arşivlendi** | Eski sürüm; artık desteklenmiyor veya test edilmiyor |
@@ -191,6 +201,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 ## Sürüm Sabitleme Politikası
 
 Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
+
 - Tam Brave Browser sürümü
 - Tam Chromium sürümü
 - Doğrulanmış Windows derlemesi
@@ -201,17 +212,20 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.1.6.0) Kullan Eğer:
+### Güncel (v2.1.6.0) Kullan Eğer
+
 - Brave 1.92.134 (en güncel kararlı) çalışıyorsa
 - En son güvenlik düzeltmelerini ve test altyapısını istiyorsanız
 - Basitleştirilmiş tek satırlık çalıştırma iş akışına ihtiyacınız varsa
 
-### Önceki (v1.2.1) Kullan Eğer:
+### Önceki (v1.2.1) Kullan Eğer
+
 - Hemen v1.2.2'ye güncelleyemiyorsanız
 - Brave 1.91.172 çalışıyorsa
 - Çeviri eşleme düzeltmelerine ihtiyacınız varsa
 
-### Arşivlenmiş (v1.0) Kullanma Eğer:
+### Arşivlenmiş (v1.0) Kullanma Eğer
+
 - Politikalar güncel değil (7'ye karşı 17)
 - Yedekleme/geri alma, süreç koruyucusu yok
 - Yaşam döngüsü taahhüdü özellikleri yok
@@ -221,11 +235,13 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 ## Brave Sürümü Doğrulama
 
 ### Brave Sürümünüzü Kontrol Edin
+
 1. Brave'i açın
 2. `brave://version` adresine gidin
 3. **Sürüm** ve **Chromium** alanlarını yukarıdaki matrisle karşılaştırın
 
 ### Hızlı Kontrol (PowerShell)
+
 ```powershell
 # Yüklü Brave sürümünü al
 $bravePath = "${env:ProgramFiles}\BraveSoftware\Brave-Browser\Application\brave.exe"
@@ -239,7 +255,7 @@ if (Test-Path $bravePath) {
 ## Uyumluluk Kuralları
 
 | Senaryo | Öneri |
-|---------|-------|
+| --------- | ------- |
 | Brave matristen daha yeni | Güncellenmiş Brave Omega için [Sürümlere](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) bakın |
 | Brave matristen daha eski | Önce Brave'i en güncel kararlı sürüme güncelleyin |
 | Brave matrisle eşleşiyor | İlgili Brave Omega sürümünü kullanın |
@@ -250,7 +266,15 @@ if (Test-Path $bravePath) {
 ## Sürüme Göre Politika Kapsamı
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
-|-------|----------|--------|------------------|
+| ------- | ---------- | -------- | ------------------ |
+| v2.1.6.0 | 82 | 100% | BraveOnly zenginleştirme (10), Chromium telemetri (6) |
+| v2.1.5 | 68 | 100% | Chromium telemetri ve veri sızıntısı politikaları |
+| v2.1.4 | 68 | 100% | --- (3. Aşama hazırlık) |
+| v2.1.3 | 68 | 100% | --- |
+| v2.1.2 | 68 | 100% | --- |
+| v2.1.1 | 68 | 100% | --- |
+| v2.1 | 68 | 100% | +61 (v2.1+) |
+| v2.0 | 68 | 100% | --- |
 | v1.2.2 | 17 | 100% | --- |
 | v1.2.1 | 17 | 100% | --- |
 | v1.2 | 17 | 100% | +10 (v1.2+) |
@@ -262,7 +286,7 @@ if (Test-Path $bravePath) {
 ## Windows Uyumluluğu
 
 | Windows Sürümü | Destek |
-|----------------|--------|
+| ---------------- | -------- |
 | Windows 11 25H2 | ✅ Tam Test Edildi |
 | Windows 11 24H2 | ✅ Muhtemelen Uyumlu |
 | Windows 11 23H2 | ⚠️ Test Edilmedi |

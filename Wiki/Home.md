@@ -14,11 +14,11 @@
 ## 📖 Quick Navigation
 
 | Section | Description |
-|---------|-------------|
+| --------- | ------------- |
 | [🏠 Overview](Overview) | What is Brave Omega, why it exists, key concepts |
 | [🚀 Quick Start](Quick-Start) | Get running in 3 minutes |
 | [🏗️ Architecture](Architecture) | Multi-layer enforcement model, policy sources |
-| [📋 Policy Reference](Policy-Reference) | Complete 68-policy registry reference |
+| [📋 Policy Reference](Policy-Reference) | Complete 82-policy registry reference |
 | [🔧 Installation](Installation) | Prerequisites, execution policy, step-by-step |
 | [🛡️ Security](Security) | Safety model, backup/rollback, process guard |
 | [🔍 Troubleshooting](Troubleshooting) | Common issues and solutions |
@@ -33,6 +33,7 @@
 **Brave Omega** is an open-source PowerShell automation project that hardens **Brave Browser** through **official enterprise policy channels**.
 
 Using **Windows Registry Group Policy architecture** and **Brave's official ADMX policy framework**, it systematically disables:
+
 - Telemetry & analytics services
 - Background pings & network calls
 - Integrated monetization features (Rewards, Wallet, VPN)
@@ -43,6 +44,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 **All without touching browser internals or requiring third-party tools.**
 
 > **Two scripts. One goal. Zero cost.**
+>
 > - `BraveOmega-EN.ps1` — Full English interface
 > - `BraveOmega-TR.ps1` — Full Turkish interface
 
@@ -51,9 +53,9 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 ## ✨ Key Features
 
 | Feature | Description |
-|---------|-------------|
+| --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement** | HKCU + HKLM + Omaha GUID — independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 68 policies (4 levels), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 82 policies (4 levels), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -66,7 +68,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 ## 🎯 Current Version
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
-|-------------|---------------|----------|---------|--------|
+| ------------- | --------------- | ---------- | --------- | -------- |
 | **v2.1.6.0** *(current)* | 1.92.134 | 150 | 11 25H2 | ✅ Current |
 | **v2.1.5** | 1.91.180 | 149 | 11 25H2 | 📦 Previous |
 | **v2.1.4** | 1.91.180 | 149 | 11 25H2 | 📦 Previous |
@@ -128,11 +130,11 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 ## 📖 Hızlı Gezinme
 
 | Bölüm | Açıklama |
-|-------|----------|
+| ------- | ---------- |
 | [🏠 Genel Bakış](Overview#-türkçe) | Brave Omega nedir, neden var, temel kavramlar |
 | [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) | 3 dakikada çalıştırma |
 | [🏗️ Mimari](Architecture#-türkçe) | Çok katmanlı uygulama modeli, politika kaynakları |
-| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 68 politikalık kayıt defteri başvuru tablosu |
+| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 82 politikalık kayıt defteri başvuru tablosu |
 | [🔧 Kurulum](Installation#-türkçe) | Ön gereksinimler, çalıştırma ilkesi, adım adım |
 | [🛡️ Güvenlik](Security#-türkçe) | Güvenlik modeli, yedekleme/geri alma, süreç koruyucu |
 | [🔍 Sorun Giderme](Troubleshooting#-türkçe) | Sık karşılaşılan sorunlar ve çözümleri |
@@ -147,6 +149,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 **Brave Omega**, **Brave Browser**'ı **resmî kurumsal politika kanalları** aracılığıyla sıkılaştıran açık kaynaklı bir PowerShell özdevim projesidir.
 
 **Windows Kayıt Defteri Grup İlkesi mimarisi** ve **Brave'in resmî ADMX politika çerçevesi** kullanılarak sistematik biçimde devre dışı bırakılanlar:
+
 - Veri aktarımı (telemetri) ve analiz hizmetleri
 - Arka plan pingleri ve ağ çağrıları
 - Tümleşik para kazanma özellikleri (Rewards, Cüzdan, VPN)
@@ -157,6 +160,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 **Tümü, tarayıcının iç yapısına dokunmadan veya üçüncü taraf araç gerektirmeden.**
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
+>
 > - `BraveOmega-EN.ps1` — Tam İngilizce arayüz
 > - `BraveOmega-TR.ps1` — Tam Türkçe arayüz
 
@@ -165,9 +169,9 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 ## ✨ Temel Özellikler
 
 | Özellik | Açıklama |
-|---------|----------|
+| --------- | ---------- |
 | 🔒 **Çok Katmanlı Uygulama** | HKCU + HKLM + Omaha GUID — bağımsız uygulama katmanları |
-| 📋 **ADMX Doğrulamalı Politikalar** | 68 politika (4 seviye), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 82 politika (4 seviye), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
@@ -180,7 +184,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 ## 🎯 Güncel Sürüm
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
-|-------------|--------------|----------|---------|-------|
+| ------------- | -------------- | ---------- | --------- | ------- |
 | **v2.1.6.0** *(güncel)* | 1.92.134 | 150 | 11 25H2 | ✅ Etkin |
 | **v2.1.5** | 1.91.180 | 149 | 11 25H2 | 📦 Önceki |
 | **v2.1.4** | 1.91.180 | 149 | 11 25H2 | 📦 Önceki |
