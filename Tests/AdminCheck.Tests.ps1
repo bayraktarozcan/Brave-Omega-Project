@@ -3,7 +3,7 @@ BeforeAll {
 }
 
 Describe "Admin Check" -Tag "Integration" {
-    It "should detect non-admin context" -Skip:($env:OS -ne "Windows_NT") {
+    It "should detect non-admin context" -Skip:($env:OS -ne "Windows_NT" -or $env:CI) {
         $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
         $role = New-Object Security.Principal.WindowsPrincipal($identity)
         $isAdmin = $role.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
