@@ -100,9 +100,9 @@ test-results.xml
 
 # 7. GITHUB WIKI / GITHUB WIKI
 # ─────────────────────────────────────────────────────────────────────────────
-# [EN] Published to the separate .wiki.git repository, not tracked in main repo.
-# [TR] Ayrı .wiki.git deposunda yayınlanır, ana depoda takip edilmez.
-Wiki/
+# [EN] Published to the separate .wiki.git repository; tracked here and synced via CI/workflow.
+# [TR] Ayrı .wiki.git deposunda yayınlanır; burada takip edilir ve iş akışıyla eşzamanlanır.
+# Wiki/
 
 # 8. VERSION CONTROL TRACKING / PROJE TAKİP KURALLARI
 # ─────────────────────────────────────────────────────────────────────────────
