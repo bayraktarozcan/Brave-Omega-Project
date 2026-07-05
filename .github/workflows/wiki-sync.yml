@@ -21,6 +21,7 @@ jobs:
         env:
           WIKI_TOKEN: ${{ secrets.WIKI_SYNC_TOKEN }}
         run: |
+          unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES
           tmp=$(mktemp -d)
           git clone "https://x-access-token:${WIKI_TOKEN}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git" "$tmp"
           rsync -a --delete "Wiki/" "$tmp/"
