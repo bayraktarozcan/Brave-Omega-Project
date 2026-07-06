@@ -981,9 +981,8 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.2.0</td><td class="py-3 px-4 text-sm">2026-07-06</td><td class="py-3 px-4 text-sm">81</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v220_summary">Phase 6: 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Gelişmiş level added, Katı renumbered to Level 5, 81 policies, v2.2.0</td></tr>
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.2.0</td><td class="py-3 px-4 text-sm">2026-07-06</td><td class="py-3 px-4 text-sm">81</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v220_summary">Phase 6: Gelişmiş (Advanced) level added (5-tier model), Strict renumbered L4→L5</td></tr>
-<tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.1.6</td><td class="py-3 px-4 text-sm">2026-07-04</td><td class="py-3 px-4 text-sm">81</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v216_summary">Phase 2: 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated)</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.2.0</td><td class="py-3 px-4 text-sm">2026-07-06</td><td class="py-3 px-4 text-sm">81</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v220_5tier">5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies, v2.2.0</td></tr>
+<tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.6</td><td class="py-3 px-4 text-sm">2026-07-04</td><td class="py-3 px-4 text-sm">81</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v216_summary">15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated)</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.5</td><td class="py-3 px-4 text-sm">2026-07-03</td><td class="py-3 px-4 text-sm">67</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v215_summary">Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149→150, no policy changes</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.4</td><td class="py-3 px-4 text-sm">2026-06-27</td><td class="py-3 px-4 text-sm">67</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v214_summary">Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.1.3</td><td class="py-3 px-4 text-sm">2026-06-26</td><td class="py-3 px-4 text-sm">67</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v213_summary">Brave 1.91.178 / Chromium 149.0.7827.196 validation; version bump</td></tr>
@@ -1281,26 +1280,26 @@ SOFTWARE.
             tr_s5_sym: "reg export fails during backup",
             tr_s5_cause: "Pre-existing restricted permissions on HKLM path",
             tr_s5_sol: "Inspect path with regedit; check ACL entries",
-            roadmap_desc: "Brave Omega phased execution plan \u2014 5 phases.",
-            rm_phase1_title: "Phase 1 \u2014 Audit \u2713 Completed",
+            roadmap_desc: "Brave Omega development roadmap",
+            rm_phase1_title: "Audit \u2713 Completed",
             rm_phase1_1: "Gap analysis: 15 missing Brave-specific policies identified",
             rm_phase1_2: "Value audit: ADMX policy values, ranges and defaults validated",
             rm_phase1_3: "Cleanup: 1 deprecated Chromium policy removed (CloudPrintProxyEnabled)",
             rm_phase1_4: "Ref docs: line numbers refreshed after removals",
-            rm_phase2_title: "Phase 2 \u2014 Implementation \u2713 Completed",
-            rm_phase6_1: "Gelişmiş (Advanced) level added, Strict renumbered L4→L5 (v2.2.0.0)",
+            rm_phase2_title: "Implementation \u2713 Completed",
+            rm_phase6_1: "Geli\u015fmi\u015f (Advanced) level added, Strict renumbered L4\u2192L5 (v2.2.0.0)",
             rm_phase2_1: "Policy addition: added 15 missing Brave-specific policies (merged v2.1.6.0)",
-            rm_phase3_title: "Phase 3 \u2014 Quality & Testing",
+            rm_phase3_title: "Quality & Testing",
             rm_phase3_1: "Test suite: build Pester unit and integration tests",
             rm_phase3_2: "Static analysis: integrate PSScriptAnalyzer into CI",
-            rm_phase4_title: "Phase 4 \u2014 Documentation & Distribution",
+            rm_phase4_title: "Documentation & Distribution",
             rm_phase4_1: "Policy catalog: generate complete metadata listing for all policies",
-            rm_phase5_title: "Phase 5 \u2014 Advanced (Completed)",
+            rm_phase5_title: "Advanced (Completed)",
             rm_phase5_1: "Cross-platform: export Linux JSON and macOS plist configurations",
             rm_phase5_2: "MDM: create Intune/MDM enterprise deployment guide",
             rm_phase5_3: "Web UI: build interactive policy configurator",
             rm_phase5_4: "Modular: refactor monolithic script into module-based architecture",
-            rm_phase6_title: "Phase 6 \u2014 Tier Addition \u2713 Completed",
+            rm_phase6_title: "Tier Addition \u2713 Completed",
             rm_phase6_1: "5-tier architecture: added Geli\u015fmi\u015f (Advanced) level between Dengeli and Kat\u0131",
             rm_phase6_2: "11 policies migrated from Kat\u0131 to Geli\u015fmi\u015f; ImportBookmarks remains in Kat\u0131",
             rm_phase6_3: "Cumulative counts: L1 23 / L2 40 / L3 61 / L4 72 / L5 81 (v2.2.0)",
@@ -1318,9 +1317,8 @@ SOFTWARE.
             cl_col_date: "Date",
             cl_col_policies: "Policies",
             cl_col_changes: "Major Changes",
-            cl_v220_summary: "Phase 6: 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Gelişmiş level added, Katı renumbered to Level 5, 81 policies, v2.2.0",
-            cl_v220_summary: "Phase 6: Gelişmiş (Advanced) level added (5-tier model), Strict renumbered L4→L5",
-            cl_v216_summary: "Phase 2: 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated)",
+            cl_v220_5tier: "5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies, v2.2.0",
+            cl_v216_summary: "15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated)",
             cl_v215_summary: "Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149\u2192150, no policy changes",
             cl_v214_summary: "Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump",
             cl_v213_summary: "Brave 1.91.178 / Chromium 149.0.7827.196 validation; version bump",
@@ -1570,8 +1568,8 @@ SOFTWARE.
         cl_col_date: "Tarih",
         cl_col_policies: "Politika",
         cl_col_changes: "Ana De\u011fi\u015fiklikler",
-            cl_v220_summary: "Faz 6: 5 seviyeli mimari (Brave Yaln\u0131z/Temel/Dengeli/Geli\u015fmi\u015f/Kat\u0131), Geli\u015fmi\u015f seviyesi eklendi, Kat\u0131 Seviye 5'e yeniden numaraland\u0131r\u0131ld\u0131, 81 politika, v2.2.0",
-            cl_v216_summary: "Faz 2: 15 yeni Brave politikas\u0131 eklendi, CloudPrintProxyEnabled kald\u0131r\u0131ld\u0131 (kullan\u0131mdan kald\u0131r\u0131ld\u0131)",
+            cl_v220_5tier: "5 seviyeli mimari (Brave Yaln\u0131z/Temel/Dengeli/Geli\u015fmi\u015f/Kat\u0131), Geli\u015fmi\u015f seviyesi eklendi, Kat\u0131 Seviye 5'e yeniden numaraland\u0131r\u0131ld\u0131, 81 politika, v2.2.0",
+            cl_v216_summary: "15 yeni Brave politikas\u0131 eklendi, CloudPrintProxyEnabled kald\u0131r\u0131ld\u0131 (kullan\u0131mdan kald\u0131r\u0131ld\u0131)",
             cl_v215_summary: "Brave 1.92.134 / Chromium 150.0.7871.63 y\u00fckseltmesi; Chromium 149\u2192150, politika de\u011fi\u015fikli\u011fi yok",
             cl_v214_summary: "Brave 1.91.180 / Chromium 149.0.7827.201 do\u011frulamas\u0131; s\u00fcr\u00fcm y\u00fckseltmesi",
             cl_v213_summary: "Brave 1.91.178 / Chromium 149.0.7827.196 do\u011frulamas\u0131; s\u00fcr\u00fcm y\u00fckseltmesi",

@@ -182,7 +182,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 23 |
 | `-Level Essential` | `-Level Temel` | Essential ⭐ | 40 |
 | `-Level Balanced` | `-Level Dengeli` | Balanced | 61 |
-| `-Level Advanced` | `-Level Gelişmiş` | Gelişmiş (Advanced) | 72 |
+| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 72 |
 | `-Level Strict` | `-Level Katı` | Strict | 81 |
 
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
@@ -235,7 +235,7 @@ and offers **four hardening levels** that determine how many policies are applie
 | **Brave Only** | 23 | 23 | 0 | 0 | None |
 | **Essential ⭐** | 40 | 23 | 17 | 0 | None |
 | **Balanced** | 61 | 23 | 17 | 21 | Low |
-| **Gelişmiş (Advanced)** | 72 | 23 | 17 | 32 | Low |
+| **Advanced** | 72 | 23 | 17 | 32 | Low |
 | **Strict** | 81 | 23 | 17 | 41 | Medium |
 
 #### 6.2 Policy Sources & Methodology
@@ -409,7 +409,7 @@ no longer have any effect.
 | `DefaultBraveReferrersSetting` | `2` | DWord | Caps referrer to strict-origin-when-cross-origin |
 | `BraveSyncUrl` | `"https://sync-v2.brave.com/v2"` | String | Explicit Brave sync server endpoint |
 
-#### 9.5 Gelişmiş (Advanced) Level — Balanced + Enhanced Privacy (11 additional)
+#### 9.5 Advanced Level — Balanced + Enhanced Privacy (11 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -425,7 +425,7 @@ no longer have any effect.
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 
-#### 9.6 Strict Level — Gelişmiş (Advanced) + Maximum Privacy (9 additional)
+#### 9.6 Strict Level — Advanced + Maximum Privacy (9 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -509,7 +509,7 @@ BRAVE OMEGA PROJECT/
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
 - [x] **81 total policies** — expanded from 17 to 81 across 4→5 levels (v2.0 / v2.1.6 / v2.2.0)
-- [x] **5-tier hardening model** — Gelişmiş (Advanced) level added between Balanced and Strict (v2.2.0)
+- [x] **5-tier hardening model** — Advanced level added between Balanced and Strict (v2.2.0)
 - [x] **Automated Brave version detection** — warn if installed version differs from validated target (v2.1)
 - [x] **Dry-run mode** via `-WhatIf` parameter — preview all changes without writing to registry (v2.1)
 - [x] **Reset/uninstall mode** via `-Reset` parameter — remove all applied policies cleanly (v2.1)

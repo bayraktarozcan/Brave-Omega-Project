@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   sync:
@@ -19,11 +19,15 @@ jobs:
           fetch-depth: 0
       - name: Sync to Wiki repo
         env:
-          WIKI_TOKEN: ${{ secrets.WIKI_SYNC_TOKEN }}
+          WIKI_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
+          if [ -z "${WIKI_TOKEN:-}" ]; then
+            echo "::error::WIKI_TOKEN is empty — GITHUB_TOKEN not available. Add contents: write permission to the workflow."
+            exit 1
+          fi
           tmp=$(mktemp -d)
-          env -u GIT_DIR -u GIT_WORK_TREE -u GIT_INDEX_FILE -u GIT_OBJECT_DIRECTORY -u GIT_ALTERNATE_OBJECT_DIRECTORIES \
-            git clone "https://x-access-token:${WIKI_TOKEN}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git" "$tmp"
+          git clone "https://x-access-token:${WIKI_TOKEN}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git" "$tmp"
           rsync -a --delete "Wiki/" "$tmp/"
           cd "$tmp"
           git config user.name "github-actions"

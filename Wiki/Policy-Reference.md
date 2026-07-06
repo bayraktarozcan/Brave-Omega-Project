@@ -16,7 +16,7 @@ Complete policy reference for Brave Omega v2.2.0.0.
 | **1. Brave Only** | 23 Brave-specific | — | 23 | Base |
 | **2. Essential** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | Includes Level 1 |
 | **3. Balanced** | 61 (40 + 21) | UsageStatsInSample | 61 | Includes Levels 1-2 |
-| **4. Gelişmiş (Advanced)** | 72 (61 + 11) | UsageStatsInSample | 72 | Includes Levels 1-3 |
+| **4. Advanced** | 72 (61 + 11) | UsageStatsInSample | 72 | Includes Levels 1-3 |
 | **5. Strict** | 81 (72 + 9) | UsageStatsInSample | 81 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
@@ -94,7 +94,7 @@ Complete policy reference for Brave Omega v2.2.0.0.
 | `DefaultNotificationsSetting` | `2` | DWord | Blocks notifications by default |
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
 
-### Gelişmiş (Advanced) Level — Balanced + Enhanced Privacy (11 additional)
+### Advanced Level — Balanced + Enhanced Privacy (11 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -110,7 +110,7 @@ Complete policy reference for Brave Omega v2.2.0.0.
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 
-### Strict Level — Gelişmiş (Advanced) + Maximum Privacy (9 additional)
+### Strict Level — Advanced + Maximum Privacy (9 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |

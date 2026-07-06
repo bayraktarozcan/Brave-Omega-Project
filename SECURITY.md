@@ -277,7 +277,7 @@ Brave Omega offers five progressive hardening tiers:
 | **Brave Only** | 23 Brave-specific | Disables Brave's integrated services only | None |
 | **Essential ⭐** | 40 (Brave Only + 17) | Brave + zero-impact data leak prevention | None |
 | **Balanced** | 61 (Essential + 21) | Full security baseline with minor changes | Low |
-| **Gelişmiş (Advanced)** | 72 (Balanced + 11) | Enhanced privacy — sensors, imports, profiles | Low |
+| **Advanced** | 72 (Balanced + 11) | Enhanced privacy — sensors, imports, profiles | Low |
 | **Strict** | 81 (Advanced + 9) | Maximum privacy preservation | Medium |
 
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.

@@ -42,7 +42,7 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 | **1. Brave Only** | 23 Brave-specific policies | HKLM | None |
 | **2. Essential** ⭐ | 23 + 17 = 40 | HKLM + HKCU + Omaha | None |
 | **3. Balanced** | 40 + 21 = 61 | + WebRTC, HTTPS, DNS | Low |
-| **4. Gelişmiş (Advanced)** | 61 + 11 = 72 | + Sensors, Imports, Profiles | Low |
+| **4. Advanced** | 61 + 11 = 72 | + Sensors, Imports, Profiles | Low |
 | **5. Strict** | 72 + 9 = 81 | + JIT, Cookies, Clipboard, FS | Medium |
 
 Select your level interactively when running the script or use the `-Level` parameter:

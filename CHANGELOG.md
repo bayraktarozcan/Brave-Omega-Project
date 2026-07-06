@@ -94,7 +94,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### 🎯 Summary
 
-**Tier expansion release:** New **Gelişmiş (Advanced)** hardening level (L4, 72 policies) inserted between Balanced (61) and Strict (81). Strict renumbered L4→L5; 11 policies migrated from Strict to the new Advanced level; 8 core Strict policies retained.
+**Tier expansion release:** New **Advanced** hardening level (L4, 72 policies) inserted between Balanced (61) and Strict (81). Strict renumbered L4→L5; 11 policies migrated from Strict to the new Advanced level; 8 core Strict policies retained.
 
 | Metric | Before (v2.1.6) | After (v2.2.0) |
 |--------|-----------------|----------------|
@@ -102,14 +102,14 @@ All notable changes to this project are documented below, following the [Keep a 
 | Brave Only policies | 23 | 23 |
 | Essential additions | 17 | 17 |
 | Balanced additions | 21 | 21 |
-| Gelişmiş (Advanced) additions | — | 11 |
+| Advanced additions | — | 11 |
 | Strict additions | 21 | 9 |
 
 <a id="en-v220-added"></a>
 
 ### Added
 
-- **New hardening level — Gelişmiş (Advanced):** Inserted between Balanced (L3) and Strict (L4→L5).
+- **New hardening level — Advanced:** Inserted between Balanced (L3) and Strict (L4→L5).
   - **11 policies migrated from Strict:** `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage`.
   - **Total at this level:** 72 cumulative policies (23 Brave + 17 Data + 21 Security + 11 Advanced).
 - **`-Level Advanced` / `-Level Gelişmiş` parameter** — New parameter value for silent/automated deployment targeting the Advanced level.
@@ -783,8 +783,8 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
-| v2.2.0 | 2026-07-06 | 81    | Phase 6: Gelişmiş (Advanced) level added (5-tier model), Strict renumbered L4→L5 |
-| v2.1.6 | 2026-07-04 | 81    | Phase 2: 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
+| v2.2.0 | 2026-07-06 | 81    | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies |
+| v2.1.6 | 2026-07-04 | 81    | 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149→150, no policy changes |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 validation; version bump |
@@ -1608,8 +1608,8 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
-| v2.2.0 | 2026-07-06 | 81    | Faz 6: Gelişmiş seviyesi eklendi (5 katmanlı model), Katı L4→L5 olarak yeniden numaralandırıldı |
-| v2.1.6 | 2026-07-04 | 81    | Faz 2: 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |
+| v2.2.0 | 2026-07-06 | 81    | 5 katmanlı mimari (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı), Gelişmiş seviyesi eklendi, Katı L4→L5, 81 politika |
+| v2.1.6 | 2026-07-04 | 81    | 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 yükseltmesi; Chromium 149→150, politika değişikliği yok |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 doğrulaması; sürüm yükseltmesi |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 doğrulaması; sürüm yükseltmesi |

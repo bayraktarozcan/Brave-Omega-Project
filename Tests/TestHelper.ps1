@@ -18,6 +18,10 @@ $TestPolicies = @{
         @{Name="PasswordManagerEnabled"; Value=0; Type="DWord"}
         @{Name="DnsOverHttpsMode"; Value="automatic"; Type="String"}
     )
+    "Advanced" = @(
+        @{Name="DefaultSensorsSetting"; Value=2; Type="DWord"}
+        @{Name="BrowserGuestModeEnabled"; Value=1; Type="DWord"}
+    )
     "Strict" = @(
         @{Name="TranslateEnabled"; Value=0; Type="DWord"}
         @{Name="DefaultJavaScriptJitSetting"; Value=2; Type="DWord"}

@@ -115,15 +115,15 @@ Policy catalog with per-policy: ID, source, tier, min. Chromium, type, default, 
 
 ---
 
-### Phase 6 — Kademe Ekleme / Tier Addition
+### Kademe Ekleme / Tier Addition
 
 | Prompt | Description | Status |
 | -------- | ------------- | -------- |
-| `14-kademe-ekleme.md` | Add Gelişmiş (Advanced) hardening level between Balanced and Strict | ✅ Completed |
+| `14-kademe-ekleme.md` | Add Advanced hardening level between Balanced and Strict | ✅ Completed |
 
 Key outcomes:
 
-- New **Gelişmiş (Advanced)** level (L4) with 72 cumulative policies — 11 migrated from Strict (L5)
+- New **Advanced** level (L4) with 72 cumulative policies — 11 migrated from Strict (L5)
 - Strict renumbered from L4→L5 with 9 unique policies (8 + 1 WebRtcIPHandling override)
 - All 5 tiers: 23 / 40 / 61 / 72 / 81 — cumulative inheritance preserved
 - Script level menu expanded to 5 options, `$ValidLevels` = 10 values
