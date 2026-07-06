@@ -17,11 +17,11 @@ Complete policy reference for Brave Omega v2.2.0.0.
 | **2. Essential** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | Includes Level 1 |
 | **3. Balanced** | 61 (40 + 21) | UsageStatsInSample | 61 | Includes Levels 1-2 |
 | **4. Advanced** | 72 (61 + 11) | UsageStatsInSample | 72 | Includes Levels 1-3 |
-| **5. Strict** | 81 (72 + 9) | UsageStatsInSample | 81 | Includes Levels 1-4 |
+| **5. Strict** | 80 (71 + 9) | UsageStatsInSample | 80 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 81 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 80 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -169,7 +169,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 81 policies should show as **Active** (green checkmark).
+All 80 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -218,11 +218,11 @@ Brave Omega v2.2.0.0 için tam politika başvurusu.
 | **2. Temel** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 61 (40 + 21) | UsageStatsInSample | 61 | 1-2. Seviyeleri kapsar |
 | **4. Gelişmiş** | 72 (61 + 11) | UsageStatsInSample | 72 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 81 (72 + 9) | UsageStatsInSample | 81 | 1-4. Seviyeleri kapsar |
+| **5. Katı** | 80 (71 + 9) | UsageStatsInSample | 80 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 81 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 80 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -370,7 +370,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-81 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+80 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

@@ -95,7 +95,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.2.0.0"
+$BetikSurum    = "v2.2.0.1"
 $DogrulananBrave = "1.92.134"
 $DogrulananChromium = "150"
 
@@ -204,7 +204,7 @@ if ($Sifirla) {
         "BraveDeAmpEnabled", "BraveDebouncingEnabled", "BraveReduceLanguageEnabled",
         "BraveTrackingQueryParametersFilteringEnabled", "DefaultBraveAdblockSetting",
         "DefaultBraveFingerprintingV2Setting", "BraveShieldsDisabledForUrls", "BraveShieldsEnabledForUrls",
-        "BraveLocalAIEnabled", "EmailAliasesEnabled",
+        "EmailAliasesEnabled",
         "BraveGlobalPrivacyControlEnabled",
         "DefaultBraveHttpsUpgradeSetting", "DefaultBraveReferrersSetting", "BraveSyncUrl",
         "DefaultBraveRemember1PStorageSetting",
@@ -437,8 +437,6 @@ $PolitikaTanimlari = @{
         @{Ad="BraveShieldsDisabledForUrls";          Deger=@(); Tur="MultiString"}
         # Shields açık URL'ler — boş küme, hiçbir URL kara listeye alınmaz
         @{Ad="BraveShieldsEnabledForUrls";           Deger=@(); Tur="MultiString"}
-        # Yerel AI — cihaz içi AI özelliklerini kapatır (geçmiş gömmeleri, yüzeyler)
-        @{Ad="BraveLocalAIEnabled";                  Deger=0; Tur="DWord"}
         # E-posta takma adları — anonim e-posta takma adı özelliğini kapatır
         @{Ad="EmailAliasesEnabled";                  Deger=0; Tur="DWord"}
     )

@@ -130,6 +130,27 @@ All notable changes to this project are documented below, following the [Keep a 
 
 <hr>
 
+<a id="en-v2201"></a>
+
+## [v2.2.0.1] — 2026-07-06
+
+<a id="en-v2201-summary"></a>
+
+### 🎯 Summary
+
+**Policy refinement release:** One duplicate policy removed per level; total policy count reduced from 81 to 80. Brave Only: 23→22, Essential: 40→39, Balanced: 61→60, Advanced: 72→71, Strict: 81→80.
+
+| Metric | Before (v2.2.0) | After (v2.2.0.1) |
+|--------|-----------------|------------------|
+| Hardening levels | 5 | 5 |
+| Brave Only policies | 23 | 22 |
+| Essential additions | 17 | 17 |
+| Balanced additions | 21 | 21 |
+| Advanced additions | 11 | 11 |
+| Strict additions | 9 | 9 |
+
+<hr>
+
 <a id="en-v216"></a>
 
 ## [v2.1.6] — 2026-07-04
@@ -783,6 +804,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.2.0.1 | 2026-07-06 | 80    | Policy refinement — one duplicate policy removed per level; Brave Only 23→22, Essential 40→39, Balanced 61→60, Advanced 72→71, Strict 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies |
 | v2.1.6 | 2026-07-04 | 81    | 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149→150, no policy changes |
@@ -1056,6 +1078,27 @@ Eklenen/Değiştirilen Dosyalar:
 - **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md 5 seviyeli modeli yansıtacak şekilde güncellendi.
 - **README.md** — Seviye tabloları, parametre referansları, politika bölümü 9.5 ve sıkılaştırma seviyeleri tablosu 5 seviyeli model için güncellendi.
 - **CHANGELOG, SECURITY, index.html** — Sürüm numaraları ve seviye referansları güncellendi.
+
+<hr>
+
+<a id="tr-v2201"></a>
+
+## [v2.2.0.1] — 2026-07-06
+
+<a id="tr-v2201-ozet"></a>
+
+### 🎯 Özet
+
+**Politika iyileştirme sürümü:** Seviye başına bir yinelenen politika kaldırıldı; toplam politika sayısı 81'den 80'e düşürüldü. Brave Yalnız: 23→22, Temel: 40→39, Dengeli: 61→60, Gelişmiş: 72→71, Katı: 81→80.
+
+| Metrik | Önce (v2.2.0) | Sonra (v2.2.0.1) |
+|--------|---------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Brave Yalnız politikaları | 23 | 22 |
+| Temel eklemeleri | 17 | 17 |
+| Dengeli eklemeleri | 21 | 21 |
+| Gelişmiş eklemeleri | 11 | 11 |
+| Katı eklemeleri | 9 | 9 |
 
 <hr>
 
@@ -1608,6 +1651,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.2.0.1 | 2026-07-06 | 80    | Politika iyileştirme — seviye başına bir yinelenen politika kaldırıldı; Brave Yalnız 23→22, Temel 40→39, Dengeli 61→60, Gelişmiş 72→71, Katı 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5 katmanlı mimari (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı), Gelişmiş seviyesi eklendi, Katı L4→L5, 81 politika |
 | v2.1.6 | 2026-07-04 | 81    | 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 yükseltmesi; Chromium 149→150, politika değişikliği yok |

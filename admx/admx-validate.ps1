@@ -101,7 +101,7 @@ $scriptPolicyMap["DefaultBraveAdblockSetting"] = @{Type="DWord"}
 $scriptPolicyMap["DefaultBraveFingerprintingV2Setting"] = @{Type="DWord"}
 $scriptPolicyMap["BraveShieldsDisabledForUrls"] = @{Type="MultiString"}
 $scriptPolicyMap["BraveShieldsEnabledForUrls"] = @{Type="MultiString"}
-$scriptPolicyMap["BraveLocalAIEnabled"] = @{Type="DWord"}
+
 $scriptPolicyMap["EmailAliasesEnabled"] = @{Type="DWord"}
 $scriptPolicyMap["MetricsReportingEnabled"] = @{Type="DWord"}
 $scriptPolicyMap["SafeBrowsingExtendedReportingEnabled"] = @{Type="DWord"}

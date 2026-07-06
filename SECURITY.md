@@ -117,7 +117,7 @@ Brave Omega implements browser hardening through **three independent enforcement
 │  ↳ User-modifiable, provides fallback protection          │
 ├──────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM Enterprise Policy (ADMX)                  │
-│  ↳ 23–81 policies depending on hardening level            │
+│  ↳ 22–80 policies depending on hardening level            │
 │  ↳ Locked/gray in browser UI — user cannot override       │
 │  ↳ Requires Administrator privileges to write             │
 ├──────────────────────────────────────────────────────────┤
@@ -278,7 +278,7 @@ Brave Omega offers five progressive hardening tiers:
 | **Essential ⭐** | 40 (Brave Only + 17) | Brave + zero-impact data leak prevention | None |
 | **Balanced** | 61 (Essential + 21) | Full security baseline with minor changes | Low |
 | **Advanced** | 72 (Balanced + 11) | Enhanced privacy — sensors, imports, profiles | Low |
-| **Strict** | 81 (Advanced + 9) | Maximum privacy preservation | Medium |
+| **Strict** | 80 (Advanced + 9) | Maximum privacy preservation | Medium |
 
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.
 
@@ -395,7 +395,7 @@ Brave Omega, tarayıcı sıkılaştırmasını **üç bağımsız zorunlu kılma
 │  ↳ Kullanıcı tarafından değiştirilebilir, yedek koruma    │
 ├──────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM Kurumsal Politika (ADMX)                │
-│  ↳ Sıkılaştırma seviyesine bağlı olarak 23–81 politika    │
+│  ↳ Sıkılaştırma seviyesine bağlı olarak 22–80 politika    │
 │  ↳ Tarayıcı arayüzünde kilitli/gri — kullanıcı değiştiremez│
 │  ↳ Yazmak için Yönetici ayrıcalıkları gerekir            │
 ├──────────────────────────────────────────────────────────┤
@@ -558,7 +558,7 @@ Brave Omega beş kademeli sıkılaştırma seviyesi sunar:
 | **Temel ⭐** | 40 (Brave Yalnız + 17) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
 | **Dengeli** | 61 (Temel + 21) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
 | **Gelişmiş** | 72 (Dengeli + 11) | Gelişmiş gizlilik — sensörler, içe aktarmalar, profiller | Düşük |
-| **Katı** | 81 (Gelişmiş + 9) | Azami gizlilik koruması | Orta |
+| **Katı** | 80 (Gelişmiş + 9) | Azami gizlilik koruması | Orta |
 
 Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 

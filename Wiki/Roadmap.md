@@ -70,7 +70,7 @@ Adds in priority order:
 2. **Default protection levels:** DefaultBraveAdblockSetting, DefaultBraveFingerprintingV2Setting, DefaultBraveHttpsUpgradeSetting, DefaultBraveReferrersSetting, DefaultBraveRemember1PStorageSetting → Temel tier
 3. **Enterprise/control:** EmailAliasesEnabled, BraveSyncUrl → Dengeli tier
 
-Total: 67→81 policies across 5 tiers.
+Total: 67→80 policies across 5 tiers.
 
 ---
 
@@ -125,7 +125,7 @@ Key outcomes:
 
 - New **Advanced** level (L4) with 72 cumulative policies — 11 migrated from Strict (L5)
 - Strict renumbered from L4→L5 with 9 unique policies (8 + 1 WebRtcIPHandling override)
-- All 5 tiers: 23 / 40 / 61 / 72 / 81 — cumulative inheritance preserved
+- All 5 tiers: 22 / 39 / 60 / 71 / 80 — cumulative inheritance preserved
 - Script level menu expanded to 5 options, `$ValidLevels` = 10 values
 - `ImportBookmarks` deliberately retained in Strict (L5) for bookmark portability
 - Version bumped v2.1.6.0 → v2.2.0.0 — all assets updated (PS1, HTML, Wiki, badges, i18n)
@@ -284,7 +284,7 @@ Ana çıktılar:
 2. **Varsayılan koruma seviyeleri:** DefaultBraveAdblockSetting, DefaultBraveFingerprintingV2Setting, DefaultBraveHttpsUpgradeSetting, DefaultBraveReferrersSetting, DefaultBraveRemember1PStorageSetting → Temel katmanı
 3. **Kurumsal/kontrol:** EmailAliasesEnabled, BraveSyncUrl → Dengeli katmanı
 
-Toplam: 67→81 politika, 5 katmanda.
+Toplam: 67→80 politika, 5 katmanda.
 
 ---
 
@@ -339,7 +339,7 @@ Ana çıktılar:
 
 - Yeni **Gelişmiş** seviyesi (L4) ile 72 kümülatif politika — 11 politika Katı'dan (L5) taşındı
 - Katı L4→L5 olarak yeniden numaralandırıldı, 9 benzersiz politika (8 + 1 WebRtcIPHandling geçersiz kılma)
-- 5 katman: 23 / 40 / 61 / 72 / 81 — kümülatif miras korundu
+- 5 katman: 22 / 39 / 60 / 71 / 80 — kümülatif miras korundu
 - Betik seviye menüsü 5 seçeneğe genişletildi, `$ValidLevels` = 10 değer
 - `ImportBookmarks` yer imi taşınabilirliği için Katı'da (L5) bilinçli olarak tutuldu
 - Sürüm v2.1.6.0 → v2.2.0.0 — tüm varlıklar güncellendi (PS1, HTML, Wiki, rozetler, i18n)

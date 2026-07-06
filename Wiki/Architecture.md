@@ -43,7 +43,7 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 | **2. Essential** ⭐ | 23 + 17 = 40 | HKLM + HKCU + Omaha | None |
 | **3. Balanced** | 40 + 21 = 61 | + WebRTC, HTTPS, DNS | Low |
 | **4. Advanced** | 61 + 11 = 72 | + Sensors, Imports, Profiles | Low |
-| **5. Strict** | 72 + 9 = 81 | + JIT, Cookies, Clipboard, FS | Medium |
+| **5. Strict** | 71 + 9 = 80 | + JIT, Cookies, Clipboard, FS | Medium |
 
 Select your level interactively when running the script or use the `-Level` parameter:
 
@@ -201,7 +201,7 @@ Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız 
 | **2. Temel** ⭐ | 23 + 17 = 40 | HKLM + HKCU + Omaha | Yok |
 | **3. Dengeli** | 40 + 21 = 61 | + WebRTC, HTTPS, DNS | Düşük |
 | **4. Gelişmiş** | 61 + 11 = 72 | + Sensörler, İçe Aktarmalar, Profiller | Düşük |
-| **5. Katı** | 72 + 9 = 81 | + JIT, Çerezler, Pano, FS | Orta |
+| **5. Katı** | 71 + 9 = 80 | + JIT, Çerezler, Pano, FS | Orta |
 
 retiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:
 

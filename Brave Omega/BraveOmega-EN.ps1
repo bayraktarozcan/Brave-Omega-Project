@@ -94,7 +94,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.2.0.0"
+$ScriptVersion   = "v2.2.0.1"
 $ValidatedBrave  = "1.92.134"
 $ValidatedChromium = "150"
 
@@ -204,7 +204,7 @@ if ($Reset) {
         "BraveDeAmpEnabled", "BraveDebouncingEnabled", "BraveReduceLanguageEnabled",
         "BraveTrackingQueryParametersFilteringEnabled", "DefaultBraveAdblockSetting",
         "DefaultBraveFingerprintingV2Setting", "BraveShieldsDisabledForUrls", "BraveShieldsEnabledForUrls",
-        "BraveLocalAIEnabled", "EmailAliasesEnabled",
+        "EmailAliasesEnabled",
         "BraveGlobalPrivacyControlEnabled",
         "DefaultBraveHttpsUpgradeSetting", "DefaultBraveReferrersSetting", "BraveSyncUrl",
         "DefaultBraveRemember1PStorageSetting",
@@ -428,8 +428,6 @@ $PolicyDefinitions = @{
         @{Name="BraveShieldsDisabledForUrls";          Value=@(); Type="MultiString"}
         # Shields enabled for URLs — empty set, no URLs blacklisted
         @{Name="BraveShieldsEnabledForUrls";           Value=@(); Type="MultiString"}
-        # Local AI — disable on-device AI features (history embeddings, surfaces)
-        @{Name="BraveLocalAIEnabled";                  Value=0; Type="DWord"}
         # Email aliases — disable anonymous email alias feature for sign-ups
         @{Name="EmailAliasesEnabled";                  Value=0; Type="DWord"}
     )
