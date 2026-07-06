@@ -179,10 +179,10 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 
 | Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
 |---------------------|---------------------|-------|----------|
-| `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 13 |
-| `-Level Essential` | `-Level Temel` | Essential ⭐ | 29 |
-| `-Level Balanced` | `-Level Dengeli` | Balanced | 47 |
-| `-Level Strict` | `-Level Katı` | Strict | 67 |
+| `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 23 |
+| `-Level Essential` | `-Level Temel` | Essential ⭐ | 40 |
+| `-Level Balanced` | `-Level Dengeli` | Balanced | 61 |
+| `-Level Strict` | `-Level Katı` | Strict | 81 |
 
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
 
@@ -548,7 +548,7 @@ responsibility for system instability, policy conflicts, data loss, or unintende
 resulting from the use of this project. Always verify backups, test in a non-production
 environment first, and review the source code before executing in any managed or enterprise setting.
 
----
+
 
 ---
 
@@ -586,8 +586,8 @@ aktarımı (telemetri), analiz hizmetleri, arka plan pinglari, tümleşik para k
 ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı bırakılır. Tarayıcının iç
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
-Brave Omega v2.0 ile birlikte **dört katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (13 politika),
-Temel ⭐ (29), Dengeli (47) ve Katı (67) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
+Brave Omega **dört katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (23 politika),
+Temel ⭐ (40), Dengeli (61) ve Katı (81) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
 sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
@@ -617,7 +617,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Özellik | Açıklama |
 |---------|----------|
-| 🔒 **Dört Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (13 politika), **Temel ⭐** (29), **Dengeli** (47) veya **Katı** (67) |
+| 🔒 **Dört Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (23 politika), **Temel ⭐** (40), **Dengeli** (61) veya **Katı** (81) |
 | 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır, PowerShell'de `REG_MULTI_SZ` cmdlet'i bulunmadığından |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
@@ -697,10 +697,10 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
 
 | Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
 |----------------------|----------------------|--------|----------|
-| `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 13 |
-| `-Level Temel` | `-Level Essential` | Temel ⭐ | 29 |
-| `-Level Dengeli` | `-Level Balanced` | Dengeli | 47 |
-| `-Level Katı` | `-Level Strict` | Katı | 67 |
+| `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 23 |
+| `-Level Temel` | `-Level Essential` | Temel ⭐ | 40 |
+| `-Level Dengeli` | `-Level Balanced` | Dengeli | 61 |
+| `-Level Katı` | `-Level Strict` | Katı | 81 |
 
 > `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
 
@@ -731,7 +731,7 @@ kaç politikanın uygulanacağını belirleyen **dört sıkılaştırma seviyesi
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  13–67 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
+│  ↳  23–81 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -747,10 +747,10 @@ kaç politikanın uygulanacağını belirleyen **dört sıkılaştırma seviyesi
 
 | Seviye | Toplam Politika | Brave'e Özgü | Chromium (Veri) | Chromium (Güvenlik) | Kullanım Etkisi |
 |--------|----------------|--------------|-----------------|---------------------|-----------------|
-| **Brave Yalnız** | 13 | 13 | 0 | 0 | Yok |
-| **Temel ⭐** | 29 | 13 | 16 | 0 | Yok |
-| **Dengeli** | 47 | 13 | 16 | 18 | Düşük |
-| **Katı** | 67 | 13 | 17 | 37 | Orta |
+| **Brave Yalnız** | 23 | 23 | 0 | 0 | Yok |
+| **Temel ⭐** | 40 | 23 | 17 | 0 | Yok |
+| **Dengeli** | 61 | 23 | 17 | 21 | Düşük |
+| **Katı** | 81 | 23 | 17 | 41 | Orta |
 
 #### 6.2 Politika Kaynakları ve Yöntem
 
@@ -840,7 +840,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 9. Politika Başvuru Tablosu
 
-> Brave Omega **4 sıkılaştırma seviyesi** ve **67 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir. 67 politikanın tamamı aşağıda listelenmiştir — betiğe bakmaya gerek yoktur.
+> Brave Omega **4 sıkılaştırma seviyesi** ve **81 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir. 81 politikanın tamamı aşağıda listelenmiştir — betiğe bakmaya gerek yoktur.
 
 #### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -850,7 +850,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `ChromeVariations` | HKCU | `1` | DWord | Chromium'u yalnızca kritik alan denemeleriyle sınırlar |
 | `usagestats` *(GUID başına)* | HKCU | `0` | DWord | Uygulama GUID tanımlayıcısı başına Omaha güncelleyici veri aktarımını devre dışı bırakır |
 
-#### 9.2 Brave Yalnız Seviyesi — Brave'e Özgü Politikalar (13)
+#### 9.2 Brave Yalnız Seviyesi — Brave'e Özgü Politikalar (23)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -868,7 +868,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `BraveWebDiscoveryEnabled` | `0` | DWord | Web Discovery Project katkısını devre dışı bırakır |
 | `TorDisabled` | `1` | DWord | Tor entegrasyonunu devre dışı bırakır |
 
-#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (16 ek)
+#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (17 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -889,7 +889,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |
 | `VideoCaptureAllowed` | `0` | DWord | Varsayılan olarak kameraya izin vermez |
 
-#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (18 ek)
+#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (21 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -912,7 +912,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
 
-#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (21 ek)
+#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (20 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -930,7 +930,6 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
 | `BrowserGuestModeEnabled` | `0` | DWord | Misafir profillerini engeller |
 | `BrowserAddPersonEnabled` | `0` | DWord | Yeni profilleri engeller |
-| `CloudPrintProxyEnabled` | `0` | DWord | Cloud Print proxy'sini devre dışı bırakır |
 | `ImportAutofillFormData` | `0` | DWord | Otomatik doldurma verisi içe aktarmayı devre dışı bırakır |
 | `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
 | `ImportHistory` | `0` | DWord | Geçmiş içe aktarmayı devre dışı bırakır |
@@ -1008,7 +1007,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı
 - [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString
 - [x] **`-Level` parametresi** — sessiz/otomatik dağıtım
-- [x] **67 toplam politika** — 17'den 67'e genişletildi
+- [x] **81 toplam politika** — 17'den 81'e genişletildi
 - [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar
 - [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi**
 - [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle

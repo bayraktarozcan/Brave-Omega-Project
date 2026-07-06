@@ -64,10 +64,10 @@ Removes all Brave Omega policies from HKLM, HKCU, and Omaha GUIDs.
 When you run the script without parameters, it shows an interactive menu:
 
 ```
-1. Brave Only (13 policies)
-2. Essential [Recommended] (30 policies)
-3. Balanced (49 policies)
-4. Strict (68 policies)
+1. Brave Only
+2. Essential [Recommended]
+3. Balanced
+4. Strict
 Your selection (2):
 ```
 
@@ -228,10 +228,10 @@ Tüm Brave Omega politikalarını HKLM, HKCU ve Omaha GUID'lerinden kaldırır.
 Betik parametresiz çalıştırıldığında etkileşimli bir menü gösterir:
 
 ```
-1. Brave Yalnız (13 politika)
-2. Temel [Önerilen] (30 politika)
-3. Dengeli (49 politika)
-4. Katı (68 politika)
+1. Brave Yalnız
+2. Temel [Önerilen]
+3. Dengeli
+4. Katı
 Seçiminiz (2):
 ```
 

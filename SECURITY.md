@@ -117,7 +117,7 @@ Brave Omega implements browser hardening through **three independent enforcement
 │  ↳ User-modifiable, provides fallback protection          │
 ├──────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM Enterprise Policy (ADMX)                  │
-│  ↳ 13–67 policies depending on hardening level            │
+│  ↳ 23–81 policies depending on hardening level            │
 │  ↳ Locked/gray in browser UI — user cannot override       │
 │  ↳ Requires Administrator privileges to write             │
 ├──────────────────────────────────────────────────────────┤
@@ -274,10 +274,10 @@ Brave Omega offers four progressive hardening tiers:
 
 | Level | Policies | Description | Usability Impact |
 |-------|----------|-------------|-----------------|
-| **Brave Only** | 13 Brave-specific | Disables Brave's integrated services only | None |
-| **Essential ⭐** | 29 (Brave Only + 16) | Brave + zero-impact data leak prevention | None |
-| **Balanced** | 47 (Essential + 18) | Full security baseline with minor changes | Low |
-| **Strict** | 67 (Balanced + 20) | Maximum privacy preservation | Medium |
+| **Brave Only** | 23 Brave-specific | Disables Brave's integrated services only | None |
+| **Essential ⭐** | 40 (Brave Only + 17) | Brave + zero-impact data leak prevention | None |
+| **Balanced** | 61 (Essential + 21) | Full security baseline with minor changes | Low |
+| **Strict** | 81 (Balanced + 20) | Maximum privacy preservation | Medium |
 
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.
 
@@ -394,7 +394,7 @@ Brave Omega, tarayıcı sıkılaştırmasını **üç bağımsız zorunlu kılma
 │  ↳ Kullanıcı tarafından değiştirilebilir, yedek koruma    │
 ├──────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM Kurumsal Politika (ADMX)                │
-│  ↳ Sıkılaştırma seviyesine bağlı olarak 13–67 politika    │
+│  ↳ Sıkılaştırma seviyesine bağlı olarak 23–81 politika    │
 │  ↳ Tarayıcı arayüzünde kilitli/gri — kullanıcı değiştiremez│
 │  ↳ Yazmak için Yönetici ayrıcalıkları gerekir            │
 ├──────────────────────────────────────────────────────────┤
@@ -553,10 +553,10 @@ Brave Omega dört kademeli sıkılaştırma seviyesi sunar:
 
 | Seviye | Politika Sayısı | Açıklama | Kullanım Etkisi |
 |--------|----------------|----------|----------------|
-| **Brave Yalnız** | 13 Brave'e özgü | Yalnızca Brave'in tümleşik hizmetlerini kapatır | Yok |
-| **Temel ⭐** | 29 (Brave Yalnız + 16) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
-| **Dengeli** | 47 (Temel + 18) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
-| **Katı** | 67 (Dengeli + 20) | Azami gizlilik koruması | Orta |
+| **Brave Yalnız** | 23 Brave'e özgü | Yalnızca Brave'in tümleşik hizmetlerini kapatır | Yok |
+| **Temel ⭐** | 40 (Brave Yalnız + 17) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
+| **Dengeli** | 61 (Temel + 21) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
+| **Katı** | 81 (Dengeli + 20) | Azami gizlilik koruması | Orta |
 
 Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 

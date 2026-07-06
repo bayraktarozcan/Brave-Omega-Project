@@ -16,11 +16,11 @@ Complete policy reference for Brave Omega v2.1.6.0.
 | **1. Brave Only** | 23 Brave-specific | — | 23 | Base |
 | **2. Essential** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | Includes Level 1 |
 | **3. Balanced** | 61 (40 + 21) | UsageStatsInSample | 61 | Includes Levels 1-2 |
-| **4. Strict** | 82 (61 + 21) | UsageStatsInSample | 82 | Includes Levels 1-3 |
+| **4. Strict** | 81 (61 + 20) | UsageStatsInSample | 81 | Includes Levels 1-3 |
 
 ## Policy Reference by Level
 
-> All 82 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 81 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -92,9 +92,8 @@ Complete policy reference for Brave Omega v2.1.6.0.
 | `DefaultGeolocationSetting` | `2` | DWord | Blocks location by default |
 | `DefaultNotificationsSetting` | `2` | DWord | Blocks notifications by default |
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
-| `DefaultMediaStreamSetting` | `2` | DWord | Blocks camera/mic by default |
 
-### Strict Level — Balanced + Maximum Privacy (21 additional)
+### Strict Level — Balanced + Maximum Privacy (20 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -111,7 +110,6 @@ Complete policy reference for Brave Omega v2.1.6.0.
 | `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
 | `BrowserGuestModeEnabled` | `0` | DWord | Prevents guest profiles |
 | `BrowserAddPersonEnabled` | `0` | DWord | Prevents new profiles |
-| `CloudPrintProxyEnabled` | `0` | DWord | Disables Cloud Print proxy |
 | `ImportAutofillFormData` | `0` | DWord | Disables autofill import |
 | `ImportBookmarks` | `0` | DWord | Disables bookmark import |
 | `ImportHistory` | `0` | DWord | Disables history import |
@@ -163,7 +161,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 82 policies should show as **Active** (green checkmark).
+All 81 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -211,11 +209,11 @@ Brave Omega v2.1.6.0 için tam politika başvurusu.
 | **1. Brave Yalnız** | 23 Brave'e özgü | — | 23 | Temel |
 | **2. Temel** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 61 (40 + 21) | UsageStatsInSample | 61 | 1-2. Seviyeleri kapsar |
-| **4. Katı** | 82 (61 + 21) | UsageStatsInSample | 82 | 1-3. Seviyeleri kapsar |
+| **4. Katı** | 81 (61 + 20) | UsageStatsInSample | 81 | 1-3. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 82 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 81 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -287,9 +285,8 @@ Brave Omega v2.1.6.0 için tam politika başvurusu.
 | `DefaultGeolocationSetting` | `2` | DWord | Varsayılan olarak konumu engeller |
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
-| `DefaultMediaStreamSetting` | `2` | DWord | Varsayılan olarak kamera/mikrofonu engeller |
 
-### Katı Seviye — Dengeli + Azami Gizlilik (21 ek)
+### Katı Seviye — Dengeli + Azami Gizlilik (20 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -306,7 +303,6 @@ Brave Omega v2.1.6.0 için tam politika başvurusu.
 | `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
 | `BrowserGuestModeEnabled` | `0` | DWord | Misafir profillerini engeller |
 | `BrowserAddPersonEnabled` | `0` | DWord | Yeni profilleri engeller |
-| `CloudPrintProxyEnabled` | `0` | DWord | Cloud Print proxy'sini devre dışı bırakır |
 | `ImportAutofillFormData` | `0` | DWord | Otomatik doldurma verisi içe aktarmayı devre dışı bırakır |
 | `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
 | `ImportHistory` | `0` | DWord | Geçmiş içe aktarmayı devre dışı bırakır |
@@ -358,7 +354,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-82 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+81 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

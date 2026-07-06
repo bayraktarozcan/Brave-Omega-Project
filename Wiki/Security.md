@@ -99,7 +99,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
 ```
 
-- Removes all 82 policies from HKLM, HKCU, and Omaha GUIDs
+- Removes all 81 policies from HKLM, HKCU, and Omaha GUIDs
 - Cleans up empty registry keys automatically
 - Respects -WhatIf silently
 
@@ -318,7 +318,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
 ```
 
-- 82 politikanın tümünü HKLM, HKCU ve Omaha GUID'lerinden kaldırır
+- 81 politikanın tümünü HKLM, HKCU ve Omaha GUID'lerinden kaldırır
 - Boş kayıt defteri anahtarlarını otomatik temizler
 - -WhatIf'e sessizce saygı duyar
 
@@ -389,10 +389,10 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 | Kontrol | Yöntem |
 | --------- | -------- |
-| Tüm politikalar etkin | `brave://policy` → 82 politikanın tümü **Etkin** gösteriyor |
+| Tüm politikalar etkin | `brave://policy` → 81 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 40, Dengeli'de 61) |
 | Kayıt defteri yazıldı | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Yedek oluşturuldu | `BraveOmega_HKLM_*.reg` betik dizininde mevcut |
-| Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[HATA]` satırı yok |
+| Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[ERROR]` satırı yok |
 
 ---
 

@@ -66,11 +66,11 @@ Key outcomes:
 
 Adds in priority order:
 
-1. **Zero user impact, max privacy:** BraveDeAmpEnabled, BraveDebouncingEnabled, BraveGlobalPrivacyControlEnabled, BraveReduceLanguageEnabled, BraveTrackingQueryParametersFilteringEnabled, BraveLocalAIEnabled → Brave Yalnız tier (13→19)
+1. **Zero user impact, max privacy:** BraveDeAmpEnabled, BraveDebouncingEnabled, BraveGlobalPrivacyControlEnabled, BraveReduceLanguageEnabled, BraveTrackingQueryParametersFilteringEnabled, BraveLocalAIEnabled → Brave Yalnız tier (13→23)
 2. **Default protection levels:** DefaultBraveAdblockSetting, DefaultBraveFingerprintingV2Setting, DefaultBraveHttpsUpgradeSetting, DefaultBraveReferrersSetting, DefaultBraveRemember1PStorageSetting → Temel tier
 3. **Enterprise/control:** EmailAliasesEnabled, BraveSyncUrl → Dengeli tier
 
-Total: 67→82 policies across 4 tiers.
+Total: 67→81 policies across 4 tiers.
 
 ---
 
@@ -98,7 +98,7 @@ Deliverables:
 
 | Prompt | Description | Status |
 |--------|-------------|--------|
-| `11-politika-katalogu.md` | Create docs/policy-catalog.md with full metadata | 🔲 Pending |
+| `07-politika-katalogu.md` | Create docs/policy-catalog.md with full metadata | ✅ Completed |
 
 Policy catalog with per-policy: ID, source, tier, min. Chromium, type, default, recommended, risk, ADMX validation date, notes.
 
@@ -263,11 +263,11 @@ Ana çıktılar:
 
 Öncelik sırasına göre ekleme:
 
-1. **Sıfır kullanıcı etkisi, maksimum gizlilik:** BraveDeAmpEnabled, BraveDebouncingEnabled, BraveGlobalPrivacyControlEnabled, BraveReduceLanguageEnabled, BraveTrackingQueryParametersFilteringEnabled, BraveLocalAIEnabled → Brave Yalnız katmanı (13→19)
+1. **Sıfır kullanıcı etkisi, maksimum gizlilik:** BraveDeAmpEnabled, BraveDebouncingEnabled, BraveGlobalPrivacyControlEnabled, BraveReduceLanguageEnabled, BraveTrackingQueryParametersFilteringEnabled, BraveLocalAIEnabled → Brave Yalnız katmanı (13→23)
 2. **Varsayılan koruma seviyeleri:** DefaultBraveAdblockSetting, DefaultBraveFingerprintingV2Setting, DefaultBraveHttpsUpgradeSetting, DefaultBraveReferrersSetting, DefaultBraveRemember1PStorageSetting → Temel katmanı
 3. **Kurumsal/kontrol:** EmailAliasesEnabled, BraveSyncUrl → Dengeli katmanı
 
-Toplam: 67→82 politika, 4 katmanda.
+Toplam: 67→81 politika, 4 katmanda.
 
 ---
 
@@ -295,7 +295,7 @@ Teslimatlar:
 
 | Prompt | Açıklama | Durum |
 |--------|----------|-------|
-| `11-politika-katalogu.md` | docs/policy-catalog.md oluştur — tam meta veriyle | 🔲 Bekliyor |
+| `07-politika-katalogu.md` | docs/policy-catalog.md oluştur — tam meta veriyle | ✅ Tamamlandı |
 
 Politika başına: ID, kaynak, katman, min. Chromium, tür, varsayılan, önerilen, risk, ADMX doğrulama tarihi, notlar.
 
