@@ -27,7 +27,11 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.1.6 — 2026-07-04](#en-v216)
+2. [v2.2.0 — 2026-07-06](#en-v220)
+    * [Summary](#en-v220-summary)
+    * [Added](#en-v220-added)
+    * [Changed](#en-v220-changed)
+3. [v2.1.6 — 2026-07-04](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
@@ -82,6 +86,50 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ---
 
+<a id="en-v220"></a>
+
+## [v2.2.0] — 2026-07-06
+
+<a id="en-v220-summary"></a>
+
+### 🎯 Summary
+
+**Tier expansion release:** New **Gelişmiş (Advanced)** hardening level (L4, 72 policies) inserted between Balanced (61) and Strict (81). Strict renumbered L4→L5; 11 policies migrated from Strict to the new Advanced level; 8 core Strict policies retained.
+
+| Metric | Before (v2.1.6) | After (v2.2.0) |
+|--------|-----------------|----------------|
+| Hardening levels | 4 | 5 |
+| Brave Only policies | 23 | 23 |
+| Essential additions | 17 | 17 |
+| Balanced additions | 21 | 21 |
+| Gelişmiş (Advanced) additions | — | 11 |
+| Strict additions | 21 | 9 |
+
+<a id="en-v220-added"></a>
+
+### Added
+
+- **New hardening level — Gelişmiş (Advanced):** Inserted between Balanced (L3) and Strict (L4→L5).
+  - **11 policies migrated from Strict:** `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage`.
+  - **Total at this level:** 72 cumulative policies (23 Brave + 17 Data + 21 Security + 11 Advanced).
+- **`-Level Advanced` / `-Level Gelişmiş` parameter** — New parameter value for silent/automated deployment targeting the Advanced level.
+- **Phase 6 — Kademe Ekleme** — Roadmap entry documenting the tier insertion.
+- **`$ValidLevels` — Expanded to 10 values** — All 5 levels validated in both EN and TR scripts.
+
+<a id="en-v220-changed"></a>
+
+### Changed
+
+- **Strict renumbered L4→L5** — 10 core policies retained: `TranslateEnabled`, `WebRtcIPHandling` (override), `DefaultClipboardSetting`, `DefaultFileSystemReadGuardSetting`, `DefaultFileSystemWriteGuardSetting`, `DefaultInsecureContentSetting`, `DefaultJavaScriptJitSetting`, `DefaultCookiesSetting`, `ImportBookmarks`, `DefaultBraveRemember1PStorageSetting`.
+- **`ImportBookmarks` kept in Strict** — Deliberate retention for bookmark portability (users cloning from existing profiles).
+- **Script version** — `$ScriptVersion = "v2.2.0.0"` in both EN and TR scripts.
+- **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md updated to reflect 5-level model.
+- **README.md** — Level tables, parameter references, policy section 9.5, and hardening levels table updated for 5-level model.
+- **CHANGELOG, SECURITY, index.html** — Version numbers and level references updated.
+- **`WebRtcIPHandling` override** — Retained only in Strict (L5); Balanced (L3) retains the base value `"default_public_interface_only"`.
+
+<hr>
+
 <a id="en-v216"></a>
 
 ## [v2.1.6] — 2026-07-04
@@ -90,7 +138,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### 🎯 Summary
 
-**Policy expansion release:** 15 new Brave-specific enterprise policies added across all four hardening tiers following a comprehensive policy gap analysis. One deprecated Chromium policy removed.
+**Policy expansion release:** 15 new Brave-specific enterprise policies added across all four hardening tiers (v2.1.6 uses 4-tier model) following a comprehensive policy gap analysis. One deprecated Chromium policy removed.
 
 | Metric | Before (v2.1.5) | After (v2.1.6) |
 |--------|-----------------|----------------|
@@ -735,6 +783,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.2.0 | 2026-07-06 | 81    | Phase 6: Gelişmiş (Advanced) level added (5-tier model), Strict renumbered L4→L5 |
 | v2.1.6 | 2026-07-04 | 81    | Phase 2: 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149→150, no policy changes |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump |
@@ -792,7 +841,11 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 
 1. [Giriş](#tr-introduction)
-2. [v2.1.6 — 2026-07-04](#tr-v216)
+2. [v2.2.0 — 2026-07-06](#tr-v220)
+    * [Özet](#tr-v220-ozet)
+    * [Eklendi](#tr-v220-eklendi)
+    * [Değiştirildi](#tr-v220-degistirildi)
+3. [v2.1.6 — 2026-07-04](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
@@ -963,6 +1016,49 @@ Eklenen/Değiştirilen Dosyalar:
 - **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.175'e güncellendi.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, doğrulanmış sürüm sabitleri güncellendi.
 
+<a id="tr-v220"></a>
+
+## [v2.2.0] — 2026-07-06
+
+<a id="tr-v220-ozet"></a>
+
+### 🎯 Özet
+
+**Kademe genişletme sürümü:** Dengeli (61) ile Katı (81) arasına yeni **Gelişmiş** sıkılaştırma seviyesi (L4, 72 politika) eklendi. Katı L4→L5 olarak yeniden numaralandırıldı; 11 politika Katı'dan yeni Gelişmiş seviyesine taşındı; 8 temel Katı politikası korundu.
+
+| Metrik | Önce (v2.1.6) | Sonra (v2.2.0) |
+|--------|---------------|----------------|
+| Sıkılaştırma seviyesi | 4 | 5 |
+| Brave Yalnız politikaları | 23 | 23 |
+| Temel eklemeleri | 17 | 17 |
+| Dengeli eklemeleri | 21 | 21 |
+| Gelişmiş eklemeleri | — | 11 |
+| Katı eklemeleri | 21 | 9 |
+
+<a id="tr-v220-eklendi"></a>
+
+### Eklendi
+
+- **Yeni sıkılaştırma seviyesi — Gelişmiş:** Dengeli (L3) ile Katı (L4→L5) arasına eklendi.
+  - **Katı'dan taşınan 11 politika:** `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage`.
+  - **Bu seviyede toplam:** 72 kümülatif politika (23 Brave + 17 Veri + 21 Güvenlik + 11 Gelişmiş).
+- **`-Level Advanced` / `-Level Gelişmiş` parametresi** — Gelişmiş seviyesini hedefleyen sessiz/otomatik dağıtım için yeni parametre değeri.
+- **Aşama 6 — Kademe Ekleme** — Kademe eklemesini belgeleyen yol haritası girdisi.
+- **`$ValidLevels` — 10 değere genişletildi** — Tüm 5 seviye hem EN hem TR betiklerinde doğrulandı.
+
+<a id="tr-v220-degistirildi"></a>
+
+### Değiştirildi
+
+- **Katı L4→L5 olarak yeniden numaralandırıldı** — 10 temel politika korundu: `TranslateEnabled`, `WebRtcIPHandling` (üzerine yaz), `DefaultClipboardSetting`, `DefaultFileSystemReadGuardSetting`, `DefaultFileSystemWriteGuardSetting`, `DefaultInsecureContentSetting`, `DefaultJavaScriptJitSetting`, `DefaultCookiesSetting`, `ImportBookmarks`, `DefaultBraveRemember1PStorageSetting`.
+- **`ImportBookmarks` Katı'da tutuldu** — Yer imi taşınabilirliği için bilinçli olarak korundu (mevcut profillerden kopyalayan kullanıcılar).
+- **Betik sürümü** — Her iki betikte `$ScriptVersion = "v2.2.0.0"`.
+- **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md 5 seviyeli modeli yansıtacak şekilde güncellendi.
+- **README.md** — Seviye tabloları, parametre referansları, politika bölümü 9.5 ve sıkılaştırma seviyeleri tablosu 5 seviyeli model için güncellendi.
+- **CHANGELOG, SECURITY, index.html** — Sürüm numaraları ve seviye referansları güncellendi.
+
+<hr>
+
 <a id="tr-v216"></a>
 
 ## [v2.1.6] — 2026-07-04
@@ -971,7 +1067,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 ### 🎯 Özet
 
-**Politika genişletme sürümü:** Kapsamlı politika boşluk analizi sonucu 15 yeni Brave'e özgü kurumsal politika dört sıkılaştırma katmanına eklendi. Kullanımdan kaldırılan bir Chromium politikası kaldırıldı.
+**Politika genişletme sürümü:** Kapsamlı politika boşluk analizi sonucu 15 yeni Brave'e özgü kurumsal politika dört sıkılaştırma katmanına (v2.1.6 4 katmanlı modeldir) eklendi. Kullanımdan kaldırılan bir Chromium politikası kaldırıldı.
 
 | Metrik | Önce (v2.1.5) | Sonra (v2.1.6) |
 |--------|---------------|----------------|
@@ -1512,6 +1608,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.2.0 | 2026-07-06 | 81    | Faz 6: Gelişmiş seviyesi eklendi (5 katmanlı model), Katı L4→L5 olarak yeniden numaralandırıldı |
 | v2.1.6 | 2026-07-04 | 81    | Faz 2: 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 yükseltmesi; Chromium 149→150, politika değişikliği yok |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 doğrulaması; sürüm yükseltmesi |

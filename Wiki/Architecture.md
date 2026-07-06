@@ -35,14 +35,15 @@ Brave Omega uses a **three-tier enforcement model** that creates redundant, inde
 
 ## Hardening Levels (v2.0+)
 
-In addition to the three enforcement tiers, Brave Omega v2.0+ offers **four hardening levels** with cumulative inheritance. Each level includes all policies from the previous one:
+In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hardening levels** with cumulative inheritance. Each level includes all policies from the previous one:
 
 | Level | Policies | Scope | User Impact |
 | ------- | ---------- | ------- | ------------- |
 | **1. Brave Only** | 23 Brave-specific policies | HKLM | None |
 | **2. Essential** ⭐ | 23 + 17 = 40 | HKLM + HKCU + Omaha | None |
 | **3. Balanced** | 40 + 21 = 61 | + WebRTC, HTTPS, DNS | Low |
-| **4. Strict** | 61 + 21 = 82 | + JIT, Cookies, Sensors | Medium |
+| **4. Gelişmiş (Advanced)** | 61 + 11 = 72 | + Sensors, Imports, Profiles | Low |
+| **5. Strict** | 72 + 9 = 81 | + JIT, Cookies, Clipboard, FS | Medium |
 
 Select your level interactively when running the script or use the `-Level` parameter:
 
@@ -105,7 +106,7 @@ Every policy is traceable to one authoritative source:
 
 **Redundancy ensures:** If one tier fails or is delayed, others continue enforcing privacy protections.
 
-**Hardening Levels (v2.0+):** The four levels above add additional granularity within Tier 2, letting you choose the number of ADMX policies to apply.
+**Hardening Levels (v2.0+):** The five levels above add additional granularity within Tier 2, letting you choose the number of ADMX policies to apply.
 
 ---
 
@@ -192,14 +193,15 @@ Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız 
 
 ## Sıkılaştırma Seviyeleri (v2.0+)
 
-Üç zorunlu kılma katmanına ek olarak, Brave Omega v2.0+ **dört sıkılaştırma seviyesi** sunar. Her seviye bir öncekinin tüm politikalarını kapsar:
+Üç zorunlu kılma katmanına ek olarak, Brave Omega v2.0+ **beş sıkılaştırma seviyesi** sunar. Her seviye bir öncekinin tüm politikalarını kapsar:
 
 | Seviye | Politika | Kapsam | Kullanım Etkisi |
 | -------- | ---------- | -------- | ----------------- |
 | **1. Brave Yalnız** | 23 Brave'e özgü politika | HKLM | Yok |
 | **2. Temel** ⭐ | 23 + 17 = 40 | HKLM + HKCU + Omaha | Yok |
 | **3. Dengeli** | 40 + 21 = 61 | + WebRTC, HTTPS, DNS | Düşük |
-| **4. Katı** | 61 + 21 = 82 | + JIT, Çerezler, Sensörler | Orta |
+| **4. Gelişmiş** | 61 + 11 = 72 | + Sensörler, İçe Aktarmalar, Profiller | Düşük |
+| **5. Katı** | 72 + 9 = 81 | + JIT, Çerezler, Pano, FS | Orta |
 
 retiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:
 
@@ -262,7 +264,7 @@ Her politika tek bir yetkili kaynağa izlenebilir:
 
 **Yedeklilik şunları sağlar:** Bir katman başarısız olursa veya gecikirse, diğerleri gizlilik korumalarını uygulamaya devam eder.
 
-**Sıkılaştırma Seviyeleri (v2.0+):** Yukarıdaki dört seviye, Katman 2'ye ek ayrıntı düzeyi ekleyerek kaç ADMX politikası uygulanacağını seçmenizi sağlar.
+**Sıkılaştırma Seviyeleri (v2.0+):** Yukarıdaki beş seviye, Katman 2'ye ek ayrıntı düzeyi ekleyerek kaç ADMX politikası uygulanacağını seçmenizi sağlar.
 
 ---
 

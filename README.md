@@ -182,6 +182,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 23 |
 | `-Level Essential` | `-Level Temel` | Essential ⭐ | 40 |
 | `-Level Balanced` | `-Level Dengeli` | Balanced | 61 |
+| `-Level Advanced` | `-Level Gelişmiş` | Gelişmiş (Advanced) | 72 |
 | `-Level Strict` | `-Level Katı` | Strict | 81 |
 
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
@@ -234,6 +235,7 @@ and offers **four hardening levels** that determine how many policies are applie
 | **Brave Only** | 23 | 23 | 0 | 0 | None |
 | **Essential ⭐** | 40 | 23 | 17 | 0 | None |
 | **Balanced** | 61 | 23 | 17 | 21 | Low |
+| **Gelişmiş (Advanced)** | 72 | 23 | 17 | 32 | Low |
 | **Strict** | 81 | 23 | 17 | 41 | Medium |
 
 #### 6.2 Policy Sources & Methodology
@@ -321,7 +323,7 @@ no longer have any effect.
 
 ### 9. Policy Reference
 
-> Brave Omega offers **4 hardening levels** with **81 enterprise policies** total. The policy reference below is organized by registry hive and level.
+> Brave Omega offers **5 hardening levels** with **81 enterprise policies** total. The policy reference below is organized by registry hive and level.
 
 #### 9.1 HKCU — User-Level Preferences (all levels)
 
@@ -407,31 +409,36 @@ no longer have any effect.
 | `DefaultBraveReferrersSetting` | `2` | DWord | Caps referrer to strict-origin-when-cross-origin |
 | `BraveSyncUrl` | `"https://sync-v2.brave.com/v2"` | String | Explicit Brave sync server endpoint |
 
-#### 9.5 Strict Level — Balanced + Maximum Privacy (20 additional)
+#### 9.5 Gelişmiş (Advanced) Level — Balanced + Enhanced Privacy (11 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
-| `WebRtcIPHandling` *(override)* | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
-| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
 | `DefaultSensorsSetting` | `2` | DWord | Blocks sensor access by default |
 | `DefaultLocalFontsSetting` | `2` | DWord | Blocks font enumeration |
-| `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
-| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
-| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
 | `DefaultSerialGuardSetting` | `2` | DWord | Blocks Serial API |
 | `DefaultIdleDetectionSetting` | `2` | DWord | Blocks idle detection |
-| `DefaultInsecureContentSetting` | `2` | DWord | Blocks mixed content |
-| `DefaultJavaScriptJitSetting` | `2` | DWord | Disables JIT compilation |
-| `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
 | `BrowserGuestModeEnabled` | `0` | DWord | Prevents guest profiles |
 | `BrowserAddPersonEnabled` | `0` | DWord | Prevents new profiles |
-| `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Forgets first-party storage on tab/nav end |
 | `ImportAutofillFormData` | `0` | DWord | Disables autofill import |
-| `ImportBookmarks` | `0` | DWord | Disables bookmark import |
 | `ImportHistory` | `0` | DWord | Disables history import |
 | `ImportSavedPasswords` | `0` | DWord | Disables password import |
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
+
+#### 9.6 Strict Level — Gelişmiş (Advanced) + Maximum Privacy (9 additional)
+
+| Registry Key | Value | Type | Effect |
+|--------------|-------|------|--------|
+| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
+| `WebRtcIPHandling` *(override)* | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
+| `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
+| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
+| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
+| `DefaultInsecureContentSetting` | `2` | DWord | Blocks mixed content |
+| `DefaultJavaScriptJitSetting` | `2` | DWord | Disables JIT compilation |
+| `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
+| `ImportBookmarks` | `0` | DWord | Disables bookmark import |
+| `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Forgets first-party storage on tab/nav end |
 
 ---
 
@@ -501,7 +508,8 @@ BRAVE OMEGA PROJECT/
 - [x] **Multi-type registry engine** — DWord, String, MultiString type-aware dispatching (v2.0)
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
-- [x] **81 total policies** — expanded from 17 to 81 across 4 levels (v2.0 / v2.1.6)
+- [x] **81 total policies** — expanded from 17 to 81 across 4→5 levels (v2.0 / v2.1.6 / v2.2.0)
+- [x] **5-tier hardening model** — Gelişmiş (Advanced) level added between Balanced and Strict (v2.2.0)
 - [x] **Automated Brave version detection** — warn if installed version differs from validated target (v2.1)
 - [x] **Dry-run mode** via `-WhatIf` parameter — preview all changes without writing to registry (v2.1)
 - [x] **Reset/uninstall mode** via `-Reset` parameter — remove all applied policies cleanly (v2.1)
@@ -586,8 +594,8 @@ aktarımı (telemetri), analiz hizmetleri, arka plan pinglari, tümleşik para k
 ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı bırakılır. Tarayıcının iç
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
-Brave Omega **dört katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (23 politika),
-Temel ⭐ (40), Dengeli (61) ve Katı (81) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
+Brave Omega **beş katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (23 politika),
+Temel ⭐ (40), Dengeli (61), Gelişmiş (72) ve Katı (81) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
 sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
@@ -700,6 +708,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
 | `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 23 |
 | `-Level Temel` | `-Level Essential` | Temel ⭐ | 40 |
 | `-Level Dengeli` | `-Level Balanced` | Dengeli | 61 |
+| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 72 |
 | `-Level Katı` | `-Level Strict` | Katı | 81 |
 
 > `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
@@ -714,10 +723,10 @@ Tüm kurumsal ilkelerin doğru biçimde etkin olduğunu onaylamak için Brave'de
 
 ### 6. Nasıl Çalışır?
 
-#### 6.1 Mimari — Dört Katmanlı Zorunlu Kılma Modeli
+#### 6.1 Mimari — Beş Katmanlı Zorunlu Kılma Modeli
 
 Brave Omega iki **altyapı katmanında** (HKLM ilkeleri + HKCU yedekleri) çalışır ve
-kaç politikanın uygulanacağını belirleyen **dört sıkılaştırma seviyesi** sunar.
+kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi** sunar.
 
 ##### Altyapı Katmanları
 
@@ -750,6 +759,7 @@ kaç politikanın uygulanacağını belirleyen **dört sıkılaştırma seviyesi
 | **Brave Yalnız** | 23 | 23 | 0 | 0 | Yok |
 | **Temel ⭐** | 40 | 23 | 17 | 0 | Yok |
 | **Dengeli** | 61 | 23 | 17 | 21 | Düşük |
+| **Gelişmiş** | 72 | 23 | 17 | 32 | Düşük |
 | **Katı** | 81 | 23 | 17 | 41 | Orta |
 
 #### 6.2 Politika Kaynakları ve Yöntem
@@ -840,7 +850,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 9. Politika Başvuru Tablosu
 
-> Brave Omega **4 sıkılaştırma seviyesi** ve **81 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir. 81 politikanın tamamı aşağıda listelenmiştir — betiğe bakmaya gerek yoktur.
+> Brave Omega **5 sıkılaştırma seviyesi** ve **81 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir. 81 politikanın tamamı aşağıda listelenmiştir — betiğe bakmaya gerek yoktur.
 
 #### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -912,30 +922,36 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
 
-#### 9.5 Katı Seviye — Dengeli + Azami Gizlilik (20 ek)
+#### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (11 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
-| `WebRtcIPHandling` *(üzerine yaz)* | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
-| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
 | `DefaultSensorsSetting` | `2` | DWord | Varsayılan olarak sensör erişimini engeller |
 | `DefaultLocalFontsSetting` | `2` | DWord | Yazı tipi numaralandırmayı engeller |
-| `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
-| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
-| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
 | `DefaultSerialGuardSetting` | `2` | DWord | Serial API'yi engeller |
 | `DefaultIdleDetectionSetting` | `2` | DWord | Boşta algılamayı engeller |
-| `DefaultInsecureContentSetting` | `2` | DWord | Karma içeriği engeller |
-| `DefaultJavaScriptJitSetting` | `2` | DWord | JIT derlemeyi devre dışı bırakır |
-| `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
 | `BrowserGuestModeEnabled` | `0` | DWord | Misafir profillerini engeller |
 | `BrowserAddPersonEnabled` | `0` | DWord | Yeni profilleri engeller |
 | `ImportAutofillFormData` | `0` | DWord | Otomatik doldurma verisi içe aktarmayı devre dışı bırakır |
-| `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
 | `ImportHistory` | `0` | DWord | Geçmiş içe aktarmayı devre dışı bırakır |
 | `ImportSavedPasswords` | `0` | DWord | Parola içe aktarmayı devre dışı bırakır |
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
+
+#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (9 ek)
+
+| Kayıt Defteri Anahtarı | Değer | Tür | Etki |
+|------------------------|-------|-----|------|
+| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
+| `WebRtcIPHandling` *(üzerine yaz)* | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
+| `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
+| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
+| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
+| `DefaultInsecureContentSetting` | `2` | DWord | Karma içeriği engeller |
+| `DefaultJavaScriptJitSetting` | `2` | DWord | JIT derlemeyi devre dışı bırakır |
+| `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
+| `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
+| `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Sekme/gezinti sonunda birinci taraf deposunu unutur |
 
 ---
 

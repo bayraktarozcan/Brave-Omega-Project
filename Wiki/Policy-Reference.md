@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.1.6.0.
+Complete policy reference for Brave Omega v2.2.0.0.
 
 ---
 
@@ -16,7 +16,8 @@ Complete policy reference for Brave Omega v2.1.6.0.
 | **1. Brave Only** | 23 Brave-specific | — | 23 | Base |
 | **2. Essential** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | Includes Level 1 |
 | **3. Balanced** | 61 (40 + 21) | UsageStatsInSample | 61 | Includes Levels 1-2 |
-| **4. Strict** | 81 (61 + 20) | UsageStatsInSample | 81 | Includes Levels 1-3 |
+| **4. Gelişmiş (Advanced)** | 72 (61 + 11) | UsageStatsInSample | 72 | Includes Levels 1-3 |
+| **5. Strict** | 81 (72 + 9) | UsageStatsInSample | 81 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
@@ -93,29 +94,36 @@ Complete policy reference for Brave Omega v2.1.6.0.
 | `DefaultNotificationsSetting` | `2` | DWord | Blocks notifications by default |
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
 
-### Strict Level — Balanced + Maximum Privacy (20 additional)
+### Gelişmiş (Advanced) Level — Balanced + Enhanced Privacy (11 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
-| `WebRtcIPHandling` *(override)* | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
 | `DefaultSensorsSetting` | `2` | DWord | Blocks sensor access by default |
 | `DefaultLocalFontsSetting` | `2` | DWord | Blocks font enumeration |
-| `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
-| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
-| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
 | `DefaultSerialGuardSetting` | `2` | DWord | Blocks Serial API |
 | `DefaultIdleDetectionSetting` | `2` | DWord | Blocks idle detection |
-| `DefaultInsecureContentSetting` | `2` | DWord | Blocks mixed content |
-| `DefaultJavaScriptJitSetting` | `2` | DWord | Disables JIT compilation |
-| `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
 | `BrowserGuestModeEnabled` | `0` | DWord | Prevents guest profiles |
 | `BrowserAddPersonEnabled` | `0` | DWord | Prevents new profiles |
 | `ImportAutofillFormData` | `0` | DWord | Disables autofill import |
-| `ImportBookmarks` | `0` | DWord | Disables bookmark import |
 | `ImportHistory` | `0` | DWord | Disables history import |
 | `ImportSavedPasswords` | `0` | DWord | Disables password import |
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
+
+### Strict Level — Gelişmiş (Advanced) + Maximum Privacy (9 additional)
+
+| Registry Key | Value | Type | Effect |
+| -------------- | ------- | ------ | -------- |
+| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
+| `WebRtcIPHandling` *(override)* | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
+| `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
+| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
+| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
+| `DefaultInsecureContentSetting` | `2` | DWord | Blocks mixed content |
+| `DefaultJavaScriptJitSetting` | `2` | DWord | Disables JIT compilation |
+| `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
+| `ImportBookmarks` | `0` | DWord | Disables bookmark import |
+| `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Forgets first-party storage on tab/nav end |
 
 ---
 
@@ -198,7 +206,7 @@ All 81 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.1.6.0 için tam politika başvurusu.
+Brave Omega v2.2.0.0 için tam politika başvurusu.
 
 ---
 
@@ -209,7 +217,8 @@ Brave Omega v2.1.6.0 için tam politika başvurusu.
 | **1. Brave Yalnız** | 23 Brave'e özgü | — | 23 | Temel |
 | **2. Temel** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 61 (40 + 21) | UsageStatsInSample | 61 | 1-2. Seviyeleri kapsar |
-| **4. Katı** | 81 (61 + 20) | UsageStatsInSample | 81 | 1-3. Seviyeleri kapsar |
+| **4. Gelişmiş** | 72 (61 + 11) | UsageStatsInSample | 72 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 81 (72 + 9) | UsageStatsInSample | 81 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
@@ -286,29 +295,36 @@ Brave Omega v2.1.6.0 için tam politika başvurusu.
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
 
-### Katı Seviye — Dengeli + Azami Gizlilik (20 ek)
+### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (11 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
-| `WebRtcIPHandling` *(üzerine yaz)* | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
 | `DefaultSensorsSetting` | `2` | DWord | Varsayılan olarak sensör erişimini engeller |
 | `DefaultLocalFontsSetting` | `2` | DWord | Yazı tipi numaralandırmayı engeller |
-| `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
-| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
-| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
 | `DefaultSerialGuardSetting` | `2` | DWord | Serial API'yi engeller |
 | `DefaultIdleDetectionSetting` | `2` | DWord | Boşta algılamayı engeller |
-| `DefaultInsecureContentSetting` | `2` | DWord | Karma içeriği engeller |
-| `DefaultJavaScriptJitSetting` | `2` | DWord | JIT derlemeyi devre dışı bırakır |
-| `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
 | `BrowserGuestModeEnabled` | `0` | DWord | Misafir profillerini engeller |
 | `BrowserAddPersonEnabled` | `0` | DWord | Yeni profilleri engeller |
 | `ImportAutofillFormData` | `0` | DWord | Otomatik doldurma verisi içe aktarmayı devre dışı bırakır |
-| `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
 | `ImportHistory` | `0` | DWord | Geçmiş içe aktarmayı devre dışı bırakır |
 | `ImportSavedPasswords` | `0` | DWord | Parola içe aktarmayı devre dışı bırakır |
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
+
+### Katı Seviye — Gelişmiş + Azami Gizlilik (9 ek)
+
+| Kayıt Defteri Anahtarı | Değer | Tür | Etki |
+| ------------------------ | ------- | ----- | ------ |
+| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
+| `WebRtcIPHandling` *(üzerine yaz)* | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
+| `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
+| `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
+| `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
+| `DefaultInsecureContentSetting` | `2` | DWord | Karma içeriği engeller |
+| `DefaultJavaScriptJitSetting` | `2` | DWord | JIT derlemeyi devre dışı bırakır |
+| `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
+| `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
+| `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Sekme/gezinti sonunda birinci taraf deposunu unutur |
 
 ---
 

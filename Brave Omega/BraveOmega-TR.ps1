@@ -9,8 +9,8 @@
 #                  Brave 1.92.134 — Resmî Derleme / Chromium 150.0.7871.63
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
-#                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 4 katmanlı
-#                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Katı.
+#                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
+#                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
 #    Brave 1.92.134, 3 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
@@ -57,8 +57,8 @@
 #
 #   v2.0                 Köklü mimarî yenileme — Çok Katmanlı Sistem:
 #
-#     [YENİ]        4 katmanlı sıkılaştırma modeli:
-#                     Brave Yalnız → Temel → Dengeli → Katı
+#     [YENİ]        5 katmanlı sıkılaştırma modeli:
+#                     Brave Yalnız → Temel → Dengeli → Gelişmiş → Katı
 #                     Her katman bir öncekinin tüm politikalarını kapsar.
 #
 #     [YENİ]        Çok türlü kayıt defteri desteği:
@@ -73,7 +73,8 @@
 #                   Brave Yalnız: 23 Brave'e özgü politika
 #                   Temel:        +17 veri sızıntısı önleme politikası
 #                   Dengeli:      +21 güvenlik ve kullanım dengesi
-#                   Katı:         +21 azami gizlilik politikası
+#                   Gelişmiş:     +11 genişletilmiş gizlilik politikası
+#                   Katı:         +9 azami gizlilik politikası
 #
 #     [İYİLEŞTİRME] Kayıt defteri yazma motoru türe göre dağıtım yapar
 #                   ve her politika için ayrıntılı denetim izi üretir.
@@ -94,7 +95,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.1.6.0"
+$BetikSurum    = "v2.2.0.0"
 $DogrulananBrave = "1.92.134"
 $DogrulananChromium = "150"
 
@@ -302,15 +303,17 @@ if (-not $Seviye -or $Seviye -eq "") {
     Write-Host "  1. Brave Yalnız" -ForegroundColor Gray
     Write-Host "  2. Temel   [Önerilen]" -ForegroundColor Green
     Write-Host "  3. Dengeli" -ForegroundColor Yellow
-    Write-Host "  4. Katı" -ForegroundColor Red
+    Write-Host "  4. Gelişmiş" -ForegroundColor DarkYellow
+    Write-Host "  5. Katı" -ForegroundColor Red
     Write-Host ""
-    $Secim = Read-Host "Seçiminiz (1-4)"
+    $Secim = Read-Host "Seçiminiz (1-5)"
 
     $Seviye = switch ($Secim) {
         "1" { "Brave Yalnız" }
         "2" { "Temel" }
         "3" { "Dengeli" }
-        "4" { "Katı" }
+        "4" { "Gelişmiş" }
+        "5" { "Katı" }
         default { "Temel" }
     }
 }
@@ -320,6 +323,7 @@ $SeviyeHaritasi = @{
     "BraveOnly"  = "Brave Yalnız"
     "Essential"  = "Temel"
     "Balanced"   = "Dengeli"
+    "Advanced"   = "Gelişmiş"
     "Strict"     = "Katı"
 }
 if ($SeviyeHaritasi.ContainsKey($Seviye)) {
@@ -331,6 +335,7 @@ $SeviyeAnahtari = @{
     "Brave Yalnız" = "BraveOnly"
     "Temel"        = "Essential"
     "Dengeli"      = "Balanced"
+    "Gelişmiş"     = "Advanced"
     "Katı"         = "Strict"
 }
 
@@ -526,44 +531,23 @@ $PolitikaTanimlari = @{
         @{Ad="BraveSyncUrl";                         Deger="https://sync-v2.brave.com/v2"; Tur="String"}
     )
 
-    "Strict" = @(
-        # ─── Azami Gizlilik — bazı kullanım ödünleri olabilir ───
+    "Advanced" = @(
+        # ─── Gelişmiş Gizlilik — orta-yüksek koruma ───
 
-        # Çeviri — yerleşik çeviriyi kapatır (metnin Google'a gönderilmesini durdurur)
-        @{Ad="TranslateEnabled";                     Deger=0; Tur="DWord"}
-        # WebRTC IP yönetimi — Dengeli'yi ezer: tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir
-        @{Ad="WebRtcIPHandling";                     Deger="disable_non_proxied_udp"; Tur="String"}
         # Sensörler — cihaz hareket/ışık sensörü erişimini varsayılan olarak engeller
         @{Ad="DefaultSensorsSetting";                Deger=2; Tur="DWord"}
         # Yerel yazı tipleri — yazı tipi sayımını engeller (parmak izi yüzeyini azaltır)
         @{Ad="DefaultLocalFontsSetting";             Deger=2; Tur="DWord"}
-        # Pano — site pano okuma/yazma erişimini varsayılan olarak engeller
-        @{Ad="DefaultClipboardSetting";              Deger=2; Tur="DWord"}
-        # Dosya sistemi okuma — site dosya sistemi okuma erişimini varsayılan olarak engeller
-        @{Ad="DefaultFileSystemReadGuardSetting";    Deger=2; Tur="DWord"}
-        # Dosya sistemi yazma — site dosya sistemi yazma erişimini varsayılan olarak engeller
-        @{Ad="DefaultFileSystemWriteGuardSetting";   Deger=2; Tur="DWord"}
         # Seri portlar — Seri API erişimini varsayılan olarak engeller
         @{Ad="DefaultSerialGuardSetting";            Deger=2; Tur="DWord"}
         # Boşta algılama — site kullanıcı boşta durumu erişimini varsayılan olarak engeller
         @{Ad="DefaultIdleDetectionSetting";          Deger=2; Tur="DWord"}
-        # Güvensiz içerik — karma içeriği (HTTPS sayfada HTTP) varsayılan olarak engeller
-        @{Ad="DefaultInsecureContentSetting";        Deger=2; Tur="DWord"}
-        # JavaScript JIT — JIT derlemeyi kapatır (saldırı yüzeyini azaltır)
-        @{Ad="DefaultJavaScriptJitSetting";          Deger=2; Tur="DWord"}
-        # Çerezler — tüm çerezleri varsayılan olarak engeller (oturum bağımlı siteleri etkileyebilir)
-        @{Ad="DefaultCookiesSetting";                Deger=2; Tur="DWord"}
         # Misafir modu — tarayıcı misafir profili oluşturmayı engeller
         @{Ad="BrowserGuestModeEnabled";              Deger=0; Tur="DWord"}
         # Kişi ekleme — kullanıcı yöneticisinden yeni profil eklemeyi engeller
         @{Ad="BrowserAddPersonEnabled";              Deger=0; Tur="DWord"}
-        # ─── Yeni Katı Politikaları (Faz 2) ───
-        # Birinci taraf depolama — sekme/gezinti sonunda temizle (her oturumda login kaybı)
-        @{Ad="DefaultBraveRemember1PStorageSetting"; Deger=2; Tur="DWord"}
         # Otomatik doldurma içe aktarma — diğer tarayıcılardan otomatik doldurma verisi alımını engeller
         @{Ad="ImportAutofillFormData";               Deger=0; Tur="DWord"}
-        # Yer imi içe aktarma — diğer tarayıcılardan yer imi alımını engeller
-        @{Ad="ImportBookmarks";                      Deger=0; Tur="DWord"}
         # Geçmiş içe aktarma — diğer tarayıcılardan gezinti geçmişi alımını engeller
         @{Ad="ImportHistory";                        Deger=0; Tur="DWord"}
         # Parola içe aktarma — diğer tarayıcılardan kayıtlı parola alımını engeller
@@ -573,13 +557,38 @@ $PolitikaTanimlari = @{
         # Ana sayfa içe aktarma — diğer tarayıcılardan ana sayfa ayarları alımını engeller
         @{Ad="ImportHomepage";                       Deger=0; Tur="DWord"}
     )
+
+    "Strict" = @(
+        # ─── Azami Gizlilik — bazı kullanım ödünleri olabilir ───
+
+        # Çeviri — yerleşik çeviriyi kapatır (metnin Google'a gönderilmesini durdurur)
+        @{Ad="TranslateEnabled";                     Deger=0; Tur="DWord"}
+        # WebRTC IP yönetimi — Dengeli'yi ezer: tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir
+        @{Ad="WebRtcIPHandling";                     Deger="disable_non_proxied_udp"; Tur="String"}
+        # Pano — site pano okuma/yazma erişimini varsayılan olarak engeller
+        @{Ad="DefaultClipboardSetting";              Deger=2; Tur="DWord"}
+        # Dosya sistemi okuma — site dosya sistemi okuma erişimini varsayılan olarak engeller
+        @{Ad="DefaultFileSystemReadGuardSetting";    Deger=2; Tur="DWord"}
+        # Dosya sistemi yazma — site dosya sistemi yazma erişimini varsayılan olarak engeller
+        @{Ad="DefaultFileSystemWriteGuardSetting";   Deger=2; Tur="DWord"}
+        # Güvensiz içerik — karma içeriği (HTTPS sayfada HTTP) varsayılan olarak engeller
+        @{Ad="DefaultInsecureContentSetting";        Deger=2; Tur="DWord"}
+        # JavaScript JIT — JIT derlemeyi kapatır (saldırı yüzeyini azaltır)
+        @{Ad="DefaultJavaScriptJitSetting";          Deger=2; Tur="DWord"}
+        # Çerezler — tüm çerezleri varsayılan olarak engeller (oturum bağımlı siteleri etkileyebilir)
+        @{Ad="DefaultCookiesSetting";                Deger=2; Tur="DWord"}
+        # Yer imi içe aktarma — diğer tarayıcılardan yer imi alımını engeller
+        @{Ad="ImportBookmarks";                      Deger=0; Tur="DWord"}
+        # Birinci taraf depolama — sekme/gezinti sonunda temizle (her oturumda login kaybı)
+        @{Ad="DefaultBraveRemember1PStorageSetting"; Deger=2; Tur="DWord"}
+    )
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # POLİTİKA BİRLEŞTİRME (Kümülatif)
 # ─────────────────────────────────────────────────────────────────────────────
-$KatmanSirasi = @("BraveOnly", "Essential", "Balanced", "Strict")
+$KatmanSirasi = @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict")
 
 $BirlestirilmisPolitikalar = @{}
 $SecilenIndex = [array]::IndexOf($KatmanSirasi, $SeviyeAnahtar)

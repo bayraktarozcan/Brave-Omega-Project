@@ -270,14 +270,15 @@ The script handles three registry value types:
 
 ### 8. Hardening Levels
 
-Brave Omega offers four progressive hardening tiers:
+Brave Omega offers five progressive hardening tiers:
 
 | Level | Policies | Description | Usability Impact |
 |-------|----------|-------------|-----------------|
 | **Brave Only** | 23 Brave-specific | Disables Brave's integrated services only | None |
 | **Essential ⭐** | 40 (Brave Only + 17) | Brave + zero-impact data leak prevention | None |
 | **Balanced** | 61 (Essential + 21) | Full security baseline with minor changes | Low |
-| **Strict** | 81 (Balanced + 20) | Maximum privacy preservation | Medium |
+| **Gelişmiş (Advanced)** | 72 (Balanced + 11) | Enhanced privacy — sensors, imports, profiles | Low |
+| **Strict** | 81 (Advanced + 9) | Maximum privacy preservation | Medium |
 
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.
 
@@ -549,14 +550,15 @@ Betik üç kayıt defteri değer türünü işler:
 
 ### 8. Sıkılaştırma Seviyeleri
 
-Brave Omega dört kademeli sıkılaştırma seviyesi sunar:
+Brave Omega beş kademeli sıkılaştırma seviyesi sunar:
 
 | Seviye | Politika Sayısı | Açıklama | Kullanım Etkisi |
 |--------|----------------|----------|----------------|
 | **Brave Yalnız** | 23 Brave'e özgü | Yalnızca Brave'in tümleşik hizmetlerini kapatır | Yok |
 | **Temel ⭐** | 40 (Brave Yalnız + 17) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
 | **Dengeli** | 61 (Temel + 21) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
-| **Katı** | 81 (Dengeli + 20) | Azami gizlilik koruması | Orta |
+| **Gelişmiş** | 72 (Dengeli + 11) | Gelişmiş gizlilik — sensörler, içe aktarmalar, profiller | Düşük |
+| **Katı** | 81 (Gelişmiş + 9) | Azami gizlilik koruması | Orta |
 
 Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 

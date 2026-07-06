@@ -9,8 +9,8 @@
 #                    Brave 1.92.134 — Official Build / Chromium 150.0.7871.63
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
-#                    browser of unnecessary services. Supports 4 hardening
-#                    tiers: Brave Only, Essential, Balanced, Strict.
+#                    browser of unnecessary services. Supports 5 hardening
+#                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
 #    Brave 1.92.134, dated July 3, 2026, belongs to the Stable channel.
@@ -57,7 +57,7 @@
 #   v2.0                 Complete architectural overhaul — Multi-Tier System:
 #
 #     [NEW]        4-Tier hardening model:
-#                     Brave Only → Essential → Balanced → Strict
+#                     Brave Only → Essential → Balanced → Advanced → Strict
 #                     Each level cumulatively includes all policies below it.
 #
 #     [NEW]        Multi-type registry support:
@@ -72,7 +72,8 @@
 #                   Brave Only: 23 Brave-specific policies
 #                   Essential:  +17 data-leak prevention policies
 #                   Balanced:   +21 security & convenience balance
-#                   Strict:     +21 maximum privacy policies
+#                   Advanced:   +11 extended privacy policies
+#                   Strict:     +9 maximum privacy policies
 #
 #     [IMPROVED]    Registry writing engine now dispatches by type and
 #                   produces a comprehensive per-policy audit trail.
@@ -93,7 +94,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.1.6.0"
+$ScriptVersion   = "v2.2.0.0"
 $ValidatedBrave  = "1.92.134"
 $ValidatedChromium = "150"
 
@@ -297,22 +298,24 @@ if ($Reset) {
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0D: LEVEL SELECTION
 # ─────────────────────────────────────────────────────────────────────────────
-$ValidLevels = @("BraveOnly", "Essential", "Balanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Katı")
+$ValidLevels = @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Gelişmiş", "Katı")
 
 if (-not $Level -or $Level -eq "") {
     Write-Host "Select a hardening level:" -ForegroundColor White
     Write-Host "  1. Brave Only" -ForegroundColor Gray
     Write-Host "  2. Essential  [Recommended]" -ForegroundColor Green
     Write-Host "  3. Balanced" -ForegroundColor Yellow
-    Write-Host "  4. Strict" -ForegroundColor Red
+    Write-Host "  4. Advanced" -ForegroundColor DarkYellow
+    Write-Host "  5. Strict" -ForegroundColor Red
     Write-Host ""
-    $Choice = Read-Host "Enter choice (1-4)"
+    $Choice = Read-Host "Enter choice (1-5)"
 
     $Level = switch ($Choice) {
         "1" { "BraveOnly" }
         "2" { "Essential" }
         "3" { "Balanced" }
-        "4" { "Strict" }
+        "4" { "Advanced" }
+        "5" { "Strict" }
         default { "Essential" }
     }
 }
@@ -322,6 +325,7 @@ $LevelMap = @{
     "Brave Yalnız" = "BraveOnly"
     "Temel"        = "Essential"
     "Dengeli"      = "Balanced"
+    "Gelişmiş"     = "Advanced"
     "Katı"         = "Strict"
 }
 if ($LevelMap.ContainsKey($Level)) {
@@ -518,44 +522,23 @@ $PolicyDefinitions = @{
         @{Name="BraveSyncUrl";                         Value="https://sync-v2.brave.com/v2"; Type="String"}
     )
 
-    "Strict" = @(
-        # ─── Maximum Privacy — some usability trade-offs ───
+    "Advanced" = @(
+        # ─── Enhanced Privacy — medium-high protection ───
 
-        # Translation — disables built-in translation (stops sending text to Google)
-        @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
-        # WebRTC IP handling — overrides Balanced: proxies all WebRTC traffic
-        @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
         # Sensors — blocks device motion/light sensor access by default
         @{Name="DefaultSensorsSetting";                Value=2; Type="DWord"}
         # Local fonts — blocks font enumeration (reduces fingerprinting surface)
         @{Name="DefaultLocalFontsSetting";             Value=2; Type="DWord"}
-        # Clipboard — blocks site clipboard read/write access by default
-        @{Name="DefaultClipboardSetting";              Value=2; Type="DWord"}
-        # File system read — blocks site file system read access by default
-        @{Name="DefaultFileSystemReadGuardSetting";    Value=2; Type="DWord"}
-        # File system write — blocks site file system write access by default
-        @{Name="DefaultFileSystemWriteGuardSetting";   Value=2; Type="DWord"}
         # Serial ports — blocks Serial API access by default
         @{Name="DefaultSerialGuardSetting";            Value=2; Type="DWord"}
         # Idle detection — blocks site access to user idle state by default
         @{Name="DefaultIdleDetectionSetting";          Value=2; Type="DWord"}
-        # Insecure content — blocks mixed content (HTTP on HTTPS pages) by default
-        @{Name="DefaultInsecureContentSetting";        Value=2; Type="DWord"}
-        # JavaScript JIT — disables JIT compilation (reduces attack surface)
-        @{Name="DefaultJavaScriptJitSetting";          Value=2; Type="DWord"}
-        # Cookies — blocks all cookies by default (may break login-dependent sites)
-        @{Name="DefaultCookiesSetting";                Value=2; Type="DWord"}
         # Guest mode — prevents browser guest profile creation
         @{Name="BrowserGuestModeEnabled";              Value=0; Type="DWord"}
         # Add person — prevents new profile creation from user manager
         @{Name="BrowserAddPersonEnabled";              Value=0; Type="DWord"}
-        # ─── New Strict Policies (Phase 2) ───
-        # First-party storage — forget on tab/nav end (causes login loss per session)
-        @{Name="DefaultBraveRemember1PStorageSetting"; Value=2; Type="DWord"}
         # Import autofill — disables importing autofill data from other browsers
         @{Name="ImportAutofillFormData";               Value=0; Type="DWord"}
-        # Import bookmarks — disables importing bookmarks from other browsers
-        @{Name="ImportBookmarks";                      Value=0; Type="DWord"}
         # Import history — disables importing browsing history from other browsers
         @{Name="ImportHistory";                        Value=0; Type="DWord"}
         # Import passwords — disables importing saved passwords from other browsers
@@ -565,13 +548,38 @@ $PolicyDefinitions = @{
         # Import homepage — disables importing homepage settings
         @{Name="ImportHomepage";                       Value=0; Type="DWord"}
     )
+
+    "Strict" = @(
+        # ─── Maximum Privacy — some usability trade-offs ───
+
+        # Translation — disables built-in translation (stops sending text to Google)
+        @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
+        # WebRTC IP handling — overrides Balanced: proxies all WebRTC traffic
+        @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
+        # Clipboard — blocks site clipboard read/write access by default
+        @{Name="DefaultClipboardSetting";              Value=2; Type="DWord"}
+        # File system read — blocks site file system read access by default
+        @{Name="DefaultFileSystemReadGuardSetting";    Value=2; Type="DWord"}
+        # File system write — blocks site file system write access by default
+        @{Name="DefaultFileSystemWriteGuardSetting";   Value=2; Type="DWord"}
+        # Insecure content — blocks mixed content (HTTP on HTTPS pages) by default
+        @{Name="DefaultInsecureContentSetting";        Value=2; Type="DWord"}
+        # JavaScript JIT — disables JIT compilation (reduces attack surface)
+        @{Name="DefaultJavaScriptJitSetting";          Value=2; Type="DWord"}
+        # Cookies — blocks all cookies by default (may break login-dependent sites)
+        @{Name="DefaultCookiesSetting";                Value=2; Type="DWord"}
+        # Import bookmarks — disables importing bookmarks from other browsers
+        @{Name="ImportBookmarks";                      Value=0; Type="DWord"}
+        # First-party storage — forget on tab/nav end (causes login loss per session)
+        @{Name="DefaultBraveRemember1PStorageSetting"; Value=2; Type="DWord"}
+    )
 }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # POLICY MERGING (Cumulative)
 # ─────────────────────────────────────────────────────────────────────────────
-$LevelOrder = @("BraveOnly", "Essential", "Balanced", "Strict")
+$LevelOrder = @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict")
 
 $MergedPolicies = @{}
 $SelectedIndex = [array]::IndexOf($LevelOrder, $Level)

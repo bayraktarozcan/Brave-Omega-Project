@@ -22,7 +22,7 @@ Describe "Full Pipeline (EN)" -Tag "Integration" {
 
     It "should have required level order" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $content -match '\$LevelOrder\s*=\s*@\("BraveOnly"\s*,\s*"Essential"\s*,\s*"Balanced"\s*,\s*"Strict"\)' | Should -Be $true
+        $content -match '\$LevelOrder\s*=\s*@\("BraveOnly"\s*,\s*"Essential"\s*,\s*"Balanced"\s*,\s*"Advanced"\s*,\s*"Strict"\)' | Should -Be $true
     }
 
     It "should define valid level names" {

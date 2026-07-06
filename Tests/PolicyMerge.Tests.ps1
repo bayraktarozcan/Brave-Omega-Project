@@ -4,12 +4,13 @@ BeforeAll {
 
 Describe "Policy Merge" -Tag "Unit" {
     It "should merge policies cumulatively across levels" {
-        $LevelOrder = @("BraveOnly","Essential","Balanced","Strict")
+        $LevelOrder = @("BraveOnly","Essential","Balanced","Advanced","Strict")
         $PolicyDefinitions = @{
             "BraveOnly" = @(@{Name="PolicyA";Value=1;Type="DWord"})
             "Essential" = @(@{Name="PolicyB";Value=0;Type="DWord"})
             "Balanced"  = @(@{Name="PolicyC";Value=2;Type="DWord"})
-            "Strict"    = @(@{Name="PolicyD";Value=2;Type="DWord"})
+            "Advanced"  = @(@{Name="PolicyD";Value=2;Type="DWord"})
+            "Strict"    = @(@{Name="PolicyE";Value=2;Type="DWord"})
         }
         $MergedPolicies = @{}
         foreach ($level in $LevelOrder[0..2]) {
@@ -39,12 +40,13 @@ Describe "Policy Merge" -Tag "Unit" {
     }
 
     It "Strict level should contain all policies" {
-        $LevelOrder = @("BraveOnly","Essential","Balanced","Strict")
+        $LevelOrder = @("BraveOnly","Essential","Balanced","Advanced","Strict")
         $PolicyDefinitions = @{
             "BraveOnly" = @(@{Name="A";Value=1;Type="DWord"})
             "Essential" = @(@{Name="B";Value=0;Type="DWord"})
             "Balanced"  = @(@{Name="C";Value=2;Type="DWord"})
-            "Strict"    = @(@{Name="D";Value=2;Type="DWord"})
+            "Advanced"  = @(@{Name="D";Value=2;Type="DWord"})
+            "Strict"    = @(@{Name="E";Value=2;Type="DWord"})
         }
         $MergedPolicies = @{}
         foreach ($level in $LevelOrder) {
@@ -52,6 +54,6 @@ Describe "Policy Merge" -Tag "Unit" {
                 $MergedPolicies[$p.Name] = $p
             }
         }
-        $MergedPolicies.Count | Should -Be 4
+        $MergedPolicies.Count | Should -Be 5
     }
 }
