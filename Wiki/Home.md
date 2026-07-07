@@ -18,7 +18,7 @@
 | [🏠 Overview](Overview) | What is Brave Omega, why it exists, key concepts |
 | [🚀 Quick Start](Quick-Start) | Get running in 3 minutes |
 | [🏗️ Architecture](Architecture) | Multi-layer enforcement model, policy sources |
-| [📋 Policy Reference](Policy-Reference) | Complete 80-policy registry reference |
+| [📋 Policy Reference](Policy-Reference) | Complete 91-policy registry reference |
 | [🔧 Installation](Installation) | Prerequisites, execution policy, step-by-step |
 | [🛡️ Security](Security) | Safety model, backup/rollback, process guard |
 | [🔍 Troubleshooting](Troubleshooting) | Common issues and solutions |
@@ -138,7 +138,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | [🏠 Genel Bakış](Overview#-türkçe) | Brave Omega nedir, neden var, temel kavramlar |
 | [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) | 3 dakikada çalıştırma |
 | [🏗️ Mimari](Architecture#-türkçe) | Çok katmanlı uygulama modeli, politika kaynakları |
-| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 80 politikalık kayıt defteri başvuru tablosu |
+| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 91 politikalık kayıt defteri başvuru tablosu |
 | [🔧 Kurulum](Installation#-türkçe) | Ön gereksinimler, çalıştırma ilkesi, adım adım |
 | [🛡️ Güvenlik](Security#-türkçe) | Güvenlik modeli, yedekleme/geri alma, süreç koruyucu |
 | [🔍 Sorun Giderme](Troubleshooting#-türkçe) | Sık karşılaşılan sorunlar ve çözümleri |
