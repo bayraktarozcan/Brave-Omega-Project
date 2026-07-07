@@ -23,6 +23,51 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.2.0.2 — 2026-07-07
+
+**Phase 6: WebRTC Policy Alignment — Balanced Upgraded to disable_non_proxied_udp (Same as Strict)**
+
+**Changed:**
+- `WebRtcIPHandling` in Balanced (L3): `"default_public_interface_only"` → `"disable_non_proxied_udp"` — same value as Strict (L5). Strict override is now a runtime no-op
+- Both scripts updated to v2.2.0.2 with `$ScriptVersion = "v2.2.0.2"` / `$BetikSurum = "v2.2.0.2"`
+- Documentation updated across README, Wiki, index.html, policy-catalog.md
+
+**Removed:**
+- All references to GitHub Projects/Issues from public documentation
+
+---
+
+### v2.2.0.1 — 2026-07-06
+
+**Phase 6: Policy Refinement — BraveLocalAIEnabled Removed, 81→80 Policies**
+
+**Removed:**
+- `BraveLocalAIEnabled` removed from all levels (deprecated upstream; `1` was the default)
+- Policy counts adjusted: L4 72→71, L5 81→80
+
+**Changed:**
+- Both scripts updated to v2.2.0.1 with `$ScriptVersion = "v2.2.0.1"` / `$BetikSurum = "v2.2.0.1"`
+- Wiki version reference bump across all pages
+- i18n string corrections for policy counts (13→22)
+
+---
+
+### v2.2.0 — 2026-07-06
+
+**Phase 6: Five-Tier Hardening Model — Advanced Level Added, 81 Policies**
+
+**Added:**
+- New **Advanced** hardening level (L4, 11 policies) between Balanced (L3) and Strict (L5)
+- 5-tier model: Brave Only (22) → Essential (39) → Balanced (60) → Advanced (71) → Strict (80)
+- `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage` migrated from Strict
+
+**Changed:**
+- Strict renumbered from L4 to L5; Katı renumbered to Level 5
+- Policy counts restructured: Brave Only 23→22, Essential 40→39, Balanced 61→60, Advanced 72→71, Strict 81→80
+- ADMX cross-reference table updated
+
+---
+
 ### v2.1.6.0 — 2026-07-05
 
 **Phase 3: Quality & Testing — Pester Test Suite, CI Improvements**
@@ -44,9 +89,6 @@ Complete version history for Brave Omega.
 - Wiki version reference bump across all pages
 - CI workflows enhanced with test stage and analysis stage
 
-**Tracking:**
-
-- Phase 3 tracked via GitHub Issue #30
 - All 16 test files validated against EN and TR scripts
 
 ---
@@ -353,6 +395,51 @@ Brave Omega i�in tam s�r�m ge�mi�i.
 
 ## S�r�m Ge�mi�i
 
+### v2.2.0.2 — 2026-07-07
+
+**Aşama 6: WebRTC Politika Hizalaması — Dengeli disable_non_proxied_udp'a Yükseltildi (Katı ile Aynı)**
+
+**Değişenler:**
+- Dengeli'de (L3) `WebRtcIPHandling`: `"default_public_interface_only"` → `"disable_non_proxied_udp"` — Katı (L5) ile aynı değer. Katı'daki ezme artık çalışma zamanında etkisiz
+- Her iki betik v2.2.0.2'ye güncellendi, `$ScriptVersion = "v2.2.0.2"` / `$BetikSurum = "v2.2.0.2"`
+- README, Wiki, index.html, policy-catalog.md genelinde dokümantasyon güncellendi
+
+**Kaldırılanlar:**
+- GitHub Projects/Issues ile ilgili tüm atıflar kamuya açık dokümantasyondan kaldırıldı
+
+---
+
+### v2.2.0.1 — 2026-07-06
+
+**Aşama 6: Politika İyileştirmesi — BraveLocalAIEnabled Kaldırıldı, 81→80 Politika**
+
+**Kaldırılanlar:**
+- `BraveLocalAIEnabled` tüm seviyelerden kaldırıldı (kullanım dışı; `1` varsayılan değerdi)
+- Politika sayıları düzeltildi: L4 72→71, L5 81→80
+
+**Değişenler:**
+- Her iki betik v2.2.0.1'e güncellendi, `$ScriptVersion = "v2.2.0.1"` / `$BetikSurum = "v2.2.0.1"`
+- Tüm Wiki sayfalarında sürüm referans güncellemesi
+- Politika sayıları için i18n düzeltmeleri (13→22)
+
+---
+
+### v2.2.0 — 2026-07-06
+
+**Aşama 6: Beş Katmanlı Sıkılaştırma Modeli — Gelişmiş Seviyesi Eklendi, 81 Politika**
+
+**Eklenenler:**
+- Dengeli (L3) ile Katı (L5) arasına yeni **Gelişmiş** sıkılaştırma seviyesi (L4, 11 politika)
+- 5 katmanlı model: Brave Yalnız (22) → Temel (39) → Dengeli (60) → Gelişmiş (71) → Katı (80)
+- `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage` Katı'dan taşındı
+
+**Değişenler:**
+- Katı L4'ten L5'e yeniden numaralandırıldı
+- Politika sayıları yeniden yapılandırıldı: Brave Yalnız 23→22, Temel 40→39, Dengeli 61→60, Gelişmiş 72→71, Katı 81→80
+- ADMX karşı referans tablosu güncellendi
+
+---
+
 ### v2.1.6.0 — 2026-07-05
 
 **Aşama 3: Kalite & Test — Pester Test Takımı, CI İyileştirmeleri**
@@ -374,9 +461,6 @@ Brave Omega i�in tam s�r�m ge�mi�i.
 - Tüm Wiki sayfalarında sürüm referans güncellemesi
 - CI iş akışları test aşaması ve analiz aşaması ile genişletildi
 
-**Takip:**
-
-- Aşama 3, GitHub Issue #30 ile takip ediliyor
 - 16 test dosyası EN ve TR betiklerine karşı doğrulandı
 
 ---

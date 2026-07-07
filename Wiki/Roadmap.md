@@ -15,11 +15,10 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 Phase 0 (Hazırlık / Preparation) baseline established:
 
-- 13 sequentially numbered prompt files (`01-surum-guncelleme.md` through `13-moduler-mimari.md`)
+- 16 sequentially numbered prompt files (`01-surum-guncelleme.md` through `16-kademe-ekleme.md`)
 - 4-part versioning scheme (version.major.minor.revision)
 - All prompts start at `v1.0.0.0`
-- GitHub Project #4: "Brave Omega Project" (11 items: 5 closed, 6 open)
-- Quality pipeline active: markdownlint (all 13 prompts clean), yamllint, PowerShell syntax check
+- Quality pipeline active: markdownlint (all 16 prompts clean), yamllint, PowerShell syntax check
 
 ---
 
@@ -89,7 +88,6 @@ Deliverables:
 - PSScriptAnalyzer rules in CI quality workflow (`Invoke-PSScriptAnalyzer`)
 - Platform matrix: Windows Server 2025, Windows 11 25H2, Windows 10 22H2
 - QA report: `docs/reports/phase-3-kalite-test/`
-- Issue #30 tracked on GitHub
 - Quality badges: test pass rate, code coverage, CI status
 
 ---
@@ -98,7 +96,9 @@ Deliverables:
 
 | Prompt | Description | Status |
 |--------|-------------|--------|
-| `07-politika-katalogu.md` | Create docs/policy-catalog.md with full metadata | ✅ Completed |
+| `09-politika-katalogu.md` | Create docs/policy-catalog.md with full metadata | ✅ Completed |
+| `10-wiki-tutarlilik.md` | Wiki consistency — fix typos, encoding, policy numbers across all pages | ✅ Completed |
+| `11-surum-referans.md` | Version reference standardization — align CHANGELOG/Wiki, fix stale matrix | ✅ Completed |
 
 Policy catalog with per-policy: ID, source, tier, min. Chromium, type, default, recommended, risk, ADMX validation date, notes.
 
@@ -108,10 +108,10 @@ Policy catalog with per-policy: ID, source, tier, min. Chromium, type, default, 
 
 | Prompt | Description | Status |
 | -------- | ------------- | -------- |
-| `09-cross-platform-config.md` | Linux JSON + macOS .plist output support | 🔲 Pending |
-| `10-intune-mdm.md` | Intune/MDM deployment guide | 🔲 Pending |
-| `12-web-arayuzu.md` | Web-based policy configurator on index.html | 🔲 Pending |
-| `13-moduler-mimari.md` | Modular architecture (modules/*.psm1 + config.json) | 🔲 Pending |
+| `12-cross-platform-config.md` | Linux JSON + macOS .plist output support | 🔲 Pending |
+| `13-intune-mdm.md` | Intune/MDM deployment guide | 🔲 Pending |
+| `14-web-arayuzu.md` | Web-based policy configurator on index.html | 🔲 Pending |
+| `15-moduler-mimari.md` | Modular architecture (modules/*.psm1 + config.json) | 🔲 Pending |
 
 ---
 
@@ -119,7 +119,7 @@ Policy catalog with per-policy: ID, source, tier, min. Chromium, type, default, 
 
 | Prompt | Description | Status |
 | -------- | ------------- | -------- |
-| `14-kademe-ekleme.md` | Add Advanced hardening level between Balanced and Strict | ✅ Completed |
+| `16-kademe-ekleme.md` | Add Advanced hardening level between Balanced and Strict | ✅ Completed |
 
 Key outcomes:
 
@@ -194,14 +194,6 @@ Key outcomes:
 
 ---
 
-## Tracking
-
-All phased work tracked in **GitHub Project #4 — "Brave Omega Project"**:
-
-- [Project Board](https://github.com/bayraktarozcan/Brave-Omega-Project/projects/4)
-- 6 open issues (#25–#30) mapped to phases
-- Phase completion = issue closure
-
 ---
 
 ## Related Pages
@@ -229,11 +221,11 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 1. Aşama (Hazırlık) temeli oluşturuldu:
 
-- 13 sıralı prompt dosyası (`01-surum-guncelleme.md` - `13-moduler-mimari.md`)
+- 16 sıralı prompt dosyası (`01-surum-guncelleme.md` - `16-kademe-ekleme.md`)
 - 4 parçalı sürümleme şeması (version.major.minor.revision)
 - Tüm promptlar `v1.0.0.0` başlangıcında
 - GitHub Proje #4: "Brave Omega Project" (11 öğe: 5 kapalı, 6 açık)
-- Kalite hattı aktif: markdownlint (13 prompt temiz), yamllint, PowerShell sözdizimi
+- Kalite hattı aktif: markdownlint (16 prompt temiz), yamllint, PowerShell sözdizimi
 
 ---
 
@@ -312,7 +304,9 @@ Teslimatlar:
 
 | Prompt | Açıklama | Durum |
 |--------|----------|-------|
-| `07-politika-katalogu.md` | docs/policy-catalog.md oluştur — tam meta veriyle | ✅ Tamamlandı |
+| `09-politika-katalogu.md` | docs/policy-catalog.md oluştur — tam meta veriyle | ✅ Tamamlandı |
+| `10-wiki-tutarlilik.md` | Wiki tutarlılığı — yazım hataları, kodlama, politika sayıları tüm sayfalarda düzeltildi | ✅ Tamamlandı |
+| `11-surum-referans.md` | Sürüm referans standardizasyonu — CHANGELOG/Wiki uyumu, güncel olmayan matris düzeltildi | ✅ Tamamlandı |
 
 Politika başına: ID, kaynak, katman, min. Chromium, tür, varsayılan, önerilen, risk, ADMX doğrulama tarihi, notlar.
 
@@ -322,10 +316,10 @@ Politika başına: ID, kaynak, katman, min. Chromium, tür, varsayılan, öneril
 
 | Prompt | Açıklama | Durum |
 | -------- | ---------- | ------- |
-| `09-cross-platform-config.md` | Linux JSON + macOS .plist çıktı desteği | 🔲 Bekliyor |
-| `10-intune-mdm.md` | Intune/MDM dağıtım kılavuzu | 🔲 Bekliyor |
-| `12-web-arayuzu.md` | Web tabanlı politika yapılandırıcı (index.html üzerinde) | 🔲 Bekliyor |
-| `13-moduler-mimari.md` | Modüler mimari (modules/*.psm1 + config.json) | 🔲 Bekliyor |
+| `12-cross-platform-config.md` | Linux JSON + macOS .plist çıktı desteği | 🔲 Bekliyor |
+| `13-intune-mdm.md` | Intune/MDM dağıtım kılavuzu | 🔲 Bekliyor |
+| `14-web-arayuzu.md` | Web tabanlı politika yapılandırıcı (index.html üzerinde) | 🔲 Bekliyor |
+| `15-moduler-mimari.md` | Modüler mimari (modules/*.psm1 + config.json) | 🔲 Bekliyor |
 
 ---
 
@@ -333,7 +327,7 @@ Politika başına: ID, kaynak, katman, min. Chromium, tür, varsayılan, öneril
 
 | Prompt | Açıklama | Durum |
 | -------- | ---------- | ------- |
-| `14-kademe-ekleme.md` | Dengeli ile Katı arasına Gelişmiş sıkılaştırma seviyesi ekle | ✅ Tamamlandı |
+| `16-kademe-ekleme.md` | Dengeli ile Katı arasına Gelişmiş sıkılaştırma seviyesi ekle | ✅ Tamamlandı |
 
 Ana çıktılar:
 

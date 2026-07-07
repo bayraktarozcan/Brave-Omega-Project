@@ -170,7 +170,7 @@ Before running, verify:
 
 | Check | Method |
 | ------- | -------- |
-| All policies active | `brave://policy` → policies show **Active** (40 for Essential level) |
+| All policies active | `brave://policy` → policies show **Active** (39 for Essential level) |
 | Registry written | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Backup created | `BraveOmega_HKLM_*.reg` exists in script directory |
 | No errors in output | Script exits with code 0, no `[ERROR]` lines |

@@ -13,7 +13,10 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.1.6.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | ✅ Current | 2026-07-05 |
+| **v2.2.0.2** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Current | 2026-07-07 |
+| **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Previous | 2026-07-06 |
+| **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
+| **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-05 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-03 |
 | **v2.1.4** | 1.91.180 | 149.0.7827.201 | Windows 11 25H2 | 📦 Previous | 2026-06-27 |
 | **v2.1.3** | 1.91.178 | 149.0.7827.196 | Windows 11 25H2 | 📦 Previous | 2026-06-26 |
@@ -53,11 +56,11 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.1.6.0) If
+### Use Current (v2.2.0.2) If
 
 - Running Brave 1.92.134 (latest stable)
-- Want latest security fixes and execution policy fix
-- Need simplified one-line execution workflow
+- Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
+- Need WebRTC alignment improvements and 80 total policies
 
 ### Use Previous (v1.2.1) If
 
@@ -108,6 +111,9 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
+| v2.2.0.2 | 80 | 100% | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
+| v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled removed (deprecated), policy counts adjusted |
+| v2.2.0 | 81 | 100% | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), 11 policies migrated from Strict |
 | v2.1.6.0 | 82 | 100% | BraveOnly enrichment (10), Chromium telemetry (6) |
 | v2.1.5 | 68 | 100% | Chromium telemetry & data leakage policies |
 | v2.1.4 | 68 | 100% | --- (Phase 3 prep) |
@@ -172,7 +178,10 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.1.6.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | ✅ Güncel | 2026-07-05 |
+| **v2.2.0.2** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Güncel | 2026-07-07 |
+| **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Önceki | 2026-07-06 |
+| **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
+| **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-05 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-03 |
 | **v2.1.4** | 1.91.180 | 149.0.7827.201 | Windows 11 25H2 | 📦 Önceki | 2026-06-27 |
 | **v2.1.3** | 1.91.178 | 149.0.7827.196 | Windows 11 25H2 | 📦 Önceki | 2026-06-26 |
@@ -212,11 +221,11 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.1.6.0) Kullan Eğer
+### Güncel (v2.2.0.2) Kullan Eğer
 
 - Brave 1.92.134 (en güncel kararlı) çalışıyorsa
-- En son güvenlik düzeltmelerini ve test altyapısını istiyorsanız
-- Basitleştirilmiş tek satırlık çalıştırma iş akışına ihtiyacınız varsa
+- En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
+- WebRTC hizalama iyileştirmeleri ve 80 toplam politika
 
 ### Önceki (v1.2.1) Kullan Eğer
 
@@ -267,6 +276,9 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
+| v2.2.0.2 | 80 | 100% | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
+| v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled kaldırıldı (kullanım dışı), politika sayıları düzeltildi |
+| v2.2.0 | 81 | 100% | 5 katmanlı mimari (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı), Katı'dan 11 politika taşındı |
 | v2.1.6.0 | 82 | 100% | BraveOnly zenginleştirme (10), Chromium telemetri (6) |
 | v2.1.5 | 68 | 100% | Chromium telemetri ve veri sızıntısı politikaları |
 | v2.1.4 | 68 | 100% | --- (3. Aşama hazırlık) |

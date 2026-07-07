@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.2.0.0.
+Complete policy reference for Brave Omega v2.2.0.2.
 
 ---
 
@@ -13,10 +13,10 @@ Complete policy reference for Brave Omega v2.2.0.0.
 
 | Level | Policies | HKCU | HKLM | Cumulative |
 | ------- | ---------- | ------ | ------ | ------------ |
-| **1. Brave Only** | 23 Brave-specific | — | 23 | Base |
-| **2. Essential** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | Includes Level 1 |
-| **3. Balanced** | 61 (40 + 21) | UsageStatsInSample | 61 | Includes Levels 1-2 |
-| **4. Advanced** | 72 (61 + 11) | UsageStatsInSample | 72 | Includes Levels 1-3 |
+| **1. Brave Only** | 22 Brave-specific | — | 22 | Base |
+| **2. Essential** ⭐ | 39 (22 + 17) | UsageStatsInSample | 39 | Includes Level 1 |
+| **3. Balanced** | 60 (39 + 21) | UsageStatsInSample | 60 | Includes Levels 1-2 |
+| **4. Advanced** | 71 (60 + 11) | UsageStatsInSample | 71 | Includes Levels 1-3 |
 | **5. Strict** | 80 (71 + 9) | UsageStatsInSample | 80 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
@@ -31,7 +31,7 @@ Complete policy reference for Brave Omega v2.2.0.0.
 | `ChromeVariations` | HKCU | `1` | DWord | Restricts Chromium to critical field trials only |
 | `usagestats` *(per GUID)* | HKCU | `0` | DWord | Disables Omaha updater telemetry per application GUID |
 
-### Brave Only Level — Brave-Specific Policies (23)
+### Brave Only Level — Brave-Specific Policies (22)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -75,7 +75,7 @@ Complete policy reference for Brave Omega v2.2.0.0.
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
-| `WebRtcIPHandling` | `"default_public_interface_only"` | String | Hides local IPs from WebRTC |
+| `WebRtcIPHandling` | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
 | `WebRtcLocalIpsAllowedUrls` | `@()` | MultiString | Prevents local IP disclosure via ICE |
 | `HttpsOnlyMode` | `"force_enabled"` | String | Forces all navigations to HTTPS |
 | `DnsOverHttpsMode` | `"automatic"` | String | Encrypts DNS queries |
@@ -206,7 +206,7 @@ All 80 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.2.0.0 için tam politika başvurusu.
+Brave Omega v2.2.0.2 için tam politika başvurusu.
 
 ---
 
@@ -214,10 +214,10 @@ Brave Omega v2.2.0.0 için tam politika başvurusu.
 
 | Seviye | Politika | HKCU | HKLM | Kümülatif |
 | -------- | ---------- | ------ | ------ | ----------- |
-| **1. Brave Yalnız** | 23 Brave'e özgü | — | 23 | Temel |
-| **2. Temel** ⭐ | 40 (23 + 17) | UsageStatsInSample | 40 | 1. Seviyeyi kapsar |
-| **3. Dengeli** | 61 (40 + 21) | UsageStatsInSample | 61 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 72 (61 + 11) | UsageStatsInSample | 72 | 1-3. Seviyeleri kapsar |
+| **1. Brave Yalnız** | 22 Brave'e özgü | — | 22 | Temel |
+| **2. Temel** ⭐ | 39 (22 + 17) | UsageStatsInSample | 39 | 1. Seviyeyi kapsar |
+| **3. Dengeli** | 60 (39 + 21) | UsageStatsInSample | 60 | 1-2. Seviyeleri kapsar |
+| **4. Gelişmiş** | 71 (60 + 11) | UsageStatsInSample | 71 | 1-3. Seviyeleri kapsar |
 | **5. Katı** | 80 (71 + 9) | UsageStatsInSample | 80 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
@@ -232,7 +232,7 @@ Brave Omega v2.2.0.0 için tam politika başvurusu.
 | `ChromeVariations` | HKCU | `1` | DWord | Chromium'u yalnızca kritik alan denemeleriyle sınırlar |
 | `usagestats` *(GUID başına)* | HKCU | `0` | DWord | Uygulama GUID tanımlayıcısı başına Omaha güncelleyici veri aktarımını devre dışı bırakır |
 
-### Brave Yalnız Seviyesi — Brave'e Özgü Politikalar (23)
+### Brave Yalnız Seviyesi — Brave'e Özgü Politikalar (22)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -276,7 +276,7 @@ Brave Omega v2.2.0.0 için tam politika başvurusu.
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
-| `WebRtcIPHandling` | `"default_public_interface_only"` | String | Yerel IP'leri WebRTC'den gizler |
+| `WebRtcIPHandling` | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
 | `WebRtcLocalIpsAllowedUrls` | `@()` | MultiString | ICE yoluyla yerel IP ifşasını engeller |
 | `HttpsOnlyMode` | `"force_enabled"` | String | Tüm gezintileri HTTPS'ye zorlar |
 | `DnsOverHttpsMode` | `"automatic"` | String | DNS sorgularını şifreler |

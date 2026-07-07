@@ -83,7 +83,7 @@
 | 38 | `AudioCaptureAllowed` | DWord | `0` | Essential | Windows | Microphone access |
 | 39 | `VideoCaptureAllowed` | DWord | `0` | Essential | Windows | Camera access |
 | 40 | `BraveGlobalPrivacyControlEnabled` | DWord | `1` | Essential | Windows | GPC header (Phase 2) |
-| 41 | `WebRtcIPHandling` | String | `default_public_interface_only` | Balanced | Windows | WebRTC IP exposure |
+| 41 | `WebRtcIPHandling` | String | `disable_non_proxied_udp` | Balanced | Windows | WebRTC IP exposure |
 | 42 | `WebRtcLocalIpsAllowedUrls` | MultiString | `@()` | Balanced | Windows | Local IP via ICE |
 | 43 | `HttpsOnlyMode` | String | `force_enabled` | Balanced | Windows | HTTPS enforcement |
 | 44 | `DnsOverHttpsMode` | String | `automatic` | Balanced | Windows | Encrypted DNS |
@@ -126,7 +126,7 @@
 | 81 | `ImportSearchEngine` | DWord | `0` | Strict | Windows | Cross-browser search engine (Phase 2) |
 | 82 | `ImportHomepage` | DWord | `0` | Strict | Windows | Cross-browser homepage (Phase 2) |
 
-> **Note:** Row 63 (Strict `WebRtcIPHandling`) merges with row 41 (Balanced) — only 1 unique policy, Strict value overrides Balanced at runtime due to cumulative merge order. This is why 82 raw rows = 81 unique policies.
+> **Note:** Row 63 (Strict `WebRtcIPHandling`) merges with row 41 (Balanced) — only 1 unique policy. Both tiers now use `disable_non_proxied_udp`; Strict's override is a runtime no-op. This is why 82 raw rows = 81 unique policies.
 
 ---
 
@@ -164,7 +164,7 @@ Maximum privacy. Disables JIT, cookies, translation, sensors, fonts, clipboard, 
 | **Total** | **81** | **100%** |
 
 ### String policies (4)
-- `WebRtcIPHandling` — enum: `default_public_interface_only` (Balanced) / `disable_non_proxied_udp` (Strict)
+- `WebRtcIPHandling` — enum: `disable_non_proxied_udp` (Balanced · Strict)
 - `HttpsOnlyMode` — enum: `force_enabled`
 - `DnsOverHttpsMode` — enum: `automatic`
 - `BraveSyncUrl` — URL: `https://sync-v2.brave.com/v2`
@@ -180,7 +180,7 @@ Maximum privacy. Disables JIT, cookies, translation, sensors, fonts, clipboard, 
 
 | Policy Name | Appears In | Conflict |
 |-------------|------------|----------|
-| `WebRtcIPHandling` | Balanced → `default_public_interface_only` · Strict → `disable_non_proxied_udp` | Strict value wins (same type: String) |
+| `WebRtcIPHandling` | Balanced · Strict → `disable_non_proxied_udp` | Same value in both tiers (no-op override) |
 
 ---
 
@@ -278,7 +278,7 @@ All 23 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 38 | `AudioCaptureAllowed` | DWord | `0` | Temel | Windows | Mikrofon erişimi |
 | 39 | `VideoCaptureAllowed` | DWord | `0` | Temel | Windows | Kamera erişimi |
 | 40 | `BraveGlobalPrivacyControlEnabled` | DWord | `1` | Temel | Windows | GPC başlığı (2. Aşama) |
-| 41 | `WebRtcIPHandling` | String | `default_public_interface_only` | Dengeli | Windows | WebRTC IP ifşası |
+| 41 | `WebRtcIPHandling` | String | `disable_non_proxied_udp` | Dengeli | Windows | WebRTC IP ifşası |
 | 42 | `WebRtcLocalIpsAllowedUrls` | MultiString | `@()` | Dengeli | Windows | ICE yoluyla yerel IP |
 | 43 | `HttpsOnlyMode` | String | `force_enabled` | Dengeli | Windows | HTTPS zorlaması |
 | 44 | `DnsOverHttpsMode` | String | `automatic` | Dengeli | Windows | Şifreli DNS |
@@ -321,7 +321,7 @@ All 23 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 81 | `ImportSearchEngine` | DWord | `0` | Katı | Windows | Tarayıcılar arası arama motoru (2. Aşama) |
 | 82 | `ImportHomepage` | DWord | `0` | Katı | Windows | Tarayıcılar arası ana sayfa (2. Aşama) |
 
-> **Not:** 63. satır (Katı `WebRtcIPHandling`), 41. satırla (Dengeli) birleşir — yalnızca 1 benzersiz politika, Katı değeri kümülatif birleştirme sırası nedeniyle Dengeli'yi ezer. Bu nedenle 82 ham satır = 81 benzersiz politika.
+> **Not:** 63. satır (Katı `WebRtcIPHandling`), 41. satırla (Dengeli) birleşir — yalnızca 1 benzersiz politika. Her iki katman da `disable_non_proxied_udp` kullanır; Katı'nın ezmesi çalışma zamanında etkisizdir. Bu nedenle 82 ham satır = 81 benzersiz politika.
 
 ---
 
@@ -359,7 +359,7 @@ Azami gizlilik. JIT, çerezler, çeviri, sensörler, yazı tipleri, pano, dosya 
 | **Toplam** | **81** | **%100** |
 
 ### String politikalar (4)
-- `WebRtcIPHandling` — enum: `default_public_interface_only` (Dengeli) / `disable_non_proxied_udp` (Katı)
+- `WebRtcIPHandling` — enum: `disable_non_proxied_udp` (Dengeli · Katı)
 - `HttpsOnlyMode` — enum: `force_enabled`
 - `DnsOverHttpsMode` — enum: `automatic`
 - `BraveSyncUrl` — URL: `https://sync-v2.brave.com/v2`
@@ -375,7 +375,7 @@ Azami gizlilik. JIT, çerezler, çeviri, sensörler, yazı tipleri, pano, dosya 
 
 | Politika Adı | Görüldüğü Yerler | Çakışma |
 |-------------|------------------|---------|
-| `WebRtcIPHandling` | Dengeli → `default_public_interface_only` · Katı → `disable_non_proxied_udp` | Katı değeri kazanır (aynı tür: String) |
+| `WebRtcIPHandling` | Dengeli · Katı → `disable_non_proxied_udp` | Her iki katmanda aynı değer (etkisiz ezme) |
 
 ---
 

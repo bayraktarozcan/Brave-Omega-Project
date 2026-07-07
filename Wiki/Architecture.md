@@ -39,10 +39,10 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 
 | Level | Policies | Scope | User Impact |
 | ------- | ---------- | ------- | ------------- |
-| **1. Brave Only** | 23 Brave-specific policies | HKLM | None |
-| **2. Essential** ⭐ | 23 + 17 = 40 | HKLM + HKCU + Omaha | None |
-| **3. Balanced** | 40 + 21 = 61 | + WebRTC, HTTPS, DNS | Low |
-| **4. Advanced** | 61 + 11 = 72 | + Sensors, Imports, Profiles | Low |
+| **1. Brave Only** | 22 Brave-specific policies | HKLM | None |
+| **2. Essential** ⭐ | 22 + 17 = 39 | HKLM + HKCU + Omaha | None |
+| **3. Balanced** | 39 + 21 = 60 | + WebRTC, HTTPS, DNS | Low |
+| **4. Advanced** | 60 + 11 = 71 | + Sensors, Imports, Profiles | Low |
 | **5. Strict** | 71 + 9 = 80 | + JIT, Cookies, Clipboard, FS | Medium |
 
 Select your level interactively when running the script or use the `-Level` parameter:
@@ -197,10 +197,10 @@ Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız 
 
 | Seviye | Politika | Kapsam | Kullanım Etkisi |
 | -------- | ---------- | -------- | ----------------- |
-| **1. Brave Yalnız** | 23 Brave'e özgü politika | HKLM | Yok |
-| **2. Temel** ⭐ | 23 + 17 = 40 | HKLM + HKCU + Omaha | Yok |
-| **3. Dengeli** | 40 + 21 = 61 | + WebRTC, HTTPS, DNS | Düşük |
-| **4. Gelişmiş** | 61 + 11 = 72 | + Sensörler, İçe Aktarmalar, Profiller | Düşük |
+| **1. Brave Yalnız** | 22 Brave'e özgü politika | HKLM | Yok |
+| **2. Temel** ⭐ | 22 + 17 = 39 | HKLM + HKCU + Omaha | Yok |
+| **3. Dengeli** | 39 + 21 = 60 | + WebRTC, HTTPS, DNS | Düşük |
+| **4. Gelişmiş** | 60 + 11 = 71 | + Sensörler, İçe Aktarmalar, Profiller | Düşük |
 | **5. Katı** | 71 + 9 = 80 | + JIT, Çerezler, Pano, FS | Orta |
 
 retiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:

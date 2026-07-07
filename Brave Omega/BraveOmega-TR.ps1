@@ -19,6 +19,17 @@
 #
 # DEĞİŞİKLİK GEÇMİŞİ (v2.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.2.0.2             WebRTC politika hizalaması — Dengeli azami seviyeye yükseltildi:
+#
+#     [DEĞİŞTİ]     Dengeli'de WebRtcIPHandling,
+#                   "default_public_interface_only" iken "disable_non_proxied_udp"
+#                   olarak değiştirildi — Katı ile aynı değer. Ezme artık etkisiz.
+#
+#     [İYİLEŞTİRME]  Dokümantasyon: README, Wiki/Policy-Reference,
+#                   index.html, policy-catalog.md tutarlılık için güncellendi.
+#
+#     [KALDIRILDI]   GitHub Projects/Issues ile ilgili tüm atıflar kaldırıldı.
+#
 #   v2.1.6               Faz 2 — Brave politika genişletmesi (+15 politika):
 #
 #     [YENİ]        Kapsamlı politika boşluk analizi sonucu 15 yeni Brave
@@ -70,7 +81,7 @@
 #                   -Level parametresi ile sessiz/otomasyon dağıtımı.
 #
 #     [YENİ]        50+ Chromium kurumsal politikası eklendi.
-#                   Brave Yalnız: 23 Brave'e özgü politika
+#                   Brave Yalnız: 22 Brave'e özgü politika
 #                   Temel:        +17 veri sızıntısı önleme politikası
 #                   Dengeli:      +21 güvenlik ve kullanım dengesi
 #                   Gelişmiş:     +11 genişletilmiş gizlilik politikası
@@ -95,7 +106,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.2.0.1"
+$BetikSurum    = "v2.2.0.2"
 $DogrulananBrave = "1.92.134"
 $DogrulananChromium = "150"
 
@@ -484,8 +495,8 @@ $PolitikaTanimlari = @{
     "Balanced" = @(
         # ─── Güvenlik ve Kullanım Dengesi ───
 
-        # WebRTC IP yönetimi — yalnızca genel IP'yi açığa çıkarır, yerel IP'leri gizler
-        @{Ad="WebRtcIPHandling";                     Deger="default_public_interface_only"; Tur="String"}
+        # WebRTC IP yönetimi — tüm WebRTC trafiğini yapılandırılmış vekil sunucu üzerinden yönlendirir
+        @{Ad="WebRtcIPHandling";                     Deger="disable_non_proxied_udp"; Tur="String"}
         # WebRTC yerel IP'leri — boş liste, hiçbir URL'nin ICE üzerinden yerel IP almasını engeller
         @{Ad="WebRtcLocalIpsAllowedUrls";            Deger=@(); Tur="MultiString"}
         # HTTPS-Yalnızca Modu — tüm gezintileri HTTPS'e zorlar
@@ -561,7 +572,7 @@ $PolitikaTanimlari = @{
 
         # Çeviri — yerleşik çeviriyi kapatır (metnin Google'a gönderilmesini durdurur)
         @{Ad="TranslateEnabled";                     Deger=0; Tur="DWord"}
-        # WebRTC IP yönetimi — Dengeli'yi ezer: tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir
+        # WebRTC IP yönetimi — tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir (Dengeli ile aynı değer — etkisiz ezme)
         @{Ad="WebRtcIPHandling";                     Deger="disable_non_proxied_udp"; Tur="String"}
         # Pano — site pano okuma/yazma erişimini varsayılan olarak engeller
         @{Ad="DefaultClipboardSetting";              Deger=2; Tur="DWord"}

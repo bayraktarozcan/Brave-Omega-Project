@@ -27,11 +27,17 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.2.0 — 2026-07-06](#en-v220)
+2. [v2.2.0.2 — 2026-07-07](#en-v2202)
+    * [Summary](#en-v2202-summary)
+    * [Changed](#en-v2202-changed)
+    * [Removed](#en-v2202-removed)
+3. [v2.2.0.1 — 2026-07-06](#en-v2201)
+    * [Summary](#en-v2201-summary)
+4. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
-3. [v2.1.6 — 2026-07-04](#en-v216)
+5. [v2.1.6 — 2026-07-04](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
@@ -127,6 +133,36 @@ All notable changes to this project are documented below, following the [Keep a 
 - **README.md** — Level tables, parameter references, policy section 9.5, and hardening levels table updated for 5-level model.
 - **CHANGELOG, SECURITY, index.html** — Version numbers and level references updated.
 - **`WebRtcIPHandling` override** — Retained only in Strict (L5); Balanced (L3) retains the base value `"default_public_interface_only"`.
+
+<hr>
+
+<a id="en-v2202"></a>
+
+## [v2.2.0.2] — 2026-07-07
+
+<a id="en-v2202-summary"></a>
+
+### 🎯 Summary
+
+**WebRTC policy alignment release:** Balanced tier upgraded to maximum WebRTC protection (`disable_non_proxied_udp`), matching the value used by Strict. The override in Strict is now a runtime no-op. All GitHub Projects/Issues references removed from public documentation.
+
+| Metric | Before (v2.2.0.1) | After (v2.2.0.2) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 80 | 80 |
+| Policy counts per level | Unchanged | Unchanged |
+
+<a id="en-v2202-changed"></a>
+
+### Changed
+
+- **WebRtcIPHandling** in Balanced (L3): `"default_public_interface_only"` → `"disable_non_proxied_udp"` — same value as Strict (L5). The override in Strict is now a runtime no-op.
+- **Documentation:** README, Wiki/Policy-Reference, index.html, policy-catalog.md updated for consistency with the new value.
+- **Script version** — `$ScriptVersion = "v2.2.0.2"` in both EN and TR scripts.
+
+### Removed
+
+- **All references to GitHub Projects/Issues** removed from public-facing documentation.
 
 <hr>
 
@@ -804,6 +840,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.2.0.2 | 2026-07-07 | 80    | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 2026-07-06 | 80    | Policy refinement — one duplicate policy removed per level; Brave Only 23→22, Essential 40→39, Balanced 61→60, Advanced 72→71, Strict 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies |
 | v2.1.6 | 2026-07-04 | 81    | 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
@@ -861,13 +898,18 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-
 1. [Giriş](#tr-introduction)
-2. [v2.2.0 — 2026-07-06](#tr-v220)
+
+2. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+    * [Özet](#tr-v2202-ozet)
+    * [Değiştirildi](#tr-v2202-degisti)
+3. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+    * [Özet](#tr-v2201-ozet)
+4. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
-3. [v2.1.6 — 2026-07-04](#tr-v216)
+5. [v2.1.6 — 2026-07-04](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
@@ -1078,6 +1120,36 @@ Eklenen/Değiştirilen Dosyalar:
 - **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md 5 seviyeli modeli yansıtacak şekilde güncellendi.
 - **README.md** — Seviye tabloları, parametre referansları, politika bölümü 9.5 ve sıkılaştırma seviyeleri tablosu 5 seviyeli model için güncellendi.
 - **CHANGELOG, SECURITY, index.html** — Sürüm numaraları ve seviye referansları güncellendi.
+
+<hr>
+
+<a id="tr-v2202"></a>
+
+## [v2.2.0.2] — 2026-07-07
+
+<a id="tr-v2202-ozet"></a>
+
+### 🎯 Özet
+
+**WebRTC politika hizalaması sürümü:** Dengeli seviye azami WebRTC korumasına yükseltildi (`disable_non_proxied_udp`), Katı ile aynı değer. Katı'daki ezme artık çalışma zamanında etkisiz. GitHub Projects/Issues ile ilgili tüm atıflar kamuya açık dokümantasyondan kaldırıldı.
+
+| Metrik | Önce (v2.2.0.1) | Sonra (v2.2.0.2) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 80 | 80 |
+| Seviye başına politika sayısı | Değişmedi | Değişmedi |
+
+<a id="tr-v2202-degisti"></a>
+
+### Değişti
+
+- **WebRtcIPHandling** Dengeli'de (L3): `"default_public_interface_only"` → `"disable_non_proxied_udp"` — Katı (L5) ile aynı değer. Katı'daki ezme artık çalışma zamanında etkisiz.
+- **Dokümantasyon:** README, Wiki/Policy-Reference, index.html, policy-catalog.md yeni değer ile tutarlılık için güncellendi.
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.2.0.2"`.
+
+### Kaldırıldı
+
+- **GitHub Projects/Issues ile ilgili tüm atıflar** kamuya açık dokümantasyondan kaldırıldı.
 
 <hr>
 
@@ -1651,6 +1723,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.2.0.2 | 2026-07-07 | 80    | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
 | v2.2.0.1 | 2026-07-06 | 80    | Politika iyileştirme — seviye başına bir yinelenen politika kaldırıldı; Brave Yalnız 23→22, Temel 40→39, Dengeli 61→60, Gelişmiş 72→71, Katı 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5 katmanlı mimari (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı), Gelişmiş seviyesi eklendi, Katı L4→L5, 81 politika |
 | v2.1.6 | 2026-07-04 | 81    | 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |

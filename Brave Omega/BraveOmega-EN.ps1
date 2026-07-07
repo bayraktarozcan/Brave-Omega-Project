@@ -19,6 +19,17 @@
 #
 # CHANGELOG (v2.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.2.0.2             WebRTC policy alignment — Balanced upgraded to maximum:
+#
+#     [CHANGED]     WebRtcIPHandling in Balanced changed from
+#                   "default_public_interface_only" to "disable_non_proxied_udp"
+#                   — same value used by Strict. Override is now a no-op.
+#
+#     [IMPROVED]    Documentation: README, Wiki/Policy-Reference,
+#                   index.html, policy-catalog.md updated for consistency.
+#
+#     [REMOVED]     All references to GitHub Projects/Issues removed.
+#
 #   v2.1.6               Phase 2 — Brave policy expansion (+15 policies):
 #
 #     [NEW]        15 new Brave-specific enterprise policies added across all
@@ -69,7 +80,7 @@
 #                   -Level parameter for silent/automated deployment.
 #
 #     [NEW]        50+ Chromium enterprise policies added across all tiers.
-#                   Brave Only: 23 Brave-specific policies
+#                   Brave Only: 22 Brave-specific policies
 #                   Essential:  +17 data-leak prevention policies
 #                   Balanced:   +21 security & convenience balance
 #                   Advanced:   +11 extended privacy policies
@@ -94,7 +105,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.2.0.1"
+$ScriptVersion   = "v2.2.0.2"
 $ValidatedBrave  = "1.92.134"
 $ValidatedChromium = "150"
 
@@ -475,8 +486,8 @@ $PolicyDefinitions = @{
     "Balanced" = @(
         # ─── Security & Convenience Balance ───
 
-        # WebRTC IP handling — exposes only public IP, hides local IPs from WebRTC
-        @{Name="WebRtcIPHandling";                     Value="default_public_interface_only"; Type="String"}
+        # WebRTC IP handling — proxies all WebRTC traffic through configured proxy
+        @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
         # WebRTC local IPs — empty list prevents any URL from getting local IP via ICE
         @{Name="WebRtcLocalIpsAllowedUrls";            Value=@(); Type="MultiString"}
         # HTTPS-Only Mode — forces all navigations to use HTTPS
@@ -552,7 +563,7 @@ $PolicyDefinitions = @{
 
         # Translation — disables built-in translation (stops sending text to Google)
         @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
-        # WebRTC IP handling — overrides Balanced: proxies all WebRTC traffic
+        # WebRTC IP handling — proxies all WebRTC traffic (same value in Balanced — override is a no-op)
         @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
         # Clipboard — blocks site clipboard read/write access by default
         @{Name="DefaultClipboardSetting";              Value=2; Type="DWord"}

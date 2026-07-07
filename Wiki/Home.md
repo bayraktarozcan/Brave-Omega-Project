@@ -69,8 +69,11 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.1.6.0** *(current)* | 1.92.134 | 150 | 11 25H2 | ✅ Current |
-| **v2.1.5** | 1.91.180 | 149 | 11 25H2 | 📦 Previous |
+| **v2.2.0.2** *(current)* | 1.92.134 | 150 | 11 25H2 | ✅ Current |
+| **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
+| **v2.2.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
+| **v2.1.6.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
+| **v2.1.5** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.1.4** | 1.91.180 | 149 | 11 25H2 | 📦 Previous |
 | **v2.1.3** | 1.91.178 | 149 | 11 25H2 | 📦 Previous |
 | v2.1.2 | 1.91.175 | 149 | 11 25H2 | 📦 Previous |
@@ -82,7 +85,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.1.6.0 — Phase 3: Quality & Testing](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.1.6.0)
+> **Latest Release:** [v2.2.0.2 — WebRTC Policy Alignment](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.0.2)
 
 > 🧪 **Phase 3 Complete:** Pester test suite (~50–60 It blocks across 16 files), PSScriptAnalyzer + policy integrity CI, and quality badges now live. See [Changelog](Changelog#v2160) for details.
 
@@ -185,8 +188,11 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.1.6.0** *(güncel)* | 1.92.134 | 150 | 11 25H2 | ✅ Etkin |
-| **v2.1.5** | 1.91.180 | 149 | 11 25H2 | 📦 Önceki |
+| **v2.2.0.2** *(güncel)* | 1.92.134 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
+| **v2.2.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
+| **v2.1.6.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
+| **v2.1.5** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.1.4** | 1.91.180 | 149 | 11 25H2 | 📦 Önceki |
 | **v2.1.3** | 1.91.178 | 149 | 11 25H2 | 📦 Önceki |
 | v2.1.2 | 1.91.175 | 149 | 11 25H2 | 📦 Önceki |
@@ -198,7 +204,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.1.6.0 — Aşama 3: Kalite & Test](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.1.6.0)
+> **Son Sürüm:** [v2.2.0.2 — WebRTC Politika Hizalaması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.0.2)
 
 ---
 
