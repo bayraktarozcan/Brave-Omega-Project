@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.2.0.2** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Current | 2026-07-07 |
+| **v2.2.1.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Current | 2026-07-07 |
+| **v2.2.0.2** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Previous | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
 | **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-05 |
@@ -178,7 +179,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.2.0.2** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Güncel | 2026-07-07 |
+| **v2.2.1.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Güncel | 2026-07-07 |
+| **v2.2.0.2** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Önceki | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
 | **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-05 |

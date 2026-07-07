@@ -27,11 +27,15 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.2.0.2 — 2026-07-07](#en-v2202)
+2. [v2.2.1.0 — 2026-07-07](#en-v2210)
+    * [Summary](#en-v2210-summary)
+    * [Added](#en-v2210-added)
+    * [Changed](#en-v2210-changed)
+3. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-3. [v2.2.0.1 — 2026-07-06](#en-v2201)
+4. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
 4. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
@@ -133,6 +137,60 @@ All notable changes to this project are documented below, following the [Keep a 
 - **README.md** — Level tables, parameter references, policy section 9.5, and hardening levels table updated for 5-level model.
 - **CHANGELOG, SECURITY, index.html** — Version numbers and level references updated.
 - **`WebRtcIPHandling` override** — Retained only in Strict (L5); Balanced (L3) retains the base value `"default_public_interface_only"`.
+
+<hr>
+
+<a id="en-v2210"></a>
+
+## [v2.2.1.0] — 2026-07-07
+
+<a id="en-v2210-summary"></a>
+
+### 🎯 Summary
+
+**12 new hardware API & security policies added; duplicate WebRtcIPHandling removed from Strict.** Blocks WebUSB, Web Bluetooth, WebHID, Direct Sockets, and Device Attributes APIs; forces Encrypted ClientHello (ECH); disables Payment Request API queries; suppresses cross-origin subframe dialogs. Adds window management isolation, site-per-process, aggressive wake-up throttling, and disables in-browser user feedback prompts.
+
+| Metric | Before (v2.2.0.2) | After (v2.2.1.0) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 80 | 91 |
+| Brave Only policies | 22 | 22 |
+| Essential additions | 17 | **25** (+8) |
+| Balanced additions | 21 | **25** (+4) |
+| Advanced additions | 11 | 11 |
+| Strict additions | 10 | 9 |
+| Cumulative chain | 22→39→60→71→80 | **22→47→72→83→91** |
+
+<a id="en-v2210-added"></a>
+
+### Added
+
+#### Essential (8 policies)
+
+- **`DefaultWebUsbGuardSetting`** — Blocks websites from accessing USB devices by default (DWord: 2).
+- **`DefaultWebBluetoothGuardSetting`** — Blocks websites from accessing Bluetooth devices by default (DWord: 2).
+- **`DefaultWebHidGuardSetting`** — Blocks websites from accessing HID devices by default (DWord: 2).
+- **`DefaultDirectSocketsSetting`** — Blocks websites from using the Direct Sockets API by default (DWord: 2).
+- **`DeviceAttributesAllowedForOrigins`** — Blocks all origins from accessing device attributes (MultiString: empty). ChromeOS-only, included for future-proofing.
+- **`EncryptedClientHelloEnabled`** — Forces ECH (formerly ESNI) to encrypt the SNI field during TLS handshake (DWord: 1).
+- **`PaymentMethodQueryEnabled`** — Disables Payment Request API queries, reducing fingerprinting surface (DWord: 0).
+- **`SuppressDifferentOriginSubframeDialogs`** — Suppresses JavaScript dialogs (`alert`, `confirm`, `prompt`) from cross-origin iframes (DWord: 1).
+
+#### Balanced (4 policies)
+
+- **`DefaultWindowManagementSetting`** — Blocks sites from viewing detailed screen information (DWord: 2).
+- **`SitePerProcess`** — Forces every site into its own OS process for strong isolation (DWord: 1).
+- **`IntensiveWakeUpThrottlingEnabled`** — Aggressively throttles JavaScript wake-up timers in background tabs (DWord: 1).
+- **`UserFeedbackAllowed`** — Disables in-browser feedback prompts and UI (DWord: 0).
+
+<a id="en-v2210-changed"></a>
+
+### Changed
+
+- **Script version** — `$ScriptVersion = "v2.2.1.0"` in both EN and TR scripts.
+- **Policy counts** — All documentation updated to reflect new per-level totals and cumulative chain.
+- **Duplicate removed** — `WebRtcIPHandling` removed from Strict tier (was a runtime no-op since Balanced already has the same `disable_non_proxied_udp` value). Strict now has 9 own policies, total unique policies is 91 with zero duplicates.
+- **Documentation** — README, Wiki/Policy-Reference, Wiki/Changelog, Wiki/Roadmap, index.html, policy-catalog.md updated.
 
 <hr>
 
@@ -840,6 +898,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.2.1.0 | 2026-07-07 | 91    | 12 new hardware API/security policies added; duplicate WebRtcIPHandling removed from Strict; total unique 91, zero duplicates; cumulative chain 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 2026-07-06 | 80    | Policy refinement — one duplicate policy removed per level; Brave Only 23→22, Essential 40→39, Balanced 61→60, Advanced 72→71, Strict 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies |
@@ -900,12 +959,16 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 1. [Giriş](#tr-introduction)
 
-2. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+2. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+    * [Özet](#tr-v2210-ozet)
+    * [Eklendi](#tr-v2210-eklendi)
+    * [Değiştirildi](#tr-v2210-degisti)
+3. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
-3. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+4. [v2.2.0.1 — 2026-07-06](#tr-v2201)
     * [Özet](#tr-v2201-ozet)
-4. [v2.2.0 — 2026-07-06](#tr-v220)
+5. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
@@ -1120,6 +1183,60 @@ Eklenen/Değiştirilen Dosyalar:
 - **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md 5 seviyeli modeli yansıtacak şekilde güncellendi.
 - **README.md** — Seviye tabloları, parametre referansları, politika bölümü 9.5 ve sıkılaştırma seviyeleri tablosu 5 seviyeli model için güncellendi.
 - **CHANGELOG, SECURITY, index.html** — Sürüm numaraları ve seviye referansları güncellendi.
+
+<hr>
+
+<a id="tr-v2210"></a>
+
+## [v2.2.1.0] — 2026-07-07
+
+<a id="tr-v2210-ozet"></a>
+
+### 🎯 Özet
+
+**12 yeni donanım API & güvenlik politikası eklendi; yinelenen WebRtcIPHandling Katı'dan kaldırıldı.** WebUSB, Web Bluetooth, WebHID, Direct Sockets ve Cihaz Özellikleri API'leri engellenir; Şifreli İstemci Selamı (ECH) zorlanır; Payment Request API sorguları devre dışı bırakılır; farklı kaynaklı alt çerçevelerin iletişim kutuları bastırılır. Pencere yönetimi yalıtımı, site başına süreç, agresif uyandırma zamanlayıcı kısıtlaması ve tarayıcı içi geri bildirim istemlerinin devre dışı bırakılması eklendi.
+
+| Metrik | Önce (v2.2.0.2) | Sonra (v2.2.1.0) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 80 | 91 |
+| Brave Yalnız politikaları | 22 | 22 |
+| Temel eklemeleri | 17 | **25** (+8) |
+| Dengeli eklemeleri | 21 | **25** (+4) |
+| Gelişmiş eklemeleri | 11 | 11 |
+| Katı eklemeleri | 10 | 9 |
+| Kümülatif zincir | 22→39→60→71→80 | **22→47→72→83→91** |
+
+<a id="tr-v2210-eklendi"></a>
+
+### Eklendi
+
+#### Temel (8 politika)
+
+- **`DefaultWebUsbGuardSetting`** — Web sitelerinin USB aygıtlarına erişimini varsayılan olarak engeller (DWord: 2).
+- **`DefaultWebBluetoothGuardSetting`** — Web sitelerinin Bluetooth aygıtlarına erişimini varsayılan olarak engeller (DWord: 2).
+- **`DefaultWebHidGuardSetting`** — Web sitelerinin HID aygıtlarına erişimini varsayılan olarak engeller (DWord: 2).
+- **`DefaultDirectSocketsSetting`** — Web sitelerinin Direct Sockets API kullanımını varsayılan olarak engeller (DWord: 2).
+- **`DeviceAttributesAllowedForOrigins`** — Tüm kaynakların cihaz özelliklerine erişimini engeller (MultiString: boş). ChromeOS'a özgü, ileriye dönük olarak eklendi.
+- **`EncryptedClientHelloEnabled`** — TLS el sıkışması sırasında SNI alanını şifrelemek için ECH'yi zorlar (DWord: 1).
+- **`PaymentMethodQueryEnabled`** — Payment Request API sorgularını devre dışı bırakır, parmak izi yüzeyini azaltır (DWord: 0).
+- **`SuppressDifferentOriginSubframeDialogs`** — Farklı kaynaklı iframe'lerden gelen JavaScript iletişim kutularını (`alert`, `confirm`, `prompt`) bastırır (DWord: 1).
+
+#### Dengeli (4 politika)
+
+- **`DefaultWindowManagementSetting`** — Sitelerin ayrıntılı ekran bilgilerini görmesini engeller (DWord: 2).
+- **`SitePerProcess`** — Her siteyi güçlü yalıtım için kendi işleminde çalışmaya zorlar (DWord: 1).
+- **`IntensiveWakeUpThrottlingEnabled`** — Arka plan sekmelerindeki JavaScript uyandırma zamanlayıcılarını agresif şekilde kısıtlar (DWord: 1).
+- **`UserFeedbackAllowed`** — Tarayıcı içi geri bildirim istemlerini ve arayüzünü devre dışı bırakır (DWord: 0).
+
+<a id="tr-v2210-degisti"></a>
+
+### Değiştirildi
+
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.2.1.0"`.
+- **Politika sayıları** — Tüm belgeler yeni katman toplamlarını ve kümülatif zinciri yansıtacak şekilde güncellendi.
+- **Yinelenen kaldırıldı** — `WebRtcIPHandling` Katı katmanından kaldırıldı (Dengeli'de aynı `disable_non_proxied_udp` değeri olduğu için çalışma zamanında etkisizdi). Katı artık 9 politikaya sahip, toplam benzersiz politika sayısı sıfır tekrarla 91.
+- **Belgeler** — README, Wiki/Policy-Reference, Wiki/Changelog, Wiki/Roadmap, index.html, policy-catalog.md güncellendi.
 
 <hr>
 
@@ -1723,6 +1840,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.2.1.0 | 2026-07-07 | 91    | 12 yeni donanım API/güvenlik politikası eklendi; yinelenen WebRtcIPHandling Katı'dan kaldırıldı; toplam benzersiz 91, sıfır tekrar; kümülatif zincir 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
 | v2.2.0.1 | 2026-07-06 | 80    | Politika iyileştirme — seviye başına bir yinelenen politika kaldırıldı; Brave Yalnız 23→22, Temel 40→39, Dengeli 61→60, Gelişmiş 72→71, Katı 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5 katmanlı mimari (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı), Gelişmiş seviyesi eklendi, Katı L4→L5, 81 politika |
