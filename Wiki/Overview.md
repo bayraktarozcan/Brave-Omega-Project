@@ -53,7 +53,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | Feature | Description |
 | --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement (HKCU + HKLM + Omaha)** | HKCU (user) + HKLM (enterprise/ADMX) + Omaha GUID — three independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 80 ADMX-Validated Policies (5 Levels), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 91 ADMX-Validated Policies (5 tiers, 22→47→72→83→91 chain), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -84,7 +84,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.2.0.2 — WebRTC Policy Alignment](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.0.2)
+> **Latest Release:** [v2.2.1.0 — Hardware API & Security Hardening](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.1.0)
 
 ---
 
@@ -169,7 +169,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | Özellik | Açıklama |
 | --------- | ---------- |
 | 🔒 **Çok Katmanlı Zorunlu Kılma (HKCU + HKLM + Omaha)** | HKCU (kullanıcı) + HKLM (kurumsal/ADMX) + Omaha GUID — üç bağımsız zorunlu kılma katmanı |
-| 📋 **ADMX Doğrulamalı Politikalar** | 80 ADMX Doğrulamalı Politika (5 Seviye), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 91 ADMX Doğrulamalı Politika (5 kademe, 22→47→72→83→91 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
@@ -200,7 +200,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.2.0.2 — WebRTC Politika Hizalaması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.0.2)
+> **Son Sürüm:** [v2.2.1.0 — Donanım API'si ve Güvenlik Sıkılaştırması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.1.0)
 
 ---
 
