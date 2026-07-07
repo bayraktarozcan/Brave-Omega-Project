@@ -106,7 +106,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.2.0.2"
+$BetikSurum    = "v2.2.1.0"
 $DogrulananBrave = "1.92.134"
 $DogrulananChromium = "150"
 
@@ -490,6 +490,23 @@ $PolitikaTanimlari = @{
         # ─── Yeni Temel Politikaları (Faz 2) ───
         # GPC — Küresel Gizlilik Kontrolü Sec-GPC başlığı gönderir, veri satışını reddeder
         @{Ad="BraveGlobalPrivacyControlEnabled";     Deger=1; Tur="DWord"}
+        # ─── Yeni Temel Politikaları (v2.2.1.0 — Donanım API & Güvenlik) ───
+        # WebUSB — web sitelerinin USB aygıtlarına erişimini varsayılan olarak engeller
+        @{Ad="DefaultWebUsbGuardSetting";            Deger=2; Tur="DWord"}
+        # Web Bluetooth — web sitelerinin Bluetooth aygıtlarına erişimini varsayılan olarak engeller
+        @{Ad="DefaultWebBluetoothGuardSetting";      Deger=2; Tur="DWord"}
+        # WebHID — web sitelerinin HID aygıtlarına erişimini varsayılan olarak engeller
+        @{Ad="DefaultWebHidGuardSetting";            Deger=2; Tur="DWord"}
+        # Direct Sockets — web sitelerinin Direct Sockets API kullanımını varsayılan olarak engeller
+        @{Ad="DefaultDirectSocketsSetting";          Deger=2; Tur="DWord"}
+        # Cihaz Özellikleri — tüm kaynakların cihaz özelliklerine erişimini engeller (ChromeOS)
+        @{Ad="DeviceAttributesAllowedForOrigins";    Deger=@(); Tur="MultiString"}
+        # Şifreli İstemci Selamı — SNI'yi şifrelemek için ECH'yi zorlar
+        @{Ad="EncryptedClientHelloEnabled";          Deger=1; Tur="DWord"}
+        # Ödeme Yöntemi Sorguları — Payment Request API sorgularını devre dışı bırakır
+        @{Ad="PaymentMethodQueryEnabled";            Deger=0; Tur="DWord"}
+        # Alt Çerçeve İletişim Kutuları — farklı kaynaklı alt çerçevelerin iletişim kutularını engeller
+        @{Ad="SuppressDifferentOriginSubframeDialogs"; Deger=1; Tur="DWord"}
     )
 
     "Balanced" = @(
@@ -538,6 +555,15 @@ $PolitikaTanimlari = @{
         @{Ad="DefaultBraveReferrersSetting";         Deger=2; Tur="DWord"}
         # Sync sunucusu — varsayılan Brave sync sunucu adresini belirtir
         @{Ad="BraveSyncUrl";                         Deger="https://sync-v2.brave.com/v2"; Tur="String"}
+        # ─── Yeni Dengeli Politikaları (v2.2.1.0 — Donanım API & Güvenlik) ───
+        # Pencere Yönetimi — sitelerin ekran bilgilerine erişimini varsayılan olarak engeller
+        @{Ad="DefaultWindowManagementSetting";       Deger=2; Tur="DWord"}
+        # Site Yalıtımı — tüm siteleri ayrı süreçlerde çalışmaya zorlar
+        @{Ad="SitePerProcess";                       Deger=1; Tur="DWord"}
+        # Uyandırma Zamanlayıcıları — JavaScript uyandırma zamanlayıcılarını agresif kısıtlar
+        @{Ad="IntensiveWakeUpThrottlingEnabled";     Deger=1; Tur="DWord"}
+        # Kullanıcı Geri Bildirimi — tarayıcı içi geri bildirim istemlerini devre dışı bırakır
+        @{Ad="UserFeedbackAllowed";                  Deger=0; Tur="DWord"}
     )
 
     "Advanced" = @(
@@ -572,8 +598,6 @@ $PolitikaTanimlari = @{
 
         # Çeviri — yerleşik çeviriyi kapatır (metnin Google'a gönderilmesini durdurur)
         @{Ad="TranslateEnabled";                     Deger=0; Tur="DWord"}
-        # WebRTC IP yönetimi — tüm WebRTC trafiğini vekil sunucu üzerinden yönlendirir (Dengeli ile aynı değer — etkisiz ezme)
-        @{Ad="WebRtcIPHandling";                     Deger="disable_non_proxied_udp"; Tur="String"}
         # Pano — site pano okuma/yazma erişimini varsayılan olarak engeller
         @{Ad="DefaultClipboardSetting";              Deger=2; Tur="DWord"}
         # Dosya sistemi okuma — site dosya sistemi okuma erişimini varsayılan olarak engeller

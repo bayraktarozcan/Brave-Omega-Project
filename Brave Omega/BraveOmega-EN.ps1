@@ -105,7 +105,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.2.0.2"
+$ScriptVersion   = "v2.2.1.0"
 $ValidatedBrave  = "1.92.134"
 $ValidatedChromium = "150"
 
@@ -481,6 +481,23 @@ $PolicyDefinitions = @{
         # ─── New Essential Policies (Phase 2) ───
         # GPC — sends Global Privacy Control Sec-GPC header to opt out of sale
         @{Name="BraveGlobalPrivacyControlEnabled";     Value=1; Type="DWord"}
+        # ─── New Essential Policies (v2.2.1.0 — Hardware API & Security) ───
+        # WebUSB — blocks websites from accessing USB devices by default
+        @{Name="DefaultWebUsbGuardSetting";            Value=2; Type="DWord"}
+        # Web Bluetooth — blocks websites from accessing Bluetooth devices by default
+        @{Name="DefaultWebBluetoothGuardSetting";      Value=2; Type="DWord"}
+        # WebHID — blocks websites from accessing HID devices by default
+        @{Name="DefaultWebHidGuardSetting";            Value=2; Type="DWord"}
+        # Direct Sockets — blocks websites from using Direct Sockets API by default
+        @{Name="DefaultDirectSocketsSetting";          Value=2; Type="DWord"}
+        # Device Attributes — blocks all origins from accessing device attributes (ChromeOS)
+        @{Name="DeviceAttributesAllowedForOrigins";    Value=@(); Type="MultiString"}
+        # Encrypted ClientHello — forces ECH to encrypt SNI (defense-in-depth)
+        @{Name="EncryptedClientHelloEnabled";          Value=1; Type="DWord"}
+        # Payment Method Queries — disables Payment Request API queries (fingerprint reduction)
+        @{Name="PaymentMethodQueryEnabled";            Value=0; Type="DWord"}
+        # Suppress Dialogs — suppresses dialogs from different-origin subframes
+        @{Name="SuppressDifferentOriginSubframeDialogs"; Value=1; Type="DWord"}
     )
 
     "Balanced" = @(
@@ -529,6 +546,15 @@ $PolicyDefinitions = @{
         @{Name="DefaultBraveReferrersSetting";         Value=2; Type="DWord"}
         # Sync server — explicit default Brave sync server URL
         @{Name="BraveSyncUrl";                         Value="https://sync-v2.brave.com/v2"; Type="String"}
+        # ─── New Balanced Policies (v2.2.1.0 — Hardware API & Security) ───
+        # Window Management — blocks sites from seeing full screen info by default
+        @{Name="DefaultWindowManagementSetting";       Value=2; Type="DWord"}
+        # Site Isolation — forces all sites into separate processes
+        @{Name="SitePerProcess";                       Value=1; Type="DWord"}
+        # Wake-Up Throttling — aggressively throttles JavaScript wake-up timers
+        @{Name="IntensiveWakeUpThrottlingEnabled";     Value=1; Type="DWord"}
+        # User Feedback — disables in-browser feedback prompts/UI
+        @{Name="UserFeedbackAllowed";                  Value=0; Type="DWord"}
     )
 
     "Advanced" = @(
@@ -563,8 +589,6 @@ $PolicyDefinitions = @{
 
         # Translation — disables built-in translation (stops sending text to Google)
         @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
-        # WebRTC IP handling — proxies all WebRTC traffic (same value in Balanced — override is a no-op)
-        @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
         # Clipboard — blocks site clipboard read/write access by default
         @{Name="DefaultClipboardSetting";              Value=2; Type="DWord"}
         # File system read — blocks site file system read access by default
@@ -600,7 +624,7 @@ if ($SelectedIndex -eq -1) {
 
 for ($i = 0; $i -le $SelectedIndex; $i++) {
     foreach ($Policy in $PolicyDefinitions[$LevelOrder[$i]]) {
-        # Later levels override earlier ones (e.g., Strict overrides Balanced's WebRtcIPHandling)
+        # Later levels override earlier ones
         $MergedPolicies[$Policy.Name] = $Policy
     }
 }

@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.2.0.2.
+Complete policy reference for Brave Omega v2.2.1.0.
 
 ---
 
@@ -17,11 +17,11 @@ Complete policy reference for Brave Omega v2.2.0.2.
 | **2. Essential** ⭐ | 39 (22 + 17) | UsageStatsInSample | 39 | Includes Level 1 |
 | **3. Balanced** | 60 (39 + 21) | UsageStatsInSample | 60 | Includes Levels 1-2 |
 | **4. Advanced** | 71 (60 + 11) | UsageStatsInSample | 71 | Includes Levels 1-3 |
-| **5. Strict** | 80 (71 + 9) | UsageStatsInSample | 80 | Includes Levels 1-4 |
+| **5. Strict** | 91 (83 + 8) | UsageStatsInSample | 91 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 80 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 91 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -110,12 +110,11 @@ Complete policy reference for Brave Omega v2.2.0.2.
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 
-### Strict Level — Advanced + Maximum Privacy (9 additional)
+### Strict Level — Advanced + Maximum Privacy (8 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
 | `TranslateEnabled` | `0` | DWord | Disables built-in translation |
-| `WebRtcIPHandling` *(override)* | `"disable_non_proxied_udp"` | String | Proxies all WebRTC traffic |
 | `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
@@ -169,7 +168,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 80 policies should show as **Active** (green checkmark).
+All 91 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -206,7 +205,7 @@ All 80 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.2.0.2 için tam politika başvurusu.
+Brave Omega v2.2.1.0 için tam politika başvurusu.
 
 ---
 
@@ -218,11 +217,11 @@ Brave Omega v2.2.0.2 için tam politika başvurusu.
 | **2. Temel** ⭐ | 39 (22 + 17) | UsageStatsInSample | 39 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 60 (39 + 21) | UsageStatsInSample | 60 | 1-2. Seviyeleri kapsar |
 | **4. Gelişmiş** | 71 (60 + 11) | UsageStatsInSample | 71 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 80 (71 + 9) | UsageStatsInSample | 80 | 1-4. Seviyeleri kapsar |
+| **5. Katı** | 91 (83 + 8) | UsageStatsInSample | 91 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 80 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 91 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -311,12 +310,11 @@ Brave Omega v2.2.0.2 için tam politika başvurusu.
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 
-### Katı Seviye — Gelişmiş + Azami Gizlilik (9 ek)
+### Katı Seviye — Gelişmiş + Azami Gizlilik (8 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
 | `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
-| `WebRtcIPHandling` *(üzerine yaz)* | `"disable_non_proxied_udp"` | String | Tüm WebRTC trafiğini proxy üzerinden yönlendirir |
 | `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
@@ -370,7 +368,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-80 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+91 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

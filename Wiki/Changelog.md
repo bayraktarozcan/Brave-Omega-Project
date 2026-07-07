@@ -23,6 +23,19 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.2.1.0 - 2026-07-07
+
+**Phase 7: Hardware API & Security Hardening - 80→91 Policies (+11)**
+
+- 12 new Chromium enterprise policies added across Essential (+8) and Balanced (+4) tiers:
+  - **Essential:** DefaultWebUsbGuardSetting, DefaultWebBluetoothGuardSetting, DefaultWebHidGuardSetting, DefaultDirectSocketsSetting, DeviceAttributesAllowedForOrigins, EncryptedClientHelloEnabled, PaymentMethodQueryEnabled, SuppressDifferentOriginSubframeDialogs
+  - **Balanced:** DefaultWindowManagementSetting, SitePerProcess, IntensiveWakeUpThrottlingEnabled, UserFeedbackAllowed
+- Cumulative chain updated: 22→47→72→83→91
+- Both scripts updated to v2.2.1.0 with `$ScriptVersion = "v2.2.1.0"` / `$BetikSurum = "v2.2.1.0"`
+- Documentation updated across README, Wiki, index.html, CHANGELOG
+
+---
+
 ### v2.2.0.2 — 2026-07-07
 
 **Phase 6: WebRTC Policy Alignment — Balanced Upgraded to disable_non_proxied_udp (Same as Strict)**
@@ -394,6 +407,17 @@ Brave Omega i�in tam s�r�m ge�mi�i.
 ---
 
 ## S�r�m Ge�mi�i
+
+### v2.2.1.0 - 2026-07-07
+
+**Aşama 7: Donanım API & Güvenlik Sıkılaştırması - 80→91 Politika (+11)**
+
+- Temel (+8) ve Dengeli (+4) katmanlarına 12 yeni Chromium kurumsal politikası eklendi
+- Kümülatif zincir güncellendi: 22→47→72→83→91
+- Her iki betik v2.2.1.0'a güncellendi, `$ScriptVersion = "v2.2.1.0"` / `$BetikSurum = "v2.2.1.0"`
+- README, Wiki, index.html, CHANGELOG genelinde dokümantasyon güncellendi
+
+---
 
 ### v2.2.0.2 — 2026-07-07
 
