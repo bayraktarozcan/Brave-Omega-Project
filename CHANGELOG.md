@@ -27,11 +27,16 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.2.1.0 — 2026-07-07](#en-v2210)
+2. [v2.3.0.0 — 2026-07-09](#en-v2300)
+    * [Summary](#en-v2300-summary)
+    * [Added](#en-v2300-added)
+    * [Changed](#en-v2300-changed)
+    * [Notes](#en-v2300-notes)
+3. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-3. [v2.2.0.2 — 2026-07-07](#en-v2202)
+4. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
@@ -137,6 +142,90 @@ All notable changes to this project are documented below, following the [Keep a 
 - **README.md** — Level tables, parameter references, policy section 9.5, and hardening levels table updated for 5-level model.
 - **CHANGELOG, SECURITY, index.html** — Version numbers and level references updated.
 - **`WebRtcIPHandling` override** — Retained only in Strict (L5); Balanced (L3) retains the base value `"default_public_interface_only"`.
+
+<hr>
+
+<a id="en-v2300"></a>
+
+## [v2.3.0.0] — 2026-07-09
+
+<a id="en-v2300-summary"></a>
+
+### 🎯 Summary
+
+**23 new enterprise policies added; cumulative chain expands to 115 policies.** Phase 8 adds Safe Browsing protection level controls, password protection warning trigger, online revocation checking, forced extension installation with Dark Reader + Google Docs Offline, download restrictions, proxy configuration, extension lockdown (block all extensions), Incognito mode disable, developer tools disable, task manager disable, printing disable, Brave update disable, and more. Every hardening level grows, with Strict nearly tripling its own policy count.
+
+| Metric | Before (v2.2.1.0) | After (v2.3.0.0) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 91 | 115 |
+| Brave Only policies | 22 | **24** (+2) |
+| Essential additions | 25 | **26** (+1) |
+| Balanced additions | 25 | **29** (+4) |
+| Advanced additions | 11 | **12** (+1) |
+| Strict additions | 9 | **24** (+15) |
+| Cumulative chain | 22→47→72→83→91 | **24→50→79→91→115** |
+
+<a id="en-v2300-added"></a>
+
+### Added
+
+#### Brave Only (2 policies)
+
+- **`SafeBrowsingProtectionLevel`** — Sets enhanced Safe Browsing protection level (DWord: 2). Blocks dangerous sites, downloads, and extensions with real-time scanning. Cumulative for all lower levels.
+- **`PasswordProtectionWarningTrigger`** — Enables password protection warning for all domains (DWord: 3). Warns users when their stored password is entered on any site. Cumulative for all lower levels.
+
+#### Essential (1 policy)
+
+- **`EnableOnlineRevocationChecks`** — Forces online OCSP/CRL revocation checks for TLS certificates (DWord: 1). Adds a privacy-verified certificate validation layer. Cumulative for all lower levels.
+
+#### Balanced (4 policies)
+
+- **`ExtensionInstallForcelist`** — Silently installs and pins Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) and Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) extensions. Users cannot remove or disable (MultiString).
+- **`DownloadRestrictions`** — Blocks dangerous download types (DWord: 3). Prevents malicious file downloads from any site.
+- **`DownloadDirectory`** — Sets a fixed download directory path (String: `C:\BraveDownloads`).
+- **`PromptForDownloadLocation`** — Always prompts for download location before saving (DWord: 1).
+
+#### Advanced (1 policy)
+
+- **`AllowPopupsDuringPageUnload`** — Blocks popups created during page unload events (DWord: 0). Prevents malicious popup spam on tab close.
+
+#### Strict (15 policies)
+
+- **`ExtensionSettings`** — Blocks all extension installation with a global `"*": {"installation_mode": "blocked"}` policy (String: JSON). Overrides all per-extension settings from lower levels.
+- **`ExtensionAllowedTypes`** — Restricts allowed extension types to `["theme", "extension"]` only (String: JSON). Blocks platform apps, hosted apps, legacy packaged apps, and user scripts.
+- **`ExtensionInstallBlocklist`** — Blocks all extensions by wildcard rule (MultiString: `*`).
+- **`ExtensionAllowlist`** — Empty allowlist, meaning no extension is allowed by exception (MultiString: empty).
+- **`IncognitoModeAvailability`** — Disables Incognito/Private mode entirely (DWord: 1). Forces all browsing to normal mode.
+- **`DeveloperToolsDisabled`** — Disables all developer tools access (DWord: 1). Prevents DevTools via UI and keyboard shortcuts.
+- **`DeveloperToolsAvailability`** — Disables developer tools via policy restriction (DWord: 2). Admin-managed ban, cannot be overridden.
+- **`TaskManagerEndProcessEnabled`** — Disables end-process button in Brave's Task Manager (DWord: 0).
+- **`PrintingEnabled`** — Disables all printing in Brave (DWord: 0).
+- **`DisablePrintPreview`** — Forces system print dialog instead of the print preview (DWord: 1).
+- **`ProxyMode`** — Sets fixed proxy configuration mode (String: `fixed_servers`).
+- **`ProxySettings`** — Configures proxy server address (String: JSON with `"proxyServer": "http://proxy:8080"`). Placeholder — customize per deployment.
+- **`BuiltInDnsClientEnabled`** — Disables Brave's built-in DNS client, falling back to OS DNS resolution (DWord: 0).
+- **`BraveUpdateDisabled`** — Disables automatic Brave browser updates (DWord: 1). Maximum lockdown — use only with alternative update management.
+- **`ProductVendor`** — N/A (Chromium legacy key, included for forward compatibility).
+
+<a id="en-v2300-changed"></a>
+
+### Changed
+
+- **Script version** — `$ScriptVersion = "v2.3.0.0"` in both EN and TR scripts.
+- **Validated Brave version** — Updated to `1.92.138` (Chromium 150.0.7871.101).
+- **Policy counts** — All documentation updated: BraveOnly 24→50→79→91→115 cumulative.
+- **Level descriptions** — Level cards, terminal display, compatibility table, and feature sections updated across all docs.
+- **Documentation** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html updated.
+
+<a id="en-v2300-notes"></a>
+
+### Notes
+
+- **ProxySettings** uses a placeholder value (`http://proxy:8080`). Deployments requiring proxy functionality must customize this per environment.
+- **ExtensionInstallForcelist** pins Dark Reader and Google Docs Offline. Remove or add extensions by editing the MultiString value.
+- **BraveUpdateDisabled=1** disables automatic updates. Ensure you have an alternative update management system before deploying Strict.
+- **SafeBrowsingProtectionLevel=2** and **PasswordProtectionWarningTrigger=3** in BraveOnly cover all subsequent levels cumulatively.
 
 <hr>
 
@@ -959,11 +1048,16 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 1. [Giriş](#tr-introduction)
 
-2. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+2. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+    * [Özet](#tr-v2300-ozet)
+    * [Eklendi](#tr-v2300-eklendi)
+    * [Değiştirildi](#tr-v2300-degisti)
+    * [Notlar](#tr-v2300-notlar)
+3. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
-3. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+4. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
 4. [v2.2.0.1 — 2026-07-06](#tr-v2201)
@@ -1183,6 +1277,90 @@ Eklenen/Değiştirilen Dosyalar:
 - **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md 5 seviyeli modeli yansıtacak şekilde güncellendi.
 - **README.md** — Seviye tabloları, parametre referansları, politika bölümü 9.5 ve sıkılaştırma seviyeleri tablosu 5 seviyeli model için güncellendi.
 - **CHANGELOG, SECURITY, index.html** — Sürüm numaraları ve seviye referansları güncellendi.
+
+<hr>
+
+<a id="tr-v2300"></a>
+
+## [v2.3.0.0] — 2026-07-09
+
+<a id="tr-v2300-ozet"></a>
+
+### 🎯 Özet
+
+**23 yeni kurumsal politika eklendi; kümülatif zincir 115 politikaya genişletildi.** Aşama 8, Güvenli Gezinti koruma seviyesi kontrollerini, parola koruma uyarı tetikleyicisini, çevrimiçi iptal denetimini, zorunlu uzantı yüklemesini (Dark Reader + Google Docs Offline), indirme kısıtlamalarını, proxy yapılandırmasını, uzantı kilitlemeyi (tüm uzantıları engelle), gizli mod devre dışı bırakmayı, geliştirici araçlarını kapatmayı, görev yöneticisini devre dışı bırakmayı, yazdırmayı kapatmayı, Brave güncellemesini devre dışı bırakmayı ve daha fazlasını ekler. Her sıkılaştırma seviyesi büyür, özellikle Katı'nın kendi politika sayısı neredeyse üç katına çıkar.
+
+| Metrik | Önce (v2.2.1.0) | Sonra (v2.3.0.0) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 91 | 115 |
+| Brave Yalnız politikaları | 22 | **24** (+2) |
+| Temel eklemeleri | 25 | **26** (+1) |
+| Dengeli eklemeleri | 25 | **29** (+4) |
+| Gelişmiş eklemeleri | 11 | **12** (+1) |
+| Katı eklemeleri | 9 | **24** (+15) |
+| Kümülatif zincir | 22→47→72→83→91 | **24→50→79→91→115** |
+
+<a id="tr-v2300-eklendi"></a>
+
+### Eklendi
+
+#### Brave Yalnız (2 politika)
+
+- **`SafeBrowsingProtectionLevel`** — Gelişmiş Güvenli Gezinti koruma seviyesini ayarlar (DWord: 2). Tehlikeli siteleri, indirmeleri ve uzantıları gerçek zamanlı taramayla engeller. Sonraki tüm seviyeler için kümülatif.
+- **`PasswordProtectionWarningTrigger`** — Tüm alan adlarında parola koruma uyarısını etkinleştirir (DWord: 3). Kaydedilmiş parola herhangi bir siteye girildiğinde kullanıcıyı uyarır. Sonraki tüm seviyeler için kümülatif.
+
+#### Temel (1 politika)
+
+- **`EnableOnlineRevocationChecks`** — TLS sertifikaları için çevrimiçi OCSP/CRL iptal denetimini zorlar (DWord: 1). Gizlilik onaylı sertifika doğrulama katmanı ekler. Sonraki tüm seviyeler için kümülatif.
+
+#### Dengeli (4 politika)
+
+- **`ExtensionInstallForcelist`** — Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) ve Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) uzantılarını sessizce yükler ve sabitler. Kullanıcılar kaldıramaz veya devre dışı bırakamaz (MultiString).
+- **`DownloadRestrictions`** — Tehlikeli indirme türlerini engeller (DWord: 3). Kötü amaçlı dosya indirmelerini herhangi bir siteden önler.
+- **`DownloadDirectory`** — Sabit bir indirme dizini yolu belirler (String: `C:\BraveDownloads`).
+- **`PromptForDownloadLocation`** — Kaydetmeden önce her zaman indirme konumu sorar (DWord: 1).
+
+#### Gelişmiş (1 politika)
+
+- **`AllowPopupsDuringPageUnload`** — Sayfa kaldırma olayları sırasında oluşturulan açılır pencereleri engeller (DWord: 0). Sekme kapatılırken kötü amaçlı açılır pencere spam'ini önler.
+
+#### Katı (15 politika)
+
+- **`ExtensionSettings`** — Tüm uzantı yüklemelerini `"*": {"installation_mode": "blocked"}` küresel politikasıyla engeller (String: JSON). Alt seviyelerdeki tüm uzantı ayarlarını geçersiz kılar.
+- **`ExtensionAllowedTypes`** — İzin verilen uzantı türlerini `["theme", "extension"]` ile sınırlar (String: JSON). Platform uygulamalarını, barındırılan uygulamaları, eski paketlenmiş uygulamaları ve kullanıcı betiklerini engeller.
+- **`ExtensionInstallBlocklist`** — Tüm uzantıları joker karakter kuralıyla engeller (MultiString: `*`).
+- **`ExtensionAllowlist`** — Boş izin listesi, hiçbir uzantıya istisna tanınmaz (MultiString: boş).
+- **`IncognitoModeAvailability`** — Gizli/Özel modu tamamen devre dışı bırakır (DWord: 1). Tüm gezinmeyi normal moda zorlar.
+- **`DeveloperToolsDisabled`** — Tüm geliştirici araçları erişimini devre dışı bırakır (DWord: 1). Arayüz ve klavye kısayollarıyla DevTools'a erişimi engeller.
+- **`DeveloperToolsAvailability`** — Geliştirici araçlarını politika kısıtlamasıyla devre dışı bırakır (DWord: 2). Yönetici tarafından yönetilen yasak, geçersiz kılınamaz.
+- **`TaskManagerEndProcessEnabled`** — Brave Görev Yöneticisi'ndeki işlem sonlandırma düğmesini devre dışı bırakır (DWord: 0).
+- **`PrintingEnabled`** — Brave'de tüm yazdırmayı devre dışı bırakır (DWord: 0).
+- **`DisablePrintPreview`** — Baskı önizleme yerine doğrudan sistem yazdırma iletişim kutusunu zorlar (DWord: 1).
+- **`ProxyMode`** — Sabit proxy yapılandırma modunu ayarlar (String: `fixed_servers`).
+- **`ProxySettings`** — Proxy sunucu adresini yapılandırır (String: JSON ile `"proxyServer": "http://proxy:8080"`). Yer tutucu — dağıtıma göre özelleştirin.
+- **`BuiltInDnsClientEnabled`** — Brave'in yerleşik DNS istemcisini devre dışı bırakır, işletim sistemi DNS çözümlemesine döner (DWord: 0).
+- **`BraveUpdateDisabled`** — Otomatik Brave tarayıcı güncellemelerini devre dışı bırakır (DWord: 1). Maksimum kilitlenme — yalnızca alternatif güncelleme yönetimi ile kullanın.
+- **`ProductVendor`** — Yok (Chromium eski anahtarı, ileriye dönük uyumluluk için eklendi).
+
+<a id="tr-v2300-degisti"></a>
+
+### Değiştirildi
+
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.3.0.0"`.
+- **Doğrulanan Brave sürümü** — `1.92.138` (Chromium 150.0.7871.101) olarak güncellendi.
+- **Politika sayıları** — Tüm belgeler güncellendi: BraveOnly 24→50→79→91→115 kümülatif.
+- **Seviye açıklamaları** — Seviye kartları, terminal ekranı, uyumluluk tablosu ve özellik bölümleri tüm dokümanlarda güncellendi.
+- **Belgeler** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html güncellendi.
+
+<a id="tr-v2300-notlar"></a>
+
+### Notlar
+
+- **ProxySettings** bir yer tutucu değeri kullanır (`http://proxy:8080`). Proxy işlevselliği gerektiren dağıtımlar bunu ortama göre özelleştirmelidir.
+- **ExtensionInstallForcelist** Dark Reader ve Google Docs Offline'ı sabitler. MultiString değerini düzenleyerek uzantıları kaldırın veya ekleyin.
+- **BraveUpdateDisabled=1** otomatik güncellemeleri devre dışı bırakır. Katı seviyesini dağıtmadan önce alternatif bir güncelleme yönetim sisteminiz olduğundan emin olun.
+- **SafeBrowsingProtectionLevel=2** ve **PasswordProtectionWarningTrigger=3** Brave Yalnız'da tüm sonraki seviyeleri kümülatif olarak kapsar.
 
 <hr>
 

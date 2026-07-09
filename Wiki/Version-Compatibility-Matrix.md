@@ -13,8 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.2.1.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Current | 2026-07-07 |
-| **v2.2.0.2** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
+| **v2.3.0.0** ⭐ | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | ✅ Current | 2026-07-09 |
+| **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Previous | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
 | **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-05 |
@@ -112,6 +112,8 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
+| v2.3.0.0 | 115 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (23 new) |
+| v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API blocking, ECH enforcement, Payment Request disable, window management isolation, site-per-process (12 new) |
 | v2.2.0.2 | 80 | 100% | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled removed (deprecated), policy counts adjusted |
 | v2.2.0 | 81 | 100% | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), 11 policies migrated from Strict |
@@ -179,8 +181,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.2.1.0** ⭐ | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | ✅ Güncel | 2026-07-07 |
-| **v2.2.0.2** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
+| **v2.3.0.0** ⭐ | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | ✅ Güncel | 2026-07-09 |
+| **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Önceki | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
 | **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-05 |
@@ -278,6 +280,8 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
+| v2.3.0.0 | 115 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (23 yeni) |
+| v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API engelleme, ECH zorlama, Payment Request devre dışı, pencere yönetimi yalıtımı, site başına süreç (12 yeni) |
 | v2.2.0.2 | 80 | 100% | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled kaldırıldı (kullanım dışı), politika sayıları düzeltildi |
 | v2.2.0 | 81 | 100% | 5 katmanlı mimari (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı), Katı'dan 11 politika taşındı |

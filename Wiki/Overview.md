@@ -53,7 +53,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | Feature | Description |
 | --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement (HKCU + HKLM + Omaha)** | HKCU (user) + HKLM (enterprise/ADMX) + Omaha GUID — three independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 91 ADMX-Validated Policies (5 tiers, 22→47→72→83→91 chain), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 115 ADMX-Validated Policies (5 tiers, 24→50→79→91→115 chain), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -67,8 +67,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.2.1.0** *(current)* | 1.92.134 | 150 | 11 25H2 | ✅ Current |
-| **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
+| **v2.3.0.0** *(current)* | 1.92.138 | 150 | 11 25H2 | ✅ Current |
+| **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.1.6.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
@@ -84,7 +84,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.2.1.0 — Hardware API & Security Hardening](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.1.0)
+> **Latest Release:** [v2.3.0.0 — Enterprise Policy Expansion (Phase 8)](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.3.0.0)
 
 ---
 
@@ -169,7 +169,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | Özellik | Açıklama |
 | --------- | ---------- |
 | 🔒 **Çok Katmanlı Zorunlu Kılma (HKCU + HKLM + Omaha)** | HKCU (kullanıcı) + HKLM (kurumsal/ADMX) + Omaha GUID — üç bağımsız zorunlu kılma katmanı |
-| 📋 **ADMX Doğrulamalı Politikalar** | 91 ADMX Doğrulamalı Politika (5 kademe, 22→47→72→83→91 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 115 ADMX Doğrulamalı Politika (5 kademe, 24→50→79→91→115 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
@@ -183,8 +183,8 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.2.1.0** *(güncel)* | 1.92.134 | 150 | 11 25H2 | ✅ Etkin |
-| **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
+| **v2.3.0.0** *(güncel)* | 1.92.138 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.1.6.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
@@ -200,7 +200,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.2.1.0 — Donanım API'si ve Güvenlik Sıkılaştırması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.2.1.0)
+> **Son Sürüm:** [v2.3.0.0 — Kurumsal Politika Genişletmesi (Aşama 8)](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.3.0.0)
 
 ---
 
