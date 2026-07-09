@@ -153,18 +153,18 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### 🎯 Summary
 
-**23 new enterprise policies added; cumulative chain expands to 115 policies.** Phase 8 adds Safe Browsing protection level controls, password protection warning trigger, online revocation checking, forced extension installation with Dark Reader + Google Docs Offline, download restrictions, proxy configuration, extension lockdown (block all extensions), Incognito mode disable, developer tools disable, task manager disable, printing disable, Brave update disable, and more. Every hardening level grows, with Strict nearly tripling its own policy count.
+**22 new enterprise policies added; cumulative chain expands to 114 policies.** Phase 8 adds Safe Browsing protection level controls, password protection warning trigger, online revocation checking, forced extension installation with Dark Reader + Google Docs Offline, download restrictions, proxy configuration, extension lockdown (block all extensions), Incognito mode disable, developer tools disable, task manager disable, printing disable, Brave update disable, and more. Every hardening level grows, with Strict nearly tripling its own policy count.
 
 | Metric | Before (v2.2.1.0) | After (v2.3.0.0) |
 |--------|-------------------|------------------|
 | Hardening levels | 5 | 5 |
-| Total policies | 91 | 115 |
+| Total policies | 91 | 114 |
 | Brave Only policies | 22 | **24** (+2) |
 | Essential additions | 25 | **26** (+1) |
 | Balanced additions | 25 | **29** (+4) |
-| Advanced additions | 11 | **12** (+1) |
-| Strict additions | 9 | **24** (+15) |
-| Cumulative chain | 22→47→72→83→91 | **24→50→79→91→115** |
+| Advanced additions | 11 | **11** (+0) |
+| Strict additions | 9 | **25** (+16) |
+| Cumulative chain | 22→47→72→83→91 | **24→50→79→90→114** |
 
 <a id="en-v2300-added"></a>
 
@@ -214,7 +214,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 - **Script version** — `$ScriptVersion = "v2.3.0.0"` in both EN and TR scripts.
 - **Validated Brave version** — Updated to `1.92.138` (Chromium 150.0.7871.101).
-- **Policy counts** — All documentation updated: BraveOnly 24→50→79→91→115 cumulative.
+- **Policy counts** — All documentation updated: BraveOnly 24→50→79→90→114 cumulative.
 - **Level descriptions** — Level cards, terminal display, compatibility table, and feature sections updated across all docs.
 - **Documentation** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html updated.
 
@@ -1288,18 +1288,18 @@ Eklenen/Değiştirilen Dosyalar:
 
 ### 🎯 Özet
 
-**23 yeni kurumsal politika eklendi; kümülatif zincir 115 politikaya genişletildi.** Aşama 8, Güvenli Gezinti koruma seviyesi kontrollerini, parola koruma uyarı tetikleyicisini, çevrimiçi iptal denetimini, zorunlu uzantı yüklemesini (Dark Reader + Google Docs Offline), indirme kısıtlamalarını, proxy yapılandırmasını, uzantı kilitlemeyi (tüm uzantıları engelle), gizli mod devre dışı bırakmayı, geliştirici araçlarını kapatmayı, görev yöneticisini devre dışı bırakmayı, yazdırmayı kapatmayı, Brave güncellemesini devre dışı bırakmayı ve daha fazlasını ekler. Her sıkılaştırma seviyesi büyür, özellikle Katı'nın kendi politika sayısı neredeyse üç katına çıkar.
+**22 yeni kurumsal politika eklendi; kümülatif zincir 114 politikaya genişletildi.** Aşama 8, Güvenli Gezinti koruma seviyesi kontrollerini, parola koruma uyarı tetikleyicisini, çevrimiçi iptal denetimini, zorunlu uzantı yüklemesini (Dark Reader + Google Docs Offline), indirme kısıtlamalarını, proxy yapılandırmasını, uzantı kilitlemeyi (tüm uzantıları engelle), gizli mod devre dışı bırakmayı, geliştirici araçlarını kapatmayı, görev yöneticisini devre dışı bırakmayı, yazdırmayı kapatmayı, Brave güncellemesini devre dışı bırakmayı ve daha fazlasını ekler. Her sıkılaştırma seviyesi büyür, özellikle Katı'nın kendi politika sayısı neredeyse üç katına çıkar.
 
 | Metrik | Önce (v2.2.1.0) | Sonra (v2.3.0.0) |
 |--------|-----------------|------------------|
 | Sıkılaştırma seviyesi | 5 | 5 |
-| Toplam politika | 91 | 115 |
+| Toplam politika | 91 | 114 |
 | Brave Yalnız politikaları | 22 | **24** (+2) |
 | Temel eklemeleri | 25 | **26** (+1) |
 | Dengeli eklemeleri | 25 | **29** (+4) |
-| Gelişmiş eklemeleri | 11 | **12** (+1) |
-| Katı eklemeleri | 9 | **24** (+15) |
-| Kümülatif zincir | 22→47→72→83→91 | **24→50→79→91→115** |
+| Gelişmiş eklemeleri | 11 | **11** (+0) |
+| Katı eklemeleri | 9 | **25** (+16) |
+| Kümülatif zincir | 22→47→72→83→91 | **24→50→79→90→114** |
 
 <a id="tr-v2300-eklendi"></a>
 
@@ -1349,7 +1349,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 - **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.3.0.0"`.
 - **Doğrulanan Brave sürümü** — `1.92.138` (Chromium 150.0.7871.101) olarak güncellendi.
-- **Politika sayıları** — Tüm belgeler güncellendi: BraveOnly 24→50→79→91→115 kümülatif.
+- **Politika sayıları** — Tüm belgeler güncellendi: BraveOnly 24→50→79→90→114 kümülatif.
 - **Seviye açıklamaları** — Seviye kartları, terminal ekranı, uyumluluk tablosu ve özellik bölümleri tüm dokümanlarda güncellendi.
 - **Belgeler** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html güncellendi.
 

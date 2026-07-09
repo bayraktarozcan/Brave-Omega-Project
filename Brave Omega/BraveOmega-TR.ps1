@@ -93,9 +93,9 @@
 #     Tüm v1.x düzeltmeleri (süreç kontrolü, yedekleme, try-catch, çıkış
 #     kodları, GUID çözümleme, UAC denetimi) korunmuş ve geliştirilmiştir.
 #
-#   v2.3.0.0             Faz 8 — Politika genişletmesi (+23 politika, 92→115 benzersiz):
+#   v2.3.0.0             Faz 8 — Politika genişletmesi (+22 politika, 92→114 benzersiz):
 #
-#     [YENİ]        23 yeni Chromium kurumsal politikası 5 kademeye eklendi.
+#     [YENİ]        22 yeni Chromium kurumsal politikası 5 kademeye eklendi.
 #
 #     [YENİ]        Brave Yalnız (+2): SafeBrowsingProtectionLevel,
 #                                      PasswordProtectionWarningTrigger
@@ -103,7 +103,6 @@
 #     [YENİ]        Dengeli (+4):      ExtensionInstallForcelist,
 #                                      DownloadRestrictions, DownloadDirectory,
 #                                      PromptForDownloadLocation
-#     [YENİ]        Gelişmiş (+1):     AllowPopupsDuringPageUnload
 #     [YENİ]        Katı (+15):        ExtensionInstallBlocklist,
 #                                      ExtensionInstallAllowlist,
 #                                      ExtensionAllowedTypes, BlockExternalExtensions,
@@ -115,7 +114,7 @@
 #                                      BuiltInDnsClientEnabled, BraveUpdateDisabled
 #
 #     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
-#                   Gelişmiş 91, Katı 115.
+#                   Gelişmiş 91, Katı 114.
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.138'e güncellendi
 #                   (Chromium 150.0.7871.101).
 # ==============================================================================
@@ -265,12 +264,11 @@ if ($Sifirla) {
         "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
         "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
         "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage",
-        # Phase 8 (v2.3.0.0) — 23 yeni politika
+        # Phase 8 (v2.3.0.0) — 22 yeni politika
         "SafeBrowsingProtectionLevel", "PasswordProtectionWarningTrigger",
         "EnableOnlineRevocationChecks",
         "ExtensionInstallForcelist", "DownloadRestrictions", "DownloadDirectory",
         "PromptForDownloadLocation",
-        "AllowPopupsDuringPageUnload",
         "ExtensionInstallBlocklist", "ExtensionInstallAllowlist", "ExtensionAllowedTypes",
         "BlockExternalExtensions", "ExtensionSettings", "ManifestV2ExtensionUnsupported",
         "IncognitoModeAvailability", "DeveloperToolsDisabled", "DeveloperToolsAvailability",
@@ -612,8 +610,8 @@ $PolitikaTanimlari = @{
         # ─── Yeni Dengeli Politikaları (Faz 8 — Prompt 22 + 24) ───
         # Uzantı Zorla Yükle — Dark Reader + Google Dokümanlar Çevrimdışı zorla yükle
         @{Ad="ExtensionInstallForcelist"; Deger=@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp"); Tur="MultiString"}
-        # İndirme Kısıtlamaları — tehlikeli indirmeleri engelle (3=genel koruma)
-        @{Ad="DownloadRestrictions";                 Deger=3; Tur="DWord"}
+        # İndirme Kısıtlamaları — tehlikeli indirmelerden önce uyar (1=temel koruma)
+        @{Ad="DownloadRestrictions";                 Deger=1; Tur="DWord"}
         # İndirme Klasörü — varsayılan indirme klasörünü ayarla
         @{Ad="DownloadDirectory";                    Deger="${env:USERPROFILE}\Downloads\"; Tur="String"}
         # İndirme Konumu Sor — sorma, varsayılan klasöre kaydet (0)
@@ -645,9 +643,6 @@ $PolitikaTanimlari = @{
         @{Ad="ImportSearchEngine";                   Deger=0; Tur="DWord"}
         # Ana sayfa içe aktarma — diğer tarayıcılardan ana sayfa ayarları alımını engeller
         @{Ad="ImportHomepage";                       Deger=0; Tur="DWord"}
-        # ─── Yeni Gelişmiş Politikaları (Faz 8 — Prompt 23) ───
-        # Sayfa Kapanırken Popup'a İzin Ver — sayfa kapanışında açılan popup'ları engelle
-        @{Ad="AllowPopupsDuringPageUnload";          Deger=0; Tur="DWord"}
     )
 
     "Strict" = @(
@@ -705,6 +700,9 @@ $PolitikaTanimlari = @{
         # ─── Yeni Katı Politikaları (Faz 8 — Prompt 25) ───
         # Brave Güncellemesi Devre Dışı — otomatik güncellemeleri kapat (sadece en katı seviye)
         @{Ad="BraveUpdateDisabled";                  Deger=1;          Tur="DWord"}
+        # ─── Dengeli seviyesinden taşındı (v2.3.0.0) — daha sıkı uygulama ───
+        # İndirme Kısıtlamaları — TÜM indirmeleri engelle (3=tam koruma, yalnızca katı)
+        @{Ad="DownloadRestrictions";                 Deger=3; Tur="DWord"}
     )
 }
 

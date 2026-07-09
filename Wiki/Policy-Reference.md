@@ -16,12 +16,12 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | **1. Brave Only** | 24 Brave-specific | — | 24 | Base |
 | **2. Essential** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | Includes Level 1 |
 | **3. Balanced** | 79 (50 + 29) | UsageStatsInSample | 79 | Includes Levels 1-2 |
-| **4. Advanced** | 91 (79 + 12) | UsageStatsInSample | 91 | Includes Levels 1-3 |
-| **5. Strict** | 115 (92 + 23) | UsageStatsInSample | 115 | Includes Levels 1-4 |
+| **4. Advanced** | 90 (79 + 11) | UsageStatsInSample | 90 | Includes Levels 1-3 |
+| **5. Strict** | 114 (90 + 24) | UsageStatsInSample | 114 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 115 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 114 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -61,7 +61,6 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | `SearchSuggestEnabled` | `0` | DWord | Stops search suggestions data leakage |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Enables online OCSP/CRL revocation checks |
 | `NetworkPredictionOptions` | `2` | DWord | Stops DNS prefetching and pre-connection |
-| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
 | `SpellcheckEnabled` | `0` | DWord | Disables spellcheck |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Stops error page network requests |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Stops time sync to Google |
@@ -118,7 +117,7 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `AllowPopupsDuringPageUnload` | `0` | DWord | Blocks pop-ups triggered during page unload |
 
-### Strict Level — Advanced + Maximum Privacy (23 additional)
+### Strict Level — Advanced + Maximum Privacy (24 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -145,6 +144,7 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | `ProxyMode` | `"system"` | String | Configures system proxy server |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables built-in DNS client (uses system DNS) |
 | `BraveUpdateDisabled` | `1` | DWord | Disables Brave auto-updates |
+| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
 
 ---
 
@@ -190,7 +190,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 115 policies should show as **Active** (green checkmark).
+All 114 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -238,12 +238,12 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
 | **2. Temel** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 79 (50 + 29) | UsageStatsInSample | 79 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 91 (79 + 12) | UsageStatsInSample | 91 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 115 (92 + 23) | UsageStatsInSample | 115 | 1-4. Seviyeleri kapsar |
+| **4. Gelişmiş** | 90 (79 + 11) | UsageStatsInSample | 90 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 114 (90 + 24) | UsageStatsInSample | 114 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 115 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 114 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -283,7 +283,6 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | `SearchSuggestEnabled` | `0` | DWord | Arama önerileri veri sızıntısını durdurur |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Çevrimiçi OCSP/CRL iptal kontrollerini etkinleştirir |
 | `NetworkPredictionOptions` | `2` | DWord | DNS ön getirmeyi ve ön bağlantıyı durdurur |
-| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
 | `SpellcheckEnabled` | `0` | DWord | Yazım denetimini devre dışı bırakır |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Hata sayfası ağ isteklerini durdurur |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Google'a saat senkronizasyonunu durdurur |
@@ -340,7 +339,7 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `AllowPopupsDuringPageUnload` | `0` | DWord | Sayfa kapanırken tetiklenen açılır pencereleri engeller |
 
-### Katı Seviye — Gelişmiş + Azami Gizlilik (23 ek)
+### Katı Seviye — Gelişmiş + Azami Gizlilik (24 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -367,6 +366,7 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | `ProxyMode` | `"system"` | String | Sistem vekil sunucusunu yapılandırır |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Yerleşik DNS istemcisini devre dışı bırakır (sistem DNS kullanır) |
 | `BraveUpdateDisabled` | `1` | DWord | Brave otomatik güncellemelerini devre dışı bırakır |
+| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
 
 ---
 
@@ -412,7 +412,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-115 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+114 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

@@ -92,9 +92,9 @@
 #     All v1.x fixes (process control, backup, try-catch, exit codes, GUID
 #     resolution, UAC check) are preserved and enhanced.
 #
-#   v2.3.0.0             Phase 8 — Policy expansion (+23 policies, 92→115 unique):
+#   v2.3.0.0             Phase 8 — Policy expansion (+22 policies, 92→114 unique):
 #
-#     [NEW]        23 new Chromium enterprise policies added across all 5 tiers.
+#     [NEW]        22 new Chromium enterprise policies added across all 5 tiers.
 #
 #     [NEW]        BraveOnly (+2): SafeBrowsingProtectionLevel,
 #                                  PasswordProtectionWarningTrigger
@@ -102,7 +102,6 @@
 #     [NEW]        Balanced (+4):  ExtensionInstallForcelist,
 #                                  DownloadRestrictions, DownloadDirectory,
 #                                  PromptForDownloadLocation
-#     [NEW]        Advanced (+1):  AllowPopupsDuringPageUnload
 #     [NEW]        Strict (+15):   ExtensionInstallBlocklist,
 #                                  ExtensionInstallAllowlist,
 #                                  ExtensionAllowedTypes, BlockExternalExtensions,
@@ -114,7 +113,7 @@
 #                                  BuiltInDnsClientEnabled, BraveUpdateDisabled
 #
 #     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 50, Balanced 79,
-#                   Advanced 91, Strict 115.
+#                   Advanced 91, Strict 114.
 #     [IMPROVED]    Validated Brave version updated to 1.92.138
 #                   (Chromium 150.0.7871.101).
 # ==============================================================================
@@ -265,12 +264,11 @@ if ($Reset) {
         "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
         "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
         "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage",
-        # Phase 8 (v2.3.0.0) — 23 new policies
+        # Phase 8 (v2.3.0.0) — 22 new policies
         "SafeBrowsingProtectionLevel", "PasswordProtectionWarningTrigger",
         "EnableOnlineRevocationChecks",
         "ExtensionInstallForcelist", "DownloadRestrictions", "DownloadDirectory",
         "PromptForDownloadLocation",
-        "AllowPopupsDuringPageUnload",
         "ExtensionInstallBlocklist", "ExtensionInstallAllowlist", "ExtensionAllowedTypes",
         "BlockExternalExtensions", "ExtensionSettings", "ManifestV2ExtensionUnsupported",
         "IncognitoModeAvailability", "DeveloperToolsDisabled", "DeveloperToolsAvailability",
@@ -603,8 +601,8 @@ $PolicyDefinitions = @{
         # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
         # Extension Install Forcelist — force-install Dark Reader + Google Docs Offline
         @{Name="ExtensionInstallForcelist"; Value=@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp"); Type="MultiString"}
-        # Download Restrictions — block dangerous downloads (3=general protection)
-        @{Name="DownloadRestrictions";                 Value=3; Type="DWord"}
+        # Download Restrictions — warn before dangerous downloads (1=basic protection)
+        @{Name="DownloadRestrictions";                 Value=1; Type="DWord"}
         # Download Directory — set default download folder
         @{Name="DownloadDirectory";                    Value="${env:USERPROFILE}\Downloads\"; Type="String"}
         # Prompt For Download Location — do not prompt, use default (0)
@@ -636,9 +634,6 @@ $PolicyDefinitions = @{
         @{Name="ImportSearchEngine";                   Value=0; Type="DWord"}
         # Import homepage — disables importing homepage settings
         @{Name="ImportHomepage";                       Value=0; Type="DWord"}
-        # ─── New Advanced Policies (Phase 8 — Prompt 23) ───
-        # Allow Popups During Page Unload — block popups triggered on page close
-        @{Name="AllowPopupsDuringPageUnload";          Value=0; Type="DWord"}
     )
 
     "Strict" = @(
@@ -695,7 +690,10 @@ $PolicyDefinitions = @{
         @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
         # ─── New Strict Policies (Phase 8 — Prompt 25) ───
         # Brave Update Disabled — disable Brave auto-updates (strict only)
-        @{Name="BraveUpdateDisabled";                  Value=1;          Type="DWord"}
+        @{Name="BraveUpdateDisabled";                  Value=1; Type="DWord"}
+        # ─── Moved from Balanced (v2.3.0.0) — stricter enforcement ───
+        # Download Restrictions — block ALL downloads (3=full protection, strict only)
+        @{Name="DownloadRestrictions";                 Value=3; Type="DWord"}
     )
 }
 

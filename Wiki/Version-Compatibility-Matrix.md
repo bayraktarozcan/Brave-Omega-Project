@@ -112,7 +112,7 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
-| v2.3.0.0 | 115 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (23 new) |
+| v2.3.0.0 | 114 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (22 new) |
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API blocking, ECH enforcement, Payment Request disable, window management isolation, site-per-process (12 new) |
 | v2.2.0.2 | 80 | 100% | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled removed (deprecated), policy counts adjusted |
@@ -280,7 +280,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
-| v2.3.0.0 | 115 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (23 yeni) |
+| v2.3.0.0 | 114 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (22 yeni) |
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API engelleme, ECH zorlama, Payment Request devre dışı, pencere yönetimi yalıtımı, site başına süreç (12 yeni) |
 | v2.2.0.2 | 80 | 100% | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled kaldırıldı (kullanım dışı), politika sayıları düzeltildi |

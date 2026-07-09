@@ -53,7 +53,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | Feature | Description |
 | --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement (HKCU + HKLM + Omaha)** | HKCU (user) + HKLM (enterprise/ADMX) + Omaha GUID — three independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 115 ADMX-Validated Policies (5 tiers, 24→50→79→91→115 chain), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 114 ADMX-Validated Policies (5 tiers, 24→50→79→90→114 chain), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -169,7 +169,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | Özellik | Açıklama |
 | --------- | ---------- |
 | 🔒 **Çok Katmanlı Zorunlu Kılma (HKCU + HKLM + Omaha)** | HKCU (kullanıcı) + HKLM (kurumsal/ADMX) + Omaha GUID — üç bağımsız zorunlu kılma katmanı |
-| 📋 **ADMX Doğrulamalı Politikalar** | 115 ADMX Doğrulamalı Politika (5 kademe, 24→50→79→91→115 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 114 ADMX Doğrulamalı Politika (5 kademe, 24→50→79→90→114 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |

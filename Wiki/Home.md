@@ -18,7 +18,7 @@
 | [🏠 Overview](Overview) | What is Brave Omega, why it exists, key concepts |
 | [🚀 Quick Start](Quick-Start) | Get running in 3 minutes |
 | [🏗️ Architecture](Architecture) | Multi-layer enforcement model, policy sources |
-| [📋 Policy Reference](Policy-Reference) | Complete 115-policy registry reference |
+| [📋 Policy Reference](Policy-Reference) | Complete 114-policy registry reference |
 | [🔧 Installation](Installation) | Prerequisites, execution policy, step-by-step |
 | [🛡️ Security](Security) | Safety model, backup/rollback, process guard |
 | [🔍 Troubleshooting](Troubleshooting) | Common issues and solutions |
@@ -55,7 +55,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | Feature | Description |
 | --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement** | HKCU + HKLM + Omaha GUID — independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 115 policies (5 tiers, 24→50→79→91→115 chain), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 114 policies (5 tiers, 24→50→79→90→114 chain), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -138,7 +138,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | [🏠 Genel Bakış](Overview#-türkçe) | Brave Omega nedir, neden var, temel kavramlar |
 | [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) | 3 dakikada çalıştırma |
 | [🏗️ Mimari](Architecture#-türkçe) | Çok katmanlı uygulama modeli, politika kaynakları |
-| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 115 politikalık kayıt defteri başvuru tablosu |
+| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 114 politikalık kayıt defteri başvuru tablosu |
 | [🔧 Kurulum](Installation#-türkçe) | Ön gereksinimler, çalıştırma ilkesi, adım adım |
 | [🛡️ Güvenlik](Security#-türkçe) | Güvenlik modeli, yedekleme/geri alma, süreç koruyucu |
 | [🔍 Sorun Giderme](Troubleshooting#-türkçe) | Sık karşılaşılan sorunlar ve çözümleri |
@@ -175,7 +175,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | Özellik | Açıklama |
 | --------- | ---------- |
 | 🔒 **Çok Katmanlı Uygulama** | HKCU + HKLM + Omaha GUID — bağımsız uygulama katmanları |
-| 📋 **ADMX Doğrulamalı Politikalar** | 115 politika (5 kademe, 24→50→79→91→115 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 114 politika (5 kademe, 24→50→79→90→114 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
