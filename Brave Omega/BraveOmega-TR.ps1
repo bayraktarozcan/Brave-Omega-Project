@@ -114,7 +114,7 @@
 #                                      BuiltInDnsClientEnabled, BraveUpdateDisabled
 #
 #     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
-#                   Gelişmiş 91, Katı 114.
+#                   Gelişmiş 90, Katı 114.
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.138'e güncellendi
 #                   (Chromium 150.0.7871.101).
 # ==============================================================================
