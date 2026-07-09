@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8524)
-#                  Brave 1.92.134 — Resmî Derleme / Chromium 150.0.7871.63
+#                  Brave 1.92.138 — Resmî Derleme / Chromium 150.0.7871.101
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
 #                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
 #                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.92.134, 3 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.92.138, 9 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
@@ -92,6 +92,32 @@
 #
 #     Tüm v1.x düzeltmeleri (süreç kontrolü, yedekleme, try-catch, çıkış
 #     kodları, GUID çözümleme, UAC denetimi) korunmuş ve geliştirilmiştir.
+#
+#   v2.3.0.0             Faz 8 — Politika genişletmesi (+23 politika, 92→115 benzersiz):
+#
+#     [YENİ]        23 yeni Chromium kurumsal politikası 5 kademeye eklendi.
+#
+#     [YENİ]        Brave Yalnız (+2): SafeBrowsingProtectionLevel,
+#                                      PasswordProtectionWarningTrigger
+#     [YENİ]        Temel (+1):        EnableOnlineRevocationChecks
+#     [YENİ]        Dengeli (+4):      ExtensionInstallForcelist,
+#                                      DownloadRestrictions, DownloadDirectory,
+#                                      PromptForDownloadLocation
+#     [YENİ]        Gelişmiş (+1):     AllowPopupsDuringPageUnload
+#     [YENİ]        Katı (+15):        ExtensionInstallBlocklist,
+#                                      ExtensionInstallAllowlist,
+#                                      ExtensionAllowedTypes, BlockExternalExtensions,
+#                                      ExtensionSettings, ManifestV2ExtensionUnsupported,
+#                                      IncognitoModeAvailability, DeveloperToolsDisabled,
+#                                      DeveloperToolsAvailability,
+#                                      TaskManagerEndProcessEnabled, PrintingEnabled,
+#                                      DisablePrintPreview, ProxyMode,
+#                                      BuiltInDnsClientEnabled, BraveUpdateDisabled
+#
+#     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
+#                   Gelişmiş 91, Katı 115.
+#     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.138'e güncellendi
+#                   (Chromium 150.0.7871.101).
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -106,8 +132,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.2.1.0"
-$DogrulananBrave = "1.92.134"
+$BetikSurum    = "v2.3.0.0"
+$DogrulananBrave = "1.92.138"
 $DogrulananChromium = "150"
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -238,7 +264,18 @@ if ($Sifirla) {
         "DefaultInsecureContentSetting", "DefaultJavaScriptJitSetting", "DefaultCookiesSetting",
         "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
         "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
-        "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage"
+        "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage",
+        # Phase 8 (v2.3.0.0) — 23 yeni politika
+        "SafeBrowsingProtectionLevel", "PasswordProtectionWarningTrigger",
+        "EnableOnlineRevocationChecks",
+        "ExtensionInstallForcelist", "DownloadRestrictions", "DownloadDirectory",
+        "PromptForDownloadLocation",
+        "AllowPopupsDuringPageUnload",
+        "ExtensionInstallBlocklist", "ExtensionInstallAllowlist", "ExtensionAllowedTypes",
+        "BlockExternalExtensions", "ExtensionSettings", "ManifestV2ExtensionUnsupported",
+        "IncognitoModeAvailability", "DeveloperToolsDisabled", "DeveloperToolsAvailability",
+        "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
+        "ProxyMode", "BuiltInDnsClientEnabled", "BraveUpdateDisabled"
     )
 
     # HKLM'den kaldır
@@ -450,6 +487,11 @@ $PolitikaTanimlari = @{
         @{Ad="BraveShieldsEnabledForUrls";           Deger=@(); Tur="MultiString"}
         # E-posta takma adları — anonim e-posta takma adı özelliğini kapatır
         @{Ad="EmailAliasesEnabled";                  Deger=0; Tur="DWord"}
+        # ─── Yeni Brave Yalnız Politikaları (Faz 8 — Prompt 25) ───
+        # Safe Browsing Koruma Seviyesi — tüm seviyeler için gelişmiş koruma (2)
+        @{Ad="SafeBrowsingProtectionLevel";          Deger=2; Tur="DWord"}
+        # Parola Koruma Uyarı Tetikleyicisi — sızıntı tespiti + parola tekrarı (3)
+        @{Ad="PasswordProtectionWarningTrigger";     Deger=3; Tur="DWord"}
     )
 
     "Essential" = @(
@@ -507,6 +549,9 @@ $PolitikaTanimlari = @{
         @{Ad="PaymentMethodQueryEnabled";            Deger=0; Tur="DWord"}
         # Alt Çerçeve İletişim Kutuları — farklı kaynaklı alt çerçevelerin iletişim kutularını engeller
         @{Ad="SuppressDifferentOriginSubframeDialogs"; Deger=1; Tur="DWord"}
+        # ─── Yeni Temel Politikaları (Faz 8 — Prompt 25) ───
+        # Çevrimiçi İptal Denetimlerini Etkinleştir — OCSP/CRL sertifika doğrulamasını zorla
+        @{Ad="EnableOnlineRevocationChecks";         Deger=1; Tur="DWord"}
     )
 
     "Balanced" = @(
@@ -564,6 +609,15 @@ $PolitikaTanimlari = @{
         @{Ad="IntensiveWakeUpThrottlingEnabled";     Deger=1; Tur="DWord"}
         # Kullanıcı Geri Bildirimi — tarayıcı içi geri bildirim istemlerini devre dışı bırakır
         @{Ad="UserFeedbackAllowed";                  Deger=0; Tur="DWord"}
+        # ─── Yeni Dengeli Politikaları (Faz 8 — Prompt 22 + 24) ───
+        # Uzantı Zorla Yükle — Dark Reader + Google Dokümanlar Çevrimdışı zorla yükle
+        @{Ad="ExtensionInstallForcelist"; Deger=@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp"); Tur="MultiString"}
+        # İndirme Kısıtlamaları — tehlikeli indirmeleri engelle (3=genel koruma)
+        @{Ad="DownloadRestrictions";                 Deger=3; Tur="DWord"}
+        # İndirme Klasörü — varsayılan indirme klasörünü ayarla
+        @{Ad="DownloadDirectory";                    Deger="${env:USERPROFILE}\Downloads\"; Tur="String"}
+        # İndirme Konumu Sor — sorma, varsayılan klasöre kaydet (0)
+        @{Ad="PromptForDownloadLocation";             Deger=0; Tur="DWord"}
     )
 
     "Advanced" = @(
@@ -591,6 +645,9 @@ $PolitikaTanimlari = @{
         @{Ad="ImportSearchEngine";                   Deger=0; Tur="DWord"}
         # Ana sayfa içe aktarma — diğer tarayıcılardan ana sayfa ayarları alımını engeller
         @{Ad="ImportHomepage";                       Deger=0; Tur="DWord"}
+        # ─── Yeni Gelişmiş Politikaları (Faz 8 — Prompt 23) ───
+        # Sayfa Kapanırken Popup'a İzin Ver — sayfa kapanışında açılan popup'ları engelle
+        @{Ad="AllowPopupsDuringPageUnload";          Deger=0; Tur="DWord"}
     )
 
     "Strict" = @(
@@ -614,6 +671,40 @@ $PolitikaTanimlari = @{
         @{Ad="ImportBookmarks";                      Deger=0; Tur="DWord"}
         # Birinci taraf depolama — sekme/gezinti sonunda temizle (her oturumda login kaybı)
         @{Ad="DefaultBraveRemember1PStorageSetting"; Deger=2; Tur="DWord"}
+        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 22) ───
+        # Uzantı Yükleme Engel Listesi — beyaz liste dışındaki tüm uzantıları engelle
+        @{Ad="ExtensionInstallBlocklist";            Deger=@("*");     Tur="MultiString"}
+        # Uzantı Yükleme İzin Listesi — yalnızca Dark Reader + Google Dokümanlar Çevrimdışı
+        @{Ad="ExtensionInstallAllowlist";            Deger=@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp"); Tur="MultiString"}
+        # İzin Verilen Uzantı Türleri — yalnızca extension ve shared_module
+        @{Ad="ExtensionAllowedTypes";                Deger=@("extension", "shared_module"); Tur="MultiString"}
+        # Harici Uzantıları Engelle — yan yükleme/sideloading'i engelle
+        @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
+        # Uzantı Ayarları — JSON yedek katmanı
+        @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked","allowlist":["gighmmpiobklfepjocnamgkkbiglidom","jkfdkjapfhfinccefmehkmnjghbkladp"]}}'; Tur="String"}
+        # Manifest V2 Uzantı Desteği — kullanıcıyı rahatsız etme (0)
+        @{Ad="ManifestV2ExtensionUnsupported";        Deger=0;          Tur="DWord"}
+        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 23) ───
+        # Gizli Mod Kullanılabilirliği — gizli modu devre dışı bırak (sadece en katı seviye)
+        @{Ad="IncognitoModeAvailability";            Deger=1;          Tur="DWord"}
+        # Geliştirici Araçları Devre Dışı — DevTools'u tamamen kapat (sadece en katı seviye)
+        @{Ad="DeveloperToolsDisabled";               Deger=1;          Tur="DWord"}
+        # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla (sadece en katı seviye)
+        @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
+        # Görev Yöneticisi İşlem Sonlandırma — işlem sonlandırmayı engelle (sadece en katı seviye)
+        @{Ad="TaskManagerEndProcessEnabled";         Deger=0;          Tur="DWord"}
+        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 24) ───
+        # Yazdırma Etkin — tüm yazdırmayı devre dışı bırak (sadece en katı seviye)
+        @{Ad="PrintingEnabled";                       Deger=0;          Tur="DWord"}
+        # Yazdırma Önizlemesini Devre Dışı Bırak — önizleme iletişim kutusunu kapat (sadece en katı seviye)
+        @{Ad="DisablePrintPreview";                   Deger=1;          Tur="DWord"}
+        # Vekil Sunucu Modu — sistem vekil sunucu ayarlarını kullan (sadece en katı seviye)
+        @{Ad="ProxyMode";                            Deger="system";   Tur="String"}
+        # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan (sadece en katı seviye)
+        @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
+        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 25) ───
+        # Brave Güncellemesi Devre Dışı — otomatik güncellemeleri kapat (sadece en katı seviye)
+        @{Ad="BraveUpdateDisabled";                  Deger=1;          Tur="DWord"}
     )
 }
 
