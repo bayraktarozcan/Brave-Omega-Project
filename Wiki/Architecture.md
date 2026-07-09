@@ -39,11 +39,11 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 
 | Level | Policies | Scope | User Impact |
 | ------- | ---------- | ------- | ------------- |
-| **1. Brave Only** | 22 Brave-specific policies | HKLM | None |
-| **2. Essential** ⭐ | 22 + 17 = 39 | HKLM + HKCU + Omaha | None |
-| **3. Balanced** | 39 + 21 = 60 | + WebRTC, HTTPS, DNS | Low |
-| **4. Advanced** | 60 + 11 = 71 | + Sensors, Imports, Profiles | Low |
-| **5. Strict** | 71 + 9 = 80 | + JIT, Cookies, Clipboard, FS | Medium |
+| **1. Brave Only** | 24 Brave-specific policies | HKLM | None |
+| **2. Essential** ⭐ | 24 + 26 = 50 | HKLM + HKCU + Omaha | None |
+| **3. Balanced** | 50 + 29 = 79 | + WebRTC, HTTPS, DNS | Low |
+| **4. Advanced** | 79 + 11 = 90 | + Sensors, Imports, Profiles | Low |
+| **5. Strict** | 90 + 24 = 114 | + JIT, Cookies, Clipboard, FS | Medium |
 
 Select your level interactively when running the script or use the `-Level` parameter:
 
@@ -197,13 +197,13 @@ Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız 
 
 | Seviye | Politika | Kapsam | Kullanım Etkisi |
 | -------- | ---------- | -------- | ----------------- |
-| **1. Brave Yalnız** | 22 Brave'e özgü politika | HKLM | Yok |
-| **2. Temel** ⭐ | 22 + 17 = 39 | HKLM + HKCU + Omaha | Yok |
-| **3. Dengeli** | 39 + 21 = 60 | + WebRTC, HTTPS, DNS | Düşük |
-| **4. Gelişmiş** | 60 + 11 = 71 | + Sensörler, İçe Aktarmalar, Profiller | Düşük |
-| **5. Katı** | 71 + 9 = 80 | + JIT, Çerezler, Pano, FS | Orta |
+| **1. Brave Yalnız** | 24 Brave'e özgü politika | HKLM | Yok |
+| **2. Temel** ⭐ | 24 + 26 = 50 | HKLM + HKCU + Omaha | Yok |
+| **3. Dengeli** | 50 + 29 = 79 | + WebRTC, HTTPS, DNS | Düşük |
+| **4. Gelişmiş** | 79 + 11 = 90 | + Sensörler, İçe Aktarmalar, Profiller | Düşük |
+| **5. Katı** | 90 + 24 = 114 | + JIT, Çerezler, Pano, FS | Orta |
 
-retiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:
+Betiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:
 
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel

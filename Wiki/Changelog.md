@@ -1,9 +1,9 @@
 ﻿> **Language / Dil** &nbsp;
-> [EN English](#-english) &nbsp;�&nbsp; [TR T�rk�e](#-t�rk�e)
+> [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
 
-# ?? Changelog � Version History
+# 📋 Changelog — Version History
 
 Complete version history for Brave Omega.
 
@@ -22,6 +22,28 @@ Complete version history for Brave Omega.
 ---
 
 ## Release History
+
+### v2.3.0.0 — 2026-07-09
+
+**Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 91→114 Policies (+23)**
+
+**Added:**
+- 22 new Chromium enterprise policies added across all 5 hardening levels:
+  - **Brave Only (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
+  - **Essential (+1):** EnableOnlineRevocationChecks
+  - **Balanced (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
+  - **Strict (+15):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+
+**Changed:**
+- Cumulative chain restructured: 22→47→72→83→91 → 24→50→79→90→114
+- Brave validated version updated to 1.92.138 (Chromium 150.0.7871.101)
+- Both scripts updated to v2.3.0.0 with `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
+- Documentation updated across README, Wiki, index.html, CHANGELOG
+
+**Removed:**
+- `AllowPopupsDuringPageUnload` (deprecated upstream, removed after initial 115-policy build)
+
+---
 
 ### v2.2.1.0 - 2026-07-07
 
@@ -162,7 +184,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v2.1 � 2026-06-16
+### v2.1 — 2026-06-16
 
 **Version Detection, -WhatIf, -Reset & CI/CD**
 
@@ -183,7 +205,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v2.1.1 � 2026-06-17
+### v2.1.1 — 2026-06-17
 
 **Dual-Version Detection Fix**
 
@@ -200,14 +222,14 @@ Complete version history for Brave Omega.
 
 ---
 
-### v2.0 � 2026-06-16
+### v2.0 — 2026-06-16
 
 **Multi-Tier Hardening System (68 Policies)**
 
 **Added:**
 
-- 4-Tier Hardening Model: Brave Only (13) � Essential (30) � Balanced (49) � Strict (68)
-- Cumulative inheritance � each level includes all policies from previous levels
+- 4-Tier Hardening Model: Brave Only (13) → Essential (30) → Balanced (49) → Strict (68)
+- Cumulative inheritance — each level includes all policies from previous levels
 - Interactive level selection menu with Turkish language support (-Level parameter)
 - Registry Type Engine: DWord, String, MultiString support
 - 3-Layer Enforcement: HKCU + HKLM ADMX + Omaha GUID
@@ -216,14 +238,14 @@ Complete version history for Brave Omega.
 
 **Changed:**
 
-- Architecture: flat policy list � 4-tier cumulative model
-- Version bump: v1.2.2 � v2.0
+- Architecture: flat policy list → 4-tier cumulative model
+- Version bump: v1.2.2 → v2.0
 - README.md: complete v2.0 rewrite
 - index.html: compatibility matrix, terminal animation, tier descriptions
 
 ---
 
-### v1.2.2 � 2026-06-13
+### v1.2.2 — 2026-06-13
 
 **Safe Execution Policy Fix & Simplified One-Line Workflow**
 
@@ -246,7 +268,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v1.2.1 � 2026-06-13
+### v1.2.1 — 2026-06-13
 
 **Brave 1.91.172 Upgrade, Translation Parity Fix, Structural Corrections**
 
@@ -263,9 +285,9 @@ Complete version history for Brave Omega.
 
 ---
 
-### v1.2 � 2026-06-12
+### v1.2 — 2026-06-12
 
-**Policy Expansion & Documentation � Major Feature Release**
+**Policy Expansion & Documentation — Major Feature Release**
 
 **Added:**
 
@@ -283,7 +305,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v1.1 � 2026-06-05
+### v1.1 — 2026-06-05
 
 **Error Handling, Backups, Process Guards, BraveShieldsDefault Removal**
 
@@ -306,9 +328,9 @@ Complete version history for Brave Omega.
 
 ---
 
-### v1.0 � 2026-06-04
+### v1.0 — 2026-06-04
 
-**Initial Release � Community Edition**
+**Initial Release — Community Edition**
 
 **Features:**
 
@@ -332,7 +354,7 @@ Complete version history for Brave Omega.
 | v1.1 to v1.2 | Re-run script; 10 new policies added, backup/rollback improved |
 | v1.0 to v1.1 | Re-run script; backup/rollback, process guard added |
 
-> **Note:** All versions are idempotent � safe to re-run. Always backup first if uncertain.
+> **Note:** All versions are idempotent — safe to re-run. Always backup first if uncertain.
 
 ---
 
@@ -340,13 +362,19 @@ Complete version history for Brave Omega.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.1** *(current)* | 1.91.172 | 149 | 11 25H2 | ? Active |
-| v2.0 | 1.91.172 | 149 | 11 25H2 | ?? Previous |
-| v1.2.2 | 1.91.172 | 149 | 11 25H2 | ?? Previous |
-| v1.2.1 | 1.91.172 | 149 | 11 25H2 | ?? Previous |
-| v1.2 | 1.91.172 | 149 | 11 25H2 | ?? Previous |
-| v1.1 | 1.91.168 | 149 | 11 25H2 | ?? Previous |
-| v1.0 | 1.91.168 | 149 | 11 25H2 | ?? Archived |
+| **v2.3.0.0** *(current)* | 1.92.138 | 150 | 11 25H2 | ✅ Active |
+| v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
+| v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
+| v2.2.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
+| v2.1.6.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
+| v2.1.5 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
+| v2.1 | 1.91.172 | 149 | 11 25H2 | ⏹️ Previous |
+| v2.0 | 1.91.172 | 149 | 11 25H2 | ⏹️ Previous |
+| v1.2.2 | 1.91.172 | 149 | 11 25H2 | ⏹️ Previous |
+| v1.2.1 | 1.91.172 | 149 | 11 25H2 | ⏹️ Previous |
+| v1.2 | 1.91.172 | 149 | 11 25H2 | ⏹️ Previous |
+| v1.1 | 1.91.168 | 149 | 11 25H2 | ⏹️ Previous |
+| v1.0 | 1.91.168 | 149 | 11 25H2 | ⏹️ Archived |
 
 ---
 
@@ -386,27 +414,49 @@ Complete version history for Brave Omega.
 
 ---
 
-<a id="-t�rk�e"></a>
+<a id="-türkçe"></a>
 
-# ?? De�i�iklik G�nl��� � S�r�m Ge�mi�i
+# 📋 Değişiklik Günlüğü — Sürüm Geçmişi
 
-Brave Omega i�in tam s�r�m ge�mi�i.
+Brave Omega için tam sürüm geçmişi.
 
 ---
 
-## S�r�m Bi�imi
+## Sürüm Biçimi
 
-| Bile�en | Politika |
+| Bileşen | Politika |
 | --------- | ---------- |
-| **Ana (Major)** | K�r�c� mimari de�i�iklikleri, yeni katman ekleme |
-| **Alt (Minor)** | Yeni politikalar eklendi, �nemli �zellik eklemeleri |
-| **Yama (Patch)** | Hata d�zeltmeleri, �eviri g�ncellemeleri, belgelendirme, �al��t�rma ilkesi d�zeltmeleri |
+| **Ana (Major)** | Kırıcı mimari değişiklikleri, yeni katman ekleme |
+| **Alt (Minor)** | Yeni politikalar eklendi, önemli özellik eklemeleri |
+| **Yama (Patch)** | Hata düzeltmeleri, çeviri güncellemeleri, belgelendirme, çalıştırma ilkesi düzeltmeleri |
 
-**S�r�m Sabitleme:** Her s�r�m, tam Brave + Chromium s�r�m�yle a��k�a etiketlenir.
+**Sürüm Sabitleme:** Her sürüm, tam Brave + Chromium sürümüyle açıkça etiketlenir.
 
 ---
 
-## S�r�m Ge�mi�i
+## Sürüm Geçmişi
+
+### v2.3.0.0 — 2026-07-09
+
+**Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 91→114 Politika (+23)**
+
+**Eklenenler:**
+- 5 sıkılaştırma seviyesine 22 yeni Chromium kurumsal politikası eklendi:
+  - **Brave Yalnız (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
+  - **Temel (+1):** EnableOnlineRevocationChecks
+  - **Dengeli (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
+  - **Katı (+15):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+
+**Değişenler:**
+- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→50→79→90→114
+- Doğrulanmış Brave sürümü 1.92.138'e güncellendi (Chromium 150.0.7871.101)
+- Her iki betik v2.3.0.0'a güncellendi, `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
+- README, Wiki, index.html, CHANGELOG genelinde dokümantasyon güncellendi
+
+**Kaldırılanlar:**
+- `AllowPopupsDuringPageUnload` (kullanım dışı, ilk 115 politikalık yapıdan sonra kaldırıldı)
+
+---
 
 ### v2.2.1.0 - 2026-07-07
 
@@ -504,65 +554,65 @@ Brave Omega i�in tam s�r�m ge�mi�i.
 
 ---
 
-### v2.1 � 2026-06-16
+### v2.1 — 2026-06-16
 
-**S�r�m Alg�lama, -WhatIf, -Reset ve CI/CD**
+**Sürüm Algılama, -WhatIf, -Reset ve CI/CD**
 
 **Eklenenler:**
 
-- Otomatik Brave s�r�m alg�lama (binary ke�fi, s�r�m kar��la�t�rma, uyumsuzluk uyar�s�)
-- -WhatIf parametresi ile kuru �al��t�rma (macenta [WhatIf] etiketleri, kay�t defteri yazma yok)
-- -Reset parametresi ile temiz kald�rma (68 politikan�n t�m�, bo� anahtar temizli�i)
-- CONTRIBUTING.md (EN + TR) GitHub sorun �ablonlar�yla
-- GitHub Actions ADMX do�rulama hatt� (haftal�k + manuel tetikleme)
-- SECURITY.md (599 sat�rl�k EN+TR g�venlik politikas�)
+- Otomatik Brave sürüm algılama (binary keşfi, sürüm karşılaştırma, uyumsuzluk uyarısı)
+- -WhatIf parametresi ile kuru çalıştırma (macenta [WhatIf] etiketleri, kayıt defteri yazma yok)
+- -Reset parametresi ile temiz kaldırma (68 politikanın tümü, boş anahtar temizliği)
+- CONTRIBUTING.md (EN + TR) GitHub sorun şablonlarıyla
+- GitHub Actions ADMX doğrulama hattı (haftalık + manuel tetikleme)
+- SECURITY.md (599 satırlık EN+TR güvenlik politikası)
 
-**De�i�enler:**
+**Değişenler:**
 
-- Her iki betik v2.1'e g�ncellendi, $ScriptVersion = "v2.1"
-- README.md: g�ncellenmi� yol haritas�, -WhatIf/-Reset ile h�zl� ba�lang��
-- index.html: g�ncellenmi� de�i�iklik g�nl���, rozetler, uyumluluk matrisi
+- Her iki betik v2.1'e güncellendi, $ScriptVersion = "v2.1"
+- README.md: güncellenmiş yol haritası, -WhatIf/-Reset ile hızlı başlangıç
+- index.html: güncellenmiş değişiklik günlüğü, rozetler, uyumluluk matrisi
 
 ---
 
 ### v2.1.4 - 2026-06-27
 
-**Brave 1.91.180 / Chromium 149.0.7827.201 DoÄrulamasÄ±**
+**Brave 1.91.180 / Chromium 149.0.7827.201 Doğrulaması**
 
-**DeÄiÅenler:**
+**Değişenler:**
 
-- Her iki betik v2.1.4'e gÃ¼ncellendi, `$ScriptVersion = "v2.1.4"` / `$BetikSurum = "v2.1.4"`
-- DoÄrulanmÄ±Å Brave sÃ¼rÃ¼mÃ¼ 1.91.178 â 1.91.180 olarak gÃ¼ncellendi
-- DoÄrulanmÄ±Å Chromium sÃ¼rÃ¼mÃ¼ 149.0.7827.196 â 149.0.7827.201 olarak gÃ¼ncellendi
-- TÃ¼m Wiki sayfalarÄ±nda kapsamlÄ± belge sÃ¼rÃ¼m gÃ¼ncellemesi
-- .github ÅablonlarÄ± iyileÅtirildi: PR Åablonu, config.yml dÃ¼zeltmesi, sorun formu aÃ§Ä±lÄ±r menÃ¼leri
-- Dal koruma kuralÄ± dÃ¼zeltildi (durum denetimi adÄ±)
+- Her iki betik v2.1.4'e güncellendi, `$ScriptVersion = "v2.1.4"` / `$BetikSurum = "v2.1.4"`
+- Doğrulanmış Brave sürümü 1.91.178 → 1.91.180 olarak güncellendi
+- Doğrulanmış Chromium sürümü 149.0.7827.196 → 149.0.7827.201 olarak güncellendi
+- Tüm Wiki sayfalarında kapsamlı belge sürüm güncellemesi
+- .github şablonları iyileştirildi: PR şablonu, config.yml düzeltmesi, sorun formu açılır menüleri
+- Dal koruma kuralı düzeltildi (durum denetimi adı)
 
 ---
 
 ### v2.1.3 - 2026-06-26
 
-**Brave 1.91.178 / Chromium 149.0.7827.196 DoÄrulamasÄ±**
+**Brave 1.91.178 / Chromium 149.0.7827.196 Doğrulaması**
 
-**DeÄiÅenler:**
+**Değişenler:**
 
-- Her iki betik v2.1.3'e gÃ¼ncellendi, `$ScriptVersion = "v2.1.3"` / `$BetikSurum = "v2.1.3"`
-- DoÄrulanmÄ±Å Brave sÃ¼rÃ¼mÃ¼ 1.91.172 â 1.91.178 olarak gÃ¼ncellendi
-- DoÄrulanmÄ±Å Chromium sÃ¼rÃ¼mÃ¼ 149.0.7827.115 â 149.0.7827.196 olarak gÃ¼ncellendi
-- TÃ¼m Wiki sayfalarÄ±nda kapsamlÄ± belge sÃ¼rÃ¼m gÃ¼ncellemesi
+- Her iki betik v2.1.3'e güncellendi, `$ScriptVersion = "v2.1.3"` / `$BetikSurum = "v2.1.3"`
+- Doğrulanmış Brave sürümü 1.91.172 → 1.91.178 olarak güncellendi
+- Doğrulanmış Chromium sürümü 149.0.7827.115 → 149.0.7827.196 olarak güncellendi
+- Tüm Wiki sayfalarında kapsamlı belge sürüm güncellemesi
 
 ---
 
 ### v2.1.2 - 2026-06-18
 
-**Brave 1.91.175 / Chromium 149.0.7827.155 DoÄrulamasÄ±**
+**Brave 1.91.175 / Chromium 149.0.7827.155 Doğrulaması**
 
-**DeÄiÅenler:**
+**Değişenler:**
 
-- Her iki betik v2.1.2'e gÃ¼ncellendi, `$ScriptVersion = "v2.1.2"` / `$BetikSurum = "v2.1.2"`
-- DoÄrulanmÄ±Å Brave sÃ¼rÃ¼mÃ¼ 1.91.172 â 1.91.175 olarak gÃ¼ncellendi
-- DoÄrulanmÄ±Å Chromium sÃ¼rÃ¼mÃ¼ 149.0.7827.115 â 149.0.7827.155 olarak gÃ¼ncellendi
-- Belge sÃ¼rÃ¼m gÃ¼ncellemesi
+- Her iki betik v2.1.2'e güncellendi, `$ScriptVersion = "v2.1.2"` / `$BetikSurum = "v2.1.2"`
+- Doğrulanmış Brave sürümü 1.91.172 → 1.91.175 olarak güncellendi
+- Doğrulanmış Chromium sürümü 149.0.7827.115 → 149.0.7827.155 olarak güncellendi
+- Belge sürüm güncellemesi
 
 ---
 
@@ -583,184 +633,191 @@ Brave Omega i�in tam s�r�m ge�mi�i.
 
 ---
 
-### v2.0 � 2026-06-16
+### v2.0 — 2026-06-16
 
-**�ok Seviyeli S�k�la�t�rma Sistemi (68 Politika)**
-
-**Eklenenler:**
-
-- 4 Seviyeli S�k�la�t�rma Modeli: Brave Yalniz (13) � Temel (30) � Dengeli (49) � Kat� (68)
-- K�m�latif miras � her seviye bir �ncekinin t�m politikalar�n� kapsar
-- T�rk�e dil deste�iyle etkile�imli seviye se�im men�s� (-Level parametresi)
-- Kay�t T�r� Motoru: DWord, String, MultiString deste�i
-- 3 Katmanl� Zorunlu K�lma: HKCU + HKLM ADMX + Omaha GUID
-- 51 yeni ADMX do�rulamal� politika (toplam: 68)
-- CHANGELOG.md TR b�l�m�yle, SECURITY.md, ya�am d�ng�s� taahh�t belgeleri
-
-**De�i�enler:**
-
-- Mimari: d�z politika listesi � 4 seviyeli k�m�latif model
-- S�r�m y�kseltmesi: v1.2.2 � v2.0
-- README.md: tam v2.0 yeniden yaz�m�
-- index.html: uyumluluk matrisi, terminal animasyonu, seviye a��klamalar�
-
----
-
-### v1.2.2 � 2026-06-13
-
-**G�venli �al��t�rma �lkesi D�zeltmesi ve Basitle�tirilmi� Tek Sat�rl�k �� Ak���**
-
-**De�i�enler:**
-
-- �al��t�rma ilkesi: kal�c� `RemoteSigned -Scope CurrentUser` yerine `-ExecutionPolicy Bypass` bayra�� kullan�ld�
-- �n gereksinimler: `prereq_pol_desc` tek sat�rl�k eyleme d�n��t�r�ld�
-- H�zl� Ba�lang��: �al��t�rma ilkesi ad�m� komutla birle�tirildi
-- README: sabit kodlanm�� `D:\REPOS\...` yollar� genel `C:\Users\Downloads\Brave-Omega` ile de�i�tirildi
-- Terminal animasyonu: `term_script` bypass komutunu g�sterecek �ekilde g�ncellendi
-- H�zl� Ba�lang�� yedek metninde T�rk�e karakter d�zeltmeleri
-- Etiket dengesi d�zeltmesi: Lisans b�l�m� sarmalay�c� div eklendi
-- �eviri anahtar� `cl_v122_summary` eklendi (EN + TR)
-
-**G�venlik:**
-
-- `Set-ExecutionPolicy` �a�r�s� gerekmez
-- Bypass bayra�� yaln�zca alt i�lem i�in ge�erlidir
-- Kal�c� kay�t defteri de�i�ikli�i yok, sald�r� y�zeyi yok
-
----
-
-### v1.2.1 � 2026-06-13
-
-**Brave 1.91.172 Y�kseltmesi, �eviri E�leme D�zeltmesi, Yap�sal D�zeltmeler**
-
-**De�i�enler:**
-
-- 22 eksik �eviri anahtar� eklendi (EN + TR): `pol_effect1-17`, `policies_badge/heading/desc`, `policy_col_key/effect`, `sources_badge`
-- Kaynaklar b�l�m�: badge ve data-i18n ile eksik `<h2>` ba�l��� eklendi
-- Lisans b�l�m�: `license_heading` data-i18n ba�lant�s� eklendi
-- Sahipsiz anahtarlar `sources_heading`, `license_heading` ba�land�
-- S�r�m referanslar� v1.2'den v1.2.1'e g�ncellendi
-- Politika tablosu: bo� s�r�m-badge h�creleri dolduruldu, s�tun ba�l��� uluslararas�la�t�r�ld�
-- �al��t�rma ilkesi a��klamas� g�venlik i�in yeniden yaz�ld�
-- Etiket dengesi do�ruland�: 777/777
-
----
-
-### v1.2 � 2026-06-12
-
-**Politika Geni�letmesi ve Belgelendirme � B�y�k �zellik S�r�m�**
+**Çok Seviyeli Sıkılaştırma Sistemi (68 Politika)**
 
 **Eklenenler:**
 
-- 10 yeni ADMX politikas� (+143% kapsam): `BraveP3AEnabled`, `BraveWebDiscoveryEnabled`, `BraveTalkDisabled`, `BraveNewsDisabled`, `BravePlaylistEnabled`, `BraveSpeedreaderEnabled`, `BraveWaybackMachineEnabled`, `TorDisabled`, `BraveVPNDisabled`, `BraveAIChatEnabled`
+- 4 Seviyeli Sıkılaştırma Modeli: Brave Yalnız (13) → Temel (30) → Dengeli (49) → Katı (68)
+- Kümülatif miras — her seviye bir öncekinin tüm politikalarını kapsar
+- Türkçe dil desteğiyle etkileşimli seviye seçim menüsü (-Level parametresi)
+- Kayıt Türü Motoru: DWord, String, MultiString desteği
+- 3 Katmanlı Zorunlu Kılma: HKCU + HKLM ADMX + Omaha GUID
+- 51 yeni ADMX doğrulamalı politika (toplam: 68)
+- CHANGELOG.md TR bölümüyle, SECURITY.md, yaşam döngüsü taahhüt belgeleri
+
+**Değişenler:**
+
+- Mimari: düz politika listesi → 4 seviyeli kümülatif model
+- Sürüm yükseltmesi: v1.2.2 → v2.0
+- README.md: tam v2.0 yeniden yazımı
+- index.html: uyumluluk matrisi, terminal animasyonu, seviye açıklamaları
+
+---
+
+### v1.2.2 — 2026-06-13
+
+**Güvenli Çalıştırma İlkesi Düzeltmesi ve Basitleştirilmiş Tek Satırlık İş Akışı**
+
+**Değişenler:**
+
+- Çalıştırma ilkesi: kalıcı `RemoteSigned -Scope CurrentUser` yerine `-ExecutionPolicy Bypass` bayrağı kullanıldı
+- Ön gereksinimler: `prereq_pol_desc` tek satırlık eyleme dönüştürüldü
+- Hızlı Başlangıç: çalıştırma ilkesi adımı komutla birleştirildi
+- README: sabit kodlanmış `D:\REPOS\...` yolları genel `C:\Users\Downloads\Brave-Omega` ile değiştirildi
+- Terminal animasyonu: `term_script` bypass komutunu gösterecek şekilde güncellendi
+- Hızlı Başlangıç yedek metninde Türkçe karakter düzeltmeleri
+- Etiket dengesi düzeltmesi: Lisans bölümü sarmalayıcı div eklendi
+- Çeviri anahtarı `cl_v122_summary` eklendi (EN + TR)
+
+**Güvenlik:**
+
+- `Set-ExecutionPolicy` çağrısı gerekmez
+- Bypass bayrağı yalnızca alt işlem için geçerlidir
+- Kalıcı kayıt defteri değişikliği yok, saldırı yüzeyi yok
+
+---
+
+### v1.2.1 — 2026-06-13
+
+**Brave 1.91.172 Yükseltmesi, Çeviri Eşleme Düzeltmesi, Yapısal Düzeltmeler**
+
+**Değişenler:**
+
+- 22 eksik çeviri anahtarı eklendi (EN + TR): `pol_effect1-17`, `policies_badge/heading/desc`, `policy_col_key/effect`, `sources_badge`
+- Kaynaklar bölümü: badge ve data-i18n ile eksik `<h2>` başlığı eklendi
+- Lisans bölümü: `license_heading` data-i18n bağlantısı eklendi
+- Sahipsiz anahtarlar `sources_heading`, `license_heading` bağlandı
+- Sürüm referansları v1.2'den v1.2.1'e güncellendi
+- Politika tablosu: boş sürüm-badge hücreleri dolduruldu, sütun başlığı uluslararasılaştırıldı
+- Çalıştırma ilkesi açıklaması güvenlik için yeniden yazıldı
+- Etiket dengesi doğrulandı: 777/777
+
+---
+
+### v1.2 — 2026-06-12
+
+**Politika Genişletmesi ve Belgelendirme — Büyük Özellik Sürümü**
+
+**Eklenenler:**
+
+- 10 yeni ADMX politikası (+143% kapsam): `BraveP3AEnabled`, `BraveWebDiscoveryEnabled`, `BraveTalkDisabled`, `BraveNewsDisabled`, `BravePlaylistEnabled`, `BraveSpeedreaderEnabled`, `BraveWaybackMachineEnabled`, `TorDisabled`, `BraveVPNDisabled`, `BraveAIChatEnabled`
 - Toplam politika: 7'den 17'ye (+143% kapsam)
-- Canl� dil de�i�tirme ile tam iki dilli a��l�� sayfas� (TR/EN)
-- Kapsaml� belgelendirme yenilemesi
-- S�r�m takibi i�in CHANGELOG.md
+- Canlı dil değiştirme ile tam iki dilli açılış sayfası (TR/EN)
+- Kapsamlı belgelendirme yenilemesi
+- Sürüm takibi için CHANGELOG.md
 
-**De�i�enler:**
+**Değişenler:**
 
-- S�r�m y�kseltmesi: v1.1'den v1.2'ye
-- Brave 1.91.172 / Chromium 149'a kar�� ADMX do�rulamas�
-- Belgelendirme okunabilirlik i�in yenilendi
+- Sürüm yükseltmesi: v1.1'den v1.2'ye
+- Brave 1.91.172 / Chromium 149'a karşı ADMX doğrulaması
+- Belgelendirme okunabilirlik için yenilendi
 
 ---
 
-### v1.1 � 2026-06-05
+### v1.1 — 2026-06-05
 
-**Hata Y�netimi, Yedeklemeler, S�re� Koruyucular�, BraveShieldsDefault Kald�rma**
+**Hata Yönetimi, Yedeklemeler, Süreç Koruyucuları, BraveShieldsDefault Kaldırma**
 
 **Eklenenler:**
 
-- HKLM yazmalar�ndan �nce otomatik zaman damgal� `.reg` yede�i
+- HKLM yazmalarından önce otomatik zaman damgalı `.reg` yedeği
 - `reg import` ile tek komutla geri alma
-- Brave s�re� koruyucusu (�al��an Brave'i tespit eder, devam/iptal istemi)
-- ��lem ba��na try/catch ile ba�ar�/hata saya�lar�
-- Karars�z olmayan yeniden �al��t�rma i�in `-Force` parametresi
+- Brave süreç koruyucusu (çalışan Brave'i tespit eder, devam/iptal istemi)
+- İşlem başına try/catch ile başarı/hata sayaçları
+- Kararsız olmayan yeniden çalıştırma için `-Force` parametresi
 
-**Kald�r�lanlar:**
+**Kaldırılanlar:**
 
-- `BraveShieldsDefault` (resm� ADMX'te yok; Kalkanlar URL politikalar�yla y�netilir)
+- `BraveShieldsDefault` (resmî ADMX'te yok; Kalkanlar URL politikalarıyla yönetilir)
 
-**D�zeltilenler:**
+**Düzeltilenler:**
 
-- Hata y�netimi ve g�nl�kleme
-- Yedekleme/geri alma g�venilirli�i
+- Hata yönetimi ve günlükleme
+- Yedekleme/geri alma güvenilirliği
 
 ---
 
-### v1.0 � 2026-06-04
+### v1.0 — 2026-06-04
 
-**�lk S�r�m � Topluluk S�r�m�**
+**İlk Sürüm — Topluluk Sürümü**
 
-**�zellikler:**
+**Özellikler:**
 
-- �� katmanl� mimari (HKCU + HKLM ADMX + Omaha GUID)
-- 7 ba�lang�� politikas�: `UsageStatsInSample`, `BraveRewardsDisabled`, `BraveWalletDisabled`, `BraveVPNDisabled`, `BraveAIChatEnabled`, `BraveStatsPingEnabled`, `MetricsReportingEnabled`
-- �ki dilli aray�z (EN/TR)
+- Üç katmanlı mimari (HKCU + HKLM ADMX + Omaha GUID)
+- 7 başlangıç politikası: `UsageStatsInSample`, `BraveRewardsDisabled`, `BraveWalletDisabled`, `BraveVPNDisabled`, `BraveAIChatEnabled`, `BraveStatsPingEnabled`, `MetricsReportingEnabled`
+- İki dilli arayüz (EN/TR)
 - Otomatik HKLM yedekleme + geri alma
-- Brave s�re� koruyucusu
-- `-Force` ile karars�z olmayan �al��t�rma
+- Brave süreç koruyucusu
+- `-Force` ile kararsız olmayan çalıştırma
 
 ---
 
-## Ge�i� Notlar�
+## Geçiş Notları
 
-| Kimden � Kime | Gerekli ��lem |
+| Kimden → Kime | Gerekli İşlem |
 | ------------- | ---------------- |
-| v2.0 � v2.1 | Beti�i yeniden �al��t�r�n; s�r�m alg�lama, -WhatIf, -Reset, CI/CD hatt� eklendi |
-| v1.2.2 � v2.0 | Beti�i yeniden �al��t�r�n; 4 seviyeli s�k�la�t�rma modeli d�z politika listesinin yerini al�r; 51 yeni politika eklendi (toplam: 68) |
-| v1.2.1 � v1.2.2 | Beti�i yeniden �al��t�r�n; �al��t�rma ilkesi art�k `-ExecutionPolicy Bypass` bayra��yla y�netiliyor |
-| v1.2 � v1.2.1 | Beti�i yeniden �al��t�r�n; 10 yeni politika otomatik uygulan�r |
-| v1.1 � v1.2 | Beti�i yeniden �al��t�r�n; 10 yeni politika eklendi, yedekleme/geri alma iyile�tirildi |
-| v1.0 � v1.1 | Beti�i yeniden �al��t�r�n; yedekleme/geri alma, s�re� koruyucusu eklendi |
+| v2.1 → v2.2 | Betiği yeniden çalıştırın; Brave sürümü 1.92'ye yükseltildi, yeni politikalar eklendi |
+| v2.0 → v2.1 | Betiği yeniden çalıştırın; sürüm algılama, -WhatIf, -Reset, CI/CD hattı eklendi |
+| v1.2.2 → v2.0 | Betiği yeniden çalıştırın; 4 seviyeli sıkılaştırma modeli düz politika listesinin yerini alır; 51 yeni politika eklendi (toplam: 68) |
+| v1.2.1 → v1.2.2 | Betiği yeniden çalıştırın; çalıştırma ilkesi artık `-ExecutionPolicy Bypass` bayrağıyla yönetiliyor |
+| v1.2 → v1.2.1 | Betiği yeniden çalıştırın; 10 yeni politika otomatik uygulanır |
+| v1.1 → v1.2 | Betiği yeniden çalıştırın; 10 yeni politika eklendi, yedekleme/geri alma iyileştirildi |
+| v1.0 → v1.1 | Betiği yeniden çalıştırın; yedekleme/geri alma, süreç koruyucusu eklendi |
 
-> **Not:** T�m s�r�mler karars�z de�ildir � yeniden �al��t�rmak g�venlidir. Emin de�ilseniz �nce yedekleyin.
+> **Not:** Tüm sürümler kararsız değildir — yeniden çalıştırmak güvenlidir. Emin değilseniz önce yedekleyin.
 
 ---
 
-## S�r�m Uyumlulu�u
+## Sürüm Uyumluluğu
 
-| Brave Omega | Brave S�r�m� | Chromium | Windows | Durum |
+| Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.1** *(g�ncel)* | 1.91.172 | 149 | 11 25H2 | ? Etkin |
-| v2.0 | 1.91.172 | 149 | 11 25H2 | ?? �nceki |
-| v1.2.2 | 1.91.172 | 149 | 11 25H2 | ?? �nceki |
-| v1.2.1 | 1.91.172 | 149 | 11 25H2 | ?? �nceki |
-| v1.2 | 1.91.172 | 149 | 11 25H2 | ?? �nceki |
-| v1.1 | 1.91.168 | 149 | 11 25H2 | ?? �nceki |
-| v1.0 | 1.91.168 | 149 | 11 25H2 | ?? Ar�ivlendi |
+| **v2.3.0.0** *(güncel)* | 1.92.138 | 150 | 11 25H2 | ✅ Etkin |
+| v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
+| v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
+| v2.2.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
+| v2.1.6.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
+| v2.1.5 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
+| v2.1 | 1.91.172 | 149 | 11 25H2 | ⏹️ Önceki |
+| v2.0 | 1.91.172 | 149 | 11 25H2 | ⏹️ Önceki |
+| v1.2.2 | 1.91.172 | 149 | 11 25H2 | ⏹️ Önceki |
+| v1.2.1 | 1.91.172 | 149 | 11 25H2 | ⏹️ Önceki |
+| v1.2 | 1.91.172 | 149 | 11 25H2 | ⏹️ Önceki |
+| v1.1 | 1.91.168 | 149 | 11 25H2 | ⏹️ Önceki |
+| v1.0 | 1.91.168 | 149 | 11 25H2 | ⏹️ Arşivlendi |
 
 ---
 
-## S�r�m Takvimi
+## Sürüm Takvimi
 
-| Tetikleyici | Zaman �izelgesi |
+| Tetikleyici | Zaman Çizelgesi |
 | ------------- | ----------------- |
-| Brave Kararl� S�r�m� | 72 saat i�inde ADMX fark�; politikalar de�i�tiyse yama |
-| G�venlik Sorunu | 24 saat i�inde acil yama |
-| �eviri Eksiklikleri | 1 hafta i�inde yama |
-| �zellik Talebi | Sonraki alt s�r�m |
+| Brave Kararlı Sürümü | 72 saat içinde ADMX farkı; politikalar değiştiyse yama |
+| Güvenlik Sorunu | 24 saat içinde acil yama |
+| Çeviri Eksiklikleri | 1 hafta içinde yama |
+| Özellik Talebi | Sonraki alt sürüm |
 
 ---
 
-## Ge�i� Kontrol Listesi (v1.2.2 � v2.0)
+## Geçiş Kontrol Listesi (v1.2.2 → v2.0)
 
 - [ ] v2.0 betiklerini indirin
-- [ ] �u komutla �al��t�r�n: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"` ve bir s�k�la�t�rma seviyesi se�in
-- [ ] `brave://policy`'nin 68 Etkin politika g�sterdi�ini do�rulay�n
-- [ ] 4 seviyeli model k�m�latif politikalar� otomatik uygular
+- [ ] Şu komutla çalıştırın: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"` ve bir sıkılaştırma seviyesi seçin
+- [ ] `brave://policy`'nin 68 Etkin politika gösterdiğini doğrulayın
+- [ ] 4 seviyeli model kümülatif politikaları otomatik uygular
 
 ---
 
-## Ge�i� Kontrol Listesi (v2.0 � v2.1)
+## Geçiş Kontrol Listesi (v2.0 → v2.1)
 
 - [ ] v2.1 betiklerini indirin
-- [ ] Kuru �al��t�rma i�in `-WhatIf` ile �al��t�r�n: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf`
-- [ ] Uygulamak i�in `-WhatIf` olmadan �al��t�r�n: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"`
-- [ ] S�r�m alg�laman�n kay�t defterini do�ru Brave s�r�m�yle g�ncelledi�ini do�rulay�n
-- [ ] Temiz kald�rma gerekiyorsa `-Reset` kullan�n
+- [ ] Kuru çalıştırma için `-WhatIf` ile çalıştırın: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf`
+- [ ] Uygulamak için `-WhatIf` olmadan çalıştırın: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"`
+- [ ] Sürüm algılamanın kayıt defterini doğru Brave sürümüyle güncellediğini doğrulayın
+- [ ] Temiz kaldırma gerekiyorsa `-Reset` kullanın
 
 ---
 
-*Tam s�r�m notlar� [GitHub S�r�mlerinde](https://github.com/bayraktarozcan/Brave-Omega-Project/releases).*
+*Tam sürüm notları [GitHub Sürümlerinde](https://github.com/bayraktarozcan/Brave-Omega-Project/releases).*

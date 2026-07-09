@@ -15,7 +15,7 @@ Complete compatibility reference for Brave Omega versions.
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
 | **v2.3.0.0** ⭐ | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | ✅ Current | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
-| **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Previous | 2026-07-06 |
+| **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
 | **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-05 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-03 |
@@ -57,21 +57,21 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.2.0.2) If
+### Use Current (v2.3.0.0) If
 
-- Running Brave 1.92.134 (latest stable)
+- Running Brave 1.92.138 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
-- Need WebRTC alignment improvements and 80 total policies
+- Need full extension lockdown, proxy enforcement, and 114 total policies
 
-### Use Previous (v1.2.1) If
+### Use Previous (v2.2.1.0) If
 
-- Cannot update to v1.2.2 immediately
-- Running Brave 1.91.172
-- Need translation parity fixes
+- Cannot update to v2.3.0.0 immediately
+- Running Brave 1.92.134
+- Need hardware API blocking and ECH enforcement
 
 ### Avoid Archived (v1.0) If
 
-- Policies outdated (only 7 vs 17 current)
+- Policies outdated (only 7 vs 114 current)
 - No backup/rollback, no process guard
 - No lifecycle commitment features
 
@@ -183,7 +183,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
 | **v2.3.0.0** ⭐ | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | ✅ Güncel | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
-| **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 ✅ | 📦 Önceki | 2026-07-06 |
+| **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
 | **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-05 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-03 |
@@ -225,21 +225,21 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.2.0.2) Kullan Eğer
+### Güncel (v2.3.0.0) Kullan Eğer
 
-- Brave 1.92.134 (en güncel kararlı) çalışıyorsa
+- Brave 1.92.138 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
-- WebRTC hizalama iyileştirmeleri ve 80 toplam politika
+- Tam uzantı kilitleme, proxy zorunlu kılma ve 114 toplam politika
 
-### Önceki (v1.2.1) Kullan Eğer
+### Önceki (v2.2.1.0) Kullan Eğer
 
-- Hemen v1.2.2'ye güncelleyemiyorsanız
-- Brave 1.91.172 çalışıyorsa
-- Çeviri eşleme düzeltmelerine ihtiyacınız varsa
+- Hemen v2.3.0.0'a güncelleyemiyorsanız
+- Brave 1.92.134 çalışıyorsa
+- Donanım API engelleme ve ECH zorlamaya ihtiyacınız varsa
 
 ### Arşivlenmiş (v1.0) Kullanma Eğer
 
-- Politikalar güncel değil (7'ye karşı 17)
+- Politikalar güncel değil (7'ye karşı 114)
 - Yedekleme/geri alma, süreç koruyucusu yok
 - Yaşam döngüsü taahhüdü özellikleri yok
 

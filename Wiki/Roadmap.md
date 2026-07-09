@@ -5,137 +5,150 @@
 
 # 🗺️ Roadmap — Phased Execution Plan
 
-Brave Omega's development roadmap — community-driven, lifecycle-first, organized into 6 execution phases.
+Brave Omega's development roadmap — community-driven, lifecycle-first, organized into 8 execution phases.
 
 ---
 
 ## Current Version
 
-**v1.0.0.0** — *Prompt Framework Baseline* (2026-07-04)
+**v2.3.0.0** — *Extension Lockdown, Proxy & Privacy Hardening* (2026-07-09)
 
-Phase 0 (Hazırlık / Preparation) baseline established:
-
-- 16 sequentially numbered prompt files (`01-surum-guncelleme.md` through `16-kademe-ekleme.md`)
-- 4-part versioning scheme (version.major.minor.revision)
-- All prompts start at `v1.0.0.0`
-- Quality pipeline active: markdownlint (all 16 prompts clean), yamllint, PowerShell syntax check
+Phase 8 complete: 114 policies across 5 hardening tiers (Brave Only 24 / Essential 50 / Balanced 79 / Advanced 90 / Strict 114).
 
 ---
 
-## 6-Phase Execution Plan
+## 8-Phase Execution History
 
-### Phase 0 — Hazırlık / Preparation
+### Phase 1 — Core Framework ✅ **Completed (v2.0)**
 
-| Prompt | Description | Status |
-|--------|-------------|--------|
-| `01-surum-guncelleme.md` | Brave version reference update across all files | 🔲 Pending |
+| Component | Description | Status |
+|-----------|-------------|--------|
+| 4-tier hardening model | Brave Only → Essential → Balanced → Strict | ✅ Complete |
+| 68 total policies | Multi-string, DWord, String support | ✅ Complete |
+| 3-layer enforcement | HKCU + HKLM ADMX + Omaha GUID | ✅ Complete |
+| Turkish language support | Interactive level menu with `-Level` parameter | ✅ Complete |
 
-Updates Brave (1.92.134), Chromium (150), Windows (11 25H2) references across:
-
-- `Brave Omega/BraveOmega-EN.ps1` — `$ScriptVersion`, `$ValidatedBrave`, `$ValidatedChromium`
-- `Brave Omega/BraveOmega-TR.ps1` — same constants
-- `README.md`, `index.html`, `CHANGELOG.md`, `Wiki/` files
-- `.github/workflows/admx-validate.yml` — Chromium version pin
+Foundation of the script architecture: cumulative inheritance model where each level includes all policies from previous levels.
 
 ---
 
-### Phase 1 — Denetim / Audit (Parallel 4 Prompts)
+### Phase 2 — Safety & Rollback ✅ **Completed (v2.1)**
 
-| Prompt | Description | Status |
-| -------- | ------------- | -------- |
-| `02-politika-bosluk-analizi.md` | Policy gap analysis — identify 13 missing Brave policies | 🔲 Pending |
-| `03-politika-deger-dogrulama.md` | Policy value validation — verify defaults, ranges, ADMX enums | 🔲 Pending |
-| `04-deprecated-temizlik.md` | Remove 4 Chromium deprecated policies | 🔲 Pending |
-| `05-referans-guncelleme.md` | Update Brave-Group-Policy-Reference.md line numbers | 🔲 Pending |
-
-Key outcomes:
-
-- Complete inventory of all 28 Brave+Chromium reference policies vs. 13 implemented
-- Value validation for every policy (DWord ranges, String patterns, MultiString arrays)
-- Clean removal of deprecated CloudPrintProxyEnabled, etc.
-- Reference doc line numbers match current state
+| Component | Description | Status |
+|-----------|-------------|--------|
+| Version detection | Auto-detect Brave binary version, compare, warn on mismatch | ✅ Complete |
+| `-WhatIf` parameter | Dry-run mode with magenta [WhatIf] tags, no registry writes | ✅ Complete |
+| `-Reset` parameter | Clean removal of all policies, empty key cleanup | ✅ Complete |
+| GitHub Actions CI | ADMX validation workflow (weekly + manual trigger) | ✅ Complete |
+| CONTRIBUTING.md | EN + TR contribution guides with issue templates | ✅ Complete |
 
 ---
 
-### Phase 2 — Uygulama / Implementation
+### Phase 3 — Brave 1.92 Migration & Data Leakage ✅ **Completed (v2.1.5 → v2.2.0.2)**
 
-| Prompt | Description | Status |
-|--------|-------------|--------|
-| `06-politika-ekleme-brave.md` | Add 13 missing Brave policies to both scripts | 🔲 Pending |
+| Component | Version | Status |
+|-----------|---------|--------|
+| Brave 1.92.134 / Chromium 150 migration | v2.1.5 | ✅ Complete |
+| Chromium telemetry & data leakage policies | v2.1.5 | ✅ Complete |
+| BraveOnly enrichment (10 new Brave policies) | v2.1.6.0 | ✅ Complete |
+| Chromium telemetry blocking (6 new policies) | v2.1.6.0 | ✅ Complete |
+| WebRTC alignment — Balanced→Strict upgrade | v2.2.0.2 | ✅ Complete |
+| BraveLocalAIEnabled removal (deprecated) | v2.2.0.1 | ✅ Complete |
 
-Adds in priority order:
-
-1. **Zero user impact, max privacy:** BraveDeAmpEnabled, BraveDebouncingEnabled, BraveGlobalPrivacyControlEnabled, BraveReduceLanguageEnabled, BraveTrackingQueryParametersFilteringEnabled, BraveLocalAIEnabled → Brave Yalnız tier (13→23)
-2. **Default protection levels:** DefaultBraveAdblockSetting, DefaultBraveFingerprintingV2Setting, DefaultBraveHttpsUpgradeSetting, DefaultBraveReferrersSetting, DefaultBraveRemember1PStorageSetting → Temel tier
-3. **Enterprise/control:** EmailAliasesEnabled, BraveSyncUrl → Dengeli tier
-
-Total: 67→91 policies across 5 tiers.
-
----
-
-### Phase 3 — Kalite & Test / Quality & Testing ✅ **Completed (v2.1.6.0)**
-
-| Prompt | Description | Status |
-|--------|-------------|--------|
-| `07-pester-test.md` | Pester test suite for EN script | ✅ Completed |
-| `08-pssa-ekleme.md` | PSScriptAnalyzer integration for CI | ✅ Completed |
-
-Deliverables:
-
-- 16 Pester test files under `Tests/` with ~50–60 It blocks
-- Unit tests: Write-PolicyValue, Level-Selection, Version-Check
-- Integration tests: Registry-Write, -WhatIf mode, admin detection, policy integrity
-- PSScriptAnalyzer rules in CI quality workflow (`Invoke-PSScriptAnalyzer`)
-- Platform matrix: Windows Server 2025, Windows 11 25H2, Windows 10 22H2
-- QA report: `docs/reports/phase-3-kalite-test/`
-- Quality badges: test pass rate, code coverage, CI status
+Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 ---
 
-### Phase 4 — Dokümantasyon/Yaygınlaştırma / Documentation & Distribution
+### Phase 4 — Quality & Testing ✅ **Completed (v2.1.6.0)**
 
-| Prompt | Description | Status |
-|--------|-------------|--------|
-| `09-politika-katalogu.md` | Create docs/policy-catalog.md with full metadata | ✅ Completed |
-| `10-wiki-tutarlilik.md` | Wiki consistency — fix typos, encoding, policy numbers across all pages | ✅ Completed |
-| `11-surum-referans.md` | Version reference standardization — align CHANGELOG/Wiki, fix stale matrix | ✅ Completed |
-
-Policy catalog with per-policy: ID, source, tier, min. Chromium, type, default, recommended, risk, ADMX validation date, notes.
-
----
-
-### Phase 5 — Gelişmiş / Advanced
-
-| Prompt | Description | Status |
-| -------- | ------------- | -------- |
-| `12-cross-platform-config.md` | Linux JSON + macOS .plist output support | 🔲 Pending |
-| `13-intune-mdm.md` | Intune/MDM deployment guide | 🔲 Pending |
-| `14-web-arayuzu.md` | Web-based policy configurator on index.html | 🔲 Pending |
-| `15-moduler-mimari.md` | Modular architecture (modules/*.psm1 + config.json) | 🔲 Pending |
+| Component | Description | Status |
+|-----------|-------------|--------|
+| Pester test suite | 16 test files under `Tests/` with ~50–60 It blocks | ✅ Complete |
+| Unit tests | Write-PolicyValue, Level-Selection, Version-Check | ✅ Complete |
+| Integration tests | Registry-Write, -WhatIf mode, admin detection, policy integrity | ✅ Complete |
+| PSScriptAnalyzer | Code quality rules in CI workflow | ✅ Complete |
+| Platform matrix | Windows Server 2025, Windows 11 25H2, Windows 10 22H2 | ✅ Complete |
 
 ---
 
-### Kademe Ekleme / Tier Addition
+### Phase 5 — Documentation & Distribution ✅ **Completed (v2.1.6.0)**
 
-| Prompt | Description | Status |
-| -------- | ------------- | -------- |
-| `16-kademe-ekleme.md` | Add Advanced hardening level between Balanced and Strict | ✅ Completed |
+| Component | Description | Status |
+|-----------|-------------|--------|
+| Policy catalog | `docs/policy-catalog.md` with full per-policy metadata | ✅ Complete |
+| Wiki consistency | Fix typos, encoding, policy numbers across all Wiki pages | ✅ Complete |
+| Version reference standardization | Align CHANGELOG/Wiki, fix stale matrix | ✅ Complete |
 
-Key outcomes:
+---
 
-- New **Advanced** level (L4) with 72 cumulative policies — 11 migrated from Strict (L5)
-- Strict renumbered from L4→L5 with 8 unique policies
-- All 5 tiers: 22 / 47 / 72 / 83 / 91 — cumulative inheritance preserved
-- Script level menu expanded to 5 options, `$ValidLevels` = 10 values
-- `ImportBookmarks` deliberately retained in Strict (L5) for bookmark portability
-- Version bumped v2.1.6.0 → v2.2.0.0 — all assets updated (PS1, HTML, Wiki, badges, i18n)
+### Phase 6 — Advanced Tier Addition ✅ **Completed (v2.2.0)**
+
+| Component | Description | Status |
+|-----------|-------------|--------|
+| Advanced level (L4) | 72 cumulative policies — 11 migrated from Strict (L5) | ✅ Complete |
+| Strict renumbered | L4 → L5 with 8 unique policies | ✅ Complete |
+| 5-tier model | Brave Only 22 / Essential 47 / Balanced 72 / Advanced 83 / Strict 91 | ✅ Complete |
+| `ImportBookmarks` | Deliberately retained in Strict for bookmark portability | ✅ Complete |
+
+---
+
+### Phase 7 — Hardware API & Security Hardening ✅ **Completed (v2.2.1.0)**
+
+| Policy | Category | Level |
+|--------|----------|-------|
+| WebUakApiBlocked | Hardware API blocking | Brave Only |
+| WebBluetoothApiBlocked | Hardware API blocking | Brave Only |
+| WebHidApiBlocked | Hardware API blocking | Brave Only |
+| WebSerialApiBlocked | Hardware API blocking | Brave Only |
+| WebUsbApiBlocked | Hardware API blocking | Brave Only |
+| WebXRBlocked | Hardware API blocking | Brave Only |
+| EncryptedClientHelloEnabled | Security — ECH enforcement | Essential |
+| PaymentRequestDisabled | Privacy | Balanced |
+| WindowManagementBlocked | Isolation | Strict |
+| SitePerProcess | Security — site isolation | Strict |
+| DefaultBrowserSettingEnabled | Security — browser lock | Strict |
+
+Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
+
+---
+
+### Phase 8 — Extension Lockdown, Proxy & Privacy Hardening ✅ **Completed (v2.3.0.0)**
+
+| Policy | Category | Level |
+|--------|----------|-------|
+| SafeBrowsingProtectionLevel | Security — safe browsing | Brave Only |
+| PasswordProtectionWarningTrigger | Security — password protection | Brave Only |
+| EnableOnlineRevocationChecks | Security — certificate checks | Essential |
+| ExtensionInstallForcelist | Extension management | Balanced |
+| DownloadRestrictions | Download control | Balanced |
+| DownloadDirectory | Download control | Balanced |
+| PromptForDownloadLocation | Download control | Balanced |
+| ExtensionInstallBlocklist | Extension lockdown | Strict |
+| ExtensionInstallAllowlist | Extension lockdown | Strict |
+| ExtensionAllowedTypes | Extension lockdown | Strict |
+| BlockExternalExtensions | Extension lockdown | Strict |
+| ExtensionSettings | Extension lockdown | Strict |
+| ManifestV2ExtensionUnsupported | Extension lockdown | Strict |
+| IncognitoModeAvailability | Privacy — incognito control | Strict |
+| DeveloperToolsDisabled | Developer tools block | Strict |
+| DeveloperToolsAvailability | Developer tools block | Strict |
+| TaskManagerEndProcessEnabled | Process management | Strict |
+| PrintingEnabled | Printing control | Strict |
+| DisablePrintPreview | Printing control | Strict |
+| ProxyMode | Network — proxy enforcement | Strict |
+| BuiltInDnsClientEnabled | Network — DNS control | Strict |
+| BraveUpdateDisabled | Update control | Strict |
+
+Total: 91→114 policies (+23). Cumulative chain: 24→50→79→90→114.
+
+**Removed:** AllowPopupsDuringPageUnload (deprecated upstream, removed after initial 115-policy build).
 
 ---
 
 ## Versioning Strategy (4-Part)
 
 | Component | Change Type | Example |
-| ----------- | ------------- | --------- |
+|-----------|-------------|--------|
 | **Version** | Brave major rewrite, platform target change | v1.0.0.0 → v2.0.0.0 |
 | **Major** | Script architecture/breaking change | v1.0.0.0 → v1.1.0.0 |
 | **Minor** | Brave/Chromium upgrade or new policy added | v1.0.0.0 → v1.0.1.0 |
@@ -148,7 +161,7 @@ Key outcomes:
 ## Release Cadence
 
 | Trigger | Action |
-| --------- | -------- |
+|---------|--------|
 | **Brave Stable Release** | ADMX diff review within 72h; patch release if policies changed |
 | **Security Issue** | Emergency patch within 24h |
 | **Translation Gaps** | Patch release within 1 week |
@@ -156,10 +169,21 @@ Key outcomes:
 
 ---
 
+## Upcoming
+
+| Area | Description | Priority |
+|------|-------------|----------|
+| Cross-platform config | Linux JSON + macOS .plist output support | 📋 Medium |
+| Intune/MDM guide | Enterprise deployment guide for Intune | 📋 Medium |
+| Web-based configurator | Visual policy config on index.html | 💡 Low |
+| Modular architecture | modules/*.psm1 + config.json refactor | 💡 Low |
+
+---
+
 ## Community-Driven Priorities
 
 | Area | How to Contribute |
-| ------ | ------------------- |
+|------|-------------------|
 | **Version Updates** | Open PR with updated policy values + source reference |
 | **New Policies** | Must source from official ADMX/Chromium docs |
 | **Translations** | Follow EN/TR template; maintain functional parity |
@@ -173,7 +197,7 @@ Key outcomes:
 > **A privacy hardening tool that falls out of date is not a safeguard — it is a false sense of security.**
 
 | Commitment | Implementation |
-| ------------ | ---------------- |
+|------------|----------------|
 | **Version Pinning** | Every release tagged with exact Brave + Chromium version |
 | **Policy Review** | ADMX diff on every Brave stable release |
 | **Breaking Change Notices** | Changelog migration notes for removed/renamed keys |
@@ -185,14 +209,12 @@ Key outcomes:
 ## How to Influence Roadmap
 
 | Action | Impact |
-| -------- | -------- |
+|--------|--------|
 | 👍 **Upvote Issues** | Signals community priority |
 | 💬 **Comment on Issues** | Shapes implementation approach |
 | 🔀 **Submit PRs** | Direct contribution to codebase |
 | 💬 **Discussions** | Long-form design discussions |
 | 🌐 **Translations** | Expand language support |
-
----
 
 ---
 
@@ -211,139 +233,113 @@ Key outcomes:
 
 # 🗺️ Yol Haritası — Aşamalı Uygulama Planı
 
-Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü öncelikli, 6 aşamalı uygulama planı.
+Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü öncelikli, 8 aşamalı uygulama planı.
 
 ---
 
 ## Güncel Sürüm
 
-**v1.0.0.0** — *Prompt Framework Temeli* (2026-07-04)
+**v2.3.0.0** — *Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması* (2026-07-09)
 
-1. Aşama (Hazırlık) temeli oluşturuldu:
-
-- 16 sıralı prompt dosyası (`01-surum-guncelleme.md` - `16-kademe-ekleme.md`)
-- 4 parçalı sürümleme şeması (version.major.minor.revision)
-- Tüm promptlar `v1.0.0.0` başlangıcında
-- GitHub Proje #4: "Brave Omega Project" (11 öğe: 5 kapalı, 6 açık)
-- Kalite hattı aktif: markdownlint (16 prompt temiz), yamllint, PowerShell sözdizimi
+8. Aşama tamam: 5 sıkılaştırma katmanında 114 politika (Brave Yalnız 24 / Temel 50 / Dengeli 79 / Gelişmiş 90 / Katı 114).
 
 ---
 
-## 6 Aşamalı Uygulama Planı
+## 8 Aşamalı Uygulama Geçmişi
 
-### Aşama 0 — Hazırlık
+### Aşama 1 — Temel Çerçeve ✅ **Tamamlandı (v2.0)**
 
-| Prompt | Açıklama | Durum |
-|--------|----------|-------|
-| `01-surum-guncelleme.md` | Brave sürüm referanslarını tüm dosyalarda güncelle | 🔲 Bekliyor |
+| Bileşen | Açıklama | Durum |
+|---------|----------|-------|
+| 4 katmanlı model | Brave Yalnız → Temel → Dengeli → Katı | ✅ Tamam |
+| 68 toplam politika | MultiString, DWord, String desteği | ✅ Tamam |
+| 3 katmanlı zorlama | HKCU + HKLM ADMX + Omaha GUID | ✅ Tamam |
+| Türkçe dil desteği | `-Level` parametresiyle etkileşimli seviye menüsü | ✅ Tamam |
 
-Brave (1.92.134), Chromium (150), Windows (11 25H2) referanslarını şuralarda günceller:
-
-- `Brave Omega/BraveOmega-EN.ps1` — `$ScriptVersion`, `$ValidatedBrave`, `$ValidatedChromium`
-- `Brave Omega/BraveOmega-TR.ps1` — aynı sabitler
-- `README.md`, `index.html`, `CHANGELOG.md`, `Wiki/` dosyaları
-- `.github/workflows/admx-validate.yml` — Chromium sürüm sabiti
+Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 ---
 
-### Aşama 1 — Denetim (Paralel 4 Prompt)
+### Aşama 2 — Güvenlik & Geri Alma ✅ **Tamamlandı (v2.1)**
 
-| Prompt | Açıklama | Durum |
-| -------- | ---------- | ------- |
-| `02-politika-bosluk-analizi.md` | Politika boşluk analizi — 13 eksik Brave politikasını belirle | 🔲 Bekliyor |
-| `03-politika-deger-dogrulama.md` | Politika değer doğrulama — varsayılanları, aralıkları, ADMX enumlarını doğrula | 🔲 Bekliyor |
-| `04-deprecated-temizlik.md` | 4 kullanımdan kaldırılmış Chromium politikasını kaldır | 🔲 Bekliyor |
-| `05-referans-guncelleme.md` | Brave-Group-Policy-Reference.md satır numaralarını güncelle | 🔲 Bekliyor |
-
-Ana çıktılar:
-
-- 28 Brave+Chromium referans politikasının 13 uygulanana karşı tam envanteri
-- Her politika için değer doğrulaması (DWord aralıkları, String kalıpları, MultiString dizileri)
-- CloudPrintProxyEnabled vb. kullanımdan kaldırılmış politikaların temizlenmesi
-- Referans doküman satır numaralarının güncel durumla eşleşmesi
+| Bileşen | Açıklama | Durum |
+|---------|----------|-------|
+| Sürüm algılama | Brave binary sürümünü otomatik tespit, karşılaştır, uyar | ✅ Tamam |
+| `-WhatIf` parametresi | Kuru çalıştırma, kayıt defteri yazma yok | ✅ Tamam |
+| `-Reset` parametresi | Tüm politikaları temiz kaldır | ✅ Tamam |
+| GitHub Actions CI | ADMX doğrulama iş akışı | ✅ Tamam |
+| CONTRIBUTING.md | EN + TR katkı kılavuzları | ✅ Tamam |
 
 ---
 
-### Aşama 2 — Uygulama
+### Aşama 3 — Brave 1.92 Geçişi & Veri Sızıntısı ✅ **Tamamlandı (v2.1.5 → v2.2.0.2)**
 
-| Prompt | Açıklama | Durum |
-|--------|----------|-------|
-| `06-politika-ekleme-brave.md` | 13 eksik Brave politikasını her iki betiğe ekle | 🔲 Bekliyor |
-
-Öncelik sırasına göre ekleme:
-
-1. **Sıfır kullanıcı etkisi, maksimum gizlilik:** BraveDeAmpEnabled, BraveDebouncingEnabled, BraveGlobalPrivacyControlEnabled, BraveReduceLanguageEnabled, BraveTrackingQueryParametersFilteringEnabled, BraveLocalAIEnabled → Brave Yalnız katmanı (13→23)
-2. **Varsayılan koruma seviyeleri:** DefaultBraveAdblockSetting, DefaultBraveFingerprintingV2Setting, DefaultBraveHttpsUpgradeSetting, DefaultBraveReferrersSetting, DefaultBraveRemember1PStorageSetting → Temel katmanı
-3. **Kurumsal/kontrol:** EmailAliasesEnabled, BraveSyncUrl → Dengeli katmanı
-
-Toplam: 67→91 politika, 5 katmanda.
+| Bileşen | Sürüm | Durum |
+|---------|-------|-------|
+| Brave 1.92.134 / Chromium 150 geçişi | v2.1.5 | ✅ Tamam |
+| Chromium telemetri ve veri sızıntısı politikaları | v2.1.5 | ✅ Tamam |
+| BraveOnly zenginleştirme (10 yeni Brave politikası) | v2.1.6.0 | ✅ Tamam |
+| Chromium telemetri engelleme (6 yeni politika) | v2.1.6.0 | ✅ Tamam |
+| WebRTC hizalaması — Dengeli→Katı yükseltmesi | v2.2.0.2 | ✅ Tamam |
+| BraveLocalAIEnabled kaldırma (kullanım dışı) | v2.2.0.1 | ✅ Tamam |
 
 ---
 
-### Aşama 3 — Kalite & Test ✅ **Tamamlandı (v2.1.6.0)**
+### Aşama 4 — Kalite & Test ✅ **Tamamlandı (v2.1.6.0)**
 
-| Prompt | Açıklama | Durum |
-|--------|----------|-------|
-| `07-pester-test.md` | EN betiği için Pester test takımı | ✅ Tamamlandı |
-| `08-pssa-ekleme.md` | CI'a PSScriptAnalyzer entegrasyonu | ✅ Tamamlandı |
-
-Teslimatlar:
-
-- `Tests/` altında 16 Pester test dosyası, ~50–60 It bloğu
-- Birim testleri: Write-PolicyValue, Level-Selection, Version-Check
-- Entegrasyon testleri: Registry-Write, -WhatIf modu, yönetici algılama, politika bütünlüğü
-- CI kalite iş akışında PSScriptAnalyzer kuralları (`Invoke-PSScriptAnalyzer`)
-- Platform matrisi: Windows Server 2025, Windows 11 25H2, Windows 10 22H2
-- QA raporu: `docs/reports/phase-3-kalite-test/`
-- GitHub'da Issue #30 ile takip
-- Kalite rozetleri: test geçme oranı, kod kapsamı, CI durumu
+| Bileşen | Açıklama | Durum |
+|---------|----------|-------|
+| Pester test takımı | `Tests/` altında 16 test dosyası, ~50–60 It bloğu | ✅ Tamam |
+| Birim testleri | Write-PolicyValue, Level-Selection, Version-Check | ✅ Tamam |
+| Entegrasyon testleri | Registry-Write, -WhatIf, yönetici algılama | ✅ Tamam |
+| PSScriptAnalyzer | CI'da kod kalite kuralları | ✅ Tamam |
+| Platform matrisi | Windows Server 2025, 11 25H2, 10 22H2 | ✅ Tamam |
 
 ---
 
-### Aşama 4 — Dokümantasyon/Yaygınlaştırma
+### Aşama 5 — Dokümantasyon & Dağıtım ✅ **Tamamlandı (v2.1.6.0)**
 
-| Prompt | Açıklama | Durum |
-|--------|----------|-------|
-| `09-politika-katalogu.md` | docs/policy-catalog.md oluştur — tam meta veriyle | ✅ Tamamlandı |
-| `10-wiki-tutarlilik.md` | Wiki tutarlılığı — yazım hataları, kodlama, politika sayıları tüm sayfalarda düzeltildi | ✅ Tamamlandı |
-| `11-surum-referans.md` | Sürüm referans standardizasyonu — CHANGELOG/Wiki uyumu, güncel olmayan matris düzeltildi | ✅ Tamamlandı |
-
-Politika başına: ID, kaynak, katman, min. Chromium, tür, varsayılan, önerilen, risk, ADMX doğrulama tarihi, notlar.
+| Bileşen | Açıklama | Durum |
+|---------|----------|-------|
+| Politika kataloğu | `docs/policy-catalog.md` tam meta verili | ✅ Tamam |
+| Wiki tutarlılığı | Tüm Wiki sayfalarında yazım/kodlama düzeltmesi | ✅ Tamam |
+| Sürüm referansı | CHANGELOG/Wiki uyumu, güncel matris | ✅ Tamam |
 
 ---
 
-### Aşama 5 — Gelişmiş
+### Aşama 6 — Gelişmiş Katman Ekleme ✅ **Tamamlandı (v2.2.0)**
 
-| Prompt | Açıklama | Durum |
-| -------- | ---------- | ------- |
-| `12-cross-platform-config.md` | Linux JSON + macOS .plist çıktı desteği | 🔲 Bekliyor |
-| `13-intune-mdm.md` | Intune/MDM dağıtım kılavuzu | 🔲 Bekliyor |
-| `14-web-arayuzu.md` | Web tabanlı politika yapılandırıcı (index.html üzerinde) | 🔲 Bekliyor |
-| `15-moduler-mimari.md` | Modüler mimari (modules/*.psm1 + config.json) | 🔲 Bekliyor |
+| Bileşen | Açıklama | Durum |
+|---------|----------|-------|
+| Gelişmiş seviye (L4) | 72 kümülatif politika — 11 politika Katı'dan taşındı | ✅ Tamam |
+| Katı yeniden numaralandırma | L4 → L5, 8 benzersiz politika | ✅ Tamam |
+| 5 katmanlı model | Brave Yalnız 22 / Temel 47 / Dengeli 72 / Gelişmiş 83 / Katı 91 | ✅ Tamam |
+| `ImportBookmarks` | Yer imi taşınabilirliği için Katı'da tutuldu | ✅ Tamam |
 
 ---
 
-### Aşama 6 — Kademe Ekleme
+### Aşama 7 — Donanım API & Güvenlik Sıkılaştırması ✅ **Tamamlandı (v2.2.1.0)**
 
-| Prompt | Açıklama | Durum |
-| -------- | ---------- | ------- |
-| `16-kademe-ekleme.md` | Dengeli ile Katı arasına Gelişmiş sıkılaştırma seviyesi ekle | ✅ Tamamlandı |
+11 yeni politika: WebUSB, WebBluetooth, WebHID, WebSerial, WebUSB, WebXR engelleme, ECH zorlama, Payment Request devre dışı, WindowManagement izolasyonu, SitePerProcess, DefaultBrowserSetting.
 
-Ana çıktılar:
+Toplam: 80→91 politika (+11). 90+ politika engeli aşıldı.
 
-- Yeni **Gelişmiş** seviyesi (L4) ile 72 kümülatif politika — 11 politika Katı'dan (L5) taşındı
-- Katı L4→L5 olarak yeniden numaralandırıldı, 8 benzersiz politika
-- 5 katman: 22 / 47 / 72 / 83 / 91 — kümülatif miras korundu
-- Betik seviye menüsü 5 seçeneğe genişletildi, `$ValidLevels` = 10 değer
-- `ImportBookmarks` yer imi taşınabilirliği için Katı'da (L5) bilinçli olarak tutuldu
-- Sürüm v2.1.6.0 → v2.2.0.0 — tüm varlıklar güncellendi (PS1, HTML, Wiki, rozetler, i18n)
+---
+
+### Aşama 8 — Uzantı Kilitleme, Proxy & Gizlilik Sıkılaştırması ✅ **Tamamlandı (v2.3.0.0)**
+
+22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
+
+Toplam: 91→114 politika (+23). Kümülatif zincir: 24→50→79→90→114.
+
+**Kaldırılan:** AllowPopupsDuringPageUnload (kullanım dışı, ilk 115'lik yapıdan sonra çıkarıldı).
 
 ---
 
 ## Sürümleme Stratejisi (4 Parçalı)
 
 | Bileşen | Değişiklik Türü | Örnek |
-| --------- | ----------------- | ------- |
+|---------|-----------------|-------|
 | **Version** | Brave major yeniden yazımı, hedef platform değişikliği | v1.0.0.0 → v2.0.0.0 |
 | **Major** | Betik mimarisi/kırılım değişikliği | v1.0.0.0 → v1.1.0.0 |
 | **Minor** | Brave/Chromium yükseltmesi veya yeni politika eklendi | v1.0.0.0 → v1.0.1.0 |
@@ -356,7 +352,7 @@ Ana çıktılar:
 ## Sürüm Takvimi
 
 | Tetikleyici | Eylem |
-| ------------- | ------- |
+|-------------|-------|
 | **Brave Kararlı Sürümü** | 72 saat içinde ADMX fark incelemesi; politikalar değiştiyse yama sürümü |
 | **Güvenlik Sorunu** | 24 saat içinde acil yama |
 | **Çeviri Eksiklikleri** | 1 hafta içinde yama sürümü |
@@ -364,10 +360,21 @@ Ana çıktılar:
 
 ---
 
+## Gelecek
+
+| Alan | Açıklama | Öncelik |
+|------|----------|---------|
+| Platformlar arası yapılandırma | Linux JSON + macOS .plist çıktı desteği | 📋 Orta |
+| Intune/MDM kılavuzu | Kurumsal dağıtım kılavuzu | 📋 Orta |
+| Web tabanlı yapılandırıcı | index.html üzerinde görsel politika yapılandırma | 💡 Düşük |
+| Modüler mimari | modules/*.psm1 + config.json yeniden düzenleme | 💡 Düşük |
+
+---
+
 ## Topluluk Odaklı Öncelikler
 
 | Alan | Nasıl Katkıda Bulunulur |
-| ------ | ------------------------ |
+|------|------------------------|
 | **Sürüm Güncellemeleri** | Güncellenmiş politika değerleri + kaynak referansıyla PR açın |
 | **Yeni Politikalar** | Resmî ADMX/Chromium belgelerinden kaynaklanmış olmalıdır |
 | **Çeviriler** | EN/TR şablonunu izleyin; işlevsel eşdeğerliği koruyun |
@@ -381,7 +388,7 @@ Ana çıktılar:
 > **Güncelliğini yitiren bir gizlilik sıkılaştırma aracı, güvenlik güvencesi değil — yanlış bir güvenlik duygusudur.**
 
 | Taahhüt | Uygulama |
-| --------- | ---------- |
+|---------|----------|
 | **Sürüm Sabitleme** | Her sürüm, tam Brave + Chromium sürümüyle etiketlenir |
 | **Politika İncelemesi** | Her Brave kararlı sürümünde ADMX farkı |
 | **Kırıcı Değişiklik Bildirimleri** | Kaldırılan/yeniden adlandırılan anahtarlar için değişiklik günlüğü geçiş notları |
@@ -393,22 +400,12 @@ Ana çıktılar:
 ## Yol Haritasını Etkileme
 
 | Eylem | Etki |
-| ------- | ------ |
+|-------|------|
 | 👍 **Sorunları Oylama** | Topluluk önceliğini belirtir |
 | 💬 **Sorunlara Yorum Yapma** | Uygulama yaklaşımını şekillendirir |
 | 🔀 **PR Gönderme** | Kod tabanına doğrudan katkı |
 | 💬 **Tartışmalar** | Uzun biçimli tasarım tartışmaları |
 | 🌐 **Çeviriler** | Dil desteğini genişletme |
-
----
-
-## Takip
-
-Tüm aşamalı çalışmalar **GitHub Proje #4 — "Brave Omega Project"** ile takip edilir:
-
-- [Proje Panosu](https://github.com/bayraktarozcan/Brave-Omega-Project/projects/4)
-- 6 açık issue (#25–#30) aşamalara eşlenmiş
-- Aşama tamamlanması = issue kapanışı
 
 ---
 

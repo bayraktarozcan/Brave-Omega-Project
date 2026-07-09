@@ -67,7 +67,8 @@ When you run the script without parameters, it shows an interactive menu:
 1. Brave Only
 2. Essential [Recommended]
 3. Balanced
-4. Strict
+4. Advanced
+5. Strict
 Your selection (2):
 ```
 
@@ -81,7 +82,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Essential
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
 ```
 
-Available levels: `BraveOnly`, `Essential`, `Balanced`, `Strict` (EN) or `BraveYalniz`, `Temel`, `Dengeli`, `Kati` (TR).
+Available levels: `BraveOnly`, `Essential`, `Balanced`, `Advanced`, `Strict` (EN) or `BraveYalniz`, `Temel`, `Dengeli`, `Gelismis`, `Kati` (TR).
 
 ---
 
@@ -117,7 +118,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 5. Verify
 
-Navigate to `brave://policy` in Brave — all policies (30 for Essential level) should show as **Active**.
+Navigate to `brave://policy` in Brave — all policies (50 for Essential level) should show as **Active**.
 
 ---
 
@@ -127,7 +128,7 @@ Navigate to `brave://policy` in Brave — all policies (30 for Essential level) 
 | ------- | -------- |
 | **1. Pre-flight** | Detects running Brave, prompts continue/cancel |
 | **2. Backup** | Creates timestamped `.reg` backup of HKLM policy hive |
-| **3. Apply** | Writes policies across 3 tiers based on selected level (13/30/49/68) |
+| **3. Apply** | Writes policies across 3 tiers based on selected level (24/50/79/90/114) |
 | **4. Summary** | Per-category success/failure counters + rollback info |
 | **5. Cleanup** | Exits cleanly — no residual processes |
 
@@ -231,7 +232,8 @@ Betik parametresiz çalıştırıldığında etkileşimli bir menü gösterir:
 1. Brave Yalnız
 2. Temel [Önerilen]
 3. Dengeli
-4. Katı
+4. Gelişmiş
+5. Katı
 Seçiminiz (2):
 ```
 
@@ -245,7 +247,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
 ```
 
-Kullanılabilir seviyeler: `BraveOnly`/`BraveYalniz`, `Essential`/`Temel`, `Balanced`/`Dengeli`, `Strict`/`Kati`.
+Kullanılabilir seviyeler: `BraveOnly`/`BraveYalniz`, `Essential`/`Temel`, `Balanced`/`Dengeli`, `Advanced`/`Gelismis`, `Strict`/`Kati`.
 
 ---
 
@@ -281,7 +283,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 5. Doğrula
 
-Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 30) **Etkin** olarak görünmelidir.
+Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 50) **Etkin** olarak görünmelidir.
 
 ---
 
@@ -291,7 +293,7 @@ Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 30) 
 | ------- | ------- |
 | **1. Ön Kontrol** | Çalışan Brave'i tespit eder, devam/iptal istemi gösterir |
 | **2. Yedekleme** | HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur |
-| **3. Uygulama** | Seçilen seviyeye göre 3 katmanda politikaları yazar (13/30/49/68) |
+| **3. Uygulama** | Seçilen seviyeye göre 3 katmanda politikaları yazar (24/50/79/90/114) |
 | **4. Özet** | Kategori bazında başarı/hata sayaçları + geri alma bilgisi |
 | **5. Temizlik** | Artık süreç bırakmadan temiz çıkış |
 
