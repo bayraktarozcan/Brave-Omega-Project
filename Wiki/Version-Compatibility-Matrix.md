@@ -61,7 +61,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 - Running Brave 1.92.138 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
-- Need full extension lockdown, proxy enforcement, and 114 total policies
+- Need full extension lockdown, proxy enforcement, and 110 total policies
 
 ### Use Previous (v2.2.1.0) If
 
@@ -71,7 +71,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ### Avoid Archived (v1.0) If
 
-- Policies outdated (only 7 vs 114 current)
+- Policies outdated (only 7 vs 110 current)
 - No backup/rollback, no process guard
 - No lifecycle commitment features
 
@@ -112,7 +112,7 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
-| v2.3.0.0 | 114 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (22 new) |
+| v2.3.0.0 | 110 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (22 new) |
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API blocking, ECH enforcement, Payment Request disable, window management isolation, site-per-process (12 new) |
 | v2.2.0.2 | 80 | 100% | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled removed (deprecated), policy counts adjusted |
@@ -229,7 +229,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 - Brave 1.92.138 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
-- Tam uzantı kilitleme, proxy zorunlu kılma ve 114 toplam politika
+- Tam uzantı kilitleme, proxy zorunlu kılma ve 110 toplam politika
 
 ### Önceki (v2.2.1.0) Kullan Eğer
 
@@ -239,7 +239,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Arşivlenmiş (v1.0) Kullanma Eğer
 
-- Politikalar güncel değil (7'ye karşı 114)
+- Politikalar güncel değil (7'ye karşı 110)
 - Yedekleme/geri alma, süreç koruyucusu yok
 - Yaşam döngüsü taahhüdü özellikleri yok
 
@@ -280,7 +280,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
-| v2.3.0.0 | 114 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (22 yeni) |
+| v2.3.0.0 | 110 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (22 yeni) |
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API engelleme, ECH zorlama, Payment Request devre dışı, pencere yönetimi yalıtımı, site başına süreç (12 yeni) |
 | v2.2.0.2 | 80 | 100% | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled kaldırıldı (kullanım dışı), politika sayıları düzeltildi |

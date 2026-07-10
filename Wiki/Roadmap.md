@@ -13,7 +13,7 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 **v2.3.0.0** — *Extension Lockdown, Proxy & Privacy Hardening* (2026-07-09)
 
-Phase 8 complete: 114 policies across 5 hardening tiers (Brave Only 24 / Essential 50 / Balanced 79 / Advanced 90 / Strict 114).
+Phase 8 complete: 110 policies across 5 hardening tiers (Brave Only 24 / Essential 49 / Balanced 78 / Advanced 97 / Strict 110).
 
 ---
 
@@ -123,23 +123,23 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | DownloadRestrictions | Download control | Balanced |
 | DownloadDirectory | Download control | Balanced |
 | PromptForDownloadLocation | Download control | Balanced |
-| ExtensionInstallBlocklist | Extension lockdown | Strict |
-| ExtensionInstallAllowlist | Extension lockdown | Strict |
-| ExtensionAllowedTypes | Extension lockdown | Strict |
-| BlockExternalExtensions | Extension lockdown | Strict |
-| ExtensionSettings | Extension lockdown | Strict |
-| ManifestV2ExtensionUnsupported | Extension lockdown | Strict |
+| ExtensionInstallBlocklist | Extension lockdown | Advanced |
+| ExtensionInstallAllowlist | Extension lockdown | Advanced |
+| ExtensionAllowedTypes | Extension lockdown | Advanced |
+| BlockExternalExtensions | Extension lockdown | Advanced |
+| ExtensionSettings | Extension lockdown | Advanced |
+| ManifestV2ExtensionUnsupported | Extension lockdown | Advanced |
 | IncognitoModeAvailability | Privacy — incognito control | Strict |
-| DeveloperToolsDisabled | Developer tools block | Strict |
-| DeveloperToolsAvailability | Developer tools block | Strict |
+| DeveloperToolsDisabled | Developer tools block | Advanced |
+| DeveloperToolsAvailability | Developer tools block | Advanced |
 | TaskManagerEndProcessEnabled | Process management | Strict |
 | PrintingEnabled | Printing control | Strict |
 | DisablePrintPreview | Printing control | Strict |
-| ProxyMode | Network — proxy enforcement | Strict |
-| BuiltInDnsClientEnabled | Network — DNS control | Strict |
-| BraveUpdateDisabled | Update control | Strict |
+| ProxyMode | Network — proxy enforcement | Advanced |
+| BuiltInDnsClientEnabled | Network — DNS control | Advanced |
+| BraveUpdateDisabled | Update control | Advanced |
 
-Total: 91→114 policies (+23). Cumulative chain: 24→50→79→90→114.
+Total: 91→110 policies (+19). Cumulative chain: 24→49→78→97→110.
 
 **Removed:** AllowPopupsDuringPageUnload (deprecated upstream, removed after initial 115-policy build).
 
@@ -241,7 +241,7 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 **v2.3.0.0** — *Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması* (2026-07-09)
 
-8. Aşama tamam: 5 sıkılaştırma katmanında 114 politika (Brave Yalnız 24 / Temel 50 / Dengeli 79 / Gelişmiş 90 / Katı 114).
+8. Aşama tamam: 5 sıkılaştırma katmanında 110 politika (Brave Yalnız 24 / Temel 49 / Dengeli 78 / Gelişmiş 97 / Katı 110).
 
 ---
 
@@ -330,7 +330,7 @@ Toplam: 80→91 politika (+11). 90+ politika engeli aşıldı.
 
 22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
 
-Toplam: 91→114 politika (+23). Kümülatif zincir: 24→50→79→90→114.
+Toplam: 91→110 politika (+19). Kümülatif zincir: 24→49→78→97→110.
 
 **Kaldırılan:** AllowPopupsDuringPageUnload (kullanım dışı, ilk 115'lik yapıdan sonra çıkarıldı).
 

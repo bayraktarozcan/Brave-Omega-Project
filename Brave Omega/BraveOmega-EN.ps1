@@ -102,18 +102,22 @@
 #     [NEW]        Balanced (+4):  ExtensionInstallForcelist,
 #                                  DownloadRestrictions, DownloadDirectory,
 #                                  PromptForDownloadLocation
-#     [NEW]        Strict (+15):   ExtensionInstallBlocklist,
+#     [NEW]        Advanced (+8):  ExtensionInstallBlocklist,
 #                                  ExtensionInstallAllowlist,
 #                                  ExtensionAllowedTypes, BlockExternalExtensions,
-#                                  ExtensionSettings, ManifestV2ExtensionUnsupported,
-#                                  IncognitoModeAvailability, DeveloperToolsDisabled,
+#                                  ExtensionSettings,
 #                                  DeveloperToolsAvailability,
+#                                  BuiltInDnsClientEnabled
+#     [NEW]        Strict (+4):    IncognitoModeAvailability,
 #                                  TaskManagerEndProcessEnabled, PrintingEnabled,
-#                                  DisablePrintPreview, ProxyMode,
-#                                  BuiltInDnsClientEnabled, BraveUpdateDisabled
+#                                  DisablePrintPreview
+#     [CHANGED]    11 extension/devtool/proxy/DNS policies reclassified from
+#                  Strict to Advanced.
+#     [FIXED]      ExtensionSettings JSON schema — invalid "allowlist" property
+#                  replaced with per-extension "installation_mode":"allowed".
 #
-#     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 50, Balanced 79,
-#                   Advanced 90, Strict 114.
+#     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 49, Balanced 78,
+#                   Advanced 97, Strict 110.
 #     [IMPROVED]    Validated Brave version updated to 1.92.138
 #                   (Chromium 150.0.7871.101).
 # ==============================================================================
@@ -264,16 +268,17 @@ if ($Reset) {
         "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
         "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
         "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage",
-        # Phase 8 (v2.3.0.0) — 22 new policies
+        # Phase 8 (v2.3.0.0) — 19 new policies (3 removed: ManifestV2ExtensionUnsupported,
+        # DeveloperToolsDisabled, BraveUpdateDisabled — unknown/deprecated in Brave 1.92)
         "SafeBrowsingProtectionLevel", "PasswordProtectionWarningTrigger",
         "EnableOnlineRevocationChecks",
         "ExtensionInstallForcelist", "DownloadRestrictions", "DownloadDirectory",
         "PromptForDownloadLocation",
         "ExtensionInstallBlocklist", "ExtensionInstallAllowlist", "ExtensionAllowedTypes",
-        "BlockExternalExtensions", "ExtensionSettings", "ManifestV2ExtensionUnsupported",
-        "IncognitoModeAvailability", "DeveloperToolsDisabled", "DeveloperToolsAvailability",
+        "BlockExternalExtensions", "ExtensionSettings",
+        "IncognitoModeAvailability", "DeveloperToolsAvailability",
         "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
-        "ProxyMode", "BuiltInDnsClientEnabled", "BraveUpdateDisabled"
+        "BuiltInDnsClientEnabled"
     )
 
     # Remove from HKLM
@@ -528,8 +533,6 @@ $PolicyDefinitions = @{
         @{Name="DefaultWebBluetoothGuardSetting";      Value=2; Type="DWord"}
         # WebHID — blocks websites from accessing HID devices by default
         @{Name="DefaultWebHidGuardSetting";            Value=2; Type="DWord"}
-        # Direct Sockets — blocks websites from using Direct Sockets API by default
-        @{Name="DefaultDirectSocketsSetting";          Value=2; Type="DWord"}
         # Device Attributes — blocks all origins from accessing device attributes (ChromeOS)
         @{Name="DeviceAttributesAllowedForOrigins";    Value=@(); Type="MultiString"}
         # Encrypted ClientHello — forces ECH to encrypt SNI (defense-in-depth)
@@ -634,6 +637,21 @@ $PolicyDefinitions = @{
         @{Name="ImportSearchEngine";                   Value=0; Type="DWord"}
         # Import homepage — disables importing homepage settings
         @{Name="ImportHomepage";                       Value=0; Type="DWord"}
+        # ─── Moved from Strict (v2.3.0.0 reclassify) — extension lockdown ───
+        # Extension Install Blocklist — block all except allowlist
+        @{Name="ExtensionInstallBlocklist";            Value=@("*");     Type="MultiString"}
+        # Extension Install Allowlist — only Dark Reader + Google Docs Offline
+        @{Name="ExtensionInstallAllowlist";            Value=@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh"); Type="MultiString"}
+        # Extension Allowed Types — only extension + shared_module
+        @{Name="ExtensionAllowedTypes";                Value=@("extension", "shared_module"); Type="MultiString"}
+        # Block External Extensions — prevent sideloading
+        @{Name="BlockExternalExtensions";              Value=1;          Type="DWord"}
+        # Extension Settings — JSON backup layer
+        @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Type="String"}
+        # Developer Tools Availability — restrict DevTools
+        @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
+        # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS
+        @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
     )
 
     "Strict" = @(
@@ -657,40 +675,15 @@ $PolicyDefinitions = @{
         @{Name="ImportBookmarks";                      Value=0; Type="DWord"}
         # First-party storage — forget on tab/nav end (causes login loss per session)
         @{Name="DefaultBraveRemember1PStorageSetting"; Value=2; Type="DWord"}
-        # ─── New Strict Policies (Phase 8 — Prompt 22) ───
-        # Extension Install Blocklist — block all except allowlist
-        @{Name="ExtensionInstallBlocklist";            Value=@("*");     Type="MultiString"}
-        # Extension Install Allowlist — only Dark Reader + Google Docs Offline
-        @{Name="ExtensionInstallAllowlist";            Value=@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp"); Type="MultiString"}
-        # Extension Allowed Types — only extension + shared_module
-        @{Name="ExtensionAllowedTypes";                Value=@("extension", "shared_module"); Type="MultiString"}
-        # Block External Extensions — prevent sideloading
-        @{Name="BlockExternalExtensions";              Value=1;          Type="DWord"}
-        # Extension Settings — JSON backup layer
-        @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked","allowlist":["gighmmpiobklfepjocnamgkkbiglidom","jkfdkjapfhfinccefmehkmnjghbkladp"]}}'; Type="String"}
-        # Manifest V2 Extension Unsupported — do NOT warn user (0)
-        @{Name="ManifestV2ExtensionUnsupported";        Value=0;          Type="DWord"}
-        # ─── New Strict Policies (Phase 8 — Prompt 23) ───
-        # Incognito Mode Availability — disable incognito mode (strict only)
+        # ─── Strict-only Policies (v2.3.0.0) ───
+        # Incognito Mode Availability — disable incognito mode
         @{Name="IncognitoModeAvailability";            Value=1;          Type="DWord"}
-        # Developer Tools Disabled — disable DevTools entirely (strict only)
-        @{Name="DeveloperToolsDisabled";               Value=1;          Type="DWord"}
-        # Developer Tools Availability — restrict DevTools (strict only)
-        @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
-        # Task Manager End Process Enabled — prevent ending processes (strict only)
+        # Task Manager End Process Enabled — prevent ending processes
         @{Name="TaskManagerEndProcessEnabled";         Value=0;          Type="DWord"}
-        # ─── New Strict Policies (Phase 8 — Prompt 24) ───
-        # Printing Enabled — disable all printing (strict only)
+        # Printing Enabled — disable all printing
         @{Name="PrintingEnabled";                       Value=0;          Type="DWord"}
-        # Disable Print Preview — skip preview dialog (strict only)
+        # Disable Print Preview — skip preview dialog
         @{Name="DisablePrintPreview";                   Value=1;          Type="DWord"}
-        # Proxy Mode — use system proxy settings (strict only)
-        @{Name="ProxyMode";                            Value="system";   Type="String"}
-        # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS (strict only)
-        @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
-        # ─── New Strict Policies (Phase 8 — Prompt 25) ───
-        # Brave Update Disabled — disable Brave auto-updates (strict only)
-        @{Name="BraveUpdateDisabled";                  Value=1; Type="DWord"}
         # ─── Moved from Balanced (v2.3.0.0) — stricter enforcement ───
         # Download Restrictions — block ALL downloads (3=full protection, strict only)
         @{Name="DownloadRestrictions";                 Value=3; Type="DWord"}

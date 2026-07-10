@@ -103,18 +103,22 @@
 #     [YENİ]        Dengeli (+4):      ExtensionInstallForcelist,
 #                                      DownloadRestrictions, DownloadDirectory,
 #                                      PromptForDownloadLocation
-#     [YENİ]        Katı (+15):        ExtensionInstallBlocklist,
+#     [YENİ]        Gelişmiş (+8):    ExtensionInstallBlocklist,
 #                                      ExtensionInstallAllowlist,
 #                                      ExtensionAllowedTypes, BlockExternalExtensions,
-#                                      ExtensionSettings, ManifestV2ExtensionUnsupported,
-#                                      IncognitoModeAvailability, DeveloperToolsDisabled,
+#                                      ExtensionSettings,
 #                                      DeveloperToolsAvailability,
+#                                      BuiltInDnsClientEnabled
+#     [YENİ]        Katı (+4):         IncognitoModeAvailability,
 #                                      TaskManagerEndProcessEnabled, PrintingEnabled,
-#                                      DisablePrintPreview, ProxyMode,
-#                                      BuiltInDnsClientEnabled, BraveUpdateDisabled
+#                                      DisablePrintPreview
+#     [DEĞİŞTİ]     11 uzantı/geliştirici aracı/vekil/DNS politikası Katı'dan
+#                   Gelişmiş'e reklasifiye edildi.
+#     [DÜZELTİLDİ]  ExtensionSettings JSON şeması — geçersiz "allowlist" property'si
+#                   per-extension "installation_mode":"allowed" ile değiştirildi.
 #
-#     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
-#                   Gelişmiş 90, Katı 114.
+#     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 49, Dengeli 78,
+#                   Gelişmiş 97, Katı 110.
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.138'e güncellendi
 #                   (Chromium 150.0.7871.101).
 # ==============================================================================
@@ -264,16 +268,17 @@ if ($Sifirla) {
         "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
         "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
         "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage",
-        # Phase 8 (v2.3.0.0) — 22 yeni politika
+        # Phase 8 (v2.3.0.0) — 19 yeni politika (3 kaldırıldı: ManifestV2ExtensionUnsupported,
+        # DeveloperToolsDisabled, BraveUpdateDisabled — Brave 1.92'de bilinmiyor/kullanım dışı)
         "SafeBrowsingProtectionLevel", "PasswordProtectionWarningTrigger",
         "EnableOnlineRevocationChecks",
         "ExtensionInstallForcelist", "DownloadRestrictions", "DownloadDirectory",
         "PromptForDownloadLocation",
         "ExtensionInstallBlocklist", "ExtensionInstallAllowlist", "ExtensionAllowedTypes",
-        "BlockExternalExtensions", "ExtensionSettings", "ManifestV2ExtensionUnsupported",
-        "IncognitoModeAvailability", "DeveloperToolsDisabled", "DeveloperToolsAvailability",
+        "BlockExternalExtensions", "ExtensionSettings",
+        "IncognitoModeAvailability", "DeveloperToolsAvailability",
         "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
-        "ProxyMode", "BuiltInDnsClientEnabled", "BraveUpdateDisabled"
+        "BuiltInDnsClientEnabled"
     )
 
     # HKLM'den kaldır
@@ -537,8 +542,6 @@ $PolitikaTanimlari = @{
         @{Ad="DefaultWebBluetoothGuardSetting";      Deger=2; Tur="DWord"}
         # WebHID — web sitelerinin HID aygıtlarına erişimini varsayılan olarak engeller
         @{Ad="DefaultWebHidGuardSetting";            Deger=2; Tur="DWord"}
-        # Direct Sockets — web sitelerinin Direct Sockets API kullanımını varsayılan olarak engeller
-        @{Ad="DefaultDirectSocketsSetting";          Deger=2; Tur="DWord"}
         # Cihaz Özellikleri — tüm kaynakların cihaz özelliklerine erişimini engeller (ChromeOS)
         @{Ad="DeviceAttributesAllowedForOrigins";    Deger=@(); Tur="MultiString"}
         # Şifreli İstemci Selamı — SNI'yi şifrelemek için ECH'yi zorlar
@@ -643,6 +646,21 @@ $PolitikaTanimlari = @{
         @{Ad="ImportSearchEngine";                   Deger=0; Tur="DWord"}
         # Ana sayfa içe aktarma — diğer tarayıcılardan ana sayfa ayarları alımını engeller
         @{Ad="ImportHomepage";                       Deger=0; Tur="DWord"}
+        # ─── Katı'dan taşındı (v2.3.0.0 reklasifikasyon) — uzantı kilidi ───
+        # Uzantı Yükleme Engel Listesi — beyaz liste dışındaki tüm uzantıları engelle
+        @{Ad="ExtensionInstallBlocklist";            Deger=@("*");     Tur="MultiString"}
+        # Uzantı Yükleme İzin Listesi — yalnızca Dark Reader + Google Dokümanlar Çevrimdışı
+        @{Ad="ExtensionInstallAllowlist";          Deger=@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh"); Tur="MultiString"}
+        # İzin Verilen Uzantı Türleri — yalnızca extension ve shared_module
+        @{Ad="ExtensionAllowedTypes";                Deger=@("extension", "shared_module"); Tur="MultiString"}
+        # Harici Uzantıları Engelle — yan yükleme/sideloading'i engelle
+        @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
+        # Uzantı Ayarları — JSON yedek katmanı
+        @{Ad="ExtensionSettings";                  Deger='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
+        # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla
+        @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
+        # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan
+        @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
     )
 
     "Strict" = @(
@@ -666,40 +684,15 @@ $PolitikaTanimlari = @{
         @{Ad="ImportBookmarks";                      Deger=0; Tur="DWord"}
         # Birinci taraf depolama — sekme/gezinti sonunda temizle (her oturumda login kaybı)
         @{Ad="DefaultBraveRemember1PStorageSetting"; Deger=2; Tur="DWord"}
-        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 22) ───
-        # Uzantı Yükleme Engel Listesi — beyaz liste dışındaki tüm uzantıları engelle
-        @{Ad="ExtensionInstallBlocklist";            Deger=@("*");     Tur="MultiString"}
-        # Uzantı Yükleme İzin Listesi — yalnızca Dark Reader + Google Dokümanlar Çevrimdışı
-        @{Ad="ExtensionInstallAllowlist";            Deger=@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp"); Tur="MultiString"}
-        # İzin Verilen Uzantı Türleri — yalnızca extension ve shared_module
-        @{Ad="ExtensionAllowedTypes";                Deger=@("extension", "shared_module"); Tur="MultiString"}
-        # Harici Uzantıları Engelle — yan yükleme/sideloading'i engelle
-        @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
-        # Uzantı Ayarları — JSON yedek katmanı
-        @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked","allowlist":["gighmmpiobklfepjocnamgkkbiglidom","jkfdkjapfhfinccefmehkmnjghbkladp"]}}'; Tur="String"}
-        # Manifest V2 Uzantı Desteği — kullanıcıyı rahatsız etme (0)
-        @{Ad="ManifestV2ExtensionUnsupported";        Deger=0;          Tur="DWord"}
-        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 23) ───
-        # Gizli Mod Kullanılabilirliği — gizli modu devre dışı bırak (sadece en katı seviye)
+        # ─── Yalnızca Katı Politikaları (v2.3.0.0) ───
+        # Gizli Mod Kullanılabilirliği — gizli modu devre dışı bırak
         @{Ad="IncognitoModeAvailability";            Deger=1;          Tur="DWord"}
-        # Geliştirici Araçları Devre Dışı — DevTools'u tamamen kapat (sadece en katı seviye)
-        @{Ad="DeveloperToolsDisabled";               Deger=1;          Tur="DWord"}
-        # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla (sadece en katı seviye)
-        @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
-        # Görev Yöneticisi İşlem Sonlandırma — işlem sonlandırmayı engelle (sadece en katı seviye)
+        # Görev Yöneticisi İşlem Sonlandırma — işlem sonlandırmayı engelle
         @{Ad="TaskManagerEndProcessEnabled";         Deger=0;          Tur="DWord"}
-        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 24) ───
-        # Yazdırma Etkin — tüm yazdırmayı devre dışı bırak (sadece en katı seviye)
+        # Yazdırma Etkin — tüm yazdırmayı devre dışı bırak
         @{Ad="PrintingEnabled";                       Deger=0;          Tur="DWord"}
-        # Yazdırma Önizlemesini Devre Dışı Bırak — önizleme iletişim kutusunu kapat (sadece en katı seviye)
+        # Yazdırma Önizlemesini Devre Dışı Bırak — önizleme iletişim kutusunu kapat
         @{Ad="DisablePrintPreview";                   Deger=1;          Tur="DWord"}
-        # Vekil Sunucu Modu — sistem vekil sunucu ayarlarını kullan (sadece en katı seviye)
-        @{Ad="ProxyMode";                            Deger="system";   Tur="String"}
-        # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan (sadece en katı seviye)
-        @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
-        # ─── Yeni Katı Politikaları (Faz 8 — Prompt 25) ───
-        # Brave Güncellemesi Devre Dışı — otomatik güncellemeleri kapat (sadece en katı seviye)
-        @{Ad="BraveUpdateDisabled";                  Deger=1;          Tur="DWord"}
         # ─── Dengeli seviyesinden taşındı (v2.3.0.0) — daha sıkı uygulama ───
         # İndirme Kısıtlamaları — TÜM indirmeleri engelle (3=tam koruma, yalnızca katı)
         @{Ad="DownloadRestrictions";                 Deger=3; Tur="DWord"}

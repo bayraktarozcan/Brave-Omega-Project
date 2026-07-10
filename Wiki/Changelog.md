@@ -25,19 +25,25 @@ Complete version history for Brave Omega.
 
 ### v2.3.0.0 — 2026-07-09
 
-**Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 91→114 Policies (+23)**
+**Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 91→110 Policies (+19)**
 
 **Added:**
-- 22 new Chromium enterprise policies added across all 5 hardening levels:
+- 11 new Chromium enterprise policies added:
   - **Brave Only (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
   - **Essential (+1):** EnableOnlineRevocationChecks
   - **Balanced (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
-  - **Strict (+15):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+  - **Strict (+4):** IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview
+
+**Reclassified:**
+- 11 policies moved from Strict to Advanced for better tier alignment (extension lockdown, developer tools, proxy, DNS, auto-update):
+  ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Changed:**
-- Cumulative chain restructured: 22→47→72→83→91 → 24→50→79→90→114
+- Cumulative chain restructured: 22→47→72→83→91 → 24→49→78→97→110
 - Brave validated version updated to 1.92.138 (Chromium 150.0.7871.101)
 - Both scripts updated to v2.3.0.0 with `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
+- `DownloadRestrictions` overridden to `3` in Strict (Balanced uses `1`)
+- `BraveUpdateDisabled` set to `0` (enabled) in Advanced; auto-updates no longer blocked
 - Documentation updated across README, Wiki, index.html, CHANGELOG
 
 **Removed:**
@@ -438,19 +444,25 @@ Brave Omega için tam sürüm geçmişi.
 
 ### v2.3.0.0 — 2026-07-09
 
-**Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 91→114 Politika (+23)**
+**Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 91→110 Politika (+19)**
 
 **Eklenenler:**
-- 5 sıkılaştırma seviyesine 22 yeni Chromium kurumsal politikası eklendi:
+- 11 yeni Chromium kurumsal politikası eklendi:
   - **Brave Yalnız (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
   - **Temel (+1):** EnableOnlineRevocationChecks
   - **Dengeli (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
-  - **Katı (+15):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+  - **Katı (+4):** IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview
+
+**Yeniden Sınıflandırılanlar:**
+- 11 politika Katı'dan Gelişmiş'e taşındı (uzantı kilitleme, geliştirici araçları, proxy, DNS, otomatik güncelleme):
+  ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Değişenler:**
-- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→50→79→90→114
+- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→49→78→97→110
 - Doğrulanmış Brave sürümü 1.92.138'e güncellendi (Chromium 150.0.7871.101)
 - Her iki betik v2.3.0.0'a güncellendi, `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
+- `DownloadRestrictions` Katı'da `3` ile geçersiz kılındı (Dengeli `1` kullanır)
+- `BraveUpdateDisabled` Gelişmiş'te `0` olarak ayarlandı (etkin); otomatik güncellemeler artık engellenmez
 - README, Wiki, index.html, CHANGELOG genelinde dokümantasyon güncellendi
 
 **Kaldırılanlar:**
