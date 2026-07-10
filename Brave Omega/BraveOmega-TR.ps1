@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8524)
-#                  Brave 1.92.138 — Resmî Derleme / Chromium 150.0.7871.101
+#                  Brave 1.92.139 — Resmî Derleme / Chromium 150.0.7871.114
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
 #                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
 #                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.92.138, 9 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.92.139, 10 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
@@ -121,6 +121,14 @@
 #                   Gelişmiş 97, Katı 110.
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.138'e güncellendi
 #                   (Chromium 150.0.7871.101).
+#
+#   v2.3.1.0             ProxySettings eklendi — kullanımdan kaldırılan ProxyMode uyarısını bastırır:
+#
+#     [YENİ]        Temel (+1): ProxySettings (String, '{"ProxyMode":"system"}')
+#     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
+#                   Gelişmiş 98, Katı 111.
+#     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.139'a güncellendi
+#                   (Chromium 150.0.7871.114).
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -135,8 +143,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.3.0.0"
-$DogrulananBrave = "1.92.138"
+$BetikSurum    = "v2.3.1.0"
+$DogrulananBrave = "1.92.139"
 $DogrulananChromium = "150"
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -424,7 +432,6 @@ if ($BraveIslemleri) {
         Write-Host "`n  İşlem kullanıcı tarafından iptal edildi. Brave'i kapatıp yeniden deneyin." -ForegroundColor DarkGray
         exit 0
     }
-    Write-Host ""
 } else {
     Write-Host "  -> Temiz: Çalışan Brave süreci tespit edilmedi.`n" -ForegroundColor DarkGreen
 }
@@ -553,6 +560,8 @@ $PolitikaTanimlari = @{
         # ─── Yeni Temel Politikaları (Faz 8 — Prompt 25) ───
         # Çevrimiçi İptal Denetimlerini Etkinleştir — OCSP/CRL sertifika doğrulamasını zorla
         @{Ad="EnableOnlineRevocationChecks";         Deger=1; Tur="DWord"}
+        # Vekil Sunucu Ayarları — sistem vekil sunucusunu kullanır, ProxyMode uyarısını bastırır
+        @{Ad="ProxySettings";                      Deger='{"ProxyMode":"system"}'; Tur="String"}
     )
 
     "Balanced" = @(
@@ -650,13 +659,13 @@ $PolitikaTanimlari = @{
         # Uzantı Yükleme Engel Listesi — beyaz liste dışındaki tüm uzantıları engelle
         @{Ad="ExtensionInstallBlocklist";            Deger=@("*");     Tur="MultiString"}
         # Uzantı Yükleme İzin Listesi — yalnızca Dark Reader + Google Dokümanlar Çevrimdışı
-        @{Ad="ExtensionInstallAllowlist";          Deger=@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh"); Tur="MultiString"}
+        @{Ad="ExtensionInstallAllowlist";            Deger=@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh"); Tur="MultiString"}
         # İzin Verilen Uzantı Türleri — yalnızca extension ve shared_module
         @{Ad="ExtensionAllowedTypes";                Deger=@("extension", "shared_module"); Tur="MultiString"}
         # Harici Uzantıları Engelle — yan yükleme/sideloading'i engelle
         @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
         # Uzantı Ayarları — JSON yedek katmanı
-        @{Ad="ExtensionSettings";                  Deger='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
+        @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
         # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla
         @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
         # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan

@@ -1,4 +1,4 @@
-﻿> **Language / Dil** &nbsp;
+> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -77,7 +77,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 - Script detects running Brave → prompts continue/cancel
 - Creates timestamped `.reg` backup of HKLM policy hive
-- Displays level selection menu (1-5) and applies policies based on selected level (24/49/78/97/110)
+- Displays level selection menu (1-5) and applies policies based on selected level (24/50/79/98/111)
 - Shows per-category success/failure summary
 
 ### 5. Restart Brave
@@ -291,7 +291,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 - Betik çalışan Brave'i tespit eder → devam/iptal istemi gösterir
 - HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur
-- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (24/49/78/97/110)
+- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (24/50/79/98/111)
 - Kategori bazında başarı/hata özetini gösterir
 
 ### 5. Brave'i Yeniden Başlat

@@ -5,12 +5,12 @@ BeforeAll {
 Describe "Script Version Consistency" -Tag "Integration" {
     It "EN script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion"
-        $v | Should -BeExactly "v2.3.0.0"
+        $v | Should -BeExactly "v2.3.1.0"
     }
 
     It "TR script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum"
-        $v | Should -BeExactly "v2.3.0.0"
+        $v | Should -BeExactly "v2.3.1.0"
     }
 
     It "EN and TR script versions should match" {

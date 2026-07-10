@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8524)
-#                    Brave 1.92.138 — Official Build / Chromium 150.0.7871.101
+#                    Brave 1.92.139 — Official Build / Chromium 150.0.7871.114
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.92.138, dated July 9, 2026, belongs to the Stable channel.
+#    Brave 1.92.139, dated July 10, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
@@ -120,6 +120,14 @@
 #                   Advanced 97, Strict 110.
 #     [IMPROVED]    Validated Brave version updated to 1.92.138
 #                   (Chromium 150.0.7871.101).
+#
+#   v2.3.1.0             ProxySettings added — silences deprecated ProxyMode warning:
+#
+#     [NEW]        Essential (+1): ProxySettings (String, '{"ProxyMode":"system"}')
+#     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 50, Balanced 79,
+#                   Advanced 98, Strict 111.
+#     [IMPROVED]    Validated Brave version updated to 1.92.139
+#                   (Chromium 150.0.7871.114).
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -134,8 +142,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.3.0.0"
-$ValidatedBrave  = "1.92.138"
+$ScriptVersion   = "v2.3.1.0"
+$ValidatedBrave  = "1.92.139"
 $ValidatedChromium = "150"
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -544,6 +552,8 @@ $PolicyDefinitions = @{
         # ─── New Essential Policies (Phase 8 — Prompt 25) ───
         # Enable Online Revocation Checks — force OCSP/CRL certificate validation (all levels)
         @{Name="EnableOnlineRevocationChecks";         Value=1; Type="DWord"}
+        # Proxy Settings — explicitly uses system proxy, silences deprecated ProxyMode warning
+        @{Name="ProxySettings";                      Value='{"ProxyMode":"system"}'; Type="String"}
     )
 
     "Balanced" = @(

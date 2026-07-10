@@ -1,4 +1,4 @@
-﻿> **Language / Dil** &nbsp;
+> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -17,7 +17,7 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | **2. Essential** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | Includes Level 1 |
 | **3. Balanced** | 79 (50 + 29) | UsageStatsInSample | 79 | Includes Levels 1-2 |
 | **4. Advanced** | 101 (79 + 22) | UsageStatsInSample | 101 | Includes Levels 1-3 |
-| **5. Strict** | 110 (97 + 13) | UsageStatsInSample | 110 | Includes Levels 1-4 |
+| **5. Strict** | 111 (98 + 13) | UsageStatsInSample | 110 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
@@ -239,7 +239,7 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | **2. Temel** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 79 (50 + 29) | UsageStatsInSample | 79 | 1-2. Seviyeleri kapsar |
 | **4. Gelişmiş** | 101 (79 + 22) | UsageStatsInSample | 101 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 110 (97 + 13) | UsageStatsInSample | 110 | 1-4. Seviyeleri kapsar |
+| **5. Katı** | 111 (98 + 13) | UsageStatsInSample | 110 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
