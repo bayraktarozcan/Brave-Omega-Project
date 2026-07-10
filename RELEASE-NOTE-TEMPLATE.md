@@ -1,9 +1,10 @@
 # Release Note Template
 
-Use this template when creating new releases. Copy and fill in the placeholders.
+Copy the template below and fill in placeholders when creating new releases.
 
 ---
 
+```markdown
 ## v{VERSION} — {TITLE}
 
 **{ONE_LINE_SUMMARY}**
@@ -15,25 +16,25 @@ Use this template when creating new releases. Copy and fill in the placeholders.
 | Metric | Before | After |
 |--------|--------|-------|
 | Hardening levels | 5 | 5 |
-| Total policies | {BEFORE_TOTAL} | **{AFTER_TOTAL}** ({DIFF}) |
-| Brave Only | {BEFORE_BO} | {AFTER_BO} |
-| Essential | {BEFORE_ES} | {AFTER_ES} |
-| Balanced | {BEFORE_BA} | {AFTER_BA} |
-| Advanced | {BEFORE_AD} | {AFTER_AD} |
-| Strict | {BEFORE_ST} | {AFTER_ST} |
-| Cumulative chain | {BEFORE_CHAIN} | **{AFTER_CHAIN}** |
+| Total policies | {BEFORE} | **{AFTER}** ({DIFF}) |
+| Brave Only | {BO_BEFORE} | {BO_AFTER} |
+| Essential | {ES_BEFORE} | {ES_AFTER} |
+| Balanced | {BA_BEFORE} | {BA_AFTER} |
+| Advanced | {AD_BEFORE} | {AD_AFTER} |
+| Strict | {ST_BEFORE} | {ST_AFTER} |
+| Cumulative chain | {CHAIN_BEFORE} | **{CHAIN_AFTER}** |
 
 ### Added
 
-{LIST_OF_NEW_POLICIES_WITH_TIER_AND_DESCRIPTION}
+{POLICY_NAME} ({TIER}) — {DESCRIPTION}
 
 ### Changed
 
-{LIST_OF_CHANGES}
+- {CHANGE_DESCRIPTION}
 
 ### Removed
 
-{LIST_OF_REMOVED_POLICIES_OR_FEATURES}
+{POLICY_NAME} — {REASON}
 
 ### Files
 
@@ -45,18 +46,21 @@ Use this template when creating new releases. Copy and fill in the placeholders.
 
 - [Wiki](https://github.com/bayraktarozcan/Brave-Omega-Project/wiki)
 - [Changelog](https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/CHANGELOG.md)
+```
 
 ---
 
-## Example (v2.3.1.0)
+## Example: v2.3.1.0
 
+```markdown
 ## v2.3.1.0 — Brave 1.92.139 Compatibility & ProxyMode Deprecation Fix
 
 **Lightweight validation release — ProxySettings added to Essential tier.**
 
 ### Summary
 
-Validates full compatibility with Brave **1.92.139** (Chromium 150.0.7871.176). Adds `ProxySettings` to Essential tier for proxy configuration placeholder support.
+Validates full compatibility with Brave **1.92.139** (Chromium 150.0.7871.176).
+Adds `ProxySettings` to Essential tier for proxy configuration placeholder support.
 
 | Metric | Before (v2.3.0.0) | After (v2.3.1.0) |
 |--------|-------------------|------------------|
@@ -71,7 +75,8 @@ Validates full compatibility with Brave **1.92.139** (Chromium 150.0.7871.176). 
 
 ### Added
 
-- **`ProxySettings`** (Essential) — Configures proxy server address via JSON. Placeholder — customize per deployment.
+- **`ProxySettings`** (Essential) — Configures proxy server address via JSON.
+  Placeholder — customize per deployment.
 
 ### Changed
 
@@ -89,3 +94,4 @@ Validates full compatibility with Brave **1.92.139** (Chromium 150.0.7871.176). 
 
 - [Wiki](https://github.com/bayraktarozcan/Brave-Omega-Project/wiki)
 - [Changelog](https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/CHANGELOG.md)
+```
