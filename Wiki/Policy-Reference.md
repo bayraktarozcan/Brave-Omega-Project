@@ -176,6 +176,28 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `BraveSpeedreaderEnabled` | v1.2 |
 | `BraveWaybackMachineEnabled` | v1.2 |
 | `TorDisabled` | v1.2 |
+| `SafeBrowsingProtectionLevel` | v2.3.0.0 |
+| `PasswordProtectionWarningTrigger` | v2.3.0.0 |
+| `EnableOnlineRevocationChecks` | v2.3.0.0 |
+| `ExtensionInstallForcelist` | v2.3.0.0 |
+| `DownloadRestrictions` | v2.3.0.0 |
+| `DownloadDirectory` | v2.3.0.0 |
+| `PromptForDownloadLocation` | v2.3.0.0 |
+| `ExtensionInstallBlocklist` | v2.3.0.0 |
+| `ExtensionInstallAllowlist` | v2.3.0.0 |
+| `ExtensionAllowedTypes` | v2.3.0.0 |
+| `BlockExternalExtensions` | v2.3.0.0 |
+| `ExtensionSettings` | v2.3.0.0 |
+| `DeveloperToolsAvailability` | v2.3.0.0 |
+| `BuiltInDnsClientEnabled` | v2.3.0.0 |
+| `IncognitoModeAvailability` | v2.3.0.0 |
+| `TaskManagerEndProcessEnabled` | v2.3.0.0 |
+| `PrintingEnabled` | v2.3.0.0 |
+| `DisablePrintPreview` | v2.3.0.0 |
+| `TranslateEnabled` | v2.3.0.0 |
+| `DefaultJavaScriptSetting` | v2.3.0.0 |
+| `PasswordManagerEnabled` | v2.3.0.0 |
+| `ProxySettings` | v2.3.1.0 |
 
 ---
 
@@ -395,6 +417,28 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `BraveSpeedreaderEnabled` | v1.2 |
 | `BraveWaybackMachineEnabled` | v1.2 |
 | `TorDisabled` | v1.2 |
+| `SafeBrowsingProtectionLevel` | v2.3.0.0 |
+| `PasswordProtectionWarningTrigger` | v2.3.0.0 |
+| `EnableOnlineRevocationChecks` | v2.3.0.0 |
+| `ExtensionInstallForcelist` | v2.3.0.0 |
+| `DownloadRestrictions` | v2.3.0.0 |
+| `DownloadDirectory` | v2.3.0.0 |
+| `PromptForDownloadLocation` | v2.3.0.0 |
+| `ExtensionInstallBlocklist` | v2.3.0.0 |
+| `ExtensionInstallAllowlist` | v2.3.0.0 |
+| `ExtensionAllowedTypes` | v2.3.0.0 |
+| `BlockExternalExtensions` | v2.3.0.0 |
+| `ExtensionSettings` | v2.3.0.0 |
+| `DeveloperToolsAvailability` | v2.3.0.0 |
+| `BuiltInDnsClientEnabled` | v2.3.0.0 |
+| `IncognitoModeAvailability` | v2.3.0.0 |
+| `TaskManagerEndProcessEnabled` | v2.3.0.0 |
+| `PrintingEnabled` | v2.3.0.0 |
+| `DisablePrintPreview` | v2.3.0.0 |
+| `TranslateEnabled` | v2.3.0.0 |
+| `DefaultJavaScriptSetting` | v2.3.0.0 |
+| `PasswordManagerEnabled` | v2.3.0.0 |
+| `ProxySettings` | v2.3.1.0 |
 
 ---
 
