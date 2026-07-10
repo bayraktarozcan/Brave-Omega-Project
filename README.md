@@ -68,7 +68,7 @@ monetization features, and other privacy-eroding components — all without touc
 browser's internals or requiring any third-party tools.
 
 Brave Omega v2.3.1.0 introduces a **five-tier hardening model** — Brave Only (24 policies),
-Essential ⭐ (50), Balanced (79), Advanced (98), and Strict (111) — giving users precise control over
+Essential ⭐ (50), Balanced (79), Advanced (97), and Strict (110) — giving users precise control over
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
 
@@ -99,7 +99,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Feature | Description |
 |---------|-------------|
-| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (24 policies), **Essential ⭐** (49 policies), **Balanced** (78), **Advanced** (97), or **Strict** (110) |
+| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (24 policies), **Essential ⭐** (50 policies), **Balanced** (79), **Advanced** (97), or **Strict** (110) |
 | 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
@@ -180,8 +180,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 | Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
 |---------------------|---------------------|-------|----------|
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 24 |
-| `-Level Essential` | `-Level Temel` | Essential ⭐ | 49 |
-| `-Level Balanced` | `-Level Dengeli` | Balanced | 78 |
+| `-Level Essential` | `-Level Temel` | Essential ⭐ | 50 |
+| `-Level Balanced` | `-Level Dengeli` | Balanced | 79 |
 | `-Level Advanced` | `-Level Gelişmiş` | Advanced | 97 |
 | `-Level Strict` | `-Level Katı` | Strict | 110 |
 
@@ -233,10 +233,10 @@ and offers **four hardening levels** that determine how many policies are applie
 | Level | Total Policies | Brave-Specific | Chromium (Data) | Chromium (Security) | Usability Impact |
 |-------|---------------|----------------|-----------------|---------------------|-----------------|
 | **Brave Only** | 24 | 24 | 0 | 0 | None |
-| **Essential ⭐** | 49 | 24 | 26 | 0 | None |
-| **Balanced** | 78 | 24 | 26 | 29 | Low |
-| **Advanced** | 97 | 24 | 26 | 41 | Low |
-| **Strict** | 110 | 24 | 26 | 66 | High |
+| **Essential ⭐** | 50 | 24 | 26 | 0 | None |
+| **Balanced** | 79 | 24 | 26 | 29 | Low |
+| **Advanced** | 97 | 24 | 26 | 47 | Low |
+| **Strict** | 110 | 24 | 26 | 60 | High |
 
 #### 6.2 Policy Sources & Methodology
 
@@ -300,7 +300,7 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.3.1.0** *(current)* | 1.92.138 | 150 | 11 25H2 | ✅ Active |
+| **v2.3.1.0** *(current)* | 1.92.139 | 150 | 11 25H2 | ✅ Active |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
@@ -364,10 +364,11 @@ no longer have any effect.
 | `DefaultBraveFingerprintingV2Setting` | `3` | DWord | Locks Shields fingerprinting to Strict |
 | `BraveShieldsDisabledForUrls` | `@()` | MultiString | Empty — no Shields whitelist |
 | `BraveShieldsEnabledForUrls` | `@()` | MultiString | Empty — no Shields blacklist |
-| `BraveLocalAIEnabled` | `0` | DWord | Disables on-device AI features |
+| `SafeBrowsingProtectionLevel` | `2` | DWord | Enables enhanced Safe Browsing protection for all levels |
+| `PasswordProtectionWarningTrigger` | `3` | DWord | Enables password leak detection and reuse warnings |
 | `EmailAliasesEnabled` | `0` | DWord | Disables anonymous email alias feature |
 
-#### 9.3 Essential Level — Brave Only + Data Leak Prevention (17 additional)
+#### 9.3 Essential Level — Brave Only + Data Leak Prevention (26 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -388,8 +389,17 @@ no longer have any effect.
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
 | `VideoCaptureAllowed` | `0` | DWord | Blocks camera by default |
 | `BraveGlobalPrivacyControlEnabled` | `1` | DWord | Sends Global Privacy Control opt-out signal |
+| `DefaultWebUsbGuardSetting` | `2` | DWord | Blocks websites from accessing USB devices by default |
+| `DefaultWebBluetoothGuardSetting` | `2` | DWord | Blocks websites from accessing Bluetooth devices by default |
+| `DefaultWebHidGuardSetting` | `2` | DWord | Blocks websites from accessing HID devices by default |
+| `DeviceAttributesAllowedForOrigins` | `@()` | MultiString | Blocks all origins from accessing device attributes |
+| `EncryptedClientHelloEnabled` | `1` | DWord | Forces ECH to encrypt SNI (defense-in-depth) |
+| `PaymentMethodQueryEnabled` | `0` | DWord | Disables Payment Request API queries (fingerprint reduction) |
+| `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Suppresses dialogs from different-origin subframes |
+| `EnableOnlineRevocationChecks` | `1` | DWord | Forces OCSP/CRL certificate validation for all levels |
+| `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Explicitly uses system proxy, silences deprecated ProxyMode warning |
 
-#### 9.4 Balanced Level — Essential + Security Baseline (21 additional)
+#### 9.4 Balanced Level — Essential + Security Baseline (29 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -414,8 +424,16 @@ no longer have any effect.
 | `DefaultBraveHttpsUpgradeSetting` | `2` | DWord | Strict HTTPS upgrade with interstitial |
 | `DefaultBraveReferrersSetting` | `2` | DWord | Caps referrer to strict-origin-when-cross-origin |
 | `BraveSyncUrl` | `"https://sync-v2.brave.com/v2"` | String | Explicit Brave sync server endpoint |
+| `DefaultWindowManagementSetting` | `2` | DWord | Blocks sites from seeing full screen info by default |
+| `SitePerProcess` | `1` | DWord | Forces all sites into separate processes |
+| `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Aggressively throttles JavaScript wake-up timers |
+| `UserFeedbackAllowed` | `0` | DWord | Disables in-browser feedback prompts/UI |
+| `ExtensionInstallForcelist` | *(Dark Reader + Google Docs Offline)* | MultiString | Force-installs listed extensions |
+| `DownloadRestrictions` | `1` | DWord | Warns before dangerous downloads (basic protection) |
+| `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download folder |
+| `PromptForDownloadLocation` | `0` | DWord | Does not prompt, uses default download directory |
 
-#### 9.5 Advanced Level — Balanced + Enhanced Privacy (11 additional)
+#### 9.5 Advanced Level — Balanced + Enhanced Privacy (18 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -430,8 +448,15 @@ no longer have any effect.
 | `ImportSavedPasswords` | `0` | DWord | Disables password import |
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
+| `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except those on allowlist |
+| `ExtensionInstallAllowlist` | *(Dark Reader + Google Docs Offline)* | MultiString | Only these extensions are permitted |
+| `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts allowed extension types |
+| `BlockExternalExtensions` | `1` | DWord | Prevents sideloading of external extensions |
+| `ExtensionSettings` | *(JSON block-all + allowlist)* | String | JSON backup layer for extension control |
+| `DeveloperToolsAvailability` | `2` | DWord | Restricts DevTools access |
+| `BuiltInDnsClientEnabled` | `0` | DWord | Disables Chrome DNS, uses system DNS |
 
-#### 9.6 Strict Level — Advanced + Maximum Privacy (8 additional)
+#### 9.6 Strict Level — Advanced + Maximum Privacy (13 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -444,6 +469,11 @@ no longer have any effect.
 | `DefaultCookiesSetting` | `2` | DWord | Blocks all cookies by default |
 | `ImportBookmarks` | `0` | DWord | Disables bookmark import |
 | `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Forgets first-party storage on tab/nav end |
+| `IncognitoModeAvailability` | `1` | DWord | Disables incognito/private browsing mode |
+| `TaskManagerEndProcessEnabled` | `0` | DWord | Prevents ending browser processes via Task Manager |
+| `PrintingEnabled` | `0` | DWord | Disables all printing |
+| `DisablePrintPreview` | `1` | DWord | Skips print preview dialog |
+| `DownloadRestrictions` *(override)* | `3` | DWord | Blocks ALL downloads (overrides Balanced's value of 1) |
 
 ---
 
@@ -494,7 +524,7 @@ BRAVE OMEGA PROJECT/
 ### 12. Troubleshooting
 
 > [!NOTE]
-> Brave Omega is validated against the **Stable channel only** (currently Brave 1.92.138 / Chromium 150). ADMX policy behaviors have not been tested on Beta/Nightly builds and may behave differently.
+> Brave Omega is validated against the **Stable channel only** (currently Brave 1.92.139 / Chromium 150). ADMX policy behaviors have not been tested on Beta/Nightly builds and may behave differently.
 
 | Symptom | Likely Cause | Resolution |
 |---------|-------------|------------|
@@ -513,9 +543,9 @@ BRAVE OMEGA PROJECT/
 - [x] **Multi-type registry engine** — DWord, String, MultiString type-aware dispatching (v2.0)
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
-- [x] **111 total policies** — expanded from 17 to 111 across 5 levels (v2.0–v2.3.1.0)
+- [x] **110 total policies** — expanded from 17 to 110 across 5 levels (v2.0–v2.3.1.0)
 - [x] **v2.2.1.0 — Policy Expansion** — 12 new Chromium security/data policies added across Essential and Balanced levels (v2.2.1.0)
-- [x] **v2.3.1.0 — Phase 8 Expansion** — 22 new enterprise policies added across all 5 levels: Safe Browsing protection, extension lockdown (block all + forcelist), Incognito disable, developer tools disable, proxy configuration, printing disable, Brave update disable, and more
+- [x] **v2.3.0.0 — Phase 8 Expansion** — 19 new enterprise policies added across all 5 levels: Safe Browsing protection, extension lockdown (block all + forcelist), Incognito disable, developer tools disable, proxy configuration, printing disable, and more
 - [x] **5-tier hardening model** — Advanced level added between Balanced and Strict (v2.2.0)
 - [x] **Automated Brave version detection** — warn if installed version differs from validated target (v2.1)
 - [x] **Dry-run mode** via `-WhatIf` parameter — preview all changes without writing to registry (v2.1)
@@ -602,7 +632,7 @@ ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı 
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
 Brave Omega **beş katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (24 politika),
-Temel ⭐ (49), Dengeli (78), Gelişmiş (97) ve Katı (110) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
+Temel ⭐ (50), Dengeli (79), Gelişmiş (97) ve Katı (110) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
 sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
@@ -632,7 +662,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Özellik | Açıklama |
 |---------|----------|
-| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (24 politika), **Temel ⭐** (49), **Dengeli** (78), **Gelişmiş** (97) veya **Katı** (110) |
+| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (24 politika), **Temel ⭐** (50), **Dengeli** (79), **Gelişmiş** (97) veya **Katı** (110) |
 | 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır, PowerShell'de `REG_MULTI_SZ` cmdlet'i bulunmadığından |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
@@ -713,8 +743,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
 | Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
 |----------------------|----------------------|--------|----------|
 | `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 24 |
-| `-Level Temel` | `-Level Essential` | Temel ⭐ | 49 |
-| `-Level Dengeli` | `-Level Balanced` | Dengeli | 78 |
+| `-Level Temel` | `-Level Essential` | Temel ⭐ | 50 |
+| `-Level Dengeli` | `-Level Balanced` | Dengeli | 79 |
 | `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 97 |
 | `-Level Katı` | `-Level Strict` | Katı | 110 |
 
@@ -764,10 +794,10 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 | Seviye | Toplam Politika | Brave'e Özgü | Chromium (Veri) | Chromium (Güvenlik) | Kullanım Etkisi |
 |--------|----------------|--------------|-----------------|---------------------|-----------------|
 | **Brave Yalnız** | 24 | 24 | 0 | 0 | Yok |
-| **Temel ⭐** | 49 | 24 | 26 | 0 | Yok |
-| **Dengeli** | 78 | 24 | 26 | 29 | Düşük |
-| **Gelişmiş** | 97 | 24 | 26 | 41 | Düşük |
-| **Katı** | 110 | 24 | 26 | 66 | Yüksek |
+| **Temel ⭐** | 50 | 24 | 26 | 0 | Yok |
+| **Dengeli** | 79 | 24 | 26 | 29 | Düşük |
+| **Gelişmiş** | 97 | 24 | 26 | 47 | Düşük |
+| **Katı** | 110 | 24 | 26 | 60 | Yüksek |
 
 #### 6.2 Politika Kaynakları ve Yöntem
 
@@ -834,7 +864,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.3.1.0** *(güncel)* | 1.92.138 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.3.1.0** *(güncel)* | 1.92.139 | 150 | 11 25H2 | ✅ Etkin |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
@@ -863,7 +893,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 9. Politika Başvuru Tablosu
 
-> Brave Omega **5 sıkılaştırma seviyesi** ve **110 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir. 111 politikanın tamamı aşağıda listelenmiştir — betiğe bakmaya gerek yoktur.
+> Brave Omega **5 sıkılaştırma seviyesi** ve **110 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
 
 #### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -890,8 +920,10 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `BraveStatsPingEnabled` | `0` | DWord | Brave sunucularına durum/kimlik doğrulama pinglerini durdurur |
 | `BraveWebDiscoveryEnabled` | `0` | DWord | Web Discovery Project katkısını devre dışı bırakır |
 | `TorDisabled` | `1` | DWord | Tor entegrasyonunu devre dışı bırakır |
+| `SafeBrowsingProtectionLevel` | `2` | DWord | Tüm seviyeler için gelişmiş Safe Browsing korumasını etkinleştirir |
+| `PasswordProtectionWarningTrigger` | `3` | DWord | Parola sızıntı algılama ve tekrar uyarılarını etkinleştirir |
 
-#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (17 ek)
+#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (26 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -911,8 +943,18 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | WebRTC metin günlüğü yüklemeyi durdurur |
 | `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |
 | `VideoCaptureAllowed` | `0` | DWord | Varsayılan olarak kameraya izin vermez |
+| `BraveGlobalPrivacyControlEnabled` | `1` | DWord | Global Privacy Control çıkış sinyali gönderir |
+| `DefaultWebUsbGuardSetting` | `2` | DWord | Web sitelerinin USB cihazlarına erişimini engeller |
+| `DefaultWebBluetoothGuardSetting` | `2` | DWord | Web sitelerinin Bluetooth cihazlarına erişimini engeller |
+| `DefaultWebHidGuardSetting` | `2` | DWord | Web sitelerinin HID cihazlarına erişimini engeller |
+| `DeviceAttributesAllowedForOrigins` | `@()` | MultiString | Tüm kaynakların cihaz özniteliklerine erişimini engeller |
+| `EncryptedClientHelloEnabled` | `1` | DWord | SNI'yi şifrelemek için ECH'yi zorlar (savunma derinliği) |
+| `PaymentMethodQueryEnabled` | `0` | DWord | Payment Request API sorgularını devre dışı bırakır (parmak izi azaltma) |
+| `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Farklı kaynak alt çerçevelerinden gelen diyalogları bastırır |
+| `EnableOnlineRevocationChecks` | `1` | DWord | Tüm seviyeler için OCSP/CRL sertifika doğrulamasını zorlar |
+| `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Sistem proxy'sini açıkça kullanır, kullanımdan kaldırılmış ProxyMode uyarısını susturur |
 
-#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (21 ek)
+#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (29 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -935,7 +977,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
 
-#### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (11 ek)
+#### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (18 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -950,8 +992,15 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `ImportSavedPasswords` | `0` | DWord | Parola içe aktarmayı devre dışı bırakır |
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
+| `ExtensionInstallBlocklist` | `@("*")` | MultiString | Tüm eklentileri izin verilen listedekiler dışında engeller |
+| `ExtensionInstallAllowlist` | *(Dark Reader + Google Docs Offline)* | MultiString | Yalnızca bu eklentilere izin verilir |
+| `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | İzin verilen eklenti türlerini kısıtlar |
+| `BlockExternalExtensions` | `1` | DWord | Dış eklenti yan yüklemesini engeller |
+| `ExtensionSettings` *(JSON)* | *(JSON block-all + allowlist)* | String | Eklenti kontrolü için JSON yedek katmanı |
+| `DeveloperToolsAvailability` | `2` | DWord | Geliştirici araçları erişimini kısıtlar |
+| `BuiltInDnsClientEnabled` | `0` | DWord | Chrome DNS'i devre dışı bırakır, sistem DNS'ini kullanır |
 
-#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (8 ek)
+#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (13 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -964,6 +1013,11 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultCookiesSetting` | `2` | DWord | Varsayılan olarak tüm çerezleri engeller |
 | `ImportBookmarks` | `0` | DWord | Yer imi içe aktarmayı devre dışı bırakır |
 | `DefaultBraveRemember1PStorageSetting` | `2` | DWord | Sekme/gezinti sonunda birinci taraf deposunu unutur |
+| `IncognitoModeAvailability` | `1` | DWord | Gizli gezinti modunu devre dışı bırakır |
+| `TaskManagerEndProcessEnabled` | `0` | DWord | Görev Yöneticisi aracılığıyla tarayıcı süreçlerini sonlandırmayı engeller |
+| `PrintingEnabled` | `0` | DWord | Baskıyı devre dışı bırakır |
+| `DisablePrintPreview` | `1` | DWord | Baskı önizleme iletişim kutusunu atlar |
+| `DownloadRestrictions` *(geçersiz kılma)* | `3` | DWord | TÜM indirmeleri engeller (Dengeli'nin 1 değerini geçersiz kılar) |
 
 ---
 
@@ -1015,7 +1069,7 @@ BRAVE OMEGA PROJECT/
 ### 12. Sorun Giderme
 
 > [!NOTE]
-> Brave Omega yalnızca **Kararlı (Stable) kanalda** doğrulanmıştır (güncel Brave 1.92.138 / Chromium 150). ADMX politika davranışları Beta/Nightly yapılarında test edilmemiştir ve farklılık gösterebilir.
+> Brave Omega yalnızca **Kararlı (Stable) kanalda** doğrulanmıştır (güncel Brave 1.92.139 / Chromium 150). ADMX politika davranışları Beta/Nightly yapılarında test edilmemiştir ve farklılık gösterebilir.
 
 | Belirti | Olası Neden | Çözüm |
 |---------|------------|-------|
@@ -1042,23 +1096,22 @@ BRAVE OMEGA PROJECT/
 - [x] **CONTRIBUTING.md** ve GitHub sorun şablonları
 - [x] **GitHub Actions ADMX doğrulama ardışık düzeni**
 - [x] **4 parçalı sürümleme şeması** — version.major.minor.revision
-- [x] **GitHub Project #4** — 6 açık issue (#25-#30), 5 kapalı (#10-#14)
 - [x] **Kalite hattı temiz** — markdownlint (13/13), yamllint, PowerShell sözdizimi
 
 #### 🔲 Aşama 1 — Denetim
 
-- [ ] **Eksik politika analizi** — 13 eksik Brave politikasını belirle
-- [ ] **ADMX değer doğrulama** — politika değer aralıklarını ve varsayılanlarını doğrula
-- [ ] **Deprecated temizlik** — 4 kullanımdan kaldırılmış Chromium politikasını kaldır
-- [ ] **Referans güncelleme** — referans dokümanı satır numaralarını güncelle
+- [x] **Eksik politika analizi** — Brave politika eksiklikleri belirlendi (v2.3.0.0'da 19 yeni politika eklendi)
+- [x] **ADMX değer doğrulama** — politika değer aralıkları ve varsayılanlar doğrulandı
+- [x] **Deprecated temizlik** — 4 kullanımdan kaldırılmış Chromium politikası kaldırıldı
+- [x] **Referans güncelleme** — referans dokümanı satır numaraları güncellendi
 
 #### 🔲 Aşama 2 — Uygulama
 
-- [ ] **Politika ekleme** — 13 eksik Brave politikasını betiğe ekle
+- [x] **Politika ekleme** — 19 yeni Brave politikası betiğe eklendi (v2.3.0.0)
 
 #### ✅ Aşama 3 — Kalite & Test
 
-- [x] **Pester test takımı** — 16 birim + entegrasyon test dosyası ([#30](https://github.com/brave-omega/brave-omega/issues/30))
+- [x] **Pester test takımı** — 16 birim + entegrasyon test dosyası
 - [x] **PSScriptAnalyzer** — statik analiz CI entegrasyonu
 - [x] **Politika bütünlük CI** — ADMX çapraz referans doğrulama
 - [x] **Platform matrisi** — ubuntu + windows CI
@@ -1075,7 +1128,7 @@ BRAVE OMEGA PROJECT/
 - [ ] **Web tabanlı politika yapılandırıcı** — interaktif arayüz
 - [ ] **Modüler mimari** — modüllere ayrılmış PowerShell modülleri
 
-> Tüm aşamalı çalışmalar **GitHub Project #4** ile takip edilir.
+> Tüm aşamalı çalışmalar proje depo takibi ile izlenir.
 
 ---
 

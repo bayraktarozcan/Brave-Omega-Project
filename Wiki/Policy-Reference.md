@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.3.0.0.
+Complete policy reference for Brave Omega v2.3.1.0.
 
 ---
 
@@ -16,8 +16,8 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | **1. Brave Only** | 24 Brave-specific | — | 24 | Base |
 | **2. Essential** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | Includes Level 1 |
 | **3. Balanced** | 79 (50 + 29) | UsageStatsInSample | 79 | Includes Levels 1-2 |
-| **4. Advanced** | 101 (79 + 22) | UsageStatsInSample | 101 | Includes Levels 1-3 |
-| **5. Strict** | 111 (98 + 13) | UsageStatsInSample | 110 | Includes Levels 1-4 |
+| **4. Advanced** | 97 (79 + 18) | UsageStatsInSample | 97 | Includes Levels 1-3 |
+| **5. Strict** | 110 (97 + 13) | UsageStatsInSample | 110 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
@@ -100,7 +100,7 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
 
-### Advanced Level — Balanced + Enhanced Privacy (22 additional)
+### Advanced Level — Balanced + Enhanced Privacy (18 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -116,21 +116,18 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except allowlist |
-| `ExtensionInstallAllowlist` | `@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp")` | MultiString | Allows only Dark Reader + Google Docs Offline |
+| `ExtensionInstallAllowlist` | `@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Allows only Google Docs Offline + Dark Reader |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloaded extensions |
-| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"gighmmpiobklfepjocnamgkkbiglidom":{"installation_mode":"allowed"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"}}` | String | JSON backup layer for extension control |
-| `ManifestV2ExtensionUnsupported` | `0` | DWord | Suppresses Manifest V2 deprecation warnings |
-| `DeveloperToolsDisabled` | `1` | DWord | Disables developer tools access |
+| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | JSON backup layer for extension control |
 | `DeveloperToolsAvailability` | `2` | DWord | Disables developer tools in all contexts |
-| `ProxyMode` | `"system"` | String | Uses system proxy settings |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables built-in DNS client (uses system DNS) |
-| `BraveUpdateDisabled` | `0` | DWord | Keeps Brave auto-updates enabled |
 
 ### Strict Level — Advanced + Maximum Privacy (13 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
+| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
 | `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
@@ -143,8 +140,8 @@ Complete policy reference for Brave Omega v2.3.0.0.
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Disables task manager process ending |
 | `PrintingEnabled` | `0` | DWord | Disables printing entirely |
 | `DisablePrintPreview` | `1` | DWord | Disables print preview system dialog |
-| `TranslateEnabled` | `0` | DWord | Disables built-in translation |
-| `DownloadRestrictions` | `3` | DWord | Blocks all dangerous downloads |
+
+> **Note:** `DownloadRestrictions` is set to `3` in Strict (overrides the Balanced value of `1`), but is counted under Balanced's 29 additions.
 
 ---
 
@@ -227,7 +224,7 @@ All 110 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.3.0.0 için tam politika başvurusu.
+Brave Omega v2.3.1.0 için tam politika başvurusu.
 
 ---
 
@@ -238,8 +235,8 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
 | **2. Temel** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 79 (50 + 29) | UsageStatsInSample | 79 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 101 (79 + 22) | UsageStatsInSample | 101 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 111 (98 + 13) | UsageStatsInSample | 110 | 1-4. Seviyeleri kapsar |
+| **4. Gelişmiş** | 97 (79 + 18) | UsageStatsInSample | 97 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 110 (97 + 13) | UsageStatsInSample | 110 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
@@ -322,7 +319,7 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
 
-### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (22 ek)
+### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (18 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -338,21 +335,18 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Beyaz listedekiler hariç tüm uzantıları engeller |
-| `ExtensionInstallAllowlist` | `@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp")` | MultiString | Yalnızca Dark Reader + Google Docs Offline'a izin verir |
+| `ExtensionInstallAllowlist` | `@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Yalnızca Google Docs Offline + Dark Reader'a izin verir |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Uzantı türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Kenardan yüklenen uzantıları engeller |
-| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"gighmmpiobklfepjocnamgkkbiglidom":{"installation_mode":"allowed"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"}}` | String | Uzantı kontrolü için JSON yedek katmanı |
-| `ManifestV2ExtensionUnsupported` | `0` | DWord | Manifest V2 kullanımdan kaldırma uyarılarını bastırır |
-| `DeveloperToolsDisabled` | `1` | DWord | Geliştirici araçlarına erişimi devre dışı bırakır |
+| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | Uzantı kontrolü için JSON yedek katmanı |
 | `DeveloperToolsAvailability` | `2` | DWord | Geliştirici araçlarını her bağlamda devre dışı bırakır |
-| `ProxyMode` | `"system"` | String | Sistem vekil sunucusunu kullanır |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Yerleşik DNS istemcisini devre dışı bırakır (sistem DNS kullanır) |
-| `BraveUpdateDisabled` | `0` | DWord | Brave otomatik güncellemelerini etkin bırakır |
 
 ### Katı Seviye — Gelişmiş + Azami Gizlilik (13 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
+| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
 | `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
@@ -365,8 +359,8 @@ Brave Omega v2.3.0.0 için tam politika başvurusu.
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Görev yöneticisi işlem sonlandırmayı devre dışı bırakır |
 | `PrintingEnabled` | `0` | DWord | Yazdırmayı tamamen devre dışı bırakır |
 | `DisablePrintPreview` | `1` | DWord | Baskı ön izleme sistem iletişim kutusunu devre dışı bırakır |
-| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
-| `DownloadRestrictions` | `3` | DWord | Tüm tehlikeli indirmeleri engeller |
+
+> **Not:** `DownloadRestrictions`, Katı seviyede `3`'e ayarlanmıştır (Dengeli'deki `1` değerinin üzerine yazar), ancak Dengeli'nin 29 ekstra politikası arasında sayılmaktadır.
 
 ---
 

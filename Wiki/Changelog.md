@@ -23,23 +23,35 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.3.1.0 — 2026-07-10
+
+**Brave 1.92.139 Validation — ProxySettings Added to Essential**
+
+**Added:**
+- **Essential (+1):** ProxySettings (JSON placeholder `{"proxyServer": "http://proxy:8080"}`)
+
+**Changed:**
+- Cumulative chain: 24→50→79→97→110 (Essential 18→19)
+- Brave validated version updated to 1.92.139 (Chromium 150.0.7871.176)
+- Both scripts updated to v2.3.1.0 with `$ScriptVersion = "v2.3.1.0"` / `$BetikSurum = "v2.3.1.0"`
+- Documentation updated across README, Wiki, CHANGELOG
+
+---
+
 ### v2.3.0.0 — 2026-07-09
 
 **Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 91→110 Policies (+19)**
 
 **Added:**
-- 11 new Chromium enterprise policies added:
+- 19 new Chromium enterprise policies added:
   - **Brave Only (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
   - **Essential (+1):** EnableOnlineRevocationChecks
   - **Balanced (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
-  - **Strict (+4):** IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview
-
-**Reclassified:**
-- 11 policies moved from Strict to Advanced for better tier alignment (extension lockdown, developer tools, proxy, DNS, auto-update):
-  ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+  - **Advanced (+18):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled, IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, TranslateEnabled, DefaultJavaScriptSetting, PasswordManagerEnabled
+  - **Strict overrides:** TranslateEnabled (top priority), DownloadRestrictions (1→3), plus other tier overrides for IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Changed:**
-- Cumulative chain restructured: 22→47→72→83→91 → 24→49→78→97→110
+- Cumulative chain restructured: 22→47→72→83→91 → 24→50→79→97→110
 - Brave validated version updated to 1.92.138 (Chromium 150.0.7871.101)
 - Both scripts updated to v2.3.0.0 with `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` overridden to `3` in Strict (Balanced uses `1`)
@@ -368,7 +380,8 @@ Complete version history for Brave Omega.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.3.0.0** *(current)* | 1.92.138 | 150 | 11 25H2 | ✅ Active |
+| **v2.3.1.0** *(current)* | 1.92.139 | 150 | 11 25H2 | ✅ Active |
+| v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
@@ -455,10 +468,10 @@ Brave Omega için tam sürüm geçmişi.
 
 **Yeniden Sınıflandırılanlar:**
 - 11 politika Katı'dan Gelişmiş'e taşındı (uzantı kilitleme, geliştirici araçları, proxy, DNS, otomatik güncelleme):
-  ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+  ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Değişenler:**
-- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→49→78→97→110
+- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→50→79→97→110
 - Doğrulanmış Brave sürümü 1.92.138'e güncellendi (Chromium 150.0.7871.101)
 - Her iki betik v2.3.0.0'a güncellendi, `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` Katı'da `3` ile geçersiz kılındı (Dengeli `1` kullanır)
@@ -786,7 +799,8 @@ Brave Omega için tam sürüm geçmişi.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.3.0.0** *(güncel)* | 1.92.138 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.3.1.0** *(güncel)* | 1.92.139 | 150 | 11 25H2 | ✅ Etkin |
+| v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |

@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.3.0.0** ⭐ | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | ✅ Current | 2026-07-09 |
+| **v2.3.1.0** ⭐ | 1.92.139 | 150.0.7871.176 | Windows 11 25H2 | ✅ Current | 2026-07-10 |
+| **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Previous | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
@@ -57,15 +58,20 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.3.0.0) If
+### Use Current (v2.3.1.0) If
 
-- Running Brave 1.92.138 (latest stable)
+- Running Brave 1.92.139 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 110 total policies
 
-### Use Previous (v2.2.1.0) If
+### Use Previous (v2.3.0.0) If
 
-- Cannot update to v2.3.0.0 immediately
+- Cannot update to v2.3.1.0 immediately
+- Running Brave 1.92.138
+
+### Use Legacy (v2.2.1.0) If
+
+- Cannot update to v2.3.x immediately
 - Running Brave 1.92.134
 - Need hardware API blocking and ECH enforcement
 
@@ -112,7 +118,8 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
-| v2.3.0.0 | 110 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (22 new) |
+| v2.3.1.0 | 110 | 100% | ProxySettings added to Essential tier (1 new policy) |
+| v2.3.0.0 | 110 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (19 new) |
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API blocking, ECH enforcement, Payment Request disable, window management isolation, site-per-process (12 new) |
 | v2.2.0.2 | 80 | 100% | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled removed (deprecated), policy counts adjusted |
@@ -181,7 +188,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.3.0.0** ⭐ | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | ✅ Güncel | 2026-07-09 |
+| **v2.3.1.0** ⭐ | 1.92.139 | 150.0.7871.176 | Windows 11 25H2 | ✅ Güncel | 2026-07-10 |
+| **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Önceki | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
 | **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
@@ -225,15 +233,20 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.3.0.0) Kullan Eğer
+### Güncel (v2.3.1.0) Kullan Eğer
 
-- Brave 1.92.138 (en güncel kararlı) çalışıyorsa
+- Brave 1.92.139 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 110 toplam politika
 
-### Önceki (v2.2.1.0) Kullan Eğer
+### Önceki (v2.3.0.0) Kullan Eğer
 
-- Hemen v2.3.0.0'a güncelleyemiyorsanız
+- Hemen v2.3.1.0'a güncelleyemiyorsanız
+- Brave 1.92.138 çalışıyorsa
+
+### Eski (v2.2.1.0) Kullan Eğer
+
+- Hemen v2.3.x güncelleyemiyorsanız
 - Brave 1.92.134 çalışıyorsa
 - Donanım API engelleme ve ECH zorlamaya ihtiyacınız varsa
 
@@ -280,7 +293,8 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
-| v2.3.0.0 | 110 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (22 yeni) |
+| v2.3.1.0 | 110 | 100% | Temel kademesine ProxySettings eklendi (1 yeni politika) |
+| v2.3.0.0 | 110 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (19 yeni) |
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API engelleme, ECH zorlama, Payment Request devre dışı, pencere yönetimi yalıtımı, site başına süreç (12 yeni) |
 | v2.2.0.2 | 80 | 100% | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled kaldırıldı (kullanım dışı), politika sayıları düzeltildi |

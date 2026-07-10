@@ -128,7 +128,7 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | ExtensionAllowedTypes | Extension lockdown | Advanced |
 | BlockExternalExtensions | Extension lockdown | Advanced |
 | ExtensionSettings | Extension lockdown | Advanced |
-| ManifestV2ExtensionUnsupported | Extension lockdown | Advanced |
+| ManifestV2Unsupported | Extension lockdown | Advanced |
 | IncognitoModeAvailability | Privacy — incognito control | Strict |
 | DeveloperToolsDisabled | Developer tools block | Advanced |
 | DeveloperToolsAvailability | Developer tools block | Advanced |
@@ -139,7 +139,7 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | BuiltInDnsClientEnabled | Network — DNS control | Advanced |
 | BraveUpdateDisabled | Update control | Advanced |
 
-Total: 91→110 policies (+19). Cumulative chain: 24→49→78→97→110.
+Total: 91→110 policies (+19). Cumulative chain: 24→50→79→97→110.
 
 **Removed:** AllowPopupsDuringPageUnload (deprecated upstream, removed after initial 115-policy build).
 
@@ -328,9 +328,9 @@ Toplam: 80→91 politika (+11). 90+ politika engeli aşıldı.
 
 ### Aşama 8 — Uzantı Kilitleme, Proxy & Gizlilik Sıkılaştırması ✅ **Tamamlandı (v2.3.0.0)**
 
-22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2ExtensionUnsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
+22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
 
-Toplam: 91→110 politika (+19). Kümülatif zincir: 24→49→78→97→110.
+Toplam: 91→110 politika (+19). Kümülatif zincir: 24→50→79→97→110.
 
 **Kaldırılan:** AllowPopupsDuringPageUnload (kullanım dışı, ilk 115'lik yapıdan sonra çıkarıldı).
 

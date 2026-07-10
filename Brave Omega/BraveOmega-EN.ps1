@@ -125,7 +125,7 @@
 #
 #     [NEW]        Essential (+1): ProxySettings (String, '{"ProxyMode":"system"}')
 #     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 50, Balanced 79,
-#                   Advanced 98, Strict 111.
+#                   Advanced 97, Strict 110.
 #     [IMPROVED]    Validated Brave version updated to 1.92.139
 #                   (Chromium 150.0.7871.114).
 # ==============================================================================
