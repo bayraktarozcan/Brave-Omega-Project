@@ -16,8 +16,8 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | **1. Brave Only** | 24 Brave-specific | — | 24 | Base |
 | **2. Essential** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | Includes Level 1 |
 | **3. Balanced** | 79 (50 + 29) | UsageStatsInSample | 79 | Includes Levels 1-2 |
-| **4. Advanced** | 97 (79 + 18) | UsageStatsInSample | 97 | Includes Levels 1-3 |
-| **5. Strict** | 110 (97 + 13) | UsageStatsInSample | 110 | Includes Levels 1-4 |
+| **4. Advanced** | 96 (79 + 17) | UsageStatsInSample | 96 | Includes Levels 1-3 |
+| **5. Strict** | 110 (96 + 14) | UsageStatsInSample | 110 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
@@ -100,7 +100,7 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
 
-### Advanced Level — Balanced + Enhanced Privacy (18 additional)
+### Advanced Level — Balanced + Enhanced Privacy (17 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -120,14 +120,14 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloaded extensions |
 | `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | JSON backup layer for extension control |
-| `DeveloperToolsAvailability` | `2` | DWord | Disables developer tools in all contexts |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables built-in DNS client (uses system DNS) |
 
-### Strict Level — Advanced + Maximum Privacy (13 additional)
+### Strict Level — Advanced + Maximum Privacy (14 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
 | `TranslateEnabled` | `0` | DWord | Disables built-in translation |
+| `DeveloperToolsAvailability` | `2` | DWord | Disables developer tools in all contexts (moved from Advanced) |
 | `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
@@ -257,8 +257,8 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
 | **2. Temel** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 79 (50 + 29) | UsageStatsInSample | 79 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 97 (79 + 18) | UsageStatsInSample | 97 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 110 (97 + 13) | UsageStatsInSample | 110 | 1-4. Seviyeleri kapsar |
+| **4. Gelişmiş** | 96 (79 + 17) | UsageStatsInSample | 96 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 110 (96 + 14) | UsageStatsInSample | 110 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
@@ -341,7 +341,7 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
 
-### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (18 ek)
+### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (17 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -361,14 +361,14 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Uzantı türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Kenardan yüklenen uzantıları engeller |
 | `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | Uzantı kontrolü için JSON yedek katmanı |
-| `DeveloperToolsAvailability` | `2` | DWord | Geliştirici araçlarını her bağlamda devre dışı bırakır |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Yerleşik DNS istemcisini devre dışı bırakır (sistem DNS kullanır) |
 
-### Katı Seviye — Gelişmiş + Azami Gizlilik (13 ek)
+### Katı Seviye — Gelişmiş + Azami Gizlilik (14 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
 | `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
+| `DeveloperToolsAvailability` | `2` | DWord | Geliştirici araçlarını her bağlamda devre dışı bırakır (Gelişmiş'ten taşındı) |
 | `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |

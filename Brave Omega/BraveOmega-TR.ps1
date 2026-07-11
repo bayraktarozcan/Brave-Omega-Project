@@ -118,7 +118,7 @@
 #                   per-extension "installation_mode":"allowed" ile değiştirildi.
 #
 #     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 49, Dengeli 78,
-#                   Gelişmiş 97, Katı 110.
+#                   Gelişmiş 96, Katı 110.
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.138'e güncellendi
 #                   (Chromium 150.0.7871.101).
 #
@@ -126,7 +126,7 @@
 #
 #     [YENİ]        Temel (+1): ProxySettings (String, '{"ProxyMode":"system"}')
 #     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
-#                   Gelişmiş 98, Katı 111.
+#                   Gelişmiş 96, Katı 110.
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.139'a güncellendi
 #                   (Chromium 150.0.7871.114).
 # ==============================================================================
@@ -666,8 +666,6 @@ $PolitikaTanimlari = @{
         @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
         # Uzantı Ayarları — JSON yedek katmanı
         @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
-        # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla
-        @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
         # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan
         @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
     )
@@ -705,6 +703,9 @@ $PolitikaTanimlari = @{
         # ─── Dengeli seviyesinden taşındı (v2.3.0.0) — daha sıkı uygulama ───
         # İndirme Kısıtlamaları — TÜM indirmeleri engelle (3=tam koruma, yalnızca katı)
         @{Ad="DownloadRestrictions";                 Deger=3; Tur="DWord"}
+        # ─── Gelişmiş'den geri taşındı (v2.3.1.1 düzeltme) — F12 yalnızca Katı'da engellenir ───
+        # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla (2=tamamen devre dışı)
+        @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
     )
 }
 

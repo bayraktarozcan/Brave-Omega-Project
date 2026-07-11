@@ -117,7 +117,7 @@
 #                  replaced with per-extension "installation_mode":"allowed".
 #
 #     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 49, Balanced 78,
-#                   Advanced 97, Strict 110.
+#                   Advanced 96, Strict 110.
 #     [IMPROVED]    Validated Brave version updated to 1.92.138
 #                   (Chromium 150.0.7871.101).
 #
@@ -125,7 +125,7 @@
 #
 #     [NEW]        Essential (+1): ProxySettings (String, '{"ProxyMode":"system"}')
 #     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 50, Balanced 79,
-#                   Advanced 97, Strict 110.
+#                   Advanced 96, Strict 110.
 #     [IMPROVED]    Validated Brave version updated to 1.92.139
 #                   (Chromium 150.0.7871.114).
 # ==============================================================================
@@ -658,8 +658,6 @@ $PolicyDefinitions = @{
         @{Name="BlockExternalExtensions";              Value=1;          Type="DWord"}
         # Extension Settings — JSON backup layer
         @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Type="String"}
-        # Developer Tools Availability — restrict DevTools
-        @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
         # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS
         @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
     )
@@ -697,6 +695,9 @@ $PolicyDefinitions = @{
         # ─── Moved from Balanced (v2.3.0.0) — stricter enforcement ───
         # Download Restrictions — block ALL downloads (3=full protection, strict only)
         @{Name="DownloadRestrictions";                 Value=3; Type="DWord"}
+        # ─── Moved back from Advanced (v2.3.1.1 fix) — F12 only blocked at Strict ───
+        # Developer Tools Availability — restrict DevTools (2=disallowed entirely)
+        @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
     )
 }
 

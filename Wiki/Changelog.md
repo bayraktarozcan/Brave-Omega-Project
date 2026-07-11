@@ -47,11 +47,12 @@ Complete version history for Brave Omega.
   - **Brave Only (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
   - **Essential (+1):** EnableOnlineRevocationChecks
   - **Balanced (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
-  - **Advanced (+18):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled, IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, TranslateEnabled, DefaultJavaScriptSetting, PasswordManagerEnabled
-  - **Strict overrides:** TranslateEnabled (top priority), DownloadRestrictions (1→3), plus other tier overrides for IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+  - **Advanced (+17):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled, IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, TranslateEnabled, DefaultJavaScriptSetting, PasswordManagerEnabled
+  - **Strict (+1, moved from Advanced):** DeveloperToolsAvailability
+  - **Strict overrides:** TranslateEnabled (top priority), DownloadRestrictions (1→3), plus other tier overrides for IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Changed:**
-- Cumulative chain restructured: 22→47→72→83→91 → 24→50→79→97→110
+- Cumulative chain restructured: 22→47→72→83→91 → 24→50→79→96→110
 - Brave validated version updated to 1.92.138 (Chromium 150.0.7871.101)
 - Both scripts updated to v2.3.0.0 with `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` overridden to `3` in Strict (Balanced uses `1`)
@@ -464,14 +465,14 @@ Brave Omega için tam sürüm geçmişi.
   - **Brave Yalnız (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
   - **Temel (+1):** EnableOnlineRevocationChecks
   - **Dengeli (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
-  - **Katı (+4):** IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview
+  - **Katı (+5):** IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsAvailability
 
 **Yeniden Sınıflandırılanlar:**
-- 11 politika Katı'dan Gelişmiş'e taşındı (uzantı kilitleme, geliştirici araçları, proxy, DNS, otomatik güncelleme):
-  ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
+- 10 politika Katı'dan Gelişmiş'e taşındı (uzantı kilitleme, proxy, DNS, otomatik güncelleme):
+  ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Değişenler:**
-- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→50→79→97→110
+- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→50→79→96→110
 - Doğrulanmış Brave sürümü 1.92.138'e güncellendi (Chromium 150.0.7871.101)
 - Her iki betik v2.3.0.0'a güncellendi, `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` Katı'da `3` ile geçersiz kılındı (Dengeli `1` kullanır)

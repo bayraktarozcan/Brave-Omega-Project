@@ -13,7 +13,7 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 **v2.3.0.0** — *Extension Lockdown, Proxy & Privacy Hardening* (2026-07-09)
 
-Phase 8 complete: 110 policies across 5 hardening tiers (Brave Only 24 / Essential 49 / Balanced 78 / Advanced 97 / Strict 110).
+Phase 8 complete: 110 policies across 5 hardening tiers (Brave Only 24 / Essential 50 / Balanced 79 / Advanced 96 / Strict 110).
 
 ---
 
@@ -131,7 +131,7 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | ManifestV2Unsupported | Extension lockdown | Advanced |
 | IncognitoModeAvailability | Privacy — incognito control | Strict |
 | DeveloperToolsDisabled | Developer tools block | Advanced |
-| DeveloperToolsAvailability | Developer tools block | Advanced |
+| DeveloperToolsAvailability | Developer tools block | Strict (moved from Advanced) |
 | TaskManagerEndProcessEnabled | Process management | Strict |
 | PrintingEnabled | Printing control | Strict |
 | DisablePrintPreview | Printing control | Strict |
@@ -139,7 +139,7 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | BuiltInDnsClientEnabled | Network — DNS control | Advanced |
 | BraveUpdateDisabled | Update control | Advanced |
 
-Total: 91→110 policies (+19). Cumulative chain: 24→50→79→97→110.
+Total: 91→110 policies (+19). Cumulative chain: 24→50→79→96→110.
 
 **Removed:** AllowPopupsDuringPageUnload (deprecated upstream, removed after initial 115-policy build).
 
@@ -241,7 +241,7 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 **v2.3.0.0** — *Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması* (2026-07-09)
 
-8. Aşama tamam: 5 sıkılaştırma katmanında 110 politika (Brave Yalnız 24 / Temel 49 / Dengeli 78 / Gelişmiş 97 / Katı 110).
+8. Aşama tamam: 5 sıkılaştırma katmanında 110 politika (Brave Yalnız 24 / Temel 50 / Dengeli 79 / Gelişmiş 96 / Katı 110).
 
 ---
 
