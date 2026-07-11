@@ -1,27 +1,27 @@
-> **Language / Dil** &nbsp;
+﻿> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.3.1.0.
+Complete policy reference for Brave Omega v2.4.0.0 — **141 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
 ## Level Overview
 
-| Level | Policies | HKCU | HKLM | Cumulative |
+| Level | Own Policies | HKCU | HKLM | Cumulative Total |
 | ------- | ---------- | ------ | ------ | ------------ |
 | **1. Brave Only** | 24 Brave-specific | — | 24 | Base |
-| **2. Essential** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | Includes Level 1 |
-| **3. Balanced** | 79 (50 + 29) | UsageStatsInSample | 79 | Includes Levels 1-2 |
-| **4. Advanced** | 96 (79 + 17) | UsageStatsInSample | 96 | Includes Levels 1-3 |
-| **5. Strict** | 110 (96 + 14) | UsageStatsInSample | 110 | Includes Levels 1-4 |
+| **2. Essential** ⭐ | 29 (+26 +3 Phase 9) | UsageStatsInSample | 53 | Includes Level 1 |
+| **3. Balanced** | 32 (+29 +3 Phase 9) | UsageStatsInSample | 85 | Includes Levels 1-2 |
+| **4. Advanced** | 27 (+17 +10 Phase 9) | UsageStatsInSample | 112 | Includes Levels 1-3 |
+| **5. Strict** | 29 (+15 +14 Phase 9) | UsageStatsInSample | 141 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 110 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 141 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -50,8 +50,17 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `TorDisabled` | `1` | DWord | Disables Tor integration |
 | `SafeBrowsingProtectionLevel` | `2` | DWord | Enforces standard Safe Browsing protection |
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Enables password reuse warning |
+| `BraveDeAmpEnabled` | `1` | DWord | Disables Brave De-AMP |
+| `BraveDebouncingEnabled` | `1` | DWord | Disables Brave Debouncing |
+| `BraveReduceLanguageEnabled` | `1` | DWord | Disables language header reduction |
+| `BraveTrackingQueryParametersFilteringEnabled` | `1` | DWord | Disables tracking query parameter filtering |
+| `DefaultBraveAdblockSetting` | `2` | DWord | Sets aggressive ad blocking |
+| `DefaultBraveFingerprintingV2Setting` | `2` | DWord | Sets aggressive fingerprinting protection |
+| `BraveShieldsDisabledForUrls` | `@()` | MultiString | No URLs excluded from Shields |
+| `BraveShieldsEnabledForUrls` | `@()` | MultiString | No URLs force-enabled for Shields |
+| `EmailAliasesEnabled` | `0` | DWord | Disables Brave email aliases |
 
-### Essential Level — Brave Only + Data Leak Prevention (26 additional)
+### Essential Level — Brave Only + Data Leak Prevention (29 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -61,7 +70,7 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `SearchSuggestEnabled` | `0` | DWord | Stops search suggestions data leakage |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Enables online OCSP/CRL revocation checks |
 | `NetworkPredictionOptions` | `2` | DWord | Stops DNS prefetching and pre-connection |
-| `SpellcheckEnabled` | `0` | DWord | Disables spellcheck |
+| `SpellcheckEnabled` | `1` | DWord | Enables local Hunspell spellcheck (offline-only, no data sent) |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Stops error page network requests |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Stops time sync to Google |
 | `DomainReliabilityAllowed` | `0` | DWord | Stops diagnostic data reporting |
@@ -72,8 +81,20 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | Stops WebRTC text log upload |
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
 | `VideoCaptureAllowed` | `0` | DWord | Blocks camera by default |
+| `BraveGlobalPrivacyControlEnabled` | `1` | DWord | Enables Global Privacy Control |
+| `DefaultWebUsbGuardSetting` | `2` | DWord | Blocks WebUSB by default |
+| `DefaultWebBluetoothGuardSetting` | `2` | DWord | Blocks WebBluetooth by default |
+| `DefaultWebHidGuardSetting` | `2` | DWord | Blocks WebHID by default |
+| `DeviceAttributesAllowedForOrigins` | `@()` | MultiString | Blocks device attribute disclosure |
+| `EncryptedClientHelloEnabled` | `1` | DWord | Enables Encrypted Client Hello |
+| `PaymentMethodQueryEnabled` | `0` | DWord | Blocks payment method queries |
+| `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Suppresses cross-origin subframe dialogs |
+| `ProxySettings` | `{"mode":"direct"}` | String | Disables proxy (direct connection) |
+| `BrowserSignin` | `0` | DWord | **[Phase 9]** Disables Google browser sign-in |
+| `SigninAllowed` | `0` | DWord | **[Phase 9]** Blocks Google account sign-in |
+| `ExtensionInstallSources` | `@()` | MultiString | **[Phase 9]** Blocks all non-store extension sources |
 
-### Balanced Level — Essential + Security Baseline (29 additional)
+### Balanced Level — Essential + Security Baseline (32 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -95,12 +116,22 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `DefaultGeolocationSetting` | `2` | DWord | Blocks location by default |
 | `DefaultNotificationsSetting` | `2` | DWord | Blocks notifications by default |
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
+| `DefaultBraveHttpsUpgradeSetting` | `2` | DWord | Forces HTTPS upgrades |
+| `DefaultBraveReferrersSetting` | `2` | DWord | Blocks referrer headers |
+| `BraveSyncUrl` | `""` | String | Disables Brave Sync |
+| `DefaultWindowManagementSetting` | `2` | DWord | Blocks window management API |
+| `SitePerProcess` | `1` | DWord | Forces site-per-process isolation |
+| `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Enables intensive wake-up throttling |
+| `UserFeedbackAllowed` | `0` | DWord | Disables user feedback |
 | `ExtensionInstallForcelist` | `@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp")` | MultiString | Force-installs Dark Reader and Google Docs Offline |
 | `DownloadRestrictions` | `1` | DWord | Warns before dangerous downloads |
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
+| `AutoFillEnabled` | `0` | DWord | **[Phase 9]** Disables autofill data storage |
+| `RelaunchNotification` | `2` | DWord | **[Phase 9]** Mandatory relaunch after update |
+| `RelaunchNotificationPeriod` | `3600000` | DWord | **[Phase 9]** 1-hour delay before forced relaunch |
 
-### Advanced Level — Balanced + Enhanced Privacy (17 additional)
+### Advanced Level — Balanced + Enhanced Privacy (27 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -121,13 +152,23 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloaded extensions |
 | `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | JSON backup layer for extension control |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables built-in DNS client (uses system DNS) |
+| `HomepageLocation` | `"about:blank"` | String | **[Phase 9]** Sets homepage to blank |
+| `ShowHomeButton` | `0` | DWord | **[Phase 9]** Hides home button from toolbar |
+| `RestoreOnStartup` | `2` | DWord | **[Phase 9]** Restores last session on startup |
+| `NewTabPageLocation` | `"about:blank"` | String | **[Phase 9]** Sets new tab page to blank |
+| `HideWebStoreIcon` | `1` | DWord | **[Phase 9]** Hides Chrome Web Store icon |
+| `DefaultJavaScriptSetting` | `0` | DWord | **[Phase 9]** Allows JavaScript by default |
+| `DefaultMediaStreamSetting` | `2` | DWord | **[Phase 9]** Camera/mic asks per-site |
+| `GeminiSettings` | `1` | DWord | **[Phase 9]** Disables Gemini AI integration |
+| `GenAiDefaultSettings` | `1` | DWord | **[Phase 9]** Disables GenAI defaults |
+| `TabFreezingEnabled` | `0` | DWord | **[Phase 9]** Disables tab freezing (fast response) |
 
-### Strict Level — Advanced + Maximum Privacy (14 additional)
+### Strict Level — Advanced + Maximum Privacy (29 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
 | `TranslateEnabled` | `0` | DWord | Disables built-in translation |
-| `DeveloperToolsAvailability` | `2` | DWord | Disables developer tools in all contexts (moved from Advanced) |
+| `DeveloperToolsAvailability` | `2` | DWord | Disables developer tools in all contexts |
 | `DefaultClipboardSetting` | `2` | DWord | Blocks clipboard by default |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Blocks file system read |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Blocks file system write |
@@ -140,8 +181,21 @@ Complete policy reference for Brave Omega v2.3.1.0.
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Disables task manager process ending |
 | `PrintingEnabled` | `0` | DWord | Disables printing entirely |
 | `DisablePrintPreview` | `1` | DWord | Disables print preview system dialog |
-
-> **Note:** `DownloadRestrictions` is set to `3` in Strict (overrides the Balanced value of `1`), but is counted under Balanced's 29 additions.
+| `DownloadRestrictions` | `3` | DWord | Blocks ALL downloads (overrides Balanced value of 1) |
+| `CloudReportingEnabled` | `0` | DWord | **[Phase 9]** Disables cloud reporting/telemetry |
+| `BrowsingDataLifetime` | `{"data_types":["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours":24}` | String | **[Phase 9]** Auto-clears browsing data every 24h |
+| `CrossOriginOpPolicyHeader` | `"require-corp"` | String | **[Phase 9]** Spectre mitigation — enforces cross-origin isolation |
+| `CrossOriginEmbedderPolicy` | `"require-corp"` | String | **[Phase 9]** Spectre mitigation — enforces cross-origin embedder policy |
+| `DanglingOriginCheckEnforcement` | `1` | DWord | **[Phase 9]** Blocks dangling-scheme navigations |
+| `InsecureFormsWarningsEnabled` | `1` | DWord | **[Phase 9]** Warns on HTTP form submissions |
+| `AlwaysOpenPdfExternally` | `1` | DWord | **[Phase 9]** Opens PDFs externally (exploit mitigation) |
+| `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | **[Phase 9]** Enforces CT for all sites (no exemptions) |
+| `PasswordReuseDetectionEnabled` | `1` | DWord | **[Phase 9]** Enables password breach warnings |
+| `PasswordLeakDetectionEnabled` | `1` | DWord | **[Phase 9]** Checks leaked passwords against breach DB |
+| `SpellCheckServiceEnabled` | `0` | DWord | **[Phase 9]** Disables online Google spellcheck service |
+| `TabDiscardingEnabled` | `1` | DWord | **[Phase 9]** Unloads background tabs on low RAM |
+| `ContextualSearchEnabled` | `0` | DWord | **[Phase 9]** Disables Touch to Search |
+| `SyncDisabled` | `1` | DWord | **[Phase 9]** Disables Chrome Sync |
 
 ---
 
@@ -155,52 +209,6 @@ Complete policy reference for Brave Omega v2.3.1.0.
 
 ---
 
-## Version Added
-
-| Policy | Added In |
-| -------- | ---------- |
-| `UsageStatsInSample` | v1.0 |
-| `BraveRewardsDisabled` | v1.0 |
-| `BraveWalletDisabled` | v1.0 |
-| `BraveVPNDisabled` | v1.0 |
-| `BraveAIChatEnabled` | v1.0 |
-| `BraveStatsPingEnabled` | v1.0 |
-| `MetricsReportingEnabled` | v1.0 |
-| `SafeBrowsingExtendedReportingEnabled` | v1.0 |
-| `usagestats` (Omaha) | v1.0 |
-| `BraveP3AEnabled` | v1.2 |
-| `BraveWebDiscoveryEnabled` | v1.2 |
-| `BraveTalkDisabled` | v1.2 |
-| `BraveNewsDisabled` | v1.2 |
-| `BravePlaylistEnabled` | v1.2 |
-| `BraveSpeedreaderEnabled` | v1.2 |
-| `BraveWaybackMachineEnabled` | v1.2 |
-| `TorDisabled` | v1.2 |
-| `SafeBrowsingProtectionLevel` | v2.3.0.0 |
-| `PasswordProtectionWarningTrigger` | v2.3.0.0 |
-| `EnableOnlineRevocationChecks` | v2.3.0.0 |
-| `ExtensionInstallForcelist` | v2.3.0.0 |
-| `DownloadRestrictions` | v2.3.0.0 |
-| `DownloadDirectory` | v2.3.0.0 |
-| `PromptForDownloadLocation` | v2.3.0.0 |
-| `ExtensionInstallBlocklist` | v2.3.0.0 |
-| `ExtensionInstallAllowlist` | v2.3.0.0 |
-| `ExtensionAllowedTypes` | v2.3.0.0 |
-| `BlockExternalExtensions` | v2.3.0.0 |
-| `ExtensionSettings` | v2.3.0.0 |
-| `DeveloperToolsAvailability` | v2.3.0.0 |
-| `BuiltInDnsClientEnabled` | v2.3.0.0 |
-| `IncognitoModeAvailability` | v2.3.0.0 |
-| `TaskManagerEndProcessEnabled` | v2.3.0.0 |
-| `PrintingEnabled` | v2.3.0.0 |
-| `DisablePrintPreview` | v2.3.0.0 |
-| `TranslateEnabled` | v2.3.0.0 |
-| `DefaultJavaScriptSetting` | v2.3.0.0 |
-| `PasswordManagerEnabled` | v2.3.0.0 |
-| `ProxySettings` | v2.3.1.0 |
-
----
-
 ## Verification
 
 After running Brave Omega, verify all policies at:
@@ -209,7 +217,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 110 policies should show as **Active** (green checkmark).
+All 141 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -246,23 +254,23 @@ All 110 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.3.1.0 için tam politika başvurusu.
+Brave Omega v2.4.0.0 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **141 kurumsal politika**.
 
 ---
 
 ## Seviye Genel Bakış
 
-| Seviye | Politika | HKCU | HKLM | Kümülatif |
+| Seviye | Kendi Politikaları | HKCU | HKLM | Kümülatif Toplam |
 | -------- | ---------- | ------ | ------ | ----------- |
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
-| **2. Temel** ⭐ | 50 (24 + 26) | UsageStatsInSample | 50 | 1. Seviyeyi kapsar |
-| **3. Dengeli** | 79 (50 + 29) | UsageStatsInSample | 79 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 96 (79 + 17) | UsageStatsInSample | 96 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 110 (96 + 14) | UsageStatsInSample | 110 | 1-4. Seviyeleri kapsar |
+| **2. Temel** ⭐ | 29 (+26 +3 Faz 9) | UsageStatsInSample | 53 | 1. Seviyeyi kapsar |
+| **3. Dengeli** | 32 (+29 +3 Faz 9) | UsageStatsInSample | 85 | 1-2. Seviyeleri kapsar |
+| **4. Gelişmiş** | 27 (+17 +10 Faz 9) | UsageStatsInSample | 112 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 29 (+15 +14 Faz 9) | UsageStatsInSample | 141 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 110 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 141 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -291,8 +299,17 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `TorDisabled` | `1` | DWord | Tor entegrasyonunu devre dışı bırakır |
 | `SafeBrowsingProtectionLevel` | `2` | DWord | Standart Güvenli Gezinti korumasını zorunlu kılar |
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Parola tekrar kullanım uyarısını etkinleştirir |
+| `BraveDeAmpEnabled` | `1` | DWord | Brave De-AMP'yi devre dışı bırakır |
+| `BraveDebouncingEnabled` | `1` | DWord | Brave Debouncing'i devre dışı bırakır |
+| `BraveReduceLanguageEnabled` | `1` | DWord | Dil başlığı azaltmayı devre dışı bırakır |
+| `BraveTrackingQueryParametersFilteringEnabled` | `1` | DWord | İzleme sorgu parametresi filtrelemeyi devre dışı bırakır |
+| `DefaultBraveAdblockSetting` | `2` | DWord | Agresif reklam engellemeyi ayarlar |
+| `DefaultBraveFingerprintingV2Setting` | `2` | DWord | Agresif parmak izi korumasını ayarlar |
+| `BraveShieldsDisabledForUrls` | `@()` | MultiString | Kalkanlardan hariç tutulan URL yok |
+| `BraveShieldsEnabledForUrls` | `@()` | MultiString | Kalkanları zorla etkinleştirilen URL yok |
+| `EmailAliasesEnabled` | `0` | DWord | Brave e-posta takma adlarını devre dışı bırakır |
 
-### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (26 ek)
+### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (29 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -302,7 +319,7 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `SearchSuggestEnabled` | `0` | DWord | Arama önerileri veri sızıntısını durdurur |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Çevrimiçi OCSP/CRL iptal kontrollerini etkinleştirir |
 | `NetworkPredictionOptions` | `2` | DWord | DNS ön getirmeyi ve ön bağlantıyı durdurur |
-| `SpellcheckEnabled` | `0` | DWord | Yazım denetimini devre dışı bırakır |
+| `SpellcheckEnabled` | `1` | DWord | Yerel Hunspell yazım denetimini etkinleştirir (çevrimdışı, veri gönderilmez) |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Hata sayfası ağ isteklerini durdurur |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Google'a saat senkronizasyonunu durdurur |
 | `DomainReliabilityAllowed` | `0` | DWord | Tanılama verisi raporlamasını durdurur |
@@ -313,8 +330,20 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | WebRTC metin günlüğü yüklemeyi durdurur |
 | `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |
 | `VideoCaptureAllowed` | `0` | DWord | Varsayılan olarak kameraya izin vermez |
+| `BraveGlobalPrivacyControlEnabled` | `1` | DWord | Global Privacy Control'u etkinleştirir |
+| `DefaultWebUsbGuardSetting` | `2` | DWord | Varsayılan olarak WebUSB'yi engeller |
+| `DefaultWebBluetoothGuardSetting` | `2` | DWord | Varsayılan olarak WebBluetooth'u engeller |
+| `DefaultWebHidGuardSetting` | `2` | DWord | Varsayılan olarak WebHID'i engeller |
+| `DeviceAttributesAllowedForOrigins` | `@()` | MultiString | Cihaz niteliklerinin ifşasını engeller |
+| `EncryptedClientHelloEnabled` | `1` | DWord | Encrypted Client Hello'yu etkinleştirir |
+| `PaymentMethodQueryEnabled` | `0` | DWord | Ödeme yöntemi sorgularını engeller |
+| `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Farklı kaynaklı alt çerçeve iletişim kutularını bastırır |
+| `ProxySettings` | `{"mode":"direct"}` | String | Proxy'yi devre dışı bırakır (doğrudan bağlantı) |
+| `BrowserSignin` | `0` | DWord | **[Faz 9]** Brave tarayıcı girişini devre dışı bırakır |
+| `SigninAllowed` | `0` | DWord | **[Faz 9]** Google hesap girişini engeller |
+| `ExtensionInstallSources` | `@()` | MultiString | **[Faz 9]** Mağaza dışı tüm uzantı kaynaklarını engeller |
 
-### Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (29 ek)
+### Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (32 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -336,12 +365,22 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `DefaultGeolocationSetting` | `2` | DWord | Varsayılan olarak konumu engeller |
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
+| `DefaultBraveHttpsUpgradeSetting` | `2` | DWord | HTTPS yükseltmelerini zorlar |
+| `DefaultBraveReferrersSetting` | `2` | DWord | Referans başlıklarını engeller |
+| `BraveSyncUrl` | `""` | String | Brave Sync'i devre dışı bırakır |
+| `DefaultWindowManagementSetting` | `2` | DWord | Pencere yönetimini engeller |
+| `SitePerProcess` | `1` | DWord | Site başına süreç izolasyonunu zorlar |
+| `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Yoğun uyanma kısıtlamasını etkinleştirir |
+| `UserFeedbackAllowed` | `0` | DWord | Kullanıcı geri bildirimini devre dışı bırakır |
 | `ExtensionInstallForcelist` | `@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp")` | MultiString | Dark Reader ve Google Docs Offline'ı zorla yükler |
 | `DownloadRestrictions` | `1` | DWord | Tehlikeli indirmelerden önce uyarır |
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
+| `AutoFillEnabled` | `0` | DWord | **[Faz 9]** Otomatik doldurma veri depolamayı devre dışı bırakır |
+| `RelaunchNotification` | `2` | DWord | **[Faz 9]** Güncelleme sonrası zorunlu yeniden başlatma |
+| `RelaunchNotificationPeriod` | `3600000` | DWord | **[Faz 9]** Zorunlu yeniden başlatma öncesi 1 saat gecikme |
 
-### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (17 ek)
+### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (27 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -362,13 +401,23 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `BlockExternalExtensions` | `1` | DWord | Kenardan yüklenen uzantıları engeller |
 | `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | Uzantı kontrolü için JSON yedek katmanı |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Yerleşik DNS istemcisini devre dışı bırakır (sistem DNS kullanır) |
+| `HomepageLocation` | `"about:blank"` | String | **[Faz 9]** Ana sayfayı boş sayfaya ayarlar |
+| `ShowHomeButton` | `0` | DWord | **[Faz 9]** Araç çubuğundaki ana sayfa düğmesini gizler |
+| `RestoreOnStartup` | `2` | DWord | **[Faz 9]** Başlangıçta son oturumu geri yükler |
+| `NewTabPageLocation` | `"about:blank"` | String | **[Faz 9]** Yeni sekme sayfasını boş sayfaya ayarlar |
+| `HideWebStoreIcon` | `1` | DWord | **[Faz 9]** Chrome Web Mağazası simgesini gizler |
+| `DefaultJavaScriptSetting` | `0` | DWord | **[Faz 9]** Varsayılan olarak JavaScript'e izin verir |
+| `DefaultMediaStreamSetting` | `2` | DWord | **[Faz 9]** Kamera/mikrofon siteye göre sorar |
+| `GeminiSettings` | `1` | DWord | **[Faz 9]** Gemini AI entegrasyonunu devre dışı bırakır |
+| `GenAiDefaultSettings` | `1` | DWord | **[Faz 9]** GenAI varsayılanlarını devre dışı bırakır |
+| `TabFreezingEnabled` | `0` | DWord | **[Faz 9]** Sekme dondurmayı devre dışı bırakır (hızlı tepki) |
 
-### Katı Seviye — Gelişmiş + Azami Gizlilik (14 ek)
+### Katı Seviye — Gelişmiş + Azami Gizlilik (29 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
-| `TranslateEnabled` | `0` | DWord | Yerleşik çeviriyi devre dışı bırakır |
-| `DeveloperToolsAvailability` | `2` | DWord | Geliştirici araçlarını her bağlamda devre dışı bırakır (Gelişmiş'ten taşındı) |
+| `TranslateEnabled` | `0` | DWord | Yerleşik çeviyi devre dışı bırakır |
+| `DeveloperToolsAvailability` | `2` | DWord | Geliştirici araçlarını her bağlamda devre dışı bırakır |
 | `DefaultClipboardSetting` | `2` | DWord | Varsayılan olarak panoyu engeller |
 | `DefaultFileSystemReadGuardSetting` | `2` | DWord | Dosya sistemi okumayı engeller |
 | `DefaultFileSystemWriteGuardSetting` | `2` | DWord | Dosya sistemi yazmayı engeller |
@@ -381,8 +430,21 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Görev yöneticisi işlem sonlandırmayı devre dışı bırakır |
 | `PrintingEnabled` | `0` | DWord | Yazdırmayı tamamen devre dışı bırakır |
 | `DisablePrintPreview` | `1` | DWord | Baskı ön izleme sistem iletişim kutusunu devre dışı bırakır |
-
-> **Not:** `DownloadRestrictions`, Katı seviyede `3`'e ayarlanmıştır (Dengeli'deki `1` değerinin üzerine yazar), ancak Dengeli'nin 29 ekstra politikası arasında sayılmaktadır.
+| `DownloadRestrictions` | `3` | DWord | TÜM indirmeleri engeller (Dengeli'deki 1 değerinin üzerine yazar) |
+| `CloudReportingEnabled` | `0` | DWord | **[Faz 9]** Bulut raporlamayı/veri aktarımını devre dışı bırakır |
+| `BrowsingDataLifetime` | `{"data_types":["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours":24}` | String | **[Faz 9]** Tarama verilerini 24 saatte bir otomatik temizler |
+| `CrossOriginOpPolicyHeader` | `"require-corp"` | String | **[Faz 9]** Spectre azaltma — çapraz kaynak izolasyonunu zorlar |
+| `CrossOriginEmbedderPolicy` | `"require-corp"` | String | **[Faz 9]** Spectre azaltma — çapraz kaynak gömme ilkesini zorlar |
+| `DanglingOriginCheckEnforcement` | `1` | DWord | **[Faz 9]** Sarkan şema gezintilerini engeller |
+| `InsecureFormsWarningsEnabled` | `1` | DWord | **[Faz 9]** HTTP form gönderimlerinde uyarı verir |
+| `AlwaysOpenPdfExternally` | `1` | DWord | **[Faz 9]** PDF'leri harici olarak açar (saldırı azaltma) |
+| `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | **[Faz 9]** Tüm sitelerde CT'yi zorlar (hariç tutma yok) |
+| `PasswordReuseDetectionEnabled` | `1` | DWord | **[Faz 9]** Parola ihlali uyarılarını etkinleştirir |
+| `PasswordLeakDetectionEnabled` | `1` | DWord | **[Faz 9]** Sızdırılmış parolaları ihlal veritabanıyla kontrol eder |
+| `SpellCheckServiceEnabled` | `0` | DWord | **[Faz 9]** Çevrimiçi Google yazım denetimi hizmetini devre dışı bırakır |
+| `TabDiscardingEnabled` | `1` | DWord | **[Faz 9]** Düşük RAM'de arka plan sekmelerini boşaltır |
+| `ContextualSearchEnabled` | `0` | DWord | **[Faz 9]** Touch to Search'i devre dışı bırakır |
+| `SyncDisabled` | `1` | DWord | **[Faz 9]** Chrome Sync'i devre dışı bırakır |
 
 ---
 
@@ -396,52 +458,6 @@ Brave Omega v2.3.1.0 için tam politika başvurusu.
 
 ---
 
-## Eklendiği Sürüm
-
-| Politika | Eklendiği Sürüm |
-| ---------- | ----------------- |
-| `UsageStatsInSample` | v1.0 |
-| `BraveRewardsDisabled` | v1.0 |
-| `BraveWalletDisabled` | v1.0 |
-| `BraveVPNDisabled` | v1.0 |
-| `BraveAIChatEnabled` | v1.0 |
-| `BraveStatsPingEnabled` | v1.0 |
-| `MetricsReportingEnabled` | v1.0 |
-| `SafeBrowsingExtendedReportingEnabled` | v1.0 |
-| `usagestats` (Omaha) | v1.0 |
-| `BraveP3AEnabled` | v1.2 |
-| `BraveWebDiscoveryEnabled` | v1.2 |
-| `BraveTalkDisabled` | v1.2 |
-| `BraveNewsDisabled` | v1.2 |
-| `BravePlaylistEnabled` | v1.2 |
-| `BraveSpeedreaderEnabled` | v1.2 |
-| `BraveWaybackMachineEnabled` | v1.2 |
-| `TorDisabled` | v1.2 |
-| `SafeBrowsingProtectionLevel` | v2.3.0.0 |
-| `PasswordProtectionWarningTrigger` | v2.3.0.0 |
-| `EnableOnlineRevocationChecks` | v2.3.0.0 |
-| `ExtensionInstallForcelist` | v2.3.0.0 |
-| `DownloadRestrictions` | v2.3.0.0 |
-| `DownloadDirectory` | v2.3.0.0 |
-| `PromptForDownloadLocation` | v2.3.0.0 |
-| `ExtensionInstallBlocklist` | v2.3.0.0 |
-| `ExtensionInstallAllowlist` | v2.3.0.0 |
-| `ExtensionAllowedTypes` | v2.3.0.0 |
-| `BlockExternalExtensions` | v2.3.0.0 |
-| `ExtensionSettings` | v2.3.0.0 |
-| `DeveloperToolsAvailability` | v2.3.0.0 |
-| `BuiltInDnsClientEnabled` | v2.3.0.0 |
-| `IncognitoModeAvailability` | v2.3.0.0 |
-| `TaskManagerEndProcessEnabled` | v2.3.0.0 |
-| `PrintingEnabled` | v2.3.0.0 |
-| `DisablePrintPreview` | v2.3.0.0 |
-| `TranslateEnabled` | v2.3.0.0 |
-| `DefaultJavaScriptSetting` | v2.3.0.0 |
-| `PasswordManagerEnabled` | v2.3.0.0 |
-| `ProxySettings` | v2.3.1.0 |
-
----
-
 ## Doğrulama
 
 Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrulayın:
@@ -450,7 +466,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-110 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+141 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

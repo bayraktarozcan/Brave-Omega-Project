@@ -128,6 +128,40 @@
 #                   Advanced 96, Strict 110.
 #     [IMPROVED]    Validated Brave version updated to 1.92.139
 #                   (Chromium 150.0.7871.114).
+#
+#   v2.4.0.0             Phase 9 — 30 new policies (111→141 unique):
+#
+#     [NEW]        30 new Chromium enterprise policies added across all 5 tiers.
+#
+#     [NEW]        Essential (+3): BrowserSignin, SigninAllowed,
+#                                  ExtensionInstallSources
+#     [NEW]        Balanced (+3):  AutoFillEnabled, RelaunchNotification,
+#                                  RelaunchNotificationPeriod
+#     [NEW]        Advanced (+10): HomepageLocation, ShowHomeButton,
+#                                  RestoreOnStartup, NewTabPageLocation,
+#                                  HideWebStoreIcon, DefaultJavaScriptSetting,
+#                                  DefaultMediaStreamSetting, GeminiSettings,
+#                                  GenAiDefaultSettings, TabFreezingEnabled
+#     [NEW]        Strict (+14):   CloudReportingEnabled, BrowsingDataLifetime,
+#                                  CrossOriginOpPolicyHeader,
+#                                  CrossOriginEmbedderPolicy,
+#                                  DanglingOriginCheckEnforcement,
+#                                  InsecureFormsWarningsEnabled,
+#                                  AlwaysOpenPdfExternally,
+#                                  CertificateTransparencyEnforcementDisabledForUrls,
+#                                  PasswordReuseDetectionEnabled,
+#                                  PasswordLeakDetectionEnabled,
+#                                  SpellCheckServiceEnabled, TabDiscardingEnabled,
+#                                  ContextualSearchEnabled, SyncDisabled
+#     [CHANGED]    SpellcheckEnabled changed from 0 to 1 — local Hunspell
+#                  spellcheck is offline-only, disabling gains no privacy.
+#     [REMOVED]    ExtensionManifestV2Availability — removed in Chrome 139.
+#     [REMOVED]    DefaultThirdPartyStoragePartitioningSetting — deprecated in
+#                  Chrome 145.
+#
+#     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 53, Balanced 85,
+#                   Advanced 112, Strict 141.
+#     [IMPROVED]    Issue: https://github.com/bayraktarozcan/Brave-Omega-Project/issues/50
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -142,7 +176,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.3.1.0"
+$ScriptVersion   = "v2.4.0.0"
 $ValidatedBrave  = "1.92.139"
 $ValidatedChromium = "150"
 
@@ -286,7 +320,25 @@ if ($Reset) {
         "BlockExternalExtensions", "ExtensionSettings",
         "IncognitoModeAvailability", "DeveloperToolsAvailability",
         "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
-        "BuiltInDnsClientEnabled"
+        "BuiltInDnsClientEnabled",
+        # v2.2.1.0 — 11 hardware API & security policies (missing from prior reset list)
+        "DefaultWebUsbGuardSetting", "DefaultWebBluetoothGuardSetting", "DefaultWebHidGuardSetting",
+        "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
+        "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
+        "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
+        # Phase 9 (v2.4.0.0) — 30 new policies across all 5 tiers
+        "BrowserSignin", "SigninAllowed", "ExtensionInstallSources",
+        "AutoFillEnabled", "RelaunchNotification", "RelaunchNotificationPeriod",
+        "HomepageLocation", "ShowHomeButton", "RestoreOnStartup", "NewTabPageLocation",
+        "HideWebStoreIcon", "DefaultJavaScriptSetting", "DefaultMediaStreamSetting",
+        "GeminiSettings", "GenAiDefaultSettings", "TabFreezingEnabled",
+        "CloudReportingEnabled", "BrowsingDataLifetime",
+        "CrossOriginOpPolicyHeader", "CrossOriginEmbedderPolicy",
+        "DanglingOriginCheckEnforcement", "InsecureFormsWarningsEnabled",
+        "AlwaysOpenPdfExternally", "CertificateTransparencyEnforcementDisabledForUrls",
+        "PasswordReuseDetectionEnabled", "PasswordLeakDetectionEnabled",
+        "SpellCheckServiceEnabled", "TabDiscardingEnabled",
+        "ContextualSearchEnabled", "SyncDisabled"
     )
 
     # Remove from HKLM
@@ -509,8 +561,8 @@ $PolicyDefinitions = @{
         @{Name="SearchSuggestEnabled";                 Value=0; Type="DWord"}
         # Network prediction — stops DNS prefetching and pre-connection
         @{Name="NetworkPredictionOptions";             Value=2; Type="DWord"}
-        # Spellcheck — disables spellcheck (stops sending text to Google servers)
-        @{Name="SpellcheckEnabled";                    Value=0; Type="DWord"}
+        # Spellcheck — enables local Hunspell spellcheck (offline-only, no data sent)
+        @{Name="SpellcheckEnabled";                    Value=1; Type="DWord"}
         # Alternate error pages — stops network requests when DNS resolution fails
         @{Name="AlternateErrorPagesEnabled";           Value=0; Type="DWord"}
         # Network time queries — stops time synchronization requests to Google
@@ -554,6 +606,13 @@ $PolicyDefinitions = @{
         @{Name="EnableOnlineRevocationChecks";         Value=1; Type="DWord"}
         # Proxy Settings — explicitly uses system proxy, silences deprecated ProxyMode warning
         @{Name="ProxySettings";                      Value='{"ProxyMode":"system"}'; Type="String"}
+        # ─── New Essential Policies (Phase 9 — Prompt 26) ───
+        # Browser Signin — disable browser sign-in flow
+        @{Name="BrowserSignin";                            Value=0;           Type="DWord"}
+        # Signin Allowed — prevent Google account sign-in
+        @{Name="SigninAllowed";                            Value=0;           Type="DWord"}
+        # Extension Install Sources — restrict extension installation to Chrome Web Store only
+        @{Name="ExtensionInstallSources";                  Value=@();         Type="MultiString"}
     )
 
     "Balanced" = @(
@@ -620,6 +679,13 @@ $PolicyDefinitions = @{
         @{Name="DownloadDirectory";                    Value="${env:USERPROFILE}\Downloads\"; Type="String"}
         # Prompt For Download Location — do not prompt, use default (0)
         @{Name="PromptForDownloadLocation";             Value=0; Type="DWord"}
+        # ─── New Balanced Policies (Phase 9 — Prompt 27) ───
+        # AutoFill Enabled — disable master autofill toggle
+        @{Name="AutoFillEnabled";                          Value=0;           Type="DWord"}
+        # Relaunch Notification — force relaunch notification (non-dismissible)
+        @{Name="RelaunchNotification";                     Value=2;           Type="DWord"}
+        # Relaunch Notification Period — 1 hour in milliseconds (force immediate update relaunch)
+        @{Name="RelaunchNotificationPeriod";               Value=3600000;     Type="DWord"}
     )
 
     "Advanced" = @(
@@ -660,6 +726,27 @@ $PolicyDefinitions = @{
         @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Type="String"}
         # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS
         @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
+        # ─── New Advanced Policies (Phase 9 — Prompt 28) ───
+        # Homepage Location — set to about:blank
+        @{Name="HomepageLocation";                         Value="about:blank"; Type="String"}
+        # Show Home Button — hide the home button
+        @{Name="ShowHomeButton";                           Value=0;           Type="DWord"}
+        # Restore On Startup — restore last session
+        @{Name="RestoreOnStartup";                         Value=2;           Type="DWord"}
+        # New Tab Page Location — set to about:blank
+        @{Name="NewTabPageLocation";                       Value="about:blank"; Type="String"}
+        # Hide Web Store Icon — hide Chrome Web Store icon
+        @{Name="HideWebStoreIcon";                         Value=1;           Type="DWord"}
+        # Default JavaScript Setting — allow by default
+        @{Name="DefaultJavaScriptSetting";                 Value=0;           Type="DWord"}
+        # Default Media Stream Setting — block camera/microphone by default
+        @{Name="DefaultMediaStreamSetting";                Value=2;           Type="DWord"}
+        # Gemini Settings — disable Gemini AI integration
+        @{Name="GeminiSettings";                           Value=1;           Type="DWord"}
+        # GenAI Default Settings — disable GenAI defaults
+        @{Name="GenAiDefaultSettings";                     Value=1;           Type="DWord"}
+        # Tab Freezing Enabled — disable tab freezing (response time critical)
+        @{Name="TabFreezingEnabled";                       Value=0;           Type="DWord"}
     )
 
     "Strict" = @(
@@ -698,6 +785,37 @@ $PolicyDefinitions = @{
         # ─── Moved back from Advanced (v2.3.1.1 fix) — F12 only blocked at Strict ───
         # Developer Tools Availability — restrict DevTools (2=disallowed entirely)
         @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
+        # ─── New Strict Policies (Phase 9 — Prompt 29) ───
+        # ─── Kurum Altyapısı Gerektiren Politikalar ───
+        # Cloud Reporting Enabled — disable cloud telemetry reporting
+        @{Name="CloudReportingEnabled";                              Value=0;           Type="DWord"}
+        # Browsing Data Lifetime — auto-clear history/cache after 24 hours
+        @{Name="BrowsingDataLifetime";                               Value=[System.Collections.ArrayList]@(@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}); Type="String"}
+        # ─── Kişisel Kullanıma Uygun Sertleştirme ───
+        # Cross-Origin-Op-Policy Header — enforce COOP (Spectre mitigation)
+        @{Name="CrossOriginOpPolicyHeader";                          Value="require-corp"; Type="String"}
+        # Cross-Origin-Embedder-Policy — enforce COEP (Spectre mitigation)
+        @{Name="CrossOriginEmbedderPolicy";                          Value="require-corp"; Type="String"}
+        # Dangling Origin Check Enforcement — block dangling origin navigations
+        @{Name="DanglingOriginCheckEnforcement";                     Value=1;           Type="DWord"}
+        # Insecure Forms Warnings Enabled — warn on HTTP form submissions
+        @{Name="InsecureFormsWarningsEnabled";                       Value=1;           Type="DWord"}
+        # Always Open PDF Externally — open PDFs in external app (PDF exploit mitigation)
+        @{Name="AlwaysOpenPdfExternally";                             Value=1;           Type="DWord"}
+        # Certificate Transparency Enforcement Disabled For URLs — empty (enforce CT everywhere)
+        @{Name="CertificateTransparencyEnforcementDisabledForUrls";  Value=@();         Type="MultiString"}
+        # Password Reuse Detection Enabled — warn on password reuse
+        @{Name="PasswordReuseDetectionEnabled";                      Value=1;           Type="DWord"}
+        # Password Leak Detection Enabled — check passwords against data breaches
+        @{Name="PasswordLeakDetectionEnabled";                       Value=1;           Type="DWord"}
+        # SpellCheck Service Enabled — disable online spellcheck (data leak vector)
+        @{Name="SpellCheckServiceEnabled";                           Value=0;           Type="DWord"}
+        # Tab Discarding Enabled — discard tabs under memory pressure
+        @{Name="TabDiscardingEnabled";                               Value=1;           Type="DWord"}
+        # Contextual Search Enabled — disable touch-to-search
+        @{Name="ContextualSearchEnabled";                            Value=0;           Type="DWord"}
+        # Sync Disabled — disable Chrome Sync (data leak vector)
+        @{Name="SyncDisabled";                                       Value=1;           Type="DWord"}
     )
 }
 

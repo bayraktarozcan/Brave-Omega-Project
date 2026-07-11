@@ -129,6 +129,40 @@
 #                   Gelişmiş 96, Katı 110.
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.139'a güncellendi
 #                   (Chromium 150.0.7871.114).
+#
+#   v2.4.0.0             Faz 9 — 30 yeni politika (111→141 benzersiz):
+#
+#     [YENİ]        5 kademede toplam 30 yeni Chromium kurumsal politikası eklendi.
+#
+#     [YENİ]        Temel (+3):     BrowserSignin, SigninAllowed,
+#                                   ExtensionInstallSources
+#     [YENİ]        Dengeli (+3):   AutoFillEnabled, RelaunchNotification,
+#                                   RelaunchNotificationPeriod
+#     [YENİ]        Gelişmiş (+10): HomepageLocation, ShowHomeButton,
+#                                   RestoreOnStartup, NewTabPageLocation,
+#                                   HideWebStoreIcon, DefaultJavaScriptSetting,
+#                                   DefaultMediaStreamSetting, GeminiSettings,
+#                                   GenAiDefaultSettings, TabFreezingEnabled
+#     [YENİ]        Katı (+14):     CloudReportingEnabled, BrowsingDataLifetime,
+#                                   CrossOriginOpPolicyHeader,
+#                                   CrossOriginEmbedderPolicy,
+#                                   DanglingOriginCheckEnforcement,
+#                                   InsecureFormsWarningsEnabled,
+#                                   AlwaysOpenPdfExternally,
+#                                   CertificateTransparencyEnforcementDisabledForUrls,
+#                                   PasswordReuseDetectionEnabled,
+#                                   PasswordLeakDetectionEnabled,
+#                                   SpellCheckServiceEnabled, TabDiscardingEnabled,
+#                                   ContextualSearchEnabled, SyncDisabled
+#     [DEĞİŞTİ]     SpellcheckEnabled 0'dan 1'e değiştirildi — yerel Hunspell
+#                   yazım denetimi çevrimdışındadır, devre dışı bırakmak gizlilik kazandırmaz.
+#     [KALDIRILDI]   ExtensionManifestV2Availability — Chrome 139'da kaldırıldı.
+#     [KALDIRILDI]   DefaultThirdPartyStoragePartitioningSetting — Chrome 145'te
+#                   kullanımdan kaldırıldı.
+#
+#     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 53, Dengeli 85,
+#                   Gelişmiş 112, Katı 141.
+#     [İYİLEŞTİRME] Issue: https://github.com/bayraktarozcan/Brave-Omega-Project/issues/50
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -143,7 +177,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.3.1.0"
+$BetikSurum    = "v2.4.0.0"
 $DogrulananBrave = "1.92.139"
 $DogrulananChromium = "150"
 
@@ -286,7 +320,25 @@ if ($Sifirla) {
         "BlockExternalExtensions", "ExtensionSettings",
         "IncognitoModeAvailability", "DeveloperToolsAvailability",
         "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
-        "BuiltInDnsClientEnabled"
+        "BuiltInDnsClientEnabled",
+        # v2.2.1.0 — 11 donanim API ve guvenlik politikasi (onceki sifirla listesinde eksik)
+        "DefaultWebUsbGuardSetting", "DefaultWebBluetoothGuardSetting", "DefaultWebHidGuardSetting",
+        "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
+        "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
+        "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
+        # Phase 9 (v2.4.0.0) — 30 yeni politika, 5 kademede
+        "BrowserSignin", "SigninAllowed", "ExtensionInstallSources",
+        "AutoFillEnabled", "RelaunchNotification", "RelaunchNotificationPeriod",
+        "HomepageLocation", "ShowHomeButton", "RestoreOnStartup", "NewTabPageLocation",
+        "HideWebStoreIcon", "DefaultJavaScriptSetting", "DefaultMediaStreamSetting",
+        "GeminiSettings", "GenAiDefaultSettings", "TabFreezingEnabled",
+        "CloudReportingEnabled", "BrowsingDataLifetime",
+        "CrossOriginOpPolicyHeader", "CrossOriginEmbedderPolicy",
+        "DanglingOriginCheckEnforcement", "InsecureFormsWarningsEnabled",
+        "AlwaysOpenPdfExternally", "CertificateTransparencyEnforcementDisabledForUrls",
+        "PasswordReuseDetectionEnabled", "PasswordLeakDetectionEnabled",
+        "SpellCheckServiceEnabled", "TabDiscardingEnabled",
+        "ContextualSearchEnabled", "SyncDisabled"
     )
 
     # HKLM'den kaldır
@@ -517,8 +569,8 @@ $PolitikaTanimlari = @{
         @{Ad="SearchSuggestEnabled";                 Deger=0; Tur="DWord"}
         # Ağ tahmini — DNS ön getirme ve ön bağlantıyı durdurur
         @{Ad="NetworkPredictionOptions";             Deger=2; Tur="DWord"}
-        # Yazım denetimi — yazım denetimini kapatır (metnin Google sunucularına gitmesini durdurur)
-        @{Ad="SpellcheckEnabled";                    Deger=0; Tur="DWord"}
+        # Yazım denetimi — yerel Hunspell yazım denetimini etkinleştir (çevrimdışı, veri gönderilmez)
+        @{Ad="SpellcheckEnabled";                    Deger=1; Tur="DWord"}
         # Alternatif hata sayfaları — DNS çözümleme hatasında ağ isteklerini durdurur
         @{Ad="AlternateErrorPagesEnabled";           Deger=0; Tur="DWord"}
         # Ağ zaman sorguları — Google'a zaman eşitleme isteklerini durdurur
@@ -562,6 +614,13 @@ $PolitikaTanimlari = @{
         @{Ad="EnableOnlineRevocationChecks";         Deger=1; Tur="DWord"}
         # Vekil Sunucu Ayarları — sistem vekil sunucusunu kullanır, ProxyMode uyarısını bastırır
         @{Ad="ProxySettings";                      Deger='{"ProxyMode":"system"}'; Tur="String"}
+        # ─── Yeni Temel Politikaları (Faz 9 — Prompt 26) ───
+        # Tarayıcı Girişi — tarayıcı giriş akışını devre dışı bırakır
+        @{Ad="BrowserSignin";                            Deger=0;           Tur="DWord"}
+        # Girişe İzin — Google hesap girişine izin verme
+        @{Ad="SigninAllowed";                            Deger=0;           Tur="DWord"}
+        # Uzantı Yükleme Kaynakları — uzantı yüklemeyi yalnızca Chrome Web Mağazası ile sınırla
+        @{Ad="ExtensionInstallSources";                  Deger=@();         Tur="MultiString"}
     )
 
     "Balanced" = @(
@@ -628,6 +687,13 @@ $PolitikaTanimlari = @{
         @{Ad="DownloadDirectory";                    Deger="${env:USERPROFILE}\Downloads\"; Tur="String"}
         # İndirme Konumu Sor — sorma, varsayılan klasöre kaydet (0)
         @{Ad="PromptForDownloadLocation";             Deger=0; Tur="DWord"}
+        # ─── Yeni Dengeli Politikaları (Faz 9 — Prompt 27) ───
+        # Otomatik Doldurma Etkin — otomatik doldurma ana anahtarını devre dışı bırakır
+        @{Ad="AutoFillEnabled";                          Deger=0;           Tur="DWord"}
+        # Yeniden Başlatma Bildirimi — yeniden başlatma bildirimini zorunlu kıl (devre dışı bırakılamaz)
+        @{Ad="RelaunchNotification";                     Deger=2;           Tur="DWord"}
+        # Yeniden Başlatma Bildirimi Süresi — 1 saat milisaniye cinsinden (güncelleme sonrası hemen yeniden başlat)
+        @{Ad="RelaunchNotificationPeriod";               Deger=3600000;     Tur="DWord"}
     )
 
     "Advanced" = @(
@@ -668,6 +734,27 @@ $PolitikaTanimlari = @{
         @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
         # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan
         @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
+        # ─── Yeni Gelişmiş Politikaları (Faz 9 — Prompt 28) ───
+        # Ana Sayfa Konumu — about:blank olarak ayarla
+        @{Ad="HomepageLocation";                         Deger="about:blank"; Tur="String"}
+        # Ana Sayfa Düğmesini Göster — ana sayfa düğmesini gizle
+        @{Ad="ShowHomeButton";                           Deger=0;           Tur="DWord"}
+        # Başlangıçta Geri Yükle — son oturumu geri yükle
+        @{Ad="RestoreOnStartup";                         Deger=2;           Tur="DWord"}
+        # Yeni Sekme Sayfası Konumu — about:blank olarak ayarla
+        @{Ad="NewTabPageLocation";                       Deger="about:blank"; Tur="String"}
+        # Web Mağazası Simgeyi Gizle — Chrome Web Mağazası simgesini gizle
+        @{Ad="HideWebStoreIcon";                         Deger=1;           Tur="DWord"}
+        # Varsayılan JavaScript Ayarı — varsayılan olarak izin ver
+        @{Ad="DefaultJavaScriptSetting";                 Deger=0;           Tur="DWord"}
+        # Varsayılan Medya Akışı Ayarı — kamera/mikrofonu varsayılan olarak engelle
+        @{Ad="DefaultMediaStreamSetting";                Deger=2;           Tur="DWord"}
+        # Gemini Ayarları — Gemini AI entegrasyonunu devre dışı bırak
+        @{Ad="GeminiSettings";                           Deger=1;           Tur="DWord"}
+        # GenAI Varsayılan Ayarları — GenAI varsayılan ayarlarını devre dışı bırak
+        @{Ad="GenAiDefaultSettings";                     Deger=1;           Tur="DWord"}
+        # Sekme Dondurma Etkin — sekme dondurmayı devre dışı bırak (tepki süresi kritik)
+        @{Ad="TabFreezingEnabled";                       Deger=0;           Tur="DWord"}
     )
 
     "Strict" = @(
@@ -706,6 +793,37 @@ $PolitikaTanimlari = @{
         # ─── Gelişmiş'den geri taşındı (v2.3.1.1 düzeltme) — F12 yalnızca Katı'da engellenir ───
         # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla (2=tamamen devre dışı)
         @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
+        # ─── Yeni Katı Politikaları (Faz 9 — Prompt 29) ───
+        # ─── Kurum Altyapısı Gerektiren Politikalar ───
+        # Bulut Raporlama Etkin — bulut telemetri raporlamasını devre dışı bırak
+        @{Ad="CloudReportingEnabled";                              Deger=0;           Tur="DWord"}
+        # Gezinti Verisi Süresi — geçmiş/önbelleği 24 saat sonra otomatik temizle
+        @{Ad="BrowsingDataLifetime";                               Deger=[System.Collections.ArrayList]@(@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}); Tur="String"}
+        # ─── Kişisel Kullanıma Uygun Sertleştirme ───
+        # Kaynaklar Arası İşlem Politikası Başlığı — COOP'u zorla (Spectre azaltma)
+        @{Ad="CrossOriginOpPolicyHeader";                          Deger="require-corp"; Tur="String"}
+        # Kaynaklar Arası Gömme Politikası — COEP'i zorla (Spectre azaltma)
+        @{Ad="CrossOriginEmbedderPolicy";                          Deger="require-corp"; Tur="String"}
+        # Asılı Köken Denetimi Zorlaması — asılı köken gezintilerini engelle
+        @{Ad="DanglingOriginCheckEnforcement";                     Deger=1;           Tur="DWord"}
+        # Güvensiz Form Uyarıları Etkin — HTTP form gönderimlerinde uyar
+        @{Ad="InsecureFormsWarningsEnabled";                       Deger=1;           Tur="DWord"}
+        # PDF'leri Her Zaman Dış Uygulamada Aç — PDF'leri dış uygulamada aç (PDF açığı azaltma)
+        @{Ad="AlwaysOpenPdfExternally";                             Deger=1;           Tur="DWord"}
+        # Sertifika Saydamlık Uygulaması Devre Dışı Bırakılan URL'ler — boş (her yerde CT zorla)
+        @{Ad="CertificateTransparencyEnforcementDisabledForUrls";  Deger=@();         Tur="MultiString"}
+        # Parola Tekrarı Algılama Etkin — parola tekrarında uyar
+        @{Ad="PasswordReuseDetectionEnabled";                      Deger=1;           Tur="DWord"}
+        # Parola Sızıntısı Algılama Etkin — parolaları veri sızıntılarıyla karşılaştır
+        @{Ad="PasswordLeakDetectionEnabled";                       Deger=1;           Tur="DWord"}
+        # Yazım Denetimi Hizmeti Etkin — çevrimiçi yazım denetimini devre dışı bırak (veri sızıntısı vektörü)
+        @{Ad="SpellCheckServiceEnabled";                           Deger=0;           Tur="DWord"}
+        # Sekme Atlama Etkin — bellek basıncında sekmeleri at
+        @{Ad="TabDiscardingEnabled";                               Deger=1;           Tur="DWord"}
+        # Bağlamsal Arama Etkin — dokunarak aramayı devre dışı bırak
+        @{Ad="ContextualSearchEnabled";                            Deger=0;           Tur="DWord"}
+        # Senkronizasyon Devre Dışı — Chrome Senkronizasyonu devre dışı bırak (veri sızıntısı vektörü)
+        @{Ad="SyncDisabled";                                       Deger=1;           Tur="DWord"}
     )
 }
 

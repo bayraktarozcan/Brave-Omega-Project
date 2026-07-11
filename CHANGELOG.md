@@ -27,11 +27,15 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.3.1.0 — 2026-07-10](#en-v2310)
+2. [v2.4.0.0 — 2026-07-11](#en-v2400)
+    * [Summary](#en-v2400-summary)
+    * [Added](#en-v2400-added)
+    * [Changed](#en-v2400-changed)
+3. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-3. [v2.3.0.0 — 2026-07-09](#en-v2300)
+4. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
@@ -235,6 +239,84 @@ All notable changes to this project are documented below, following the [Keep a 
 - **ExtensionInstallForcelist** pins Dark Reader and Google Docs Offline. Remove or add extensions by editing the MultiString value.
 - **BraveUpdateDisabled=1** disables automatic updates. Ensure you have an alternative update management system before deploying Strict.
 - **SafeBrowsingProtectionLevel=2** and **PasswordProtectionWarningTrigger=3** in BraveOnly cover all subsequent levels cumulatively.
+
+<hr>
+
+<a id="en-v2400"></a>
+
+## [v2.4.0.0] — 2026-07-11
+
+<a id="en-v2400-summary"></a>
+
+### 🎯 Summary
+
+**Phase 9 — 30 new enterprise policies added; cumulative chain expands to 141 policies.** Comprehensive policy expansion across all 5 tiers. Essential gains browser sign-in and extension source controls. Balanced adds auto-fill disable and forced relaunch notifications. Advanced receives homepage/startup configuration, web store hiding, media stream blocking, and AI integration disable. Strict adds Spectre mitigations (COOP/COEP), password leak detection, online spellcheck disable, tab discarding, touch-to-search disable, cloud reporting disable, and Chrome Sync disable. SpellcheckEnabled changed from 0→1 (local Hunspell is offline-only). ExtensionManifestV2Availability and DefaultThirdPartyStoragePartitioningSetting removed (deprecated in Chrome 139/145).
+
+| Metric | Before (v2.3.1.0) | After (v2.4.0.0) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 111 | **141** (+30) |
+| Brave Only policies | 24 | 24 |
+| Essential additions | 19 | **22** (+3) |
+| Balanced additions | 29 | **32** (+3) |
+| Advanced additions | 17 | **27** (+10) |
+| Strict additions | 15 | **29** (+14) |
+| Cumulative chain | 24→50→79→96→110 | **24→53→85→112→141** |
+
+<a id="en-v2400-added"></a>
+
+### Added
+
+#### Essential (3 policies)
+
+- **`BrowserSignin`** — Disables browser sign-in flow (DWord: 0). Prevents Google account integration at the browser level.
+- **`SigninAllowed`** — Prevents Google account sign-in entirely (DWord: 0). Blocks all sign-in attempts to Google accounts.
+- **`ExtensionInstallSources`** — Restricts extension installation to Chrome Web Store only (MultiString: empty). Blocks sideloading from any other source.
+
+#### Balanced (3 policies)
+
+- **`AutoFillEnabled`** — Disables the master autofill toggle (DWord: 0). Prevents the browser from offering to autofill any form data.
+- **`RelaunchNotification`** — Forces relaunch notification that cannot be dismissed (DWord: 2). Ensures users apply updates promptly.
+- **`RelaunchNotificationPeriod`** — Sets relaunch reminder to 1 hour in milliseconds (DWord: 3600000). Forces immediate update relaunch.
+
+#### Advanced (10 policies)
+
+- **`HomepageLocation`** — Sets homepage to `about:blank` (String). Clean start with no external homepage.
+- **`ShowHomeButton`** — Hides the home button from the toolbar (DWord: 0). Reduces UI clutter.
+- **`RestoreOnStartup`** — Restores last session on browser launch (DWord: 2). Resume where you left off.
+- **`NewTabPageLocation`** — Sets new tab page to `about:blank` (String). Blank page instead of branded content.
+- **`HideWebStoreIcon`** — Hides Chrome Web Store icon from the new tab page (DWord: 1). Prevents casual extension browsing.
+- **`DefaultJavaScriptSetting`** — Allows JavaScript by default (DWord: 0). Required for modern web compatibility.
+- **`DefaultMediaStreamSetting`** — Blocks camera/microphone access by default (DWord: 2). Sites must request permission per-use.
+- **`GeminiSettings`** — Disables Gemini AI integration (DWord: 1). Prevents AI assistant from appearing in the browser.
+- **`GenAiDefaultSettings`** — Disables GenAI defaults (DWord: 1). Prevents generative AI features from activating.
+- **`TabFreezingEnabled`** — Disables tab freezing (DWord: 0). Background tabs stay active for faster response time.
+
+#### Strict (14 policies)
+
+- **`CloudReportingEnabled`** — Disables cloud telemetry reporting (DWord: 0). Prevents usage data from being sent to cloud services.
+- **`BrowsingDataLifetime`** — Auto-clears browsing history, download history, and cached files after 24 hours (String: JSON).
+- **`CrossOriginOpPolicyHeader`** — Enforces Cross-Origin-Op-Policy: `require-corp` (String). Spectre mitigation — blocks cross-origin reads.
+- **`CrossOriginEmbedderPolicy`** — Enforces Cross-Origin-Embedder-Policy: `require-corp` (String). Spectre mitigation — requires explicit cross-origin permission.
+- **`DanglingOriginCheckEnforcement`** — Blocks dangling origin navigations (DWord: 1). Prevents navigation from improperly scoped origins.
+- **`InsecureFormsWarningsEnabled`** — Warns on HTTP form submissions over HTTPS pages (DWord: 1). Alerts users to mixed-content forms.
+- **`AlwaysOpenPdfExternally`** — Opens PDFs in an external application instead of the browser (DWord: 1). Mitigates PDF-based exploits.
+- **`CertificateTransparencyEnforcementDisabledForUrls`** — Empty list, enforcing Certificate Transparency everywhere (MultiString: empty).
+- **`PasswordReuseDetectionEnabled`** — Warns when a password is reused across sites (DWord: 1). Alerts users to password reuse risks.
+- **`PasswordLeakDetectionEnabled`** — Checks passwords against known data breaches (DWord: 1). Warns if a stored password has been compromised.
+- **`SpellCheckServiceEnabled`** — Disables online Google spellcheck service (DWord: 0). Prevents typed text from being sent to Google servers.
+- **`TabDiscardingEnabled`** — Discards background tabs under memory pressure (DWord: 1). Frees RAM by unloading inactive tabs.
+- **`ContextualSearchEnabled`** — Disables touch-to-search (DWord: 0). Prevents page content from being sent to Google for context analysis.
+- **`SyncDisabled`** — Disables Chrome Sync entirely (DWord: 1). Prevents browsing data from syncing to Google servers.
+
+<a id="en-v2400-changed"></a>
+
+### Changed
+
+- **SpellcheckEnabled** — Changed from `0` to `1` (Essential tier). Local Hunspell spellcheck is offline-only; disabling it gains no privacy benefit. Online spellcheck is blocked separately by `SpellCheckServiceEnabled=0` in Strict.
+- **Script version** — `$ScriptVersion = "v2.4.0.0"` in both EN and TR scripts.
+- **Documentation** — README, Wiki, CHANGELOG, index.html updated for v2.4.0.0.
+- **GitHub Issue** — [Issue #50](https://github.com/bayraktarozcan/Brave-Omega-Project/issues/50) tracks Phase 9 implementation.
 
 <hr>
 
@@ -1035,6 +1117,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.4.0.0 | 2026-07-11 | 141   | Phase 9: 30 new policies across all tiers (Essential +3, Balanced +3, Advanced +10, Strict +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting removed; cumulative chain 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings moved to Essential; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed; cumulative chain 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 new enterprise policies: extension lockdown, privacy, and network hardening; cumulative chain 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 new hardware API/security policies added; duplicate WebRtcIPHandling removed from Strict; total unique 91, zero duplicates; cumulative chain 22→47→72→83→91 |
@@ -1098,11 +1181,15 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 1. [Giriş](#tr-introduction)
 
-2. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+2. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+    * [Özet](#tr-v2400-ozet)
+    * [Eklendi](#tr-v2400-eklendi)
+    * [Değiştirildi](#tr-v2400-degistirildi)
+3. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-3. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+4. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
@@ -1420,6 +1507,84 @@ Eklenen/Değiştirilen Dosyalar:
 - **ExtensionInstallForcelist** Dark Reader ve Google Docs Offline'ı sabitler. MultiString değerini düzenleyerek uzantıları kaldırın veya ekleyin.
 - **BraveUpdateDisabled=1** otomatik güncellemeleri devre dışı bırakır. Katı seviyesini dağıtmadan önce alternatif bir güncelleme yönetim sisteminiz olduğundan emin olun.
 - **SafeBrowsingProtectionLevel=2** ve **PasswordProtectionWarningTrigger=3** Brave Yalnız'da tüm sonraki seviyeleri kümülatif olarak kapsar.
+
+<hr>
+
+<a id="tr-v2400"></a>
+
+## [v2.4.0.0] — 2026-07-11
+
+<a id="tr-v2400-ozet"></a>
+
+### 🎯 Özet
+
+**Faz 9 — 30 yeni kurum politikası eklendi; kümülatif zincir 141 politikaya genişledi.** Beş kademenin tamamında kapsamlı politika genişletmesi. Temel kademesi tarayıcı oturum açma ve eklenti kaynak kontrollerini kazanır. Dengeli kademesi otomatik doldurma devre dışı bırakma ve zorunlu yeniden başlatma bildirimleri ekler. Gelişmiş kademesi ana sayfa/başlangıç yapılandırması, mağaza gizleme, medya akışı engelleme ve yapay zeka entegrasyonu devre dışı bırakma alır. Katı kademesi Spectre azaltmaları (COOP/COEP), şifre sızıntı algılama, çevrimiçi yazım denetimi devre dışı bırakma, sekme diskalifiye etme, dokunma ile arama devre dışı bırakma, bulut raporlama devre dışı bırakma ve Chrome Senkronizasyonu devre dışı bırakma ekler. SpellcheckEnabled 0→1 olarak değiştirildi (Yerel Hunspell çevrimdışıdır). ExtensionManifestV2Availability ve DefaultThirdPartyStoragePartitioningSetting kaldırıldı (Chrome 139/145'te kullanımdan kaldırıldı).
+
+| Metrik | Önce (v2.3.1.0) | Sonra (v2.4.0.0) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 111 | **141** (+30) |
+| Brave Yalnız politikaları | 24 | 24 |
+| Temel eklemeleri | 19 | **22** (+3) |
+| Dengeli eklemeleri | 29 | **32** (+3) |
+| Gelişmiş eklemeleri | 17 | **27** (+10) |
+| Katı eklemeleri | 15 | **29** (+14) |
+| Kümülatif zincir | 24→50→79→96→110 | **24→53→85→112→141** |
+
+<a id="tr-v2400-eklendi"></a>
+
+### Eklendi
+
+#### Temel (3 politika)
+
+- **`BrowserSignin`** — Tarayıcı oturum açma akışını devre dışı bırakır (DWord: 0). Tarayıcı düzeyinde Google hesabı entegrasyonunu engeller.
+- **`SigninAllowed`** — Google hesabına tamamen oturum açmayı engeller (DWord: 0). Google hesaplarına yapılan tüm oturum açma denemelerini engeller.
+- **`ExtensionInstallSources`** — Eklenti yüklemeyi yalnızca Chrome Web Mağazası ile kısıtlar (MultiString: boş). Başka herhangi bir kaynaktan yükleme yolunu engeller.
+
+#### Dengeli (3 politika)
+
+- **`AutoFillEnabled`** — Ana otomatik doldurma seçeneğini devre dışı bırakır (DWord: 0). Tarayıcının herhangi bir form verisini otomatik doldurmayı teklif etmesini engeller.
+- **`RelaunchNotification`** — Kapatılamayan yeniden başlatma bildirimini zorlar (DWord: 2). Kullanıcıların güncellemeleri zamanında uygulamasını sağlar.
+- **`RelaunchNotificationPeriod`** — Yeniden başlatma hatırlatıcısını 1 saate ayarlar (DWord: 3600000). Anında güncelleme yeniden başlatmasını zorlar.
+
+#### Gelişmiş (10 politika)
+
+- **`HomepageLocation`** — Ana sayfayı `about:blank` olarak ayarlar (String). Dış ana sayfa olmadan temel başlangıç.
+- **`ShowHomeButton`** — Araç çubuğundaki ana sayfa düğmesini gizler (DWord: 0). Arayüz kalabalığını azaltır.
+- **`RestoreOnStartup`** — Başlatıcıda son oturumu geri yükler (DWord: 2). kaldığınız yerden devam edersiniz.
+- **`NewTabPageLocation`** — Yeni sekme sayfasını `about:blank` olarak ayarlar (String). Markalı içerik yerine boş sayfa.
+- **`HideWebStoreIcon`** — Yeni sekme sayfasından Chrome Web Mağazası simgesini gizler (DWord: 1). Rastgele eklenti gezinmesini engeller.
+- **`DefaultJavaScriptSetting`** — Varsayılan olarak JavaScript'e izin verir (DWord: 0). Modern web uyumluluğu için gereklidir.
+- **`DefaultMediaStreamSetting`** — Varsayılan olarak kamera/mikrofon erişimini engeller (DWord: 2). Siteler kullanım başına izin istemelidir.
+- **`GeminiSettings`** — Gemini yapay zeka entegrasyonunu devre dışı bırakır (DWord: 1). Tarayıcıda yapay zeka asistanının görünmesini engeller.
+- **`GenAiDefaultSettings`** — GenAI varsayılanlarını devre dışı bırakır (DWord: 1). Üretken yapay zeka özelliklerinin etkinleşmesini engeller.
+- **`TabFreezingEnabled`** — Sekme dondurmayı devre dışı bırakır (DWord: 0). Arka plan sekmeleri daha hızlı tepki süresi için aktif kalır.
+
+#### Katı (14 politika)
+
+- **`CloudReportingEnabled`** — Bulut遥感 raporlamasını devre dışı bırakır (DWord: 0). Kullanım verilerinin bulut hizmetlerine gönderilmesini engeller.
+- **`BrowsingDataLifetime`** — Tarama geçmişini, indirme geçmişini ve önbelleğe alınmış dosyaları 24 saat sonra otomatik olarak temizler (String: JSON).
+- **`CrossOriginOpPolicyHeader`** — Cross-Origin-Op-Policy: `require-corp`'u zorlar (String). Spectre azaltması — çapraz kaynak okumalarını engeller.
+- **`CrossOriginEmbedderPolicy`** — Cross-Origin-Embedder-Policy: `require-corp`'u zorlar (String). Spectre azaltması — açık çapraz kaynak izni gerektirir.
+- **`DanglingOriginCheckEnforcement`** — Asılı kaynak gezinmelerini engeller (DWord: 1). Uygun olmayan kapsamlı kaynaklardan gezinmeyi engeller.
+- **`InsecureFormsWarningsEnabled`** — HTTPS sayfaları üzerinden HTTP form gönderimleri konusunda uyarılar (DWord: 1). Kullanıcıları karışık içerik formlarına uyarır.
+- **`AlwaysOpenPdfExternally`** — PDF'leri tarayıcı yerine harici uygulamada açar (DWord: 1). PDF tabanlı açıklardan kaçınır.
+- **`CertificateTransparencyEnforcementDisabledForUrls`** — Boş liste, Sertifika Şeffaflığını her yerde zorlar (MultiString: boş).
+- **`PasswordReuseDetectionEnabled`** — Bir şifrenin siteler arası yeniden kullanıldığında uyarır (DWord: 1). Kullanıcıları şifre yeniden kullanma risklerine uyarır.
+- **`PasswordLeakDetectionEnabled`** — Şifreleri bilinen veri sızıntılarına karşı kontrol eder (DWord: 1). Depolanan şifre ihlal edilmişse uyarı verir.
+- **`SpellCheckServiceEnabled`** — Çevrimiçi Google yazım denetimi hizmetini devre dışı bırakır (DWord: 0). Yazılan metnin Google sunucularına gönderilmesini engeller.
+- **`TabDiscardingEnabled`** — Bellek baskısı altında arka plan sekmelerini diskalifiye eder (DWord: 1). Etkin olmayan sekmeleri kaldırarak RAM'i serbest bırakır.
+- **`ContextualSearchEnabled`** — Dokunma ile aramayı devre dışı bırakır (DWord: 0). Sayfa içeriğinin Google'a bağlam analizi için gönderilmesini engeller.
+- **`SyncDisabled`** — Chrome Senkronizasyonunu tamamen devre dışı bırakır (DWord: 1). Tarama verilerinin Google sunucularına senkronize olmasını engeller.
+
+<a id="tr-v2400-degistirildi"></a>
+
+### Değiştirildi
+
+- **SpellcheckEnabled** — `0`'dan `1`'e değiştirildi (Temel kademesi). Yerel Hunspell yazım denetimi çevrimdışıdır; devre dışı bırakmak gizlilik kazandırmaz. Çevrimiçi yazım denetimi Katı kademesindeki `SpellCheckServiceEnabled=0` tarafından ayrıca engellenir.
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.4.0.0"`.
+- **Belgeler** — README, Wiki, CHANGELOG, index.html v2.4.0.0 için güncellendi.
+- **GitHub Issue** — [Issue #50](https://github.com/bayraktarozcan/Brave-Omega-Project/issues/50) Faz 9 uygulamasını takip eder.
 
 <hr>
 
@@ -2116,6 +2281,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.4.0.0 | 2026-07-11 | 141   | Faz 9: Tüm kademelerde 30 yeni politika (Temel +3, Dengeli +3, Gelişmiş +10, Katı +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting kaldırıldı; kümülatif zincir 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel'e taşındı; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled kaldırıldı; kümülatif zincir 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 yeni enterprise politikası: uzantı kilitleme, gizlilik ve ağ sıkılaştırması; kümülatif zincir 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 yeni donanım API/güvenlik politikası eklendi; yinelenen WebRtcIPHandling Katı'dan kaldırıldı; toplam benzersiz 91, sıfır tekrar; kümülatif zincir 22→47→72→83→91 |

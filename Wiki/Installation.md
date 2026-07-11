@@ -1,11 +1,11 @@
-> **Language / Dil** &nbsp;
+﻿> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.3.1.0 (Brave 1.92.139 Validation).
+Complete installation guide for Brave Omega v2.4.0.0 (Brave 1.92.139 Validation).
 
 ---
 
@@ -87,7 +87,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 6. Verify
 
-Navigate to `brave://policy` — all Essential level policies (50) should show **Active**.
+Navigate to `brave://policy` — all Essential level policies (53) should show **Active**.
 
 ---
 
@@ -99,7 +99,7 @@ Navigate to `brave://policy` — all Essential level policies (50) should show *
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session only | Current process | ✅ Better |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(used)* | **Single command** | **Child process only** | ✅ **Best — no persistence** |
 
-> **Brave Omega v2.3.1.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
+> **Brave Omega v2.4.0.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
 
 ---
 
@@ -108,7 +108,7 @@ Navigate to `brave://policy` — all Essential level policies (50) should show *
 ### 1. Check `brave://policy`
 
 - Open `brave://policy` in Brave
-- All Essential level policies (50) should show **Active** (green ✅)
+- All Essential level policies (53) should show **Active** (green ✅)
 
 ### 2. Check Registry (Optional)
 
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v2.3.1.0 için tam kurulum kılavuzu (Brave 1.92.139 Doğrulaması).
+Brave Omega v2.4.0.0 için tam kurulum kılavuzu (Brave 1.92.139 Doğrulaması).
 
 ---
 
@@ -313,7 +313,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Yalnızca oturum | Geçerli işlem | ✅ Daha iyi |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(kullanılan)* | **Tek komut** | **Yalnızca alt işlem** | ✅ **En iyi — kalıcılık yok** |
 
-> **Brave Omega v2.3.1.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
+> **Brave Omega v2.4.0.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
 
 ---
 
