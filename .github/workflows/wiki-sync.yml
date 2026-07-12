@@ -21,16 +21,22 @@ jobs:
         env:
           WIKI_URL: "https://x-access-token:${{ secrets.WIKI_SYNC_TOKEN }}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git"
         run: |
-          set -e
-          git clone "$WIKI_URL" wiki-repo
-          cd wiki-repo
+          set -ex
+          WIKI_DIR="$GITHUB_WORKSPACE/wiki-repo"
+          git clone "$WIKI_URL" "$WIKI_DIR"
+          cd "$WIKI_DIR"
+          pwd
+          git remote -v
           git config core.autocrlf false
-          rsync -a --delete ../Wiki/ ./
-          find . -name '*.md' -exec sed -i 's/\xEF\xBB\xBF//g' {} +
-          find . -name '*.md' -exec sed -i 's/\r$//' {} +
-          echo "*.md text eol=lf" > .gitattributes
+          rsync -a --delete "$GITHUB_WORKSPACE/Wiki/" "$WIKI_DIR/"
+          find "$WIKI_DIR" -name '*.md' -exec sed -i 's/\xEF\xBB\xBF//g' {} +
+          find "$WIKI_DIR" -name '*.md' -exec sed -i 's/\r$//' {} +
+          echo "*.md text eol=lf" > "$WIKI_DIR/.gitattributes"
           git config user.name "bayraktarozcan"
           git config user.email "bayraktarozcan@users.noreply.github.com"
+          cd "$WIKI_DIR"
+          pwd
+          git remote -v
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "sync: update Wiki from main (${{ github.sha }})"
