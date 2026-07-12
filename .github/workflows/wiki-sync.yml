@@ -23,20 +23,16 @@ jobs:
         run: |
           set -ex
           WIKI_DIR="/tmp/wiki-repo"
+          rm -rf "$WIKI_DIR"
           git clone "$WIKI_URL" "$WIKI_DIR"
           cd "$WIKI_DIR"
-          pwd
-          git remote -v
           git config core.autocrlf false
-          rsync -a --delete "$GITHUB_WORKSPACE/Wiki/" "$WIKI_DIR/"
+          git config user.name "bayraktarozcan"
+          git config user.email "bayraktarozcan@users.noreply.github.com"
+          rsync -a --delete --exclude='.git' --exclude='.gitattributes' "$GITHUB_WORKSPACE/Wiki/" "$WIKI_DIR/"
           find "$WIKI_DIR" -name '*.md' -exec sed -i 's/\xEF\xBB\xBF//g' {} +
           find "$WIKI_DIR" -name '*.md' -exec sed -i 's/\r$//' {} +
           echo "*.md text eol=lf" > "$WIKI_DIR/.gitattributes"
-          git config user.name "bayraktarozcan"
-          git config user.email "bayraktarozcan@users.noreply.github.com"
-          cd "$WIKI_DIR"
-          pwd
-          git remote -v
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "sync: update Wiki from main (${{ github.sha }})"
