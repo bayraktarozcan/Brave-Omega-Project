@@ -17,23 +17,19 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/checkout@v7
-        with:
-          repository: bayraktarozcan/Brave-Omega-Project.wiki
-          token: ${{ secrets.WIKI_SYNC_TOKEN }}
-          path: /tmp/wiki-sync
+      - name: Clone Wiki repo
+        run: |
+          git clone "https://x-access-token:${{ secrets.WIKI_SYNC_TOKEN }}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git" "$GITHUB_WORKSPACE/wiki-sync"
       - name: Sync to Wiki repo
         run: |
-          rsync -a --delete "Wiki/" "/tmp/wiki-sync/"
-          # Fix BOM + CRLF for Gollum compatibility
-          cd /tmp/wiki-sync
+          rsync -a --delete "Wiki/" "$GITHUB_WORKSPACE/wiki-sync/"
+          cd "$GITHUB_WORKSPACE/wiki-sync"
           git config core.autocrlf false
           echo "*.md text eol=lf" > .gitattributes
           find . -name '*.md' -exec sed -i 's/\xEF\xBB\xBF//g' {} +
           find . -name '*.md' -exec sed -i 's/\r$//' {} +
           git config user.name "bayraktarozcan"
           git config user.email "bayraktarozcan@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${{ secrets.WIKI_SYNC_TOKEN }}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git"
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "sync: update Wiki from main (${{ github.sha }})"
