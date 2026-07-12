@@ -268,6 +268,8 @@ All notable changes to this project are documented below, following the [Keep a 
 
 > **Note:** Per-tier addition counts represent unique policies added in each tier; cumulative chain represents cumulative totals per level. Minor rounding differences exist due to DownloadRestrictions being defined in both Balanced and Strict (last-write-wins at runtime).
 
+Fixes #50
+
 <a id="en-v2410-removed"></a>
 
 ### Removed
@@ -1585,6 +1587,8 @@ Eklenen/Değiştirilen Dosyalar:
 | Kümülatif zincir | 24→53→85→112→141 | **24→52→83→104→133** |
 
 > **Not:** Kademeli ekleme sayıları, her kademe eklenen benzersiz politikaları temsil eder; kümülatif zincir her seviyedeki kümülatif toplamları temsil eder. DownloadRestrictions'in hem Dengeli hem de Katı'da tanımlanması (çalışma zamanında son yazan kazanır) nedeniyle küçük yuvarlama farkları vardır.
+
+Fixes #50
 
 <a id="tr-v2410-kaldirildi"></a>
 
