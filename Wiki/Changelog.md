@@ -31,7 +31,7 @@ Complete version history for Brave Omega.
 - **Essential (+1):** ProxySettings (JSON placeholder `{"proxyServer": "http://proxy:8080"}`)
 
 **Changed:**
-- Cumulative chain: 24→52→83→104→133 (Essential 18→19)
+- Cumulative chain: 24→52→83→104→133 (Essential 18→19 own policies)
 - Brave validated version updated to 1.92.139 (Chromium 150.0.7871.176)
 - Both scripts updated to v2.4.1.0 with `$ScriptVersion = "v2.4.1.0"` / `$BetikSurum = "v2.4.1.0"`
 - Documentation updated across README, Wiki, CHANGELOG

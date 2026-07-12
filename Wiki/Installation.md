@@ -77,7 +77,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 - Script detects running Brave → prompts continue/cancel
 - Creates timestamped `.reg` backup of HKLM policy hive
-- Displays level selection menu (1-5) and applies policies based on selected level (24/50/79/96/110)
+- Displays level selection menu (1-5) and applies policies based on selected level (24/52/83/104/133)
 - Shows per-category success/failure summary
 
 ### 5. Restart Brave
@@ -87,7 +87,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 6. Verify
 
-Navigate to `brave://policy` — all Essential level policies (53) should show **Active**.
+Navigate to `brave://policy` — all Essential level policies (52) should show **Active**.
 
 ---
 
@@ -108,7 +108,7 @@ Navigate to `brave://policy` — all Essential level policies (53) should show *
 ### 1. Check `brave://policy`
 
 - Open `brave://policy` in Brave
-- All Essential level policies (53) should show **Active** (green ✅)
+- All Essential level policies (52) should show **Active** (green ✅)
 
 ### 2. Check Registry (Optional)
 
@@ -291,7 +291,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 - Betik çalışan Brave'i tespit eder → devam/iptal istemi gösterir
 - HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur
-- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (24/50/79/96/110)
+- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (24/52/83/104/133)
 - Kategori bazında başarı/hata özetini gösterir
 
 ### 5. Brave'i Yeniden Başlat
@@ -301,7 +301,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 6. Doğrula
 
-`brave://policy` adresine git — 50 Temel seviye politikanın tümü **Etkin** görünmelidir.
+`brave://policy` adresine git — 52 Temel seviye politikanın tümü **Etkin** görünmelidir.
 
 ---
 
@@ -322,7 +322,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ### 1. `brave://policy` Kontrol Et
 
 - Brave'de `brave://policy` adresini aç
-- 50 Temel seviye politikanın tümü **Etkin** (yeşil ✅) görünmeli
+- 52 Temel seviye politikanın tümü **Etkin** (yeşil ✅) görünmeli
 
 ### 2. Kayıt Defterini Kontrol Et (İsteğe Bağlı)
 

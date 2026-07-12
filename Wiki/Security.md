@@ -43,7 +43,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 ├─ Administrator privilege verification
 ├─ Brave process detection (with continue/cancel prompt)
 ├─ Brave version validation against Compatibility Matrix
-├─ Brave version detection (compares against validated version 1.92.134)
+├─ Brave version detection (compares against validated version 1.92.139)
 └─ Registry path ACL validation
 ```
 
@@ -170,7 +170,7 @@ Before running, verify:
 
 | Check | Method |
 | ------- | -------- |
-| All policies active | `brave://policy` → policies show **Active** (53 for Essential level) |
+| All policies active | `brave://policy` → policies show **Active** (52 for Essential level) |
 | Registry written | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Backup created | `BraveOmega_HKLM_*.reg` exists in script directory |
 | No errors in output | Script exits with code 0, no `[ERROR]` lines |
@@ -262,7 +262,7 @@ Brave Omega **güvenlik öncelikli** bir yaklaşımla tasarlanmıştır. Her tas
 ├─ Yönetici ayrıcalığı doğrulaması
 ├─ Brave süreç tespiti (devam/iptal istemiyle)
 ├─ Brave sürümünün Uyumluluk Matrisine karşı doğrulaması
-├─ Brave sürüm algılama (doğrulanmış sürüm 1.92.134 ile karşılaştırma)
+├─ Brave sürüm algılama (doğrulanmış sürüm 1.92.139 ile karşılaştırma)
 └─ Kayıt defteri yolu ACL doğrulaması
 ```
 

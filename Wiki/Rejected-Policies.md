@@ -11,10 +11,10 @@
 
 | Metric | Count |
 |--------|-------|
-| Total policies ever removed/rejected | 22 |
+| Total policies ever removed/rejected | 24 |
 | Deprecated by Chromium/Chrome | 8 |
 | Blocked by Brave | 3 |
-| Unrecognized by Brave | 3 |
+| Unrecognized by Brave | 5 |
 | Redundant (superseded) | 2 |
 | Origin-only / not in stable | 1 |
 | Future/unreleased | 1 |
@@ -26,10 +26,10 @@
 >
 > | Metrik | Sayı |
 > |--------|------|
-> | Toplam kaldırılan/reddedilen politika | 22 |
+> | Toplam kaldırılan/reddedilen politika | 24 |
 > | Chromium/Chrome tarafından kademeli olarak kaldırılan | 8 |
 > | Brave tarafından engellenen | 3 |
-> | Brave tarafından tanınmayan | 3 |
+> | Brave tarafından tanınmayan | 5 |
 > | Gereksiz (yerine geçen) | 2 |
 > | Yalnızca origin / stabilde olmayan | 1 |
 > | Gelecek/yayınlanmamış | 1 |
@@ -587,6 +587,62 @@
 
 ---
 
+### 21. InstantMessageSendingEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `InstantMessageSendingEnabled` |
+| **Version Added** | v2.4.1.0 (2026-07-12) |
+| **Version Removed** | v2.4.1.0 (2026-07-12) |
+| **Tier at Removal** | Essential |
+| **Reason** | Unrecognized by Brave — "Bilinmeyen politika" (Unknown policy) |
+| **Category** | Data collection / Privacy |
+| **Was in Production** | No — removed same version |
+| **Notes** | Was intended to block Google IM service data collection (DWord: 0) with zero usability impact. Chromium ADMX policy exists, but Brave 1.92 (Chromium 150) does not recognize it. Shows as "Bilinmeyen politika" in brave://policy/. Removed immediately in v2.4.1.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `InstantMessageSendingEnabled` |
+> | **Eklendiği Sürüm** | v2.4.1.0 (2026-07-12) |
+> | **Kaldırıldığı Sürüm** | v2.4.1.0 (2026-07-12) |
+> | **Kaldırıldığı Katman** | Essential |
+> | **Neden** | Brave tarafından tanınmıyor — "Bilinmeyen politika" |
+> | **Kategori** | Veri toplama / Gizlilik |
+> | **Üretimde Oldu mu** | Hayır — aynı sürümde kaldırıldı |
+> | **Notlar** | Google IM hizmeti veri toplamasını engellemek amaçlanmıştı (DWord: 0), sıfır kullanım etkisi ile. Chromium ADMX politikası mevcut, ancak Brave 1.92 (Chromium 150) onu tanımıyor. brave://policy/ bölümünde "Bilinmeyen politika" olarak gösterilir. v2.4.1.0'da hemen kaldırıldı. |
+
+---
+
+### 22. DoNotTrackEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `DoNotTrackEnabled` |
+| **Version Added** | v2.4.1.0 (2026-07-12) |
+| **Version Removed** | v2.4.1.0 (2026-07-12) |
+| **Tier at Removal** | Balanced |
+| **Reason** | Unrecognized by Brave — "Bilinmeyen politika" (Unknown policy) |
+| **Category** | Privacy signal |
+| **Was in Production** | No — removed same version |
+| **Notes** | Was intended to send DNT header with browsing traffic (DWord: 1) as a semiotic signal. Chromium ADMX policy exists, but Brave 1.92 (Chromium 150) does not recognize it. Shows as "Bilinmeyen politika" in brave://policy/. DNT is a voluntary signal that most sites ignore; Brave Shields provides real tracking protection. Removed immediately in v2.4.1.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `DoNotTrackEnabled` |
+> | **Eklendiği Sürüm** | v2.4.1.0 (2026-07-12) |
+> | **Kaldırıldığı Sürüm** | v2.4.1.0 (2026-07-12) |
+> | **Kaldırıldığı Katman** | Balanced |
+> | **Neden** | Brave tarafından tanınmıyor — "Bilinmeyen politika" |
+> | **Kategori** | Gizlilik sinyali |
+> | **Üretimde Oldu mu** | Hayır — aynı sürümde kaldırıldı |
+> | **Notlar** | Gezinti trafiğiyle birlikte DNT başlığı göndermek amaçlanmıştı (DWord: 1) sembolik bir sinyal olarak. Chromium ADMX politikası mevcut, ancak Brave 1.92 (Chromium 150) onu tanımıyor. brave://policy/ bölümünde "Bilinmeyen politika" olarak gösterilir. DNT isteğe bağlı bir sinyaldir ve çoğu site tarafından yok sayılır; Brave Shields gerçek izleme koruması sağlar. v2.4.1.0'da hemen kaldırıldı. |
+
+---
+
 ## Policies Moved (Not Removed)
 ## Taşınan Politikalar (Kaldırılmayan)
 
@@ -756,8 +812,8 @@ Brave tarayıcısının Chromium kurumsal politikasını açıkça engellediği 
 > | `NewTabPageLocation` | HomepageLocation ile aynı |
 > | `RestoreOnStartup` | Brave başlangıcı kendi ayarları aracılığıyla kontrol eder |
 
-### Unrecognized by Brave (3 policies)
-### Brave Tarafından Tanınmayan (3 politika)
+### Unrecognized by Brave (5 policies)
+### Brave Tarafından Tanınmayan (5 politika)
 Policies not present in Brave's policy engine.
 Brave'in politika motorunda bulunmayan politikalar.
 
@@ -766,6 +822,8 @@ Brave'in politika motorunda bulunmayan politikalar.
 | `BraveShieldsDefault` | Not in Brave ADMX |
 | `TabFreezingEnabled` | "Bilinmeyen politika" |
 | `ManifestV2ExtensionUnsupported` | Unknown in Brave 1.92 |
+| `InstantMessageSendingEnabled` | "Bilinmeyen politika" |
+| `DoNotTrackEnabled` | "Bilinmeyen politika" |
 
 > 🇹🇷 **Türkçe:**
 >
@@ -774,6 +832,8 @@ Brave'in politika motorunda bulunmayan politikalar.
 > | `BraveShieldsDefault` | Brave ADMX'sinde yok |
 > | `TabFreezingEnabled` | "Bilinmeyen politika" |
 > | `ManifestV2ExtensionUnsupported` | Brave 1.92'de bilinmiyor |
+> | `InstantMessageSendingEnabled` | "Bilinmeyen politika" |
+> | `DoNotTrackEnabled` | "Bilinmeyen politika" |
 
 ### Other (5 policies)
 ### Diğer (5 politika)
@@ -809,6 +869,7 @@ Brave'in politika motorunda bulunmayan politikalar.
 6. **Don't re-add deprecated policies** — `DefaultMediaStreamSetting` was removed in v2.1.1, re-added in v2.4.0.0, and removed again in v2.4.1.0.
 7. **Origin-only policies** — `BraveLocalAIEnabled` was an Origin-only policy that hadn't reached stable. Check policy promotion status.
 8. **Document removals** — This file exists because removals were tracked. Future contributors can learn from past mistakes.
+9. **Always test on brave://policy/** — Two policies (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) existed in Chromium ADMX but showed "Bilinmeyen politika" in Brave 150. Always verify before shipping.
 
 > 🇹🇷 **Türkçe:**
 >
@@ -820,13 +881,14 @@ Brave'in politika motorunda bulunmayan politikalar.
 > 6. **Kaldırılmış politikaları yeniden eklemeyin** — `DefaultMediaStreamSetting` v2.1.1'de kaldırıldı, v2.4.0.0'da yeniden eklendi ve v2.4.1.0'da tekrar kaldırıldı.
 > 7. **Yalnızca origin politikaları** — `BraveLocalAIEnabled` stabilde ulaşmamış bir Yalnızca origin politikasıydı. Politika geçirme durumunu kontrol edin.
 > 8. **Kaldırmaları belgeleyin** — Bu dosya kaldırma kayıtları takip edildiği için mevcuttur. Gelecekteki katılımcılar geçmiş hatalardan öğrenebilir.
+> 9. **Her zaman brave://policy/'de test edin** — İki politika (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) Chromium ADMX'sinde mevcuttu ancak Brave 150'de "Bilinmeyen politika" olarak göründü. Üretime geçirmeden önce her zaman doğrulayın.
 
 ---
 
 *Last updated: v2.4.1.0 (2026-07-12)*
-*Total policies ever rejected/removed: 22*
+*Total policies ever rejected/removed: 24*
 *Current active policies: 133 (v2.4.1.0)*
 
 *Son güncelleme: v2.4.1.0 (2026-07-12)*
-*Toplam reddedilen/kaldırılan politika: 22*
+*Toplam reddedilen/kaldırılan politika: 24*
 *Mevcut aktif politikalar: 133 (v2.4.1.0)*
