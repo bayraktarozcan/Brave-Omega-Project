@@ -21,17 +21,18 @@ jobs:
         with:
           repository: bayraktarozcan/Brave-Omega-Project.wiki
           token: ${{ secrets.WIKI_SYNC_TOKEN }}
-          path: wiki-tmp
+          path: /tmp/wiki-sync
       - name: Sync to Wiki repo
         run: |
-          rsync -a --delete "Wiki/" "wiki-tmp/"
-          cd wiki-tmp
+          rsync -a --delete "Wiki/" "/tmp/wiki-sync/"
+          cd /tmp/wiki-sync
           git config user.name "bayraktarozcan"
           git config user.email "bayraktarozcan@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${{ secrets.WIKI_SYNC_TOKEN }}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git"
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "sync: update Wiki from main (${{ github.sha }})"
-            git push
+            git push origin master
           else
             echo "No changes detected — wiki already in sync"
           fi

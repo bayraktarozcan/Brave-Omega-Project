@@ -123,6 +123,7 @@ htmlcov/
 # [EN] Published to the separate .wiki.git repository; tracked here and synced via CI/workflow.
 # [TR] Ayrı .wiki.git deposunda yayınlanır; burada takip edilir ve iş akışıyla eşzamanlanır.
 # Wiki/
+wiki-tmp/
 
 # 8. VERSION CONTROL TRACKING / PROJE TAKİP KURALLARI
 # ─────────────────────────────────────────────────────────────────────────────
