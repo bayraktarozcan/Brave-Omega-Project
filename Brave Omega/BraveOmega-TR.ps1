@@ -163,6 +163,25 @@
 #     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 53, Dengeli 85,
 #                   Gelişmiş 112, Katı 141.
 #     [İYİLEŞTİRME] Issue: https://github.com/bayraktarozcan/Brave-Omega-Project/issues/50
+#
+#   v2.4.1.0             Faz 9 düzeltmesi — 8 hatalı/kullanımdan kaldırılmış politika kaldırıldı (141→133):
+#
+#     [KALDIRILDI]   AutoFillEnabled — Chromium'da kullanımdan kaldırıldı
+#                   (AutofillAddressEnabled + AutofillCreditCardEnabled ile yineliyor).
+#     [KALDIRILDI]   SigninAllowed — Chrome 137+'da kullanımdan kaldırıldı
+#                   (BrowserSignin=0 ile yineliyor).
+#     [KALDIRILDI]   DefaultMediaStreamSetting — kullanımdan kaldırıldı
+#                   (DefaultCameraSetting/DefaultMicrophoneSetting ile değiştirildi).
+#     [KALDIRILDI]   TabFreezingEnabled — Brave 150 tarafından tanınmıyor
+#                   ("Bilinmeyen politika" hatası).
+#     [KALDIRILDI]   HomepageLocation — Brave 150 tarafından engellendi
+#                   ("Bu politika engellendiği için politikanın değeri yoksayılacak").
+#     [KALDIRILDI]   NewTabPageLocation — Brave 150 tarafından engellendi.
+#     [KALDIRILDI]   RestoreOnStartup — Brave 150 tarafından engellendi.
+#     [KALDIRILDI]   GenAiDefaultSettings — yok sayıldı, yalnızca bulut kaynağı gerektiriyor.
+#
+#     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 52, Dengeli 83,
+#                   Gelişmiş 104, Katı 133.
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -177,7 +196,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.4.0.0"
+$BetikSurum    = "v2.4.1.0"
 $DogrulananBrave = "1.92.139"
 $DogrulananChromium = "150"
 
@@ -326,12 +345,14 @@ if ($Sifirla) {
         "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
         "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
         "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
-        # Phase 9 (v2.4.0.0) — 30 yeni politika, 5 kademede
-        "BrowserSignin", "SigninAllowed", "ExtensionInstallSources",
-        "AutoFillEnabled", "RelaunchNotification", "RelaunchNotificationPeriod",
-        "HomepageLocation", "ShowHomeButton", "RestoreOnStartup", "NewTabPageLocation",
-        "HideWebStoreIcon", "DefaultJavaScriptSetting", "DefaultMediaStreamSetting",
-        "GeminiSettings", "GenAiDefaultSettings", "TabFreezingEnabled",
+        # Phase 9 (v2.4.1.0) — 22 politika, 5 kademede
+        # (8 kaldırıldı: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
+        #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
+        #  RestoreOnStartup, GenAiDefaultSettings — kullanımdan kaldırıldı/engellendi/bilinmiyor)
+        "BrowserSignin", "ExtensionInstallSources",
+        "RelaunchNotification", "RelaunchNotificationPeriod",
+        "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
+        "GeminiSettings",
         "CloudReportingEnabled", "BrowsingDataLifetime",
         "CrossOriginOpPolicyHeader", "CrossOriginEmbedderPolicy",
         "DanglingOriginCheckEnforcement", "InsecureFormsWarningsEnabled",
@@ -617,8 +638,6 @@ $PolitikaTanimlari = @{
         # ─── Yeni Temel Politikaları (Faz 9 — Prompt 26) ───
         # Tarayıcı Girişi — tarayıcı giriş akışını devre dışı bırakır
         @{Ad="BrowserSignin";                            Deger=0;           Tur="DWord"}
-        # Girişe İzin — Google hesap girişine izin verme
-        @{Ad="SigninAllowed";                            Deger=0;           Tur="DWord"}
         # Uzantı Yükleme Kaynakları — uzantı yüklemeyi yalnızca Chrome Web Mağazası ile sınırla
         @{Ad="ExtensionInstallSources";                  Deger=@();         Tur="MultiString"}
     )
@@ -688,8 +707,6 @@ $PolitikaTanimlari = @{
         # İndirme Konumu Sor — sorma, varsayılan klasöre kaydet (0)
         @{Ad="PromptForDownloadLocation";             Deger=0; Tur="DWord"}
         # ─── Yeni Dengeli Politikaları (Faz 9 — Prompt 27) ───
-        # Otomatik Doldurma Etkin — otomatik doldurma ana anahtarını devre dışı bırakır
-        @{Ad="AutoFillEnabled";                          Deger=0;           Tur="DWord"}
         # Yeniden Başlatma Bildirimi — yeniden başlatma bildirimini zorunlu kıl (devre dışı bırakılamaz)
         @{Ad="RelaunchNotification";                     Deger=2;           Tur="DWord"}
         # Yeniden Başlatma Bildirimi Süresi — 1 saat milisaniye cinsinden (güncelleme sonrası hemen yeniden başlat)
@@ -735,26 +752,14 @@ $PolitikaTanimlari = @{
         # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan
         @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
         # ─── Yeni Gelişmiş Politikaları (Faz 9 — Prompt 28) ───
-        # Ana Sayfa Konumu — about:blank olarak ayarla
-        @{Ad="HomepageLocation";                         Deger="about:blank"; Tur="String"}
         # Ana Sayfa Düğmesini Göster — ana sayfa düğmesini gizle
         @{Ad="ShowHomeButton";                           Deger=0;           Tur="DWord"}
-        # Başlangıçta Geri Yükle — son oturumu geri yükle
-        @{Ad="RestoreOnStartup";                         Deger=2;           Tur="DWord"}
-        # Yeni Sekme Sayfası Konumu — about:blank olarak ayarla
-        @{Ad="NewTabPageLocation";                       Deger="about:blank"; Tur="String"}
         # Web Mağazası Simgeyi Gizle — Chrome Web Mağazası simgesini gizle
         @{Ad="HideWebStoreIcon";                         Deger=1;           Tur="DWord"}
         # Varsayılan JavaScript Ayarı — varsayılan olarak izin ver
         @{Ad="DefaultJavaScriptSetting";                 Deger=0;           Tur="DWord"}
-        # Varsayılan Medya Akışı Ayarı — kamera/mikrofonu varsayılan olarak engelle
-        @{Ad="DefaultMediaStreamSetting";                Deger=2;           Tur="DWord"}
         # Gemini Ayarları — Gemini AI entegrasyonunu devre dışı bırak
         @{Ad="GeminiSettings";                           Deger=1;           Tur="DWord"}
-        # GenAI Varsayılan Ayarları — GenAI varsayılan ayarlarını devre dışı bırak
-        @{Ad="GenAiDefaultSettings";                     Deger=1;           Tur="DWord"}
-        # Sekme Dondurma Etkin — sekme dondurmayı devre dışı bırak (tepki süresi kritik)
-        @{Ad="TabFreezingEnabled";                       Deger=0;           Tur="DWord"}
     )
 
     "Strict" = @(

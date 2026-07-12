@@ -27,7 +27,10 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.4.0.0 — 2026-07-11](#en-v2400)
+2. [v2.4.1.0 — 2026-07-12](#en-v2410)
+    * [Summary](#en-v2410-summary)
+    * [Removed](#en-v2410-removed)
+3. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
@@ -239,6 +242,52 @@ All notable changes to this project are documented below, following the [Keep a 
 - **ExtensionInstallForcelist** pins Dark Reader and Google Docs Offline. Remove or add extensions by editing the MultiString value.
 - **BraveUpdateDisabled=1** disables automatic updates. Ensure you have an alternative update management system before deploying Strict.
 - **SafeBrowsingProtectionLevel=2** and **PasswordProtectionWarningTrigger=3** in BraveOnly cover all subsequent levels cumulatively.
+
+<hr>
+
+<a id="en-v2410"></a>
+
+## [v2.4.1.0] — 2026-07-12
+
+<a id="en-v2410-summary"></a>
+
+### 🎯 Summary
+
+**Phase 9 fix — remove 8 broken/deprecated/blocked policies (141→133).** Cleanup of policies that failed runtime verification on Brave 150 (Chromium 150.0.7871.114). AutoFillEnabled, SigninAllowed, and DefaultMediaStreamSetting were deprecated in recent Chrome releases. TabFreezingEnabled was unrecognized by Brave. HomepageLocation, NewTabPageLocation, and RestoreOnStartup are blocked by Brave's policy enforcement. GenAiDefaultSettings requires a cloud source and was ignored at runtime. This is a net reduction — no new policies added.
+
+| Metric | Before (v2.4.0.0) | After (v2.4.1.0) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 141 | **133** (−8) |
+| Brave Only policies | 24 | 24 |
+| Essential additions | 22 | **28** (+6) |
+| Balanced additions | 32 | **31** (−1) |
+| Advanced additions | 27 | **21** (−6) |
+| Strict additions | 29 | **29** (0) |
+| Cumulative chain | 24→53→85→112→141 | **24→52→83→104→133** |
+
+> **Note:** Per-tier addition counts represent unique policies added in each tier; cumulative chain represents cumulative totals per level. Minor rounding differences exist due to DownloadRestrictions being defined in both Balanced and Strict (last-write-wins at runtime).
+
+<a id="en-v2410-removed"></a>
+
+### Removed
+
+#### From Balanced (2 policies removed)
+
+- **`AutoFillEnabled`** — Deprecated in recent Chromium. Master autofill toggle is now controlled by AutofillAddressEnabled and AutofillCreditCardEnabled. Redundant.
+- **`SigninAllowed`** — Deprecated in Chrome 137+. BrowserSignin=0 at Essential tier already blocks sign-in flow entirely. Redundant.
+
+#### From Advanced (5 policies removed)
+
+- **`DefaultMediaStreamSetting`** — Deprecated. Replaced by DefaultCameraSetting and DefaultMicrophoneSetting for granular camera/microphone control.
+- **`TabFreezingEnabled`** — Unrecognized by Brave ("Bilinmeyen politika"). Not a valid Chromium enterprise policy.
+- **`HomepageLocation`** — Blocked by Brave ("Bu politika engellendiği için politikanın değeri yoksayılacak"). Brave does not allow homepage override via policy.
+- **`NewTabPageLocation`** — Blocked by Brave. Same as HomepageLocation — Brave ignores this policy value.
+- **`RestoreOnStartup`** — Blocked by Brave. Brave controls startup behavior through its own settings.
+
+#### From Strict (1 policy removed)
+
+- **`GenAiDefaultSettings`** — Ignored at runtime ("Politika bir bulut kaynağı tarafından belirlenmediği için yok sayıldı"). Requires cloud source configuration not available in local policy deployment.
 
 <hr>
 
@@ -1117,6 +1166,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); AutoFillEnabled/SigninAllowed/DefaultMediaStreamSetting deprecated; TabFreezingEnabled unrecognized; HomepageLocation/NewTabPageLocation/RestoreOnStartup blocked; GenAiDefaultSettings cloud-only; cumulative chain 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Phase 9: 30 new policies across all tiers (Essential +3, Balanced +3, Advanced +10, Strict +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting removed; cumulative chain 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings moved to Essential; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed; cumulative chain 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 new enterprise policies: extension lockdown, privacy, and network hardening; cumulative chain 24→50→79→97→110 |
@@ -1181,7 +1231,10 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 1. [Giriş](#tr-introduction)
 
-2. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+2. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+    * [Özet](#tr-v2410-ozet)
+    * [Kaldırıldı](#tr-v2410-kaldirildi)
+3. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
@@ -1507,6 +1560,52 @@ Eklenen/Değiştirilen Dosyalar:
 - **ExtensionInstallForcelist** Dark Reader ve Google Docs Offline'ı sabitler. MultiString değerini düzenleyerek uzantıları kaldırın veya ekleyin.
 - **BraveUpdateDisabled=1** otomatik güncellemeleri devre dışı bırakır. Katı seviyesini dağıtmadan önce alternatif bir güncelleme yönetim sisteminiz olduğundan emin olun.
 - **SafeBrowsingProtectionLevel=2** ve **PasswordProtectionWarningTrigger=3** Brave Yalnız'da tüm sonraki seviyeleri kümülatif olarak kapsar.
+
+<hr>
+
+<a id="tr-v2410"></a>
+
+## [v2.4.1.0] — 2026-07-12
+
+<a id="tr-v2410-ozet"></a>
+
+### 🎯 Özet
+
+**Faz 9 düzeltmesi — 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133).** Brave 150 (Chromium 150.0.7871.114) üzerinde çalışma zamanı doğrulamasında başarısız olan politikaların temizlenmesi. AutoFillEnabled, SigninAllowed ve DefaultMediaStreamSetting son Chrome sürümlerinde kullanımdan kaldırıldı. TabFreezingEnabled Brave tarafından tanınmadı. HomepageLocation, NewTabPageLocation ve RestoreOnStartup Brave politika uygulaması tarafından engelleniyor. GenAiDefaultSettings bulut kaynağı gerektirir ve çalışma zamanında yoksayıldı. Bu net bir azalmadır — yeni politika eklenmemiştir.
+
+| Metrik | Önce (v2.4.0.0) | Sonra (v2.4.1.0) |
+|--------|-----------------|-------------------|
+| Sıkılaştırma seviyeleri | 5 | 5 |
+| Toplam politika | 141 | **133** (−8) |
+| Brave Yalnız politikası | 24 | 24 |
+| Temel eklemeler | 22 | **28** (+6) |
+| Dengeli eklemeler | 32 | **31** (−1) |
+| Gelişmiş eklemeler | 27 | **21** (−6) |
+| Katı eklemeler | 29 | **29** (0) |
+| Kümülatif zincir | 24→53→85→112→141 | **24→52→83→104→133** |
+
+> **Not:** Kademeli ekleme sayıları, her kademe eklenen benzersiz politikaları temsil eder; kümülatif zincir her seviyedeki kümülatif toplamları temsil eder. DownloadRestrictions'in hem Dengeli hem de Katı'da tanımlanması (çalışma zamanında son yazan kazanır) nedeniyle küçük yuvarlama farkları vardır.
+
+<a id="tr-v2410-kaldirildi"></a>
+
+### Kaldırıldı
+
+#### Dengeli'den kaldırılan (2 politika)
+
+- **`AutoFillEnabled`** — Son Chromium sürümlerinde kullanımdan kaldırıldı. Ana otomatik doldurma artık AutofillAddressEnabled ve AutofillCreditCardEnabled ile kontrol edilir. Gereksiz.
+- **`SigninAllowed`** — Chrome 137+'da kullanımdan kaldırıldı. Essential kademesindeki BrowserSignin=0 zaten oturum açma akışını tamamen engeller. Gereksiz.
+
+#### Gelişmiş'den kaldırılan (5 politika)
+
+- **`DefaultMediaStreamSetting`** — Kullanımdan kaldırıldı. Yerine DefaultCameraSetting ve DefaultMicrophoneSetting ile ayrıntılı kamera/mikrofon kontrolü gelmiştir.
+- **`TabFreezingEnabled`** — Brave tarafından tanınmadı ("Bilinmeyen politika"). Geçerli bir Chromium kurumsal politikası değil.
+- **`HomepageLocation`** — Brave tarafından engellendi ("Bu politika engellendiği için politikanın değeri yoksayılacak"). Brave ana sayfa değiştirmeye politika ile izin vermez.
+- **`NewTabPageLocation`** — Brave tarafından engellendi. HomepageLocation ile aynı — Brave bu politika değerini yoksayar.
+- **`RestoreOnStartup`** — Brave tarafından engellendi. Brave başlangıç davranışını kendi ayarlarıyla kontrol eder.
+
+#### Katı'dan kaldırılan (1 politika)
+
+- **`GenAiDefaultSettings`** — Çalışma zamanında yoksayıldı ("Politika bir bulut kaynağı tarafından belirlenmediği için yok sayıldı"). Yerel politika dağıtımında mevcut olmayan bulut kaynağı yapılandırması gerektirir.
 
 <hr>
 
@@ -2281,6 +2380,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); AutoFillEnabled/SigninAllowed/DefaultMediaStreamSetting kullanımdan kaldırıldı; TabFreezingEnabled tanınmadı; HomepageLocation/NewTabPageLocation/RestoreOnStartup engellendi; GenAiDefaultSettings bulut-kaynaklı; kümülatif zincir 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Faz 9: Tüm kademelerde 30 yeni politika (Temel +3, Dengeli +3, Gelişmiş +10, Katı +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting kaldırıldı; kümülatif zincir 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel'e taşındı; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled kaldırıldı; kümülatif zincir 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 yeni enterprise politikası: uzantı kilitleme, gizlilik ve ağ sıkılaştırması; kümülatif zincir 24→50→79→97→110 |

@@ -23,7 +23,7 @@ Complete version history for Brave Omega.
 
 ## Release History
 
-### v2.4.0.0 — 2026-07-10
+### v2.4.1.0 — 2026-07-10
 
 **Brave 1.92.139 Validation — ProxySettings Added to Essential**
 
@@ -31,16 +31,16 @@ Complete version history for Brave Omega.
 - **Essential (+1):** ProxySettings (JSON placeholder `{"proxyServer": "http://proxy:8080"}`)
 
 **Changed:**
-- Cumulative chain: 24→53→85→112→141 (Essential 18→19)
+- Cumulative chain: 24→52→83→104→133 (Essential 18→19)
 - Brave validated version updated to 1.92.139 (Chromium 150.0.7871.176)
-- Both scripts updated to v2.4.0.0 with `$ScriptVersion = "v2.4.0.0"` / `$BetikSurum = "v2.4.0.0"`
+- Both scripts updated to v2.4.1.0 with `$ScriptVersion = "v2.4.1.0"` / `$BetikSurum = "v2.4.1.0"`
 - Documentation updated across README, Wiki, CHANGELOG
 
 ---
 
 ### v2.3.0.0 — 2026-07-09
 
-**Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 111→141 Policies (+19)**
+**Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 111→133 Policies (+19)**
 
 **Added:**
 - 19 new Chromium enterprise policies added:
@@ -52,7 +52,7 @@ Complete version history for Brave Omega.
   - **Strict overrides:** TranslateEnabled (top priority), DownloadRestrictions (1→3), plus other tier overrides for IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Changed:**
-- Cumulative chain restructured: 22→47→72→83→91 → 24→53→85→112→141
+- Cumulative chain restructured: 22→47→72→83→91 → 24→52→83→104→133
 - Brave validated version updated to 1.92.138 (Chromium 150.0.7871.101)
 - Both scripts updated to v2.3.0.0 with `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` overridden to `3` in Strict (Balanced uses `1`)
@@ -381,7 +381,7 @@ Complete version history for Brave Omega.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.4.0.0** *(current)* | 1.92.139 | 150 | 11 25H2 | ✅ Active |
+| **v2.4.1.0** *(current)* | 1.92.139 | 150 | 11 25H2 | ✅ Active |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
@@ -458,7 +458,7 @@ Brave Omega için tam sürüm geçmişi.
 
 ### v2.3.0.0 — 2026-07-09
 
-**Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 111→141 Politika (+19)**
+**Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 111→133 Politika (+19)**
 
 **Eklenenler:**
 - 11 yeni Chromium kurumsal politikası eklendi:
@@ -472,7 +472,7 @@ Brave Omega için tam sürüm geçmişi.
   ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Değişenler:**
-- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→53→85→112→141
+- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→52→83→104→133
 - Doğrulanmış Brave sürümü 1.92.138'e güncellendi (Chromium 150.0.7871.101)
 - Her iki betik v2.3.0.0'a güncellendi, `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` Katı'da `3` ile geçersiz kılındı (Dengeli `1` kullanır)
@@ -800,7 +800,7 @@ Brave Omega için tam sürüm geçmişi.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.4.0.0** *(güncel)* | 1.92.139 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.4.1.0** *(güncel)* | 1.92.139 | 150 | 11 25H2 | ✅ Etkin |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |

@@ -13,7 +13,7 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 **v2.3.0.0** — *Extension Lockdown, Proxy & Privacy Hardening* (2026-07-09)
 
-Phase 8 complete: 141 policies across 5 hardening tiers (Brave Only 24 / Essential 53 / Balanced 85 / Advanced 112 / Strict 141).
+Phase 8 complete: 133 policies across 5 hardening tiers (Brave Only 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133).
 
 ---
 
@@ -139,7 +139,7 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | BuiltInDnsClientEnabled | Network — DNS control | Advanced |
 | BraveUpdateDisabled | Update control | Advanced |
 
-Total: 111→141 policies (+19). Cumulative chain: 24→53→85→112→141.
+Total: 111→133 policies (+22). Cumulative chain: 24→52→83→104→133.
 
 **Removed:** AllowPopupsDuringPageUnload (deprecated upstream, removed after initial 115-policy build).
 
@@ -241,7 +241,7 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 **v2.3.0.0** — *Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması* (2026-07-09)
 
-8. Aşama tamam: 5 sıkılaştırma katmanında 141 politika (Brave Yalnız 24 / Temel 53 / Dengeli 85 / Gelişmiş 112 / Katı 141).
+8. Aşama tamam: 5 sıkılaştırma katmanında 133 politika (Brave Yalnız 24 / Temel 52 / Dengeli 83 / Gelişmiş 104 / Katı 133).
 
 ---
 
@@ -330,7 +330,7 @@ Toplam: 80→91 politika (+11). 90+ politika engeli aşıldı.
 
 22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
 
-Toplam: 111→141 politika (+19). Kümülatif zincir: 24→53→85→112→141.
+Toplam: 111→133 politika (+22). Kümülatif zincir: 24→52→83→104→133.
 
 **Kaldırılan:** AllowPopupsDuringPageUnload (kullanım dışı, ilk 115'lik yapıdan sonra çıkarıldı).
 
