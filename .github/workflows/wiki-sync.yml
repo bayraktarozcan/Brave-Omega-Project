@@ -28,8 +28,10 @@ jobs:
           cd wiki-tmp
           git config user.name "bayraktarozcan"
           git config user.email "bayraktarozcan@users.noreply.github.com"
-          if ! git diff --quiet; then
+          if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "sync: update Wiki from main (${{ github.sha }})"
             git push
+          else
+            echo "No changes detected — wiki already in sync"
           fi
