@@ -1,4 +1,4 @@
-﻿> **Language / Dil** &nbsp;
+> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>

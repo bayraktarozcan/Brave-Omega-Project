@@ -25,7 +25,12 @@ jobs:
       - name: Sync to Wiki repo
         run: |
           rsync -a --delete "Wiki/" "/tmp/wiki-sync/"
+          # Fix BOM + CRLF for Gollum compatibility
           cd /tmp/wiki-sync
+          git config core.autocrlf false
+          echo "*.md text eol=lf" > .gitattributes
+          find . -name '*.md' -exec sed -i 's/\xEF\xBB\xBF//g' {} +
+          find . -name '*.md' -exec sed -i 's/\r$//' {} +
           git config user.name "bayraktarozcan"
           git config user.email "bayraktarozcan@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${{ secrets.WIKI_SYNC_TOKEN }}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git"
