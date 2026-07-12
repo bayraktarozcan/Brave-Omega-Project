@@ -22,7 +22,7 @@ jobs:
           WIKI_URL: "https://x-access-token:${{ secrets.WIKI_SYNC_TOKEN }}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git"
         run: |
           set -ex
-          WIKI_DIR="$GITHUB_WORKSPACE/wiki-repo"
+          WIKI_DIR="/tmp/wiki-repo"
           git clone "$WIKI_URL" "$WIKI_DIR"
           cd "$WIKI_DIR"
           pwd
