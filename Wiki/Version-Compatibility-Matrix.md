@@ -13,7 +13,7 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.4.1.0** ⭐ | 1.92.139 | 150.0.7871.176 | Windows 11 25H2 | ✅ Current | 2026-07-10 |
+| **v2.4.1.0** ⭐ | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | ✅ Current | 2026-07-15 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Previous | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
@@ -60,7 +60,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ### Use Current (v2.4.1.0) If
 
-- Running Brave 1.92.139 (latest stable)
+- Running Brave 1.92.140 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 133 total policies
 
@@ -188,7 +188,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.4.1.0** ⭐ | 1.92.139 | 150.0.7871.176 | Windows 11 25H2 | ✅ Güncel | 2026-07-10 |
+| **v2.4.1.0** ⭐ | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | ✅ Güncel | 2026-07-15 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Önceki | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
@@ -235,7 +235,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Güncel (v2.4.1.0) Kullan Eğer
 
-- Brave 1.92.139 (en güncel kararlı) çalışıyorsa
+- Brave 1.92.140 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 133 toplam politika
 

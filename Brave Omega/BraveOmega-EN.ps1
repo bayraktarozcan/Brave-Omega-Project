@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8524)
-#                    Brave 1.92.139 — Official Build / Chromium 150.0.7871.114
+#                    Brave 1.92.140 — Official Build / Chromium 150.0.7871.125
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.92.139, dated July 10, 2026, belongs to the Stable channel.
+#    Brave 1.92.140, dated July 15, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
@@ -126,8 +126,8 @@
 #     [NEW]        Essential (+1): ProxySettings (String, '{"ProxyMode":"system"}')
 #     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 50, Balanced 79,
 #                   Advanced 96, Strict 110.
-#     [IMPROVED]    Validated Brave version updated to 1.92.139
-#                   (Chromium 150.0.7871.114).
+#     [IMPROVED]    Validated Brave version updated to 1.92.140
+#                   (Chromium 150.0.7871.125).
 #
 #   v2.4.0.0             Phase 9 — 30 new policies (111→141 unique):
 #
@@ -196,7 +196,7 @@ param(
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
 $ScriptVersion   = "v2.4.1.0"
-$ValidatedBrave  = "1.92.139"
+$ValidatedBrave  = "1.92.140"
 $ValidatedChromium = "150"
 
 # ─────────────────────────────────────────────────────────────────────────────

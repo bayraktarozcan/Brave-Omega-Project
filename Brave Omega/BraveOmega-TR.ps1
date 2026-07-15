@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8524)
-#                  Brave 1.92.139 — Resmî Derleme / Chromium 150.0.7871.114
+#                  Brave 1.92.140 — Resmî Derleme / Chromium 150.0.7871.125
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
 #                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
 #                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.92.139, 10 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.92.140, 15 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
@@ -127,8 +127,8 @@
 #     [YENİ]        Temel (+1): ProxySettings (String, '{"ProxyMode":"system"}')
 #     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
 #                   Gelişmiş 96, Katı 110.
-#     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.139'a güncellendi
-#                   (Chromium 150.0.7871.114).
+#     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.140'a güncellendi
+#                   (Chromium 150.0.7871.125).
 #
 #   v2.4.0.0             Faz 9 — 30 yeni politika (111→141 benzersiz):
 #
@@ -197,7 +197,7 @@ param(
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
 $BetikSurum    = "v2.4.1.0"
-$DogrulananBrave = "1.92.139"
+$DogrulananBrave = "1.92.140"
 $DogrulananChromium = "150"
 
 # ─────────────────────────────────────────────────────────────────────────────
