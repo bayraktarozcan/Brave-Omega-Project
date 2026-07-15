@@ -21,7 +21,7 @@ Describe "Script Version Consistency" -Tag "Integration" {
 
     It "EN should have validated Brave version" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $content -match '1\.92\.139' | Should -Be $true
+        $content -match '1\.92\.140' | Should -Be $true
     }
 
     It "EN should have validated Chromium version" {
