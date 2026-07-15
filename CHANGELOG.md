@@ -254,7 +254,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### 🎯 Summary
 
-**Phase 9 fix — remove 8 broken/deprecated/blocked policies (141→133) and clean up extension policy configuration.** Cleanup of policies that failed runtime verification on Brave 150 (Chromium 150.0.7871.114). AutoFillEnabled, SigninAllowed, and DefaultMediaStreamSetting were deprecated in recent Chrome releases. TabFreezingEnabled was unrecognized by Brave. HomepageLocation, NewTabPageLocation, and RestoreOnStartup are blocked by Brave's policy enforcement. GenAiDefaultSettings requires a cloud source and was ignored at runtime. ExtensionInstallForcelist corrected — replaced AdBlock Plus and unknown extension with Dark Reader and Google Docs Offline. Kaspersky Protection added to ExtensionInstallAllowlist only (no force-install). Net reduction of 8 policies.
+**Phase 9 fix — remove 8 broken/deprecated/blocked policies (141→133), clean up extension policy configuration, and simplify to Dark Reader only.** Cleanup of policies that failed runtime verification on Brave 150 (Chromium 150.0.7871.114). AutoFillEnabled, SigninAllowed, and DefaultMediaStreamSetting were deprecated in recent Chrome releases. TabFreezingEnabled was unrecognized by Brave. HomepageLocation, NewTabPageLocation, and RestoreOnStartup are blocked by Brave's policy enforcement. GenAiDefaultSettings requires a cloud source and was ignored at runtime. ExtensionInstallForcelist simplified to Dark Reader only (removed AdBlock Plus, unknown extension, and Google Docs Offline). ExtensionInstallAllowlist simplified to Dark Reader only (removed Google Docs Offline and Kaspersky Protection). ExtensionSettings JSON updated to single Dark Reader entry. Net reduction of 8 policies.
 
 | Metric | Before (v2.4.0.0) | After (v2.4.1.0) |
 |--------|-------------------|------------------|
@@ -298,8 +298,9 @@ Fixes #50
 
 #### Extension policy configuration (Balanced + Advanced)
 
-- **`ExtensionInstallForcelist`** (Balanced) — Replaced AdBlock Plus (`gighmmpiobklfepjocnamgkkbiglidom`) and unknown extension (`jkfdkjapfhfinccefmehkmnjghbkladp`) with Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) and Google Docs Offline (`ghbmnnjooekpmoecnnnilnnbdlolhkhi`). Kaspersky Protection removed from forcelist (allowlist-only, no force-install).
-- **`ExtensionInstallAllowlist`** (Advanced) — Updated to include Dark Reader, Google Docs Offline, and Kaspersky Protection (`ahkjpbeeocnddjkakilopmfdlnjdpcdm`). Removed unknown extension `jkfdkjapfhfinccefmehkmnjghbkladp`.
+- **`ExtensionInstallForcelist`** (Balanced) — Simplified to Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) only. Removed AdBlock Plus, unknown extension, and Google Docs Offline.
+- **`ExtensionInstallAllowlist`** (Advanced) — Simplified to Dark Reader only. Removed Google Docs Offline and Kaspersky Protection.
+- **`ExtensionSettings`** (Advanced) — JSON backup layer updated to single Dark Reader entry.
 
 <hr>
 
@@ -1178,7 +1179,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
-| v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — forcelist: Dark Reader + Google Docs Offline, allowlist: +Kaspersky Protection, removed AdBlock Plus + unknown ID; cumulative chain 24→52→83→104→133 |
+| v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only, removed Google Docs Offline + Kaspersky Protection + old IDs; ExtensionSettings JSON updated; cumulative chain 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Phase 9: 30 new policies across all tiers (Essential +3, Balanced +3, Advanced +10, Strict +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting removed; cumulative chain 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings moved to Essential; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed; cumulative chain 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 new enterprise policies: extension lockdown, privacy, and network hardening; cumulative chain 24→50→79→97→110 |
@@ -1584,7 +1585,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 ### 🎯 Özet
 
-**Faz 9 düzeltmesi — 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133) ve uzantı politikası yapılandırması temizlendi.** Brave 150 (Chromium 150.0.7871.114) üzerinde çalışma zamanı doğrulamasında başarısız olan politikaların temizlenmesi. AutoFillEnabled, SigninAllowed ve DefaultMediaStreamSetting son Chrome sürümlerinde kullanımdan kaldırıldı. TabFreezingEnabled Brave tarafından tanınmadı. HomepageLocation, NewTabPageLocation ve RestoreOnStartup Brave politika uygulaması tarafından engelleniyor. GenAiDefaultSettings bulut kaynağı gerektirir ve çalışma zamanında yoksayıldı. ExtensionInstallForcelist düzeltildi — AdBlock Plus ve bilinmeyen uzantı yerine Dark Reader ve Google Dokümanlar Çevrimdışı eklendi. Kaspersky Protection yalnızca ExtensionInstallAllowlist'e eklendi (zorla yükleme yok). Net 8 politika azalması.
+**Faz 9 düzeltmesi — 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133), uzantı politikası yapılandırması temizlendi ve yalnızca Dark Reader'a basitleştirildi.** Brave 150 (Chromium 150.0.7871.114) üzerinde çalışma zamanı doğrulamasında başarısız olan politikaların temizlenmesi. AutoFillEnabled, SigninAllowed ve DefaultMediaStreamSetting son Chrome sürümlerinde kullanımdan kaldırıldı. TabFreezingEnabled Brave tarafından tanınmadı. HomepageLocation, NewTabPageLocation ve RestoreOnStartup Brave politika uygulaması tarafından engelleniyor. GenAiDefaultSettings bulut kaynağı gerektirir ve çalışma zamanında yoksayıldı. ExtensionInstallForcelist yalnızca Dark Reader'a basitleştirildi (AdBlock Plus, bilinmeyen uzantı ve Google Dokümanlar Çevrimdışı kaldırıldı). ExtensionInstallAllowlist yalnızca Dark Reader'a basitleştirildi (Google Dokümanlar Çevrimdışı ve Kaspersky Protection kaldırıldı). ExtensionSettings JSON tek Dark Reader girişi olarak güncellendi. Net 8 politika azalması.
 
 | Metrik | Önce (v2.4.0.0) | Sonra (v2.4.1.0) |
 |--------|-----------------|-------------------|
@@ -1628,8 +1629,9 @@ Fixes #50
 
 #### Uzantı politikası yapılandırması (Dengeli + Gelişmiş)
 
-- **`ExtensionInstallForcelist`** (Dengeli) — AdBlock Plus (`gighmmpiobklfepjocnamgkkbiglidom`) ve bilinmeyen uzantı (`jkfdkjapfhfinccefmehkmnjghbkladp`) yerine Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) ve Google Dokümanlar Çevrimdışı (`ghbmnnjooekpmoecnnnilnnbdlolhkhi`) eklendi. Kaspersky Protection forcelist'ten kaldırıldı (yalnızca allowlist, zorla yükleme yok).
-- **`ExtensionInstallAllowlist`** (Gelişmiş) — Dark Reader, Google Dokümanlar Çevrimdışı ve Kaspersky Protection (`ahkjpbeeocnddjkakilopmfdlnjdpcdm`) eklendi. Bilinmeyen uzantı `jkfdkjapfhfinccefmehkmnjghbkladp` kaldırıldı.
+- **`ExtensionInstallForcelist`** (Dengeli) — Yalnızca Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) olarak basitleştirildi. AdBlock Plus, bilinmeyen uzantı ve Google Dokümanlar Çevrimdışı kaldırıldı.
+- **`ExtensionInstallAllowlist`** (Gelişmiş) — Yalnızca Dark Reader olarak basitleştirildi. Google Dokümanlar Çevrimdışı ve Kaspersky Protection kaldırıldı.
+- **`ExtensionSettings`** (Gelişmiş) — JSON yedek katmanı tek Dark Reader girişi olarak güncellendi.
 
 <hr>
 
@@ -2404,7 +2406,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
-| v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — forcelist: Dark Reader + Google Docs Offline, allowlist: +Kaspersky Protection, AdBlock Plus + bilinmeyen ID kaldırıldı; kümülatif zincir 24→52→83→104→133 |
+| v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — Forcelist & Allowlist yalnızca Dark Reader'a basitleştirildi, Google Docs Offline + Kaspersky Protection + eski ID'ler kaldırıldı; ExtensionSettings JSON güncellendi; kümülatif zincir 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Faz 9: Tüm kademelerde 30 yeni politika (Temel +3, Dengeli +3, Gelişmiş +10, Katı +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting kaldırıldı; kümülatif zincir 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel'e taşındı; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled kaldırıldı; kümülatif zincir 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 yeni enterprise politikası: uzantı kilitleme, gizlilik ve ağ sıkılaştırması; kümülatif zincir 24→50→79→97→110 |
