@@ -23,18 +23,60 @@ Complete version history for Brave Omega.
 
 ## Release History
 
-### v2.4.1.0 — 2026-07-10
+### v2.4.1.0 — 2026-07-12
 
-**Brave 1.92.139 Validation — ProxySettings Added to Essential**
+**Phase 9 Fix — Remove 8 Broken/Deprecated/Blocked Policies (141→133), Extension Cleanup to Dark Reader Only**
+
+**Removed (8 policies):**
+
+- **From Balanced (2):** `AutoFillEnabled` (deprecated), `SigninAllowed` (deprecated in Chrome 137+)
+- **From Advanced (5):** `DefaultMediaStreamSetting` (deprecated), `TabFreezingEnabled` (unrecognized by Brave), `HomepageLocation` (blocked by Brave), `NewTabPageLocation` (blocked by Brave), `RestoreOnStartup` (blocked by Brave)
+- **From Strict (1):** `GenAiDefaultSettings` (requires cloud source, ignored at runtime)
+
+**Changed:**
+
+- **Extension policy simplified to Dark Reader only:**
+  - `ExtensionInstallForcelist` (Balanced): removed AdBlock Plus, unknown extension, Google Docs Offline
+  - `ExtensionInstallAllowlist` (Advanced): removed Google Docs Offline, Kaspersky Protection
+  - `ExtensionSettings` (Advanced): JSON updated to single Dark Reader entry
+- Cumulative chain: 24→52→83→104→133 (Essential 22→28 own policies)
+- Brave validated version: 1.92.139 (Chromium 150.0.7871.176)
+- Both scripts updated to v2.4.1.0
+
+Fixes #50
+
+---
+
+### v2.4.0.0 — 2026-07-11
+
+**Phase 9 — 30 New Enterprise Policies; Cumulative Chain Expands to 141 Policies**
+
+**Added (30 policies):**
+
+- **Essential (+3):** BrowserSignin, SigninAllowed, ExtensionInstallSources
+- **Balanced (+3):** AutoFillEnabled, RelaunchNotification, RelaunchNotificationPeriod
+- **Advanced (+10):** HomepageLocation, ShowHomeButton, RestoreOnStartup, NewTabPageLocation, HideWebStoreIcon, DefaultJavaScriptSetting, DefaultMediaStreamSetting, GeminiSettings, GenAiDefaultSettings, TabFreezingEnabled
+- **Strict (+14):** CloudReportingEnabled, BrowsingDataLifetime, CrossOriginOpPolicyHeader, CrossOriginEmbedderPolicy, DanglingOriginCheckEnforcement, InsecureFormsWarningsEnabled, AlwaysOpenPdfExternally, CertificateTransparencyEnforcementDisabledForUrls, PasswordReuseDetectionEnabled, PasswordLeakDetectionEnabled, SpellCheckServiceEnabled, TabDiscardingEnabled, ContextualSearchEnabled, SyncDisabled
+
+**Changed:**
+
+- SpellcheckEnabled changed from `0` → `1` (Essential): local Hunspell is offline-only; online spellcheck blocked separately by SpellCheckServiceEnabled=0 in Strict
+- Cumulative chain: 24→50→79→96→110 → **24→53→85→112→141**
+
+---
+
+### v2.3.1.0 — 2026-07-10
+
+**Brave 1.92.139 Validation; ProxySettings Added to Essential**
 
 **Added:**
+
 - **Essential (+1):** ProxySettings (JSON placeholder `{"proxyServer": "http://proxy:8080"}`)
 
 **Changed:**
-- Cumulative chain: 24→52→83→104→133 (Essential 18→19 own policies)
+
 - Brave validated version updated to 1.92.139 (Chromium 150.0.7871.176)
-- Both scripts updated to v2.4.1.0 with `$ScriptVersion = "v2.4.1.0"` / `$BetikSurum = "v2.4.1.0"`
-- Documentation updated across README, Wiki, CHANGELOG
+- Both scripts updated to v2.3.1.0
 
 ---
 
@@ -455,6 +497,63 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.4.1.0 — 2026-07-12
+
+**Faz 9 Düzeltmesi — 8 Hatalı/Kullanımdan Kaldırılmış/Engellenmiş Politika Kaldırıldı (141→133), Uzantı Temizliği (Yalnızca Dark Reader)**
+
+**Kaldırılanlar (8 politika):**
+
+- **Dengeli'den (2):** `AutoFillEnabled` (kullanımdan kaldırıldı), `SigninAllowed` (Chrome 137+'da kullanımdan kaldırıldı)
+- **Gelişmiş'den (5):** `DefaultMediaStreamSetting` (kullanımdan kaldırıldı), `TabFreezingEnabled` (Brave tarafından tanınmadı), `HomepageLocation` (Brave tarafından engellendi), `NewTabPageLocation` (Brave tarafından engellendi), `RestoreOnStartup` (Brave tarafından engellendi)
+- **Katı'dan (1):** `GenAiDefaultSettings` (bulut kaynağı gerektirir, çalışma zamanında yoksayıldı)
+
+**Değişenler:**
+
+- **Uzantı politikası yalnızca Dark Reader'a basitleştirildi:**
+  - `ExtensionInstallForcelist` (Dengeli): AdBlock Plus, bilinmeyen uzantı, Google Dokümanlar Çevrimdışı kaldırıldı
+  - `ExtensionInstallAllowlist` (Gelişmiş): Google Dokümanlar Çevrimdışı, Kaspersky Protection kaldırıldı
+  - `ExtensionSettings` (Gelişmiş): JSON tek Dark Reader girişi olarak güncellendi
+- Kümülatif zincir: 24→52→83→104→133 (Temel 22→28 kendi politikası)
+- Doğrulanmış Brave sürümü: 1.92.139 (Chromium 150.0.7871.176)
+- Her iki betik v2.4.1.0'a güncellendi
+
+Fixes #50
+
+---
+
+### v2.4.0.0 — 2026-07-11
+
+**Faz 9 — 30 Yeni Kurumsal Politika; Kümülatif Zincir 141 Politikaya Genişledi**
+
+**Eklenenler (30 politika):**
+
+- **Temel (+3):** BrowserSignin, SigninAllowed, ExtensionInstallSources
+- **Dengeli (+3):** AutoFillEnabled, RelaunchNotification, RelaunchNotificationPeriod
+- **Gelişmiş (+10):** HomepageLocation, ShowHomeButton, RestoreOnStartup, NewTabPageLocation, HideWebStoreIcon, DefaultJavaScriptSetting, DefaultMediaStreamSetting, GeminiSettings, GenAiDefaultSettings, TabFreezingEnabled
+- **Katı (+14):** CloudReportingEnabled, BrowsingDataLifetime, CrossOriginOpPolicyHeader, CrossOriginEmbedderPolicy, DanglingOriginCheckEnforcement, InsecureFormsWarningsEnabled, AlwaysOpenPdfExternally, CertificateTransparencyEnforcementDisabledForUrls, PasswordReuseDetectionEnabled, PasswordLeakDetectionEnabled, SpellCheckServiceEnabled, TabDiscardingEnabled, ContextualSearchEnabled, SyncDisabled
+
+**Değişenler:**
+
+- SpellcheckEnabled `0`'dan `1`'e değiştirildi (Temel): Yerel Hunspell çevrimdışıdır; çevrimiçi yazım denetimi Katı'daki SpellCheckServiceEnabled=0 ile ayrıca engellenir
+- Kümülatif zincir: 24→50→79→96→110 → **24→53→85→112→141**
+
+---
+
+### v2.3.1.0 — 2026-07-10
+
+**Brave 1.92.139 Doğrulaması; Temel Kademesine ProxySettings Eklendi**
+
+**Eklenenler:**
+
+- **Temel (+1):** ProxySettings (JSON yer tutucu `{"proxyServer": "http://proxy:8080"}`)
+
+**Değişenler:**
+
+- Doğrulanmış Brave sürümü 1.92.139'e güncellendi (Chromium 150.0.7871.176)
+- Her iki betik v2.3.1.0'a güncellendi
+
+---
 
 ### v2.3.0.0 — 2026-07-09
 
