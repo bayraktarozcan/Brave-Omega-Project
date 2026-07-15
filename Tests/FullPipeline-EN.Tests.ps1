@@ -5,8 +5,6 @@ BeforeAll {
     $tokens = $null; $errors = $null
     [System.Management.Automation.Language.Parser]::ParseInput($rawContent, [ref]$tokens, [ref]$errors)
     $syntaxErrors = $errors
-    $funcNodes = $null
-    $ast = $null
 }
 
 Describe "Full Pipeline (EN)" -Tag "Integration" {
