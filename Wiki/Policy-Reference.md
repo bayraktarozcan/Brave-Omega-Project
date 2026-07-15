@@ -122,7 +122,7 @@ Complete policy reference for Brave Omega v2.4.1.0 — **133 enterprise policies
 | `SitePerProcess` | `1` | DWord | Forces site-per-process isolation |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Enables intensive wake-up throttling |
 | `UserFeedbackAllowed` | `0` | DWord | Disables user feedback |
-| `ExtensionInstallForcelist` | `@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp")` | MultiString | Force-installs Dark Reader and Google Docs Offline |
+| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Force-installs Dark Reader |
 | `DownloadRestrictions` | `1` | DWord | Warns before dangerous downloads |
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
@@ -145,10 +145,10 @@ Complete policy reference for Brave Omega v2.4.1.0 — **133 enterprise policies
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except allowlist |
-| `ExtensionInstallAllowlist` | `@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Allows only Google Docs Offline + Dark Reader |
+| `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Allows only Dark Reader |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloaded extensions |
-| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | JSON backup layer for extension control |
+| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | JSON backup layer for extension control |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables built-in DNS client (uses system DNS) |
 | `ShowHomeButton` | `0` | DWord | **[Phase 9]** Hides home button from toolbar |
 | `HideWebStoreIcon` | `1` | DWord | **[Phase 9]** Hides Chrome Web Store icon |
@@ -363,7 +363,7 @@ Brave Omega v2.4.1.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `SitePerProcess` | `1` | DWord | Site başına süreç izolasyonunu zorlar |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Yoğun uyanma kısıtlamasını etkinleştirir |
 | `UserFeedbackAllowed` | `0` | DWord | Kullanıcı geri bildirimini devre dışı bırakır |
-| `ExtensionInstallForcelist` | `@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp")` | MultiString | Dark Reader ve Google Docs Offline'ı zorla yükler |
+| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Dark Reader'ı zorla yükler |
 | `DownloadRestrictions` | `1` | DWord | Tehlikeli indirmelerden önce uyarır |
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
@@ -386,10 +386,10 @@ Brave Omega v2.4.1.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Beyaz listedekiler hariç tüm uzantıları engeller |
-| `ExtensionInstallAllowlist` | `@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Yalnızca Google Docs Offline + Dark Reader'a izin verir |
+| `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Yalnızca Dark Reader'a izin verir |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Uzantı türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Kenardan yüklenen uzantıları engeller |
-| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | Uzantı kontrolü için JSON yedek katmanı |
+| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | Uzantı kontrolü için JSON yedek katmanı |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Yerleşik DNS istemcisini devre dışı bırakır (sistem DNS kullanır) |
 | `ShowHomeButton` | `0` | DWord | **[Faz 9]** Araç çubuğundaki ana sayfa düğmesini gizler |
 | `HideWebStoreIcon` | `1` | DWord | **[Faz 9]** Chrome Web Mağazası simgesini gizler |

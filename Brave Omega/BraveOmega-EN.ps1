@@ -690,8 +690,8 @@ $PolicyDefinitions = @{
         # User Feedback — disables in-browser feedback prompts/UI
         @{Name="UserFeedbackAllowed";                  Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
-        # Extension Install Forcelist — force-install Dark Reader + Google Docs Offline
-        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh", "ghbmnnjooekpmoecnnnilnnbdlolhkhi"); Type="MultiString"}
+        # Extension Install Forcelist — force-install Dark Reader
+        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Type="MultiString"}
         # Download Restrictions — warn before dangerous downloads (1=basic protection)
         @{Name="DownloadRestrictions";                 Value=1; Type="DWord"}
         # Download Directory — set default download folder
@@ -733,14 +733,14 @@ $PolicyDefinitions = @{
         # ─── Moved from Strict (v2.3.0.0 reclassify) — extension lockdown ───
         # Extension Install Blocklist — block all except allowlist
         @{Name="ExtensionInstallBlocklist";            Value=@("*");     Type="MultiString"}
-        # Extension Install Allowlist — Dark Reader + Google Docs Offline + Kaspersky Protection
-        @{Name="ExtensionInstallAllowlist";            Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh", "ghbmnnjooekpmoecnnnilnnbdlolhkhi", "ahkjpbeeocnddjkakilopmfdlnjdpcdm"); Type="MultiString"}
+        # Extension Install Allowlist — Dark Reader only
+        @{Name="ExtensionInstallAllowlist";            Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Type="MultiString"}
         # Extension Allowed Types — only extension + shared_module
         @{Name="ExtensionAllowedTypes";                Value=@("extension", "shared_module"); Type="MultiString"}
         # Block External Extensions — prevent sideloading
         @{Name="BlockExternalExtensions";              Value=1;          Type="DWord"}
         # Extension Settings — JSON backup layer
-        @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Type="String"}
+        @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Type="String"}
         # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS
         @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
         # ─── New Advanced Policies (Phase 9 — Prompt 28) ───

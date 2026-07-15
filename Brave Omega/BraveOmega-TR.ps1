@@ -698,8 +698,8 @@ $PolitikaTanimlari = @{
         # Kullanıcı Geri Bildirimi — tarayıcı içi geri bildirim istemlerini devre dışı bırakır
         @{Ad="UserFeedbackAllowed";                  Deger=0; Tur="DWord"}
         # ─── Yeni Dengeli Politikaları (Faz 8 — Prompt 22 + 24) ───
-        # Uzantı Zorla Yükle — Dark Reader + Google Dokümanlar Çevrimdışı zorla yükle
-        @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh", "ghbmnnjooekpmoecnnnilnnbdlolhkhi"); Tur="MultiString"}
+        # Uzantı Zorla Yükle — Dark Reader zorla yükle
+        @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Tur="MultiString"}
         # İndirme Kısıtlamaları — tehlikeli indirmelerden önce uyar (1=temel koruma)
         @{Ad="DownloadRestrictions";                 Deger=1; Tur="DWord"}
         # İndirme Klasörü — varsayılan indirme klasörünü ayarla
@@ -741,14 +741,14 @@ $PolitikaTanimlari = @{
         # ─── Katı'dan taşındı (v2.3.0.0 reklasifikasyon) — uzantı kilidi ───
         # Uzantı Yükleme Engel Listesi — beyaz liste dışındaki tüm uzantıları engelle
         @{Ad="ExtensionInstallBlocklist";            Deger=@("*");     Tur="MultiString"}
-        # Uzantı Yükleme İzin Listesi — Dark Reader + Google Dokümanlar Çevrimdışı + Kaspersky Protection
-        @{Ad="ExtensionInstallAllowlist";            Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh", "ghbmnnjooekpmoecnnnilnnbdlolhkhi", "ahkjpbeeocnddjkakilopmfdlnjdpcdm"); Tur="MultiString"}
+        # Uzantı Yükleme İzin Listesi — yalnızca Dark Reader
+        @{Ad="ExtensionInstallAllowlist";            Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Tur="MultiString"}
         # İzin Verilen Uzantı Türleri — yalnızca extension ve shared_module
         @{Ad="ExtensionAllowedTypes";                Deger=@("extension", "shared_module"); Tur="MultiString"}
         # Harici Uzantıları Engelle — yan yükleme/sideloading'i engelle
         @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
         # Uzantı Ayarları — JSON yedek katmanı
-        @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked"},"jkfdkjapfhfinccefmehkmnjghbkladp":{"installation_mode":"allowed"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
+        @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
         # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan
         @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
         # ─── Yeni Gelişmiş Politikaları (Faz 9 — Prompt 28) ───

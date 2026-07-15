@@ -180,9 +180,9 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 | Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
 |---------------------|---------------------|-------|----------|
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 24 |
-| `-Level Essential` | `-Level Temel` | Essential ⭐ | 53 |
-| `-Level Balanced` | `-Level Dengeli` | Balanced | 85 |
-| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 112 |
+| `-Level Essential` | `-Level Temel` | Essential ⭐ | 52 |
+| `-Level Balanced` | `-Level Dengeli` | Balanced | 83 |
+| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 104 |
 | `-Level Strict` | `-Level Katı` | Strict | 133 |
 
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
@@ -429,7 +429,7 @@ no longer have any effect.
 | `SitePerProcess` | `1` | DWord | Forces all sites into separate processes |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Aggressively throttles JavaScript wake-up timers |
 | `UserFeedbackAllowed` | `0` | DWord | Disables in-browser feedback prompts/UI |
-| `ExtensionInstallForcelist` | *(Dark Reader + Google Docs Offline)* | MultiString | Force-installs listed extensions |
+| `ExtensionInstallForcelist` | *(Dark Reader)* | MultiString | Force-installs listed extensions |
 | `DownloadRestrictions` | `1` | DWord | Warns before dangerous downloads (basic protection) |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download folder |
 | `PromptForDownloadLocation` | `0` | DWord | Does not prompt, uses default download directory |
@@ -450,7 +450,7 @@ no longer have any effect.
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except those on allowlist |
-| `ExtensionInstallAllowlist` | *(Dark Reader + Google Docs Offline)* | MultiString | Only these extensions are permitted |
+| `ExtensionInstallAllowlist` | *(Dark Reader)* | MultiString | Only these extensions are permitted |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts allowed extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloading of external extensions |
 | `ExtensionSettings` | *(JSON block-all + allowlist)* | String | JSON backup layer for extension control |
@@ -744,9 +744,9 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
 | Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
 |----------------------|----------------------|--------|----------|
 | `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 24 |
-| `-Level Temel` | `-Level Essential` | Temel ⭐ | 53 |
-| `-Level Dengeli` | `-Level Balanced` | Dengeli | 85 |
-| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 112 |
+| `-Level Temel` | `-Level Essential` | Temel ⭐ | 52 |
+| `-Level Dengeli` | `-Level Balanced` | Dengeli | 83 |
+| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 104 |
 | `-Level Katı` | `-Level Strict` | Katı | 133 |
 
 > `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
@@ -778,7 +778,7 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  24–110 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
+│  ↳  24–133 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -795,10 +795,10 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 | Seviye | Toplam Politika | Brave'e Özgü | Chromium (Veri) | Chromium (Güvenlik) | Kullanım Etkisi |
 |--------|----------------|--------------|-----------------|---------------------|-----------------|
 | **Brave Yalnız** | 24 | 24 | 0 | 0 | Yok |
-| **Temel ⭐** | 50 | 24 | 26 | 0 | Yok |
-| **Dengeli** | 79 | 24 | 26 | 29 | Düşük |
-| **Gelişmiş** | 96 | 24 | 26 | 46 | Düşük |
-| **Katı** | 110 | 24 | 26 | 60 | Yüksek |
+| **Temel ⭐** | 52 | 24 | 28 | 0 | Yok |
+| **Dengeli** | 83 | 24 | 28 | 31 | Düşük |
+| **Gelişmiş** | 104 | 24 | 28 | 52 | Düşük |
+| **Katı** | 133 | 24 | 28 | 81 | Yüksek |
 
 #### 6.2 Politika Kaynakları ve Yöntem
 
@@ -994,7 +994,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Tüm eklentileri izin verilen listedekiler dışında engeller |
-| `ExtensionInstallAllowlist` | *(Dark Reader + Google Docs Offline)* | MultiString | Yalnızca bu eklentilere izin verilir |
+| `ExtensionInstallAllowlist` | *(Dark Reader)* | MultiString | Yalnızca bu eklentilere izin verilir |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | İzin verilen eklenti türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Dış eklenti yan yüklemesini engeller |
 | `ExtensionSettings` *(JSON)* | *(JSON block-all + allowlist)* | String | Eklenti kontrolü için JSON yedek katmanı |
