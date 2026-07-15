@@ -19,7 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: DavidAnson/markdownlint-cli2-action@v24
-        continue-on-error: true
         with:
           globs: "**/*.md"
           config: ".github/linters/.markdownlint.json"

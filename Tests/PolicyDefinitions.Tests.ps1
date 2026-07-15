@@ -33,4 +33,42 @@ Describe "Policy Definitions" -Tag "Unit" {
         $p = @{Name="Test";Value=1;Type="DWord"}
         ($p.ContainsKey("Name") -and $p.ContainsKey("Value") -and $p.ContainsKey("Type")) | Should -Be $true
     }
+
+    It "should have correct policy counts per tier from EN script" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $expectedCounts = @{
+            "BraveOnly" = 24
+            "Essential" = 28
+            "Balanced"  = 31
+            "Advanced"  = 21
+            "Strict"    = 29
+        }
+        foreach ($tier in @("BraveOnly","Essential","Balanced","Advanced","Strict")) {
+            $pattern = '"' + $tier + '"\s*=\s*@\('
+            $tierMatch = [regex]::Match($content, $pattern)
+            $tierMatch.Success | Should -Be $true -Because "tier '$tier' should exist in EN script"
+            $startIdx = $tierMatch.Index + $tierMatch.Length
+            $depth = 1
+            for ($i = $startIdx; $i -lt $content.Length; $i++) {
+                if ($content[$i] -eq '(') { $depth++ }
+                if ($content[$i] -eq ')') {
+                    $depth--
+                    if ($depth -eq 0) {
+                        $section = $content.Substring($tierMatch.Index, $i - $tierMatch.Index)
+                        $policyCount = ([regex]::Matches($section, '@\{Name=')).Count
+                        $policyCount | Should -BeExactly $expectedCounts[$tier] -Because "tier '$tier' should have $($expectedCounts[$tier]) policies"
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    It "should have 133 total policy definitions (EN script)" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $policyDefStart = $content.IndexOf('$PolicyDefinitions')
+        $policyDefSection = $content.Substring($policyDefStart)
+        $totalMatches = ([regex]::Matches($policyDefSection, '@\{Name=')).Count
+        $totalMatches | Should -BeExactly 133
+    }
 }
