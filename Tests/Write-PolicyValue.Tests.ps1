@@ -25,5 +25,6 @@ Describe "Write-PolicyValue" -Tag "Unit" {
     It "should skip write in WhatIf mode" {
         Mock New-ItemProperty { return $null }
         Write-PolicyValue -TargetPath "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -PolicyName "TestPolicy" -PolicyValue 1 -ValueType "DWord" -WhatIf
+        Should -Invoke New-ItemProperty -Times 0 -Exactly
     }
 }

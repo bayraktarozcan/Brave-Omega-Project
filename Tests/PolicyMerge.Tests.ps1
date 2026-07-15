@@ -56,4 +56,39 @@ Describe "Policy Merge" -Tag "Unit" {
         }
         $MergedPolicies.Count | Should -Be 5
     }
+
+    It "should produce 132 unique policies after cumulative merge from EN script" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $LevelOrder = @("BraveOnly","Essential","Balanced","Advanced","Strict")
+        $MergedPolicies = @{}
+        foreach ($tier in $LevelOrder) {
+            $pattern = '"' + $tier + '"\s*=\s*@\('
+            $tierMatch = [regex]::Match($content, $pattern)
+            $startIdx = $tierMatch.Index + $tierMatch.Length
+            $depth = 1
+            for ($i = $startIdx; $i -lt $content.Length; $i++) {
+                if ($content[$i] -eq '(') { $depth++ }
+                if ($content[$i] -eq ')') {
+                    $depth--
+                    if ($depth -eq 0) {
+                        $section = $content.Substring($tierMatch.Index, $i - $tierMatch.Index)
+                        $policyMatches = [regex]::Matches($section, '@\{Name="([^"]+)"')
+                        foreach ($m in $policyMatches) {
+                            $MergedPolicies[$m.Groups[1].Value] = $tier
+                        }
+                        break
+                    }
+                }
+            }
+        }
+        $MergedPolicies.Count | Should -BeExactly 132
+    }
+
+    It "DownloadRestrictions should appear in both Balanced and Strict" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $balancedMatch = [regex]::Match($content, '"Balanced"\s*=\s*@\([\s\S]*?"DownloadRestrictions"')
+        $balancedMatch.Success | Should -Be $true
+        $strictMatch = [regex]::Match($content, '"Strict"\s*=\s*@\([\s\S]*?"DownloadRestrictions"')
+        $strictMatch.Success | Should -Be $true
+    }
 }
