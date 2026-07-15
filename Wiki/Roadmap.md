@@ -1,23 +1,23 @@
-﻿> **Language / Dil** &nbsp;
+> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
 
 # 🗺️ Roadmap — Phased Execution Plan
 
-Brave Omega's development roadmap — community-driven, lifecycle-first, organized into 8 execution phases.
+Brave Omega's development roadmap — community-driven, lifecycle-first, organized into 9 execution phases.
 
 ---
 
 ## Current Version
 
-**v2.3.0.0** — *Extension Lockdown, Proxy & Privacy Hardening* (2026-07-09)
+**v2.4.1.0** — *Brave 150 Validation & Policy Cleanup* (2026-07-12)
 
-Phase 8 complete: 141 policies across 5 hardening tiers (Brave Only 24 / Essential 53 / Balanced 85 / Advanced 112 / Strict 141).
+Phase 9 complete: 133 policies across 5 hardening tiers (Brave Only 24 / Essential 28 / Balanced 31 / Advanced 21 / Strict 29). 30 new policies added in v2.4.0.0, then 8 broken/deprecated/blocked policies removed in v2.4.1.0.
 
 ---
 
-## 8-Phase Execution History
+## 9-Phase Execution History
 
 ### Phase 1 — Core Framework ✅ **Completed (v2.0)**
 
@@ -139,9 +139,24 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | BuiltInDnsClientEnabled | Network — DNS control | Advanced |
 | BraveUpdateDisabled | Update control | Advanced |
 
-Total: 111→141 policies (+19). Cumulative chain: 24→53→85→112→141.
+Total: 111→133 policies (+22). Cumulative chain: 24→52→83→104→133.
 
 **Removed:** AllowPopupsDuringPageUnload (deprecated upstream, removed after initial 115-policy build).
+
+---
+
+### Phase 9 — Brave 150 Validation & Policy Cleanup ✅ **Completed (v2.4.0.0 → v2.4.1.0)**
+
+| Version | Description | Policies |
+|---------|-------------|----------|
+| v2.4.0.0 | 30 new policies added from live Brave 150 (Chromium 150.0.7871.114) export | 141 total |
+| v2.4.1.0 | 8 broken/deprecated/blocked policies removed after runtime verification | 133 total |
+
+Policies added in v2.4.0.0: SpellCheckServiceEnabled, SafeBrowsingProtectionLevel (upgrade), PasswordProtectionWarningTrigger (upgrade), EnableOnlineRevocationChecks (upgrade), plus 26 more across all tiers.
+
+Policies removed in v2.4.1.0: AutoFillEnabled (deprecated), SigninAllowed (deprecated), DefaultMediaStreamSetting (deprecated), TabFreezingEnabled (unrecognized), HomepageLocation (blocked by Brave), NewTabPageLocation (blocked by Brave), RestoreOnStartup (blocked by Brave), GenAiDefaultSettings (requires cloud source).
+
+Tier counts (v2.4.1.0): BraveOnly 24 / Essential 28 / Balanced 31 / Advanced 21 / Strict 29. Cumulative chain: 24→52→83→104→133.
 
 ---
 
@@ -233,19 +248,19 @@ Total: 111→141 policies (+19). Cumulative chain: 24→53→85→112→141.
 
 # 🗺️ Yol Haritası — Aşamalı Uygulama Planı
 
-Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü öncelikli, 8 aşamalı uygulama planı.
+Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü öncelikli, 9 aşamalı uygulama planı.
 
 ---
 
 ## Güncel Sürüm
 
-**v2.3.0.0** — *Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması* (2026-07-09)
+**v2.4.1.0** — *Brave 150 Doğrulaması ve Politika Temizliği* (2026-07-12)
 
-8. Aşama tamam: 5 sıkılaştırma katmanında 141 politika (Brave Yalnız 24 / Temel 53 / Dengeli 85 / Gelişmiş 112 / Katı 141).
+9. Aşama tamam: 5 sıkılaştırma katmanında 133 politika (Brave Yalnız 24 / Temel 28 / Dengeli 31 / Gelişmiş 21 / Katı 29). v2.4.0.0'da 30 yeni politika eklendi, v2.4.1.0'da 8 bozuk/kullanım dışı/engellenen politika kaldırıldı.
 
 ---
 
-## 8 Aşamalı Uygulama Geçmişi
+## 9 Aşamalı Uygulama Geçmişi
 
 ### Aşama 1 — Temel Çerçeve ✅ **Tamamlandı (v2.0)**
 
@@ -330,9 +345,24 @@ Toplam: 80→91 politika (+11). 90+ politika engeli aşıldı.
 
 22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
 
-Toplam: 111→141 politika (+19). Kümülatif zincir: 24→53→85→112→141.
+Toplam: 111→133 politika (+22). Kümülatif zincir: 24→52→83→104→133.
 
 **Kaldırılan:** AllowPopupsDuringPageUnload (kullanım dışı, ilk 115'lik yapıdan sonra çıkarıldı).
+
+---
+
+### Aşama 9 — Brave 150 Doğrulaması ve Politika Temizliği ✅ **Tamamlandı (v2.4.0.0 → v2.4.1.0)**
+
+| Sürüm | Açıklama | Politika Sayısı |
+|-------|----------|-----------------|
+| v2.4.0.0 | Canlı Brave 150 (Chromium 150.0.7871.114) dışa aktarımından 30 yeni politika | 141 toplam |
+| v2.4.1.0 | Çalışma zamanı doğrulamasından sonra 8 bozuk/kullanım dışı/engellenen politika kaldırıldı | 133 toplam |
+
+v2.4.0.0'da eklenen politikalar: SpellCheckServiceEnabled, SafeBrowsingProtectionLevel (yükseltme), PasswordProtectionWarningTrigger (yükseltme), EnableOnlineRevocationChecks (yükseltme) ve diğer 26 politika.
+
+v2.4.1.0'da kaldırılan politikalar: AutoFillEnabled (kullanım dışı), SigninAllowed (kullanım dışı), DefaultMediaStreamSetting (kullanım dışı), TabFreezingEnabled (tanınmadı), HomepageLocation (Brave tarafından engellendi), NewTabPageLocation (Brave tarafından engellendi), RestoreOnStartup (Brave tarafından engellendi), GenAiDefaultSettings (bulut kaynağı gerektirir).
+
+Katman sayıları (v2.4.1.0): Brave Yalnız 24 / Temel 28 / Dengeli 31 / Gelişmiş 21 / Katı 29. Kümülatif zincir: 24→52→83→104→133.
 
 ---
 

@@ -1,4 +1,4 @@
-﻿# 🦁 Brave Omega Wiki
+# 🦁 Brave Omega Wiki
 
 ## 🇬🇧 English
 
@@ -7,6 +7,7 @@
 - [Quick Start](Quick-Start#-english)
 - [Architecture](Architecture#-english)
 - [Policy Reference](Policy-Reference#-english)
+- [Rejected Policies](Rejected-Policies#-english)
 - [Installation](Installation#-english)
 - [Security](Security#-english)
 - [Troubleshooting](Troubleshooting#-english)
@@ -23,6 +24,7 @@
 - [Hızlı Başlangıç](Quick-Start#-türkçe)
 - [Mimari](Architecture#-türkçe)
 - [Politika Başvurusu](Policy-Reference#-türkçe)
+- [Reddedilen Politikalar](Rejected-Policies#-türkçe)
 - [Kurulum](Installation#-türkçe)
 - [Güvenlik](Security#-türkçe)
 - [Sorun Giderme](Troubleshooting#-türkçe)

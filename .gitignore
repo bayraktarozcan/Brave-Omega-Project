@@ -98,11 +98,32 @@ test-results.xml
 *.swp
 *.swo
 
+# ─────────────────────────────────────────────────────────────────────────────
+# [EN] Exclude PowerShell extended format/type files and session configs.
+# [TR] PowerShell genişletilmiş format/tip dosyalarını ve oturum yapılandırmalarını dışlar.
+*.ps1xml
+*.pssc
+*.psrc
+*.cdxml
+*.format.ps1xml
+*.types.ps1xml
+
+# ─────────────────────────────────────────────────────────────────────────────
+# [EN] Exclude test result and coverage report files.
+# [TR] Test sonuç ve kapsama raporu dosyalarını dışlar.
+result.xml
+nunit*.xml
+*.cover
+coverage/
+htmlcov/
+.coverage
+
 # 7. GITHUB WIKI / GITHUB WIKI
 # ─────────────────────────────────────────────────────────────────────────────
 # [EN] Published to the separate .wiki.git repository; tracked here and synced via CI/workflow.
 # [TR] Ayrı .wiki.git deposunda yayınlanır; burada takip edilir ve iş akışıyla eşzamanlanır.
 # Wiki/
+wiki-tmp/
 
 # 8. VERSION CONTROL TRACKING / PROJE TAKİP KURALLARI
 # ─────────────────────────────────────────────────────────────────────────────

@@ -162,6 +162,25 @@
 #     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 53, Balanced 85,
 #                   Advanced 112, Strict 141.
 #     [IMPROVED]    Issue: https://github.com/bayraktarozcan/Brave-Omega-Project/issues/50
+#
+#   v2.4.1.0             Phase 9 fix — remove 8 broken/deprecated policies (141→133):
+#
+#     [REMOVED]    AutoFillEnabled — deprecated in Chromium (redundant with
+#                  AutofillAddressEnabled + AutofillCreditCardEnabled).
+#     [REMOVED]    SigninAllowed — deprecated in Chrome 137+ (redundant with
+#                  BrowserSignin=0).
+#     [REMOVED]    DefaultMediaStreamSetting — deprecated (replaced by
+#                  DefaultCameraSetting/DefaultMicrophoneSetting).
+#     [REMOVED]    TabFreezingEnabled — unrecognized by Brave 150
+#                  ("Bilinmeyen politika" error).
+#     [REMOVED]    HomepageLocation — blocked by Brave 150
+#                  ("Bu politika engellendiği için politikanın değeri yoksayılacak").
+#     [REMOVED]    NewTabPageLocation — blocked by Brave 150.
+#     [REMOVED]    RestoreOnStartup — blocked by Brave 150.
+#     [REMOVED]    GenAiDefaultSettings — ignored, requires cloud source.
+#
+#     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 52, Balanced 83,
+#                   Advanced 104, Strict 133.
 # ==============================================================================
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -176,7 +195,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.4.0.0"
+$ScriptVersion   = "v2.4.1.0"
 $ValidatedBrave  = "1.92.139"
 $ValidatedChromium = "150"
 
@@ -326,12 +345,14 @@ if ($Reset) {
         "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
         "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
         "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
-        # Phase 9 (v2.4.0.0) — 30 new policies across all 5 tiers
-        "BrowserSignin", "SigninAllowed", "ExtensionInstallSources",
-        "AutoFillEnabled", "RelaunchNotification", "RelaunchNotificationPeriod",
-        "HomepageLocation", "ShowHomeButton", "RestoreOnStartup", "NewTabPageLocation",
-        "HideWebStoreIcon", "DefaultJavaScriptSetting", "DefaultMediaStreamSetting",
-        "GeminiSettings", "GenAiDefaultSettings", "TabFreezingEnabled",
+        # Phase 9 (v2.4.1.0) — 22 policies across all 5 tiers
+        # (8 removed: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
+        #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
+        #  RestoreOnStartup, GenAiDefaultSettings — deprecated/blocked/unrecognized)
+        "BrowserSignin", "ExtensionInstallSources",
+        "RelaunchNotification", "RelaunchNotificationPeriod",
+        "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
+        "GeminiSettings",
         "CloudReportingEnabled", "BrowsingDataLifetime",
         "CrossOriginOpPolicyHeader", "CrossOriginEmbedderPolicy",
         "DanglingOriginCheckEnforcement", "InsecureFormsWarningsEnabled",
@@ -609,8 +630,6 @@ $PolicyDefinitions = @{
         # ─── New Essential Policies (Phase 9 — Prompt 26) ───
         # Browser Signin — disable browser sign-in flow
         @{Name="BrowserSignin";                            Value=0;           Type="DWord"}
-        # Signin Allowed — prevent Google account sign-in
-        @{Name="SigninAllowed";                            Value=0;           Type="DWord"}
         # Extension Install Sources — restrict extension installation to Chrome Web Store only
         @{Name="ExtensionInstallSources";                  Value=@();         Type="MultiString"}
     )
@@ -672,7 +691,7 @@ $PolicyDefinitions = @{
         @{Name="UserFeedbackAllowed";                  Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
         # Extension Install Forcelist — force-install Dark Reader + Google Docs Offline
-        @{Name="ExtensionInstallForcelist"; Value=@("gighmmpiobklfepjocnamgkkbiglidom", "jkfdkjapfhfinccefmehkmnjghbkladp"); Type="MultiString"}
+        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh", "ghbmnnjooekpmoecnnnilnnbdlolhkhi"); Type="MultiString"}
         # Download Restrictions — warn before dangerous downloads (1=basic protection)
         @{Name="DownloadRestrictions";                 Value=1; Type="DWord"}
         # Download Directory — set default download folder
@@ -680,8 +699,6 @@ $PolicyDefinitions = @{
         # Prompt For Download Location — do not prompt, use default (0)
         @{Name="PromptForDownloadLocation";             Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 9 — Prompt 27) ───
-        # AutoFill Enabled — disable master autofill toggle
-        @{Name="AutoFillEnabled";                          Value=0;           Type="DWord"}
         # Relaunch Notification — force relaunch notification (non-dismissible)
         @{Name="RelaunchNotification";                     Value=2;           Type="DWord"}
         # Relaunch Notification Period — 1 hour in milliseconds (force immediate update relaunch)
@@ -716,8 +733,8 @@ $PolicyDefinitions = @{
         # ─── Moved from Strict (v2.3.0.0 reclassify) — extension lockdown ───
         # Extension Install Blocklist — block all except allowlist
         @{Name="ExtensionInstallBlocklist";            Value=@("*");     Type="MultiString"}
-        # Extension Install Allowlist — only Dark Reader + Google Docs Offline
-        @{Name="ExtensionInstallAllowlist";            Value=@("jkfdkjapfhfinccefmehkmnjghbkladp", "eimadpbcbfnmbkopoojfekhnkhdbieeh"); Type="MultiString"}
+        # Extension Install Allowlist — Dark Reader + Google Docs Offline + Kaspersky Protection
+        @{Name="ExtensionInstallAllowlist";            Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh", "ghbmnnjooekpmoecnnnilnnbdlolhkhi", "ahkjpbeeocnddjkakilopmfdlnjdpcdm"); Type="MultiString"}
         # Extension Allowed Types — only extension + shared_module
         @{Name="ExtensionAllowedTypes";                Value=@("extension", "shared_module"); Type="MultiString"}
         # Block External Extensions — prevent sideloading
@@ -727,26 +744,14 @@ $PolicyDefinitions = @{
         # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS
         @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
         # ─── New Advanced Policies (Phase 9 — Prompt 28) ───
-        # Homepage Location — set to about:blank
-        @{Name="HomepageLocation";                         Value="about:blank"; Type="String"}
         # Show Home Button — hide the home button
         @{Name="ShowHomeButton";                           Value=0;           Type="DWord"}
-        # Restore On Startup — restore last session
-        @{Name="RestoreOnStartup";                         Value=2;           Type="DWord"}
-        # New Tab Page Location — set to about:blank
-        @{Name="NewTabPageLocation";                       Value="about:blank"; Type="String"}
         # Hide Web Store Icon — hide Chrome Web Store icon
         @{Name="HideWebStoreIcon";                         Value=1;           Type="DWord"}
         # Default JavaScript Setting — allow by default
         @{Name="DefaultJavaScriptSetting";                 Value=0;           Type="DWord"}
-        # Default Media Stream Setting — block camera/microphone by default
-        @{Name="DefaultMediaStreamSetting";                Value=2;           Type="DWord"}
         # Gemini Settings — disable Gemini AI integration
         @{Name="GeminiSettings";                           Value=1;           Type="DWord"}
-        # GenAI Default Settings — disable GenAI defaults
-        @{Name="GenAiDefaultSettings";                     Value=1;           Type="DWord"}
-        # Tab Freezing Enabled — disable tab freezing (response time critical)
-        @{Name="TabFreezingEnabled";                       Value=0;           Type="DWord"}
     )
 
     "Strict" = @(
@@ -786,12 +791,12 @@ $PolicyDefinitions = @{
         # Developer Tools Availability — restrict DevTools (2=disallowed entirely)
         @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
         # ─── New Strict Policies (Phase 9 — Prompt 29) ───
-        # ─── Kurum Altyapısı Gerektiren Politikalar ───
+        # ─── Enterprise Infrastructure Policies ───
         # Cloud Reporting Enabled — disable cloud telemetry reporting
         @{Name="CloudReportingEnabled";                              Value=0;           Type="DWord"}
         # Browsing Data Lifetime — auto-clear history/cache after 24 hours
         @{Name="BrowsingDataLifetime";                               Value=[System.Collections.ArrayList]@(@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}); Type="String"}
-        # ─── Kişisel Kullanıma Uygun Sertleştirme ───
+        # ─── Personal-Use Friendly Hardening ───
         # Cross-Origin-Op-Policy Header — enforce COOP (Spectre mitigation)
         @{Name="CrossOriginOpPolicyHeader";                          Value="require-corp"; Type="String"}
         # Cross-Origin-Embedder-Policy — enforce COEP (Spectre mitigation)

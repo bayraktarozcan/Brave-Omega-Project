@@ -1,4 +1,4 @@
-﻿> **Language / Dil** &nbsp;
+> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -118,7 +118,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 5. Verify
 
-Navigate to `brave://policy` in Brave — all policies (50 for Essential level) should show as **Active**.
+Navigate to `brave://policy` in Brave — all policies (52 for Essential level) should show as **Active**.
 
 ---
 
@@ -128,7 +128,7 @@ Navigate to `brave://policy` in Brave — all policies (50 for Essential level) 
 | ------- | -------- |
 | **1. Pre-flight** | Detects running Brave, prompts continue/cancel |
 | **2. Backup** | Creates timestamped `.reg` backup of HKLM policy hive |
-| **3. Apply** | Writes policies across 3 tiers based on selected level (24/50/79/96/110) |
+| **3. Apply** | Writes policies across 3 tiers based on selected level (24/52/83/104/133) |
 | **4. Summary** | Per-category success/failure counters + rollback info |
 | **5. Cleanup** | Exits cleanly — no residual processes |
 
@@ -283,7 +283,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 5. Doğrula
 
-Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 50) **Etkin** olarak görünmelidir.
+Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 52) **Etkin** olarak görünmelidir.
 
 ---
 
@@ -293,7 +293,7 @@ Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 50) 
 | ------- | ------- |
 | **1. Ön Kontrol** | Çalışan Brave'i tespit eder, devam/iptal istemi gösterir |
 | **2. Yedekleme** | HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur |
-| **3. Uygulama** | Seçilen seviyeye göre 3 katmanda politikaları yazar (24/50/79/96/110) |
+| **3. Uygulama** | Seçilen seviyeye göre 3 katmanda politikaları yazar (24/52/83/104/133) |
 | **4. Özet** | Kategori bazında başarı/hata sayaçları + geri alma bilgisi |
 | **5. Temizlik** | Artık süreç bırakmadan temiz çıkış |
 

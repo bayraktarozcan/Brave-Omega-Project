@@ -1,4 +1,4 @@
-﻿> **Language / Dil** &nbsp;
+> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -43,7 +43,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 ├─ Administrator privilege verification
 ├─ Brave process detection (with continue/cancel prompt)
 ├─ Brave version validation against Compatibility Matrix
-├─ Brave version detection (compares against validated version 1.92.134)
+├─ Brave version detection (compares against validated version 1.92.139)
 └─ Registry path ACL validation
 ```
 
@@ -99,7 +99,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
 ```
 
-- Removes all 141 policies from HKLM, HKCU, and Omaha GUIDs
+- Removes all 133 policies from HKLM, HKCU, and Omaha GUIDs
 - Cleans up empty registry keys automatically
 - Respects -WhatIf silently
 
@@ -170,7 +170,7 @@ Before running, verify:
 
 | Check | Method |
 | ------- | -------- |
-| All policies active | `brave://policy` → policies show **Active** (53 for Essential level) |
+| All policies active | `brave://policy` → policies show **Active** (52 for Essential level) |
 | Registry written | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Backup created | `BraveOmega_HKLM_*.reg` exists in script directory |
 | No errors in output | Script exits with code 0, no `[ERROR]` lines |
@@ -262,7 +262,7 @@ Brave Omega **güvenlik öncelikli** bir yaklaşımla tasarlanmıştır. Her tas
 ├─ Yönetici ayrıcalığı doğrulaması
 ├─ Brave süreç tespiti (devam/iptal istemiyle)
 ├─ Brave sürümünün Uyumluluk Matrisine karşı doğrulaması
-├─ Brave sürüm algılama (doğrulanmış sürüm 1.92.134 ile karşılaştırma)
+├─ Brave sürüm algılama (doğrulanmış sürüm 1.92.139 ile karşılaştırma)
 └─ Kayıt defteri yolu ACL doğrulaması
 ```
 
@@ -318,7 +318,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
 ```
 
-- 141 politikanın tümünü HKLM, HKCU ve Omaha GUID'lerinden kaldırır
+- 133 politikanın tümünü HKLM, HKCU ve Omaha GUID'lerinden kaldırır
 - Boş kayıt defteri anahtarlarını otomatik temizler
 - -WhatIf'e sessizce saygı duyar
 
@@ -389,7 +389,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 | Kontrol | Yöntem |
 | --------- | -------- |
-| Tüm politikalar etkin | `brave://policy` → 141 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 53, Dengeli'de 85) |
+| Tüm politikalar etkin | `brave://policy` → 133 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 52, Dengeli'de 83) |
 | Kayıt defteri yazıldı | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Yedek oluşturuldu | `BraveOmega_HKLM_*.reg` betik dizininde mevcut |
 | Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[ERROR]` satırı yok |
