@@ -40,7 +40,7 @@ Complete version history for Brave Omega.
   - `ExtensionInstallAllowlist` (Advanced): removed Google Docs Offline, Kaspersky Protection
   - `ExtensionSettings` (Advanced): JSON updated to single Dark Reader entry
 - Cumulative chain: 24→52→83→104→133 (Essential 22→28 own policies)
-- Brave validated version: 1.92.139 (Chromium 150.0.7871.176)
+- Brave validated version: 1.92.141 (Chromium 150.0.7871.128)
 - Both scripts updated to v2.4.1.0
 
 Fixes #50
@@ -423,7 +423,7 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.4.1.0** *(current)* | 1.92.140 | 150 | 11 25H2 | ✅ Active |
+| **v2.4.1.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Active |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
@@ -515,7 +515,7 @@ Brave Omega için tam sürüm geçmişi.
   - `ExtensionInstallAllowlist` (Gelişmiş): Google Dokümanlar Çevrimdışı, Kaspersky Protection kaldırıldı
   - `ExtensionSettings` (Gelişmiş): JSON tek Dark Reader girişi olarak güncellendi
 - Kümülatif zincir: 24→52→83→104→133 (Temel 22→28 kendi politikası)
-- Doğrulanmış Brave sürümü: 1.92.139 (Chromium 150.0.7871.176)
+- Doğrulanmış Brave sürümü: 1.92.141 (Chromium 150.0.7871.128)
 - Her iki betik v2.4.1.0'a güncellendi
 
 Fixes #50
@@ -560,11 +560,13 @@ Fixes #50
 **Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 111→133 Politika (+19)**
 
 **Eklenenler:**
-- 11 yeni Chromium kurumsal politikası eklendi:
+- 19 yeni Chromium kurumsal politikası eklendi:
   - **Brave Yalnız (+2):** SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger
   - **Temel (+1):** EnableOnlineRevocationChecks
   - **Dengeli (+4):** ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation
-  - **Katı (+5):** IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsAvailability
+  - **Gelişmiş (+17, Katı'dan yeniden sınıflandırıldı):** ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled, IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, TranslateEnabled, DefaultJavaScriptSetting, PasswordManagerEnabled
+  - **Katı (+1, Gelişmiş'ten taşındı):** DeveloperToolsAvailability
+  - **Katı geçersiz kılmaları:** TranslateEnabled (en yüksek öncelik), DownloadRestrictions (1→3), artı IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled için diğer katman geçersiz kılmaları
 
 **Yeniden Sınıflandırılanlar:**
 - 10 politika Katı'dan Gelişmiş'e taşındı (uzantı kilitleme, proxy, DNS, otomatik güncelleme):
@@ -899,7 +901,7 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.4.1.0** *(güncel)* | 1.92.140 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.4.1.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
