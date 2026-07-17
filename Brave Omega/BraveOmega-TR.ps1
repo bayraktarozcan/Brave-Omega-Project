@@ -349,7 +349,7 @@ if ($Sifirla) {
         # (8 kaldırıldı: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
         #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
         #  RestoreOnStartup, GenAiDefaultSettings — kullanımdan kaldırıldı/engellendi/bilinmiyor)
-        "BrowserSignin", "ExtensionInstallSources",
+        "BrowserSignin", "ExtensionInstallSources", "ProxySettings",
         "RelaunchNotification", "RelaunchNotificationPeriod",
         "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
         "GeminiSettings",
@@ -886,7 +886,10 @@ function Yaz-KayitDegeri {
             break
         }
         "String" {
-            New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $PolitikaDegeri -PropertyType String -Force -ErrorAction Stop | Out-Null
+            $yazilacakDeger = if ($PolitikaDegeri -is [System.Collections.IEnumerable] -and $PolitikaDegeri -isnot [string]) {
+                $PolitikaDegeri | ConvertTo-Json -Compress -Depth 5
+            } else { $PolitikaDegeri }
+            New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $yazilacakDeger -PropertyType String -Force -ErrorAction Stop | Out-Null
             break
         }
         "MultiString" {

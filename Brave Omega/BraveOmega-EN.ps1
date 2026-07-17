@@ -349,7 +349,7 @@ if ($Reset) {
         # (8 removed: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
         #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
         #  RestoreOnStartup, GenAiDefaultSettings — deprecated/blocked/unrecognized)
-        "BrowserSignin", "ExtensionInstallSources",
+        "BrowserSignin", "ExtensionInstallSources", "ProxySettings",
         "RelaunchNotification", "RelaunchNotificationPeriod",
         "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
         "GeminiSettings",
@@ -879,7 +879,10 @@ function Write-PolicyValue {
             break
         }
         "String" {
-            New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $PolicyValue -PropertyType String -Force -ErrorAction Stop | Out-Null
+            $writeValue = if ($PolicyValue -is [System.Collections.IEnumerable] -and $PolicyValue -isnot [string]) {
+                $PolicyValue | ConvertTo-Json -Compress -Depth 5
+            } else { $PolicyValue }
+            New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $writeValue -PropertyType String -Force -ErrorAction Stop | Out-Null
             break
         }
         "MultiString" {
