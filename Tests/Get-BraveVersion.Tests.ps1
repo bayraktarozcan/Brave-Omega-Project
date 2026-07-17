@@ -21,8 +21,8 @@ Describe "Get-BraveVersion" -Tag "Unit" {
 
     It "should match expected version format" {
         Mock Test-Path { return $true }
-        Mock Get-Item { return @{VersionInfo = @{FileVersion = "1.92.140.0"}} }
+        Mock Get-Item { return @{VersionInfo = @{FileVersion = "1.92.141.0"}} }
         $version = Get-BraveVersion
-        $version.BraveVersion | Should -Be "92.140.0"
+        $version.BraveVersion | Should -Be "92.141.0"
     }
 }

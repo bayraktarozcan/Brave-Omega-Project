@@ -13,7 +13,7 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.4.1.0** ⭐ | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | ✅ Current | 2026-07-15 |
+| **v2.4.1.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Current | 2026-07-17 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Previous | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
@@ -60,7 +60,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ### Use Current (v2.4.1.0) If
 
-- Running Brave 1.92.140 (latest stable)
+- Running Brave 1.92.141 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 133 total policies
 
@@ -118,7 +118,7 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
-| v2.4.1.0 | 133 | 100% | ProxySettings added to Essential tier (1 new policy) |
+| v2.4.1.0 | 133 | 100% | Removed 8 deprecated/broken policies (141→133), simplified extensions to Dark Reader only |
 | v2.3.0.0 | 110 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (19 new) |
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API blocking, ECH enforcement, Payment Request disable, window management isolation, site-per-process (12 new) |
 | v2.2.0.2 | 80 | 100% | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
@@ -188,7 +188,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.4.1.0** ⭐ | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | ✅ Güncel | 2026-07-15 |
+| **v2.4.1.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Güncel | 2026-07-17 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Önceki | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
@@ -235,7 +235,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Güncel (v2.4.1.0) Kullan Eğer
 
-- Brave 1.92.140 (en güncel kararlı) çalışıyorsa
+- Brave 1.92.141 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 133 toplam politika
 

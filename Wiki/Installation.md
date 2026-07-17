@@ -5,7 +5,7 @@
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.4.1.0 (Brave 1.92.140 Validation).
+Complete installation guide for Brave Omega v2.4.1.0 (Brave 1.92.141 Validation).
 
 ---
 
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v2.4.1.0 için tam kurulum kılavuzu (Brave 1.92.140 Doğrulaması).
+Brave Omega v2.4.1.0 için tam kurulum kılavuzu (Brave 1.92.141 Doğrulaması).
 
 ---
 
