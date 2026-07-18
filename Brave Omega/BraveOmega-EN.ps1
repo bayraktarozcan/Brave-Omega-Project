@@ -17,7 +17,7 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.1)
+# CHANGELOG (v2.4.2.0)
 # ─────────────────────────────────────────────────────────────────────────────
 #   v2.2.0.2             WebRTC policy alignment — Balanced upgraded to maximum:
 #
@@ -220,14 +220,14 @@ function Get-BraveVersion {
         if (Test-Path $path) {
             try {
                 $verInfo = (Get-Item $path).VersionInfo
-                $fileVer = $verInfo.FileVersion
-                if ($fileVer) {
-                    $parts = $fileVer.Split('.')
-                    if ($parts.Count -lt 4) { continue }
+                $productVer = $verInfo.ProductVersion
+                if ($productVer) {
+                    $parts = $productVer.Split('.')
+                    if ($parts.Count -lt 3) { continue }
                     return @{
-                        Path          = $path
-                        BraveVersion  = "$($parts[1]).$($parts[2]).$($parts[3])"
-                        ChromiumMajor = $parts[0]
+                        Path           = $path
+                        BraveVersion   = "$($parts[0]).$($parts[1]).$($parts[2])"
+                        ChromiumMajor  = $parts[0]
                     }
                 }
             } catch { continue }
@@ -289,8 +289,6 @@ if ($braveInfo) {
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0C: RESET MODE
 # ─────────────────────────────────────────────────────────────────────────────
-$HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
-$HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 if ($Reset) {
     Write-Host "[RESET MODE] Removing all Brave Omega policies..." -ForegroundColor Magenta
@@ -431,7 +429,7 @@ if ($Reset) {
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0D: LEVEL SELECTION
 # ─────────────────────────────────────────────────────────────────────────────
-$ValidLevels = @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict", "Brave Yalnız", "Temel", "Dengeli", "Gelişmiş", "Katı")
+$ValidLevels = @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict")
 
 if (-not $Level -or $Level -eq "") {
     Write-Host "Select a hardening level:" -ForegroundColor White
@@ -692,7 +690,7 @@ $PolicyDefinitions = @{
         @{Name="UserFeedbackAllowed";                  Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
         # Extension Install Forcelist — force-install Dark Reader
-        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Type="MultiString"}
+        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"); Type="MultiString"}
         # Download Restrictions — warn before dangerous downloads (1=basic protection)
         @{Name="DownloadRestrictions";                 Value=1; Type="DWord"}
         # Download Directory — set default download folder
@@ -887,10 +885,13 @@ function Write-PolicyValue {
             break
         }
         "MultiString" {
-            $regPath = $TargetPath -replace "^HKLM:\\", "HKLM\"
-            $key = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey("SOFTWARE\Policies\BraveSoftware\Brave", $true)
+            $hive = if ($TargetPath -match "^HKLM:") { [Microsoft.Win32.Registry]::LocalMachine }
+                    elseif ($TargetPath -match "^HKCU:") { [Microsoft.Win32.Registry]::CurrentUser }
+                    else { throw "Unsupported registry hive: $TargetPath" }
+            $subKey = $TargetPath -replace "^HK[^:]+:\\", ""
+            $key = $hive.OpenSubKey($subKey, $true)
             if (-not $key) {
-                throw "Registry key not found: $regPath"
+                throw "Registry key not found: $TargetPath"
             }
             if ($PolicyValue -and $PolicyValue.Count -gt 0) {
                 $key.SetValue($PolicyName, [string[]]$PolicyValue, [Microsoft.Win32.RegistryValueKind]::MultiString)

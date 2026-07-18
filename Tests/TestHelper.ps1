@@ -105,19 +105,3 @@ function New-MockBraveVersion {
         ChromiumMajor = $ChromiumMajor
     }
 }
-
-function New-MockRegistryEnvironment {
-    $drives = Get-PSDrive -Name "HKLM", "HKCU" -ErrorAction SilentlyContinue
-    if (-not $drives) {
-        try { New-PSDrive -Name "HKLM" -PSProvider Registry -Root "HKEY_LOCAL_MACHINE" -Scope Script -ErrorAction Stop | Out-Null } catch {}
-        try { New-PSDrive -Name "HKCU" -PSProvider Registry -Root "HKEY_CURRENT_USER" -Scope Script -ErrorAction Stop | Out-Null } catch {}
-    }
-    $testHklmPath = $HKLM_Target -replace "^HKLM:", ""
-    $testHkcuPath = $HKCU_Target -replace "^HKCU:", ""
-    if (-not (Test-Path "HKLM:\$testHklmPath")) {
-        $null = New-Item -Path "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -Force -ErrorAction SilentlyContinue
-    }
-    if (-not (Test-Path "HKCU:\$testHkcuPath")) {
-        $null = New-Item -Path "HKCU:\Software\BraveSoftware\Brave-Browser" -Force -ErrorAction SilentlyContinue
-    }
-}

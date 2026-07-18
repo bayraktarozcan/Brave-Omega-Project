@@ -17,7 +17,7 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.1)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.4.2.0)
 # ─────────────────────────────────────────────────────────────────────────────
 #   v2.2.0.2             WebRTC politika hizalaması — Dengeli azami seviyeye yükseltildi:
 #
@@ -221,13 +221,13 @@ function Get-BraveVersion {
         if (Test-Path $yol) {
             try {
                 $surumBilgi = (Get-Item $yol).VersionInfo
-                $dosyaSurum = $surumBilgi.FileVersion
-                if ($dosyaSurum) {
-                    $parcalar = $dosyaSurum.Split('.')
-                    if ($parcalar.Count -lt 4) { continue }
+                $urunSurum = $surumBilgi.ProductVersion
+                if ($urunSurum) {
+                    $parcalar = $urunSurum.Split('.')
+                    if ($parcalar.Count -lt 3) { continue }
                     return @{
                         Yol          = $yol
-                        BraveSurum   = "$($parcalar[1]).$($parcalar[2]).$($parcalar[3])"
+                        BraveSurum   = "$($parcalar[0]).$($parcalar[1]).$($parcalar[2])"
                         ChromiumAna  = $parcalar[0]
                     }
                 }
@@ -290,9 +290,6 @@ if ($braveBilgi) {
 # ─────────────────────────────────────────────────────────────────────────────
 # ADIM 0C: SIFIRLA (RESET) MODU
 # ─────────────────────────────────────────────────────────────────────────────
-$HKCU_Hedef = "HKCU:\Software\BraveSoftware\Brave-Browser"
-$HKLM_Hedef = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
-
 if ($Sifirla) {
     Write-Host "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
     Write-Host ""
@@ -700,7 +697,7 @@ $PolitikaTanimlari = @{
         @{Ad="UserFeedbackAllowed";                  Deger=0; Tur="DWord"}
         # ─── Yeni Dengeli Politikaları (Faz 8 — Prompt 22 + 24) ───
         # Uzantı Zorla Yükle — Dark Reader zorla yükle
-        @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Tur="MultiString"}
+        @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"); Tur="MultiString"}
         # İndirme Kısıtlamaları — tehlikeli indirmelerden önce uyar (1=temel koruma)
         @{Ad="DownloadRestrictions";                 Deger=1; Tur="DWord"}
         # İndirme Klasörü — varsayılan indirme klasörünü ayarla
@@ -894,10 +891,13 @@ function Yaz-KayitDegeri {
             break
         }
         "MultiString" {
-            $kayitYolu = $HedefYol -replace "^HKLM:\\", "HKLM\"
-            $anahtar = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey("SOFTWARE\Policies\BraveSoftware\Brave", $true)
+            $kovan = if ($HedefYol -match "^HKLM:") { [Microsoft.Win32.Registry]::LocalMachine }
+                     elseif ($HedefYol -match "^HKCU:") { [Microsoft.Win32.Registry]::CurrentUser }
+                     else { throw "Desteklenmeyen kayıt defteri kovanı: $HedefYol" }
+            $altAnahtar = $HedefYol -replace "^HK[^:]+:\\", ""
+            $anahtar = $kovan.OpenSubKey($altAnahtar, $true)
             if (-not $anahtar) {
-                throw "Kayıt defteri anahtarı bulunamadı: $kayitYolu"
+                throw "Kayıt defteri anahtarı bulunamadı: $HedefYol"
             }
             if ($PolitikaDegeri -and $PolitikaDegeri.Count -gt 0) {
                 $anahtar.SetValue($PolitikaAdi, [string[]]$PolitikaDegeri, [Microsoft.Win32.RegistryValueKind]::MultiString)

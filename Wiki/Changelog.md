@@ -117,7 +117,7 @@ Fixes #50
 
 ---
 
-### v2.2.1.0 - 2026-07-07
+### v2.2.1.0 — 2026-07-07
 
 **Phase 7: Hardware API & Security Hardening - 80→91 Policies (+11)**
 
@@ -175,7 +175,7 @@ Fixes #50
 
 ---
 
-### v2.1.6.0 — 2026-07-05
+### v2.1.6.0 — 2026-07-04
 
 **Phase 3: Quality & Testing — Pester Test Suite, CI Improvements**
 
@@ -434,7 +434,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.4.1.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Active |
+| **v2.4.2.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Active |
+| v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Previous |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
@@ -607,7 +608,7 @@ Fixes #50
 
 ---
 
-### v2.2.1.0 - 2026-07-07
+### v2.2.1.0 — 2026-07-07
 
 **Aşama 7: Donanım API & Güvenlik Sıkılaştırması - 80→91 Politika (+11)**
 
@@ -663,7 +664,7 @@ Fixes #50
 
 ---
 
-### v2.1.6.0 — 2026-07-05
+### v2.1.6.0 — 2026-07-04
 
 **Aşama 3: Kalite & Test — Pester Test Takımı, CI İyileştirmeleri**
 
@@ -923,7 +924,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.4.1.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.4.2.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Önceki |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |

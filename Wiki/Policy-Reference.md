@@ -13,11 +13,11 @@ Complete policy reference for Brave Omega v2.4.2.0 — **133 enterprise policies
 
 | Level | Own Policies | HKCU | HKLM | Cumulative Total |
 | ------- | ---------- | ------ | ------ | ------------ |
-| **1. Brave Only** | 24 Brave-specific | — | 24 | Base |
-| **2. Essential** ⭐ | 28 (+24 +2 v2.4.1.0) | UsageStatsInSample | 52 | Includes Level 1 |
-| **3. Balanced** | 31 (+28 +2 v2.4.1.0) | UsageStatsInSample | 83 | Includes Levels 1-2 |
-| **4. Advanced** | 21 (+17 +4 v2.4.1.0) | UsageStatsInSample | 104 | Includes Levels 1-3 |
-| **5. Strict** | 29 (+15 +14 Phase 9) | UsageStatsInSample | 133 | Includes Levels 1-4 |
+| **1. Brave Only** | 24 | — | 24 | Base |
+| **2. Essential** ⭐ | 28 | UsageStatsInSample | 52 | Includes Level 1 |
+| **3. Balanced** | 31 | UsageStatsInSample | 83 | Includes Levels 1-2 |
+| **4. Advanced** | 21 | UsageStatsInSample | 104 | Includes Levels 1-3 |
+| **5. Strict** | 29 | UsageStatsInSample | 133 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 

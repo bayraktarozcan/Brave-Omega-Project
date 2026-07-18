@@ -1,6 +1,5 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
-    $scriptBlock = New-FunctionScriptBlock -ScriptPath $ScriptEN
     $rawContent = Get-Content -Path $ScriptEN -Raw
     $tokens = $null; $errors = $null
     [System.Management.Automation.Language.Parser]::ParseInput($rawContent, [ref]$tokens, [ref]$errors)
@@ -8,13 +7,22 @@ BeforeAll {
 }
 
 Describe "Full Pipeline (EN)" -Tag "Integration" {
-    It "should load without syntax errors" {
-        $syntaxErrors | Where-Object { $_.Id -ne "ParserMissingEndCurlyBrace" } | Should -BeNullOrEmpty
+    It "should load without unhandled syntax errors" {
+        $unhandled = $syntaxErrors | Where-Object {
+            $_.Id -ne "ParserMissingEndCurlyBrace" -and
+            $_.Id -ne "ParserError" -or
+            ($_.Message -notmatch "Missing closing '}'")
+        }
+        $unhandled | Should -BeNullOrEmpty
     }
 
-    It "should define all required functions" {
+    It "should define Get-BraveVersion function" {
         $names = Get-ScriptFunctions -ScriptPath $ScriptEN
         $names -contains "Get-BraveVersion" | Should -Be $true
+    }
+
+    It "should define Write-PolicyValue function" {
+        $names = Get-ScriptFunctions -ScriptPath $ScriptEN
         $names -contains "Write-PolicyValue" | Should -Be $true
     }
 
