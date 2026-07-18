@@ -23,6 +23,17 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.4.2.0 — 2026-07-17
+
+**Brave 1.92.141 (Chromium 150.0.7871.128) Compatibility Validation**
+
+**Changed:**
+
+- Brave validated version updated to 1.92.141 (Chromium 150.0.7871.128)
+- Both scripts updated to v2.4.2.0
+
+---
+
 ### v2.4.1.0 — 2026-07-12
 
 **Phase 9 Fix — Remove 8 Broken/Deprecated/Blocked Policies (141→133), Extension Cleanup to Dark Reader Only**
@@ -497,6 +508,17 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.4.2.0 — 2026-07-17
+
+**Brave 1.92.141 (Chromium 150.0.7871.128) Uyumluluk Doğrulaması**
+
+**Değişenler:**
+
+- Doğrulanmış Brave sürümü 1.92.141'e güncellendi (Chromium 150.0.7871.128)
+- Her iki betik v2.4.2.0'a güncellendi
+
+---
 
 ### v2.4.1.0 — 2026-07-12
 

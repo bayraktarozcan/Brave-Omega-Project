@@ -27,7 +27,9 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.4.1.0 — 2026-07-12](#en-v2410)
+2. [v2.4.2.0 — 2026-07-17](#en-v2420)
+    * [Summary](#en-v2420-summary)
+3. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
@@ -243,6 +245,31 @@ All notable changes to this project are documented below, following the [Keep a 
 - **ExtensionInstallForcelist** pins Dark Reader and Google Docs Offline. Remove or add extensions by editing the MultiString value.
 - **BraveUpdateDisabled=1** disables automatic updates. Ensure you have an alternative update management system before deploying Strict.
 - **SafeBrowsingProtectionLevel=2** and **PasswordProtectionWarningTrigger=3** in BraveOnly cover all subsequent levels cumulatively.
+
+<hr>
+
+<a id="en-v2420"></a>
+
+## [v2.4.2.0] — 2026-07-17
+
+<a id="en-v2420-summary"></a>
+
+### 🎯 Summary
+
+**Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation.** No policy changes. Confirmed full compatibility of the v2.4.1.0 policy set (133 policies, 5 tiers) with the latest Brave stable release.
+
+| Metric | Before (v2.4.1.0) | After (v2.4.2.0) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 133 | 133 (0) |
+| Brave Only policies | 24 | 24 |
+| Essential additions | 28 | 28 |
+| Balanced additions | 31 | 31 |
+| Advanced additions | 21 | 21 |
+| Strict additions | 29 | 29 |
+| Cumulative chain | 24→52→83→104→133 | 24→52→83→104→133 |
+
+- **Script version** — `$ScriptVersion = "v2.4.2.0"` in both EN and TR scripts.
 
 <hr>
 
@@ -1179,6 +1206,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation; no policy changes |
 | v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only, removed Google Docs Offline + Kaspersky Protection + old IDs; ExtensionSettings JSON updated; cumulative chain 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Phase 9: 30 new policies across all tiers (Essential +3, Balanced +3, Advanced +10, Strict +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting removed; cumulative chain 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings moved to Essential; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed; cumulative chain 24→50→79→97→110 |
@@ -1244,6 +1272,8 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ### İçindekiler
 1. [Giriş](#tr-introduction)
 
+2. [v2.4.2.0 — 2026-07-17](#tr-v2420)
+    * [Özet](#tr-v2420-ozet)
 2. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Kaldırıldı](#tr-v2410-kaldirildi)
@@ -1574,6 +1604,31 @@ Eklenen/Değiştirilen Dosyalar:
 - **ExtensionInstallForcelist** Dark Reader ve Google Docs Offline'ı sabitler. MultiString değerini düzenleyerek uzantıları kaldırın veya ekleyin.
 - **BraveUpdateDisabled=1** otomatik güncellemeleri devre dışı bırakır. Katı seviyesini dağıtmadan önce alternatif bir güncelleme yönetim sisteminiz olduğundan emin olun.
 - **SafeBrowsingProtectionLevel=2** ve **PasswordProtectionWarningTrigger=3** Brave Yalnız'da tüm sonraki seviyeleri kümülatif olarak kapsar.
+
+<hr>
+
+<a id="tr-v2420"></a>
+
+## [v2.4.2.0] — 2026-07-17
+
+<a id="tr-v2420-ozet"></a>
+
+### 🎯 Özet
+
+**Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması.** Politika değişikliği yok. v2.4.1.0 politika setinin (133 politika, 5 kademe) en Brave kararlı sürümüyle tam uyumluluğu doğrulandı.
+
+| Metrik | Önce (v2.4.1.0) | Sonra (v2.4.2.0) |
+|--------|-----------------|-------------------|
+| Sıkılaştırma seviyeleri | 5 | 5 |
+| Toplam politika | 133 | 133 (0) |
+| Brave Yalnız politikası | 24 | 24 |
+| Temel eklemeler | 28 | 28 |
+| Dengeli eklemeler | 31 | 31 |
+| Gelişmiş eklemeler | 21 | 21 |
+| Katı eklemeler | 29 | 29 |
+| Kümülatif zincir | 24→52→83→104→133 | 24→52→83→104→133 |
+
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.4.2.0"`.
 
 <hr>
 
@@ -2406,6 +2461,7 @@ Belgelendirme:
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması; politika değişikliği yok |
 | v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — Forcelist & Allowlist yalnızca Dark Reader'a basitleştirildi, Google Docs Offline + Kaspersky Protection + eski ID'ler kaldırıldı; ExtensionSettings JSON güncellendi; kümülatif zincir 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Faz 9: Tüm kademelerde 30 yeni politika (Temel +3, Dengeli +3, Gelişmiş +10, Katı +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting kaldırıldı; kümülatif zincir 24→53→85→112→141 |
 | v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel'e taşındı; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled kaldırıldı; kümülatif zincir 24→50→79→97→110 |

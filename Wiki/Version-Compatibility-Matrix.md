@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.4.1.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Current | 2026-07-12 |
+| **v2.4.2.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Current | 2026-07-17 |
+| **v2.4.1.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Previous | 2026-07-12 |
 | **v2.4.0.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Previous | 2026-07-11 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Previous | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
@@ -59,15 +60,15 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.4.1.0) If
+### Use Current (v2.4.2.0) If
 
 - Running Brave 1.92.141 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 133 total policies
 
-### Use Previous (v2.3.0.0) If
+### Use Previous (v2.4.1.0) If
 
-- Cannot update to v2.4.1.0 immediately
+- Cannot update to v2.4.2.0 immediately
 - Running Brave 1.92.138
 
 ### Use Legacy (v2.2.1.0) If
@@ -119,6 +120,7 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
+| v2.4.2.0 | 133 | 100% | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation |
 | v2.4.1.0 | 133 | 100% | Removed 8 deprecated/broken policies (141→133), simplified extensions to Dark Reader only |
 | v2.4.0.0 | 141 | 100% | Phase 9: 30 new policies across all 5 tiers (111→141); extension policy overhaul, BrowsingDataLifetime, CORS headers, password detection |
 | v2.3.0.0 | 110 | 100% | Safe Browsing protection level, password warning trigger, extension lockdown + forcelist, Incognito disable, developer tools disable, proxy, printing disable, Brave update disable (19 new) |
@@ -190,7 +192,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.4.1.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Güncel | 2026-07-12 |
+| **v2.4.2.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Güncel | 2026-07-17 |
+| **v2.4.1.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Önceki | 2026-07-12 |
 | **v2.4.0.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Önceki | 2026-07-11 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Önceki | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
@@ -296,6 +299,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
+| v2.4.2.0 | 133 | 100% | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması |
 | v2.4.1.0 | 133 | 100% | 8 kullanım dışı/kırık politika kaldırıldı (141→133), uzantılar Dark Reader olarak basitleştirildi |
 | v2.4.0.0 | 141 | 100% | 9. Aşama: 5 kademede 30 yeni politika (111→141); uzantı politikası revizyonu, BrowsingDataLifetime, CORS başlıkları, parola algılama |
 | v2.3.0.0 | 110 | 100% | Güvenli Gezinti koruma seviyesi, parola uyarı tetikleyicisi, uzantı kilitleme + zorunlu yükleme, gizli mod devre dışı, geliştirici araçları kapatma, proxy, yazdırma devre dışı, Brave güncellemesini durdurma (19 yeni) |

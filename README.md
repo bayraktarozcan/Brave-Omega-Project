@@ -300,7 +300,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.4.1.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Active |
+| **v2.4.2.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Active |
+| **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Previous |
 | **v2.3.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
@@ -865,7 +866,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.4.1.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.4.2.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |

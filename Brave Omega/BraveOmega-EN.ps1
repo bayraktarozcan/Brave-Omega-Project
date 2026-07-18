@@ -126,6 +126,7 @@
 #     [NEW]        Essential (+1): ProxySettings (String, '{"ProxyMode":"system"}')
 #     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 50, Balanced 79,
 #                   Advanced 96, Strict 110.
+#     [NEW]         v2.4.2.0 — Brave 1.92.141 (Chromium 150.0.7871.128) compatibility
 #     [IMPROVED]    Validated Brave version updated to 1.92.141
 #                   (Chromium 150.0.7871.128).
 #
@@ -195,7 +196,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.4.1.0"
+$ScriptVersion   = "v2.4.2.0"
 $ValidatedBrave  = "1.92.141"
 $ValidatedChromium = "150"
 
@@ -345,7 +346,7 @@ if ($Reset) {
         "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
         "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
         "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
-        # Phase 9 (v2.4.1.0) — 22 policies across all 5 tiers
+        # Phase 9 (v2.4.2.0) — 22 policies across all 5 tiers
         # (8 removed: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
         #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
         #  RestoreOnStartup, GenAiDefaultSettings — deprecated/blocked/unrecognized)

@@ -69,8 +69,8 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.4.1.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Current |
-| **v2.4.0.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
+| **v2.4.2.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Current |
+| **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Previous |
 | **v2.3.1.0** | 1.92.138 | 150 | 11 25H2 | 📦 Previous |
 | **v2.3.0.0** | 1.92.138 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
@@ -90,7 +90,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.4.1.0 — Brave 1.92.141 Validation](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.4.1.0)
+> **Latest Release:** [v2.4.2.0 — Brave 1.92.141 Compatibility](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.4.2.0)
 
 > 🧪 **Pester test suite** (~50–60 It blocks across 16 files), PSScriptAnalyzer + policy integrity CI, and quality badges live since v2.1.6.0. See [Changelog](Changelog#v2160) for details.
 
@@ -193,7 +193,8 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.4.1.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.4.2.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.4.0.0** | 1.92.139 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.3.1.0** | 1.92.138 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.3.0.0** | 1.92.138 | 150 | 11 25H2 | 📦 Önceki |
@@ -214,7 +215,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.4.1.0 — Brave 1.92.141 Doğrulaması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.4.1.0)
+> **Son Sürüm:** [v2.4.2.0 — Brave 1.92.141 Uyumluluğu](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/tag/v2.4.2.0)
 
 ---
 

@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.4.1.0 — **133 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v2.4.2.0 — **133 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
@@ -246,7 +246,7 @@ All 133 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.4.1.0 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **133 kurumsal politika**.
+Brave Omega v2.4.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **133 kurumsal politika**.
 
 ---
 

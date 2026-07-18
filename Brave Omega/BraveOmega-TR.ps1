@@ -127,6 +127,7 @@
 #     [YENİ]        Temel (+1): ProxySettings (String, '{"ProxyMode":"system"}')
 #     [İYİLEŞTİRME] Kümülatif sayılar: Brave Yalnız 24, Temel 50, Dengeli 79,
 #                   Gelişmiş 96, Katı 110.
+#     [YENİ]        v2.4.2.0 — Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluğu
 #     [İYİLEŞTİRME] Doğrulanan Brave sürümü 1.92.141'a güncellendi
 #                   (Chromium 150.0.7871.128).
 #
@@ -196,7 +197,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.4.1.0"
+$BetikSurum    = "v2.4.2.0"
 $DogrulananBrave = "1.92.141"
 $DogrulananChromium = "150"
 
@@ -345,7 +346,7 @@ if ($Sifirla) {
         "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
         "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
         "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
-        # Phase 9 (v2.4.1.0) — 22 politika, 5 kademede
+        # Phase 9 (v2.4.2.0) — 22 politika, 5 kademede
         # (8 kaldırıldı: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
         #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
         #  RestoreOnStartup, GenAiDefaultSettings — kullanımdan kaldırıldı/engellendi/bilinmiyor)
