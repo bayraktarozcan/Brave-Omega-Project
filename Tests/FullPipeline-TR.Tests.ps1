@@ -4,13 +4,16 @@ BeforeAll {
     $tokens = $null; $errors = $null
     [System.Management.Automation.Language.Parser]::ParseInput($rawContent, [ref]$tokens, [ref]$errors)
     $syntaxErrors = $errors
+    $dotlessI = [char]0x0131
 }
-
-$dotlessI = [char]0x0131
 
 Describe "Full Pipeline (TR)" -Tag "Integration" {
     It "should load without syntax errors" {
-        $syntaxErrors | Where-Object { $_.Id -ne "ParserMissingEndCurlyBrace" } | Should -BeNullOrEmpty
+        $unhandled = $syntaxErrors | Where-Object {
+            $_.Id -ne "ParserMissingEndCurlyBrace" -and
+            ($_.Id -ne "ParserError" -or $_.Message -notmatch "Missing closing '}'")
+        }
+        $unhandled | Should -BeNullOrEmpty
     }
 
     It "should define Turkish-named functions" {

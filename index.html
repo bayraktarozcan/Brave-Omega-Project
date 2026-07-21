@@ -90,7 +90,7 @@
 <body class="min-h-screen relative overflow-x-hidden bg-black text-zinc-200">
 
     <!-- Okuma İlerleme Çubuğu -->
-    <div id="progress-bar" style="position:fixed;top:0;left:0;height:3px;background:#FF6000;width:0%;z-index:100;transition:width 0.1s;box-shadow:0 0 10px rgba(255,96,0,0.5);"></div>
+    <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="position:fixed;top:0;left:0;height:3px;background:#FF6000;width:0%;z-index:100;transition:width 0.1s;box-shadow:0 0 10px rgba(255,96,0,0.5);"></div>
 
     <!-- OLED Arka Plan Isiklandirmasi -->
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-[#FF6000]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
@@ -124,7 +124,7 @@
                 <span class="text-2xl" style="filter:drop-shadow(0 0 10px rgba(255,96,0,0.5));">&#x1f981;</span>
                 <div class="leading-none">
                     <span class="font-bold tracking-tight text-white block text-[15px]">BRAVE OMEGA</span>
-                    <span class="text-[9px] text-zinc-500 tracking-[0.2em] uppercase font-mono mt-0.5 block">Topluluk sürümü</span>
+                    <span class="text-[9px] text-zinc-500 tracking-[0.2em] uppercase font-mono mt-0.5 block" data-i18n="nav_community">Topluluk sürümü</span>
                 </div>
             </div>
             <nav class="hidden md:flex items-center gap-6">
@@ -144,7 +144,7 @@
                 <a href="https://github.com/bayraktarozcan/Brave-Omega-Project" target="_blank" class="text-zinc-500 hover:text-white transition-colors">
                     <i data-lucide="github" class="w-[22px] h-[22px]"></i>
                 </a>
-                <button onclick="toggleMobileMenu()" class="md:hidden text-zinc-400 hover:text-white">
+                <button onclick="toggleMobileMenu()" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-zinc-400 hover:text-white">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -223,7 +223,7 @@
                         <div class="terminal-line"><br></div>
                         <div class="terminal-line"><span class="text-[#22c55e] font-bold" data-i18n="term_summary">Yürütme Özeti:</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hkcu">HKCU kullanıcı tercihi: 1 başarılı</span></div>
-                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hklm">HKLM kurumsal ilkeler: 50 başarılı, 0 hata</span></div>
+                        <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_hklm">HKLM kurumsal ilkeler: 52 başarılı, 0 hata</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_omaha">Omaha GUID: 1 başarılı</span></div>
                         <div class="terminal-line"><span class="text-[#22c55e]">  [OK]</span> <span data-i18n="term_ok_backup">Yedekleme: başarılı</span></div>
                         <div class="terminal-line"><br></div>
@@ -1153,12 +1153,12 @@ SOFTWARE.
             about_badge: "Proje Hakk\u0131nda",
             about_heading: "Brave Omega Nedir?",
             about_card1_title: "ADMX Do\u011frulamal\u0131",
-            about_card2_title: "D\u00f6rt Seviyeli Model",
+            about_card2_title: "Be\u015f Seviyeli Model",
             about_card3_title: "\u0130ki Dilli",
             why_title: "Brave Omega Neden Var?",
             features_badge: "Temel \u00d6zellikler",
             features_heading: "Neler Sunuyor?",
-            feat_tier_title: "D\u00f6rt Seviyeli Model",
+            feat_tier_title: "Be\u015f Seviyeli Model",
             feat_admx_title: "ADMX Do\u011frulamal\u0131",
             feat_idem_title: "Karars\u0131z Olmayan \u00c7al\u0131\u015fma",
             feat_backup_title: "Otomatik Yedekleme",
@@ -1202,6 +1202,7 @@ SOFTWARE.
             term_menu_opt4: "    4. Geli\u015fmi\u015f (104 politika)",
             term_menu_opt5: "    5. Kat\u0131 (133 politika)",
             term_selection: "Se\u00e7iminiz (2):",
+            nav_community: "Topluluk s\u00fcr\u00fcm\u00fc",
         },
         en: {
             nav_about: "About",
@@ -1291,7 +1292,7 @@ SOFTWARE.
             lc_breaking_desc: "Any removed or renamed policy key is documented in the changelog with a migration note.",
             lc_community_title: "Community-Driven",
             lc_community_desc: "Version mismatches and new policies identified by contributors are reviewed and merged promptly.",
-            arch_desc: "Three enforcement layers (HKCU + HKLM + Omaha GUID) with four user-selectable hardening levels. Levels are cumulative; each includes all policies from the previous one.",
+            arch_desc: "Three enforcement layers (HKCU + HKLM + Omaha GUID) with five user-selectable hardening levels. Levels are cumulative; each includes all policies from the previous one.",
             tier1_title: "User Preference Tier",
             tier1_desc: "UsageStatsInSample = 0 disables Chromium user-level telemetry sampling. Provides fallback safety during policy propagation delays.",
             tier2_title: "Enterprise Policy Tier (ADMX)",
@@ -1457,7 +1458,7 @@ SOFTWARE.
             term_omaha: "Writing Omaha GUID tier...",
             term_summary: "Execution Summary:",
             term_ok_hkcu: "HKCU user preference: 1 success",
-            term_ok_hklm: "HKLM enterprise policies: 29 success, 0 error",
+            term_ok_hklm: "HKLM enterprise policies: 52 success, 0 error",
             term_ok_omaha: "Omaha GUID: 1 success",
             term_ok_backup: "Backup: success",
             term_done: "PROCESS COMPLETE",
@@ -1500,6 +1501,7 @@ SOFTWARE.
             pol_group_advanced: "Level 4: Advanced (+21 Sensor/Import/Extension/Update Policies) \u2014 Full API/Sensor/Import/Extension restriction",
             policy_note_title: "Where can I find the full policy list?",
             policy_note_desc: "This table covers all 133 policies across 5 levels. Policies use cumulative inheritance: each level encompasses all policies from the previous one.",
+            nav_community: "Community Edition",
         }
     };
 
@@ -1520,7 +1522,7 @@ SOFTWARE.
         term_omaha: "Omaha GUID katman\u0131 yaz\u0131l\u0131yor...",
         term_summary: "Y\u00fcr\u00fctme \u00d6zeti:",
         term_ok_hkcu: "HKCU kullan\u0131c\u0131 tercihi: 1 ba\u015far\u0131l\u0131",
-        term_ok_hklm: "HKLM kurumsal ilkeler: 30 ba\u015far\u0131l\u0131, 0 hata",
+        term_ok_hklm: "HKLM kurumsal ilkeler: 52 ba\u015far\u0131l\u0131, 0 hata",
         term_ok_omaha: "Omaha GUID: 1 ba\u015far\u0131l\u0131",
         term_ok_backup: "Yedekleme: ba\u015far\u0131l\u0131",
         term_done: "\u0130\u015eLEM TAMAMLANDI",
@@ -1778,12 +1780,16 @@ SOFTWARE.
         menu.style.opacity = isOpen ? "0" : "1";
         menu.style.pointerEvents = isOpen ? "none" : "all";
         document.body.style.overflow = isOpen ? "" : "hidden";
+        const hamburger = document.querySelector('button[aria-controls="mobile-menu"]');
+        if (hamburger) hamburger.setAttribute("aria-expanded", String(!isOpen));
     }
     window.addEventListener("scroll", () => {
         const bar = document.getElementById("progress-bar");
         if (bar) {
             const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            bar.style.width = h > 0 ? Math.min((window.scrollY / h) * 100, 100) + "%" : "0%";
+            const pct = h > 0 ? Math.min((window.scrollY / h) * 100, 100) : 0;
+            bar.style.width = pct + "%";
+            bar.setAttribute("aria-valuenow", Math.round(pct));
         }
         const btn = document.getElementById("back-to-top");
         if (btn) {

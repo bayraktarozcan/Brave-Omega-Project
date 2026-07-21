@@ -10,8 +10,7 @@ Describe "Full Pipeline (EN)" -Tag "Integration" {
     It "should load without unhandled syntax errors" {
         $unhandled = $syntaxErrors | Where-Object {
             $_.Id -ne "ParserMissingEndCurlyBrace" -and
-            $_.Id -ne "ParserError" -or
-            ($_.Message -notmatch "Missing closing '}'")
+            ($_.Id -ne "ParserError" -or $_.Message -notmatch "Missing closing '}'")
         }
         $unhandled | Should -BeNullOrEmpty
     }

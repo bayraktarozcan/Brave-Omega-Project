@@ -801,7 +801,7 @@ $PolitikaTanimlari = @{
         # Bulut Raporlama Etkin — bulut telemetri raporlamasını devre dışı bırak
         @{Ad="CloudReportingEnabled";                              Deger=0;           Tur="DWord"}
         # Gezinti Verisi Süresi — geçmiş/önbelleği 24 saat sonra otomatik temizle
-        @{Ad="BrowsingDataLifetime";                               Deger=[System.Collections.ArrayList]@(@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}); Tur="String"}
+        @{Ad="BrowsingDataLifetime";                               Deger=@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}; Tur="String"}
         # ─── Kişisel Kullanıma Uygun Sertleştirme ───
         # Kaynaklar Arası İşlem Politikası Başlığı — COOP'u zorla (Spectre azaltma)
         @{Ad="CrossOriginOpPolicyHeader";                          Deger="require-corp"; Tur="String"}
@@ -899,12 +899,15 @@ function Yaz-KayitDegeri {
             if (-not $anahtar) {
                 throw "Kayıt defteri anahtarı bulunamadı: $HedefYol"
             }
-            if ($PolitikaDegeri -and $PolitikaDegeri.Count -gt 0) {
-                $anahtar.SetValue($PolitikaAdi, [string[]]$PolitikaDegeri, [Microsoft.Win32.RegistryValueKind]::MultiString)
-            } else {
-                $anahtar.SetValue($PolitikaAdi, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+            try {
+                if ($PolitikaDegeri -and $PolitikaDegeri.Count -gt 0) {
+                    $anahtar.SetValue($PolitikaAdi, [string[]]$PolitikaDegeri, [Microsoft.Win32.RegistryValueKind]::MultiString)
+                } else {
+                    $anahtar.SetValue($PolitikaAdi, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+                }
+            } finally {
+                if ($anahtar) { $anahtar.Close() }
             }
-            $anahtar.Close()
             break
         }
         default {

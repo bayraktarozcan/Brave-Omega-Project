@@ -794,7 +794,7 @@ $PolicyDefinitions = @{
         # Cloud Reporting Enabled — disable cloud telemetry reporting
         @{Name="CloudReportingEnabled";                              Value=0;           Type="DWord"}
         # Browsing Data Lifetime — auto-clear history/cache after 24 hours
-        @{Name="BrowsingDataLifetime";                               Value=[System.Collections.ArrayList]@(@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}); Type="String"}
+        @{Name="BrowsingDataLifetime";                               Value=@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}; Type="String"}
         # ─── Personal-Use Friendly Hardening ───
         # Cross-Origin-Op-Policy Header — enforce COOP (Spectre mitigation)
         @{Name="CrossOriginOpPolicyHeader";                          Value="require-corp"; Type="String"}
@@ -893,12 +893,15 @@ function Write-PolicyValue {
             if (-not $key) {
                 throw "Registry key not found: $TargetPath"
             }
-            if ($PolicyValue -and $PolicyValue.Count -gt 0) {
-                $key.SetValue($PolicyName, [string[]]$PolicyValue, [Microsoft.Win32.RegistryValueKind]::MultiString)
-            } else {
-                $key.SetValue($PolicyName, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+            try {
+                if ($PolicyValue -and $PolicyValue.Count -gt 0) {
+                    $key.SetValue($PolicyName, [string[]]$PolicyValue, [Microsoft.Win32.RegistryValueKind]::MultiString)
+                } else {
+                    $key.SetValue($PolicyName, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+                }
+            } finally {
+                if ($key) { $key.Close() }
             }
-            $key.Close()
             break
         }
         default {
