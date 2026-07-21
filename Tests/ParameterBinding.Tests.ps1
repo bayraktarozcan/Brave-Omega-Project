@@ -2,29 +2,73 @@ BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
 }
 
-Describe "Parameter Binding" -Tag "Unit" {
-    It "Level parameter should accept string input" {
-        $result = & { param([string]$Level) return $Level.GetType().Name } -ArgumentList "Essential"
-        $result | Should -Be "String"
+Describe "Parameter Binding - EN Script" -Tag "Unit" {
+    It "should declare Level as string parameter" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $content -match '\[string\]\$Level\s*=\s*""' | Should -Be $true
     }
 
-    It "WhatIf switch should be boolean" {
-        $result = & { param([switch]$WhatIf) return $WhatIf.IsPresent -is [bool] } -ArgumentList ([switch]$false)
-        $result | Should -Be $true
+    It "should declare WhatIf as switch parameter" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $content -match '\[switch\]\$WhatIf' | Should -Be $true
     }
 
-    It "Reset switch should be boolean" {
-        $result = & { param([switch]$Reset) return $Reset.IsPresent -is [bool] } -ArgumentList ([switch]$true)
-        $result | Should -Be $true
+    It "should declare Reset as switch parameter" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $content -match '\[switch\]\$Reset' | Should -Be $true
     }
 
-    It "should handle both -Level and -WhatIf simultaneously" {
-        $params = @{Level="Balanced"; WhatIf=$true}
-        $result = & {
-            param([string]$Level, [switch]$WhatIf)
-            return @{ Level = $Level; WhatIf = $WhatIf.IsPresent }
-        } @params
-        $result.Level | Should -Be "Balanced"
-        $result.WhatIf | Should -Be $true
+    It "should have exactly 3 parameters in param block" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $paramMatch = [regex]::Match($content, 'param\(\s*\[string\]\$Level.*?\[switch\]\$Reset\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $paramMatch.Success | Should -Be $true
+        $paramBlock = $paramMatch.Value
+        $paramCount = ([regex]::Matches($paramBlock, '\[')).Count
+        $paramCount | Should -Be 3
+    }
+}
+
+Describe "Parameter Binding - TR Script" -Tag "Unit" {
+    It "should declare Seviye as string parameter" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $content -match '\[string\]\$Seviye\s*=\s*""' | Should -Be $true
+    }
+
+    It "should declare WhatIf as switch parameter" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $content -match '\[switch\]\$WhatIf' | Should -Be $true
+    }
+
+    It "should declare Sifirla as switch parameter" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $content -match '\[switch\]\$Sifirla' | Should -Be $true
+    }
+
+    It "should have exactly 3 parameters in param block" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $paramMatch = [regex]::Match($content, 'param\(\s*\[string\]\$Seviye.*?\[switch\]\$Sifirla\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $paramMatch.Success | Should -Be $true
+    }
+}
+
+Describe "Parameter Binding - Write-PolicyValue Function" -Tag "Unit" {
+    It "EN function should have all required parameters" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $content -match 'function\s+Write-PolicyValue' | Should -Be $true
+        $content -match '\[string\]\$TargetPath' | Should -Be $true
+        $content -match '\[string\]\$PolicyName' | Should -Be $true
+        $content -match '\$PolicyValue' | Should -Be $true
+        $content -match '\[string\]\$ValueType' | Should -Be $true
+        $content -match '\[switch\]\$WhatIf' | Should -Be $true
+    }
+
+    It "TR function should have all required parameters" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $content -match 'function\s+Yaz-KayitDegeri' | Should -Be $true
+        $content -match '\[string\]\$HedefYol' | Should -Be $true
+        $content -match '\[string\]\$PolitikaAdi' | Should -Be $true
+        $content -match '\$PolitikaDegeri' | Should -Be $true
+        $content -match '\[string\]\$DegerTuru' | Should -Be $true
+        $content -match '\[switch\]\$WhatIf' | Should -Be $true
     }
 }

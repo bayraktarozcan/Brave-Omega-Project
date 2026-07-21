@@ -16,23 +16,25 @@ Complete compatibility reference for Brave Omega versions.
 | **v2.4.2.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Current | 2026-07-17 |
 | **v2.4.1.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Previous | 2026-07-12 |
 | **v2.4.0.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Previous | 2026-07-11 |
+| **v2.3.1.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Previous | 2026-07-10 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Previous | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
+| **v2.2.0.2** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
-| **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
-| **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-05 |
+| **v2.2.0.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-06 |
+| **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-04 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Previous | 2026-07-03 |
 | **v2.1.4** | 1.91.180 | 149.0.7827.201 | Windows 11 25H2 | 📦 Previous | 2026-06-27 |
 | **v2.1.3** | 1.91.178 | 149.0.7827.196 | Windows 11 25H2 | 📦 Previous | 2026-06-26 |
 | v2.1.2 | 1.91.175 | 149.0.7827.155 | Windows 11 25H2 | 📦 Previous | 2026-06-18 |
 | v2.1.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-17 |
-| v2.1 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Previous | 2026-06-16 |
-| v2.0 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Previous | |
-| v1.2.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-13 |
-| v1.2.1 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-13 |
-| v1.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-12 |
-| v1.1 | 1.91.168 | 149.0.7827.115 | 11 25H2 | 📦 Previous | 2026-06-05 |
-| v1.0 | 1.91.168 | 149.0.7827.115 | 11 25H2 | 🔒 Archived | 2026-06-04 |
+| v2.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-16 |
+| v2.0 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-16 |
+| v1.2.2 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-13 |
+| v1.2.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-13 |
+| v1.2 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-12 |
+| v1.1 | 1.91.168 | 149.0.7827.115 | Windows 11 25H2 | 📦 Previous | 2026-06-05 |
+| v1.0 | 1.91.168 | 149.0.7827.115 | Windows 11 25H2 | 🔒 Archived | 2026-06-04 |
 
 ---
 
@@ -127,7 +129,7 @@ if (Test-Path $bravePath) {
 | v2.2.1.0 | 91 | 100% | WebUSB/Bluetooth/HID/Direct Sockets API blocking, ECH enforcement, Payment Request disable, window management isolation, site-per-process (12 new) |
 | v2.2.0.2 | 80 | 100% | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 80 | 100% | BraveLocalAIEnabled removed (deprecated), policy counts adjusted |
-| v2.2.0 | 81 | 100% | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), 11 policies migrated from Strict |
+| v2.2.0.0 | 81 | 100% | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), 11 policies migrated from Strict |
 | v2.1.6.0 | 82 | 100% | BraveOnly enrichment (10), Chromium telemetry (6) |
 | v2.1.5 | 68 | 100% | Chromium telemetry & data leakage policies |
 | v2.1.4 | 68 | 100% | --- (Phase 3 prep) |
@@ -195,23 +197,25 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 | **v2.4.2.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Güncel | 2026-07-17 |
 | **v2.4.1.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Önceki | 2026-07-12 |
 | **v2.4.0.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Önceki | 2026-07-11 |
+| **v2.3.1.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Önceki | 2026-07-10 |
 | **v2.3.0.0** | 1.92.138 | 150.0.7871.101 | Windows 11 25H2 | 📦 Önceki | 2026-07-09 |
 | **v2.2.1.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
+| **v2.2.0.2** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-07 |
 | **v2.2.0.1** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
-| **v2.2.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
-| **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-05 |
+| **v2.2.0.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-06 |
+| **v2.1.6.0** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-04 |
 | **v2.1.5** | 1.92.134 | 150.0.7871.63 | Windows 11 25H2 | 📦 Önceki | 2026-07-03 |
 | **v2.1.4** | 1.91.180 | 149.0.7827.201 | Windows 11 25H2 | 📦 Önceki | 2026-06-27 |
 | **v2.1.3** | 1.91.178 | 149.0.7827.196 | Windows 11 25H2 | 📦 Önceki | 2026-06-26 |
 | v2.1.2 | 1.91.175 | 149.0.7827.155 | Windows 11 25H2 | 📦 Önceki | 2026-06-18 |
 | v2.1.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-17 |
-| v2.1 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Önceki | 2026-06-16 |
-| v2.0 | 1.91.172 | 149 | Windows 11 25H2 | 📦 Önceki | |
-| v1.2.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-13 |
-| v1.2.1 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-13 |
-| v1.2 | 1.91.172 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-12 |
-| v1.1 | 1.91.168 | 149.0.7827.115 | 11 25H2 | 📦 Önceki | 2026-06-05 |
-| v1.0 | 1.91.168 | 149.0.7827.115 | 11 25H2 | 🔒 Arşivlendi | 2026-06-04 |
+| v2.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-16 |
+| v2.0 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-16 |
+| v1.2.2 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-13 |
+| v1.2.1 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-13 |
+| v1.2 | 1.91.172 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-12 |
+| v1.1 | 1.91.168 | 149.0.7827.115 | Windows 11 25H2 | 📦 Önceki | 2026-06-05 |
+| v1.0 | 1.91.168 | 149.0.7827.115 | Windows 11 25H2 | 🔒 Arşivlendi | 2026-06-04 |
 
 ---
 
@@ -239,16 +243,16 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.4.1.0) Kullan Eğer
+### Güncel (v2.4.2.0) Kullan Eğer
 
 - Brave 1.92.141 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 133 toplam politika
 
-### Önceki (v2.3.0.0) Kullan Eğer
+### Önceki (v2.4.1.0) Kullan Eğer
 
-- Hemen v2.4.1.0'a güncelleyemiyorsanız
-- Brave 1.92.138 çalışıyorsa
+- Hemen v2.4.2.0'a güncelleyemiyorsanız
+- Brave 1.92.140 çalışıyorsa
 
 ### Eski (v2.2.1.0) Kullan Eğer
 

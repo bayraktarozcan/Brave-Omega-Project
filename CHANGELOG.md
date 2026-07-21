@@ -1,4 +1,4 @@
-﻿<!-- ================================================================== -->
+<!-- ================================================================== -->
 <!--            BRAVE OMEGA PROJECT — CHANGELOG                         -->
 <!--          Community Edition · Open Source · Privacy First           -->
 <!-- ================================================================== -->
@@ -33,79 +33,79 @@
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-3. [v2.4.0.0 — 2026-07-11](#en-v2400)
+4. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-3. [v2.3.1.0 — 2026-07-10](#en-v2310)
+5. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-4. [v2.3.0.0 — 2026-07-09](#en-v2300)
+6. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
     * [Notes](#en-v2300-notes)
-4. [v2.2.1.0 — 2026-07-07](#en-v2210)
+7. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-4. [v2.2.0.2 — 2026-07-07](#en-v2202)
+8. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-4. [v2.2.0.1 — 2026-07-06](#en-v2201)
+9. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
-4. [v2.2.0 — 2026-07-06](#en-v220)
+10. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
-5. [v2.1.6 — 2026-07-04](#en-v216)
+11. [v2.1.6 — 2026-07-04](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
     * [Changed](#en-v216-changed)
-3. [v2.1.5 — 2026-07-03](#en-v215)
+12. [v2.1.5 — 2026-07-03](#en-v215)
     * [Summary](#en-v215-summary)
     * [Changed](#en-v215-changed)
-4. [v2.1.4 — 2026-06-27](#en-v214)
+13. [v2.1.4 — 2026-06-27](#en-v214)
     * [Summary](#en-v214-summary)
     * [Changed](#en-v214-changed)
-5. [v2.1.3 — 2026-06-26](#en-v213)
+14. [v2.1.3 — 2026-06-26](#en-v213)
     * [Summary](#en-v213-summary)
     * [Changed](#en-v213-changed)
-6. [v2.1.2 — 2026-06-18](#en-v212)
+15. [v2.1.2 — 2026-06-18](#en-v212)
     * [Summary](#en-v212-summary)
     * [Changed](#en-v212-changed)
-7. [v2.1.1 — 2026-06-18](#en-v211)
+16. [v2.1.1 — 2026-06-18](#en-v211)
     * [Summary](#en-v211-summary)
     * [Fixed](#en-v211-fixed)
-8. [v2.1 — 2026-06-16](#en-v21)
+17. [v2.1 — 2026-06-16](#en-v21)
     * [Summary](#en-v21-summary)
     * [Added](#en-v21-added)
     * [Changed](#en-v21-changed)
     * [Statistics](#en-v21-statistics)
-9. [v2.0 — 2026-06-16](#en-v20)
+18. [v2.0 — 2026-06-16](#en-v20)
     * [Summary](#en-v20-summary)
     * [Added](#en-v20-added)
     * [Changed](#en-v20-changed)
     * [Statistics](#en-v20-statistics)
-8. [v1.2.2 — 2026-06-13](#en-v122)
+19. [v1.2.2 — 2026-06-13](#en-v122)
     * [Summary](#en-v122-summary)
     * [Changed](#en-v122-changed)
-9. [v1.2.1 — 2026-06-13](#en-v121)
+20. [v1.2.1 — 2026-06-13](#en-v121)
     * [Changed](#en-v121-changed)
-10. [v1.2 — 2026-06-12](#en-v12)
+21. [v1.2 — 2026-06-12](#en-v12)
     * [Summary](#en-v12-summary)
-11. [v1.1.1 — 2026-06-12](#en-v111)
+22. [v1.1.1 — 2026-06-12](#en-v111)
     * [Fixed](#en-v111-fixed)
-12. [v1.1 — 2026-06-12](#en-v11)
+23. [v1.1 — 2026-06-12](#en-v11)
     * [Summary](#en-v11-summary)
-13. [v1.0.1 — 2026-06-11](#en-v101)
+24. [v1.0.1 — 2026-06-11](#en-v101)
     * [Fixed](#en-v101-fixed)
-14. [v1.0 — 2026-06-08](#en-v10)
+25. [v1.0 — 2026-06-08](#en-v10)
     * [Summary](#en-v10-summary)
-15. [Notes](#en-notes)
+26. [Notes](#en-notes)
 
 ---
 
@@ -1100,6 +1100,25 @@ Documentation:
 
 ---
 
+<a id="en-v111"></a>
+
+## [v1.1.1] — 2026-06-12
+
+<a id="en-v111-summary"></a>
+
+### 🎯 Summary
+
+Patch release — minor fixes following v1.1.
+
+<a id="en-v111-fixed"></a>
+
+### 🔧 Fixed
+
+- Registry backup path handling on non-standard Windows installations
+- Minor output formatting corrections
+
+---
+
 <a id="en-v11"></a>
 
 ## [v1.1] — 2026-06-05
@@ -1146,6 +1165,25 @@ Comprehensive debugging and enhancement release with 7 major improvements. Intro
 | #5 | Fix | Corrected exit codes for automation tool compatibility |
 | #6 | Add | Implemented automatic HKLM backup before modifications |
 | #7 | Simplify | Removed redundant Test-Path check before New-Item |
+
+---
+
+<a id="en-v101"></a>
+
+## [v1.0.1] — 2026-06-11
+
+<a id="en-v101-summary"></a>
+
+### 🎯 Summary
+
+Hotfix release — initial post-launch corrections.
+
+<a id="en-v101-fixed"></a>
+
+### 🔧 Fixed
+
+- Corrected HKCU policy path for Brave Rewards telemetry opt-out
+- Fixed Brave process detection on systems with multiple user profiles
 
 ---
 
@@ -1226,7 +1264,9 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 | v1.2.2 | 2026-06-13 | 17 | Safe execution policy fix, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 upgrade, translation & structural fixes |
 | v1.2 | 2026-06-12 | 17 | +10 new policies, Brave 1.91.172 validation |
+| v1.1.1 | 2026-06-12 | 7 | Registry backup path fix, output formatting corrections |
 | v1.1 | 2026-06-05 | 7 | Error handling, backups, process guards |
+| v1.0.1 | 2026-06-11 | 7 | HKCU policy path fix, multi-profile process detection |
 | v1.0 | 2026-06-04 | 7 | Initial release, 3-tier architecture |
 
 ---
@@ -1271,95 +1311,100 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 ### İçindekiler
 1. [Giriş](#tr-introduction)
-
 2. [v2.4.2.0 — 2026-07-17](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-2. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+3. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Kaldırıldı](#tr-v2410-kaldirildi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-3. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+4. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-3. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+5. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-4. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+6. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-4. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+7. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
-4. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+8. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
-4. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+9. [v2.2.0.1 — 2026-07-06](#tr-v2201)
     * [Özet](#tr-v2201-ozet)
-5. [v2.2.0 — 2026-07-06](#tr-v220)
+10. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
-5. [v2.1.6 — 2026-07-04](#tr-v216)
+11. [v2.1.6 — 2026-07-04](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
     * [Değiştirildi](#tr-v216-changed)
-3. [v2.1.5 — 2026-07-03](#tr-v215)
+12. [v2.1.5 — 2026-07-03](#tr-v215)
     * [Özet](#tr-v215-summary)
     * [Değiştirildi](#tr-v215-changed)
-4. [v2.1.4 — 2026-06-27](#tr-v214)
+13. [v2.1.4 — 2026-06-27](#tr-v214)
     * [Özet](#tr-v214-summary)
     * [Değiştirildi](#tr-v214-changed)
-5. [v2.1.3 — 2026-06-26](#tr-v213)
+14. [v2.1.3 — 2026-06-26](#tr-v213)
     * [Özet](#tr-v213-summary)
     * [Değiştirildi](#tr-v213-changed)
-6. [v2.1.2 — 2026-06-18](#tr-v212)
+15. [v2.1.2 — 2026-06-18](#tr-v212)
     * [Özet](#tr-v212-summary)
     * [Değiştirildi](#tr-v212-changed)
-7. [v2.1.1 — 2026-06-18](#tr-v211)
+16. [v2.1.1 — 2026-06-18](#tr-v211)
     * [Özet](#tr-v211-summary)
     * [Düzeltildi](#tr-v211-fixed)
-8. [v2.1 — 2026-06-16](#tr-v21)
+17. [v2.1 — 2026-06-16](#tr-v21)
     * [Özet](#tr-v21-summary)
     * [Eklendi](#tr-v21-added)
     * [Değiştirildi](#tr-v21-changed)
     * [İstatistikler](#tr-v21-statistics)
-9. [v2.0 — 2026-06-16](#tr-v20)
+18. [v2.0 — 2026-06-16](#tr-v20)
     * [Özet](#tr-v20-summary)
     * [Eklendi](#tr-v20-added)
     * [Değiştirildi](#tr-v20-changed)
     * [İstatistikler](#tr-v20-statistics)
-8. [v1.2.2 — 2026-06-13](#tr-v122)
+19. [v1.2.2 — 2026-06-13](#tr-v122)
     * [Özet](#tr-v122-summary)
     * [Değiştirildi](#tr-v122-changed)
-9. [v1.2.1 — 2026-06-13](#tr-v121)
+20. [v1.2.1 — 2026-06-13](#tr-v121)
     * [Özet](#tr-v121-summary)
     * [Değiştirildi](#tr-v121-changed)
-10. [v1.2 — 2026-06-12](#tr-v12)
+21. [v1.2 — 2026-06-12](#tr-v12)
     * [Özet](#tr-v12-summary)
     * [Eklendi](#tr-v12-added)
     * [İstatistikler](#tr-v12-statistics)
     * [Değiştirildi](#tr-v12-changed)
     * [Güvenlik](#tr-v12-security)
-11. [v1.1 — 2026-06-05](#tr-v11)
+22. [v1.1.1 — 2026-06-12](#tr-v111)
+    * [Özet](#tr-v111-ozet)
+    * [Düzeltildi](#tr-v111-duzeltildi)
+23. [v1.1 — 2026-06-05](#tr-v11)
     * [Özet](#tr-v11-summary)
     * [Eklendi](#tr-v11-added)
     * [Değiştirildi](#tr-v11-changed)
     * [Kaldırıldı](#tr-v11-removed)
     * [Detaylar](#tr-v11-details)
-12. [v1.0 — 2026-06-04](#tr-v10)
+24. [v1.0.1 — 2026-06-04](#tr-v101)
+    * [Özet](#tr-v101-ozet)
+    * [Düzeltildi](#tr-v101-duzeltildi)
+25. [v1.0 — 2026-06-04](#tr-v10)
     * [Özet](#tr-v10-summary)
     * [Özellikler](#tr-v10-features)
     * [Başlangıç Politikaları](#tr-v10-initial-policies)
     * [Belgelendirme](#tr-v10-documentation)
-13. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-14. [İlgili Belgelendirme](#tr-related-documentation)
-15. [Notlar](#tr-notes)
+26. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+27. [İlgili Belgelendirme](#tr-related-documentation)
+28. [Notlar](#tr-notes)
 
 ---
 
@@ -2355,6 +2400,25 @@ Belgelendirme:
 
 ---
 
+<a id="tr-v111"></a>
+
+## [v1.1.1] — 2026-06-12
+
+<a id="tr-v111-ozet"></a>
+
+### 🎯 Özet
+
+Düzeltme sürümü — v1.1 sonrası küçük düzeltmeler.
+
+<a id="tr-v111-duzeltildi"></a>
+
+### 🔧 Düzeltildi
+
+- Standart olmayan Windows kurulumlarında kayıt defteri yedekleme yolu işleme düzeltildi
+- Küçük çıktı biçimlendirme düzeltmeleri
+
+---
+
 <a id="tr-v11"></a>
 
 ## [v1.1] — 2026-06-05
@@ -2401,6 +2465,25 @@ Belgelendirme:
 | #5 | Düzeltme | Otomasyon aracı uyumluluğu için çıkış kodları düzeltildi |
 | #6 | Ekleme | Otomatik HKLM yedeklemesi uygulandı |
 | #7 | Basitleştirme | New-Item öncesi gereksiz Test-Path kontrolü kaldırıldı |
+
+---
+
+<a id="tr-v101"></a>
+
+## [v1.0.1] — 2026-06-11
+
+<a id="tr-v101-ozet"></a>
+
+### 🎯 Özet
+
+Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
+
+<a id="tr-v101-duzeltildi"></a>
+
+### 🔧 Düzeltildi
+
+- Brave Rewards telemetri devre dışı bırakma için HKCU politika yolu düzeltildi
+- Çoklu kullanıcı profiline sahip sistemlerde Brave süreci tespiti düzeltildi
 
 ---
 
@@ -2481,7 +2564,9 @@ Belgelendirme:
 | v1.2.2 | 2026-06-13 | 17 | Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding |
 | v1.2.1 | 2026-06-13 | 17 | Brave 1.91.172 yükseltmesi, çeviri ve yapı düzeltmeleri |
 | v1.2 | 2026-06-12 | 17 | +10 yeni politika, Brave 1.91.172 doğrulaması |
+| v1.1.1 | 2026-06-12 | 7 | Kayıt defteri yedekleme yolu düzeltmesi, çıktı biçimlendirme düzeltmeleri |
 | v1.1 | 2026-06-05 | 7 | Hata yönetimi, yedeklemeler, süreç koruyucuları |
+| v1.0.1 | 2026-06-11 | 7 | HKCU politika yolu düzeltmesi, çoklu profil süreci algılama |
 | v1.0 | 2026-06-04 | 7 | İlk sürüm, 3 katmanlı mimari |
 
 ---

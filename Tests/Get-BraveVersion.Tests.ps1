@@ -7,10 +7,10 @@ BeforeAll {
 Describe "Get-BraveVersion" -Tag "Unit" {
     It "should detect Brave from ProgramFiles path" {
         Mock Test-Path { return $true }
-        Mock Get-Item { return @{VersionInfo = @{FileVersion = "1.70.99.0"}} }
+        Mock Get-Item { return @{VersionInfo = @{ProductVersion = "150.1.70.99"}} }
         $version = Get-BraveVersion
         $version | Should -Not -BeNullOrEmpty
-        $version.BraveVersion | Should -Be "70.99.0"
+        $version.BraveVersion | Should -Be "1.70.99"
     }
 
     It "should return null when Brave is not installed" {
@@ -21,8 +21,8 @@ Describe "Get-BraveVersion" -Tag "Unit" {
 
     It "should match expected version format" {
         Mock Test-Path { return $true }
-        Mock Get-Item { return @{VersionInfo = @{FileVersion = "1.92.141.0"}} }
+        Mock Get-Item { return @{VersionInfo = @{ProductVersion = "150.1.92.141"}} }
         $version = Get-BraveVersion
-        $version.BraveVersion | Should -Be "92.141.0"
+        $version.BraveVersion | Should -Be "1.92.141"
     }
 }

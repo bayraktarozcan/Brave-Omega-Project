@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -684,10 +684,10 @@
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ExtensionAllowedTypes</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">@("extensi...")</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Sadece extension + shared_module türüne izin ver (MultiString)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(234,88,12,0.15);color:#ea580c;">Gelişmiş</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BlockExternalExtensions</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yandan yüklenmiş eklentileri engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(234,88,12,0.15);color:#ea580c;">Gelişmiş</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">ExtensionSettings</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">"{...}"</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">JSON yedek katmanı — eklentileri toplu engeller (String)</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(234,88,12,0.15);color:#ea580c;">Gelişmiş</span></td></tr>
-                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">DeveloperToolsAvailability</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Geliştirici araçlarına erişimi kısıtlar</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs">BuiltInDnsClientEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Chrome DNS istemcisini devre dışı bırakır, sistem DNS kullanır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(234,88,12,0.15);color:#ea580c;">Gelişmiş</span></td></tr>
 <!-- Katı özeti: 15 eski + 14 Strict-only = +29 -->
                     <tr class="security-row bg-[#ef444415]"><td class="py-2.5 px-4 font-mono text-xs font-semibold text-[#ef4444]" colspan="5" data-i18n="pol_group_strict">Seviye 5: Katı (+29 Azami Gizlilik Politikası) -- JIT/Çeviri/Cookie/Guard</td></tr>
+                    <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DeveloperToolsAvailability</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Geliştirici araçlarına erişimi kısıtlar</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">TranslateEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Metnin Google'a çeviri için gönderilmesini durdurur</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultJavaScriptJitSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">JIT'i kapatır — saldırı yüzeyini azaltır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultCookiesSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tüm çerezleri varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
@@ -697,7 +697,7 @@
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultInsecureContentSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Güvenli olmayan içeriği varsayılan olarak engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">ImportBookmarks</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Yer imi aktarımını engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">DefaultBraveRemember1PStorageSetting</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">2</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Birinci taraf depolamayı sekme/nav bitiminde temizler</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
-                    <!-- v2.4.1.0: Strict'e özel politikalar -->
+                    <!-- v2.4.2.0: Strict'e özel politikalar -->
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">IncognitoModeAvailability</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">1</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Gizli modu devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">TaskManagerEndProcessEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Görev yöneticisinde işlem sonlandırmayı engeller</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
                     <tr class="security-row"><td class="py-2.5 px-4 font-mono text-xs text-[#ef4444]">PrintingEnabled</td><td class="py-2.5 px-4 text-xs"><span class="badge badge-yellow text-[10px]">HKLM</span></td><td class="py-2.5 px-4 font-mono text-xs text-[#f59e0b]">0</td><td class="py-2.5 px-4 text-gray-500 text-xs hidden md:table-cell">Tüm yazdırmayı devre dışı bırakır</td><td class="py-2.5 px-4 hidden lg:table-cell"><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;">Katı</span></td></tr>
@@ -791,8 +791,8 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="border-b border-[#1f1f1f] text-gray-400 text-xs uppercase tracking-wider">
-                        <th class="text-left py-3 px-4 font-medium" data-i18n="sec_col_cöncern">Endise</th>
-                        <th class="text-left py-3 px-4 font-medium" data-i18n="sec_col_approaçh">Brave Omega'nin Yaklasimi</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="sec_col_concern">Endise</th>
+                        <th class="text-left py-3 px-4 font-medium" data-i18n="sec_col_approach">Brave Omega'nin Yaklasimi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
@@ -835,7 +835,9 @@
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.4.2.0 <span class="text-[10px] font-normal text-gray-500" data-i18n="compat_current">(current)</span></td><td class="py-3 px-4 text-sm">1.92.141</td><td class="py-3 px-4 text-sm">150</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-green">&#x2705; Active</span></td></tr>
-<tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.4.1.0</td><td class="py-3 px-4 text-sm">1.92.140</td><td class="py-3 px-4 text-sm">150</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-green">&#x1f4e6; Previous</span></td></tr>
+<tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.4.1.0</td><td class="py-3 px-4 text-sm text-gray-400">1.92.140</td><td class="py-3 px-4 text-sm text-gray-400">150</td><td class="py-3 px-4 text-sm text-gray-400">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1F517; Previous</span></td></tr>
+<tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.4.0.0</td><td class="py-3 px-4 text-sm text-gray-400">1.92.140</td><td class="py-3 px-4 text-sm text-gray-400">150</td><td class="py-3 px-4 text-sm text-gray-400">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1F517; Previous</span></td></tr>
+<tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.3.1.0</td><td class="py-3 px-4 text-sm text-gray-400">1.92.138</td><td class="py-3 px-4 text-sm text-gray-400">150</td><td class="py-3 px-4 text-sm text-gray-400">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1F517; Previous</span></td></tr>
 <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.3.0.0</td><td class="py-3 px-4 text-sm text-gray-400">1.92.138</td><td class="py-3 px-4 text-sm text-gray-400">150</td><td class="py-3 px-4 text-sm text-gray-400">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1F517; Previous</span></td></tr>
 <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.2.1.0</td><td class="py-3 px-4 text-sm text-gray-400">1.92.134</td><td class="py-3 px-4 text-sm text-gray-400">150</td><td class="py-3 px-4 text-sm text-gray-400">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1F517; Previous</span></td></tr>
 <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.2.0.2</td><td class="py-3 px-4 text-sm text-gray-400">1.92.134</td><td class="py-3 px-4 text-sm text-gray-400">150</td><td class="py-3 px-4 text-sm text-gray-400">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1F517; Previous</span></td></tr>
@@ -852,7 +854,9 @@
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.2</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.1</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2</td><td class="py-3 px-4 text-sm">1.91.172</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1.1</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.0.1</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-yellow">&#x1f4e6; Önceki</span></td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.0</td><td class="py-3 px-4 text-sm">1.91.168</td><td class="py-3 px-4 text-sm">149</td><td class="py-3 px-4 text-sm">11 25H2</td><td class="py-3 px-4"><span class="badge badge-gray">&#x1f512; Arsivlendi</span></td></tr>
                 </tbody>
             </table>
@@ -969,13 +973,13 @@
                 </div>
             </div>
             <div class="text-left mb-6">
-                <span class="text-xs font-bold text-[#22c55e] uppercase tracking-wider" data-i18n="rm_p6_title">Aşama 6 — Enterprise Politika Genişletmesi ✓ Tamamlandı (v2.4.1.0)</span>
+                <span class="text-xs font-bold text-[#22c55e] uppercase tracking-wider" data-i18n="rm_p6_title">Aşama 6 — Enterprise Politika Genişletmesi ✓ Tamamlandı (v2.4.2.0)</span>
                 <div class="mt-2 space-y-2">
                     <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_p6_1">19 yeni politika: uzantı kilitleme, gizlilik ve ağ sıkılaştırması (v2.3.0.0)</span></div>
                     <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_p6_2">Kullanımdan kaldırılmış ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled temizlendi</span></div>
                     <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_p6_3">DownloadRestrictions seviye bazlı ayrıştırıldı (Balanced=1, Strict=3)</span></div>
                     <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_p6_4">Kümülatif zincir: BraveOnly 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133</span></div>
-                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_p6_5">ProxySettings eklendi (Temel) — deprecated ProxyMode uyarısını bastırır (v2.4.1.0)</span></div>
+                    <div class="glow-card bg-[#000] rounded-xl p-3 flex items-center gap-3"><span class="text-[#22c55e] text-lg min-w-[20px]">&#10003;</span><span class="text-gray-400 text-xs" data-i18n="rm_p6_5">ProxySettings eklendi (Temel) — deprecated ProxyMode uyarısını bastırır (v2.4.2.0)</span></div>
                 </div>
             </div>
             <div class="text-left mb-6">
@@ -1036,8 +1040,10 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#1f1f1f]">
-                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.4.2.0</td><td class="py-3 px-4 text-sm">2026-07-17</td><td class="py-3 px-4 text-sm">133</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2420">Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation</td></tr>
-<tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.4.1.0</td><td class="py-3 px-4 text-sm">2026-07-12</td><td class="py-3 px-4 text-sm">133</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2410_fix">Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only; cumulative chain: BraveOnly 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm font-bold text-[#22c55e]">v2.4.2.0</td><td class="py-3 px-4 text-sm">2026-07-17</td><td class="py-3 px-4 text-sm">133</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2420_compat">Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation. No policy changes. Confirmed full compatibility of the v2.4.1.0 policy set (133 policies, 5 tiers) with the latest Brave stable release.</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v2.4.1.0</td><td class="py-3 px-4 text-sm">2026-07-12</td><td class="py-3 px-4 text-sm">133</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2410_fix">Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only; cumulative chain: BraveOnly 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.4.0.0</td><td class="py-3 px-4 text-sm">2026-07-11</td><td class="py-3 px-4 text-sm">141</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2400_phase9">Phase 9 — 30 new enterprise policies added across all 5 tiers; cumulative chain expands to 141 policies (24→53→85→112→141); SpellcheckEnabled changed to 1; ExtensionManifestV2Availability and DefaultThirdPartyStoragePartitioningSetting removed (deprecated)</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.3.1.0</td><td class="py-3 px-4 text-sm">2026-07-10</td><td class="py-3 px-4 text-sm">110</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2310_compat">Brave 1.92.138 validation; ProxySettings added to Essential tier</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v2.3.0.0</td><td class="py-3 px-4 text-sm">2026-07-08</td><td class="py-3 px-4 text-sm">110</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2300_enterprise">19 new enterprise policies: extension lockdown, privacy, and network hardening across all 5 tiers; deprecated ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed; AllowPopupsDuringPageUnload removed; DownloadRestrictions split per-tier (Balanced=1, Strict=3); 11 extension/devtool/DNS policies added to Advanced; cumulative chain: BraveOnly 24 / Essential 50 / Balanced 79 / Advanced 97 / Strict 110</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v2.2.1.0</td><td class="py-3 px-4 text-sm">2026-07-07</td><td class="py-3 px-4 text-sm">91</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2210_phase7">12 new hardware API and security policies added; duplicate WebRtcIPHandling removed from Strict; total 91 unique policies, zero duplicates (cumulative chain: 22\u219247\u219272\u219283\u219291)</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v2.2.0.2</td><td class="py-3 px-4 text-sm">2026-07-07</td><td class="py-3 px-4 text-sm">80</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v2202_webrtc">WebRtcIPHandling in Balanced changed to disable_non_proxied_udp (same as Strict), GitHub references removed, v2.2.0.2</td></tr>
@@ -1054,7 +1060,9 @@
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.2</td><td class="py-3 px-4 text-sm">2026-06-13</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v122_summary">Güvenli çalıştırma ilkesi düzeltmesi, v1.2.2 branding</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2.1</td><td class="py-3 px-4 text-sm">2026-06-13</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v121_summary">Brave 1.91.172 / Chromium 149 yükseltmesi, çeviri ve yapı düzeltmeleri</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.2</td><td class="py-3 px-4 text-sm">2026-06-12</td><td class="py-3 px-4 text-sm">17</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v12_summary">+10 yeni politika, Brave 1.91.172 doğrulamasi, %143 kapsam genişlemesi</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v1.1.1</td><td class="py-3 px-4 text-sm">2026-06-12</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v111_patch">Patch release — minor fixes following v1.1: registry backup path handling, output formatting corrections</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.1</td><td class="py-3 px-4 text-sm">2026-06-05</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v11_summary">Hata yonetimi, yedeklemeler, süreç koruyuculari, BraveShieldsDefault kaldırıldı</td></tr>
+                    <tr class="security-row"><td class="py-3 px-4 font-mono text-sm text-gray-300">v1.0.1</td><td class="py-3 px-4 text-sm">2026-06-11</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v101_hotfix">Hotfix release — HKCU policy path fix for Brave Rewards telemetry, multi-profile process detection fix</td></tr>
                     <tr class="security-row"><td class="py-3 px-4 font-mono text-sm">v1.0</td><td class="py-3 px-4 text-sm">2026-06-04</td><td class="py-3 px-4 text-sm">7</td><td class="py-3 px-4 text-gray-400 text-sm hidden md:table-cell" data-i18n="cl_v10_summary">İlk sürüm, 3 katmanlı mimari, iki dilli arayüz</td></tr>
                 </tbody>
             </table>
@@ -1294,8 +1302,8 @@ SOFTWARE.
             source_note_title: "Why was BraveShieldsDefault excluded?",
             source_note_desc: "Despite appearing in some community guides, BraveShieldsDefault does not exist in Brave\u2019s official ADMX templates. Brave manages Shields via URL-based policies. Adding an unrecognized key would create a non-functional registry entry.",
             security_desc: "Fully open source, zero obfuscation, zero external network calls.",
-            sec_col_cöncern: "Concern",
-            sec_col_approaçh: "How Brave Omega Addresses It",
+            sec_col_concern: "Concern",
+            sec_col_approach: "How Brave Omega Addresses It",
             sec_row1_title: "Unauthorized changes",
             sec_row1_desc: "Full source is open for review. No obfuscation. No external network calls. No executables.",
             sec_row2_title: "Unrecoverable state",
@@ -1357,12 +1365,12 @@ SOFTWARE.
             rm_p5_title: "Phase 5 \u2014 Hardware API & Security \u2713 Completed (v2.2.1.0)",
             rm_p5_1: "12 new hardware API and security policies; 91 unique policies",
             rm_p5_2: "Duplicate WebRtcIPHandling removed; cumulative chain: 22\u219247\u219272\u219283\u219291",
-            rm_p6_title: "Phase 6 \u2014 Enterprise Policy Expansion \u2713 Completed (v2.4.1.0)",
+            rm_p6_title: "Phase 6 \u2014 Enterprise Policy Expansion \u2713 Completed (v2.4.2.0)",
             rm_p6_1: "19 new policies: extension lockdown, privacy, network hardening (v2.3.0.0)",
             rm_p6_2: "Deprecated ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed",
             rm_p6_3: "DownloadRestrictions split per-level (Balanced=1, Strict=3)",
             rm_p6_4: "Cumulative chain: BraveOnly 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133",
-            rm_p6_5: "ProxySettings added (Essential) \u2014 silences deprecated ProxyMode warning (v2.4.1.0)",
+            rm_p6_5: "ProxySettings added (Essential) \u2014 silences deprecated ProxyMode warning (v2.4.2.0)",
             rm_p7_title: "Phase 7 \u2014 Cross-Platform & Advanced Features",
             rm_p7_1: "Cross-platform: Linux JSON + macOS plist outputs",
             rm_p7_2: "MDM: Intune/enterprise deployment guide",
@@ -1384,6 +1392,9 @@ SOFTWARE.
             cl_col_changes: "Major Changes",
             cl_v2300_enterprise: "19 new enterprise policies: extension lockdown, privacy, and network hardening across all 5 tiers; deprecated ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed; AllowPopupsDuringPageUnload removed; DownloadRestrictions split per-tier (Balanced=1, Strict=3); 11 extension/devtool/DNS policies added to Advanced; cumulative chain: BraveOnly 24 / Essential 50 / Balanced 79 / Advanced 97 / Strict 110",
             cl_v2410_fix: "Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only; cumulative chain: BraveOnly 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133",
+            cl_v2420_compat: "Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation. No policy changes. Confirmed full compatibility of the v2.4.1.0 policy set (133 policies, 5 tiers) with the latest Brave stable release.",
+            cl_v2400_phase9: "Phase 9 — 30 new enterprise policies added across all 5 tiers; cumulative chain expands to 141 policies (24→53→85→112→141); SpellcheckEnabled changed to 1; ExtensionManifestV2Availability and DefaultThirdPartyStoragePartitioningSetting removed (deprecated)",
+            cl_v2310_compat: "Brave 1.92.138 validation; ProxySettings added to Essential tier",
             cl_v220_5tier: "5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies, v2.2.0",
             cl_v2210_phase7: "12 new hardware API and security policies added; duplicate WebRtcIPHandling removed from Strict; total 91 unique policies, zero duplicates (cumulative chain: 22→47→72→83→91)",
             cl_v2202_webrtc: "WebRtcIPHandling in Balanced changed to disable_non_proxied_udp (same as Strict), GitHub references removed, v2.2.0.2",
@@ -1399,7 +1410,9 @@ SOFTWARE.
             cl_v122_summary: "Safe execution policy fix, v1.2.2 branding",
             cl_v121_summary: "Brave 1.91.172 / Chromium 149 upgrade, translation & structural fixes",
             cl_v12_summary: "+10 new policies, Brave 1.91.172 validation, 143% coverage expansion",
+            cl_v111_patch: "Patch release — minor fixes following v1.1: registry backup path handling, output formatting corrections",
             cl_v11_summary: "Error handling, backups, process guards, BraveShieldsDefault removed",
+            cl_v101_hotfix: "Hotfix release — HKCU policy path fix for Brave Rewards telemetry, multi-profile process detection fix",
             cl_v10_summary: "Initial release, 3-tier architecture, bilingual interface",
             changelog_full: "View Full Changelog",
             license_desc: "This project is released under the MIT License. See LICENSE for full terms.",
@@ -1553,8 +1566,8 @@ SOFTWARE.
         source_note_title: "BraveShieldsDefault neden h\u00e2ri\u00e7 tutuldu?",
         source_note_desc: "Baz\u0131 topluluk k\u0131lavuzlar\u0131nda yer almas\u0131na ra\u011fmen BraveShieldsDefault, Brave\u2019in resm\u00ee ADMX \u015fablonlar\u0131nda bulunmamaktad\u0131r. Brave, kalkanlar\u0131 URL bazl\u0131 politikalarla y\u00f6netir. Tan\u0131nmayan bir anahtar eklemek, ger\u00e7ekte hi\u00e7bir etkisi olmayan bir kay\u0131t defteri kayd\u0131 b\u0131rak\u0131rd\u0131.",
         security_desc: "Tamamen a\u00e7\u0131k kaynak, s\u0131f\u0131r gizleme, s\u0131f\u0131r harici a\u011f \u00e7a\u011fr\u0131s\u0131.",
-        sec_col_c\u00f6ncern: "Endi\u015fe",
-        sec_col_approa\u00e7h: "Brave Omega\u2019n\u0131n Yakla\u015f\u0131m\u0131",
+        sec_col_concern: "Endi\u015fe",
+        sec_col_approach: "Brave Omega\u2019n\u0131n Yakla\u015f\u0131m\u0131",
         sec_row1_title: "Yetkisiz de\u011fi\u015fiklikler",
         sec_row1_desc: "Kaynak tamamen a\u00e7\u0131k incelemeye sunulmu\u015ftur. Gizleme yok. harici a\u011f \u00e7a\u011fr\u0131s\u0131 yok. \u00c7al\u0131\u015ft\u0131r\u0131labilir dosya yok.",
         sec_row2_title: "Geri al\u0131namaz durum",
@@ -1616,12 +1629,12 @@ SOFTWARE.
         rm_p5_title: "A\u015fama 5 \u2014 Donan\u0131m API & G\u00fcvenlik \u2713 Tamamland\u0131 (v2.2.1.0)",
         rm_p5_1: "12 yeni donan\u0131m API ve g\u00fcvenlik politikas\u0131; 91 benzersiz politika",
         rm_p5_2: "Yinelenen WebRtcIPHandling kald\u0131r\u0131ld\u0131; k\u00fcm\u00fclatif zincir: 22\u219247\u219272\u219283\u219291",
-        rm_p6_title: "A\u015fama 6 \u2014 Enterprise Politika Geni\u015fletmesi \u2713 Tamamland\u0131 (v2.4.1.0)",
+        rm_p6_title: "A\u015fama 6 \u2014 Enterprise Politika Geni\u015fletmesi \u2713 Tamamland\u0131 (v2.4.2.0)",
         rm_p6_1: "19 yeni politika: uzant\u0131 kilitleme, gizlilik ve a\u011f s\u0131k\u0131la\u015ft\u0131rmas\u0131 (v2.3.0.0)",
         rm_p6_2: "Kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled temizlendi",
         rm_p6_3: "DownloadRestrictions seviye bazl\u0131 ayr\u0131\u015ft\u0131r\u0131ld\u0131 (Balanced=1, Strict=3)",
         rm_p6_4: "K\u00fcm\u00fclatif zincir: BraveOnly 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133",
-        rm_p6_5: "ProxySettings eklendi (Temel) \u2014 kullan\u0131mdan kald\u0131r\u0131lan ProxyMode uyar\u0131s\u0131n\u0131 bast\u0131r\u0131r (v2.4.1.0)",
+        rm_p6_5: "ProxySettings eklendi (Temel) \u2014 kullan\u0131mdan kald\u0131r\u0131lan ProxyMode uyar\u0131s\u0131n\u0131 bast\u0131r\u0131r (v2.4.2.0)",
         rm_p7_title: "A\u015fama 7 \u2014 Platformlar Aras\u0131 & Geli\u015fmi\u015f \u00d6zellikler",
         rm_p7_1: "Cross-platform: Linux JSON + macOS plist \u00e7\u0131kt\u0131lar\u0131",
         rm_p7_2: "MDM: Intune/kurumsal da\u011f\u0131t\u0131m k\u0131lavuzu",
@@ -1643,6 +1656,9 @@ SOFTWARE.
         cl_col_changes: "Ana De\u011fi\u015fiklikler",
         cl_v2300_enterprise: "19 yeni enterprise politikas\u0131: 5 seviyede uzant\u0131 kilitleme, gizlilik ve a\u011f s\u0131k\u0131la\u015ft\u0131rmas\u0131; kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled temizlendi; AllowPopupsDuringPageUnload temizlendi; DownloadRestrictions seviye bazl\u0131 ayr\u0131\u015ft\u0131r\u0131ld\u0131 (Balanced=1, Strict=3); 11 uzant\u0131/gel\u015ftirici/DNS politikas\u0131 Geli\u015fmi\u015f'e eklendi; k\u00fcm\u00fclatif zincir: BraveOnly 24 / Essential 50 / Balanced 79 / Advanced 97 / Strict 110",
         cl_v2410_fix: "Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — Forcelist & Allowlist yalnızca Dark Reader'a basitleştirildi; kümülatif zincir: BraveOnly 24 / Essential 52 / Balanced 83 / Advanced 104 / Strict 133",
+        cl_v2420_compat: "Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması. Politika değişikliği yok. v2.4.1.0 politika setinin (133 politika, 5 seviye) en son Brave kararlı sürümüyle tam uyumluluğu doğrulandı.",
+        cl_v2400_phase9: "Faz 9 — 5 seviyede toplam 30 yeni enterprise politikası eklendi; kümülatif zincir 141 politikaya genişledi (24→53→85→112→141); SpellcheckEnabled 0→1 olarak değiştirildi; ExtensionManifestV2Availability ve DefaultThirdPartyStoragePartitioningSetting kaldırıldı (kullanımdan kaldırıldı)",
+        cl_v2310_compat: "Brave 1.92.138 doğrulaması; Temel seviyeye ProxySettings eklendi",
             cl_v220_5tier: "5 seviyeli mimari (Brave Yaln\u0131z/Temel/Dengeli/Geli\u015fmi\u015f/Kat\u0131), Geli\u015fmi\u015f seviyesi eklendi, Kat\u0131 Seviye 5'e yeniden numaraland\u0131r\u0131ld\u0131, 81 politika, v2.2.0",
         cl_v2210_phase7: "12 yeni donan\u0131m API ve g\u00fcvenlik politikas\u0131 eklendi; yinelenen WebRtcIPHandling Kat\u0131'dan kald\u0131r\u0131ld\u0131; toplam 91 benzersiz politika, s\u0131f\u0131r tekrar (k\u00fcm\u00fclatif zincir: 22\u219247\u219272\u219283\u219291)",
         cl_v2202_webrtc: "Dengeli'de WebRtcIPHandling, disable_non_proxied_udp olarak de\u011fi\u015ftirildi (Kat\u0131 ile ayn\u0131), GitHub at\u0131flar\u0131 kald\u0131r\u0131ld\u0131, v2.2.0.2",
@@ -1658,7 +1674,9 @@ SOFTWARE.
         cl_v122_summary: "G\u00fcvenli \u00e7al\u0131\u015ft\u0131rma ilkesi d\u00fczeltmesi, v1.2.2 branding",
         cl_v121_summary: "Brave 1.91.172 / Chromium 149 y\u00fckseltmesi, \u00e7eviri ve yap\u0131 d\u00fczeltmeleri",
         cl_v12_summary: "+10 yeni politika, Brave 1.91.172 do\u011frulamas\u0131, %143 kapsam geni\u015flemesi",
+        cl_v111_patch: "Yama s\u00fcr\u00fcm\u00fc — v1.1 sonrasi k\u00fc\u00e7\u00fck d\u00fczeltmeler: kay\u0131t defteri yedekleme yolu i\u015fleme, \u00e7\u0131kt\u0131 d\u00fczeltmeleri",
         cl_v11_summary: "Hata y\u00f6netimi, yedeklemeler, s\u00fcre\u00e7 koruyucular\u0131, BraveShieldsDefault kald\u0131r\u0131ld\u0131",
+        cl_v101_hotfix: "Acil d\u00fczeltme s\u00fcr\u00fcm\u00fc — Brave Rewards telemetrisi i\u00e7in HKCU ilke yolu d\u00fczeltmesi, \u00e7oklu profil s\u00fcre\u00e7 alg\u0131lama d\u00fczeltmesi",
         cl_v10_summary: "\u0130lk s\u00fcr\u00fcm, 3 katmanl\u0131 mimari, iki dilli aray\u00fcz",
         changelog_full: "Tam De\u011fi\u015fiklik G\u00fcnl\u00fc\u011f\u00fcn\u00fc G\u00f6r\u00fcnt\u00fcle",
         license_desc: "Bu proje MIT Lisans\u0131 kapsam\u0131nda yay\u0131mlanm\u0131\u015ft\u0131r. Tam ko\u015fullar i\u00e7in LICENSE dosyas\u0131na bak\u0131n.",

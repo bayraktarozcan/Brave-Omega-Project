@@ -28,4 +28,20 @@ Describe "Script Version Consistency" -Tag "Integration" {
         $content = Get-Content -Path $ScriptEN -Raw
         $content -match '\b150\b' | Should -Be $true
     }
+
+    It "TR should have validated Brave version" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $content -match '1\.92\.141' | Should -Be $true
+    }
+
+    It "TR should have validated Chromium version" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $content -match '\b150\b' | Should -Be $true
+    }
+
+    It "EN and TR should have same policy count in definitions" {
+        $enPolicies = Get-PolicyLines -ScriptPath $ScriptEN
+        $trPolicies = Get-PolicyLines -ScriptPath $ScriptTR
+        $enPolicies.Count | Should -Be $trPolicies.Count
+    }
 }
