@@ -53,7 +53,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | Feature | Description |
 | --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement (HKCU + HKLM + Omaha)** | HKCU (user) + HKLM (enterprise/ADMX) + Omaha GUID — three independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 133 ADMX-Validated Policies (5 tiers, 24→52→83→104→133 chain), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 150 ADMX-Validated Policies (5 tiers, 24→53→86→124→150 chain), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -67,7 +67,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.4.2.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Current |
+| **v2.5.0.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Current |
+| v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
 | **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Previous |
 | **v2.3.0.0** | 1.92.138 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
@@ -171,7 +172,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | Özellik | Açıklama |
 | --------- | ---------- |
 | 🔒 **Çok Katmanlı Zorunlu Kılma (HKCU + HKLM + Omaha)** | HKCU (kullanıcı) + HKLM (kurumsal/ADMX) + Omaha GUID — üç bağımsız zorunlu kılma katmanı |
-| 📋 **ADMX Doğrulamalı Politikalar** | 133 ADMX Doğrulamalı Politika (5 kademe, 24→52→83→104→133 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 150 ADMX Doğrulamalı Politika (5 kademe, 24→53→86→124→150 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
@@ -185,7 +186,8 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.4.2.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.5.0.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.3.0.0** | 1.92.138 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |

@@ -11,14 +11,14 @@
 
 | Metric | Count |
 |--------|-------|
-| Total policies ever removed/rejected | 24 |
-| Deprecated by Chromium/Chrome | 8 |
+| Total policies ever removed/rejected | 33 |
+| Deprecated by Chromium/Chrome | 9 |
 | Blocked by Brave | 3 |
-| Unrecognized by Brave | 5 |
+| Unrecognized by Brave | 11 |
 | Redundant (superseded) | 2 |
 | Origin-only / not in stable | 1 |
 | Future/unreleased | 1 |
-| Cloud-only (not local) | 1 |
+| Cloud-only (not local) | 3 |
 | Deprecated function (not a policy) | 1 |
 | Never shipped (planned only) | 2 |
 
@@ -26,14 +26,14 @@
 >
 > | Metrik | Sayı |
 > |--------|------|
-> | Toplam kaldırılan/reddedilen politika | 24 |
-> | Chromium/Chrome tarafından kademeli olarak kaldırılan | 8 |
+> | Toplam kaldırılan/reddedilen politika | 33 |
+> | Chromium/Chrome tarafından kademeli olarak kaldırılan | 9 |
 > | Brave tarafından engellenen | 3 |
-> | Brave tarafından tanınmayan | 5 |
+> | Brave tarafından tanınmayan | 11 |
 > | Gereksiz (yerine geçen) | 2 |
 > | Yalnızca origin / stabilde olmayan | 1 |
 > | Gelecek/yayınlanmamış | 1 |
-> | Yalnızca bulut tabanlı (yerel olmayan) | 1 |
+> | Yalnızca bulut tabanlı (yerel olmayan) | 3 |
 > | Kaldırılmış işlev (politika değil) | 1 |
 > | Hiç üretime geçmeyen (yalnızca planlanan) | 2 |
 
@@ -643,6 +643,174 @@
 
 ---
 
+### 23. CrossOriginOpPolicyHeader
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `CrossOriginOpPolicyHeader` |
+| **Version Added** | v2.4.2.0 (2026-07-14) |
+| **Version Removed** | v2.4.2.0 (2026-07-21, post-release cleanup) |
+| **Tier at Removal** | Strict |
+| **Reason** | Unrecognized by Brave — "Unknown policy" in brave://policy/ |
+| **Category** | Cross-origin security |
+| **Was in Production** | Yes (v2.4.2.0 only) |
+| **Notes** | Was intended to enforce COOP header (Spectre mitigation) with value `require-corp`. Chromium ADMX exists but Brave's policy engine does not recognize it. Shows "Unknown policy" in brave://policy/. Removed in v2.4.2.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `CrossOriginOpPolicyHeader` |
+> | **Eklendiği Sürüm** | v2.4.2.0 (2026-07-14) |
+> | **Kaldırıldığı Sürüm** | v2.4.2.0 (2026-07-21, yayın sonrası temizlik) |
+> | **Kaldırıldığı Katman** | Strict |
+> | **Neden** | Brave tarafından tanınmıyor — brave://policy/ bölümünde "Bilinmeyen politika" |
+> | **Kategori** | Çapraz köken güvenliği |
+> | **Üretimde Oldu mu** | Evet (yalnızca v2.4.2.0) |
+> | **Notlar** | COOP başlığını zorlamak amaçlanmıştı (`require-corp` değeri ile, Spectre azaltma). Chromium ADMX mevcut ancak Brave'in politika motoru onu tanımıyor. brave://policy/ bölümünde "Bilinmeyen politika" olarak gösterilir. v2.4.2.0'da kaldırıldı. |
+
+---
+
+### 24. CrossOriginEmbedderPolicy
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `CrossOriginEmbedderPolicy` |
+| **Version Added** | v2.4.2.0 (2026-07-14) |
+| **Version Removed** | v2.4.2.0 (2026-07-21, post-release cleanup) |
+| **Tier at Removal** | Strict |
+| **Reason** | Unrecognized by Brave — "Unknown policy" in brave://policy/ |
+| **Category** | Cross-origin security |
+| **Was in Production** | Yes (v2.4.2.0 only) |
+| **Notes** | Was intended to enforce COEP header (Spectre mitigation) with value `require-corp`. Same issue as CrossOriginOpPolicyHeader — Brave does not recognize this policy. Removed in v2.4.2.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `CrossOriginEmbedderPolicy` |
+> | **Eklendiği Sürüm** | v2.4.2.0 (2026-07-14) |
+> | **Kaldırıldığı Sürüm** | v2.4.2.0 (2026-07-21, yayın sonrası temizlik) |
+> | **Kaldırıldığı Katman** | Strict |
+> | **Neden** | Brave tarafından tanınmıyor — brave://policy/ bölümünde "Bilinmeyen politika" |
+> | **Kategori** | Çapraz köken güvenliği |
+> | **Üretimde Oldu mu** | Evet (yalnızca v2.4.2.0) |
+> | **Notlar** | COEP başlığını zorlamak amaçlanmıştı (`require-corp` değeri ile, Spectre azaltma). CrossOriginOpPolicyHeader ile aynı sorun — Brave bu politikayı tanımıyor. v2.4.2.0'da kaldırıldı. |
+
+---
+
+### 25. DanglingOriginCheckEnforcement
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `DanglingOriginCheckEnforcement` |
+| **Version Added** | v2.4.2.0 (2026-07-14) |
+| **Version Removed** | v2.4.2.0 (2026-07-21, post-release cleanup) |
+| **Tier at Removal** | Strict |
+| **Reason** | Unrecognized by Brave — "Unknown policy" in brave://policy/ |
+| **Category** | Navigation security |
+| **Was in Production** | Yes (v2.4.2.0 only) |
+| **Notes** | Was intended to block dangling origin navigations (DWord: 1). Brave does not recognize this Chromium policy. Removed in v2.4.2.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `DanglingOriginCheckEnforcement` |
+> | **Eklendiği Sürüm** | v2.4.2.0 (2026-07-14) |
+> | **Kaldırıldığı Sürüm** | v2.4.2.0 (2026-07-21, yayın sonrası temizlik) |
+> | **Kaldırıldığı Katman** | Strict |
+> | **Neden** | Brave tarafından tanınmıyor — brave://policy/ bölümünde "Bilinmeyen politika" |
+> | **Kategori** | Gezinti güvenliği |
+> | **Üretimde Oldu mu** | Evet (yalnızca v2.4.2.0) |
+> | **Notlar** | Asılı köken gezintilerini engellemek amaçlanmıştı (DWord: 1). Brave bu Chromium politikasını tanımıyor. v2.4.2.0'da kaldırıldı. |
+
+---
+
+### 26. PasswordReuseDetectionEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `PasswordReuseDetectionEnabled` |
+| **Version Added** | v2.4.2.0 (2026-07-14) |
+| **Version Removed** | v2.4.2.0 (2026-07-21, post-release cleanup) |
+| **Tier at Removal** | Strict |
+| **Reason** | Unrecognized by Brave — "Unknown policy" in brave://policy/ |
+| **Category** | Password security |
+| **Was in Production** | Yes (v2.4.2.0 only) |
+| **Notes** | Was intended to warn on password reuse (DWord: 1). Brave does not recognize this Chromium policy. Note: `PasswordLeakDetectionEnabled` (also Strict) IS recognized and remains active. Removed in v2.4.2.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `PasswordReuseDetectionEnabled` |
+> | **Eklendiği Sürüm** | v2.4.2.0 (2026-07-14) |
+> | **Kaldırıldığı Sürüm** | v2.4.2.0 (2026-07-21, yayın sonrası temizlik) |
+> | **Kaldırıldığı Katman** | Strict |
+> | **Neden** | Brave tarafından tanınmıyor — brave://policy/ bölümünde "Bilinmeyen politika" |
+> | **Kategori** | Parola güvenliği |
+> | **Üretimde Oldu mu** | Evet (yalnızca v2.4.2.0) |
+> | **Notlar** | Parola tekrarında uyarı vermek amaçlanmıştı (DWord: 1). Brave bu Chromium politikasını tanımıyor. Not: `PasswordLeakDetectionEnabled` (Strict'te) TANINIYOR ve aktif kalıyor. v2.4.2.0'da kaldırıldı. |
+
+---
+
+### 27. TabDiscardingEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `TabDiscardingEnabled` |
+| **Version Added** | v2.4.2.0 (2026-07-14) |
+| **Version Removed** | v2.4.2.0 (2026-07-21, post-release cleanup) |
+| **Tier at Removal** | Strict |
+| **Reason** | Unrecognized by Brave — "Unknown policy" in brave://policy/ |
+| **Category** | Tab management / Memory |
+| **Was in Production** | Yes (v2.4.2.0 only) |
+| **Notes** | Was intended to enable tab discarding under memory pressure (DWord: 1). Brave does not recognize this Chromium policy. Removed in v2.4.2.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `TabDiscardingEnabled` |
+> | **Eklendiği Sürüm** | v2.4.2.0 (2026-07-14) |
+> | **Kaldırıldığı Sürüm** | v2.4.2.0 (2026-07-21, yayın sonrası temizlik) |
+> | **Kaldırıldığı Katman** | Strict |
+> | **Neden** | Brave tarafından tanınmıyor — brave://policy/ bölümünde "Bilinmeyen politika" |
+> | **Kategori** | Sekme yönetimi / Bellek |
+> | **Üretimde Oldu mu** | Evet (yalnızca v2.4.2.0) |
+> | **Notlar** | Bellek basıncında sekme atmayı etkinleştirmek amaçlanmıştı (DWord: 1). Brave bu Chromium politikasını tanımıyor. v2.4.2.0'da kaldırıldı. |
+
+---
+
+### 28. ContextualSearchEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `ContextualSearchEnabled` |
+| **Version Added** | v2.4.2.0 (2026-07-14) |
+| **Version Removed** | v2.4.2.0 (2026-07-21, post-release cleanup) |
+| **Tier at Removal** | Strict |
+| **Reason** | Unrecognized by Brave — "Unknown policy" in brave://policy/ |
+| **Category** | Search / Privacy |
+| **Was in Production** | Yes (v2.4.2.0 only) |
+| **Notes** | Was intended to disable touch-to-search contextual search (DWord: 0). Brave does not recognize this Chromium policy. Removed in v2.4.2.0. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `ContextualSearchEnabled` |
+> | **Eklendiği Sürüm** | v2.4.2.0 (2026-07-14) |
+> | **Kaldırıldığı Sürüm** | v2.4.2.0 (2026-07-21, yayın sonrası temizlik) |
+> | **Kaldırıldığı Katman** | Strict |
+> | **Neden** | Brave tarafından tanınmıyor — brave://policy/ bölümünde "Bilinmeyen politika" |
+> | **Kategori** | Arama / Gizlilik |
+> | **Üretimde Oldu mu** | Evet (yalnızca v2.4.2.0) |
+> | **Notlar** | Dokunarak arama bağlam aramasını devre dışı bırakmak amaçlanmıştı (DWord: 0). Brave bu Chromium politikasını tanımıyor. v2.4.2.0'da kaldırıldı. |
+
+---
+
 ## Policies Moved (Not Removed)
 ## Taşınan Politikalar (Kaldırılmayan)
 
@@ -757,6 +925,19 @@ v2.4.1.0 (2026-07-12) — AutoFillEnabled removed (deprecated, redundant)
                           NewTabPageLocation kaldırıldı (Brave tarafından engellendi)
                           RestoreOnStartup kaldırıldı (Brave tarafından engellendi)
                           GenAiDefaultSettings kaldırıldı (yalnızca bulut)
+  ↓
+v2.4.2.0 (2026-07-21) — CrossOriginOpPolicyHeader removed (unrecognized)
+                          CrossOriginEmbedderPolicy removed (unrecognized)
+                          DanglingOriginCheckEnforcement removed (unrecognized)
+                          PasswordReuseDetectionEnabled removed (unrecognized)
+                          TabDiscardingEnabled removed (unrecognized)
+                          ContextualSearchEnabled removed (unrecognized)
+                          CrossOriginOpPolicyHeader kaldırıldı (tanınmayan)
+                          CrossOriginEmbedderPolicy kaldırıldı (tanınmayan)
+                          DanglingOriginCheckEnforcement kaldırıldı (tanınmayan)
+                          PasswordReuseDetectionEnabled kaldırıldı (tanınmayan)
+                          TabDiscardingEnabled kaldırıldı (tanınmayan)
+                          ContextualSearchEnabled kaldırıldı (tanınmayan)
 ```
 
 ---
@@ -764,8 +945,8 @@ v2.4.1.0 (2026-07-12) — AutoFillEnabled removed (deprecated, redundant)
 ## Categories of Rejection
 ## Reddetme Kategorileri
 
-### Deprecated by Chromium/Chrome (8 policies)
-### Chromium/Chrome Tarafından Kademeli Olarak Kaldırılan (8 politika)
+### Deprecated by Chromium/Chrome (9 policies)
+### Chromium/Chrome Tarafından Kademeli Olarak Kaldırılan (9 politika)
 Policies removed because Chromium/Chrome deprecated the underlying feature or replaced it with a more granular control.
 Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrıntılı bir kontrol ile değiştirdiği için kaldırılan politikalar.
 
@@ -779,6 +960,7 @@ Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrın
 | `AllowPopupsDuringPageUnload` | N/A (policy deprecated) |
 | `ExtensionManifestV2Availability` | N/A (MV2 sunset handled differently) |
 | `DefaultThirdPartyStoragePartitioningSetting` | N/A (partitioning now mandatory) |
+| `InsecureFormsWarningsEnabled` | N/A (deprecated in Brave 1.92) |
 
 > 🇹🇷 **Türkçe:**
 >
@@ -792,6 +974,7 @@ Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrın
 > | `AllowPopupsDuringPageUnload` | Yok (politika kademeli olarak kaldırıldı) |
 > | `ExtensionManifestV2Availability` | Yok (MV2 gün batımı farklı şekilde ele alınıyor) |
 > | `DefaultThirdPartyStoragePartitioningSetting` | Yok (bölümleme artık zorunlu) |
+> | `InsecureFormsWarningsEnabled` | Yok (Brave 1.92'de kademeli olarak kaldırıldı) |
 
 ### Blocked by Brave (3 policies)
 ### Brave Tarafından Engellenen (3 politika)
@@ -812,8 +995,8 @@ Brave tarayıcısının Chromium kurumsal politikasını açıkça engellediği 
 > | `NewTabPageLocation` | HomepageLocation ile aynı |
 > | `RestoreOnStartup` | Brave başlangıcı kendi ayarları aracılığıyla kontrol eder |
 
-### Unrecognized by Brave (5 policies)
-### Brave Tarafından Tanınmayan (5 politika)
+### Unrecognized by Brave (11 policies)
+### Brave Tarafından Tanınmayan (11 politika)
 Policies not present in Brave's policy engine.
 Brave'in politika motorunda bulunmayan politikalar.
 
@@ -824,6 +1007,12 @@ Brave'in politika motorunda bulunmayan politikalar.
 | `ManifestV2ExtensionUnsupported` | Unknown in Brave 1.92 |
 | `InstantMessageSendingEnabled` | "Bilinmeyen politika" |
 | `DoNotTrackEnabled` | "Bilinmeyen politika" |
+| `CrossOriginOpPolicyHeader` | "Unknown policy" |
+| `CrossOriginEmbedderPolicy` | "Unknown policy" |
+| `DanglingOriginCheckEnforcement` | "Unknown policy" |
+| `PasswordReuseDetectionEnabled` | "Unknown policy" |
+| `TabDiscardingEnabled` | "Unknown policy" |
+| `ContextualSearchEnabled` | "Unknown policy" |
 
 > 🇹🇷 **Türkçe:**
 >
@@ -834,15 +1023,39 @@ Brave'in politika motorunda bulunmayan politikalar.
 > | `ManifestV2ExtensionUnsupported` | Brave 1.92'de bilinmiyor |
 > | `InstantMessageSendingEnabled` | "Bilinmeyen politika" |
 > | `DoNotTrackEnabled` | "Bilinmeyen politika" |
+> | `CrossOriginOpPolicyHeader` | "Bilinmeyen politika" |
+> | `CrossOriginEmbedderPolicy` | "Bilinmeyen politika" |
+> | `DanglingOriginCheckEnforcement` | "Bilinmeyen politika" |
+> | `PasswordReuseDetectionEnabled` | "Bilinmeyen politika" |
+> | `TabDiscardingEnabled` | "Bilinmeyen politika" |
+> | `ContextualSearchEnabled` | "Bilinmeyen politika" |
 
-### Other (5 policies)
-### Diğer (5 politika)
+### Cloud-only (not local) (3 policies)
+### Yalnızca bulut tabanlı (yerel olmayan) (3 politika)
+Policies that require Brave Browser Cloud Management infrastructure; local HKLM registry deployment is ignored.
+Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM kayıt defteri dağıtımı yoksayılır.
+
+| Policy | Brave Error Message |
+|--------|-------------------|
+| `GenAiDefaultSettings` | Requires cloud source, not local registry |
+| `CacheEncryptionEnabled` | "Yalnızca bulut kullanıcı politikası olarak ayarlanabileceği için politika yoksayıldı" |
+| `CloudReportingEnabled` | "Makine, Brave Tarayıcı Bulut Yönetimi'ne kayıtlı olmadığı için yok sayıldı" |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Politika | Brave Hata Mesajı |
+> |----------|-------------------|
+> | `GenAiDefaultSettings` | Bulut kaynağı gerektiriyor, yerel kayıt defteri değil |
+> | `CacheEncryptionEnabled` | "Yalnızca bulut kullanıcı politikası olarak ayarlanabileceği için politika yoksayıldı" |
+> | `CloudReportingEnabled` | "Makine, Brave Tarayıcı Bulut Yönetimi'ne kayıtlı olmadığı için yok sayıldı" |
+
+### Other (4 policies)
+### Diğer (4 politika)
 
 | Policy | Reason |
 |--------|--------|
 | `BraveLocalAIEnabled` | Origin-only, not in stable channel |
 | `DefaultDirectSocketsSetting` | Future/unreleased in Brave |
-| `GenAiDefaultSettings` | Requires cloud source, not local registry |
 | `BraveUpdateDisabled` | Unknown in Brave 1.92 |
 | `StartupUrls` / `SSLVersionMin` | Never implemented (planned only) |
 
@@ -852,7 +1065,6 @@ Brave'in politika motorunda bulunmayan politikalar.
 > |----------|-------|
 > | `BraveLocalAIEnabled` | Yalnızca origin, stabil kanalda yok |
 > | `DefaultDirectSocketsSetting` | Brave'de gelecek/yayınlanmamış |
-> | `GenAiDefaultSettings` | Bulut kaynağı gerektiriyor, yerel kayıt defteri değil |
 > | `BraveUpdateDisabled` | Brave 1.92'de bilinmiyor |
 > | `StartupUrls` / `SSLVersionMin` | Hiç uygulanmadı (yalnızca planlanan) |
 
@@ -885,10 +1097,10 @@ Brave'in politika motorunda bulunmayan politikalar.
 
 ---
 
-*Last updated: v2.4.1.0 (2026-07-12)*
-*Total policies ever rejected/removed: 24*
-*Current active policies: 133 (v2.4.1.0)*
+*Last updated: v2.5.0.0 (2026-07-21)*
+*Total policies ever rejected/removed: 33*
+*Current active policies: 150 (v2.5.0.0)*
 
-*Son güncelleme: v2.4.1.0 (2026-07-12)*
-*Toplam reddedilen/kaldırılan politika: 24*
-*Mevcut aktif politikalar: 133 (v2.4.1.0)*
+*Son güncelleme: v2.5.0.0 (2026-07-21)*
+*Toplam reddedilen/kaldırılan politika: 33*
+*Mevcut aktif politikalar: 150 (v2.5.0.0)*

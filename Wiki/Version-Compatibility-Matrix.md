@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.4.2.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Active | 2026-07-17 |
+| **v2.5.0.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Active | 2026-07-21 |
+| **v2.4.2.0** | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | 📦 Previous | 2026-07-17 |
 | **v2.4.1.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Previous | 2026-07-12 |
 | **v2.4.0.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Previous | 2026-07-11 |
 | **v2.3.1.0** | 1.92.139 | 150.0.7871.176 | Windows 11 25H2 | 📦 Previous | 2026-07-10 |
@@ -62,16 +63,16 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.4.2.0) If
+### Use Current (v2.5.0.0) If
 
 - Running Brave 1.92.141 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
-- Need full extension lockdown, proxy enforcement, and 133 total policies
+- Need full extension lockdown, proxy enforcement, and 150 total policies
 
-### Use Previous (v2.4.1.0) If
+### Use Previous (v2.4.2.0) If
 
-- Cannot update to v2.4.2.0 immediately
-- Running Brave 1.92.138
+- Cannot update to v2.5.0.0 immediately
+- Running Brave 1.92.141
 
 ### Use Legacy (v2.2.1.0) If
 
@@ -81,7 +82,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ### Avoid Archived (v1.0) If
 
-- Policies outdated (only 7 vs 133 current)
+- Policies outdated (only 7 vs 150 current)
 - No backup/rollback, no process guard
 - No lifecycle commitment features
 
@@ -122,6 +123,7 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
+| v2.5.0.0 | 150 | 100% | 17 new policies (133→150): AI/GenAI blocks, local network access controls, capture restrictions, LNA permissions, renderer sandbox |
 | v2.4.2.0 | 133 | 100% | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation |
 | v2.4.1.0 | 133 | 100% | Removed 8 deprecated/broken policies (141→133), simplified extensions to Dark Reader only |
 | v2.4.0.0 | 141 | 100% | Phase 9: 30 new policies across all 5 tiers (111→141); extension policy overhaul, BrowsingDataLifetime, CORS headers, password detection |
@@ -194,7 +196,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.4.2.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Güncel | 2026-07-17 |
+| **v2.5.0.0** ⭐ | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | ✅ Güncel | 2026-07-21 |
+| **v2.4.2.0** | 1.92.141 | 150.0.7871.128 | Windows 11 25H2 | 📦 Önceki | 2026-07-17 |
 | **v2.4.1.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Önceki | 2026-07-12 |
 | **v2.4.0.0** | 1.92.140 | 150.0.7871.125 | Windows 11 25H2 | 📦 Önceki | 2026-07-11 |
 | **v2.3.1.0** | 1.92.139 | 150.0.7871.176 | Windows 11 25H2 | 📦 Önceki | 2026-07-10 |
@@ -243,16 +246,16 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.4.2.0) Kullan Eğer
+### Güncel (v2.5.0.0) Kullan Eğer
 
 - Brave 1.92.141 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
-- Tam uzantı kilitleme, proxy zorunlu kılma ve 133 toplam politika
+- Tam uzantı kilitleme, proxy zorunlu kılma ve 150 toplam politika
 
-### Önceki (v2.4.1.0) Kullan Eğer
+### Önceki (v2.4.2.0) Kullan Eğer
 
-- Hemen v2.4.2.0'a güncelleyemiyorsanız
-- Brave 1.92.140 çalışıyorsa
+- Hemen v2.5.0.0'a güncelleyemiyorsanız
+- Brave 1.92.141 çalışıyorsa
 
 ### Eski (v2.2.1.0) Kullan Eğer
 
@@ -262,7 +265,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Arşivlenmiş (v1.0) Kullanma Eğer
 
-- Politikalar güncel değil (7'ye karşı 133)
+- Politikalar güncel değil (7'ye karşı 150)
 - Yedekleme/geri alma, süreç koruyucusu yok
 - Yaşam döngüsü taahhüdü özellikleri yok
 
@@ -303,6 +306,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
+| v2.5.0.0 | 150 | 100% | 133→150 arası 17 yeni politika: Yapay zeka/GenAI engelleri, yerel ağ erişim kontrolleri, yakalama kısıtlamaları, LNA izinleri, işleyici kum havuzu |
 | v2.4.2.0 | 133 | 100% | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması |
 | v2.4.1.0 | 133 | 100% | 8 kullanım dışı/kırık politika kaldırıldı (141→133), uzantılar Dark Reader olarak basitleştirildi |
 | v2.4.0.0 | 141 | 100% | 9. Aşama: 5 kademede 30 yeni politika (111→141); uzantı politikası revizyonu, BrowsingDataLifetime, CORS başlıkları, parola algılama |

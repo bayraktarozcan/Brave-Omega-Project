@@ -24,7 +24,7 @@ body:
     attributes:
       label: "Windows Version / Windows Sürümü"
       description: "Output of winver"
-      placeholder: "e.g. Windows 11 25H2 Build 26200.8524"
+      placeholder: "e.g. Windows 11 25H2 Build 26200.8894"
     validations:
       required: true
 

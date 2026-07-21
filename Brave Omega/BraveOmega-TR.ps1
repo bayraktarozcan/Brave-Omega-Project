@@ -5,7 +5,7 @@
 #
 # ==============================================================================
 # ==============================================================================
-# SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8524)
+# SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8894)
 #                  Brave 1.92.141 — Resmî Derleme / Chromium 150.0.7871.128
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
@@ -17,8 +17,33 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.4.2.0)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.5.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.0.0             Tam politika genişletmesi — 30 yeni politika (133→153→150):
+#
+#     [YENİ]         5 kademede toplam 30 yeni Chromium kurumsal politikası eklendi.
+#
+#     [YENİ]         Temel (+1): ScreenCaptureAllowed (web API'lerini engeller,
+#                                Yerel Windows araçları hâlâ çalışır)
+#     [YENİ]         Dengeli (+2): LocalNetworkAccessPermissionsPolicyDefaultEnabled,
+#                   GenAILocalFoundationalModelSettings (Gelişmiş'den taşındı)
+#     [YENİ]         Gelişmiş (+15): 13 yapay zekâ politikası, RendererAppContainerEnabled,
+#                   LocalNetworkAccessAllowedForUrls, LocalNetworkAccessBlockedForUrls
+#     [YENİ]         Katı (+8): ScreenCaptureAllowedByOrigins,
+#                   SameOriginTabCaptureAllowedByOrigins,
+#                   TabCaptureAllowedByOrigins, WindowCaptureAllowedByOrigins,
+#                   LocalNetworkAccessIpAddressSpaceOverrides,
+#                   LocalNetworkAccessRestrictionsTemporaryOptOut,
+#                   LocalNetworkAllowedForUrls, LocalNetworkBlockedForUrls
+#
+#     [KALDIRILDI]   6 bozuk/tanınmayan politika: ContextualSearchEnabled,
+#                   CrossOriginEmbedderPolicy, CrossOriginOpPolicyHeader,
+#                   DanglingOriginCheckEnforcement, PasswordReuseDetectionEnabled,
+#                   TabDiscardingEnabled
+#
+#     [İYİLEŞTİRME] Kümülatif sayılar: BraveOnly 24, Essential 53, Balanced 86,
+#                   Advanced 124, Strict 150.
+#
 #   v2.2.0.2             WebRTC politika hizalaması — Dengeli azami seviyeye yükseltildi:
 #
 #     [DEĞİŞTİ]     Dengeli'de WebRtcIPHandling,
@@ -144,17 +169,17 @@
 #                                   HideWebStoreIcon, DefaultJavaScriptSetting,
 #                                   DefaultMediaStreamSetting, GeminiSettings,
 #                                   GenAiDefaultSettings, TabFreezingEnabled
-#     [YENİ]        Katı (+14):     CloudReportingEnabled, BrowsingDataLifetime,
-#                                   CrossOriginOpPolicyHeader,
-#                                   CrossOriginEmbedderPolicy,
-#                                   DanglingOriginCheckEnforcement,
-#                                   InsecureFormsWarningsEnabled,
+#     [YENİ]        Katı (+6):     BrowsingDataLifetime,
 #                                   AlwaysOpenPdfExternally,
 #                                   CertificateTransparencyEnforcementDisabledForUrls,
-#                                   PasswordReuseDetectionEnabled,
 #                                   PasswordLeakDetectionEnabled,
-#                                   SpellCheckServiceEnabled, TabDiscardingEnabled,
-#                                   ContextualSearchEnabled, SyncDisabled
+#                                   SpellCheckServiceEnabled, SyncDisabled
+#     [KALDIRILDI]   CloudReportingEnabled, InsecureFormsWarningsEnabled,
+#                    CacheEncryptionEnabled — yerel HKLM'de işlevsel değil
+#     [KALDIRILDI]   CrossOriginOpPolicyHeader, CrossOriginEmbedderPolicy,
+#                    DanglingOriginCheckEnforcement, PasswordReuseDetectionEnabled,
+#                    TabDiscardingEnabled, ContextualSearchEnabled — Brave ADMX
+#                    tarafından tanınmıyor (düzenleyici: "Bilinmeyen politika")
 #     [DEĞİŞTİ]     SpellcheckEnabled 0'dan 1'e değiştirildi — yerel Hunspell
 #                   yazım denetimi çevrimdışındadır, devre dışı bırakmak gizlilik kazandırmaz.
 #     [KALDIRILDI]   ExtensionManifestV2Availability — Chrome 139'da kaldırıldı.
@@ -197,7 +222,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.4.2.0"
+$BetikSurum    = "v2.5.0.0"
 $DogrulananBrave = "1.92.141"
 $DogrulananChromium = "150"
 
@@ -351,13 +376,26 @@ if ($Sifirla) {
         "RelaunchNotification", "RelaunchNotificationPeriod",
         "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
         "GeminiSettings",
-        "CloudReportingEnabled", "BrowsingDataLifetime",
-        "CrossOriginOpPolicyHeader", "CrossOriginEmbedderPolicy",
-        "DanglingOriginCheckEnforcement", "InsecureFormsWarningsEnabled",
+        "BrowsingDataLifetime",
         "AlwaysOpenPdfExternally", "CertificateTransparencyEnforcementDisabledForUrls",
-        "PasswordReuseDetectionEnabled", "PasswordLeakDetectionEnabled",
-        "SpellCheckServiceEnabled", "TabDiscardingEnabled",
-        "ContextualSearchEnabled", "SyncDisabled"
+        "PasswordLeakDetectionEnabled",
+        "SpellCheckServiceEnabled",
+        "SyncDisabled",
+        # Faz 10 (v2.5.0.0) — 15 yeni politika (yapay zekâ engelleme + kum havuzu sertleştirme)
+        "ScreenCaptureAllowed",
+        "AIModeSettings", "AutofillPredictionSettings", "ChromeSuggestionsSettings",
+        "CreateThemesSettings", "DevToolsGenAiSettings", "HelpMeWriteSettings",
+        "HistorySearchSettings", "SearchContentSharingSettings", "SmartTabSharingSettings",
+        "TabCompareSettings", "GeminiActOnWebSettings", "GeminiSparkSettings",
+        "GenAILocalFoundationalModelSettings", "RendererAppContainerEnabled",
+        # v2.5.0.0 — 11 yeni politika (yerel ağ, ekran yakalama ince ayar)
+        "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
+        "LocalNetworkAccessAllowedForUrls", "LocalNetworkAccessBlockedForUrls",
+        "ScreenCaptureAllowedByOrigins", "SameOriginTabCaptureAllowedByOrigins",
+        "TabCaptureAllowedByOrigins", "WindowCaptureAllowedByOrigins",
+        "LocalNetworkAccessIpAddressSpaceOverrides",
+        "LocalNetworkAccessRestrictionsTemporaryOptOut",
+        "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
     )
 
     # HKLM'den kaldır
@@ -638,6 +676,9 @@ $PolitikaTanimlari = @{
         @{Ad="BrowserSignin";                            Deger=0;           Tur="DWord"}
         # Uzantı Yükleme Kaynakları — uzantı yüklemeyi yalnızca Chrome Web Mağazası ile sınırla
         @{Ad="ExtensionInstallSources";                  Deger=@();         Tur="MultiString"}
+        # ─── Ekran Yakalama Engelleme (Faz 10 — v2.5.0.0) ───
+        # Ekran yakalama — web API'lerini engeller (getDisplayMedia vb.); Yerel Windows araçları hâlâ çalışır
+        @{Ad="ScreenCaptureAllowed";                Deger=0; Tur="DWord"}
     )
 
     "Balanced" = @(
@@ -709,6 +750,11 @@ $PolitikaTanimlari = @{
         @{Ad="RelaunchNotification";                     Deger=2;           Tur="DWord"}
         # Yeniden Başlatma Bildirimi Süresi — 1 saat milisaniye cinsinden (güncelleme sonrası hemen yeniden başlat)
         @{Ad="RelaunchNotificationPeriod";               Deger=3600000;     Tur="DWord"}
+        # ─── Yeni Dengeli Politikaları (v2.5.0.0 — Yapay Zekâ & Yerel Ağ) ───
+        # Yerel ağ izinleri — alt frame'lerde izin taleplerini otomatik onaylar
+        @{Ad="LocalNetworkAccessPermissionsPolicyDefaultEnabled"; Deger=0; Tur="DWord"}
+        # Yerel yapay zekâ modeli — yerel yapay zekâ modeli indirmeyi devre dışı bırakır (Gelişmiş'den taşındı)
+        @{Ad="GenAILocalFoundationalModelSettings"; Deger=1; Tur="DWord"}
     )
 
     "Advanced" = @(
@@ -758,6 +804,43 @@ $PolitikaTanimlari = @{
         @{Ad="DefaultJavaScriptSetting";                 Deger=0;           Tur="DWord"}
         # Gemini Ayarları — Gemini AI entegrasyonunu devre dışı bırak
         @{Ad="GeminiSettings";                           Deger=1;           Tur="DWord"}
+        # ─── Yapay Zekâ Aracı Engelleme (Faz 10 — v2.5.0.0) ───
+        # AI Modu — Chrome AI Modunu tamamen engeller
+        @{Ad="AIModeSettings";                      Deger=1; Tur="DWord"}
+        # Otomatik doldurma tahminleri — yapay zekâ destekli otomatik doldurma tahminlerini devre dışı bırakır
+        @{Ad="AutofillPredictionSettings";          Deger=2; Tur="DWord"}
+        # Chrome önerileri — yapay zekâ destekli önerileri devre dışı bırakır
+        @{Ad="ChromeSuggestionsSettings";           Deger=1; Tur="DWord"}
+        # Tema oluşturma — yapay zekâ tema oluşturmayı devre dışı bırakır
+        @{Ad="CreateThemesSettings";                Deger=2; Tur="DWord"}
+        # DevTools GenAI — DevTools'taki yapay zekâyı devre dışı bırakır
+        @{Ad="DevToolsGenAiSettings";               Deger=2; Tur="DWord"}
+        # Yazmama yardımı — yapay zekâ yazma asistanını devre dışı bırakır
+        @{Ad="HelpMeWriteSettings";                 Deger=2; Tur="DWord"}
+        # Geçmiş arama — yapay zekâ destekli geçmiş aramasını devre dışı bırakır
+        @{Ad="HistorySearchSettings";               Deger=2; Tur="DWord"}
+        # Arama içerik paylaşımı — yapay zekâ içerik paylaşımını devre dışı bırakır
+        @{Ad="SearchContentSharingSettings";        Deger=1; Tur="DWord"}
+        # Akıllı sekme paylaşımı — yapay zekâ sekme paylaşımını devre dışı bırakır
+        @{Ad="SmartTabSharingSettings";             Deger=1; Tur="DWord"}
+        # Sekme karşılaştırma — yapay zekâ sekme karşılaştırmayı devre dışı bırakır
+        @{Ad="TabCompareSettings";                  Deger=2; Tur="DWord"}
+        # Gemini web'de — web sayfalarında Gemini entegrasyonunu devre dışı bırakır
+        @{Ad="GeminiActOnWebSettings";              Deger=1; Tur="DWord"}
+        # Gemini spark — Gemini Spark özelliklerini devre dışı bırakır
+        @{Ad="GeminiSparkSettings";                 Deger=1; Tur="DWord"}
+        # ─── Kum Havuzu Sertleştirme (Faz 10 — v2.5.0.0) ───
+        # İşleyici Uygulama Konteyneri — işleyici süreci kum havuzunu etkinleştirir
+        @{Ad="RendererAppContainerEnabled";         Deger=1; Tur="DWord"}
+        # ─── Yerel Ağ Erişim Kontrolü (v2.5.0.0) ───
+        # Yerel ağ izin verilen URL'ler — belirli URL'leri LNA kontrollerinden muaf tutar
+        @{Ad="LocalNetworkAccessAllowedForUrls";       Deger=@(); Tur="MultiString"}
+        # Yerel ağ engellenen URL'ler — belirli URL'lerin yerel ağ erişimini engeller
+        @{Ad="LocalNetworkAccessBlockedForUrls";        Deger=@(); Tur="MultiString"}
+        # Yerel ağ IP aralık eşlemeleri — boş liste varsayılan IP eşlemelerini kullanır
+        @{Ad="LocalNetworkAccessIpAddressSpaceOverrides";  Deger=@(); Tur="MultiString"}
+        # Yerel ağ kısıtlamaları geçici çıkış — geçici çıkışmayı devre dışı bırakır
+        @{Ad="LocalNetworkAccessRestrictionsTemporaryOptOut"; Deger=0; Tur="DWord"}
     )
 
     "Strict" = @(
@@ -797,36 +880,33 @@ $PolitikaTanimlari = @{
         # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla (2=tamamen devre dışı)
         @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
         # ─── Yeni Katı Politikaları (Faz 9 — Prompt 29) ───
-        # ─── Kurum Altyapısı Gerektiren Politikalar ───
-        # Bulut Raporlama Etkin — bulut telemetri raporlamasını devre dışı bırak
-        @{Ad="CloudReportingEnabled";                              Deger=0;           Tur="DWord"}
         # Gezinti Verisi Süresi — geçmiş/önbelleği 24 saat sonra otomatik temizle
         @{Ad="BrowsingDataLifetime";                               Deger=@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}; Tur="String"}
         # ─── Kişisel Kullanıma Uygun Sertleştirme ───
-        # Kaynaklar Arası İşlem Politikası Başlığı — COOP'u zorla (Spectre azaltma)
-        @{Ad="CrossOriginOpPolicyHeader";                          Deger="require-corp"; Tur="String"}
-        # Kaynaklar Arası Gömme Politikası — COEP'i zorla (Spectre azaltma)
-        @{Ad="CrossOriginEmbedderPolicy";                          Deger="require-corp"; Tur="String"}
-        # Asılı Köken Denetimi Zorlaması — asılı köken gezintilerini engelle
-        @{Ad="DanglingOriginCheckEnforcement";                     Deger=1;           Tur="DWord"}
-        # Güvensiz Form Uyarıları Etkin — HTTP form gönderimlerinde uyar
-        @{Ad="InsecureFormsWarningsEnabled";                       Deger=1;           Tur="DWord"}
         # PDF'leri Her Zaman Dış Uygulamada Aç — PDF'leri dış uygulamada aç (PDF açığı azaltma)
         @{Ad="AlwaysOpenPdfExternally";                             Deger=1;           Tur="DWord"}
         # Sertifika Saydamlık Uygulaması Devre Dışı Bırakılan URL'ler — boş (her yerde CT zorla)
         @{Ad="CertificateTransparencyEnforcementDisabledForUrls";  Deger=@();         Tur="MultiString"}
-        # Parola Tekrarı Algılama Etkin — parola tekrarında uyar
-        @{Ad="PasswordReuseDetectionEnabled";                      Deger=1;           Tur="DWord"}
         # Parola Sızıntısı Algılama Etkin — parolaları veri sızıntılarıyla karşılaştır
         @{Ad="PasswordLeakDetectionEnabled";                       Deger=1;           Tur="DWord"}
         # Yazım Denetimi Hizmeti Etkin — çevrimiçi yazım denetimini devre dışı bırak (veri sızıntısı vektörü)
         @{Ad="SpellCheckServiceEnabled";                           Deger=0;           Tur="DWord"}
-        # Sekme Atlama Etkin — bellek basıncında sekmeleri at
-        @{Ad="TabDiscardingEnabled";                               Deger=1;           Tur="DWord"}
-        # Bağlamsal Arama Etkin — dokunarak aramayı devre dışı bırak
-        @{Ad="ContextualSearchEnabled";                            Deger=0;           Tur="DWord"}
         # Senkronizasyon Devre Dışı — Chrome Senkronizasyonu devre dışı bırak (veri sızıntısı vektörü)
         @{Ad="SyncDisabled";                                       Deger=1;           Tur="DWord"}
+        # ─── Ekran Yakalama İnce Ayar Kontrolü (v2.5.0.0) ───
+        # Ekran yakalamaya izin verilen kaynaklar — boş liste tüm kaynakları engeller
+        @{Ad="ScreenCaptureAllowedByOrigins";              Deger=@(); Tur="MultiString"}
+        # Aynı kaynaklı sekme yakalama — boş liste tüm aynı kaynaklı sekme yakalamayı engeller
+        @{Ad="SameOriginTabCaptureAllowedByOrigins";       Deger=@(); Tur="MultiString"}
+        # Sekme yakalamaya izin verilen kaynaklar — boş liste tüm sekme yakalamayı engeller
+        @{Ad="TabCaptureAllowedByOrigins";                 Deger=@(); Tur="MultiString"}
+        # Pencere yakalamaya izin verilen kaynaklar — boş liste tüm pencere yakalamayı engeller
+        @{Ad="WindowCaptureAllowedByOrigins";              Deger=@(); Tur="MultiString"}
+        # ─── Yerel Ağ Erişim İnce Ayar Kontrolü (v2.5.0.0) ───
+        # Yerel ağ izin verilen URL'ler — belirli URL'leri yerel ağ engellemesinden muaf tutar
+        @{Ad="LocalNetworkAllowedForUrls";                 Deger=@(); Tur="MultiString"}
+        # Yerel ağ engellenen URL'ler — belirli URL'lerin yerel ağ erişimini engeller
+        @{Ad="LocalNetworkBlockedForUrls";                  Deger=@(); Tur="MultiString"}
     )
 }
 

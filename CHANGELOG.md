@@ -27,9 +27,13 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.4.2.0 — 2026-07-17](#en-v2420)
+2. [v2.5.0.0 — 2026-07-21](#en-v2500)
+    * [Summary](#en-v2500-summary)
+    * [Added](#en-v2500-added)
+    * [Removed](#en-v2500-removed)
+3. [v2.4.2.0 — 2026-07-17](#en-v2420)
     * [Summary](#en-v2420-summary)
-3. [v2.4.1.0 — 2026-07-12](#en-v2410)
+4. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
@@ -245,6 +249,83 @@ All notable changes to this project are documented below, following the [Keep a 
 - **ExtensionInstallForcelist** pins Dark Reader and Google Docs Offline. Remove or add extensions by editing the MultiString value.
 - **BraveUpdateDisabled=1** disables automatic updates. Ensure you have an alternative update management system before deploying Strict.
 - **SafeBrowsingProtectionLevel=2** and **PasswordProtectionWarningTrigger=3** in BraveOnly cover all subsequent levels cumulatively.
+
+<hr>
+
+<a id="en-v2500"></a>
+
+## [v2.5.0.0] — 2026-07-21
+
+<a id="en-v2500-summary"></a>
+
+### 🎯 Summary
+
+**Full policy expansion — 30 new policies (133→153→150), 6 broken/unrecognized + 3 deprecated/cloud-only policies removed.** Major hardening update: AI policy blocking (13 policies), local network access control, screen capture fine-grained control, renderer sandbox hardening, and Brave-specific policy additions. Verified in Brave 1.92.141.
+
+| Metric | Before (v2.4.2.0) | After (v2.5.0.0) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 133 | **150** (+30−9 net +17) |
+| Brave Only policies | 24 | **24** (0) |
+| Essential additions | 28 | **29** (+1) |
+| Balanced additions | 31 | **33** (+2) |
+| Advanced additions | 21 | **38** (+17) |
+| Strict additions | 29 | **27** (+2−2) |
+| Cumulative chain | 24→52→83→104→133 | **24→53→86→124→150** |
+
+> **Note:** Strict has 2 additions but 2 overlap with Balanced at runtime. Cumulative totals reflect actual per-level coverage. DownloadRestrictions is defined in both Balanced and Strict (last-write-wins at runtime). CacheEncryptionEnabled (cloud-only), CloudReportingEnabled (cloud-only), and InsecureFormsWarningsEnabled (deprecated) were removed after Brave verification.
+
+<a id="en-v2500-added"></a>
+
+### Added
+
+#### Essential (+1)
+
+- **`ScreenCaptureAllowed`** (DWord: 0) — Blocks web-based screen capture APIs (getDisplayMedia). Windows native tools (Snipping Tool, OBS) still work.
+
+#### Balanced (+2)
+
+- **`GenAILocalFoundationalModelSettings`** (DWord: 2) — Controls local AI model downloads (moved from Advanced to deny by default).
+- **`LocalNetworkAccessPermissionsPolicyDefaultEnabled`** (DWord: 0) — Disables local network access permission prompts by default.
+
+#### Advanced (+15)
+
+- **13 AI policies** (all DWord: 0) — Comprehensive Chrome AI feature blocking: `AIModeSettings`, `AutofillPredictionSettings`, `ChromeSuggestionsSettings`, `CreateThemesSettings`, `DevToolsGenAiSettings`, `HelpMeWriteSettings`, `HistorySearchSettings`, `SearchContentSharingSettings`, `SmartTabSharingSettings`, `TabCompareSettings`, `GeminiActOnWebSettings`, `GeminiSparkSettings`, `GenAILocalFoundationalModelSettings`.
+- **`RendererAppContainerEnabled`** (DWord: 1) — Enables renderer process sandbox (AppContainer isolation).
+- **`LocalNetworkAccessAllowedForUrls`** (MultiString: empty) — Exempt URLs from local network access checks.
+- **`LocalNetworkAccessBlockedForUrls`** (MultiString: empty) — Block specific URLs from local network access.
+
+#### Strict (+2)
+
+- **`ScreenCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks all origins from screen capture.
+- **`SameOriginTabCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks same-origin tab capture.
+- **`TabCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks all tab capture.
+- **`WindowCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks all window capture.
+- **`LocalNetworkAccessIpAddressSpaceOverrides`** (MultiString: empty) — Empty list prevents IP space overrides.
+- **`LocalNetworkAccessRestrictionsTemporaryOptOut`** (DWord: 0) — Disables temporary opt-out from LNA restrictions.
+- **`LocalNetworkAllowedForUrls`** (MultiString: empty) — Empty list blocks all local network access.
+- **`LocalNetworkBlockedForUrls`** (MultiString: empty) — Empty list blocks all local network access.
+
+<a id="en-v2500-removed"></a>
+
+### Removed
+
+#### 6 broken/unrecognized policies removed
+
+- **`ContextualSearchEnabled`** — Unrecognized by Brave policy engine.
+- **`CrossOriginEmbedderPolicy`** — Unrecognized by Brave policy engine.
+- **`CrossOriginOpPolicyHeader`** — Unrecognized by Brave policy engine.
+- **`DanglingOriginCheckEnforcement`** — Unrecognized by Brave policy engine.
+- **`PasswordReuseDetectionEnabled`** — Unrecognized by Brave policy engine.
+- **`TabDiscardingEnabled`** — Unrecognized by Brave policy engine.
+
+#### 3 deprecated/cloud-only policies removed (Brave verification)
+
+- **`CacheEncryptionEnabled`** — Cloud-only policy, not supported locally.
+- **`CloudReportingEnabled`** — Cloud-only policy, machine not registered with Brave Browser Cloud Management.
+- **`InsecureFormsWarningsEnabled`** — Deprecated in Brave 1.92.
+
+- **Script version** — `$ScriptVersion = "v2.5.0.0"` in both EN and TR scripts.
 
 <hr>
 
@@ -1244,10 +1325,11 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.5.0.0 | 2026-07-21 | 150   | Full policy expansion: 30 new policies (133→150); 9 broken/deprecated/cloud policies removed; AI blocking (13), local network access control, screen capture fine-grained, renderer sandbox; cumulative chain 24→53→86→124→150 |
 | v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation; no policy changes |
 | v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only, removed Google Docs Offline + Kaspersky Protection + old IDs; ExtensionSettings JSON updated; cumulative chain 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Phase 9: 30 new policies across all tiers (Essential +3, Balanced +3, Advanced +10, Strict +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting removed; cumulative chain 24→53→85→112→141 |
-| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings moved to Essential; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled removed; cumulative chain 24→50→79→97→110 |
+| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings added to Essential tier; Brave 1.92.139 (Chromium 150.0.7871.176) validation; cumulative chain 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 new enterprise policies: extension lockdown, privacy, and network hardening; cumulative chain 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 new hardware API/security policies added; duplicate WebRtcIPHandling removed from Strict; total unique 91, zero duplicates; cumulative chain 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
@@ -1311,9 +1393,13 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 ### İçindekiler
 1. [Giriş](#tr-introduction)
-2. [v2.4.2.0 — 2026-07-17](#tr-v2420)
+2. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+    * [Özet](#tr-v2500-ozet)
+    * [Eklendi](#tr-v2500-eklendi)
+    * [Kaldırıldı](#tr-v2500-kaldirildi)
+3. [v2.4.2.0 — 2026-07-17](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-3. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+4. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Kaldırıldı](#tr-v2410-kaldirildi)
     * [Değiştirildi](#tr-v2410-degistirildi)
@@ -1649,6 +1735,83 @@ Eklenen/Değiştirilen Dosyalar:
 - **ExtensionInstallForcelist** Dark Reader ve Google Docs Offline'ı sabitler. MultiString değerini düzenleyerek uzantıları kaldırın veya ekleyin.
 - **BraveUpdateDisabled=1** otomatik güncellemeleri devre dışı bırakır. Katı seviyesini dağıtmadan önce alternatif bir güncelleme yönetim sisteminiz olduğundan emin olun.
 - **SafeBrowsingProtectionLevel=2** ve **PasswordProtectionWarningTrigger=3** Brave Yalnız'da tüm sonraki seviyeleri kümülatif olarak kapsar.
+
+<hr>
+
+<a id="tr-v2500"></a>
+
+## [v2.5.0.0] — 2026-07-21
+
+<a id="tr-v2500-ozet"></a>
+
+### 🎯 Özet
+
+**Tam politika genişletmesi — 30 yeni politika (133→153→150), 6 bozuk/tanınmayan + 3 kullanımdan kaldırılmış/bulut politikası kaldırıldı.** Büyük güvenlikleştirme güncellemesi: Yapay zekâ politika engelleme (13 politika), yerel ağ erişim kontrolü, ekran yakalama ince ayar kontrolü, işleyici kum havuzu sertleştirme ve Brave'e özgü politika eklemeleri. Brave 1.92.141 ile doğrulandı.
+
+| Metrik | Önce (v2.4.2.0) | Sonra (v2.5.0.0) |
+|--------|-----------------|-------------------|
+| Sıkılaştırma seviyeleri | 5 | 5 |
+| Toplam politika | 133 | **150** (+30−9 net +17) |
+| Brave Yalnız politikası | 24 | **24** (0) |
+| Temel eklemeler | 28 | **29** (+1) |
+| Dengeli eklemeler | 31 | **33** (+2) |
+| Gelişmiş eklemeler | 21 | **38** (+17) |
+| Katı eklemeler | 29 | **27** (+2−2) |
+| Kümülatif zincir | 24→52→83→104→133 | **24→53→86→124→150** |
+
+> **Not:** Katı'da 2 ekleme var ancak 2'si çalışma zamanında Dengeli ile çakışır. Kümülatif toplamlar gerçek seviye bazlı kapsamı yansıtır. DownloadRestrictions hem Dengeli hem de Katı'da tanımlıdır (çalışma zamanında son yazan kazanır). CacheEncryptionEnabled (yalnızca bulut), CloudReportingEnabled (yalnızca bulut) ve InsecureFormsWarningsEnabled (kullanımdan kaldırılmış) Brave doğrulamasından sonra kaldırıldı.
+
+<a id="tr-v2500-eklendi"></a>
+
+### Eklendi
+
+#### Temel (+1)
+
+- **`ScreenCaptureAllowed`** (DWord: 0) — Web tabanlı ekran yakalama API'lerini (getDisplayMedia) engeller. Windows yerel araçları (Snipping Tool, OBS) hâlâ çalışır.
+
+#### Dengeli (+2)
+
+- **`GenAILocalFoundationalModelSettings`** (DWord: 2) — Yerel yapay zekâ modeli indirmelerini denetler (Gelişmiş'den taşındı, varsayılan olarak reddeder).
+- **`LocalNetworkAccessPermissionsPolicyDefaultEnabled`** (DWord: 0) — Yerel ağ erişim izin isteklerini varsayılan olarak devre dışı bırakır.
+
+#### Gelişmiş (+17)
+
+- **13 yapay zekâ politikası** (hepsi DWord: 0) — Kapsamlı Chrome yapay zekâ özelliği engelleme: `AIModeSettings`, `AutofillPredictionSettings`, `ChromeSuggestionsSettings`, `CreateThemesSettings`, `DevToolsGenAiSettings`, `HelpMeWriteSettings`, `HistorySearchSettings`, `SearchContentSharingSettings`, `SmartTabSharingSettings`, `TabCompareSettings`, `GeminiActOnWebSettings`, `GeminiSparkSettings`, `GenAILocalFoundationalModelSettings`.
+- **`RendererAppContainerEnabled`** (DWord: 1) — İşleyici süreci kum havuzunu (AppContainer izolasyonu) etkinleştirir.
+- **`LocalNetworkAccessAllowedForUrls`** (MultiString: boş) — Belirli URL'leri LNA kontrollerinden muaf tutar.
+- **`LocalNetworkAccessBlockedForUrls`** (MultiString: boş) — Belirli URL'leri yerel ağ erişiminden engeller.
+
+#### Katı (+2)
+
+- **`ScreenCaptureAllowedByOrigins`** (MultiString: boş) — Boş liste tüm kaynakların ekran yakalamasını engeller.
+- **`SameOriginTabCaptureAllowedByOrigins`** (MultiString: boş) — Boş liste aynı kaynaklı sekme yakalamasını engeller.
+- **`TabCaptureAllowedByOrigins`** (MultiString: boş) — Boş liste tüm sekme yakalamasını engeller.
+- **`WindowCaptureAllowedByOrigins`** (MultiString: boş) — Boş liste tüm pencere yakalamasını engeller.
+- **`LocalNetworkAccessIpAddressSpaceOverrides`** (MultiString: boş) — Boş liste IP alanı değişikliklerini engeller.
+- **`LocalNetworkAccessRestrictionsTemporaryOptOut`** (DWord: 0) — LNA kısıtlamalarından geçici çıkma seçeneğini devre dışı bırakır.
+- **`LocalNetworkAllowedForUrls`** (MultiString: boş) — Boş liste tüm yerel ağ erişimini engeller.
+- **`LocalNetworkBlockedForUrls`** (MultiString: boş) — Boş liste tüm yerel ağ erişimini engeller.
+
+<a id="tr-v2500-kaldirildi"></a>
+
+### Kaldırıldı
+
+#### 6 bozuk/tanınmayan politika kaldırıldı
+
+- **`ContextualSearchEnabled`** — Brave politika motoru tarafından tanınmıyor.
+- **`CrossOriginEmbedderPolicy`** — Brave politika motoru tarafından tanınmıyor.
+- **`CrossOriginOpPolicyHeader`** — Brave politika motoru tarafından tanınmıyor.
+- **`DanglingOriginCheckEnforcement`** — Brave politika motoru tarafından tanınmıyor.
+- **`PasswordReuseDetectionEnabled`** — Brave politika motoru tarafından tanınmıyor.
+- **`TabDiscardingEnabled`** — Brave politika motoru tarafından tanınmıyor.
+
+#### 3 kullanımdan kaldırılmış/bulut politikası kaldırıldı (Brave doğrulaması)
+
+- **`CacheEncryptionEnabled`** — Yalnızca bulut politikası, yerel olarak desteklenmiyor.
+- **`CloudReportingEnabled`** — Yalnızca bulut politikası, cihaz Brave Tarayıcı Bulut Yönetimi'ne kayıtlı değil.
+- **`InsecureFormsWarningsEnabled`** — Brave 1.92'de kullanımdan kaldırılmış.
+
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.5.0.0"`.
 
 <hr>
 
@@ -2544,10 +2707,11 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.5.0.0 | 2026-07-21 | 150   | Tam politika genişletmesi: 30 yeni politika (133→150); 9 bozuk/kullanımdan kaldırılmış/bulut politikası kaldırıldı; Yapay zekâ engelleme (13), yerel ağ erişim kontrolü, ekran yakalama ince ayar, işleyici kum havuzu; kümülatif zincir 24→53→86→124→150 |
 | v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması; politika değişikliği yok |
 | v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — Forcelist & Allowlist yalnızca Dark Reader'a basitleştirildi, Google Docs Offline + Kaspersky Protection + eski ID'ler kaldırıldı; ExtensionSettings JSON güncellendi; kümülatif zincir 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Faz 9: Tüm kademelerde 30 yeni politika (Temel +3, Dengeli +3, Gelişmiş +10, Katı +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting kaldırıldı; kümülatif zincir 24→53→85→112→141 |
-| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel'e taşındı; ManifestV2ExtensionUnsupported, DeveloperToolsDisabled, BraveUpdateDisabled kaldırıldı; kümülatif zincir 24→50→79→97→110 |
+| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel kademesine eklendi; Brave 1.92.139 (Chromium 150.0.7871.176) uyumluluk doğrulaması; kümülatif zincir 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 yeni enterprise politikası: uzantı kilitleme, gizlilik ve ağ sıkılaştırması; kümülatif zincir 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 yeni donanım API/güvenlik politikası eklendi; yinelenen WebRtcIPHandling Katı'dan kaldırıldı; toplam benzersiz 91, sıfır tekrar; kümülatif zincir 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |

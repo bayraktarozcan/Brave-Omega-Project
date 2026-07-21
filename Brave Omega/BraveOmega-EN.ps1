@@ -5,7 +5,7 @@
 #
 # ==============================================================================
 # ==============================================================================
-# VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8524)
+# VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8894)
 #                    Brave 1.92.141 — Official Build / Chromium 150.0.7871.128
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
@@ -17,8 +17,40 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.4.2.0)
+# CHANGELOG (v2.5.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.0.0             Full policy expansion — 30 new policies (133→153→150):
+#
+#     [NEW]         30 Chromium enterprise policies added across 5 tiers.
+#
+#     [NEW]         Essential (+1): ScreenCaptureAllowed (blocks web capture APIs,
+#                                 Windows native tools still work)
+#     [NEW]         Balanced (+2): LocalNetworkAccessPermissionsPolicyDefaultEnabled,
+#                   GenAILocalFoundationalModelSettings (moved from Advanced)
+#     [NEW]         Advanced (+15): 13 AI policies (AIModeSettings,
+#                   AutofillPredictionSettings, ChromeSuggestionsSettings,
+#                   CreateThemesSettings, DevToolsGenAiSettings,
+#                   HelpMeWriteSettings, HistorySearchSettings,
+#                   SearchContentSharingSettings, SmartTabSharingSettings,
+#                   TabCompareSettings, GeminiActOnWebSettings,
+#                   GeminiSparkSettings, GenAILocalFoundationalModelSettings),
+#                   RendererAppContainerEnabled (sandbox hardening),
+#                   LocalNetworkAccessAllowedForUrls, LocalNetworkAccessBlockedForUrls
+#     [NEW]         Strict (+8): ScreenCaptureAllowedByOrigins,
+#                   SameOriginTabCaptureAllowedByOrigins,
+#                   TabCaptureAllowedByOrigins, WindowCaptureAllowedByOrigins,
+#                   LocalNetworkAccessIpAddressSpaceOverrides,
+#                   LocalNetworkAccessRestrictionsTemporaryOptOut,
+#                   LocalNetworkAllowedForUrls, LocalNetworkBlockedForUrls
+#
+#     [REMOVED]     6 broken/unrecognized policies: ContextualSearchEnabled,
+#                   CrossOriginEmbedderPolicy, CrossOriginOpPolicyHeader,
+#                   DanglingOriginCheckEnforcement, PasswordReuseDetectionEnabled,
+#                   TabDiscardingEnabled
+#
+#     [IMPROVED]    Cumulative counts: BraveOnly 24, Essential 53, Balanced 86,
+#                   Advanced 124, Strict 150.
+#
 #   v2.2.0.2             WebRTC policy alignment — Balanced upgraded to maximum:
 #
 #     [CHANGED]     WebRtcIPHandling in Balanced changed from
@@ -143,17 +175,17 @@
 #                                  HideWebStoreIcon, DefaultJavaScriptSetting,
 #                                  DefaultMediaStreamSetting, GeminiSettings,
 #                                  GenAiDefaultSettings, TabFreezingEnabled
-#     [NEW]        Strict (+14):   CloudReportingEnabled, BrowsingDataLifetime,
-#                                  CrossOriginOpPolicyHeader,
-#                                  CrossOriginEmbedderPolicy,
-#                                  DanglingOriginCheckEnforcement,
-#                                  InsecureFormsWarningsEnabled,
+#     [NEW]        Strict (+6):    BrowsingDataLifetime,
 #                                  AlwaysOpenPdfExternally,
 #                                  CertificateTransparencyEnforcementDisabledForUrls,
-#                                  PasswordReuseDetectionEnabled,
 #                                  PasswordLeakDetectionEnabled,
-#                                  SpellCheckServiceEnabled, TabDiscardingEnabled,
-#                                  ContextualSearchEnabled, SyncDisabled
+#                                  SpellCheckServiceEnabled, SyncDisabled
+#     [REMOVED]    CloudReportingEnabled, InsecureFormsWarningsEnabled,
+#                  CacheEncryptionEnabled — not functional on local HKLM
+#     [REMOVED]    CrossOriginOpPolicyHeader, CrossOriginEmbedderPolicy,
+#                  DanglingOriginCheckEnforcement, PasswordReuseDetectionEnabled,
+#                  TabDiscardingEnabled, ContextualSearchEnabled — not recognized
+#                  by Brave ADMX (editor: "Unknown policy")
 #     [CHANGED]    SpellcheckEnabled changed from 0 to 1 — local Hunspell
 #                  spellcheck is offline-only, disabling gains no privacy.
 #     [REMOVED]    ExtensionManifestV2Availability — removed in Chrome 139.
@@ -196,7 +228,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.4.2.0"
+$ScriptVersion   = "v2.5.0.0"
 $ValidatedBrave  = "1.92.141"
 $ValidatedChromium = "150"
 
@@ -352,13 +384,26 @@ if ($Reset) {
         "RelaunchNotification", "RelaunchNotificationPeriod",
         "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
         "GeminiSettings",
-        "CloudReportingEnabled", "BrowsingDataLifetime",
-        "CrossOriginOpPolicyHeader", "CrossOriginEmbedderPolicy",
-        "DanglingOriginCheckEnforcement", "InsecureFormsWarningsEnabled",
+        "BrowsingDataLifetime",
         "AlwaysOpenPdfExternally", "CertificateTransparencyEnforcementDisabledForUrls",
-        "PasswordReuseDetectionEnabled", "PasswordLeakDetectionEnabled",
-        "SpellCheckServiceEnabled", "TabDiscardingEnabled",
-        "ContextualSearchEnabled", "SyncDisabled"
+        "PasswordLeakDetectionEnabled",
+        "SpellCheckServiceEnabled",
+        "SyncDisabled",
+        # Phase 10 (v2.5.0.0) — 15 new policies (AI blocking + sandbox hardening)
+        "ScreenCaptureAllowed",
+        "AIModeSettings", "AutofillPredictionSettings", "ChromeSuggestionsSettings",
+        "CreateThemesSettings", "DevToolsGenAiSettings", "HelpMeWriteSettings",
+        "HistorySearchSettings", "SearchContentSharingSettings", "SmartTabSharingSettings",
+        "TabCompareSettings", "GeminiActOnWebSettings", "GeminiSparkSettings",
+        "GenAILocalFoundationalModelSettings", "RendererAppContainerEnabled",
+        # v2.5.0.0 — 11 new policies (local network, screen capture fine-grained)
+        "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
+        "LocalNetworkAccessAllowedForUrls", "LocalNetworkAccessBlockedForUrls",
+        "ScreenCaptureAllowedByOrigins", "SameOriginTabCaptureAllowedByOrigins",
+        "TabCaptureAllowedByOrigins", "WindowCaptureAllowedByOrigins",
+        "LocalNetworkAccessIpAddressSpaceOverrides",
+        "LocalNetworkAccessRestrictionsTemporaryOptOut",
+        "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
     )
 
     # Remove from HKLM
@@ -631,6 +676,9 @@ $PolicyDefinitions = @{
         @{Name="BrowserSignin";                            Value=0;           Type="DWord"}
         # Extension Install Sources — restrict extension installation to Chrome Web Store only
         @{Name="ExtensionInstallSources";                  Value=@();         Type="MultiString"}
+        # ─── Screen Capture Blocking (Phase 10 — v2.5.0.0) ───
+        # Screen capture — blocks web APIs (getDisplayMedia, etc.); Windows native tools still work
+        @{Name="ScreenCaptureAllowed";                Value=0; Type="DWord"}
     )
 
     "Balanced" = @(
@@ -702,6 +750,11 @@ $PolicyDefinitions = @{
         @{Name="RelaunchNotification";                     Value=2;           Type="DWord"}
         # Relaunch Notification Period — 1 hour in milliseconds (force immediate update relaunch)
         @{Name="RelaunchNotificationPeriod";               Value=3600000;     Type="DWord"}
+        # ─── New Balanced Policies (v2.5.0.0 — AI & Local Network) ───
+        # Local network permissions — auto-approve permission requests in sub-frames
+        @{Name="LocalNetworkAccessPermissionsPolicyDefaultEnabled"; Value=0; Type="DWord"}
+        # GenAI local model — disables local AI model download (moved from Advanced)
+        @{Name="GenAILocalFoundationalModelSettings"; Value=1; Type="DWord"}
     )
 
     "Advanced" = @(
@@ -751,6 +804,43 @@ $PolicyDefinitions = @{
         @{Name="DefaultJavaScriptSetting";                 Value=0;           Type="DWord"}
         # Gemini Settings — disable Gemini AI integration
         @{Name="GeminiSettings";                           Value=1;           Type="DWord"}
+        # ─── AI Tool Blocking (Phase 10 — v2.5.0.0) ───
+        # AI Mode — blocks Chrome AI Mode entirely
+        @{Name="AIModeSettings";                      Value=1; Type="DWord"}
+        # Autofill predictions — disables AI-powered autofill predictions
+        @{Name="AutofillPredictionSettings";          Value=2; Type="DWord"}
+        # Chrome suggestions — disables AI-powered suggestions
+        @{Name="ChromeSuggestionsSettings";           Value=1; Type="DWord"}
+        # Create themes — disables AI theme creation
+        @{Name="CreateThemesSettings";                Value=2; Type="DWord"}
+        # DevTools GenAI — disables AI in DevTools
+        @{Name="DevToolsGenAiSettings";               Value=2; Type="DWord"}
+        # Help me write — disables AI writing assistant
+        @{Name="HelpMeWriteSettings";                 Value=2; Type="DWord"}
+        # History search — disables AI-powered history search
+        @{Name="HistorySearchSettings";               Value=2; Type="DWord"}
+        # Search content sharing — disables AI content sharing
+        @{Name="SearchContentSharingSettings";        Value=1; Type="DWord"}
+        # Smart tab sharing — disables AI tab sharing
+        @{Name="SmartTabSharingSettings";             Value=1; Type="DWord"}
+        # Tab compare — disables AI tab comparison
+        @{Name="TabCompareSettings";                  Value=2; Type="DWord"}
+        # Gemini on web — disables Gemini integration on web pages
+        @{Name="GeminiActOnWebSettings";              Value=1; Type="DWord"}
+        # Gemini spark — disables Gemini Spark features
+        @{Name="GeminiSparkSettings";                 Value=1; Type="DWord"}
+        # ─── Sandbox Hardening (Phase 10 — v2.5.0.0) ───
+        # Renderer App Container — enables renderer process sandbox
+        @{Name="RendererAppContainerEnabled";         Value=1; Type="DWord"}
+        # ─── Local Network Access Control (v2.5.0.0) ───
+        # Local network allowed URLs — exempt certain URLs from LNA checks
+        @{Name="LocalNetworkAccessAllowedForUrls";       Value=@(); Type="MultiString"}
+        # Local network blocked URLs — block certain URLs from local network access
+        @{Name="LocalNetworkAccessBlockedForUrls";        Value=@(); Type="MultiString"}
+        # Local network IP space overrides — empty list uses default IP mappings
+        @{Name="LocalNetworkAccessIpAddressSpaceOverrides";  Value=@(); Type="MultiString"}
+        # Local network restrictions temporary opt-out — disable temporary opt-out
+        @{Name="LocalNetworkAccessRestrictionsTemporaryOptOut"; Value=0; Type="DWord"}
     )
 
     "Strict" = @(
@@ -790,36 +880,33 @@ $PolicyDefinitions = @{
         # Developer Tools Availability — restrict DevTools (2=disallowed entirely)
         @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
         # ─── New Strict Policies (Phase 9 — Prompt 29) ───
-        # ─── Enterprise Infrastructure Policies ───
-        # Cloud Reporting Enabled — disable cloud telemetry reporting
-        @{Name="CloudReportingEnabled";                              Value=0;           Type="DWord"}
         # Browsing Data Lifetime — auto-clear history/cache after 24 hours
         @{Name="BrowsingDataLifetime";                               Value=@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}; Type="String"}
         # ─── Personal-Use Friendly Hardening ───
-        # Cross-Origin-Op-Policy Header — enforce COOP (Spectre mitigation)
-        @{Name="CrossOriginOpPolicyHeader";                          Value="require-corp"; Type="String"}
-        # Cross-Origin-Embedder-Policy — enforce COEP (Spectre mitigation)
-        @{Name="CrossOriginEmbedderPolicy";                          Value="require-corp"; Type="String"}
-        # Dangling Origin Check Enforcement — block dangling origin navigations
-        @{Name="DanglingOriginCheckEnforcement";                     Value=1;           Type="DWord"}
-        # Insecure Forms Warnings Enabled — warn on HTTP form submissions
-        @{Name="InsecureFormsWarningsEnabled";                       Value=1;           Type="DWord"}
         # Always Open PDF Externally — open PDFs in external app (PDF exploit mitigation)
         @{Name="AlwaysOpenPdfExternally";                             Value=1;           Type="DWord"}
         # Certificate Transparency Enforcement Disabled For URLs — empty (enforce CT everywhere)
         @{Name="CertificateTransparencyEnforcementDisabledForUrls";  Value=@();         Type="MultiString"}
-        # Password Reuse Detection Enabled — warn on password reuse
-        @{Name="PasswordReuseDetectionEnabled";                      Value=1;           Type="DWord"}
         # Password Leak Detection Enabled — check passwords against data breaches
         @{Name="PasswordLeakDetectionEnabled";                       Value=1;           Type="DWord"}
         # SpellCheck Service Enabled — disable online spellcheck (data leak vector)
         @{Name="SpellCheckServiceEnabled";                           Value=0;           Type="DWord"}
-        # Tab Discarding Enabled — discard tabs under memory pressure
-        @{Name="TabDiscardingEnabled";                               Value=1;           Type="DWord"}
-        # Contextual Search Enabled — disable touch-to-search
-        @{Name="ContextualSearchEnabled";                            Value=0;           Type="DWord"}
         # Sync Disabled — disable Chrome Sync (data leak vector)
         @{Name="SyncDisabled";                                       Value=1;           Type="DWord"}
+        # ─── Screen Capture Fine-Grained Control (v2.5.0.0) ───
+        # Screen capture allowed by origins — empty list blocks all origins
+        @{Name="ScreenCaptureAllowedByOrigins";              Value=@(); Type="MultiString"}
+        # Same-origin tab capture — empty list blocks all same-origin tab capture
+        @{Name="SameOriginTabCaptureAllowedByOrigins";       Value=@(); Type="MultiString"}
+        # Tab capture allowed by origins — empty list blocks all tab capture
+        @{Name="TabCaptureAllowedByOrigins";                 Value=@(); Type="MultiString"}
+        # Window capture allowed by origins — empty list blocks all window capture
+        @{Name="WindowCaptureAllowedByOrigins";              Value=@(); Type="MultiString"}
+        # ─── Local Network Access Fine-Grained Control (v2.5.0.0) ───
+        # Local network allowed URLs — exempt certain URLs from local network blocking
+        @{Name="LocalNetworkAllowedForUrls";                 Value=@(); Type="MultiString"}
+        # Local network blocked URLs — block certain URLs from local network access
+        @{Name="LocalNetworkBlockedForUrls";                  Value=@(); Type="MultiString"}
     )
 }
 

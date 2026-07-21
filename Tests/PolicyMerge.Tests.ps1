@@ -81,7 +81,7 @@ Describe "Policy Merge" -Tag "Unit" {
                 }
             }
         }
-        $MergedPolicies.Count | Should -BeExactly 132
+        $MergedPolicies.Count | Should -BeExactly 150
     }
 
     It "DownloadRestrictions should appear in both Balanced and Strict" {
