@@ -223,10 +223,10 @@ function Get-BraveVersion {
                 $productVer = $verInfo.ProductVersion
                 if ($productVer) {
                     $parts = $productVer.Split('.')
-                    if ($parts.Count -lt 3) { continue }
+                    if ($parts.Count -lt 4) { continue }
                     return @{
                         Path           = $path
-                        BraveVersion   = "$($parts[0]).$($parts[1]).$($parts[2])"
+                        BraveVersion   = "$($parts[1]).$($parts[2]).$($parts[3])"
                         ChromiumMajor  = $parts[0]
                     }
                 }

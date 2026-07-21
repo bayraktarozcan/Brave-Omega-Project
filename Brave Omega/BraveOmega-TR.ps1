@@ -224,10 +224,10 @@ function Get-BraveVersion {
                 $urunSurum = $surumBilgi.ProductVersion
                 if ($urunSurum) {
                     $parcalar = $urunSurum.Split('.')
-                    if ($parcalar.Count -lt 3) { continue }
+                    if ($parcalar.Count -lt 4) { continue }
                     return @{
                         Yol          = $yol
-                        BraveSurum   = "$($parcalar[0]).$($parcalar[1]).$($parcalar[2])"
+                        BraveSurum   = "$($parcalar[1]).$($parcalar[2]).$($parcalar[3])"
                         ChromiumAna  = $parcalar[0]
                     }
                 }
