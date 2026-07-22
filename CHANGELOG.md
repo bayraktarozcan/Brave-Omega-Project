@@ -37,79 +37,79 @@
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-4. [v2.4.0.0 — 2026-07-11](#en-v2400)
+5. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-5. [v2.3.1.0 — 2026-07-10](#en-v2310)
+6. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-6. [v2.3.0.0 — 2026-07-09](#en-v2300)
+7. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
     * [Notes](#en-v2300-notes)
-7. [v2.2.1.0 — 2026-07-07](#en-v2210)
+8. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-8. [v2.2.0.2 — 2026-07-07](#en-v2202)
+9. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-9. [v2.2.0.1 — 2026-07-06](#en-v2201)
+10. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
-10. [v2.2.0 — 2026-07-06](#en-v220)
+11. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
-11. [v2.1.6 — 2026-07-04](#en-v216)
+12. [v2.1.6 — 2026-07-04](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
     * [Changed](#en-v216-changed)
-12. [v2.1.5 — 2026-07-03](#en-v215)
+13. [v2.1.5 — 2026-07-03](#en-v215)
     * [Summary](#en-v215-summary)
     * [Changed](#en-v215-changed)
-13. [v2.1.4 — 2026-06-27](#en-v214)
+14. [v2.1.4 — 2026-06-27](#en-v214)
     * [Summary](#en-v214-summary)
     * [Changed](#en-v214-changed)
-14. [v2.1.3 — 2026-06-26](#en-v213)
+15. [v2.1.3 — 2026-06-26](#en-v213)
     * [Summary](#en-v213-summary)
     * [Changed](#en-v213-changed)
-15. [v2.1.2 — 2026-06-18](#en-v212)
+16. [v2.1.2 — 2026-06-18](#en-v212)
     * [Summary](#en-v212-summary)
     * [Changed](#en-v212-changed)
-16. [v2.1.1 — 2026-06-18](#en-v211)
+17. [v2.1.1 — 2026-06-18](#en-v211)
     * [Summary](#en-v211-summary)
     * [Fixed](#en-v211-fixed)
-17. [v2.1 — 2026-06-16](#en-v21)
+18. [v2.1 — 2026-06-16](#en-v21)
     * [Summary](#en-v21-summary)
     * [Added](#en-v21-added)
     * [Changed](#en-v21-changed)
     * [Statistics](#en-v21-statistics)
-18. [v2.0 — 2026-06-16](#en-v20)
+19. [v2.0 — 2026-06-16](#en-v20)
     * [Summary](#en-v20-summary)
     * [Added](#en-v20-added)
     * [Changed](#en-v20-changed)
     * [Statistics](#en-v20-statistics)
-19. [v1.2.2 — 2026-06-13](#en-v122)
+20. [v1.2.2 — 2026-06-13](#en-v122)
     * [Summary](#en-v122-summary)
     * [Changed](#en-v122-changed)
-20. [v1.2.1 — 2026-06-13](#en-v121)
+21. [v1.2.1 — 2026-06-13](#en-v121)
     * [Changed](#en-v121-changed)
-21. [v1.2 — 2026-06-12](#en-v12)
+22. [v1.2 — 2026-06-12](#en-v12)
     * [Summary](#en-v12-summary)
-22. [v1.1.1 — 2026-06-12](#en-v111)
+23. [v1.1.1 — 2026-06-12](#en-v111)
     * [Fixed](#en-v111-fixed)
-23. [v1.1 — 2026-06-12](#en-v11)
+24. [v1.1 — 2026-06-12](#en-v11)
     * [Summary](#en-v11-summary)
-24. [v1.0.1 — 2026-06-11](#en-v101)
+25. [v1.0.1 — 2026-06-11](#en-v101)
     * [Fixed](#en-v101-fixed)
-25. [v1.0 — 2026-06-08](#en-v10)
+26. [v1.0 — 2026-06-08](#en-v10)
     * [Summary](#en-v10-summary)
-26. [Notes](#en-notes)
+27. [Notes](#en-notes)
 
 ---
 
@@ -260,7 +260,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### 🎯 Summary
 
-**Full policy expansion — 30 new policies (133→153→150), 6 broken/unrecognized + 3 deprecated/cloud-only policies removed.** Major hardening update: AI policy blocking (13 policies), local network access control, screen capture fine-grained control, renderer sandbox hardening, and Brave-specific policy additions. Verified in Brave 1.92.141.
+**Full policy expansion — 30 new policies (133→163→150), 6 broken/unrecognized + 3 deprecated/cloud-only policies removed.** Major hardening update: AI policy blocking (13 policies), local network access control, screen capture fine-grained control, renderer sandbox hardening, and Brave-specific policy additions. Verified in Brave 1.92.141.
 
 | Metric | Before (v2.4.2.0) | After (v2.5.0.0) |
 |--------|-------------------|-------------------|
@@ -288,21 +288,19 @@ All notable changes to this project are documented below, following the [Keep a 
 - **`GenAILocalFoundationalModelSettings`** (DWord: 2) — Controls local AI model downloads (moved from Advanced to deny by default).
 - **`LocalNetworkAccessPermissionsPolicyDefaultEnabled`** (DWord: 0) — Disables local network access permission prompts by default.
 
-#### Advanced (+15)
+#### Advanced (+17)
 
 - **13 AI policies** (all DWord: 0) — Comprehensive Chrome AI feature blocking: `AIModeSettings`, `AutofillPredictionSettings`, `ChromeSuggestionsSettings`, `CreateThemesSettings`, `DevToolsGenAiSettings`, `HelpMeWriteSettings`, `HistorySearchSettings`, `SearchContentSharingSettings`, `SmartTabSharingSettings`, `TabCompareSettings`, `GeminiActOnWebSettings`, `GeminiSparkSettings`, `GenAILocalFoundationalModelSettings`.
 - **`RendererAppContainerEnabled`** (DWord: 1) — Enables renderer process sandbox (AppContainer isolation).
 - **`LocalNetworkAccessAllowedForUrls`** (MultiString: empty) — Exempt URLs from local network access checks.
 - **`LocalNetworkAccessBlockedForUrls`** (MultiString: empty) — Block specific URLs from local network access.
 
-#### Strict (+2)
+#### Strict (+6)
 
 - **`ScreenCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks all origins from screen capture.
 - **`SameOriginTabCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks same-origin tab capture.
 - **`TabCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks all tab capture.
 - **`WindowCaptureAllowedByOrigins`** (MultiString: empty) — Empty list blocks all window capture.
-- **`LocalNetworkAccessIpAddressSpaceOverrides`** (MultiString: empty) — Empty list prevents IP space overrides.
-- **`LocalNetworkAccessRestrictionsTemporaryOptOut`** (DWord: 0) — Disables temporary opt-out from LNA restrictions.
 - **`LocalNetworkAllowedForUrls`** (MultiString: empty) — Empty list blocks all local network access.
 - **`LocalNetworkBlockedForUrls`** (MultiString: empty) — Empty list blocks all local network access.
 
@@ -425,13 +423,13 @@ Fixes #50
 | Metric | Before (v2.3.1.0) | After (v2.4.0.0) |
 |--------|-------------------|------------------|
 | Hardening levels | 5 | 5 |
-| Total policies | 111 | **141** (+30) |
+| Total policies | 110 | **141** (+31) |
 | Brave Only policies | 24 | 24 |
 | Essential additions | 19 | **22** (+3) |
 | Balanced additions | 29 | **32** (+3) |
 | Advanced additions | 17 | **27** (+10) |
 | Strict additions | 15 | **29** (+14) |
-| Cumulative chain | 24→50→79→96→110 | **24→53→85→112→141** |
+| Cumulative chain | 24→50→79→97→110 | **24→53→85→112→141** |
 
 <a id="en-v2400-added"></a>
 
@@ -505,7 +503,7 @@ Fixes #50
 | Hardening levels | 5 | 5 |
 | Total policies | 110 | 110 |
 | Brave Only policies | 24 | 24 |
-| Essential additions | 18 | **19** (+1) |
+| Essential additions | 26 | **27** (+1) |
 | Balanced additions | 29 | 29 |
 | Advanced additions | 18 | 18 |
 | Strict additions | 13 | 13 |
@@ -1403,94 +1401,94 @@ Initial community release. Stable, tested hardening automation for Brave Browser
     * [Özet](#tr-v2410-ozet)
     * [Kaldırıldı](#tr-v2410-kaldirildi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-4. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+5. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-5. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+6. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-6. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+7. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-7. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+8. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
-8. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+9. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
-9. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+10. [v2.2.0.1 — 2026-07-06](#tr-v2201)
     * [Özet](#tr-v2201-ozet)
-10. [v2.2.0 — 2026-07-06](#tr-v220)
+11. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
-11. [v2.1.6 — 2026-07-04](#tr-v216)
+12. [v2.1.6 — 2026-07-04](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
     * [Değiştirildi](#tr-v216-changed)
-12. [v2.1.5 — 2026-07-03](#tr-v215)
+13. [v2.1.5 — 2026-07-03](#tr-v215)
     * [Özet](#tr-v215-summary)
     * [Değiştirildi](#tr-v215-changed)
-13. [v2.1.4 — 2026-06-27](#tr-v214)
+14. [v2.1.4 — 2026-06-27](#tr-v214)
     * [Özet](#tr-v214-summary)
     * [Değiştirildi](#tr-v214-changed)
-14. [v2.1.3 — 2026-06-26](#tr-v213)
+15. [v2.1.3 — 2026-06-26](#tr-v213)
     * [Özet](#tr-v213-summary)
     * [Değiştirildi](#tr-v213-changed)
-15. [v2.1.2 — 2026-06-18](#tr-v212)
+16. [v2.1.2 — 2026-06-18](#tr-v212)
     * [Özet](#tr-v212-summary)
     * [Değiştirildi](#tr-v212-changed)
-16. [v2.1.1 — 2026-06-18](#tr-v211)
+17. [v2.1.1 — 2026-06-18](#tr-v211)
     * [Özet](#tr-v211-summary)
     * [Düzeltildi](#tr-v211-fixed)
-17. [v2.1 — 2026-06-16](#tr-v21)
+18. [v2.1 — 2026-06-16](#tr-v21)
     * [Özet](#tr-v21-summary)
     * [Eklendi](#tr-v21-added)
     * [Değiştirildi](#tr-v21-changed)
     * [İstatistikler](#tr-v21-statistics)
-18. [v2.0 — 2026-06-16](#tr-v20)
+19. [v2.0 — 2026-06-16](#tr-v20)
     * [Özet](#tr-v20-summary)
     * [Eklendi](#tr-v20-added)
     * [Değiştirildi](#tr-v20-changed)
     * [İstatistikler](#tr-v20-statistics)
-19. [v1.2.2 — 2026-06-13](#tr-v122)
+20. [v1.2.2 — 2026-06-13](#tr-v122)
     * [Özet](#tr-v122-summary)
     * [Değiştirildi](#tr-v122-changed)
-20. [v1.2.1 — 2026-06-13](#tr-v121)
+21. [v1.2.1 — 2026-06-13](#tr-v121)
     * [Özet](#tr-v121-summary)
     * [Değiştirildi](#tr-v121-changed)
-21. [v1.2 — 2026-06-12](#tr-v12)
+22. [v1.2 — 2026-06-12](#tr-v12)
     * [Özet](#tr-v12-summary)
     * [Eklendi](#tr-v12-added)
     * [İstatistikler](#tr-v12-statistics)
     * [Değiştirildi](#tr-v12-changed)
     * [Güvenlik](#tr-v12-security)
-22. [v1.1.1 — 2026-06-12](#tr-v111)
+23. [v1.1.1 — 2026-06-12](#tr-v111)
     * [Özet](#tr-v111-ozet)
     * [Düzeltildi](#tr-v111-duzeltildi)
-23. [v1.1 — 2026-06-05](#tr-v11)
+24. [v1.1 — 2026-06-05](#tr-v11)
     * [Özet](#tr-v11-summary)
     * [Eklendi](#tr-v11-added)
     * [Değiştirildi](#tr-v11-changed)
     * [Kaldırıldı](#tr-v11-removed)
     * [Detaylar](#tr-v11-details)
-24. [v1.0.1 — 2026-06-04](#tr-v101)
+25. [v1.0.1 — 2026-06-04](#tr-v101)
     * [Özet](#tr-v101-ozet)
     * [Düzeltildi](#tr-v101-duzeltildi)
-25. [v1.0 — 2026-06-04](#tr-v10)
+26. [v1.0 — 2026-06-04](#tr-v10)
     * [Özet](#tr-v10-summary)
     * [Özellikler](#tr-v10-features)
     * [Başlangıç Politikaları](#tr-v10-initial-policies)
     * [Belgelendirme](#tr-v10-documentation)
-26. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-27. [İlgili Belgelendirme](#tr-related-documentation)
-28. [Notlar](#tr-notes)
+27. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+28. [İlgili Belgelendirme](#tr-related-documentation)
+29. [Notlar](#tr-notes)
 
 ---
 
@@ -1746,7 +1744,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 ### 🎯 Özet
 
-**Tam politika genişletmesi — 30 yeni politika (133→153→150), 6 bozuk/tanınmayan + 3 kullanımdan kaldırılmış/bulut politikası kaldırıldı.** Büyük güvenlikleştirme güncellemesi: Yapay zekâ politika engelleme (13 politika), yerel ağ erişim kontrolü, ekran yakalama ince ayar kontrolü, işleyici kum havuzu sertleştirme ve Brave'e özgü politika eklemeleri. Brave 1.92.141 ile doğrulandı.
+**Tam politika genişletmesi — 30 yeni politika (133→163→150), 6 bozuk/tanınmayan + 3 kullanımdan kaldırılmış/bulut politikası kaldırıldı.** Büyük güvenlikleştirme güncellemesi: Yapay zekâ politika engelleme (13 politika), yerel ağ erişim kontrolü, ekran yakalama ince ayar kontrolü, işleyici kum havuzu sertleştirme ve Brave'e özgü politika eklemeleri. Brave 1.92.141 ile doğrulandı.
 
 | Metrik | Önce (v2.4.2.0) | Sonra (v2.5.0.0) |
 |--------|-----------------|-------------------|

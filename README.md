@@ -198,10 +198,10 @@ applied correctly.
 
 ### 6. How It Works
 
-#### 6.1 Architecture — Four-Tier Enforcement Model
+#### 6.1 Architecture — Five-Tier Enforcement Model
 
 Brave Omega operates at **two infrastructure layers** (HKLM policies + HKCU fallbacks)
-and offers **four hardening levels** that determine how many policies are applied.
+and offers **five hardening levels** that determine how many policies are applied.
 
 ##### Infrastructure Layers
 
@@ -381,7 +381,7 @@ no longer have any effect.
 | `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Stops URL data collection to Google |
 | `SearchSuggestEnabled` | `0` | DWord | Stops search suggestions data leakage |
 | `NetworkPredictionOptions` | `2` | DWord | Stops DNS prefetching and pre-connection |
-| `SpellcheckEnabled` | `0` | DWord | Disables spellcheck |
+| `SpellcheckEnabled` | `1` | DWord | Enables local Hunspell spellcheck (offline-only) |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Stops error page network requests |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Stops time sync to Google |
 | `DomainReliabilityAllowed` | `0` | DWord | Stops diagnostic data reporting |
@@ -402,6 +402,9 @@ no longer have any effect.
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Suppresses dialogs from different-origin subframes |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Forces OCSP/CRL certificate validation for all levels |
 | `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Explicitly uses system proxy, silences deprecated ProxyMode warning |
+| `BrowserSignin` | `0` | DWord | Disables browser sign-in flow, prevents Google account integration |
+| `ExtensionInstallSources` | `@()` | MultiString | Restricts extension installation to Chrome Web Store only |
+| `ScreenCaptureAllowed` | `0` | DWord | Blocks web screen capture APIs (getDisplayMedia, etc.) |
 
 #### 9.4 Balanced Level — Essential + Security Baseline (33 additional)
 
@@ -436,6 +439,10 @@ no longer have any effect.
 | `DownloadRestrictions` | `1` | DWord | Warns before dangerous downloads (basic protection) |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download folder |
 | `PromptForDownloadLocation` | `0` | DWord | Does not prompt, uses default download directory |
+| `RelaunchNotification` | `2` | DWord | Forces browser relaunch notification (non-dismissible) |
+| `RelaunchNotificationPeriod` | `3600000` | DWord | Relaunch deadline — 1 hour in milliseconds |
+| `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Disables auto-approve for local network permission requests |
+| `GenAILocalFoundationalModelSettings` | `1` | DWord | Disables local AI model download |
 
 #### 9.5 Advanced Level — Balanced + Enhanced Privacy (38 additional)
 
@@ -458,6 +465,27 @@ no longer have any effect.
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloading of external extensions |
 | `ExtensionSettings` | *(JSON block-all + allowlist)* | String | JSON backup layer for extension control |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables Chrome DNS, uses system DNS |
+| `ShowHomeButton` | `0` | DWord | Hides the home button from the toolbar |
+| `HideWebStoreIcon` | `1` | DWord | Hides Chrome Web Store icon |
+| `DefaultJavaScriptSetting` | `0` | DWord | Allows JavaScript by default (0=allow, 1=block) |
+| `GeminiSettings` | `1` | DWord | Disables Gemini AI integration |
+| `AIModeSettings` | `1` | DWord | Blocks Chrome AI Mode entirely |
+| `AutofillPredictionSettings` | `2` | DWord | Disables AI-powered autofill predictions |
+| `ChromeSuggestionsSettings` | `1` | DWord | Disables AI-powered suggestions |
+| `CreateThemesSettings` | `2` | DWord | Disables AI theme creation |
+| `DevToolsGenAiSettings` | `2` | DWord | Disables AI features in DevTools |
+| `HelpMeWriteSettings` | `2` | DWord | Disables AI writing assistant |
+| `HistorySearchSettings` | `2` | DWord | Disables AI-powered history search |
+| `SearchContentSharingSettings` | `1` | DWord | Disables AI content sharing |
+| `SmartTabSharingSettings` | `1` | DWord | Disables AI tab sharing |
+| `TabCompareSettings` | `2` | DWord | Disables AI tab comparison |
+| `GeminiActOnWebSettings` | `1` | DWord | Disables Gemini integration on web pages |
+| `GeminiSparkSettings` | `1` | DWord | Disables Gemini Spark features |
+| `RendererAppContainerEnabled` | `1` | DWord | Enables renderer process sandbox |
+| `LocalNetworkAccessAllowedForUrls` | `@()` | MultiString | Exempt certain URLs from local network checks |
+| `LocalNetworkAccessBlockedForUrls` | `@()` | MultiString | Block certain URLs from local network access |
+| `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP space overrides (empty = default mappings) |
+| `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Disables temporary opt-out of local network restrictions |
 
 #### 9.6 Strict Level — Advanced + Maximum Privacy (27 additional)
 
@@ -478,6 +506,18 @@ no longer have any effect.
 | `PrintingEnabled` | `0` | DWord | Disables all printing |
 | `DisablePrintPreview` | `1` | DWord | Skips print preview dialog |
 | `DownloadRestrictions` *(override)* | `3` | DWord | Blocks ALL downloads (overrides Balanced's value of 1) |
+| `BrowsingDataLifetime` | `{"data_types"=["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours"=24}` | String | Auto-clears history/cache after 24 hours |
+| `AlwaysOpenPdfExternally` | `1` | DWord | Opens PDFs in external app (PDF exploit mitigation) |
+| `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | Enforces Certificate Transparency everywhere |
+| `PasswordLeakDetectionEnabled` | `1` | DWord | Checks passwords against known data breaches |
+| `SpellCheckServiceEnabled` | `0` | DWord | Disables online spellcheck (data leak vector) |
+| `SyncDisabled` | `1` | DWord | Disables Chrome Sync (data leak vector) |
+| `ScreenCaptureAllowedByOrigins` | `@()` | MultiString | Blocks all origins from screen capture |
+| `SameOriginTabCaptureAllowedByOrigins` | `@()` | MultiString | Blocks all same-origin tab capture |
+| `TabCaptureAllowedByOrigins` | `@()` | MultiString | Blocks all tab capture by origin |
+| `WindowCaptureAllowedByOrigins` | `@()` | MultiString | Blocks all window capture by origin |
+| `LocalNetworkAllowedForUrls` | `@()` | MultiString | Exempt certain URLs from local network blocking |
+| `LocalNetworkBlockedForUrls` | `@()` | MultiString | Block certain URLs from local network access |
 
 ---
 
@@ -928,8 +968,17 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `BraveStatsPingEnabled` | `0` | DWord | Brave sunucularına durum/kimlik doğrulama pinglerini durdurur |
 | `BraveWebDiscoveryEnabled` | `0` | DWord | Web Discovery Project katkısını devre dışı bırakır |
 | `TorDisabled` | `1` | DWord | Tor entegrasyonunu devre dışı bırakır |
+| `BraveDeAmpEnabled` | `1` | DWord | Google AMP sayfalarını atlar, orijinal URL'lere yönlendirir |
+| `BraveDebouncingEnabled` | `1` | DWord | Bilinen izleme yönlendirmelerini atlar |
+| `BraveReduceLanguageEnabled` | `1` | DWord | Dil parmak izi gönderimini azaltır |
+| `BraveTrackingQueryParametersFilteringEnabled` | `1` | DWord | İzleme sorgu parametrelerini URL'lerden temizler |
+| `DefaultBraveAdblockSetting` | `2` | DWord | Shields reklam engelleme modunu kilitler |
+| `DefaultBraveFingerprintingV2Setting` | `3` | DWord | Shields parmak izi korumasını kilitler |
+| `BraveShieldsDisabledForUrls` | `@()` | MultiString | Boş — hiçbir kaynak için Shields devre dışı bırakılamaz |
+| `BraveShieldsEnabledForUrls` | `@()` | MultiString | Boş — hiçbir kaynak için Shields zorunlu kılınmaz |
 | `SafeBrowsingProtectionLevel` | `2` | DWord | Tüm seviyeler için gelişmiş Safe Browsing korumasını etkinleştirir |
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Parola sızıntı algılama ve tekrar uyarılarını etkinleştirir |
+| `EmailAliasesEnabled` | `0` | DWord | Anonim e-posta takma adı oluşturmayı devre dışı bırakır |
 
 #### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (29 ek)
 
@@ -940,7 +989,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Google'a URL verisi toplamayı durdurur |
 | `SearchSuggestEnabled` | `0` | DWord | Arama önerileri veri sızıntısını durdurur |
 | `NetworkPredictionOptions` | `2` | DWord | DNS ön getirmeyi ve ön bağlantıyı durdurur |
-| `SpellcheckEnabled` | `0` | DWord | Yazım denetimini devre dışı bırakır |
+| `SpellcheckEnabled` | `1` | DWord | Yazım denetimini devre dışı bırakır |
 | `AlternateErrorPagesEnabled` | `0` | DWord | Hata sayfası ağ isteklerini durdurur |
 | `BrowserNetworkTimeQueriesEnabled` | `0` | DWord | Google'a saat senkronizasyonunu durdurur |
 | `DomainReliabilityAllowed` | `0` | DWord | Tanılama verisi raporlamasını durdurur |
@@ -961,6 +1010,9 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Farklı kaynak alt çerçevelerinden gelen diyalogları bastırır |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Tüm seviyeler için OCSP/CRL sertifika doğrulamasını zorlar |
 | `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Sistem proxy'sini açıkça kullanır, kullanımdan kaldırılmış ProxyMode uyarısını susturur |
+| `BrowserSignin` | `0` | DWord | Tarayıcı oturum açma akışını devre dışı bırakır, Google hesap entegrasyonunu engeller |
+| `ExtensionInstallSources` | `@()` | MultiString | Eklenti kurulumunu yalnızca Chrome Web Mağazasına kısıtlar |
+| `ScreenCaptureAllowed` | `0` | DWord | Web ekran yakalama API'lerini engeller (getDisplayMedia vb.) |
 
 #### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (33 ek)
 
@@ -984,6 +1036,21 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultGeolocationSetting` | `2` | DWord | Varsayılan olarak konumu engeller |
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
+| `DefaultBraveHttpsUpgradeSetting` | `1` | DWord | HTTP'den HTTPS'ye yükseltmeyi devre dışı bırakır (DNS-over-HTTPS yönetir) |
+| `DefaultBraveReferrersSetting` | `1` | DWord | HTTP Referrer başlığını devre dışı bırakır |
+| `BraveSyncUrl` | `https://noharm.notion.site/...` | String | Brave Sync senkronizasyon kaynağını belirler |
+| `DefaultWindowManagementSetting` | `2` | DWord | Pencere yönetimi izinlerini engeller |
+| `SitePerProcess` | `1` | DWord | Her siteyi ayrı bir süreçte çalıştırır (site izolasyonu) |
+| `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Arka plan sekmelerini uyku moduna alır (enerji tasarrufu) |
+| `UserFeedbackAllowed` | `0` | DWord | Chromium geri bildirim istemcisini devre dışı bırakır |
+| `ExtensionInstallForcelist` | *Dark Reader* | MultiString | Yalnızca zorunlu eklenti — Dark Reader |
+| `DownloadRestrictions` | `1` | DWord | Zararlı yazılım indirmelerini engeller |
+| `DownloadDirectory` | `C:\Users\User\Downloads` | String | Varsayılan indirme dizini |
+| `PromptForDownloadLocation` | `0` | DWord | Konum sormaz, varsayılan indirme dizinini kullanır |
+| `RelaunchNotification` | `2` | DWord | Tarayıcı yeniden başlatma bildirimini zorlar (devre dışı bırakılamaz) |
+| `RelaunchNotificationPeriod` | `3600000` | DWord | Yeniden başlatma son tarihi — milisaniye cinsinden 1 saat |
+| `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Yerel ağ izin isteklerinin otomatik onayını devre dışı bırakır |
+| `GenAILocalFoundationalModelSettings` | `1` | DWord | Yerel yapay zeka modeli indirmeyi devre dışı bırakır |
 
 #### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (38 ek)
 
@@ -1006,6 +1073,27 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `BlockExternalExtensions` | `1` | DWord | Dış eklenti yan yüklemesini engeller |
 | `ExtensionSettings` *(JSON)* | *(JSON block-all + allowlist)* | String | Eklenti kontrolü için JSON yedek katmanı |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Chrome DNS'i devre dışı bırakır, sistem DNS'ini kullanır |
+| `ShowHomeButton` | `0` | DWord | Araç çubuğundaki ana sayfa düğmesini gizler |
+| `HideWebStoreIcon` | `1` | DWord | Chrome Web Mağazası simgesini gizler |
+| `DefaultJavaScriptSetting` | `0` | DWord | JavaScript'i varsayılan olarak etkinleştirir (0=izin ver, 1=engelle) |
+| `GeminiSettings` | `1` | DWord | Gemini yapay zeka entegrasyonunu devre dışı bırakır |
+| `AIModeSettings` | `1` | DWord | Chrome Yapay Zeka Modunu tamamen engeller |
+| `AutofillPredictionSettings` | `2` | DWord | Yapay zeka destekli otomatik doldurma tahminlerini devre dışı bırakır |
+| `ChromeSuggestionsSettings` | `1` | DWord | Yapay zeka destekli önerileri devre dışı bırakır |
+| `CreateThemesSettings` | `2` | DWord | Yapay zeka tema oluşturmayı devre dışı bırakır |
+| `DevToolsGenAiSettings` | `2` | DWord | Geliştirici araçlarındaki yapay zeka özelliklerini devre dışı bırakır |
+| `HelpMeWriteSettings` | `2` | DWord | Yapay zeka yazma yardımcısını devre dışı bırakır |
+| `HistorySearchSettings` | `2` | DWord | Yapay zeka destekli geçmiş aramasını devre dışı bırakır |
+| `SearchContentSharingSettings` | `1` | DWord | Yapay zeka içerik paylaşımını devre dışı bırakır |
+| `SmartTabSharingSettings` | `1` | DWord | Yapay zeka sekme paylaşımını devre dışı bırakır |
+| `TabCompareSettings` | `2` | DWord | Yapay zeka sekme karşılaştırmayı devre dışı bırakır |
+| `GeminiActOnWebSettings` | `1` | DWord | Web sayfalarında Gemini entegrasyonunu devre dışı bırakır |
+| `GeminiSparkSettings` | `1` | DWord | Gemini Spark özelliklerini devre dışı bırakır |
+| `RendererAppContainerEnabled` | `1` | DWord | İşleyici sürecini kum havuzuna alır |
+| `LocalNetworkAccessAllowedForUrls` | `@()` | MultiString | Belirli URL'lerin yerel ağ kontrollerinden muaf tutulmasını sağlar |
+| `LocalNetworkAccessBlockedForUrls` | `@()` | MultiString | Belirli URL'lerin yerel ağ erişimini engeller |
+| `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP alanı geçersiz kılmaları (boş = varsayılan eşlemeler) |
+| `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Yerel ağ kısıtlamalarından geçici çıkış seçeneğini devre dışı bırakır |
 
 #### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (27 ek)
 
@@ -1026,6 +1114,18 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `PrintingEnabled` | `0` | DWord | Baskıyı devre dışı bırakır |
 | `DisablePrintPreview` | `1` | DWord | Baskı önizleme iletişim kutusunu atlar |
 | `DownloadRestrictions` *(geçersiz kılma)* | `3` | DWord | TÜM indirmeleri engeller (Dengeli'nin 1 değerini geçersiz kılar) |
+| `BrowsingDataLifetime` | `{"data_types"=["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours"=24}` | String | Geçmiş/önbelleği 24 saat sonra otomatik temizler |
+| `AlwaysOpenPdfExternally` | `1` | DWord | PDF'leri harici uygulamada açar (PDF istismarı azaltma) |
+| `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | Sertifika Şeffaflığını her yerde zorlar |
+| `PasswordLeakDetectionEnabled` | `1` | DWord | Parolaları bilinen veri ihlallerine karşı kontrol eder |
+| `SpellCheckServiceEnabled` | `0` | DWord | Çevrimiçi yazım denetimini devre dışı bırakır (veri sızıntısı vektörü) |
+| `SyncDisabled` | `1` | DWord | Chrome Senkronizasyonunu devre dışı bırakır (veri sızıntısı vektörü) |
+| `ScreenCaptureAllowedByOrigins` | `@()` | MultiString | Tüm kaynakların ekran yakalamasını engeller |
+| `SameOriginTabCaptureAllowedByOrigins` | `@()` | MultiString | Tüm aynı kaynak sekme yakalamasını engeller |
+| `TabCaptureAllowedByOrigins` | `@()` | MultiString | Kaynağa göre tüm sekme yakalamasını engeller |
+| `WindowCaptureAllowedByOrigins` | `@()` | MultiString | Kaynağa göre tüm pencere yakalamasını engeller |
+| `LocalNetworkAllowedForUrls` | `@()` | MultiString | Belirli URL'lerin yerel ağ engellemesinden muaf tutulmasını sağlar |
+| `LocalNetworkBlockedForUrls` | `@()` | MultiString | Belirli URL'lerin yerel ağ erişimini engeller |
 
 ---
 

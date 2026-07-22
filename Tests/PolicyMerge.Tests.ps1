@@ -57,7 +57,7 @@ Describe "Policy Merge" -Tag "Unit" {
         $MergedPolicies.Count | Should -Be 5
     }
 
-    It "should produce 132 unique policies after cumulative merge from EN script" {
+    It "should produce 150 unique policies after cumulative merge from EN script" {
         $content = Get-Content -Path $ScriptEN -Raw
         $LevelOrder = @("BraveOnly","Essential","Balanced","Advanced","Strict")
         $MergedPolicies = @{}
