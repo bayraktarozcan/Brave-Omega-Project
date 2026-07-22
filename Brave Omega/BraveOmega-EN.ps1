@@ -638,8 +638,8 @@ $PolicyDefinitions = @{
         @{Name="BackgroundModeEnabled";                Value=0; Type="DWord"}
         # Safe Browsing surveys — disables post-browsing surveys
         @{Name="SafeBrowsingSurveysEnabled";           Value=0; Type="DWord"}
-        # Safe Browsing deep scanning — disables server-side download scanning
-        @{Name="SafeBrowsingDeepScanningEnabled";      Value=0; Type="DWord"}
+        # Safe Browsing deep scanning — enables server-side download scanning
+        @{Name="SafeBrowsingDeepScanningEnabled";      Value=1; Type="DWord"}
         # WebRTC event log — stops WebRTC event log upload to Google
         @{Name="WebRtcEventLogCollectionAllowed";     Value=0; Type="DWord"}
         # WebRTC text log — stops WebRTC text log upload to Google

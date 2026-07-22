@@ -76,7 +76,7 @@ Complete policy reference for Brave Omega v2.5.0.0 — **150 enterprise policies
 | `DomainReliabilityAllowed` | `0` | DWord | Stops diagnostic data reporting |
 | `BackgroundModeEnabled` | `0` | DWord | Prevents Brave running when all windows closed |
 | `SafeBrowsingSurveysEnabled` | `0` | DWord | Disables post-browsing surveys |
-| `SafeBrowsingDeepScanningEnabled` | `0` | DWord | Disables server-side download scanning |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Enables server-side download scanning |
 | `WebRtcEventLogCollectionAllowed` | `0` | DWord | Stops WebRTC event log upload |
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | Stops WebRTC text log upload |
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
@@ -335,7 +335,7 @@ Brave Omega v2.5.0.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `DomainReliabilityAllowed` | `0` | DWord | Tanılama verisi raporlamasını durdurur |
 | `BackgroundModeEnabled` | `0` | DWord | Tüm pencereler kapandığında Brave'in çalışmasını engeller |
 | `SafeBrowsingSurveysEnabled` | `0` | DWord | Gezinti sonrası anketleri devre dışı bırakır |
-| `SafeBrowsingDeepScanningEnabled` | `0` | DWord | Sunucu tarafı indirme taramasını devre dışı bırakır |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Sunucu tarafı indirme taramasını etkinleştirir |
 | `WebRtcEventLogCollectionAllowed` | `0` | DWord | WebRTC olay günlüğü yüklemeyi durdurur |
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | WebRTC metin günlüğü yüklemeyi durdurur |
 | `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |

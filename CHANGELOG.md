@@ -954,7 +954,7 @@ Files Modified/Added:
 | `DomainReliabilityAllowed` | 0 | Stops diagnostic data reporting to Google |
 | `BackgroundModeEnabled` | 0 | Prevents Brave from running when all windows closed |
 | `SafeBrowsingSurveysEnabled` | 0 | Disables post-browsing surveys |
-| `SafeBrowsingDeepScanningEnabled` | 0 | Disables server-side download scanning |
+| `SafeBrowsingDeepScanningEnabled` | 1 | Enables server-side download scanning |
 | `WebRtcEventLogCollectionAllowed` | 0 | Stops WebRTC event log upload to Google |
 | `WebRtcTextLogCollectionAllowed` | 0 | Stops WebRTC text log upload to Google |
 | `AudioCaptureAllowed` | 0 | Blocks microphone access by default |
@@ -2336,7 +2336,7 @@ Değiştirilen Dosyalar:
 | `DomainReliabilityAllowed` | 0 | Google'a tanısal veri raporlamasını durdurur |
 | `BackgroundModeEnabled` | 0 | Tüm pencereler kapandığında Brave'in çalışmasını engeller |
 | `SafeBrowsingSurveysEnabled` | 0 | Tarama sonrası anketleri kapatır |
-| `SafeBrowsingDeepScanningEnabled` | 0 | Sunucu taraflı indirme taramasını kapatır |
+| `SafeBrowsingDeepScanningEnabled` | 1 | Sunucu taraflı indirme taramasını etkinleştirir |
 | `WebRtcEventLogCollectionAllowed` | 0 | WebRTC olay günlüklerinin Google'a yüklenmesini durdurur |
 | `WebRtcTextLogCollectionAllowed` | 0 | WebRTC metin günlüklerinin Google'a yüklenmesini durdurur |
 | `AudioCaptureAllowed` | 0 | Mikrofon erişimini varsayılan olarak engeller |

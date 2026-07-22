@@ -638,8 +638,8 @@ $PolitikaTanimlari = @{
         @{Ad="BackgroundModeEnabled";                Deger=0; Tur="DWord"}
         # Safe Browsing anketleri — tarama sonrası anketleri kapatır
         @{Ad="SafeBrowsingSurveysEnabled";           Deger=0; Tur="DWord"}
-        # Safe Browsing derin tarama — sunucu taraflı indirme taramasını kapatır
-        @{Ad="SafeBrowsingDeepScanningEnabled";      Deger=0; Tur="DWord"}
+        # Safe Browsing derin tarama — sunucu taraflı indirme taramasını etkinleştirir
+        @{Ad="SafeBrowsingDeepScanningEnabled";      Deger=1; Tur="DWord"}
         # WebRTC olay günlüğü — WebRTC olay günlüklerinin Google'a yüklenmesini durdurur
         @{Ad="WebRtcEventLogCollectionAllowed";     Deger=0; Tur="DWord"}
         # WebRTC metin günlüğü — WebRTC metin günlüklerinin Google'a yüklenmesini durdurur
