@@ -6,15 +6,14 @@ on:
     paths: ["Wiki/**"]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   sync:
     name: Sync Wiki
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
       - name: Validate secret
@@ -27,12 +26,12 @@ jobs:
           fi
       - name: Clone, sync, and push Wiki
         env:
-          WIKI_URL: "https://x-access-token:${{ secrets.WIKI_SYNC_TOKEN }}@github.com/bayraktarozcan/Brave-Omega-Project.wiki.git"
+          WIKI_SYNC_TOKEN: ${{ secrets.WIKI_SYNC_TOKEN }}
         run: |
-          set -ex
+          set -e
           WIKI_DIR="/tmp/wiki-repo"
           rm -rf "$WIKI_DIR"
-          git clone "$WIKI_URL" "$WIKI_DIR"
+          git -c http.extraHeader="Authorization: token $WIKI_SYNC_TOKEN" clone https://github.com/bayraktarozcan/Brave-Omega-Project.wiki.git "$WIKI_DIR"
           cd "$WIKI_DIR"
           git config core.autocrlf false
           git config user.name "bayraktarozcan"
@@ -44,7 +43,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "sync: update Wiki from main (${{ github.sha }})"
-            git push origin master
+            git -c http.extraHeader="Authorization: token $WIKI_SYNC_TOKEN" push origin master
             echo "Wiki synced successfully"
           else
             echo "No changes detected — wiki already in sync"

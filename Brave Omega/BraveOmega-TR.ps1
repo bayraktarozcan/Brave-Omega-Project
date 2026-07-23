@@ -400,34 +400,43 @@ if ($Sifirla) {
 
     # HKLM'den kaldır
     $hkSayac = 0
+    $hkHata = 0
     if (Test-Path $HKLM_Hedef) {
         foreach ($ad in $tumPolitikalar) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $HKLM_Hedef -Name $ad -ErrorAction SilentlyContinue
+                    Remove-ItemProperty -Path $HKLM_Hedef -Name $ad
                 }
                 $hkSayac++
                 Write-Host "  [OK] HKLM\$ad kaldırıldı" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-            } catch { }
+            } catch {
+                $hkHata++
+                Write-Host "  [WARN] HKLM\$ad kaldırılamadı: $($_.Exception.Message)" -ForegroundColor DarkYellow
+            }
         }
     }
 
     # HKCU'dan kaldır
     $hcSayac = 0
+    $hcHata = 0
     if (Test-Path $HKCU_Hedef) {
         foreach ($ad in @("UsageStatsInSample", "ChromeVariations")) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $HKCU_Hedef -Name $ad -ErrorAction SilentlyContinue
+                    Remove-ItemProperty -Path $HKCU_Hedef -Name $ad
                 }
                 $hcSayac++
                 Write-Host "  [OK] HKCU\$ad kaldırıldı" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-            } catch { }
+            } catch {
+                $hcHata++
+                Write-Host "  [WARN] HKCU\$ad kaldırılamadı: $($_.Exception.Message)" -ForegroundColor DarkYellow
+            }
         }
     }
 
     # Omaha usagestats kaldır
     $omahaSayac = 0
+    $omahaHata = 0
     $kokYol = "HKCU:\Software\BraveSoftware"
     if (Test-Path "$kokYol\Update\ClientState") {
         $guids = Get-ChildItem -Path "$kokYol\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
@@ -437,11 +446,14 @@ if ($Sifirla) {
         foreach ($guidYol in $guids) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $guidYol -Name "usagestats" -ErrorAction SilentlyContinue
+                    Remove-ItemProperty -Path $guidYol -Name "usagestats"
                 }
                 $omahaSayac++
                 Write-Host "  [OK] Omaha GUID: usagestats kaldırıldı" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-            } catch { }
+            } catch {
+                $omahaHata++
+                Write-Host "  [WARN] Omaha GUID: usagestats kaldırılamadı: $($_.Exception.Message)" -ForegroundColor DarkYellow
+            }
         }
     }
 
@@ -451,13 +463,18 @@ if ($Sifirla) {
     if ($hkPolicies -and $hkGercekOzelikler.Count -eq 0) {
         try {
             if (-not $WhatIf) {
-                Remove-Item -Path $HKLM_Hedef -Force -ErrorAction SilentlyContinue
+                Remove-Item -Path $HKLM_Hedef -Force
             }
             Write-Host "  [OK] HKLM politika anahtarı kaldırıldı (hiç politika kalmadı)" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-        } catch { }
+        } catch {
+            Write-Host "  [WARN] HKLM politika anahtarı kaldırılamadı: $($_.Exception.Message)" -ForegroundColor DarkYellow
+        }
     }
 
     Write-Host "`n[SIFIRLA TAMAMLANDI] HKLM: $hkSayac / HKCU: $hcSayac / Omaha: $omahaSayac girdi kaldırıldı." -ForegroundColor Cyan
+    if ($hkHata + $hcHata + $omahaHata -gt 0) {
+        Write-Host "  $hkHata HKLM, $hcHata HKCU, $omahaHata Omaha girdisi kaldırılamadı (yüksek izin gerekebilir)." -ForegroundColor DarkYellow
+    }
     Write-Host "  Brave'i kapatıp yeniden açın.`n" -ForegroundColor White
     exit 0
 }

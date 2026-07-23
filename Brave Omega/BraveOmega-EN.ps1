@@ -408,34 +408,43 @@ if ($Reset) {
 
     # Remove from HKLM
     $hkCount = 0
+    $hkFail = 0
     if (Test-Path $HKLM_Target) {
         foreach ($name in $allPolicyNames) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $HKLM_Target -Name $name -ErrorAction SilentlyContinue
+                    Remove-ItemProperty -Path $HKLM_Target -Name $name
                 }
                 $hkCount++
                 Write-Host "  [OK] HKLM\$name removed" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-            } catch { }
+            } catch {
+                $hkFail++
+                Write-Host "  [WARN] HKLM\$name could not be removed: $($_.Exception.Message)" -ForegroundColor DarkYellow
+            }
         }
     }
 
     # Remove from HKCU
     $hcCount = 0
+    $hcFail = 0
     if (Test-Path $HKCU_Target) {
         foreach ($name in @("UsageStatsInSample", "ChromeVariations")) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $HKCU_Target -Name $name -ErrorAction SilentlyContinue
+                    Remove-ItemProperty -Path $HKCU_Target -Name $name
                 }
                 $hcCount++
                 Write-Host "  [OK] HKCU\$name removed" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-            } catch { }
+            } catch {
+                $hcFail++
+                Write-Host "  [WARN] HKCU\$name could not be removed: $($_.Exception.Message)" -ForegroundColor DarkYellow
+            }
         }
     }
 
     # Remove Omaha usagestats from GUIDs
     $omahaCount = 0
+    $omahaFail = 0
     $rootPath = "HKCU:\Software\BraveSoftware"
     if (Test-Path "$rootPath\Update\ClientState") {
         $guids = Get-ChildItem -Path "$rootPath\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
@@ -445,27 +454,21 @@ if ($Reset) {
         foreach ($guidPath in $guids) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $guidPath -Name "usagestats" -ErrorAction SilentlyContinue
+                    Remove-ItemProperty -Path $guidPath -Name "usagestats"
                 }
                 $omahaCount++
                 Write-Host "  [OK] Omaha GUID: usagestats removed" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-            } catch { }
+            } catch {
+                $omahaFail++
+                Write-Host "  [WARN] Omaha GUID: usagestats could not be removed: $($_.Exception.Message)" -ForegroundColor DarkYellow
+            }
         }
     }
 
-    # Optionally remove empty HKLM key
-    $hkPolicies = Get-ItemProperty -Path $HKLM_Target -ErrorAction SilentlyContinue
-    $hkRealProperties = @($hkPolicies.PSObject.Properties | Where-Object { $_.Name -notin @('PSPath','PSParentPath','PSChildName','PSDrive','PSProvider') })
-    if ($hkPolicies -and $hkRealProperties.Count -eq 0) {
-        try {
-            if (-not $WhatIf) {
-                Remove-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue
-            }
-            Write-Host "  [OK] HKLM policy key removed (no policies remain)" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
-        } catch { }
-    }
-
     Write-Host "`n[RESET COMPLETE] HKLM: $hkCount / HKCU: $hcCount / Omaha: $omahaCount entries removed." -ForegroundColor Cyan
+    if ($hkFail + $hcFail + $omahaFail -gt 0) {
+        Write-Host "  $hkFail HKLM, $hcFail HKCU, $omahaFail Omaha entries could not be removed (may require elevated permissions)." -ForegroundColor DarkYellow
+    }
     Write-Host "  Close Brave and reopen for changes to take effect.`n" -ForegroundColor White
     exit 0
 }
