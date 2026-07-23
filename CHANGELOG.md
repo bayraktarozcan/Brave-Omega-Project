@@ -1,4 +1,4 @@
-<!-- ================================================================== -->
+﻿<!-- ================================================================== -->
 <!--            BRAVE OMEGA PROJECT — CHANGELOG                         -->
 <!--          Community Edition · Open Source · Privacy First           -->
 <!-- ================================================================== -->
@@ -27,7 +27,10 @@
 ### Table of Contents
 
 1. [Introduction](#en-introduction)
-2. [v2.5.0.0 — 2026-07-21](#en-v2500)
+2. [v2.5.1.0 — 2026-07-23](#en-v2510)
+    * [Summary](#en-v2510-summary)
+    * [Changed](#en-v2510-changed)
+3. [v2.5.0.0 — 2026-07-21](#en-v2500)
     * [Summary](#en-v2500-summary)
     * [Added](#en-v2500-added)
     * [Removed](#en-v2500-removed)
@@ -119,136 +122,35 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ---
 
-<a id="en-v220"></a>
+<a id="en-v2510"></a>
 
-## [v2.2.0] — 2026-07-06
+## [v2.5.1.0] — 2026-07-23
 
-<a id="en-v220-summary"></a>
-
-### 🎯 Summary
-
-**Tier expansion release:** New **Advanced** hardening level (L4, 72 policies) inserted between Balanced (61) and Strict (81). Strict renumbered L4→L5; 11 policies migrated from Strict to the new Advanced level; 8 core Strict policies retained.
-
-| Metric | Before (v2.1.6) | After (v2.2.0) |
-|--------|-----------------|----------------|
-| Hardening levels | 4 | 5 |
-| Brave Only policies | 23 | 23 |
-| Essential additions | 17 | 17 |
-| Balanced additions | 21 | 21 |
-| Advanced additions | — | 11 |
-| Strict additions | 21 | 9 |
-
-<a id="en-v220-added"></a>
-
-### Added
-
-- **New hardening level — Advanced:** Inserted between Balanced (L3) and Strict (L4→L5).
-  - **11 policies migrated from Strict:** `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage`.
-  - **Total at this level:** 72 cumulative policies (23 Brave + 17 Data + 21 Security + 11 Advanced).
-- **`-Level Advanced` / `-Level Gelişmiş` parameter** — New parameter value for silent/automated deployment targeting the Advanced level.
-- **Phase 6 — Kademe Ekleme** — Roadmap entry documenting the tier insertion.
-- **`$ValidLevels` — Expanded to 10 values** — All 5 levels validated in both EN and TR scripts.
-
-<a id="en-v220-changed"></a>
-
-### Changed
-
-- **Strict renumbered L4→L5** — 10 core policies retained: `TranslateEnabled`, `WebRtcIPHandling` (override), `DefaultClipboardSetting`, `DefaultFileSystemReadGuardSetting`, `DefaultFileSystemWriteGuardSetting`, `DefaultInsecureContentSetting`, `DefaultJavaScriptJitSetting`, `DefaultCookiesSetting`, `ImportBookmarks`, `DefaultBraveRemember1PStorageSetting`.
-- **`ImportBookmarks` kept in Strict** — Deliberate retention for bookmark portability (users cloning from existing profiles).
-- **Script version** — `$ScriptVersion = "v2.2.0.0"` in both EN and TR scripts.
-- **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md updated to reflect 5-level model.
-- **README.md** — Level tables, parameter references, policy section 9.5, and hardening levels table updated for 5-level model.
-- **CHANGELOG, SECURITY, index.html** — Version numbers and level references updated.
-- **`WebRtcIPHandling` override** — Retained only in Strict (L5); Balanced (L3) retains the base value `"default_public_interface_only"`.
-
-<hr>
-
-<a id="en-v2300"></a>
-
-## [v2.3.0.0] — 2026-07-09
-
-<a id="en-v2300-summary"></a>
+<a id="en-v2510-summary"></a>
 
 ### 🎯 Summary
 
-**19 new enterprise policies added; cumulative chain expands to 110 policies.** Phase 8 adds Safe Browsing protection level controls, password protection warning trigger, online revocation checking, forced extension installation with Dark Reader + Google Docs Offline, download restrictions, proxy configuration, extension lockdown (block all extensions), Incognito mode disable, developer tools disable, task manager disable, printing disable, and more. Every hardening level grows, with Advanced gaining 18 new policies and Strict overriding critical settings.
+**Compatibility validation:** Brave **1.92.143** (Chromium **150.0.7871.182**) compatibility confirmed. No policy changes — all 150 enterprise policies verified working with the latest stable Brave release.
 
-| Metric | Before (v2.2.1.0) | After (v2.3.0.0) |
-|--------|-------------------|------------------|
+| Metric | Before (v2.5.0.0) | After (v2.5.1.0) |
+|--------|-------------------|-------------------|
 | Hardening levels | 5 | 5 |
-| Total policies | 91 | 110 |
-| Brave Only policies | 22 | **24** (+2) |
-| Essential additions | 25 | **26** (+1) |
-| Balanced additions | 25 | **29** (+4) |
-| Advanced additions | 11 | **18** (+7) |
-| Strict additions | 9 | **13** (+4) |
-| Cumulative chain | 22→47→72→83→91 | **24→50→79→97→110** |
+| Total policies | 150 | 150 |
+| Brave Only policies | 24 | 24 |
+| Essential additions | 29 | 29 |
+| Balanced additions | 33 | 33 |
+| Advanced additions | 38 | 38 |
+| Strict additions | 27 | 27 |
+| Cumulative chain | 24→53→86→124→150 | 24→53→86→124→150 |
 
-<a id="en-v2300-added"></a>
-
-### Added
-
-#### Brave Only (2 policies)
-
-- **`SafeBrowsingProtectionLevel`** — Sets enhanced Safe Browsing protection level (DWord: 2). Blocks dangerous sites, downloads, and extensions with real-time scanning. Cumulative for all lower levels.
-- **`PasswordProtectionWarningTrigger`** — Enables password protection warning for all domains (DWord: 3). Warns users when their stored password is entered on any site. Cumulative for all lower levels.
-
-#### Essential (1 policy)
-
-- **`EnableOnlineRevocationChecks`** — Forces online OCSP/CRL revocation checks for TLS certificates (DWord: 1). Adds a privacy-verified certificate validation layer. Cumulative for all lower levels.
-
-#### Balanced (4 policies)
-
-- **`ExtensionInstallForcelist`** — Silently installs and pins Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) and Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) extensions. Users cannot remove or disable (MultiString).
-- **`DownloadRestrictions`** — Blocks dangerous download types (DWord: 3). Prevents malicious file downloads from any site.
-- **`DownloadDirectory`** — Sets a fixed download directory path (String: `C:\BraveDownloads`).
-- **`PromptForDownloadLocation`** — Always prompts for download location before saving (DWord: 1).
-
-#### Advanced (18 policies)
-
-- **`ExtensionInstallBlocklist`** — Blocks all extensions by wildcard rule (MultiString: `*`).
-- **`ExtensionInstallAllowlist`** — Empty allowlist, meaning no extension is allowed by exception (MultiString: empty).
-- **`ExtensionAllowedTypes`** — Restricts allowed extension types to `["theme", "extension"]` only (String: JSON). Blocks platform apps, hosted apps, legacy packaged apps, and user scripts.
-- **`BlockExternalExtensions`** — Blocks all externally-installed extensions (DWord: 1).
-- **`ExtensionSettings`** — Global extension policy engine (String: JSON). Enables per-extension configuration and override control.
-- **`ManifestV2Unsupported`** — Deprecates Manifest V2 extensions (DWord: 1). Prepares for MV2 sunset.
-- **`DeveloperToolsDisabled`** — Disables all developer tools access (DWord: 1). Prevents DevTools via UI and keyboard shortcuts.
-- **`DeveloperToolsAvailability`** — Disables developer tools via policy restriction (DWord: 2). Admin-managed ban, cannot be overridden.
-- **`ProxyMode`** — Sets fixed proxy configuration mode (String: `fixed_servers`).
-- **`BuiltInDnsClientEnabled`** — Disables Brave's built-in DNS client, falling back to OS DNS resolution (DWord: 0).
-- **`BraveUpdateDisabled`** — Disables automatic Brave browser updates (DWord: 1). Maximum lockdown — use only with alternative update management.
-- **`IncognitoModeAvailability`** — Disables Incognito/Private mode entirely (DWord: 1). Forces all browsing to normal mode.
-- **`TaskManagerEndProcessEnabled`** — Disables end-process button in Brave's Task Manager (DWord: 0).
-- **`PrintingEnabled`** — Disables all printing in Brave (DWord: 0).
-- **`DisablePrintPreview`** — Forces system print dialog instead of the print preview (DWord: 1).
-- **`TranslateEnabled`** — Enables browser translation feature (DWord: 1). Allows translation of foreign language pages.
-- **`DefaultJavaScriptSetting`** — Allows JavaScript execution (DWord: 1). Required for modern web compatibility.
-- **`PasswordManagerEnabled`** — Enables built-in password manager (DWord: 1). Users can save and autofill passwords.
-
-#### Strict (overrides)
-
-- **`TranslateEnabled`** — Override: top priority, forces translation enabled regardless of lower tier settings.
-- **`DownloadRestrictions`** — Override: escalated from `1` (Balanced) to `3` (Strict). Blocks dangerous AND uncommon downloads.
-- Other Strict overrides: IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled — re-enforced at highest tier for defense-in-depth.
-
-<a id="en-v2300-changed"></a>
+<a id="en-v2510-changed"></a>
 
 ### Changed
 
-- **Script version** — `$ScriptVersion = "v2.3.0.0"` in both EN and TR scripts.
-- **Validated Brave version** — Updated to `1.92.138` (Chromium 150.0.7871.101).
-- **Policy counts** — All documentation updated: BraveOnly 24→50→79→97→110 cumulative.
-- **Level descriptions** — Level cards, terminal display, compatibility table, and feature sections updated across all docs.
-- **Documentation** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html updated.
-
-<a id="en-v2300-notes"></a>
-
-### Notes
-
-- **ProxySettings** uses a placeholder value (`http://proxy:8080`). Deployments requiring proxy functionality must customize this per environment.
-- **ExtensionInstallForcelist** pins Dark Reader and Google Docs Offline. Remove or add extensions by editing the MultiString value.
-- **BraveUpdateDisabled=1** disables automatic updates. Ensure you have an alternative update management system before deploying Strict.
-- **SafeBrowsingProtectionLevel=2** and **PasswordProtectionWarningTrigger=3** in BraveOnly cover all subsequent levels cumulatively.
+- **Brave version bump** — Validated against Brave **1.92.143** (Chromium 150.0.7871.182). No policy changes from v2.5.0.0.
+- **Chromium major upgrade** — Chromium 149 → 150. Verified no new relevant enterprise policies or deprecations affecting existing 150-policy set.
+- **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.92.143 / Chromium 150.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.5.1.0"`, validated version constants bumped.
 
 <hr>
 
@@ -527,6 +429,95 @@ Fixes #50
 
 <hr>
 
+<a id="en-v2300"></a>
+
+## [v2.3.0.0] — 2026-07-09
+
+<a id="en-v2300-summary"></a>
+
+### 🎯 Summary
+
+**19 new enterprise policies added; cumulative chain expands to 110 policies.** Phase 8 adds Safe Browsing protection level controls, password protection warning trigger, online revocation checking, forced extension installation with Dark Reader + Google Docs Offline, download restrictions, proxy configuration, extension lockdown (block all extensions), Incognito mode disable, developer tools disable, task manager disable, printing disable, and more. Every hardening level grows, with Advanced gaining 18 new policies and Strict overriding critical settings.
+
+| Metric | Before (v2.2.1.0) | After (v2.3.0.0) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 91 | 110 |
+| Brave Only policies | 22 | **24** (+2) |
+| Essential additions | 25 | **26** (+1) |
+| Balanced additions | 25 | **29** (+4) |
+| Advanced additions | 11 | **18** (+7) |
+| Strict additions | 9 | **13** (+4) |
+| Cumulative chain | 22→47→72→83→91 | **24→50→79→97→110** |
+
+<a id="en-v2300-added"></a>
+
+### Added
+
+#### Brave Only (2 policies)
+
+- **`SafeBrowsingProtectionLevel`** — Sets enhanced Safe Browsing protection level (DWord: 2). Blocks dangerous sites, downloads, and extensions with real-time scanning. Cumulative for all lower levels.
+- **`PasswordProtectionWarningTrigger`** — Enables password protection warning for all domains (DWord: 3). Warns users when their stored password is entered on any site. Cumulative for all lower levels.
+
+#### Essential (1 policy)
+
+- **`EnableOnlineRevocationChecks`** — Forces online OCSP/CRL revocation checks for TLS certificates (DWord: 1). Adds a privacy-verified certificate validation layer. Cumulative for all lower levels.
+
+#### Balanced (4 policies)
+
+- **`ExtensionInstallForcelist`** — Silently installs and pins Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) and Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) extensions. Users cannot remove or disable (MultiString).
+- **`DownloadRestrictions`** — Blocks dangerous download types (DWord: 3). Prevents malicious file downloads from any site.
+- **`DownloadDirectory`** — Sets a fixed download directory path (String: `C:\BraveDownloads`).
+- **`PromptForDownloadLocation`** — Always prompts for download location before saving (DWord: 1).
+
+#### Advanced (18 policies)
+
+- **`ExtensionInstallBlocklist`** — Blocks all extensions by wildcard rule (MultiString: `*`).
+- **`ExtensionInstallAllowlist`** — Empty allowlist, meaning no extension is allowed by exception (MultiString: empty).
+- **`ExtensionAllowedTypes`** — Restricts allowed extension types to `["theme", "extension"]` only (String: JSON). Blocks platform apps, hosted apps, legacy packaged apps, and user scripts.
+- **`BlockExternalExtensions`** — Blocks all externally-installed extensions (DWord: 1).
+- **`ExtensionSettings`** — Global extension policy engine (String: JSON). Enables per-extension configuration and override control.
+- **`ManifestV2Unsupported`** — Deprecates Manifest V2 extensions (DWord: 1). Prepares for MV2 sunset.
+- **`DeveloperToolsDisabled`** — Disables all developer tools access (DWord: 1). Prevents DevTools via UI and keyboard shortcuts.
+- **`DeveloperToolsAvailability`** — Disables developer tools via policy restriction (DWord: 2). Admin-managed ban, cannot be overridden.
+- **`ProxyMode`** — Sets fixed proxy configuration mode (String: `fixed_servers`).
+- **`BuiltInDnsClientEnabled`** — Disables Brave's built-in DNS client, falling back to OS DNS resolution (DWord: 0).
+- **`BraveUpdateDisabled`** — Disables automatic Brave browser updates (DWord: 1). Maximum lockdown — use only with alternative update management.
+- **`IncognitoModeAvailability`** — Disables Incognito/Private mode entirely (DWord: 1). Forces all browsing to normal mode.
+- **`TaskManagerEndProcessEnabled`** — Disables end-process button in Brave's Task Manager (DWord: 0).
+- **`PrintingEnabled`** — Disables all printing in Brave (DWord: 0).
+- **`DisablePrintPreview`** — Forces system print dialog instead of the print preview (DWord: 1).
+- **`TranslateEnabled`** — Enables browser translation feature (DWord: 1). Allows translation of foreign language pages.
+- **`DefaultJavaScriptSetting`** — Allows JavaScript execution (DWord: 1). Required for modern web compatibility.
+- **`PasswordManagerEnabled`** — Enables built-in password manager (DWord: 1). Users can save and autofill passwords.
+
+#### Strict (overrides)
+
+- **`TranslateEnabled`** — Override: top priority, forces translation enabled regardless of lower tier settings.
+- **`DownloadRestrictions`** — Override: escalated from `1` (Balanced) to `3` (Strict). Blocks dangerous AND uncommon downloads.
+- Other Strict overrides: IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled — re-enforced at highest tier for defense-in-depth.
+
+<a id="en-v2300-changed"></a>
+
+### Changed
+
+- **Script version** — `$ScriptVersion = "v2.3.0.0"` in both EN and TR scripts.
+- **Validated Brave version** — Updated to `1.92.138` (Chromium 150.0.7871.101).
+- **Policy counts** — All documentation updated: BraveOnly 24→50→79→97→110 cumulative.
+- **Level descriptions** — Level cards, terminal display, compatibility table, and feature sections updated across all docs.
+- **Documentation** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html updated.
+
+<a id="en-v2300-notes"></a>
+
+### Notes
+
+- **ProxySettings** uses a placeholder value (`http://proxy:8080`). Deployments requiring proxy functionality must customize this per environment.
+- **ExtensionInstallForcelist** pins Dark Reader and Google Docs Offline. Remove or add extensions by editing the MultiString value.
+- **BraveUpdateDisabled=1** disables automatic updates. Ensure you have an alternative update management system before deploying Strict.
+- **SafeBrowsingProtectionLevel=2** and **PasswordProtectionWarningTrigger=3** in BraveOnly cover all subsequent levels cumulatively.
+
+<hr>
+
 <a id="en-v2210"></a>
 
 ## [v2.2.1.0] — 2026-07-07
@@ -632,6 +623,50 @@ Fixes #50
 
 <hr>
 
+<a id="en-v220"></a>
+
+## [v2.2.0] — 2026-07-06
+
+<a id="en-v220-summary"></a>
+
+### 🎯 Summary
+
+**Tier expansion release:** New **Advanced** hardening level (L4, 72 policies) inserted between Balanced (61) and Strict (81). Strict renumbered L4→L5; 11 policies migrated from Strict to the new Advanced level; 8 core Strict policies retained.
+
+| Metric | Before (v2.1.6) | After (v2.2.0) |
+|--------|-----------------|----------------|
+| Hardening levels | 4 | 5 |
+| Brave Only policies | 23 | 23 |
+| Essential additions | 17 | 17 |
+| Balanced additions | 21 | 21 |
+| Advanced additions | — | 11 |
+| Strict additions | 21 | 9 |
+
+<a id="en-v220-added"></a>
+
+### Added
+
+- **New hardening level — Advanced:** Inserted between Balanced (L3) and Strict (L4→L5).
+  - **11 policies migrated from Strict:** `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage`.
+  - **Total at this level:** 72 cumulative policies (23 Brave + 17 Data + 21 Security + 11 Advanced).
+- **`-Level Advanced` / `-Level Gelişmiş` parameter** — New parameter value for silent/automated deployment targeting the Advanced level.
+- **Phase 6 — Kademe Ekleme** — Roadmap entry documenting the tier insertion.
+- **`$ValidLevels` — Expanded to 10 values** — All 5 levels validated in both EN and TR scripts.
+
+<a id="en-v220-changed"></a>
+
+### Changed
+
+- **Strict renumbered L4→L5** — 10 core policies retained: `TranslateEnabled`, `WebRtcIPHandling` (override), `DefaultClipboardSetting`, `DefaultFileSystemReadGuardSetting`, `DefaultFileSystemWriteGuardSetting`, `DefaultInsecureContentSetting`, `DefaultJavaScriptJitSetting`, `DefaultCookiesSetting`, `ImportBookmarks`, `DefaultBraveRemember1PStorageSetting`.
+- **`ImportBookmarks` kept in Strict** — Deliberate retention for bookmark portability (users cloning from existing profiles).
+- **Script version** — `$ScriptVersion = "v2.2.0.0"` in both EN and TR scripts.
+- **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md updated to reflect 5-level model.
+- **README.md** — Level tables, parameter references, policy section 9.5, and hardening levels table updated for 5-level model.
+- **CHANGELOG, SECURITY, index.html** — Version numbers and level references updated.
+- **`WebRtcIPHandling` override** — Retained only in Strict (L5); Balanced (L3) retains the base value `"default_public_interface_only"`.
+
+<hr>
+
 <a id="en-v216"></a>
 
 ## [v2.1.6] — 2026-07-04
@@ -707,24 +742,6 @@ Fixes #50
 - **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.92.134 / Chromium 150.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.5"`, validated version constants bumped.
 
-<a id="en-v212"></a>
-
-## [v2.1.2] — 2026-06-18
-
-<a id="en-v212-summary"></a>
-
-### 🎯 Summary
-
-**Validation release:** Brave **1.91.175** / Chromium **149.0.7827.155** compatibility confirmed. Structural, HTML/CSS, and documentation fixes from v2.1.1 — no new policies, no policy count changes.
-
-<a id="en-v212-changed"></a>
-
-### Changed
-
-- **Brave version bump** — Validated against Brave **1.91.175** (Chromium 149.0.7827.155). No policy changes from v2.1.1.
-- **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.91.175.
-- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, validated version constants bumped.
-
 <a id="en-v214"></a>
 
 ## [v2.1.4] — 2026-06-27
@@ -772,6 +789,24 @@ Fixes #50
 - **Brave version bump** — Validated against Brave **1.91.178** (Chromium 149.0.7827.196). No policy changes from v2.1.2.
 - **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.91.178.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.3"`, validated version constants bumped.
+
+<a id="en-v212"></a>
+
+## [v2.1.2] — 2026-06-18
+
+<a id="en-v212-summary"></a>
+
+### 🎯 Summary
+
+**Validation release:** Brave **1.91.175** / Chromium **149.0.7827.155** compatibility confirmed. Structural, HTML/CSS, and documentation fixes from v2.1.1 — no new policies, no policy count changes.
+
+<a id="en-v212-changed"></a>
+
+### Changed
+
+- **Brave version bump** — Validated against Brave **1.91.175** (Chromium 149.0.7827.155). No policy changes from v2.1.1.
+- **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.91.175.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, validated version constants bumped.
 
 <a id="en-v211"></a>
 
@@ -1323,6 +1358,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.5.1.0 | 2026-07-23 | 150   | Compatibility validation: Brave 1.92.143 (Chromium 150.0.7871.182); no policy changes |
 | v2.5.0.0 | 2026-07-21 | 150   | Full policy expansion: 30 new policies (133→150); 9 broken/deprecated/cloud policies removed; AI blocking (13), local network access control, screen capture fine-grained, renderer sandbox; cumulative chain 24→53→86→124→150 |
 | v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation; no policy changes |
 | v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only, removed Google Docs Offline + Kaspersky Protection + old IDs; ExtensionSettings JSON updated; cumulative chain 24→52→83→104→133 |
@@ -1391,7 +1427,10 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 ### İçindekiler
 1. [Giriş](#tr-introduction)
-2. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+2. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+    * [Özet](#tr-v2510-ozet)
+    * [Değiştirildi](#tr-v2510-degistirildi)
+3. [v2.5.0.0 — 2026-07-21](#tr-v2500)
     * [Özet](#tr-v2500-ozet)
     * [Eklendi](#tr-v2500-eklendi)
     * [Kaldırıldı](#tr-v2500-kaldirildi)
@@ -1498,241 +1537,35 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ---
 
-<a id="tr-v21"></a>
+<a id="tr-v2510"></a>
 
-## [v2.1] — 2026-06-16
+## [v2.5.1.0] — 2026-07-23
 
-<a id="tr-v21-summary"></a>
-
-### 🎯 Özet
-
-**Özellik genişletmesi:** Otomatik Brave sürüm tespiti, kuru çalıştırma önizlemesi
-(`-WhatIf`), temiz kaldırma (`-Sıfırla`), yapılandırılmış `CONTRIBUTING.md` ve GitHub
-sorun şablonları ile haftalık ve isteğe bağlı çalışan bir GitHub Actions ADMX doğrulama
-boru hattı.
-
-<a id="tr-v21-added"></a>
-
-### ✨ Eklendi
-
-#### Sürüm Tespiti
-- **Otomatik Brave ikili dosya keşfi** — `%ProgramFiles%`, `%ProgramFiles(x86)%` ve
-  `%LOCALAPPDATA%` dizinlerinde `brave.exe` arar.
-- **Sürüm karşılaştırması** — `major.minor.patch` değerini doğrulanmış sürüm `1.91.172`
-  ile karşılaştırır.
-- **Uyuşmazlıkta kullanıcı istemi** — Yüklü sürüm farklıysa uyarır ve devam etmeyi sorar.
-- **Sessiz atlama** — Brave bulunamazsa, `brave://settings/help` adresinden uyumluluk
-  kontrolü hatırlatması ile devam eder.
-
-#### -WhatIf Parametresi (Önizleme Modu)
-- **Standart PowerShell semantiği** — Hem betikte hem de `Write-PolicyValue` /
-  `Yaz-KayitDegeri` fonksiyonlarında `-WhatIf` anahtarı.
-- **Kayıt defterine yazılmaz** — Tüm yazma işlemleri (HKLM, HKCU, Omaha) bir
-  `if (-not $WhatIf)` denetimi ile korunur.
-- **Atlanan adımlar** — Yedekleme dışa aktarma ve dizin oluşturma WhatIf modunda tamamen
-  atlanır.
-- **Magenta [WhatIf] etiketleri** — Değer yazacak her çıktı satırı, net görsel tanımlama
-  için macenta renkte `[WhatIf]` ön eki alır.
-- **Özet göstergesi** — Özet raporunda `Mod: WhatIf (yalnızca önizleme)` gösterilir.
-
-#### -Sıfırla Parametresi (Temiz Kaldırma)
-- **Tam politika kaldırma** — HKLM, HKCU (UsageStats, ChromeVariations) ve tespit edilen
-  tüm Omaha GUID'lerinden 68 Brave Omega politikasının tamamını kaldırır.
-- **Boş anahtar temizliği** — Kaldırma sonrası hiç politika kalmazsa
-  `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` anahtarını siler.
-- **Ayrıntılı sayaçlar** — Kovan başına kaldırma sayısını raporlar: `HKLM: 68 / HKCU: 2 / Omaha: N`.
-- **WhatIf duyarlılığı** — `-WhatIf` modunda sessizce çalışır (önizlemede gerçek silme yapılmaz).
-
-#### Belgelendirme
-- **CONTRIBUTING.md** — Kapsamlı katkı rehberi (EN + TR) — davranış kuralları, öncelikli
-  alanlar, sürüm güncellemeleri, yeni politika gereksinimleri, hata raporu şablonları,
-  özellik talepleri, çeviriler, PR iş akışı, geliştirme ortamı kurulumu, stil rehberi ve
-  güvenlik bildirimleri.
-- **Sorun Şablonları** — Hata raporları ve özellik talepleri için yapılandırılmış YAML
-  şablonları (`.github/ISSUE_TEMPLATE/bug_report.yaml`, `feature_request.yaml`).
-
-#### CI/CD
-- **ADMX Doğrulama Boru Hattı** (`.github/workflows/admx-validate.yml` + `.ps1`):
-  - Haftalık (Pazartesi 06:00 UTC) ve `workflow_dispatch` ile çalışır.
-  - Chromium ADMX şablonlarını indirir, politika tanımlarını ayrıştırır ve betiğin
-    politika listesiyle karşılaştırır.
-  - Tür uyuşmazlıklarını, ADMX'te bulunan yeni politikaları ve betikte olup ADMX'te
-    olmayan politikaları raporlar.
-  - Uyuşmazlık bulunduğunda otomatik olarak bir GitHub sorunu oluşturur.
-  - Yardımcı betik (`admx-validate.ps1`) bağımsız olarak da kullanılabilir.
-
-### 🔧 Değiştirildi
-
-- **BraveOmega-EN.ps1** — v2.1 özellikleri: sürüm denetimi, -WhatIf, -Sıfırla,
-  `$ScriptVersion = "v2.1"`
-- **BraveOmega-TR.ps1** — v2.1 özellikleri Türkçe olarak yansıtıldı
-- **CHANGELOG.md** — v2.1 değişiklik günlüğü eklendi (bu bölüm)
-
-### 📊 İstatistikler
-
-```
-Eklenen/Değiştirilen Dosyalar:
-  ✓ BraveOmega-EN.ps1 (v2.1: sürüm denetimi, -WhatIf, -Sıfırla)
-  ✓ BraveOmega-TR.ps1 (v2.1: yansıtılan değişiklikler)
-  ✓ CONTRIBUTING.md (yeni — kapsamlı katkı rehberi, EN + TR)
-  ✓ .github/ISSUE_TEMPLATE/bug_report.yaml (yeni)
-  ✓ .github/ISSUE_TEMPLATE/feature_request.yaml (yeni)
-  ✓ .github/workflows/admx-validate.yml (yeni — haftalık + manuel)
-  ✓ .github/workflows/admx-validate.ps1 (yeni — bağımsız doğrulama betiği)
-  ✓ CHANGELOG.md (v2.1 girdisi)
-  ✓ README.md (güncel yol haritası, katkı referansı)
-  ✓ index.html (güncel değişiklik günlüğü, hızlı başlangıç, rozetler)
-```
-
----
-
-<a id="tr-v212"></a>
-
-## [v2.1.2] — 2026-06-18
-
-<a id="tr-v212-summary"></a>
+<a id="tr-v2510-ozet"></a>
 
 ### 🎯 Özet
 
-**Doğrulama sürümü:** Brave **1.91.175** / Chromium **149.0.7827.155** uyumluluğu onaylandı. v2.1.1'den yapısal, HTML/CSS ve belge düzeltmeleri — yeni politika yok, politika sayılarında değişiklik yok.
+**Uyumluluk doğrulaması:** Brave **1.92.143** (Chromium **150.0.7871.182**) uyumluluğu doğrulandı. Politika değişikliği yok — 150 kurumsal politikanın tamamı en son Brave kararlı sürümüyle sorunsuz çalışıyor.
 
-<a id="tr-v212-changed"></a>
+| Metrik | Önce (v2.5.0.0) | Sonra (v2.5.1.0) |
+|--------|------------------|-------------------|
+| Güçlendirme düzeyleri | 5 | 5 |
+| Toplam politika | 150 | 150 |
+| Yalnızca Brave politikaları | 24 | 24 |
+| Temel eklemeler | 29 | 29 |
+| Dengeli eklemeler | 33 | 33 |
+| Gelişmiş eklemeler | 38 | 38 |
+| Katı eklemeler | 27 | 27 |
+| Kümülatif zincir | 24→53→86→124→150 | 24→53→86→124→150 |
+
+<a id="tr-v2510-degistirildi"></a>
 
 ### Değiştirildi
 
-- **Brave sürüm yükseltmesi** — Brave **1.91.175** (Chromium 149.0.7827.155) ile doğrulandı. v2.1.1'den itibaren politika değişikliği yok.
-- **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.175'e güncellendi.
-- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, doğrulanmış sürüm sabitleri güncellendi.
-
-<a id="tr-v220"></a>
-
-## [v2.2.0] — 2026-07-06
-
-<a id="tr-v220-ozet"></a>
-
-### 🎯 Özet
-
-**Kademe genişletme sürümü:** Dengeli (61) ile Katı (81) arasına yeni **Gelişmiş** sıkılaştırma seviyesi (L4, 72 politika) eklendi. Katı L4→L5 olarak yeniden numaralandırıldı; 11 politika Katı'dan yeni Gelişmiş seviyesine taşındı; 8 temel Katı politikası korundu.
-
-| Metrik | Önce (v2.1.6) | Sonra (v2.2.0) |
-|--------|---------------|----------------|
-| Sıkılaştırma seviyesi | 4 | 5 |
-| Brave Yalnız politikaları | 23 | 23 |
-| Temel eklemeleri | 17 | 17 |
-| Dengeli eklemeleri | 21 | 21 |
-| Gelişmiş eklemeleri | — | 11 |
-| Katı eklemeleri | 21 | 9 |
-
-<a id="tr-v220-eklendi"></a>
-
-### Eklendi
-
-- **Yeni sıkılaştırma seviyesi — Gelişmiş:** Dengeli (L3) ile Katı (L4→L5) arasına eklendi.
-  - **Katı'dan taşınan 11 politika:** `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage`.
-  - **Bu seviyede toplam:** 72 kümülatif politika (23 Brave + 17 Veri + 21 Güvenlik + 11 Gelişmiş).
-- **`-Level Advanced` / `-Level Gelişmiş` parametresi** — Gelişmiş seviyesini hedefleyen sessiz/otomatik dağıtım için yeni parametre değeri.
-- **Aşama 6 — Kademe Ekleme** — Kademe eklemesini belgeleyen yol haritası girdisi.
-- **`$ValidLevels` — 10 değere genişletildi** — Tüm 5 seviye hem EN hem TR betiklerinde doğrulandı.
-
-<a id="tr-v220-degistirildi"></a>
-
-### Değiştirildi
-
-- **Katı L4→L5 olarak yeniden numaralandırıldı** — 10 temel politika korundu: `TranslateEnabled`, `WebRtcIPHandling` (üzerine yaz), `DefaultClipboardSetting`, `DefaultFileSystemReadGuardSetting`, `DefaultFileSystemWriteGuardSetting`, `DefaultInsecureContentSetting`, `DefaultJavaScriptJitSetting`, `DefaultCookiesSetting`, `ImportBookmarks`, `DefaultBraveRemember1PStorageSetting`.
-- **`ImportBookmarks` Katı'da tutuldu** — Yer imi taşınabilirliği için bilinçli olarak korundu (mevcut profillerden kopyalayan kullanıcılar).
-- **Betik sürümü** — Her iki betikte `$ScriptVersion = "v2.2.0.0"`.
-- **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md 5 seviyeli modeli yansıtacak şekilde güncellendi.
-- **README.md** — Seviye tabloları, parametre referansları, politika bölümü 9.5 ve sıkılaştırma seviyeleri tablosu 5 seviyeli model için güncellendi.
-- **CHANGELOG, SECURITY, index.html** — Sürüm numaraları ve seviye referansları güncellendi.
-
-<hr>
-
-<a id="tr-v2300"></a>
-
-## [v2.3.0.0] — 2026-07-09
-
-<a id="tr-v2300-ozet"></a>
-
-### 🎯 Özet
-
-**19 yeni kurumsal politika eklendi; kümülatif zincir 110 politikaya genişletildi.** Aşama 8, Güvenli Gezinti koruma seviyesi kontrollerini, parola koruma uyarı tetikleyicisini, çevrimiçi iptal denetimini, zorunlu uzantı yüklemesini (Dark Reader + Google Docs Offline), indirme kısıtlamalarını, proxy yapılandırmasını, uzantı kilitlemeyi (tüm uzantıları engelle), gizli mod devre dışı bırakmayı, geliştirici araçlarını kapatmayı, görev yöneticisini devre dışı bırakmayı, yazdırmayı kapatmayı ve daha fazlasını ekler. Her sıkılaştırma seviyesi büyür, Gelişmiş 18 yeni politika kazanır ve Katı kritik ayarları yeniden zorlar.
-
-| Metrik | Önce (v2.2.1.0) | Sonra (v2.3.0.0) |
-|--------|-----------------|------------------|
-| Sıkılaştırma seviyesi | 5 | 5 |
-| Toplam politika | 91 | 110 |
-| Brave Yalnız politikaları | 22 | **24** (+2) |
-| Temel eklemeleri | 25 | **26** (+1) |
-| Dengeli eklemeleri | 25 | **29** (+4) |
-| Gelişmiş eklemeleri | 11 | **18** (+7) |
-| Katı eklemeleri | 9 | **13** (+4) |
-| Kümülatif zincir | 22→47→72→83→91 | **24→50→79→97→110** |
-
-<a id="tr-v2300-eklendi"></a>
-
-### Eklendi
-
-#### Brave Yalnız (2 politika)
-
-- **`SafeBrowsingProtectionLevel`** — Gelişmiş Güvenli Gezinti koruma seviyesini ayarlar (DWord: 2). Tehlikeli siteleri, indirmeleri ve uzantıları gerçek zamanlı taramayla engeller. Sonraki tüm seviyeler için kümülatif.
-- **`PasswordProtectionWarningTrigger`** — Tüm alan adlarında parola koruma uyarısını etkinleştirir (DWord: 3). Kaydedilmiş parola herhangi bir siteye girildiğinde kullanıcıyı uyarır. Sonraki tüm seviyeler için kümülatif.
-
-#### Temel (1 politika)
-
-- **`EnableOnlineRevocationChecks`** — TLS sertifikaları için çevrimiçi OCSP/CRL iptal denetimini zorlar (DWord: 1). Gizlilik onaylı sertifika doğrulama katmanı ekler. Sonraki tüm seviyeler için kümülatif.
-
-#### Dengeli (4 politika)
-
-- **`ExtensionInstallForcelist`** — Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) ve Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) uzantılarını sessizce yükler ve sabitler. Kullanıcılar kaldıramaz veya devre dışı bırakamaz (MultiString).
-- **`DownloadRestrictions`** — Tehlikeli indirme türlerini engeller (DWord: 3). Kötü amaçlı dosya indirmelerini herhangi bir siteden önler.
-- **`DownloadDirectory`** — Sabit bir indirme dizini yolu belirler (String: `C:\BraveDownloads`).
-- **`PromptForDownloadLocation`** — Kaydetmeden önce her zaman indirme konumu sorar (DWord: 1).
-
-#### Gelişmiş (18 politika)
-
-- **`ExtensionInstallBlocklist`** — Tüm uzantıları joker karakter kuralıyla engeller (MultiString: `*`).
-- **`ExtensionInstallAllowlist`** — Boş izin listesi, hiçbir uzantıya istisna tanınmaz (MultiString: boş).
-- **`ExtensionAllowedTypes`** — İzin verilen uzantı türlerini `["theme", "extension"]` ile sınırlar (String: JSON). Platform uygulamalarını, barındırılan uygulamaları, eski paketlenmiş uygulamaları ve kullanıcı betiklerini engeller.
-- **`BlockExternalExtensions`** — Tüm harici yüklenmiş uzantıları engeller (DWord: 1).
-- **`ExtensionSettings`** — Küresel uzantı politikası motoru (String: JSON). Uzantı başına yapılandırma ve override kontrolünü etkinleştirir.
-- **`ManifestV2Unsupported`** — Manifest V2 uzantılarını kullanımdan kaldırır (DWord: 1). MV2 gün batımına hazırlık.
-- **`DeveloperToolsDisabled`** — Tüm geliştirici araçları erişimini devre dışı bırakır (DWord: 1). Arayüz ve klavye kısayollarıyla DevTools'a erişimi engeller.
-- **`DeveloperToolsAvailability`** — Geliştirici araçlarını politika kısıtlamasıyla devre dışı bırakır (DWord: 2). Yönetici tarafından yönetilen yasak, geçersiz kılınamaz.
-- **`ProxyMode`** — Sabit proxy yapılandırma modunu ayarlar (String: `fixed_servers`).
-- **`BuiltInDnsClientEnabled`** — Brave'in yerleşik DNS istemcisini devre dışı bırakır, işletim sistemi DNS çözümlemesine döner (DWord: 0).
-- **`BraveUpdateDisabled`** — Otomatik Brave tarayıcı güncellemelerini devre dışı bırakır (DWord: 1). Maksimum kilitlenme — yalnızca alternatif güncelleme yönetimi ile kullanın.
-- **`IncognitoModeAvailability`** — Gizli/Özel modu tamamen devre dışı bırakır (DWord: 1). Tüm gezinmeyi normal moda zorlar.
-- **`TaskManagerEndProcessEnabled`** — Brave Görev Yöneticisi'ndeki işlem sonlandırma düğmesini devre dışı bırakır (DWord: 0).
-- **`PrintingEnabled`** — Brave'de tüm yazdırmayı devre dışı bırakır (DWord: 0).
-- **`DisablePrintPreview`** — Baskı önizleme yerine doğrudan sistem yazdırma iletişim kutusunu zorlar (DWord: 1).
-- **`TranslateEnabled`** — Tarayıcı çeviri özelliğini etkinleştirir (DWord: 1). Yabancı dil sayfalarının çevrilmesine olanak tanır.
-- **`DefaultJavaScriptSetting`** — JavaScript çalışmasına izin verir (DWord: 1). Modern web uyumluluğu için gereklidir.
-- **`PasswordManagerEnabled`** — Yerleşik şifre yöneticisini etkinleştirir (DWord: 1). Kullanıcılar şifreleri kaydedebilir ve otomatik doldurabilir.
-
-#### Katı (override'lar)
-
-- **`TranslateEnabled`** — Override: üst öncelik, alt seviye ayarlarından bağımsız olarak çeviriyi zorlar.
-- **`DownloadRestrictions`** — Override: Dengeli'deki `1` değerinden `3`'e yükseltilir. Tehlikeli VE yaygın olmayan indirmeleri engeller.
-- Diğer Katı override'ları: IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled — savunma derinliği için en yüksek seviyede yeniden zorlanır.
-
-<a id="tr-v2300-degisti"></a>
-
-### Değiştirildi
-
-- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.3.0.0"`.
-- **Doğrulanan Brave sürümü** — `1.92.138` (Chromium 150.0.7871.101) olarak güncellendi.
-- **Politika sayıları** — Tüm belgeler güncellendi: BraveOnly 24→50→79→97→110 kümülatif.
-- **Seviye açıklamaları** — Seviye kartları, terminal ekranı, uyumluluk tablosu ve özellik bölümleri tüm dokümanlarda güncellendi.
-- **Belgeler** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html güncellendi.
-
-<a id="tr-v2300-notlar"></a>
-
-### Notlar
-
-- **ProxySettings** bir yer tutucu değeri kullanır (`http://proxy:8080`). Proxy işlevselliği gerektiren dağıtımlar bunu ortama göre özelleştirmelidir.
-- **ExtensionInstallForcelist** Dark Reader ve Google Docs Offline'ı sabitler. MultiString değerini düzenleyerek uzantıları kaldırın veya ekleyin.
-- **BraveUpdateDisabled=1** otomatik güncellemeleri devre dışı bırakır. Katı seviyesini dağıtmadan önce alternatif bir güncelleme yönetim sisteminiz olduğundan emin olun.
-- **SafeBrowsingProtectionLevel=2** ve **PasswordProtectionWarningTrigger=3** Brave Yalnız'da tüm sonraki seviyeleri kümülatif olarak kapsar.
+- **Brave sürüm artışı** — Brave **1.92.143** (Chromium 150.0.7871.182) ile doğrulandı. v2.5.0.0'dan politika değişikliği yok.
+- **Chromium ana yükseltme** — Chromium 149 → 150. Mevcut 150 politika setini etkileyecek yeni ilgili kurumsal politika veya kullanımdan kaldırma olmadığı doğrulandı.
+- **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.92.143 / Chromium 150 olarak güncellendi.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$BetikSurum = "v2.5.1.0"`, doğrulanmış sürüm sabitleri güncellendi.
 
 <hr>
 
@@ -2013,6 +1846,95 @@ Fixes #50
 
 <hr>
 
+<a id="tr-v2300"></a>
+
+## [v2.3.0.0] — 2026-07-09
+
+<a id="tr-v2300-ozet"></a>
+
+### 🎯 Özet
+
+**19 yeni kurumsal politika eklendi; kümülatif zincir 110 politikaya genişletildi.** Aşama 8, Güvenli Gezinti koruma seviyesi kontrollerini, parola koruma uyarı tetikleyicisini, çevrimiçi iptal denetimini, zorunlu uzantı yüklemesini (Dark Reader + Google Docs Offline), indirme kısıtlamalarını, proxy yapılandırmasını, uzantı kilitlemeyi (tüm uzantıları engelle), gizli mod devre dışı bırakmayı, geliştirici araçlarını kapatmayı, görev yöneticisini devre dışı bırakmayı, yazdırmayı kapatmayı ve daha fazlasını ekler. Her sıkılaştırma seviyesi büyür, Gelişmiş 18 yeni politika kazanır ve Katı kritik ayarları yeniden zorlar.
+
+| Metrik | Önce (v2.2.1.0) | Sonra (v2.3.0.0) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 91 | 110 |
+| Brave Yalnız politikaları | 22 | **24** (+2) |
+| Temel eklemeleri | 25 | **26** (+1) |
+| Dengeli eklemeleri | 25 | **29** (+4) |
+| Gelişmiş eklemeleri | 11 | **18** (+7) |
+| Katı eklemeleri | 9 | **13** (+4) |
+| Kümülatif zincir | 22→47→72→83→91 | **24→50→79→97→110** |
+
+<a id="tr-v2300-eklendi"></a>
+
+### Eklendi
+
+#### Brave Yalnız (2 politika)
+
+- **`SafeBrowsingProtectionLevel`** — Gelişmiş Güvenli Gezinti koruma seviyesini ayarlar (DWord: 2). Tehlikeli siteleri, indirmeleri ve uzantıları gerçek zamanlı taramayla engeller. Sonraki tüm seviyeler için kümülatif.
+- **`PasswordProtectionWarningTrigger`** — Tüm alan adlarında parola koruma uyarısını etkinleştirir (DWord: 3). Kaydedilmiş parola herhangi bir siteye girildiğinde kullanıcıyı uyarır. Sonraki tüm seviyeler için kümülatif.
+
+#### Temel (1 politika)
+
+- **`EnableOnlineRevocationChecks`** — TLS sertifikaları için çevrimiçi OCSP/CRL iptal denetimini zorlar (DWord: 1). Gizlilik onaylı sertifika doğrulama katmanı ekler. Sonraki tüm seviyeler için kümülatif.
+
+#### Dengeli (4 politika)
+
+- **`ExtensionInstallForcelist`** — Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) ve Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) uzantılarını sessizce yükler ve sabitler. Kullanıcılar kaldıramaz veya devre dışı bırakamaz (MultiString).
+- **`DownloadRestrictions`** — Tehlikeli indirme türlerini engeller (DWord: 3). Kötü amaçlı dosya indirmelerini herhangi bir siteden önler.
+- **`DownloadDirectory`** — Sabit bir indirme dizini yolu belirler (String: `C:\BraveDownloads`).
+- **`PromptForDownloadLocation`** — Kaydetmeden önce her zaman indirme konumu sorar (DWord: 1).
+
+#### Gelişmiş (18 politika)
+
+- **`ExtensionInstallBlocklist`** — Tüm uzantıları joker karakter kuralıyla engeller (MultiString: `*`).
+- **`ExtensionInstallAllowlist`** — Boş izin listesi, hiçbir uzantıya istisna tanınmaz (MultiString: boş).
+- **`ExtensionAllowedTypes`** — İzin verilen uzantı türlerini `["theme", "extension"]` ile sınırlar (String: JSON). Platform uygulamalarını, barındırılan uygulamaları, eski paketlenmiş uygulamaları ve kullanıcı betiklerini engeller.
+- **`BlockExternalExtensions`** — Tüm harici yüklenmiş uzantıları engeller (DWord: 1).
+- **`ExtensionSettings`** — Küresel uzantı politikası motoru (String: JSON). Uzantı başına yapılandırma ve override kontrolünü etkinleştirir.
+- **`ManifestV2Unsupported`** — Manifest V2 uzantılarını kullanımdan kaldırır (DWord: 1). MV2 gün batımına hazırlık.
+- **`DeveloperToolsDisabled`** — Tüm geliştirici araçları erişimini devre dışı bırakır (DWord: 1). Arayüz ve klavye kısayollarıyla DevTools'a erişimi engeller.
+- **`DeveloperToolsAvailability`** — Geliştirici araçlarını politika kısıtlamasıyla devre dışı bırakır (DWord: 2). Yönetici tarafından yönetilen yasak, geçersiz kılınamaz.
+- **`ProxyMode`** — Sabit proxy yapılandırma modunu ayarlar (String: `fixed_servers`).
+- **`BuiltInDnsClientEnabled`** — Brave'in yerleşik DNS istemcisini devre dışı bırakır, işletim sistemi DNS çözümlemesine döner (DWord: 0).
+- **`BraveUpdateDisabled`** — Otomatik Brave tarayıcı güncellemelerini devre dışı bırakır (DWord: 1). Maksimum kilitlenme — yalnızca alternatif güncelleme yönetimi ile kullanın.
+- **`IncognitoModeAvailability`** — Gizli/Özel modu tamamen devre dışı bırakır (DWord: 1). Tüm gezinmeyi normal moda zorlar.
+- **`TaskManagerEndProcessEnabled`** — Brave Görev Yöneticisi'ndeki işlem sonlandırma düğmesini devre dışı bırakır (DWord: 0).
+- **`PrintingEnabled`** — Brave'de tüm yazdırmayı devre dışı bırakır (DWord: 0).
+- **`DisablePrintPreview`** — Baskı önizleme yerine doğrudan sistem yazdırma iletişim kutusunu zorlar (DWord: 1).
+- **`TranslateEnabled`** — Tarayıcı çeviri özelliğini etkinleştirir (DWord: 1). Yabancı dil sayfalarının çevrilmesine olanak tanır.
+- **`DefaultJavaScriptSetting`** — JavaScript çalışmasına izin verir (DWord: 1). Modern web uyumluluğu için gereklidir.
+- **`PasswordManagerEnabled`** — Yerleşik şifre yöneticisini etkinleştirir (DWord: 1). Kullanıcılar şifreleri kaydedebilir ve otomatik doldurabilir.
+
+#### Katı (override'lar)
+
+- **`TranslateEnabled`** — Override: üst öncelik, alt seviye ayarlarından bağımsız olarak çeviriyi zorlar.
+- **`DownloadRestrictions`** — Override: Dengeli'deki `1` değerinden `3`'e yükseltilir. Tehlikeli VE yaygın olmayan indirmeleri engeller.
+- Diğer Katı override'ları: IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, DeveloperToolsAvailability, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled — savunma derinliği için en yüksek seviyede yeniden zorlanır.
+
+<a id="tr-v2300-degisti"></a>
+
+### Değiştirildi
+
+- **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.3.0.0"`.
+- **Doğrulanan Brave sürümü** — `1.92.138` (Chromium 150.0.7871.101) olarak güncellendi.
+- **Politika sayıları** — Tüm belgeler güncellendi: BraveOnly 24→50→79→97→110 kümülatif.
+- **Seviye açıklamaları** — Seviye kartları, terminal ekranı, uyumluluk tablosu ve özellik bölümleri tüm dokümanlarda güncellendi.
+- **Belgeler** — README, Wiki/Policy-Reference, Wiki/Overview, Wiki/Version-Compatibility-Matrix, CHANGELOG, index.html güncellendi.
+
+<a id="tr-v2300-notlar"></a>
+
+### Notlar
+
+- **ProxySettings** bir yer tutucu değeri kullanır (`http://proxy:8080`). Proxy işlevselliği gerektiren dağıtımlar bunu ortama göre özelleştirmelidir.
+- **ExtensionInstallForcelist** Dark Reader ve Google Docs Offline'ı sabitler. MultiString değerini düzenleyerek uzantıları kaldırın veya ekleyin.
+- **BraveUpdateDisabled=1** otomatik güncellemeleri devre dışı bırakır. Katı seviyesini dağıtmadan önce alternatif bir güncelleme yönetim sisteminiz olduğundan emin olun.
+- **SafeBrowsingProtectionLevel=2** ve **PasswordProtectionWarningTrigger=3** Brave Yalnız'da tüm sonraki seviyeleri kümülatif olarak kapsar.
+
+<hr>
+
 <a id="tr-v2210"></a>
 
 ## [v2.2.1.0] — 2026-07-07
@@ -2115,6 +2037,49 @@ Fixes #50
 | Dengeli eklemeleri | 21 | 21 |
 | Gelişmiş eklemeleri | 11 | 11 |
 | Katı eklemeleri | 9 | 9 |
+
+<hr>
+
+<a id="tr-v220"></a>
+
+## [v2.2.0] — 2026-07-06
+
+<a id="tr-v220-ozet"></a>
+
+### 🎯 Özet
+
+**Kademe genişletme sürümü:** Dengeli (61) ile Katı (81) arasına yeni **Gelişmiş** sıkılaştırma seviyesi (L4, 72 politika) eklendi. Katı L4→L5 olarak yeniden numaralandırıldı; 11 politika Katı'dan yeni Gelişmiş seviyesine taşındı; 8 temel Katı politikası korundu.
+
+| Metrik | Önce (v2.1.6) | Sonra (v2.2.0) |
+|--------|---------------|----------------|
+| Sıkılaştırma seviyesi | 4 | 5 |
+| Brave Yalnız politikaları | 23 | 23 |
+| Temel eklemeleri | 17 | 17 |
+| Dengeli eklemeleri | 21 | 21 |
+| Gelişmiş eklemeleri | — | 11 |
+| Katı eklemeleri | 21 | 9 |
+
+<a id="tr-v220-eklendi"></a>
+
+### Eklendi
+
+- **Yeni sıkılaştırma seviyesi — Gelişmiş:** Dengeli (L3) ile Katı (L4→L5) arasına eklendi.
+  - **Katı'dan taşınan 11 politika:** `DefaultSensorsSetting`, `DefaultLocalFontsSetting`, `DefaultSerialGuardSetting`, `DefaultIdleDetectionSetting`, `BrowserGuestModeEnabled`, `BrowserAddPersonEnabled`, `ImportAutofillFormData`, `ImportHistory`, `ImportSavedPasswords`, `ImportSearchEngine`, `ImportHomepage`.
+  - **Bu seviyede toplam:** 72 kümülatif politika (23 Brave + 17 Veri + 21 Güvenlik + 11 Gelişmiş).
+- **`-Level Advanced` / `-Level Gelişmiş` parametresi** — Gelişmiş seviyesini hedefleyen sessiz/otomatik dağıtım için yeni parametre değeri.
+- **Aşama 6 — Kademe Ekleme** — Kademe eklemesini belgeleyen yol haritası girdisi.
+- **`$ValidLevels` — 10 değere genişletildi** — Tüm 5 seviye hem EN hem TR betiklerinde doğrulandı.
+
+<a id="tr-v220-degistirildi"></a>
+
+### Değiştirildi
+
+- **Katı L4→L5 olarak yeniden numaralandırıldı** — 10 temel politika korundu: `TranslateEnabled`, `WebRtcIPHandling` (üzerine yaz), `DefaultClipboardSetting`, `DefaultFileSystemReadGuardSetting`, `DefaultFileSystemWriteGuardSetting`, `DefaultInsecureContentSetting`, `DefaultJavaScriptJitSetting`, `DefaultCookiesSetting`, `ImportBookmarks`, `DefaultBraveRemember1PStorageSetting`.
+- **`ImportBookmarks` Katı'da tutuldu** — Yer imi taşınabilirliği için bilinçli olarak korundu (mevcut profillerden kopyalayan kullanıcılar).
+- **Betik sürümü** — Her iki betikte `$ScriptVersion = "v2.2.0.0"`.
+- **Wiki** — Policy-Reference.md, Architecture.md, Home.md, Roadmap.md, Installation.md, SECURITY.md 5 seviyeli modeli yansıtacak şekilde güncellendi.
+- **README.md** — Seviye tabloları, parametre referansları, politika bölümü 9.5 ve sıkılaştırma seviyeleri tablosu 5 seviyeli model için güncellendi.
+- **CHANGELOG, SECURITY, index.html** — Sürüm numaraları ve seviye referansları güncellendi.
 
 <hr>
 
@@ -2241,6 +2206,24 @@ Fixes #50
 - **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.178'e güncellendi.
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.3"`, doğrulanmış sürüm sabitleri güncellendi.
 
+<a id="tr-v212"></a>
+
+## [v2.1.2] — 2026-06-18
+
+<a id="tr-v212-summary"></a>
+
+### 🎯 Özet
+
+**Doğrulama sürümü:** Brave **1.91.175** / Chromium **149.0.7827.155** uyumluluğu onaylandı. v2.1.1'den yapısal, HTML/CSS ve belge düzeltmeleri — yeni politika yok, politika sayılarında değişiklik yok.
+
+<a id="tr-v212-changed"></a>
+
+### Değiştirildi
+
+- **Brave sürüm yükseltmesi** — Brave **1.91.175** (Chromium 149.0.7827.155) ile doğrulandı. v2.1.1'den itibaren politika değişikliği yok.
+- **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.91.175'e güncellendi.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.1.2"`, doğrulanmış sürüm sabitleri güncellendi.
+
 <a id="tr-v211"></a>
 
 ## [v2.1.1] — 2026-06-18
@@ -2285,6 +2268,94 @@ Değiştirilen Dosyalar:
   ✓ README.md (politika sayıları güncellendi)
   ✓ SECURITY.md (politika sayıları güncellendi)
   ✓ CHANGELOG.md (v2.1.1 politika değişiklikleri girdisi)
+```
+
+---
+
+<a id="tr-v21"></a>
+
+## [v2.1] — 2026-06-16
+
+<a id="tr-v21-summary"></a>
+
+### 🎯 Özet
+
+**Özellik genişletmesi:** Otomatik Brave sürüm tespiti, kuru çalıştırma önizlemesi
+(`-WhatIf`), temiz kaldırma (`-Sıfırla`), yapılandırılmış `CONTRIBUTING.md` ve GitHub
+sorun şablonları ile haftalık ve isteğe bağlı çalışan bir GitHub Actions ADMX doğrulama
+boru hattı.
+
+<a id="tr-v21-added"></a>
+
+### ✨ Eklendi
+
+#### Sürüm Tespiti
+- **Otomatik Brave ikili dosya keşfi** — `%ProgramFiles%`, `%ProgramFiles(x86)%` ve
+  `%LOCALAPPDATA%` dizinlerinde `brave.exe` arar.
+- **Sürüm karşılaştırması** — `major.minor.patch` değerini doğrulanmış sürüm `1.91.172`
+  ile karşılaştırır.
+- **Uyuşmazlıkta kullanıcı istemi** — Yüklü sürüm farklıysa uyarır ve devam etmeyi sorar.
+- **Sessiz atlama** — Brave bulunamazsa, `brave://settings/help` adresinden uyumluluk
+  kontrolü hatırlatması ile devam eder.
+
+#### -WhatIf Parametresi (Önizleme Modu)
+- **Standart PowerShell semantiği** — Hem betikte hem de `Write-PolicyValue` /
+  `Yaz-KayitDegeri` fonksiyonlarında `-WhatIf` anahtarı.
+- **Kayıt defterine yazılmaz** — Tüm yazma işlemleri (HKLM, HKCU, Omaha) bir
+  `if (-not $WhatIf)` denetimi ile korunur.
+- **Atlanan adımlar** — Yedekleme dışa aktarma ve dizin oluşturma WhatIf modunda tamamen
+  atlanır.
+- **Magenta [WhatIf] etiketleri** — Değer yazacak her çıktı satırı, net görsel tanımlama
+  için macenta renkte `[WhatIf]` ön eki alır.
+- **Özet göstergesi** — Özet raporunda `Mod: WhatIf (yalnızca önizleme)` gösterilir.
+
+#### -Sıfırla Parametresi (Temiz Kaldırma)
+- **Tam politika kaldırma** — HKLM, HKCU (UsageStats, ChromeVariations) ve tespit edilen
+  tüm Omaha GUID'lerinden 68 Brave Omega politikasının tamamını kaldırır.
+- **Boş anahtar temizliği** — Kaldırma sonrası hiç politika kalmazsa
+  `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` anahtarını siler.
+- **Ayrıntılı sayaçlar** — Kovan başına kaldırma sayısını raporlar: `HKLM: 68 / HKCU: 2 / Omaha: N`.
+- **WhatIf duyarlılığı** — `-WhatIf` modunda sessizce çalışır (önizlemede gerçek silme yapılmaz).
+
+#### Belgelendirme
+- **CONTRIBUTING.md** — Kapsamlı katkı rehberi (EN + TR) — davranış kuralları, öncelikli
+  alanlar, sürüm güncellemeleri, yeni politika gereksinimleri, hata raporu şablonları,
+  özellik talepleri, çeviriler, PR iş akışı, geliştirme ortamı kurulumu, stil rehberi ve
+  güvenlik bildirimleri.
+- **Sorun Şablonları** — Hata raporları ve özellik talepleri için yapılandırılmış YAML
+  şablonları (`.github/ISSUE_TEMPLATE/bug_report.yaml`, `feature_request.yaml`).
+
+#### CI/CD
+- **ADMX Doğrulama Boru Hattı** (`.github/workflows/admx-validate.yml` + `.ps1`):
+  - Haftalık (Pazartesi 06:00 UTC) ve `workflow_dispatch` ile çalışır.
+  - Chromium ADMX şablonlarını indirir, politika tanımlarını ayrıştırır ve betiğin
+    politika listesiyle karşılaştırır.
+  - Tür uyuşmazlıklarını, ADMX'te bulunan yeni politikaları ve betikte olup ADMX'te
+    olmayan politikaları raporlar.
+  - Uyuşmazlık bulunduğunda otomatik olarak bir GitHub sorunu oluşturur.
+  - Yardımcı betik (`admx-validate.ps1`) bağımsız olarak da kullanılabilir.
+
+### 🔧 Değiştirildi
+
+- **BraveOmega-EN.ps1** — v2.1 özellikleri: sürüm denetimi, -WhatIf, -Sıfırla,
+  `$ScriptVersion = "v2.1"`
+- **BraveOmega-TR.ps1** — v2.1 özellikleri Türkçe olarak yansıtıldı
+- **CHANGELOG.md** — v2.1 değişiklik günlüğü eklendi (bu bölüm)
+
+### 📊 İstatistikler
+
+```
+Eklenen/Değiştirilen Dosyalar:
+  ✓ BraveOmega-EN.ps1 (v2.1: sürüm denetimi, -WhatIf, -Sıfırla)
+  ✓ BraveOmega-TR.ps1 (v2.1: yansıtılan değişiklikler)
+  ✓ CONTRIBUTING.md (yeni — kapsamlı katkı rehberi, EN + TR)
+  ✓ .github/ISSUE_TEMPLATE/bug_report.yaml (yeni)
+  ✓ .github/ISSUE_TEMPLATE/feature_request.yaml (yeni)
+  ✓ .github/workflows/admx-validate.yml (yeni — haftalık + manuel)
+  ✓ .github/workflows/admx-validate.ps1 (yeni — bağımsız doğrulama betiği)
+  ✓ CHANGELOG.md (v2.1 girdisi)
+  ✓ README.md (güncel yol haritası, katkı referansı)
+  ✓ index.html (güncel değişiklik günlüğü, hızlı başlangıç, rozetler)
 ```
 
 ---
@@ -2705,6 +2776,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.5.1.0 | 2026-07-23 | 150   | Uyumluluk doğrulaması: Brave 1.92.143 (Chromium 150.0.7871.182); politika değişikliği yok |
 | v2.5.0.0 | 2026-07-21 | 150   | Tam politika genişletmesi: 30 yeni politika (133→150); 9 bozuk/kullanımdan kaldırılmış/bulut politikası kaldırıldı; Yapay zekâ engelleme (13), yerel ağ erişim kontrolü, ekran yakalama ince ayar, işleyici kum havuzu; kümülatif zincir 24→53→86→124→150 |
 | v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması; politika değişikliği yok |
 | v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — Forcelist & Allowlist yalnızca Dark Reader'a basitleştirildi, Google Docs Offline + Kaspersky Protection + eski ID'ler kaldırıldı; ExtensionSettings JSON güncellendi; kümülatif zincir 24→52→83→104→133 |

@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8894)
-#                    Brave 1.92.141 — Official Build / Chromium 150.0.7871.128
+#                    Brave 1.92.143 (Official Build) (64 bit) Chromium: 150.0.7871.182
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.92.141, dated July 17, 2026, belongs to the Stable channel.
+#    Brave 1.92.143, dated July 23, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
@@ -228,8 +228,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.0.0"
-$ValidatedBrave  = "1.92.141"
+$ScriptVersion   = "v2.5.1.0"
+$ValidatedBrave  = "1.92.143"
 $ValidatedChromium = "150"
 
 # ─────────────────────────────────────────────────────────────────────────────

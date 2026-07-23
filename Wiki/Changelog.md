@@ -23,6 +23,17 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.1.0 — 2026-07-23
+
+**Brave 1.92.143 (Chromium 150.0.7871.182) Compatibility Validation**
+
+- Compatibility validation release — no policy changes
+- Brave validated version updated to 1.92.143 (Chromium 150.0.7871.182)
+- All 150 enterprise policies verified working with the latest stable Brave release
+- Script version updated to v2.5.1.0
+
+---
+
 ### v2.4.2.0 — 2026-07-17
 
 **Brave 1.92.141 (Chromium 150.0.7871.128) Compatibility Validation**
@@ -434,7 +445,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.0.0** *(current)* | 1.92.141 | 150 | 11 25H2 | ✅ Active |
+| **v2.5.1.0** *(current)* | 1.92.143 | 150 | 11 25H2 | ✅ Active |
+| v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
 | v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Previous |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Previous |
@@ -510,6 +522,17 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.5.1.0 — 2026-07-23
+
+**Brave 1.92.143 (Chromium 150.0.7871.182) Uyumluluk Dogrulamasi**
+
+- Uyumluluk dogrulama surumu — politika degisikligi yok
+- Dogrulanmis Brave surumu 1.92.143'e guncellendi (Chromium 150.0.7871.182)
+- 150 kurumsal politikanin tamami en son Brave kararli surumuyle sorunsuz calisiyor
+- Betik surumu v2.5.1.0 olarak guncellendi
+
+---
 
 ### v2.4.2.0 — 2026-07-17
 
@@ -925,7 +948,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.0.0** *(güncel)* | 1.92.141 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.5.1.0** *(güncel)* | 1.92.143 | 150 | 11 25H2 | ✅ Etkin |
+| v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
 | v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Önceki |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Önceki |

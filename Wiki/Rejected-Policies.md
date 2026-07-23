@@ -1081,7 +1081,7 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 6. **Don't re-add deprecated policies** — `DefaultMediaStreamSetting` was removed in v2.1.1, re-added in v2.4.0.0, and removed again in v2.4.1.0.
 7. **Origin-only policies** — `BraveLocalAIEnabled` was an Origin-only policy that hadn't reached stable. Check policy promotion status.
 8. **Document removals** — This file exists because removals were tracked. Future contributors can learn from past mistakes.
-9. **Always test on brave://policy/** — Two policies (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) existed in Chromium ADMX but showed "Bilinmeyen politika" in Brave 150. Always verify before shipping.
+9. **Always test on brave://policy/** — Two policies (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) existed in Chromium ADMX but showed "Bilinmeyen politika" in Brave 1.92. Always verify before shipping.
 
 > 🇹🇷 **Türkçe:**
 >
@@ -1097,10 +1097,10 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 
 ---
 
-*Last updated: v2.5.0.0 (2026-07-21)*
+*Last updated: v2.5.1.0 (2026-07-23)*
 *Total policies ever rejected/removed: 33*
-*Current active policies: 150 (v2.5.0.0)*
+*Current active policies: 150 (v2.5.1.0)*
 
-*Son güncelleme: v2.5.0.0 (2026-07-21)*
+*Son güncelleme: v2.5.1.0 (2026-07-23)*
 *Toplam reddedilen/kaldırılan politika: 33*
-*Mevcut aktif politikalar: 150 (v2.5.0.0)*
+*Mevcut aktif politikalar: 150 (v2.5.1.0)*
