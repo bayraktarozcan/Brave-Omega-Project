@@ -23,6 +23,17 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.2.0 — 2026-07-25
+
+**Brave 1.92.144 (Chromium 150.0.7871.186) Compatibility Validation**
+
+- Compatibility validation release — no policy changes
+- Brave validated version updated to 1.92.144 (Chromium 150.0.7871.186)
+- All 150 enterprise policies verified working with the latest stable Brave release
+- Script version updated to v2.5.2.0
+
+---
+
 ### v2.5.1.0 — 2026-07-23
 
 **Brave 1.92.143 (Chromium 150.0.7871.182) Compatibility Validation**
@@ -445,7 +456,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.1.0** *(current)* | 1.92.143 | 150 | 11 25H2 | ✅ Active |
+| **v2.5.2.0** *(current)* | 1.92.144 | 150 | 11 25H2 | ✅ Active |
+| v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Previous |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
 | v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Previous |
@@ -523,9 +535,18 @@ Brave Omega için tam sürüm geçmişi.
 
 ## Sürüm Geçmişi
 
-### v2.5.1.0 — 2026-07-23
+### v2.5.2.0 — 2026-07-25
 
-**Brave 1.92.143 (Chromium 150.0.7871.182) Uyumluluk Dogrulamasi**
+**Brave 1.92.144 (Chromium 150.0.7871.186) Uyumluluk Doğrulaması**
+
+- Uyumluluk doğrulama sürümü — politika değişikliği yok
+- Doğrulanmış Brave sürümü 1.92.144'e güncellendi (Chromium 150.0.7871.186)
+- 150 kurumsal politikanın tamamı en son Brave kararlı sürümüyle sorunsuz çalışıyor
+- Betik sürümü v2.5.2.0 olarak güncellendi
+
+---
+
+### v2.5.1.0 — 2026-07-23
 
 - Uyumluluk dogrulama surumu — politika degisikligi yok
 - Dogrulanmis Brave surumu 1.92.143'e guncellendi (Chromium 150.0.7871.182)
@@ -948,7 +969,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.1.0** *(güncel)* | 1.92.143 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.5.2.0** *(güncel)* | 1.92.144 | 150 | 11 25H2 | ✅ Etkin |
+| v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Önceki |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
 | v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Önceki |
