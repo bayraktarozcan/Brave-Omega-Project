@@ -34,8 +34,8 @@ jobs:
           git -c http.extraHeader="Authorization: token $WIKI_SYNC_TOKEN" clone https://github.com/bayraktarozcan/Brave-Omega-Project.wiki.git "$WIKI_DIR"
           cd "$WIKI_DIR"
           git config core.autocrlf false
-          git config user.name "bayraktarozcan"
-          git config user.email "bayraktarozcan@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           rsync -a --delete --exclude='.git' --exclude='.gitattributes' "$GITHUB_WORKSPACE/Wiki/" "$WIKI_DIR/"
           find "$WIKI_DIR" -name '*.md' -exec sed -i 's/\xEF\xBB\xBF//g' {} +
           find "$WIKI_DIR" -name '*.md' -exec sed -i 's/\r$//' {} +
