@@ -14,7 +14,7 @@
 <br>
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
-[![Brave](https://img.shields.io/badge/Brave-1.92.144%20%7C%20Chromium%20150-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
+[![Brave](https://img.shields.io/badge/Brave-1.93.129%20%7C%20Chromium%20151-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-22C55E?style=flat-square)](https://github.com/bayraktarozcan/Brave-Omega-Project)
@@ -300,7 +300,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.5.2.0** *(current)* | 1.92.144 | 150 | 11 25H2 | ✅ Active |
+| **v2.5.2.1** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | ✅ Previous |
 | **v2.5.1.0** | 1.92.143 | 150 | 11 25H2 | 📦 Previous |
 | **v2.5.0.0** | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
 | **v2.4.2.0** | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
@@ -570,7 +571,7 @@ BRAVE OMEGA PROJECT/
 ### 12. Troubleshooting
 
 > [!NOTE]
-> Brave Omega is validated against the **Stable channel only** (currently Brave 1.92.144 / Chromium 150). ADMX policy behaviors have not been tested on Beta/Nightly builds and may behave differently.
+> Brave Omega is validated against the **Stable channel only** (currently Brave 1.93.129 / Chromium 151). ADMX policy behaviors have not been tested on Beta/Nightly builds and may behave differently.
 
 | Symptom | Likely Cause | Resolution |
 |---------|-------------|------------|
@@ -910,7 +911,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.5.2.0** *(güncel)* | 1.92.144 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.5.2.1** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | ✅ Önceki |
 | **v2.5.1.0** | 1.92.143 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.5.0.0** | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.4.2.0** | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
@@ -1181,7 +1183,7 @@ BRAVE OMEGA PROJECT/
 ### 12. Sorun Giderme
 
 > [!NOTE]
-> Brave Omega yalnızca **Kararlı (Stable) kanalda** doğrulanmıştır (güncel Brave 1.92.144 / Chromium 150). ADMX politika davranışları Beta/Nightly yapılarında test edilmemiştir ve farklılık gösterebilir.
+> Brave Omega yalnızca **Kararlı (Stable) kanalda** doğrulanmıştır (güncel Brave 1.93.129 / Chromium 151). ADMX politika davranışları Beta/Nightly yapılarında test edilmemiştir ve farklılık gösterebilir.
 
 | Belirti | Olası Neden | Çözüm |
 |---------|------------|-------|

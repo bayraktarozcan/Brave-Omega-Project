@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8894)
-#                  Brave 1.92.144 (Resmi Derleme) (64 bit) Chromium: 150.0.7871.186
+#                  Brave 1.93.129 (Resmi Derleme) (64 bit) Chromium: 151.0.7922.71
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
 #                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
 #                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.92.144, 23 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.93.129, 31 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
@@ -222,9 +222,9 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.5.2.0"
-$DogrulananBrave = "1.92.144"
-$DogrulananChromium = "150"
+$BetikSurum    = "v2.5.2.1"
+$DogrulananBrave = "1.93.129"
+$DogrulananChromium = "151"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # UÇBİRİM KODLAMA BİÇİMİ SIKILAŞTIRMASI (KARAKTER HATASI ÇÖZÜMÜ)

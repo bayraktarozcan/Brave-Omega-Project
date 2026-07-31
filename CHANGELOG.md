@@ -26,47 +26,48 @@
 
 ### Table of Contents
 
-1. [v2.5.2.0 — 2026-07-25](#en-v2520)
+1. [v2.5.2.1 — 2026-07-31](#en-v2521)
+2. [v2.5.2.0 — 2026-07-25](#en-v2520)
     * [Summary](#en-v2520-summary)
     * [Changed](#en-v2520-changed)
-2. [Introduction](#en-introduction)
-3. [v2.5.1.0 — 2026-07-23](#en-v2510)
+3. [Introduction](#en-introduction)
+4. [v2.5.1.0 — 2026-07-23](#en-v2510)
     * [Summary](#en-v2510-summary)
     * [Changed](#en-v2510-changed)
-4. [v2.5.0.0 — 2026-07-21](#en-v2500)
+5. [v2.5.0.0 — 2026-07-21](#en-v2500)
     * [Summary](#en-v2500-summary)
     * [Added](#en-v2500-added)
     * [Removed](#en-v2500-removed)
-5. [v2.4.2.0 — 2026-07-17](#en-v2420)
+6. [v2.4.2.0 — 2026-07-17](#en-v2420)
     * [Summary](#en-v2420-summary)
-6. [v2.4.1.0 — 2026-07-12](#en-v2410)
+7. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-7. [v2.4.0.0 — 2026-07-11](#en-v2400)
+8. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-8. [v2.3.1.0 — 2026-07-10](#en-v2310)
+9. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-9. [v2.3.0.0 — 2026-07-09](#en-v2300)
+10. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
     * [Notes](#en-v2300-notes)
-10. [v2.2.1.0 — 2026-07-07](#en-v2210)
+11. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-11. [v2.2.0.2 — 2026-07-07](#en-v2202)
+12. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-12. [v2.2.0.1 — 2026-07-06](#en-v2201)
+13. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
-13. [v2.2.0 — 2026-07-06](#en-v220)
+14. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
@@ -124,6 +125,36 @@
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
 
 ---
+
+<a id="en-v2521"></a>
+
+## [v2.5.2.1] — 2026-07-31
+
+<a id="en-v2521-summary"></a>
+
+### 🎯 Summary
+
+**Compatibility validation:** Brave **1.93.129** (Chromium **151.0.7922.71**) compatibility confirmed. 5 new Chromium policies evaluated (AutomaticDownloadsAllowedForUrls, AutomaticDownloadsBlockedForUrls, DefaultAutomaticDownloadsSettings, Indigo, ThirdPartyAiChatSettings) — none found relevant for privacy hardening. DefaultSensorsSetting gained "Ask" option (value 3). HKLM empty-key cleanup added to Reset mode for EN script (functional parity with TR).
+
+| Metric | Before (v2.5.2.0) | After (v2.5.2.1) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 150 | 150 |
+| Brave Only policies | 24 | 24 |
+| Essential additions | 29 | 29 |
+| Balanced additions | 33 | 33 |
+| Advanced additions | 38 | 38 |
+| Strict additions | 27 | 27 |
+| Cumulative chain | 24→53→86→124→150 | 24→53→86→124→150 |
+
+<a id="en-v2521-changed"></a>
+
+### Changed
+
+- **Brave version bump** — Validated against Brave **1.93.129** (Chromium 151.0.7922.71). 5 new Chromium 151 policies reviewed: AutomaticDownloadsAllowedForUrls, AutomaticDownloadsBlockedForUrls, DefaultAutomaticDownloadsSettings (ContentSettings), Indigo, ThirdPartyAiChatSettings (GenerativeAI). None required integration. DefaultSensorsSetting gained "Ask" (value 3) — no change needed.
+- **All documentation** — Badge URLs, compatibility tables, and version references updated to 1.93.129 / Chromium 151.0.7922.71.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.5.2.1"`, validated version constants bumped.
+- **EN Reset mode fix** — HKLM empty-key cleanup block added to Reset function (matched TR lines 460–472). When all HKLM policies are removed, the key is deleted entirely.
 
 <a id="en-v2520"></a>
 
@@ -1461,37 +1492,38 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.5.2.0 — 2026-07-25](#tr-v2520)
+1. [v2.5.2.1 — 2026-07-31](#tr-v2521)
+2. [v2.5.2.0 — 2026-07-25](#tr-v2520)
     * [Özet](#tr-v2520-ozet)
     * [Değiştirildi](#tr-v2520-degistirildi)
-2. [Giriş](#tr-introduction)
-3. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+3. [Giriş](#tr-introduction)
+4. [v2.5.1.0 — 2026-07-23](#tr-v2510)
     * [Özet](#tr-v2510-ozet)
     * [Değiştirildi](#tr-v2510-degistirildi)
-4. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+5. [v2.5.0.0 — 2026-07-21](#tr-v2500)
     * [Özet](#tr-v2500-ozet)
     * [Eklendi](#tr-v2500-eklendi)
     * [Kaldırıldı](#tr-v2500-kaldirildi)
-5. [v2.4.2.0 — 2026-07-17](#tr-v2420)
+6. [v2.4.2.0 — 2026-07-17](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-6. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+7. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Kaldırıldı](#tr-v2410-kaldirildi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-7. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+8. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-8. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+9. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-9. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+10. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-10. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+11. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
@@ -1574,6 +1606,36 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
 
 ---
+
+<a id="tr-v2521"></a>
+
+## [v2.5.2.1] — 2026-07-31
+
+<a id="tr-v2521-ozet"></a>
+
+### 🎯 Özet
+
+**Uyumluluk doğrulaması:** Brave **1.93.129** (Chromium **151.0.7922.71**) uyumluluğu doğrulandı. 5 yeni Chromium 151 politikası değerlendirildi (AutomaticDownloadsAllowedForUrls, AutomaticDownloadsBlockedForUrls, DefaultAutomaticDownloadsSettings, Indigo, ThirdPartyAiChatSettings) — hiçbiri gizlilik sıkılaştırması için uygun bulunmadı. DefaultSensorsSetting "Ask" seçeneği (değer 3) kazandı. Sıfırlama modunda EN betiğine HKLM boş-anahtar temizliği eklendi (TR ile işlevsel eşitlik).
+
+| Metrik | Önce (v2.5.2.0) | Sonra (v2.5.2.1) |
+|--------|------------------|-------------------|
+| Güçlendirme düzeyleri | 5 | 5 |
+| Toplam politika | 150 | 150 |
+| Yalnızca Brave politikaları | 24 | 24 |
+| Temel eklemeler | 29 | 29 |
+| Dengeli eklemeler | 33 | 33 |
+| Gelişmiş eklemeler | 38 | 38 |
+| Katı eklemeler | 27 | 27 |
+| Kümülatif zincir | 24→53→86→124→150 | 24→53→86→124→150 |
+
+<a id="tr-v2521-degistirildi"></a>
+
+### Değiştirildi
+
+- **Brave sürüm artışı** — Brave **1.93.129** (Chromium 151.0.7922.71) ile doğrulandı. 5 yeni Chromium 151 politikası incelendi: AutomaticDownloadsAllowedForUrls, AutomaticDownloadsBlockedForUrls, DefaultAutomaticDownloadsSettings (ContentSettings), Indigo, ThirdPartyAiChatSettings (GenerativeAI). Hiçbiri entegrasyon gerektirmedi. DefaultSensorsSetting "Ask" (değer 3) kazandı — değişiklik gerekmiyor.
+- **Tüm belgeler** — Rozet URL'leri, uyumluluk tabloları ve sürüm referansları 1.93.129 / Chromium 151.0.7922.71 olarak güncellendi.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$BetikSurum = "v2.5.2.1"`, doğrulanmış sürüm sabitleri güncellendi.
+- **EN Sıfırlama modu düzeltmesi** — Sıfırlama işlevine HKLM boş-anahtar temizleme bloğu eklendi (TR satır 460–472 ile eşleşti). Tüm HKLM politikaları kaldırıldığında anahtar tamamen silinir.
 
 <a id="tr-v2520"></a>
 

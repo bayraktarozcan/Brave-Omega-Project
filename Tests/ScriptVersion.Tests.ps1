@@ -5,12 +5,12 @@ BeforeAll {
 Describe "Script Version Consistency" -Tag "Integration" {
     It "EN script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion"
-        $v | Should -BeExactly "v2.5.2.0"
+        $v | Should -BeExactly "v2.5.2.1"
     }
 
     It "TR script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum"
-        $v | Should -BeExactly "v2.5.2.0"
+        $v | Should -BeExactly "v2.5.2.1"
     }
 
     It "EN and TR script versions should match" {
@@ -21,22 +21,22 @@ Describe "Script Version Consistency" -Tag "Integration" {
 
     It "EN should have validated Brave version" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $content -match '1\.92\.144' | Should -Be $true
+        $content -match '1\.93\.129' | Should -Be $true
     }
 
     It "EN should have validated Chromium version" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $content -match '\b150\b' | Should -Be $true
+        $content -match '\b151\b' | Should -Be $true
     }
 
     It "TR should have validated Brave version" {
         $content = Get-Content -Path $ScriptTR -Raw
-        $content -match '1\.92\.144' | Should -Be $true
+        $content -match '1\.93\.129' | Should -Be $true
     }
 
     It "TR should have validated Chromium version" {
         $content = Get-Content -Path $ScriptTR -Raw
-        $content -match '\b150\b' | Should -Be $true
+        $content -match '\b151\b' | Should -Be $true
     }
 
     It "EN and TR should have same policy count in definitions" {

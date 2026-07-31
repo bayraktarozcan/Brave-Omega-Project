@@ -6,14 +6,14 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8894)
-#                    Brave 1.92.144 (Official Build) (64 bit) Chromium: 150.0.7871.186
+#                    Brave 1.93.129 (Official Build) (64 bit) Chromium: 151.0.7922.71
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.92.144, dated July 23, 2026, belongs to the Stable channel.
+#    Brave 1.93.129, dated July 31, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
@@ -228,9 +228,9 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.2.0"
-$ValidatedBrave  = "1.92.144"
-$ValidatedChromium = "150"
+$ScriptVersion   = "v2.5.2.1"
+$ValidatedBrave  = "1.93.129"
+$ValidatedChromium = "151"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TERMINAL ENCODING HARDENING (CHARACTER ERROR RESOLUTION)
@@ -462,6 +462,20 @@ if ($Reset) {
                 $omahaFail++
                 Write-Host "  [WARN] Omaha GUID: usagestats could not be removed: $($_.Exception.Message)" -ForegroundColor DarkYellow
             }
+        }
+    }
+
+    # Clean up empty HKLM policy key
+    $hkPolicies = Get-ItemProperty -Path $HKLM_Target -ErrorAction SilentlyContinue
+    $hkRealProperties = @($hkPolicies.PSObject.Properties | Where-Object { $_.Name -notin @('PSPath','PSParentPath','PSChildName','PSDrive','PSProvider') })
+    if ($hkPolicies -and $hkRealProperties.Count -eq 0) {
+        try {
+            if (-not $WhatIf) {
+                Remove-Item -Path $HKLM_Target -Force
+            }
+            Write-Host "  [OK] HKLM policy key removed (no policies remain)" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
+        } catch {
+            Write-Host "  [WARN] HKLM policy key could not be removed: $($_.Exception.Message)" -ForegroundColor DarkYellow
         }
     }
 
