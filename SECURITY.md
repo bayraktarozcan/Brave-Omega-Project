@@ -12,7 +12,7 @@
 <br>
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
-[![Brave](https://img.shields.io/badge/Brave-1.92.144%20%7C%20Chromium%20150-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
+[![Brave](https://img.shields.io/badge/Brave-1.93.129%20%7C%20Chromium%20151-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-Policy-8B5CF6?style=flat-square)](SECURITY.md)
@@ -275,10 +275,10 @@ Brave Omega offers five progressive hardening tiers:
 | Level | Policies | Description | Usability Impact |
 |-------|----------|-------------|-----------------|
 | **Brave Only** | 24 Brave-specific | Disables Brave's integrated services only | None |
-| **Essential ⭐** | 53 (Brave Only + 29) | Brave + zero-impact data leak prevention | None |
-| **Balanced** | 86 (Essential + 33) | Full security baseline with minor changes | Low |
-| **Advanced** | 124 (Balanced + 38) | Enhanced privacy — sensors, imports, profiles | Low |
-| **Strict** | 150 (Advanced + 27) | Maximum privacy preservation | Medium |
+| **Essential ⭐** | 51 (Brave Only + 27) | Brave + zero-impact data leak prevention | None |
+| **Balanced** | 82 (Essential + 31) | Full security baseline with minor changes | Low |
+| **Advanced** | 120 (Balanced + 38) | Enhanced privacy — sensors, imports, profiles | Low |
+| **Strict** | 150 (Advanced + 30) | Maximum privacy preservation | Medium |
 
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.
 
@@ -555,10 +555,10 @@ Brave Omega beş kademeli sıkılaştırma seviyesi sunar:
 | Seviye | Politika Sayısı | Açıklama | Kullanım Etkisi |
 |--------|----------------|----------|----------------|
 | **Brave Yalnız** | 24 Brave'e özgü | Yalnızca Brave'in tümleşik hizmetlerini kapatır | Yok |
-| **Temel ⭐** | 53 (Brave Yalnız + 29) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
-| **Dengeli** | 86 (Temel + 33) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
-| **Gelişmiş** | 124 (Dengeli + 38) | Gelişmiş gizlilik — sensörler, içe aktarmalar, profiller | Düşük |
-| **Katı** | 150 (Gelişmiş + 27) | Azami gizlilik koruması | Orta |
+| **Temel ⭐** | 51 (Brave Yalnız + 27) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
+| **Dengeli** | 82 (Temel + 31) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
+| **Gelişmiş** | 120 (Dengeli + 38) | Gelişmiş gizlilik — sensörler, içe aktarmalar, profiller | Düşük |
+| **Katı** | 150 (Gelişmiş + 30) | Azami gizlilik koruması | Orta |
 
 Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 

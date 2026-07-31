@@ -18,13 +18,18 @@ Describe "Parameter Binding - EN Script" -Tag "Unit" {
         $content -match '\[switch\]\$Reset' | Should -Be $true
     }
 
-    It "should have exactly 3 parameters in param block" {
+    It "should declare AllowSync as switch parameter" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $paramMatch = [regex]::Match($content, 'param\(\s*\[string\]\$Level.*?\[switch\]\$Reset\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $content -match '\[switch\]\$AllowSync' | Should -Be $true
+    }
+
+    It "should have exactly 4 parameters in param block" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $paramMatch = [regex]::Match($content, 'param\(\s*\[string\]\$Level.*?\[switch\]\$AllowSync\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
         $paramMatch.Success | Should -Be $true
         $paramBlock = $paramMatch.Value
         $paramCount = ([regex]::Matches($paramBlock, '\[')).Count
-        $paramCount | Should -Be 3
+        $paramCount | Should -Be 4
     }
 }
 
@@ -44,10 +49,18 @@ Describe "Parameter Binding - TR Script" -Tag "Unit" {
         $content -match '\[switch\]\$Sifirla' | Should -Be $true
     }
 
-    It "should have exactly 3 parameters in param block" {
+    It "should declare SenkronizasyonaIzinVer as switch parameter" {
         $content = Get-Content -Path $ScriptTR -Raw
-        $paramMatch = [regex]::Match($content, 'param\(\s*\[string\]\$Seviye.*?\[switch\]\$Sifirla\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $content -match '\[switch\]\$SenkronizasyonaIzinVer' | Should -Be $true
+    }
+
+    It "should have exactly 4 parameters in param block" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $paramMatch = [regex]::Match($content, 'param\(\s*\[string\]\$Seviye.*?\[switch\]\$SenkronizasyonaIzinVer\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
         $paramMatch.Success | Should -Be $true
+        $paramBlock = $paramMatch.Value
+        $paramCount = ([regex]::Matches($paramBlock, '\[')).Count
+        $paramCount | Should -Be 4
     }
 }
 

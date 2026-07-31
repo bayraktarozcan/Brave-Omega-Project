@@ -26,29 +26,39 @@
 
 ### Table of Contents
 
-1. [v2.5.2.1 — 2026-07-31](#en-v2521)
-2. [v2.5.2.0 — 2026-07-25](#en-v2520)
+1. [v2.5.4.0 — 2026-07-31](#en-v2540)
+    * [Summary](#en-v2540-summary)
+    * [Added](#en-v2540-added)
+    * [Changed](#en-v2540-changed)
+2. [v2.5.3.0 — 2026-07-31](#en-v2530)
+    * [Summary](#en-v2530-summary)
+    * [Added](#en-v2530-added)
+    * [Changed](#en-v2530-changed)
+3. [v2.5.2.1 — 2026-07-31](#en-v2521)
+    * [Summary](#en-v2521-summary)
+    * [Changed](#en-v2521-changed)
+4. [v2.5.2.0 — 2026-07-25](#en-v2520)
     * [Summary](#en-v2520-summary)
     * [Changed](#en-v2520-changed)
-3. [Introduction](#en-introduction)
-4. [v2.5.1.0 — 2026-07-23](#en-v2510)
+4. [Introduction](#en-introduction)
+5. [v2.5.1.0 — 2026-07-23](#en-v2510)
     * [Summary](#en-v2510-summary)
     * [Changed](#en-v2510-changed)
-5. [v2.5.0.0 — 2026-07-21](#en-v2500)
+6. [v2.5.0.0 — 2026-07-21](#en-v2500)
     * [Summary](#en-v2500-summary)
     * [Added](#en-v2500-added)
     * [Removed](#en-v2500-removed)
-6. [v2.4.2.0 — 2026-07-17](#en-v2420)
+7. [v2.4.2.0 — 2026-07-17](#en-v2420)
     * [Summary](#en-v2420-summary)
-7. [v2.4.1.0 — 2026-07-12](#en-v2410)
+8. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-8. [v2.4.0.0 — 2026-07-11](#en-v2400)
+9. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-9. [v2.3.1.0 — 2026-07-10](#en-v2310)
+10. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
@@ -123,6 +133,78 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v2540"></a>
+
+## [v2.5.4.0] — 2026-07-31
+
+<a id="en-v2540-summary"></a>
+
+### 🎯 Summary
+
+**Deterministic registry state on every run:** Brave Omega now performs a **stale policy cleanup** before writing. On each run, any Omega-managed value present under `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` that is **not part of the selected tier's merged policy set** is automatically removed. Foreign/non-Omega values are preserved, so nothing managed by other tools or administrators is touched.
+
+| Metric | Before (v2.5.3.0) | After (v2.5.4.0) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 150 | 150 |
+| Cumulative chain | 24→52→85→123→150 | 24→51→82→120→150 |
+| Stale cleanup | Only with `-Reset` / tier downgrades | On every run (against the selected tier's merged set) |
+| Foreign values | — | Preserved |
+
+<a id="en-v2540-added"></a>
+
+### Added
+
+- **Stale policy cleanup (EN)** — At the start of STEP 5, the script reads all existing values under the HKLM Brave policy key and removes any **Omega-managed value that is not in the selected tier's merged set** (`$MergedPolicies.Keys`). WhatIf-aware `Remove-ItemProperty`, per-value try/catch with success/failure counters (`$StaleRemovedCount`, `$StaleFailCount`). `-Reset` now shares the same deterministic policy name source (`$allPolicyNames`) since the array was moved outside the reset-only block.
+- **Summary report line** — `Stale Cleanup : <n> removed / <n> failed` (shown only when a stale scan was performed).
+- **Exit-code integration** — a failed stale cleanup (`$StaleFailCount -gt 0`) now results in exit code 1.
+
+<a id="en-v2540-changed"></a>
+
+### Changed
+
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.5.4.0"`; `$allPolicyNames` / `$tumPolitikalar` moved outside the `-Reset` / `-Sifirla` block; per-run stale policy cleanup added to STEP 5 (TR: `$BayatSilinenSayac`, `$BayatHataSayac`).
+- **Download control relaxed below Strict (EN/TR)** — `SafeBrowsingDeepScanningEnabled` moved from Essential to Strict, `DisableSafeBrowsingProceedAnyway` moved from Balanced to Strict, and `DownloadRestrictions` (1=warn/block dangerous) removed from Balanced (Strict already enforces the full block via Value=3). Downloads are now allowed at every tier below Strict: Balanced and Advanced show the Safe Browsing warning but let the user proceed, so legitimate downloads (e.g. driver installers) are never stopped by the "blocked by your organization" message; Strict keeps full deep-scanning, no-proceed enforcement, and the complete download block (3). Tier counts: Essential 27, Balanced 31, Advanced 38, Strict 30.
+- **Tests** — new `StaleCleanup.Tests.ps1` (10 tests: version, array placement EN/TR, smart filter EN/TR, WhatIf protection, summary/exit EN/TR, `BrowsingDataLifetime` stale simulation EN/TR); `ScriptVersion.Tests.ps1` and `FullPipeline-TR.Tests.ps1` updated to v2.5.4.0.
+- **Documentation** — index.html, README, Wiki compatibility matrix and changelog updated.
+
+---
+
+<a id="en-v2530"></a>
+
+## [v2.5.3.0] — 2026-07-31
+
+<a id="en-v2530-summary"></a>
+
+### 🎯 Summary
+
+**Brave Sync available except Strict:** `BrowserSignin` and `SyncDisabled` were relocated to the Strict tier, so Brave Sync is **enabled by default** at BraveOnly, Essential, Balanced, and Advanced. The `-AllowSync` / `-SenkronizasyonaIzinVer` switch is now a **Strict-only opt-in**: when passed at Strict, both policies are stripped from the merged policy set and any previously applied registry values are cleaned, keeping Brave Sync usable even at the highest tier.
+
+| Metric | Before (v2.5.2.1) | After (v2.5.3.0) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 150 | 150 |
+| Cumulative chain | 24→53→86→124→150 | 24→52→85→123→150 |
+| Sync below Strict | Disabled | Enabled by default |
+| Strict with -AllowSync | — | 148 (BrowserSignin + SyncDisabled removed) |
+
+<a id="en-v2530-added"></a>
+
+### Added
+
+- **`-AllowSync` switch (EN)** / **`-SenkronizasyonaIzinVer` switch (TR)** — Strict-only opt-in: strips `BrowserSignin` and `SyncDisabled` from the merged Strict policy set and removes any previously written values under `HKLM\SOFTWARE\Policies\BraveSoftware\Brave`, keeping Brave Sync usable even at Strict while every other policy is still applied.
+- **Sync status line in the summary report** — Output now reports `Brave Sync : Enabled (-AllowSync)` or `Brave Sync : Disabled` after writing.
+
+<a id="en-v2530-changed"></a>
+
+### Changed
+
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.5.3.0"`; `BrowserSignin` and `SyncDisabled` relocated to Strict-only (Essential 29→28, Strict 27→28 own policies; cumulative chain 24→52→85→123→150); `-AllowSync` / `-SenkronizasyonaIzinVer` now a Strict opt-in; sync-exclusion block after policy merge; WhatIf-aware HKLM cleanup.
+- **Tests** — `PolicyDefinitions.Tests.ps1` expected counts updated (Essential 28, Strict 28); new `AllowSync.Tests.ps1` (Strict-only presence tests, EN + TR); `ParameterBinding.Tests.ps1` updated (4 parameters).
+- **Documentation** — README usage examples, Wiki Policy-Reference, and changelog updated.
 
 ---
 
@@ -1492,38 +1574,48 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.5.2.1 — 2026-07-31](#tr-v2521)
-2. [v2.5.2.0 — 2026-07-25](#tr-v2520)
+1. [v2.5.4.0 — 2026-07-31](#tr-v2540)
+    * [Özet](#tr-v2540-ozet)
+    * [Eklendi](#tr-v2540-eklendi)
+    * [Değiştirildi](#tr-v2540-degistirildi)
+2. [v2.5.3.0 — 2026-07-31](#tr-v2530)
+    * [Özet](#tr-v2530-ozet)
+    * [Eklendi](#tr-v2530-eklendi)
+    * [Değiştirildi](#tr-v2530-degistirildi)
+3. [v2.5.2.1 — 2026-07-31](#tr-v2521)
+    * [Özet](#tr-v2521-ozet)
+    * [Değiştirildi](#tr-v2521-degistirildi)
+4. [v2.5.2.0 — 2026-07-25](#tr-v2520)
     * [Özet](#tr-v2520-ozet)
     * [Değiştirildi](#tr-v2520-degistirildi)
-3. [Giriş](#tr-introduction)
-4. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+4. [Giriş](#tr-introduction)
+5. [v2.5.1.0 — 2026-07-23](#tr-v2510)
     * [Özet](#tr-v2510-ozet)
     * [Değiştirildi](#tr-v2510-degistirildi)
-5. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+6. [v2.5.0.0 — 2026-07-21](#tr-v2500)
     * [Özet](#tr-v2500-ozet)
     * [Eklendi](#tr-v2500-eklendi)
     * [Kaldırıldı](#tr-v2500-kaldirildi)
-6. [v2.4.2.0 — 2026-07-17](#tr-v2420)
+7. [v2.4.2.0 — 2026-07-17](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-7. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+8. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Kaldırıldı](#tr-v2410-kaldirildi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-8. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+9. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-9. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+10. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-10. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+11. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-11. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+12. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
@@ -1604,6 +1696,78 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v2540"></a>
+
+## [v2.5.4.0] — 2026-07-31
+
+<a id="tr-v2540-ozet"></a>
+
+### 🎯 Özet
+
+**Her çalıştırmada deterministik kayıt defteri durumu:** Brave Omega artık yazmadan önce **bayat politika temizliği** yapar. Her çalıştırmada, `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` altındaki **seçili seviyenin birleştirilmiş politika kümesinde olmayan** Omega yönetimli değerler otomatik kaldırılır. Yabancı/Omega dışı değerler korunur; başka araçların veya yöneticilerin yönettiği hiçbir şeye dokunulmaz.
+
+| Metrik | Önce (v2.5.3.0) | Sonra (v2.5.4.0) |
+|--------|------------------|-------------------|
+| Sıkılaştırma kademesi | 5 | 5 |
+| Toplam politika | 150 | 150 |
+| Kümülatif zincir | 24→52→85→123→150 | 24→51→82→120→150 |
+| Bayat temizliği | Yalnızca `-Sıfırla` / seviye düşüşünde | Her çalıştırmada (seçili seviyenin birleştirilmiş kümesine göre) |
+| Yabancı değerler | — | Korunur |
+
+<a id="tr-v2540-eklendi"></a>
+
+### Eklendi
+
+- **Bayat politika temizliği (TR)** — STEP 5 başında betik, HKLM Brave politika anahtarı altındaki tüm değerleri okur ve **seçili seviyenin birleştirilmiş kümesinde (`$BirlestirilmisPolitikalar.Keys`) olmayan Omega yönetimli değerleri** kaldırır. WhatIf duyarlı `Remove-ItemProperty`, değer başına try/catch ve başarı/hata sayaçları (`$BayatSilinenSayac`, `$BayatHataSayac`). `-Sıfırla` artık aynı deterministik politika adı kaynağını paylaşır (`$tumPolitikalar` reset bloğunun dışına taşındı).
+- **Özet rapora bayat temizliği satırı** — `Bayat Temizliği : <n> silindi / <n> başarısız` (yalnızca bayat taraması yapıldığında gösterilir).
+- **Çıkış kodu entegrasyonu** — başarısız bir bayat temizliği (`$BayatHataSayac -gt 0`) artık çıkış kodu 1 ile sonuçlanır.
+
+<a id="tr-v2540-degistirildi"></a>
+
+### Değiştirildi
+
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$BetikSurum = "v2.5.4.0"`; `$tumPolitikalar` / `$allPolicyNames` `-Sıfırla` / `-Reset` bloğunun dışına taşındı; STEP 5'e her çalıştırmada bayat politika temizliği eklendi.
+- **Katı altında indirme kontrolü gevşetildi (EN/TR)** — `SafeBrowsingDeepScanningEnabled` Temel'den Katı'ya, `DisableSafeBrowsingProceedAnyway` Dengeli'den Katı'ya taşındı ve `DownloadRestrictions` (1=uyar/tehlikeli engelle) Dengeli'den kaldırıldı (Katı, Value=3 ile tam engeli zaten uygular). İndirmeler artık Katı'nın altındaki her seviyede serbest: Dengeli ve Gelişmiş Safe Browsing uyarısını gösterir ancak kullanıcının devam etmesine izin verir; meşru indirmeler (ör. sürücü kurulumları) artık "kuruluşunuz tarafından engellendi" mesajıyla asla durdurulmaz. Katı, tam derin tarama, uyarıyı atlama yasağı ve tam indirme engelini (3) sürdürür. Seviye sayıları: Temel 27, Dengeli 31, Gelişmiş 38, Katı 30.
+- **Testler** — yeni `StaleCleanup.Tests.ps1` (10 test: sürüm, dizi konumu EN/TR, akıllı filtre EN/TR, WhatIf koruması, özet/çıkış EN/TR, `BrowsingDataLifetime` bayat simülasyonu EN/TR); `ScriptVersion.Tests.ps1` ve `FullPipeline-TR.Tests.ps1` v2.5.4.0'a güncellendi.
+- **Belgelendirme** — index.html, README, Wiki uyumluluk matrisi ve değişiklik günlüğü güncellendi.
+
+---
+
+<a id="tr-v2530"></a>
+
+## [v2.5.3.0] — 2026-07-31
+
+<a id="tr-v2530-ozet"></a>
+
+### 🎯 Özet
+
+**Brave Sync, Katı dışında açık:** `BrowserSignin` ve `SyncDisabled` politikaları Katı katmanına taşındı; böylece Brave Sync **Yalnızca Brave, Temel, Dengeli ve Gelişmiş katmanlarında varsayılan olarak açık.** `-AllowSync` / `-SenkronizasyonaIzinVer` anahtarı artık **yalnızca Katı'da açma seçeneği**: Katı'da verildiğinde iki politika birleştirilmiş kümeden çıkarılır, önceden uygulanmış kayıt defteri değerleri temizlenir; en üst kademede bile Brave Sync kullanılabilir kalır.
+
+| Metrik | Önce (v2.5.2.1) | Sonra (v2.5.3.0) |
+|--------|------------------|-------------------|
+| Sıkılaştırma kademesi | 5 | 5 |
+| Toplam politika | 150 | 150 |
+| Kümülatif zincir | 24→53→86→124→150 | 24→52→85→123→150 |
+| Katı altı sync | Kapalı | Varsayılan açık |
+| Katı + -SenkronizasyonaIzinVer | — | 148 (BrowserSignin + SyncDisabled çıkarıldı) |
+
+<a id="tr-v2530-eklendi"></a>
+
+### Eklendi
+
+- **`-AllowSync` anahtarı (EN)** / **`-SenkronizasyonaIzinVer` anahtarı (TR)** — Yalnızca Katı'da açma seçeneği: merge adımında `BrowserSignin` ve `SyncDisabled` politikalarını kümülatif kümeden çıkarır ve `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` altındaki önceden yazılmış değerleri siler. Katı'da bile Brave Sync tam kullanılabilir kalırken diğer tüm politikalar uygulanır.
+- **Özet raporuna sync durumu satırı** — Yazma sonrası çıktıda `Brave Sync : Açık` veya `Brave Sync : Kapalı` raporlanır.
+
+<a id="tr-v2530-degistirildi"></a>
+
+### Değiştirildi
+
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$BetikSurum = "v2.5.3.0"`; `BrowserSignin` ve `SyncDisabled` yalnızca Katı'ya taşındı (Temel 29→28, Katı 27→28 kendi politikası; kümülatif zincir 24→52→85→123→150); `-AllowSync` / `-SenkronizasyonaIzinVer` artık Katı'da açma seçeneği; politika merge'inden sonra sync-hariç tutma bloğu; WhatIf duyarlı HKLM temizliği.
+- **Testler** — `PolicyDefinitions.Tests.ps1` beklenen sayılar güncellendi (Temel 28, Katı 28); yeni `AllowSync.Tests.ps1` (yalnızca Katı varlık testleri, EN + TR); `ParameterBinding.Tests.ps1` güncellendi (4 parametre).
+- **Belgelendirme** — README kullanım örnekleri, Wiki Policy-Reference ve değişiklik günlüğü güncellendi.
 
 ---
 

@@ -14,10 +14,10 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | Level | Own Policies | HKCU | HKLM | Cumulative Total |
 | ------- | ---------- | ------ | ------ | ------------ |
 | **1. Brave Only** | 24 | — | 24 | Base |
-| **2. Essential** ⭐ | 29 | UsageStatsInSample | 53 | Includes Level 1 |
-| **3. Balanced** | 33 | UsageStatsInSample | 86 | Includes Levels 1-2 |
-| **4. Advanced** | 38 | UsageStatsInSample | 124 | Includes Levels 1-3 |
-| **5. Strict** | 27 | UsageStatsInSample | 150 | Includes Levels 1-4 |
+| **2. Essential** ⭐ | 27 | UsageStatsInSample | 51 | Includes Level 1 |
+| **3. Balanced** | 31 | UsageStatsInSample | 82 | Includes Levels 1-2 |
+| **4. Advanced** | 38 | UsageStatsInSample | 120 | Includes Levels 1-3 |
+| **5. Strict** | 30 | UsageStatsInSample | 150 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
@@ -60,7 +60,7 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `BraveShieldsEnabledForUrls` | `@()` | MultiString | No URLs force-enabled for Shields |
 | `EmailAliasesEnabled` | `0` | DWord | Disables Brave email aliases |
 
-### Essential Level — Brave Only + Data Leak Prevention (29 total)
+### Essential Level — Brave Only + Data Leak Prevention (27 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -76,7 +76,6 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `DomainReliabilityAllowed` | `0` | DWord | Stops diagnostic data reporting |
 | `BackgroundModeEnabled` | `0` | DWord | Prevents Brave running when all windows closed |
 | `SafeBrowsingSurveysEnabled` | `0` | DWord | Disables post-browsing surveys |
-| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Enables server-side download scanning |
 | `WebRtcEventLogCollectionAllowed` | `0` | DWord | Stops WebRTC event log upload |
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | Stops WebRTC text log upload |
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
@@ -90,11 +89,10 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `PaymentMethodQueryEnabled` | `0` | DWord | Blocks payment method queries |
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Suppresses cross-origin subframe dialogs |
 | `ProxySettings` | `{"mode":"direct"}` | String | Disables proxy (direct connection) |
-| `BrowserSignin` | `0` | DWord | **[Phase 9]** Disables Google browser sign-in |
 | `ExtensionInstallSources` | `@()` | MultiString | **[Phase 9]** Blocks all non-store extension sources |
 | `ScreenCaptureAllowed` | `0` | DWord | Blocks web capture APIs (getDisplayMedia, etc.); Windows native tools still work |
 
-### Balanced Level — Essential + Security Baseline (33 total)
+### Balanced Level — Essential + Security Baseline (32 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -108,7 +106,6 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `AutofillAddressEnabled` | `0` | DWord | Disables address autofill |
 | `AutofillCreditCardEnabled` | `0` | DWord | Disables credit card autofill |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Shows full URLs (anti-phishing) |
-| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware warnings |
 | `QuicAllowed` | `0` | DWord | Disables QUIC, falls back to TCP/TLS |
 | `ChromeVariations` | `1` | DWord | Critical field trials only |
 | `NetworkServiceSandboxEnabled` | `1` | DWord | Sandboxes network service |
@@ -124,7 +121,6 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Enables intensive wake-up throttling |
 | `UserFeedbackAllowed` | `0` | DWord | Disables user feedback |
 | `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Force-installs Dark Reader |
-| `DownloadRestrictions` | `1` | DWord | Warns before dangerous downloads |
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
 | `RelaunchNotification` | `2` | DWord | **[Phase 9]** Mandatory relaunch after update |
@@ -132,7 +128,7 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Disables auto-approval of local network permission requests in sub-frames |
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Disables local AI model download (moved from Advanced) |
 
-### Advanced Level — Balanced + Enhanced Privacy (38 total)
+### Advanced Level — Balanced + Enhanced Privacy (37 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -175,7 +171,7 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | Empty list uses default IP mappings |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Disables temporary opt-out from LNA restrictions |
 
-### Strict Level — Advanced + Maximum Privacy (27 total)
+### Strict Level — Advanced + Maximum Privacy (30 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -193,7 +189,9 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Disables task manager process ending |
 | `PrintingEnabled` | `0` | DWord | Disables printing entirely |
 | `DisablePrintPreview` | `1` | DWord | Disables print preview system dialog |
-| `DownloadRestrictions` | `3` | DWord | Blocks ALL downloads (overrides Balanced value of 1) |
+| `DownloadRestrictions` | `3` | DWord | Blocks ALL downloads (Strict only — allowed at all lower tiers) |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Enables server-side download scanning (moved from Essential) |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware warnings (moved from Balanced) |
 | `ScreenCaptureAllowedByOrigins` | `@()` | MultiString | Empty list blocks all origins from screen capture |
 | `SameOriginTabCaptureAllowedByOrigins` | `@()` | MultiString | Empty list blocks all same-origin tab capture |
 | `TabCaptureAllowedByOrigins` | `@()` | MultiString | Empty list blocks all tab capture |
@@ -205,7 +203,8 @@ Complete policy reference for Brave Omega v2.5.2.0 — **150 enterprise policies
 | `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | **[Phase 9]** Enforces CT for all sites (no exemptions) |
 | `PasswordLeakDetectionEnabled` | `1` | DWord | **[Phase 9]** Checks leaked passwords against breach DB |
 | `SpellCheckServiceEnabled` | `0` | DWord | **[Phase 9]** Disables online Google spellcheck service |
-| `SyncDisabled` | `1` | DWord | **[Phase 9]** Disables Chrome Sync |
+| `BrowserSignin` | `0` | DWord | **[Phase 9]** Disables Google browser sign-in. Applied only at Strict tier; **excluded by `-AllowSync`** to keep Brave Sync usable |
+| `SyncDisabled` | `1` | DWord | **[Phase 9]** Disables Chrome Sync. Applied only at Strict tier; **excluded by `-AllowSync`** to keep Brave Sync usable |
 
 ---
 
@@ -273,10 +272,10 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | Seviye | Kendi Politikaları | HKCU | HKLM | Kümülatif Toplam |
 | -------- | ---------- | ------ | ------ | ----------- |
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
-| **2. Temel** ⭐ | 29 (+24 +2 v2.4.1.0) | UsageStatsInSample | 53 | 1. Seviyeyi kapsar |
-| **3. Dengeli** | 33 (+28 +2 v2.4.1.0) | UsageStatsInSample | 86 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 38 (+17 +4 v2.4.1.0) | UsageStatsInSample | 124 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 27 (+15 +12 Faz 9) | UsageStatsInSample | 150 | 1-4. Seviyeleri kapsar |
+| **2. Temel** ⭐ | 27 | UsageStatsInSample | 51 | 1. Seviyeyi kapsar |
+| **3. Dengeli** | 31 | UsageStatsInSample | 82 | 1-2. Seviyeleri kapsar |
+| **4. Gelişmiş** | 38 | UsageStatsInSample | 120 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 30 | UsageStatsInSample | 150 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
@@ -319,7 +318,7 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `BraveShieldsEnabledForUrls` | `@()` | MultiString | Kalkanları zorla etkinleştirilen URL yok |
 | `EmailAliasesEnabled` | `0` | DWord | Brave e-posta takma adlarını devre dışı bırakır |
 
-### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (29 toplam)
+### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (27 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -335,7 +334,6 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `DomainReliabilityAllowed` | `0` | DWord | Tanılama verisi raporlamasını durdurur |
 | `BackgroundModeEnabled` | `0` | DWord | Tüm pencereler kapandığında Brave'in çalışmasını engeller |
 | `SafeBrowsingSurveysEnabled` | `0` | DWord | Gezinti sonrası anketleri devre dışı bırakır |
-| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Sunucu tarafı indirme taramasını etkinleştirir |
 | `WebRtcEventLogCollectionAllowed` | `0` | DWord | WebRTC olay günlüğü yüklemeyi durdurur |
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | WebRTC metin günlüğü yüklemeyi durdurur |
 | `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |
@@ -349,11 +347,10 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `PaymentMethodQueryEnabled` | `0` | DWord | Ödeme yöntemi sorgularını engeller |
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Farklı kaynaklı alt çerçeve iletişim kutularını bastırır |
 | `ProxySettings` | `{"mode":"direct"}` | String | Proxy'yi devre dışı bırakır (doğrudan bağlantı) |
-| `BrowserSignin` | `0` | DWord | **[Faz 9]** Brave tarayıcı girişini devre dışı bırakır |
 | `ExtensionInstallSources` | `@()` | MultiString | **[Faz 9]** Mağaza dışı tüm uzantı kaynaklarını engeller |
 | `ScreenCaptureAllowed` | `0` | DWord | Web yakalama API'lerini engeller (getDisplayMedia vb.); Windows yerel araçları hâlâ çalışır |
 
-### Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (33 toplam)
+### Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (32 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -367,7 +364,6 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `AutofillAddressEnabled` | `0` | DWord | Adres otomatik doldurmayı devre dışı bırakır |
 | `AutofillCreditCardEnabled` | `0` | DWord | Kredi kartı otomatik doldurmayı devre dışı bırakır |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Tam URL'leri gösterir (oltalamaya karşı) |
-| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım uyarılarını atlamayı engeller |
 | `QuicAllowed` | `0` | DWord | QUIC'i devre dışı bırakır, TCP/TLS'ye döner |
 | `ChromeVariations` | `1` | DWord | Yalnızca kritik alan denemeleri |
 | `NetworkServiceSandboxEnabled` | `1` | DWord | Ağ hizmetini kum havuzuna alır |
@@ -383,7 +379,6 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Yoğun uyanma kısıtlamasını etkinleştirir |
 | `UserFeedbackAllowed` | `0` | DWord | Kullanıcı geri bildirimini devre dışı bırakır |
 | `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Dark Reader'ı zorla yükler |
-| `DownloadRestrictions` | `1` | DWord | Tehlikeli indirmelerden önce uyarır |
 | `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
 | `RelaunchNotification` | `2` | DWord | **[Faz 9]** Güncelleme sonrası zorunlu yeniden başlatma |
@@ -391,7 +386,7 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Alt çerçevelerde yerel ağ izin isteklerinin otomatik onayını devre dışı bırakır |
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Yerel yapay zeka modeli indirmeyi devre dışı bırakır (Gelişmiş'ten taşındı) |
 
-### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (38 toplam)
+### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (37 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -434,7 +429,7 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | Boş liste varsayılan IP eşlemelerini kullanır |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Yerel ağ erişimi kısıtlamalarından geçici çıkış devre dışı |
 
-### Katı Seviye — Gelişmiş + Azami Gizlilik (27 toplam)
+### Katı Seviye — Gelişmiş + Azami Gizlilik (30 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -452,7 +447,9 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Görev yöneticisi işlem sonlandırmayı devre dışı bırakır |
 | `PrintingEnabled` | `0` | DWord | Yazdırmayı tamamen devre dışı bırakır |
 | `DisablePrintPreview` | `1` | DWord | Baskı ön izleme sistem iletişim kutusunu devre dışı bırakır |
-| `DownloadRestrictions` | `3` | DWord | TÜM indirmeleri engeller (Dengeli'deki 1 değerinin üzerine yazar) |
+| `DownloadRestrictions` | `3` | DWord | TÜM indirmeleri engeller (yalnızca Katı — alt seviyelerde indirmeye izin verilir) |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Sunucu tarafı indirme taramasını etkinleştirir (Temel'den taşındı) |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım uyarılarını atlamayı engeller (Dengeli'den taşındı) |
 | `ScreenCaptureAllowedByOrigins` | `@()` | MultiString | Boş liste tüm kaynaklardan ekran yakalamayı engeller |
 | `SameOriginTabCaptureAllowedByOrigins` | `@()` | MultiString | Boşliste tüm aynı kaynak sekme yakalamayı engeller |
 | `TabCaptureAllowedByOrigins` | `@()` | MultiString | Boş liste tüm sekme yakalamayı engeller |
@@ -464,7 +461,8 @@ Brave Omega v2.5.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | **[Faz 9]** Tüm sitelerde CT'yi zorlar (hariç tutma yok) |
 | `PasswordLeakDetectionEnabled` | `1` | DWord | **[Faz 9]** Sızdırılmış parolaları ihlal veritabanıyla kontrol eder |
 | `SpellCheckServiceEnabled` | `0` | DWord | **[Faz 9]** Çevrimiçi Google yazım denetimi hizmetini devre dışı bırakır |
-| `SyncDisabled` | `1` | DWord | **[Faz 9]** Chrome Sync'i devre dışı bırakır |
+| `BrowserSignin` | `0` | DWord | **[Faz 9]** Brave tarayıcı girişini devre dışı bırakır. Yalnızca Katı kademesinde uygulanır; Brave Sync'i açık tutmak için `-SenkronizasyonaIzinVer` ile hariç tutulur |
+| `SyncDisabled` | `1` | DWord | **[Faz 9]** Chrome Sync'i devre dışı bırakır. Yalnızca Katı kademesinde uygulanır; Brave Sync'i açık tutmak için `-SenkronizasyonaIzinVer` ile hariç tutulur |
 
 ---
 

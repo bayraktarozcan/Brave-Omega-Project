@@ -23,6 +23,36 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.4.0 — 2026-07-31
+
+**Stale Policy Cleanup — Self-Healing on Every Run**
+
+**Added:**
+
+- Automatic stale policy cleanup: on every run, any Omega-managed HKLM value that is no longer part of the selected tier's merged policy set is removed automatically
+- Foreign (non-Omega) values are always preserved — only policy names controlled by Brave Omega are touched
+
+**Changed:**
+
+- Download control relaxed below Strict: `SafeBrowsingDeepScanningEnabled` moved from Essential to Strict, `DisableSafeBrowsingProceedAnyway` moved from Balanced to Strict, and `DownloadRestrictions` removed from Balanced (Strict already enforces the full block via Value=3). Downloads are now allowed at every tier below Strict; Strict keeps full deep-scanning, no-proceed enforcement, and the complete download block (3)
+- Both scripts updated to v2.5.4.0
+
+---
+
+### v2.5.3.0 — 2026-07-31
+
+**Brave Sync Policy Relocation — Sync Available Except Strict**
+
+**Changed:**
+
+- `BrowserSignin` moved from **Essential** to **Strict** tier (adjacent to `SyncDisabled`)
+- Brave Sync now available by default at Brave Only / Essential / Balanced / Advanced
+- `-AllowSync` is now a Strict-tier opt-in that keeps Brave Sync enabled even at Strict
+- Policy tier counts updated: Essential 29→28, Strict 27→28 (cumulative totals unchanged: 24→52→85→123→150)
+- Both scripts updated to v2.5.3.0
+
+---
+
 ### v2.5.2.0 — 2026-07-25
 
 **Brave 1.92.144 (Chromium 150.0.7871.186) Compatibility Validation**
@@ -456,7 +486,10 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.2.0** *(current)* | 1.92.144 | 150 | 11 25H2 | ✅ Active |
+| **v2.5.4.0** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
+| v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
+| v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Previous |
 | v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Previous |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
@@ -534,6 +567,36 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.5.4.0 — 2026-07-31
+
+**Bayat Politika Temizliği — Her Çalıştırmada Kendi Kendini Onarma**
+
+**Eklenenler:**
+
+- Otomatik bayat politika temizliği: her çalıştırmada, seçili seviyenin birleştirilmiş politika kümesinin parçası olmayan Omega yönetimli HKLM değerleri otomatik kaldırılır
+- Yabancı (Omega dışı) değerler her zaman korunur — yalnızca Brave Omega tarafından kontrol edilen politika adlarına dokunulur
+
+**Değişenler:**
+
+- Katı altında indirme kontrolü gevşetildi: `SafeBrowsingDeepScanningEnabled` Temel'den Katı'ya, `DisableSafeBrowsingProceedAnyway` Dengeli'den Katı'ya taşındı ve `DownloadRestrictions` Dengeli'den kaldırıldı (Katı, Value=3 ile tam engeli zaten uygular). İndirmeler artık Katı'nın altındaki her seviyede serbest; Katı, tam derin tarama, uyarıyı atlama yasağı ve tam indirme engelini (3) sürdürür
+- Her iki betik v2.5.4.0'a güncellendi
+
+---
+
+### v2.5.3.0 — 2026-07-31
+
+**Brave Sync Politika Taşıması — Sync Katı Dışında Açık**
+
+**Değişenler:**
+
+- `BrowserSignin` **Temel** katmanından **Katı** katmanına taşındı (`SyncDisabled` ile yan yana)
+- Brave Sync artık Brave Yalnız / Temel / Dengeli / Gelişmiş'te varsayılan olarak açık
+- `-SenkronizasyonaIzinVer` artık Katı seviyesinde sync'i açık tutan bir opt-in
+- Politika katmanı sayıları güncellendi: Temel 29→28, Katı 27→28 (kümülatif toplamlar değişmedi: 24→52→85→123→150)
+- Her iki betik v2.5.3.0'a güncellendi
+
+---
 
 ### v2.5.2.0 — 2026-07-25
 
@@ -969,7 +1032,10 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.2.0** *(güncel)* | 1.92.144 | 150 | 11 25H2 | ✅ Etkin |
+| **v2.5.4.0** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
+| v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
+| v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Önceki |
 | v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Önceki |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |

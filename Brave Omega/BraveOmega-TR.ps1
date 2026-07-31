@@ -17,8 +17,43 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.5.0.0)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.5.4.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.4.0             Çalışma başına bayat politika temizliği — deterministik kayıt defteri:
+#
+#     [YENİ]        Her çalıştırmada, seçili katmanın birleştirilmiş kümesinde
+#                   OLMAYAN, daha önce uygulanmış Omega politikaları kaldırılır
+#                   (ör. Dengeli/Katı'dan alt bir katmana geçerken kalan
+#                   DownloadRestrictions). Kayıt defteri, seçilen katmanla
+#                   birebir eşleşen kesin bir duruma ulaşır.
+#
+#     [YENİ]        Akıllı temizlik yalnızca kayıt defterinde mevcut olan ve Omega
+#                   tarafından yönetilen değerlere dokunur; kullanıcının kendi
+#                   ayarladığı yabancı değerler korunur. -WhatIf'e uyar
+#                   (yalnızca önizleme) ve özet rapora dahil edilir.
+#
+#     [DEĞİŞTİ]     Katı altında indirme kontrolü gevşetildi; meşru indirmeler
+#                   (ör. sürücü kurulumları) artık asla engellenmez:
+#                   SafeBrowsingDeepScanningEnabled Temel'den Katı'ya,
+#                   DisableSafeBrowsingProceedAnyway Dengeli'den Katı'ya taşındı ve
+#                   DownloadRestrictions Dengeli'den kaldırıldı (Katı, Value=3 ile
+#                   tam engeli zaten uygular). Dengeli ve Gelişmiş, Safe Browsing
+#                   uyarısını korur ancak kullanıcının devam etmesine izin verir;
+#                   Katı, tam derin tarama, uyarıyı atlama yasağı ve tam indirme
+#                   engelini (3) sürdürür.
+#
+#   v2.5.3.0             Brave Sync politika taşıması — sync Katı dışında açık:
+#
+#     [DEĞİŞTİ]     BrowserSignin Temel'den Katı'ya taşındı. Brave Sync artık
+#                   Brave Yalnız, Temel, Dengeli ve Gelişmiş seviyelerinde
+#                   kullanılabilir. Yalnızca Katı sync'i kapatır
+#                   (BrowserSignin=0 + SyncDisabled=1).
+#
+#     [YENİ]         -SenkronizasyonaIzinVer anahtar parametresi (Katı seçeneği).
+#                   Bu parametre verilirse her iki politika birleştirilmiş
+#                   kümeden çıkarılır ve önceden uygulanmış değerler temizlenir;
+#                   Brave Sync Katı seviyesinde bile kullanılabilir kalır.
+#
 #   v2.5.0.0             Tam politika genişletmesi — 30 yeni politika (133→153→150):
 #
 #     [YENİ]         5 kademede toplam 30 yeni Chromium kurumsal politikası eklendi.
@@ -216,13 +251,14 @@
 param(
     [string]$Seviye = "",
     [switch]$WhatIf,
-    [switch]$Sifirla
+    [switch]$Sifirla,
+    [switch]$SenkronizasyonaIzinVer
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.5.2.1"
+$BetikSurum    = "v2.5.4.0"
 $DogrulananBrave = "1.93.129"
 $DogrulananChromium = "151"
 
@@ -315,11 +351,9 @@ if ($braveBilgi) {
 # ─────────────────────────────────────────────────────────────────────────────
 # ADIM 0C: SIFIRLA (RESET) MODU
 # ─────────────────────────────────────────────────────────────────────────────
-if ($Sifirla) {
-    Write-Host "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
-    Write-Host ""
-
-    $tumPolitikalar = @(
+# Tüm kademelerdeki bilinen politika adları (tanımlar yüklenmeden önce sabit kodlanmıştır)
+# Hem -Sifirla modunda hem de her çalıştırmada bayat politika temizliğinde kullanılır (v2.5.4.0)
+$tumPolitikalar = @(
         "UsageStatsInSample", "OmahaMachineLevelUserMetrics",
         "BraveRewardsDisabled", "BraveWalletDisabled", "BraveVPNDisabled",
         "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
@@ -372,7 +406,7 @@ if ($Sifirla) {
         # (8 kaldırıldı: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
         #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
         #  RestoreOnStartup, GenAiDefaultSettings — kullanımdan kaldırıldı/engellendi/bilinmiyor)
-        "BrowserSignin", "ExtensionInstallSources", "ProxySettings",
+        "ExtensionInstallSources", "ProxySettings",
         "RelaunchNotification", "RelaunchNotificationPeriod",
         "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
         "GeminiSettings",
@@ -380,6 +414,7 @@ if ($Sifirla) {
         "AlwaysOpenPdfExternally", "CertificateTransparencyEnforcementDisabledForUrls",
         "PasswordLeakDetectionEnabled",
         "SpellCheckServiceEnabled",
+        "BrowserSignin",
         "SyncDisabled",
         # Faz 10 (v2.5.0.0) — 15 yeni politika (yapay zekâ engelleme + kum havuzu sertleştirme)
         "ScreenCaptureAllowed",
@@ -397,6 +432,10 @@ if ($Sifirla) {
         "LocalNetworkAccessRestrictionsTemporaryOptOut",
         "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
     )
+
+if ($Sifirla) {
+    Write-Host "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
+    Write-Host ""
 
     # HKLM'den kaldır
     $hkSayac = 0
@@ -655,8 +694,6 @@ $PolitikaTanimlari = @{
         @{Ad="BackgroundModeEnabled";                Deger=0; Tur="DWord"}
         # Safe Browsing anketleri — tarama sonrası anketleri kapatır
         @{Ad="SafeBrowsingSurveysEnabled";           Deger=0; Tur="DWord"}
-        # Safe Browsing derin tarama — sunucu taraflı indirme taramasını etkinleştirir
-        @{Ad="SafeBrowsingDeepScanningEnabled";      Deger=1; Tur="DWord"}
         # WebRTC olay günlüğü — WebRTC olay günlüklerinin Google'a yüklenmesini durdurur
         @{Ad="WebRtcEventLogCollectionAllowed";     Deger=0; Tur="DWord"}
         # WebRTC metin günlüğü — WebRTC metin günlüklerinin Google'a yüklenmesini durdurur
@@ -689,8 +726,6 @@ $PolitikaTanimlari = @{
         # Vekil Sunucu Ayarları — sistem vekil sunucusunu kullanır, ProxyMode uyarısını bastırır
         @{Ad="ProxySettings";                      Deger='{"ProxyMode":"system"}'; Tur="String"}
         # ─── Yeni Temel Politikaları (Faz 9 — Prompt 26) ───
-        # Tarayıcı Girişi — tarayıcı giriş akışını devre dışı bırakır
-        @{Ad="BrowserSignin";                            Deger=0;           Tur="DWord"}
         # Uzantı Yükleme Kaynakları — uzantı yüklemeyi yalnızca Chrome Web Mağazası ile sınırla
         @{Ad="ExtensionInstallSources";                  Deger=@();         Tur="MultiString"}
         # ─── Ekran Yakalama Engelleme (Faz 10 — v2.5.0.0) ───
@@ -721,8 +756,6 @@ $PolitikaTanimlari = @{
         @{Ad="AutofillCreditCardEnabled";            Deger=0; Tur="DWord"}
         # Tam URL'ler — adres çubuğunda protokol ve alt alan adını gösterir (oltalamaya karşı)
         @{Ad="ShowFullUrlsInAddressBar";             Deger=1; Tur="DWord"}
-        # Safe Browsing uyarısını atlama — kötü amaçlı site uyarılarını atlamayı engeller
-        @{Ad="DisableSafeBrowsingProceedAnyway";     Deger=1; Tur="DWord"}
         # QUIC protokolü — QUIC'i kapatır, TCP/TLS'e düşer
         @{Ad="QuicAllowed";                          Deger=0; Tur="DWord"}
         # Chrome varyasyonları — yalnızca kritik saha denemelerine izin verir
@@ -756,8 +789,6 @@ $PolitikaTanimlari = @{
         # ─── Yeni Dengeli Politikaları (Faz 8 — Prompt 22 + 24) ───
         # Uzantı Zorla Yükle — Dark Reader zorla yükle
         @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"); Tur="MultiString"}
-        # İndirme Kısıtlamaları — tehlikeli indirmelerden önce uyar (1=temel koruma)
-        @{Ad="DownloadRestrictions";                 Deger=1; Tur="DWord"}
         # İndirme Klasörü — varsayılan indirme klasörünü ayarla
         @{Ad="DownloadDirectory";                    Deger="${env:USERPROFILE}\Downloads\"; Tur="String"}
         # İndirme Konumu Sor — sorma, varsayılan klasöre kaydet (0)
@@ -893,6 +924,11 @@ $PolitikaTanimlari = @{
         # ─── Dengeli seviyesinden taşındı (v2.3.0.0) — daha sıkı uygulama ───
         # İndirme Kısıtlamaları — TÜM indirmeleri engelle (3=tam koruma, yalnızca katı)
         @{Ad="DownloadRestrictions";                 Deger=3; Tur="DWord"}
+        # ─── Temel/Dengeli seviyesinden taşındı (v2.5.4.0) — Katı altında indirmeye izin verir ───
+        # Safe Browsing derin tarama — sunucu taraflı indirme taraması (yalnızca Katı)
+        @{Ad="SafeBrowsingDeepScanningEnabled";      Deger=1; Tur="DWord"}
+        # Safe Browsing uyarısını atlama — kötü amaçlı site uyarılarını atlamayı engeller (yalnızca Katı)
+        @{Ad="DisableSafeBrowsingProceedAnyway";     Deger=1; Tur="DWord"}
         # ─── Gelişmiş'den geri taşındı (v2.3.1.1 düzeltme) — F12 yalnızca Katı'da engellenir ───
         # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla (2=tamamen devre dışı)
         @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}
@@ -908,6 +944,8 @@ $PolitikaTanimlari = @{
         @{Ad="PasswordLeakDetectionEnabled";                       Deger=1;           Tur="DWord"}
         # Yazım Denetimi Hizmeti Etkin — çevrimiçi yazım denetimini devre dışı bırak (veri sızıntısı vektörü)
         @{Ad="SpellCheckServiceEnabled";                           Deger=0;           Tur="DWord"}
+        # Tarayıcı Girişi — tarayıcı giriş akışını devre dışı bırakır (Brave Sync'i engeller)
+        @{Ad="BrowserSignin";                                     Deger=0;           Tur="DWord"}
         # Senkronizasyon Devre Dışı — Chrome Senkronizasyonu devre dışı bırak (veri sızıntısı vektörü)
         @{Ad="SyncDisabled";                                       Deger=1;           Tur="DWord"}
         # ─── Ekran Yakalama İnce Ayar Kontrolü (v2.5.0.0) ───
@@ -949,6 +987,28 @@ for ($i = 0; $i -le $SecilenIndex; $i++) {
 
 $ToplamPolitikaSayisi = $BirlestirilmisPolitikalar.Count
 Write-Host "[BİLGİ] '$Seviye' katmanı $ToplamPolitikaSayisi politika uygulayacak.`n" -ForegroundColor DarkGray
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SENKRONİZASYON İZNİ (-SenkronizasyonaIzinVer: Brave Sync Katı'da bile kullanılabilir kalır)
+# ─────────────────────────────────────────────────────────────────────────────
+if ($SenkronizasyonaIzinVer) {
+    $SyncEngelleyenPolitikalar = @("BrowserSignin", "SyncDisabled")
+    foreach ($SyncPolitikaAdi in $SyncEngelleyenPolitikalar) {
+        if ($BirlestirilmisPolitikalar.Remove($SyncPolitikaAdi)) {
+            Write-Host "[BİLGİ] -SenkronizasyonaIzinVer: '$SyncPolitikaAdi' hariç tutuldu (Brave Sync kullanılabilir kalır)." -ForegroundColor Green
+        }
+        if (-not $WhatIf) {
+            Remove-ItemProperty -Path $HKLM_Hedef -Name $SyncPolitikaAdi -ErrorAction SilentlyContinue | Out-Null
+            if (-not (Get-ItemProperty -Path $HKLM_Hedef -Name $SyncPolitikaAdi -ErrorAction SilentlyContinue)) {
+                Write-Host "  -> Daha önce uygulanmış '$SyncPolitikaAdi' değeri temizlendi." -ForegroundColor DarkGray
+            }
+        } else {
+            Write-Host "  [WhatIf] Daha önce uygulanmış '$SyncPolitikaAdi' değeri temizlenecek (varsa)." -ForegroundColor Magenta
+        }
+    }
+    $ToplamPolitikaSayisi = $BirlestirilmisPolitikalar.Count
+    Write-Host "[BİLGİ] '$Seviye' katmanı -SenkronizasyonaIzinVer ile $ToplamPolitikaSayisi politika uygulayacak.`n" -ForegroundColor DarkGray
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1134,6 +1194,50 @@ $HataSayaci     = 0
 
 $turSayaclari = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
 
+# ─────────────────────────────────────────────────────────────────────────────
+# BAYAT POLİTİKA TEMİZLİĞİ (v2.5.4.0)
+# Seçili katmanın birleştirilmiş kümesinde OLMAYAN, daha önce uygulanmış Omega
+# politikalarını kaldırır (ör. Dengeli/Katı'dan alt bir katmana geçerken kalan
+# DownloadRestrictions). Kullanıcının kendi ayarladığı yabancı değerler korunur.
+# -WhatIf'e uyar (yalnızca önizleme).
+# ─────────────────────────────────────────────────────────────────────────────
+$BayatSilinenSayac = 0
+$BayatHataSayac    = 0
+$BayatAdaylar      = @()
+
+if (Test-Path $HKLM_Hedef) {
+    $MevcutOznitelikler = Get-ItemProperty -Path $HKLM_Hedef -ErrorAction SilentlyContinue
+    if ($MevcutOznitelikler) {
+        $BayatAdaylar = @($MevcutOznitelikler.PSObject.Properties |
+            Where-Object {
+                $_.Name -notin @('PSPath','PSParentPath','PSChildName','PSDrive','PSProvider') -and
+                $_.Name -in $tumPolitikalar -and
+                $_.Name -notin $BirlestirilmisPolitikalar.Keys
+            } |
+            ForEach-Object { $_.Name })
+    }
+}
+
+if ($BayatAdaylar.Count -gt 0) {
+    Write-Host "  -> [Bayat Politika Temizliği] Önceki kademeden $($BayatAdaylar.Count) bayat değer bulundu:" -ForegroundColor Yellow
+    foreach ($BayatAd in $BayatAdaylar) {
+        try {
+            if (-not $WhatIf) {
+                Remove-ItemProperty -Path $HKLM_Hedef -Name $BayatAd -ErrorAction Stop | Out-Null
+            }
+            $BayatSilinenSayac++
+            $mesaj = if ($WhatIf) { "[WhatIf] $BayatAd silinecek (bayat)" } else { "[OK] $BayatAd silindi (bayat)" }
+            Write-Host "    $mesaj" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkYellow" })
+        } catch {
+            $BayatHataSayac++
+            Write-Host "    [UYARI] $BayatAd silinemedi: $($_.Exception.Message)" -ForegroundColor DarkYellow
+        }
+    }
+    Write-Host ""
+} else {
+    Write-Host "  -> [Bayat Politika Temizliği] Bayat politika bulunamadı.`n" -ForegroundColor DarkGray
+}
+
 foreach ($Kural in $BirlestirilmisPolitikalar.Values) {
     try {
         $goruntulenecekDeger = Yaz-KayitDegeri -HedefYol $HKLM_Hedef -PolitikaAdi $Kural.Ad -PolitikaDegeri $Kural.Deger -DegerTuru $Kural.Tur -WhatIf:$WhatIf
@@ -1182,12 +1286,18 @@ Write-Host "  İŞLEM ÖZET RAPORU" -ForegroundColor Cyan
 Write-Host "  Betik Sürümü      : $BetikSurum" -ForegroundColor White
 Write-Host "  Katman             : $Seviye ($ToplamPolitikaSayisi politika)" -ForegroundColor White
 if ($WhatIf) { Write-Host "  Mod                : -WhatIf (yalnızca önizleme)" -ForegroundColor Magenta }
+if ($SenkronizasyonaIzinVer) { Write-Host "  Brave Sync         : Açık (-SenkronizasyonaIzinVer)" -ForegroundColor Green }
+elseif ($Seviye -eq "Strict") { Write-Host "  Brave Sync         : Kapalı (Katı varsayılanı)" -ForegroundColor Yellow }
+else { Write-Host "  Brave Sync         : Açık (Katı altı varsayılan)" -ForegroundColor Green }
 Write-Host $AyracCizgisi -ForegroundColor DarkGray
 
 $HKCUDurum = if ($HKCUBasarili) { "Uygulandı" } else { "Başarısız" }
 Write-Host "  Omaha GUID Kaydı   : $OmahaBasarili başarılı / $OmahaHata başarısız" -ForegroundColor Gray
 Write-Host "  HKCU Tercihi       : UsageStatsInSample    → $HKCUDurum" -ForegroundColor Gray
 Write-Host "  HKLM Politikaları  : $BasariliSayaci uygulandı / $HataSayaci başarısız" -ForegroundColor Gray
+if ($BayatSilinenSayac -gt 0 -or $BayatHataSayac -gt 0) {
+    Write-Host "  Bayat Temizliği    : $BayatSilinenSayac silindi / $BayatHataSayac başarısız" -ForegroundColor Gray
+}
 Write-Host "  Tür Dağılımı       : DWord=$($turSayaclari.DWord) / String=$($turSayaclari.String) / MultiString=$($turSayaclari.MultiString)" -ForegroundColor Gray
 Write-Host $AyracCizgisi -ForegroundColor DarkGray
 
@@ -1215,4 +1325,4 @@ Write-Host "  3. Yedek konumu      : `$env:TEMP\BravePolicyBackup\" -ForegroundC
 Write-Host "  4. Geri alma komutu  : reg import `"<yedek_dosyasi.reg>`"`n" -ForegroundColor DarkGray
 
 # Çıkış kodu
-if ($HataSayaci -gt 0) { exit 1 } else { exit 0 }
+if ($HataSayaci -gt 0 -or $BayatHataSayac -gt 0) { exit 1 } else { exit 0 }

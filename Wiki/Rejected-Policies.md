@@ -331,7 +331,7 @@
 | **Reason** | Deprecated in Chrome 137+ — redundant with `BrowserSignin=0` |
 | **Category** | Account sync / Privacy |
 | **Was in Production** | Yes (v2.4.0.0 only) |
-| **Notes** | Was added in Phase 9 at Essential tier to block Google account sign-in. `BrowserSignin=0` (also at Essential tier, added same version) already blocks the sign-in flow entirely. Deprecated in Chrome 137+. Removed in v2.4.1.0 as redundant. |
+| **Notes** | Was added in Phase 9 at Essential tier to block Google account sign-in. `BrowserSignin=0` (moved to Strict tier in v2.5.3.0, so sync is available below Strict) already blocks the sign-in flow entirely. Deprecated in Chrome 137+. Removed in v2.4.1.0 as redundant. |
 
 > 🇹🇷 **Türkçe:**
 >
@@ -344,7 +344,7 @@
 > | **Neden** | Chrome 137+'da kademeli olarak kaldırıldı — `BrowserSignin=0` ile gereksiz |
 > | **Kategori** | Hesap senkronizasyonu / Gizlilik |
 > | **Üretimde Oldu mu** | Evet (yalnızca v2.4.0.0) |
-> | **Notlar** | Google hesap girişini engellemek için Faz 9'da Essential katmanında eklendi. `BrowserSignin=0` (aynı sürümde eklenen Essential katmanında) zaten giriş akışını tamamen engelliyor. Chrome 137+'da kademeli olarak kaldırıldı. Gereksiz olduğu için v2.4.1.0'da kaldırıldı. |
+> | **Notlar** | Google hesap girişini engellemek için Faz 9'da Essential katmanında eklendi. `BrowserSignin=0` (v2.5.3.0'da Katı katmanına taşındı; böylece Katı altı kademelerde sync açık) zaten giriş akışını tamamen engelliyor. Chrome 137+'da kademeli olarak kaldırıldı. Gereksiz olduğu için v2.4.1.0'da kaldırıldı. |
 
 ---
 

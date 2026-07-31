@@ -68,7 +68,7 @@ monetization features, and other privacy-eroding components — all without touc
 browser's internals or requiring any third-party tools.
 
 Brave Omega v2.5.0.0 introduces a **five-tier hardening model** — Brave Only (24 policies),
-Essential ⭐ (53), Balanced (86), Advanced (124), and Strict (150) — giving users precise control over
+Essential ⭐ (51), Balanced (82), Advanced (120), and Strict (150) — giving users precise control over
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
 
@@ -99,7 +99,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Feature | Description |
 |---------|-------------|
-| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (24 policies), **Essential ⭐** (53 policies), **Balanced** (86), **Advanced** (124), or **Strict** (150) |
+| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (24 policies), **Essential ⭐** (51 policies), **Balanced** (82), **Advanced** (120), or **Strict** (150) |
 | 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
@@ -177,12 +177,24 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential 
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
 ```
 
+*Keep Brave Sync enabled even at the Strict tier (bookmarks/settings sync stays available):*
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Strict -AllowSync
+```
+
+> [!NOTE]
+> Brave Sync is **available by default** at Brave Only, Essential, Balanced, and Advanced.
+> Only the **Strict** tier disables sync (`BrowserSignin=0` + `SyncDisabled=1`).
+> Add `-AllowSync` (EN) / `-SenkronizasyonaIzinVer` (TR) at the Strict tier to exclude
+> `BrowserSignin` and `SyncDisabled` from the applied set and clear previously written
+> values — all other hardening remains active.
+
 | Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
 |---------------------|---------------------|-------|----------|
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 24 |
-| `-Level Essential` | `-Level Temel` | Essential ⭐ | 53 |
-| `-Level Balanced` | `-Level Dengeli` | Balanced | 86 |
-| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 124 |
+| `-Level Essential` | `-Level Temel` | Essential ⭐ | 51 |
+| `-Level Balanced` | `-Level Dengeli` | Balanced | 82 |
+| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 120 |
 | `-Level Strict` | `-Level Katı` | Strict | 150 |
 
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
@@ -233,9 +245,9 @@ and offers **five hardening levels** that determine how many policies are applie
 | Level | Total Policies | Brave-Specific | Chromium (Data) | Chromium (Security) | Usability Impact |
 |-------|---------------|----------------|-----------------|---------------------|-----------------|
 | **Brave Only** | 24 | 24 | 0 | 0 | None |
-| **Essential ⭐** | 53 | 24 | 29 | 0 | None |
-| **Balanced** | 86 | 24 | 29 | 33 | Low |
-| **Advanced** | 124 | 24 | 29 | 71 | Low |
+| **Essential ⭐** | 51 | 24 | 27 | 0 | None |
+| **Balanced** | 82 | 24 | 27 | 31 | Low |
+| **Advanced** | 120 | 24 | 27 | 69 | Low |
 | **Strict** | 150 | 24 | 29 | 97 | High |
 
 #### 6.2 Policy Sources & Methodology
@@ -300,8 +312,10 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.5.2.1** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
-| **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | ✅ Previous |
+| **v2.5.4.0** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.3.0** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
+| **v2.5.2.1** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
+| **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | 📦 Previous |
 | **v2.5.1.0** | 1.92.143 | 150 | 11 25H2 | 📦 Previous |
 | **v2.5.0.0** | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
 | **v2.4.2.0** | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
@@ -375,7 +389,7 @@ no longer have any effect.
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Enables password leak detection and reuse warnings |
 | `EmailAliasesEnabled` | `0` | DWord | Disables anonymous email alias feature |
 
-#### 9.3 Essential Level — Brave Only + Data Leak Prevention (29 additional)
+#### 9.3 Essential Level — Brave Only + Data Leak Prevention (27 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -390,7 +404,6 @@ no longer have any effect.
 | `DomainReliabilityAllowed` | `0` | DWord | Stops diagnostic data reporting |
 | `BackgroundModeEnabled` | `0` | DWord | Prevents Brave running when all windows closed |
 | `SafeBrowsingSurveysEnabled` | `0` | DWord | Disables post-browsing surveys |
-| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Enables server-side download scanning |
 | `WebRtcEventLogCollectionAllowed` | `0` | DWord | Stops WebRTC event log upload |
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | Stops WebRTC text log upload |
 | `AudioCaptureAllowed` | `0` | DWord | Blocks microphone by default |
@@ -405,11 +418,10 @@ no longer have any effect.
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Suppresses dialogs from different-origin subframes |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Forces OCSP/CRL certificate validation for all levels |
 | `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Explicitly uses system proxy, silences deprecated ProxyMode warning |
-| `BrowserSignin` | `0` | DWord | Disables browser sign-in flow, prevents Google account integration |
 | `ExtensionInstallSources` | `@()` | MultiString | Restricts extension installation to Chrome Web Store only |
 | `ScreenCaptureAllowed` | `0` | DWord | Blocks web screen capture APIs (getDisplayMedia, etc.) |
 
-#### 9.4 Balanced Level — Essential + Security Baseline (33 additional)
+#### 9.4 Balanced Level — Essential + Security Baseline (32 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -423,7 +435,6 @@ no longer have any effect.
 | `AutofillAddressEnabled` | `0` | DWord | Disables address autofill |
 | `AutofillCreditCardEnabled` | `0` | DWord | Disables credit card autofill |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Shows full URLs (anti-phishing) |
-| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware warnings |
 | `QuicAllowed` | `0` | DWord | Disables QUIC, falls back to TCP/TLS |
 | `ChromeVariations` | `1` | DWord | Critical field trials only |
 | `NetworkServiceSandboxEnabled` | `1` | DWord | Sandboxes network service |
@@ -490,7 +501,7 @@ no longer have any effect.
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP space overrides (empty = default mappings) |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Disables temporary opt-out of local network restrictions |
 
-#### 9.6 Strict Level — Advanced + Maximum Privacy (27 additional)
+#### 9.6 Strict Level — Advanced + Maximum Privacy (30 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -509,11 +520,14 @@ no longer have any effect.
 | `PrintingEnabled` | `0` | DWord | Disables all printing |
 | `DisablePrintPreview` | `1` | DWord | Skips print preview dialog |
 | `DownloadRestrictions` *(override)* | `3` | DWord | Blocks ALL downloads (overrides Balanced's value of 1) |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Enables server-side download scanning (moved from Essential) |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware warnings (moved from Balanced) |
 | `BrowsingDataLifetime` | `{"data_types"=["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours"=24}` | String | Auto-clears history/cache after 24 hours |
 | `AlwaysOpenPdfExternally` | `1` | DWord | Opens PDFs in external app (PDF exploit mitigation) |
 | `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | Enforces Certificate Transparency everywhere |
 | `PasswordLeakDetectionEnabled` | `1` | DWord | Checks passwords against known data breaches |
 | `SpellCheckServiceEnabled` | `0` | DWord | Disables online spellcheck (data leak vector) |
+| `BrowserSignin` | `0` | DWord | Disables browser sign-in flow, prevents Google account integration |
 | `SyncDisabled` | `1` | DWord | Disables Chrome Sync (data leak vector) |
 | `ScreenCaptureAllowedByOrigins` | `@()` | MultiString | Blocks all origins from screen capture |
 | `SameOriginTabCaptureAllowedByOrigins` | `@()` | MultiString | Blocks all same-origin tab capture |
@@ -679,7 +693,7 @@ ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı 
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
 Brave Omega **beş katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (24 politika),
-Temel ⭐ (53), Dengeli (86), Gelişmiş (124) ve Katı (150) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
+Temel ⭐ (51), Dengeli (82), Gelişmiş (120) ve Katı (150) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
 sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
@@ -709,7 +723,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Özellik | Açıklama |
 |---------|----------|
-| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (24 politika), **Temel ⭐** (53), **Dengeli** (86), **Gelişmiş** (124) veya **Katı** (150) |
+| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (24 politika), **Temel ⭐** (51), **Dengeli** (82), **Gelişmiş** (120) veya **Katı** (150) |
 | 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır, PowerShell'de `REG_MULTI_SZ` cmdlet'i bulunmadığından |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
@@ -787,12 +801,24 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel -Wha
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
 ```
 
+*Brave Sync'i Katı kademesinde bile açık tut (yer işareti/ayar senkronu kullanılabilir kalır):*
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Katı -SenkronizasyonaIzinVer
+```
+
+> [!NOTE]
+> Brave Sync varsayılan olarak Brave Yalnız, Temel, Dengeli ve Gelişmiş kademelerinde **açıktır**.
+> Yalnızca **Katı** kademesi sync'i kapatır (`BrowserSignin=0` + `SyncDisabled=1`).
+> Katı kademesinde `-SenkronizasyonaIzinVer` (TR) / `-AllowSync` (EN) parametresini ekleyerek
+> `BrowserSignin` ve `SyncDisabled` politikalarını uygulanan kümeden çıkarır ve önceden yazılmış
+> değerleri temizlersiniz — diğer tüm sıkılaştırmalar etkin kalır.
+
 | Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
 |----------------------|----------------------|--------|----------|
 | `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 24 |
-| `-Level Temel` | `-Level Essential` | Temel ⭐ | 53 |
-| `-Level Dengeli` | `-Level Balanced` | Dengeli | 86 |
-| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 124 |
+| `-Level Temel` | `-Level Essential` | Temel ⭐ | 51 |
+| `-Level Dengeli` | `-Level Balanced` | Dengeli | 82 |
+| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 120 |
 | `-Level Katı` | `-Level Strict` | Katı | 150 |
 
 > `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
@@ -841,9 +867,9 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 | Seviye | Toplam Politika | Brave'e Özgü | Chromium (Veri) | Chromium (Güvenlik) | Kullanım Etkisi |
 |--------|----------------|--------------|-----------------|---------------------|-----------------|
 | **Brave Yalnız** | 24 | 24 | 0 | 0 | Yok |
-| **Temel ⭐** | 53 | 24 | 29 | 0 | Yok |
-| **Dengeli** | 86 | 24 | 29 | 33 | Düşük |
-| **Gelişmiş** | 124 | 24 | 29 | 71 | Düşük |
+| **Temel ⭐** | 51 | 24 | 27 | 0 | Yok |
+| **Dengeli** | 82 | 24 | 27 | 31 | Düşük |
+| **Gelişmiş** | 120 | 24 | 27 | 69 | Düşük |
 | **Katı** | 150 | 24 | 29 | 97 | Yüksek |
 
 #### 6.2 Politika Kaynakları ve Yöntem
@@ -911,8 +937,10 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.5.2.1** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
-| **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | ✅ Önceki |
+| **v2.5.4.0** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.3.0** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
+| **v2.5.2.1** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
+| **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.5.1.0** | 1.92.143 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.5.0.0** | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.4.2.0** | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
@@ -986,7 +1014,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Parola sızıntı algılama ve tekrar uyarılarını etkinleştirir |
 | `EmailAliasesEnabled` | `0` | DWord | Anonim e-posta takma adı oluşturmayı devre dışı bırakır |
 
-#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (29 ek)
+#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (27 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1001,7 +1029,6 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DomainReliabilityAllowed` | `0` | DWord | Tanılama verisi raporlamasını durdurur |
 | `BackgroundModeEnabled` | `0` | DWord | Tüm pencereler kapandığında Brave'in çalışmasını engeller |
 | `SafeBrowsingSurveysEnabled` | `0` | DWord | Gezinti sonrası anketleri devre dışı bırakır |
-| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Sunucu tarafı indirme taramasını etkinleştirir |
 | `WebRtcEventLogCollectionAllowed` | `0` | DWord | WebRTC olay günlüğü yüklemeyi durdurur |
 | `WebRtcTextLogCollectionAllowed` | `0` | DWord | WebRTC metin günlüğü yüklemeyi durdurur |
 | `AudioCaptureAllowed` | `0` | DWord | Varsayılan olarak mikrofona izin vermez |
@@ -1016,11 +1043,10 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Farklı kaynak alt çerçevelerinden gelen diyalogları bastırır |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Tüm seviyeler için OCSP/CRL sertifika doğrulamasını zorlar |
 | `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Sistem proxy'sini açıkça kullanır, kullanımdan kaldırılmış ProxyMode uyarısını susturur |
-| `BrowserSignin` | `0` | DWord | Tarayıcı oturum açma akışını devre dışı bırakır, Google hesap entegrasyonunu engeller |
 | `ExtensionInstallSources` | `@()` | MultiString | Eklenti kurulumunu yalnızca Chrome Web Mağazasına kısıtlar |
 | `ScreenCaptureAllowed` | `0` | DWord | Web ekran yakalama API'lerini engeller (getDisplayMedia vb.) |
 
-#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (33 ek)
+#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (32 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1034,7 +1060,6 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `AutofillAddressEnabled` | `0` | DWord | Adres otomatik doldurmayı devre dışı bırakır |
 | `AutofillCreditCardEnabled` | `0` | DWord | Kredi kartı otomatik doldurmayı devre dışı bırakır |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Tam URL'leri gösterir (oltalamaya karşı) |
-| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım uyarılarını atlamayı engeller |
 | `QuicAllowed` | `0` | DWord | QUIC'i devre dışı bırakır, TCP/TLS'ye döner |
 | `ChromeVariations` | `1` | DWord | Yalnızca kritik alan denemeleri |
 | `NetworkServiceSandboxEnabled` | `1` | DWord | Ağ hizmetini kum havuzuna alır |
@@ -1101,7 +1126,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP alanı geçersiz kılmaları (boş = varsayılan eşlemeler) |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Yerel ağ kısıtlamalarından geçici çıkış seçeneğini devre dışı bırakır |
 
-#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (27 ek)
+#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (30 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1120,11 +1145,14 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `PrintingEnabled` | `0` | DWord | Baskıyı devre dışı bırakır |
 | `DisablePrintPreview` | `1` | DWord | Baskı önizleme iletişim kutusunu atlar |
 | `DownloadRestrictions` *(geçersiz kılma)* | `3` | DWord | TÜM indirmeleri engeller (Dengeli'nin 1 değerini geçersiz kılar) |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Sunucu tarafı indirme taramasını etkinleştirir (Temel'den taşındı) |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım uyarılarını atlamayı engeller (Dengeli'den taşındı) |
 | `BrowsingDataLifetime` | `{"data_types"=["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours"=24}` | String | Geçmiş/önbelleği 24 saat sonra otomatik temizler |
 | `AlwaysOpenPdfExternally` | `1` | DWord | PDF'leri harici uygulamada açar (PDF istismarı azaltma) |
 | `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | Sertifika Şeffaflığını her yerde zorlar |
 | `PasswordLeakDetectionEnabled` | `1` | DWord | Parolaları bilinen veri ihlallerine karşı kontrol eder |
 | `SpellCheckServiceEnabled` | `0` | DWord | Çevrimiçi yazım denetimini devre dışı bırakır (veri sızıntısı vektörü) |
+| `BrowserSignin` | `0` | DWord | Tarayıcı oturum açma akışını devre dışı bırakır, Google hesap entegrasyonunu engeller |
 | `SyncDisabled` | `1` | DWord | Chrome Senkronizasyonunu devre dışı bırakır (veri sızıntısı vektörü) |
 | `ScreenCaptureAllowedByOrigins` | `@()` | MultiString | Tüm kaynakların ekran yakalamasını engeller |
 | `SameOriginTabCaptureAllowedByOrigins` | `@()` | MultiString | Tüm aynı kaynak sekme yakalamasını engeller |

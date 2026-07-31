@@ -17,8 +17,40 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.5.0.0)
+# CHANGELOG (v2.5.4.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.4.0             Per-run stale policy cleanup — deterministic registry state:
+#
+#     [NEW]         On every run, the script now removes any previously-applied
+#                   Omega policy that is NOT part of the selected level's merged
+#                   set (e.g. leftover DownloadRestrictions when moving from
+#                   Balanced/Strict down to a lower tier). The registry ends in
+#                   an exact, deterministic state matching the chosen level.
+#
+#     [NEW]         Smart cleanup only touches values present in the registry and
+#                   managed by Omega; user-set foreign values are preserved.
+#                   Respects -WhatIf (preview only) and updates the summary report.
+#
+#     [CHANGED]     Download control relaxed below Strict so legitimate downloads
+#                   (e.g. driver installers) are never blocked: SafeBrowsingDeepScanningEnabled
+#                   moved from Essential to Strict, DisableSafeBrowsingProceedAnyway moved
+#                   from Balanced to Strict, and DownloadRestrictions removed from Balanced
+#                   (Strict already enforces the full block via Value=3). Balanced and
+#                   Advanced keep the Safe Browsing warning but let the user proceed;
+#                   Strict retains full deep-scanning, no-proceed enforcement, and the
+#                   complete download block (3).
+#
+#   v2.5.3.0             Brave Sync policy relocation — sync available except Strict:
+#
+#     [CHANGED]     BrowserSignin moved from Essential to Strict. Brave Sync is
+#                   now usable at Brave Only, Essential, Balanced, and Advanced.
+#                   Only Strict disables sync (BrowserSignin=0 + SyncDisabled=1).
+#
+#     [NEW]         -AllowSync switch parameter (Strict opt-in).
+#                   Passing -AllowSync excludes both policies from the merged
+#                   set and clears previously applied values, so Brave Sync
+#                   stays available even at the Strict tier.
+#
 #   v2.5.0.0             Full policy expansion — 30 new policies (133→153→150):
 #
 #     [NEW]         30 Chromium enterprise policies added across 5 tiers.
@@ -222,13 +254,14 @@
 param(
     [string]$Level = "",
     [switch]$WhatIf,
-    [switch]$Reset
+    [switch]$Reset,
+    [switch]$AllowSync
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.2.1"
+$ScriptVersion   = "v2.5.4.0"
 $ValidatedBrave  = "1.93.129"
 $ValidatedChromium = "151"
 
@@ -322,12 +355,9 @@ if ($braveInfo) {
 # STEP 0C: RESET MODE
 # ─────────────────────────────────────────────────────────────────────────────
 
-if ($Reset) {
-    Write-Host "[RESET MODE] Removing all Brave Omega policies..." -ForegroundColor Magenta
-    Write-Host ""
-
-    # All known policy names across all levels (hardcoded for safety before definitions load)
-    $allPolicyNames = @(
+# All known policy names across all levels (hardcoded for safety before definitions load)
+# Used by both -Reset mode and the per-run stale policy cleanup (v2.5.4.0)
+$allPolicyNames = @(
         "UsageStatsInSample", "OmahaMachineLevelUserMetrics",
         "BraveRewardsDisabled", "BraveWalletDisabled", "BraveVPNDisabled",
         "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
@@ -380,7 +410,7 @@ if ($Reset) {
         # (8 removed: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
         #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
         #  RestoreOnStartup, GenAiDefaultSettings — deprecated/blocked/unrecognized)
-        "BrowserSignin", "ExtensionInstallSources", "ProxySettings",
+        "ExtensionInstallSources", "ProxySettings",
         "RelaunchNotification", "RelaunchNotificationPeriod",
         "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
         "GeminiSettings",
@@ -388,6 +418,7 @@ if ($Reset) {
         "AlwaysOpenPdfExternally", "CertificateTransparencyEnforcementDisabledForUrls",
         "PasswordLeakDetectionEnabled",
         "SpellCheckServiceEnabled",
+        "BrowserSignin",
         "SyncDisabled",
         # Phase 10 (v2.5.0.0) — 15 new policies (AI blocking + sandbox hardening)
         "ScreenCaptureAllowed",
@@ -405,6 +436,10 @@ if ($Reset) {
         "LocalNetworkAccessRestrictionsTemporaryOptOut",
         "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
     )
+
+if ($Reset) {
+    Write-Host "[RESET MODE] Removing all Brave Omega policies..." -ForegroundColor Magenta
+    Write-Host ""
 
     # Remove from HKLM
     $hkCount = 0
@@ -655,8 +690,6 @@ $PolicyDefinitions = @{
         @{Name="BackgroundModeEnabled";                Value=0; Type="DWord"}
         # Safe Browsing surveys — disables post-browsing surveys
         @{Name="SafeBrowsingSurveysEnabled";           Value=0; Type="DWord"}
-        # Safe Browsing deep scanning — enables server-side download scanning
-        @{Name="SafeBrowsingDeepScanningEnabled";      Value=1; Type="DWord"}
         # WebRTC event log — stops WebRTC event log upload to Google
         @{Name="WebRtcEventLogCollectionAllowed";     Value=0; Type="DWord"}
         # WebRTC text log — stops WebRTC text log upload to Google
@@ -689,8 +722,6 @@ $PolicyDefinitions = @{
         # Proxy Settings — explicitly uses system proxy, silences deprecated ProxyMode warning
         @{Name="ProxySettings";                      Value='{"ProxyMode":"system"}'; Type="String"}
         # ─── New Essential Policies (Phase 9 — Prompt 26) ───
-        # Browser Signin — disable browser sign-in flow
-        @{Name="BrowserSignin";                            Value=0;           Type="DWord"}
         # Extension Install Sources — restrict extension installation to Chrome Web Store only
         @{Name="ExtensionInstallSources";                  Value=@();         Type="MultiString"}
         # ─── Screen Capture Blocking (Phase 10 — v2.5.0.0) ───
@@ -721,8 +752,6 @@ $PolicyDefinitions = @{
         @{Name="AutofillCreditCardEnabled";            Value=0; Type="DWord"}
         # Full URLs — shows full URL including scheme and subdomain (anti-phishing)
         @{Name="ShowFullUrlsInAddressBar";             Value=1; Type="DWord"}
-        # Safe Browsing proceed — prevents bypassing malware/phishing warnings
-        @{Name="DisableSafeBrowsingProceedAnyway";     Value=1; Type="DWord"}
         # QUIC protocol — disables QUIC, falls back to TCP/TLS
         @{Name="QuicAllowed";                          Value=0; Type="DWord"}
         # Chrome variations — restricts to critical field trials only
@@ -756,8 +785,6 @@ $PolicyDefinitions = @{
         # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
         # Extension Install Forcelist — force-install Dark Reader
         @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"); Type="MultiString"}
-        # Download Restrictions — warn before dangerous downloads (1=basic protection)
-        @{Name="DownloadRestrictions";                 Value=1; Type="DWord"}
         # Download Directory — set default download folder
         @{Name="DownloadDirectory";                    Value="${env:USERPROFILE}\Downloads\"; Type="String"}
         # Prompt For Download Location — do not prompt, use default (0)
@@ -893,6 +920,11 @@ $PolicyDefinitions = @{
         # ─── Moved from Balanced (v2.3.0.0) — stricter enforcement ───
         # Download Restrictions — block ALL downloads (3=full protection, strict only)
         @{Name="DownloadRestrictions";                 Value=3; Type="DWord"}
+        # ─── Moved from Essential/Balanced (v2.5.4.0) — downloads allowed below Strict ───
+        # Safe Browsing deep scanning — server-side download scanning (Strict only)
+        @{Name="SafeBrowsingDeepScanningEnabled";      Value=1; Type="DWord"}
+        # Safe Browsing proceed — prevents bypassing malware/phishing warnings (Strict only)
+        @{Name="DisableSafeBrowsingProceedAnyway";     Value=1; Type="DWord"}
         # ─── Moved back from Advanced (v2.3.1.1 fix) — F12 only blocked at Strict ───
         # Developer Tools Availability — restrict DevTools (2=disallowed entirely)
         @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
@@ -908,6 +940,8 @@ $PolicyDefinitions = @{
         @{Name="PasswordLeakDetectionEnabled";                       Value=1;           Type="DWord"}
         # SpellCheck Service Enabled — disable online spellcheck (data leak vector)
         @{Name="SpellCheckServiceEnabled";                           Value=0;           Type="DWord"}
+        # Browser Signin — disable browser sign-in flow (blocks Brave Sync)
+        @{Name="BrowserSignin";                                     Value=0;           Type="DWord"}
         # Sync Disabled — disable Chrome Sync (data leak vector)
         @{Name="SyncDisabled";                                       Value=1;           Type="DWord"}
         # ─── Screen Capture Fine-Grained Control (v2.5.0.0) ───
@@ -950,6 +984,28 @@ for ($i = 0; $i -le $SelectedIndex; $i++) {
 
 $TotalPolicyCount = $MergedPolicies.Count
 Write-Host "[INFO] Level '$Level' will apply $TotalPolicyCount policies.`n" -ForegroundColor DarkGray
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ALLOW SYNC OVERRIDE (-AllowSync: keep Brave Sync available even at Strict)
+# ─────────────────────────────────────────────────────────────────────────────
+if ($AllowSync) {
+    $SyncBlockingPolicies = @("BrowserSignin", "SyncDisabled")
+    foreach ($SyncPolicyName in $SyncBlockingPolicies) {
+        if ($MergedPolicies.Remove($SyncPolicyName)) {
+            Write-Host "[INFO] -AllowSync: '$SyncPolicyName' excluded (Brave Sync stays available)." -ForegroundColor Green
+        }
+        if (-not $WhatIf) {
+            Remove-ItemProperty -Path $HKLM_Target -Name $SyncPolicyName -ErrorAction SilentlyContinue | Out-Null
+            if (-not (Get-ItemProperty -Path $HKLM_Target -Name $SyncPolicyName -ErrorAction SilentlyContinue)) {
+                Write-Host "  -> Cleared any previously applied '$SyncPolicyName' value." -ForegroundColor DarkGray
+            }
+        } else {
+            Write-Host "  [WhatIf] Would clear previously applied '$SyncPolicyName' value (if present)." -ForegroundColor Magenta
+        }
+    }
+    $TotalPolicyCount = $MergedPolicies.Count
+    Write-Host "[INFO] Level '$Level' with -AllowSync will apply $TotalPolicyCount policies.`n" -ForegroundColor DarkGray
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1133,6 +1189,50 @@ $ErrorCount   = 0
 # Track which type counts for summary
 $typeCounts = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
 
+# ─────────────────────────────────────────────────────────────────────────────
+# STALE POLICY CLEANUP (v2.5.4.0)
+# Removes any previously-applied Omega policy that is NOT part of the selected
+# level's merged set (e.g. leftover DownloadRestrictions when moving from
+# Balanced/Strict down to a level that does not include it). User-set foreign
+# values are preserved. Respects -WhatIf (preview only).
+# ─────────────────────────────────────────────────────────────────────────────
+$StaleRemovedCount = 0
+$StaleFailCount    = 0
+$StaleCandidates   = @()
+
+if (Test-Path $HKLM_Target) {
+    $ExistingProps = Get-ItemProperty -Path $HKLM_Target -ErrorAction SilentlyContinue
+    if ($ExistingProps) {
+        $StaleCandidates = @($ExistingProps.PSObject.Properties |
+            Where-Object {
+                $_.Name -notin @('PSPath','PSParentPath','PSChildName','PSDrive','PSProvider') -and
+                $_.Name -in $allPolicyNames -and
+                $_.Name -notin $MergedPolicies.Keys
+            } |
+            ForEach-Object { $_.Name })
+    }
+}
+
+if ($StaleCandidates.Count -gt 0) {
+    Write-Host "  -> [Stale Policy Cleanup] $($StaleCandidates.Count) stale value(s) from a previous level detected:" -ForegroundColor Yellow
+    foreach ($StaleName in $StaleCandidates) {
+        try {
+            if (-not $WhatIf) {
+                Remove-ItemProperty -Path $HKLM_Target -Name $StaleName -ErrorAction Stop | Out-Null
+            }
+            $StaleRemovedCount++
+            $msg = if ($WhatIf) { "[WhatIf] $StaleName would be removed (stale)" } else { "[OK] $StaleName removed (stale)" }
+            Write-Host "    $msg" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkYellow" })
+        } catch {
+            $StaleFailCount++
+            Write-Host "    [WARN] $StaleName could not be removed: $($_.Exception.Message)" -ForegroundColor DarkYellow
+        }
+    }
+    Write-Host ""
+} else {
+    Write-Host "  -> [Stale Policy Cleanup] No stale policies found.`n" -ForegroundColor DarkGray
+}
+
 foreach ($Rule in $MergedPolicies.Values) {
     try {
         $displayValue = Write-PolicyValue -TargetPath $HKLM_Target -PolicyName $Rule.Name -PolicyValue $Rule.Value -ValueType $Rule.Type -WhatIf:$WhatIf
@@ -1181,12 +1281,18 @@ Write-Host "  EXECUTION SUMMARY REPORT" -ForegroundColor Cyan
 Write-Host "  Script Version    : $ScriptVersion" -ForegroundColor White
 Write-Host "  Level             : $Level ($TotalPolicyCount policies)" -ForegroundColor White
 if ($WhatIf) { Write-Host "  Mode              : -WhatIf (preview only — no changes written)" -ForegroundColor Magenta }
+if ($AllowSync) { Write-Host "  Brave Sync        : Enabled (-AllowSync)" -ForegroundColor Green }
+elseif ($Level -eq "Strict") { Write-Host "  Brave Sync        : Disabled (Strict default)" -ForegroundColor Yellow }
+else { Write-Host "  Brave Sync        : Enabled (default below Strict)" -ForegroundColor Green }
 Write-Host $SeparatorLine -ForegroundColor DarkGray
 
 $HKCUStatus = if ($HKCUSuccess) { "Applied" } else { "Failed" }
 Write-Host "  Omaha GUID Record  : $OmahaSuccessCount succeeded / $OmahaErrorCount failed" -ForegroundColor Gray
 Write-Host "  HKCU Preference    : UsageStatsInSample    → $HKCUStatus" -ForegroundColor Gray
 Write-Host "  HKLM Policies      : $SuccessCount applied / $ErrorCount failed" -ForegroundColor Gray
+if ($StaleRemovedCount -gt 0 -or $StaleFailCount -gt 0) {
+    Write-Host "  Stale Cleanup      : $StaleRemovedCount removed / $StaleFailCount failed" -ForegroundColor Gray
+}
 Write-Host "  Types Applied      : DWord=$($typeCounts.DWord) / String=$($typeCounts.String) / MultiString=$($typeCounts.MultiString)" -ForegroundColor Gray
 Write-Host $SeparatorLine -ForegroundColor DarkGray
 
@@ -1213,4 +1319,4 @@ Write-Host "  3. Backup location   : `$env:TEMP\BravePolicyBackup\" -ForegroundC
 Write-Host "  4. Rollback command  : reg import `"<backup_file.reg>`"`n" -ForegroundColor DarkGray
 
 # Exit code
-if ($ErrorCount -gt 0) { exit 1 } else { exit 0 }
+if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0) { exit 1 } else { exit 0 }
