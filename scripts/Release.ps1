@@ -47,7 +47,7 @@ param(
     [switch]$DryRun
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 $repo = "bayraktarozcan/Brave-Omega-Project"
 $scriptDir = Split-Path -Parent $PSScriptRoot
 if (-not $scriptDir) { $scriptDir = Get-Location }
@@ -158,6 +158,10 @@ if ($SkipWiki) {
         $cloneOutput = git clone $wikiUrl $wikiTemp 2>&1
         if ($LASTEXITCODE -ne 0) { throw "Failed to clone wiki: $cloneOutput" }
 
+        # Set bot identity to avoid GH007 email privacy rejection
+        git -C $wikiTemp config user.name "github-actions[bot]"
+        git -C $wikiTemp config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
         # Copy files
         $wikiSource = Join-Path $scriptDir "Wiki\*"
         Copy-Item $wikiSource "$wikiTemp\" -Force
@@ -239,7 +243,7 @@ if ($NotesFile -and (Test-Path $NotesFile)) {
     $ghArgs += (Resolve-Path $NotesFile).Path
 } else {
     $ghArgs += "--notes"
-    $ghArgs += "Release $Version — see [CHANGELOG](https://github.com/$repo/blob/main/CHANGELOG.md) for details."
+    $ghArgs += "Release $Version - see [CHANGELOG](https://github.com/$repo/blob/main/CHANGELOG.md) for details."
 }
 
 if (-not $DryRun) {
@@ -272,7 +276,7 @@ Write-OK "GitLab release created: https://gitlab.com/$repo/-/releases/$Version"
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
 if ($DryRun) {
-    Write-Host "  DRY-RUN Complete — no changes made" -ForegroundColor DarkYellow
+    Write-Host "  DRY-RUN Complete - no changes made" -ForegroundColor DarkYellow
 } else {
     Write-Host "  Release $Version published!" -ForegroundColor Green
 }
