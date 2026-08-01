@@ -38,10 +38,10 @@ Describe "Policy Definitions" -Tag "Unit" {
         $content = Get-Content -Path $ScriptEN -Raw
         $expectedCounts = @{
             "BraveOnly" = 24
-            "Essential" = 27
-            "Balanced"  = 31
+            "Essential" = 28
+            "Balanced"  = 32
             "Advanced"  = 38
-            "Strict"    = 30
+            "Strict"    = 28
         }
         foreach ($tier in @("BraveOnly","Essential","Balanced","Advanced","Strict")) {
             $pattern = '"' + $tier + '"\s*=\s*@\('

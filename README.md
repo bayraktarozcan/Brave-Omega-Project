@@ -312,7 +312,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.5.4.0** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.5.0** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.4.0** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.3.0** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.2.1** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | 📦 Previous |
@@ -389,7 +390,7 @@ no longer have any effect.
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Enables password leak detection and reuse warnings |
 | `EmailAliasesEnabled` | `0` | DWord | Disables anonymous email alias feature |
 
-#### 9.3 Essential Level — Brave Only + Data Leak Prevention (27 additional)
+#### 9.3 Essential Level — Brave Only + Data Leak Prevention (28 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -420,6 +421,7 @@ no longer have any effect.
 | `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Explicitly uses system proxy, silences deprecated ProxyMode warning |
 | `ExtensionInstallSources` | `@()` | MultiString | Restricts extension installation to Chrome Web Store only |
 | `ScreenCaptureAllowed` | `0` | DWord | Blocks web screen capture APIs (getDisplayMedia, etc.) |
+| `DownloadRestrictions` | `4` | DWord | Blocks only downloads verified as malicious (moved from Strict) |
 
 #### 9.4 Balanced Level — Essential + Security Baseline (32 additional)
 
@@ -450,9 +452,9 @@ no longer have any effect.
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Aggressively throttles JavaScript wake-up timers |
 | `UserFeedbackAllowed` | `0` | DWord | Disables in-browser feedback prompts/UI |
 | `ExtensionInstallForcelist` | *(Dark Reader)* | MultiString | Force-installs listed extensions |
-| `DownloadRestrictions` | `1` | DWord | Warns before dangerous downloads (basic protection) |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download folder |
 | `PromptForDownloadLocation` | `0` | DWord | Does not prompt, uses default download directory |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware/phishing warnings (moved back from Strict) |
 | `RelaunchNotification` | `2` | DWord | Forces browser relaunch notification (non-dismissible) |
 | `RelaunchNotificationPeriod` | `3600000` | DWord | Relaunch deadline — 1 hour in milliseconds |
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Disables auto-approve for local network permission requests |
@@ -501,7 +503,7 @@ no longer have any effect.
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP space overrides (empty = default mappings) |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Disables temporary opt-out of local network restrictions |
 
-#### 9.6 Strict Level — Advanced + Maximum Privacy (30 additional)
+#### 9.6 Strict Level — Advanced + Maximum Privacy (28 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -519,9 +521,7 @@ no longer have any effect.
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Prevents ending browser processes via Task Manager |
 | `PrintingEnabled` | `0` | DWord | Disables all printing |
 | `DisablePrintPreview` | `1` | DWord | Skips print preview dialog |
-| `DownloadRestrictions` *(override)* | `3` | DWord | Blocks ALL downloads (overrides Balanced's value of 1) |
-| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Enables server-side download scanning (moved from Essential) |
-| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware warnings (moved from Balanced) |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Enables server-side download scanning (Strict-only) |
 | `BrowsingDataLifetime` | `{"data_types"=["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours"=24}` | String | Auto-clears history/cache after 24 hours |
 | `AlwaysOpenPdfExternally` | `1` | DWord | Opens PDFs in external app (PDF exploit mitigation) |
 | `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | Enforces Certificate Transparency everywhere |
@@ -937,7 +937,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.5.4.0** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.5.0** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.4.0** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.3.0** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.2.1** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.2.0** | 1.92.144 | 150 | 11 25H2 | 📦 Önceki |
@@ -1014,7 +1015,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Parola sızıntı algılama ve tekrar uyarılarını etkinleştirir |
 | `EmailAliasesEnabled` | `0` | DWord | Anonim e-posta takma adı oluşturmayı devre dışı bırakır |
 
-#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (27 ek)
+#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (28 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1045,6 +1046,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `ProxySettings` | `"{"ProxyMode":"system"}"` | String | Sistem proxy'sini açıkça kullanır, kullanımdan kaldırılmış ProxyMode uyarısını susturur |
 | `ExtensionInstallSources` | `@()` | MultiString | Eklenti kurulumunu yalnızca Chrome Web Mağazasına kısıtlar |
 | `ScreenCaptureAllowed` | `0` | DWord | Web ekran yakalama API'lerini engeller (getDisplayMedia vb.) |
+| `DownloadRestrictions` | `4` | DWord | Yalnızca kötü amaçlı olduğu doğrulanan indirmeleri engeller (Katı'dan taşındı) |
 
 #### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (32 ek)
 
@@ -1075,9 +1077,9 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Arka plan sekmelerini uyku moduna alır (enerji tasarrufu) |
 | `UserFeedbackAllowed` | `0` | DWord | Chromium geri bildirim istemcisini devre dışı bırakır |
 | `ExtensionInstallForcelist` | *Dark Reader* | MultiString | Yalnızca zorunlu eklenti — Dark Reader |
-| `DownloadRestrictions` | `1` | DWord | Zararlı yazılım indirmelerini engeller |
 | `DownloadDirectory` | `C:\Users\User\Downloads` | String | Varsayılan indirme dizini |
 | `PromptForDownloadLocation` | `0` | DWord | Konum sormaz, varsayılan indirme dizinini kullanır |
+| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım/oltalama uyarılarını atlamayı engeller (Katı'dan geri taşındı) |
 | `RelaunchNotification` | `2` | DWord | Tarayıcı yeniden başlatma bildirimini zorlar (devre dışı bırakılamaz) |
 | `RelaunchNotificationPeriod` | `3600000` | DWord | Yeniden başlatma son tarihi — milisaniye cinsinden 1 saat |
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Yerel ağ izin isteklerinin otomatik onayını devre dışı bırakır |
@@ -1126,7 +1128,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP alanı geçersiz kılmaları (boş = varsayılan eşlemeler) |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Yerel ağ kısıtlamalarından geçici çıkış seçeneğini devre dışı bırakır |
 
-#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (30 ek)
+#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (28 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1144,9 +1146,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `TaskManagerEndProcessEnabled` | `0` | DWord | Görev Yöneticisi aracılığıyla tarayıcı süreçlerini sonlandırmayı engeller |
 | `PrintingEnabled` | `0` | DWord | Baskıyı devre dışı bırakır |
 | `DisablePrintPreview` | `1` | DWord | Baskı önizleme iletişim kutusunu atlar |
-| `DownloadRestrictions` *(geçersiz kılma)* | `3` | DWord | TÜM indirmeleri engeller (Dengeli'nin 1 değerini geçersiz kılar) |
-| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Sunucu tarafı indirme taramasını etkinleştirir (Temel'den taşındı) |
-| `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım uyarılarını atlamayı engeller (Dengeli'den taşındı) |
+| `SafeBrowsingDeepScanningEnabled` | `1` | DWord | Sunucu tarafı indirme taramasını etkinleştirir (yalnızca Katı) |
 | `BrowsingDataLifetime` | `{"data_types"=["browsing_history","download_history","cached_images_and_files"],"time_to_live_in_hours"=24}` | String | Geçmiş/önbelleği 24 saat sonra otomatik temizler |
 | `AlwaysOpenPdfExternally` | `1` | DWord | PDF'leri harici uygulamada açar (PDF istismarı azaltma) |
 | `CertificateTransparencyEnforcementDisabledForUrls` | `@()` | MultiString | Sertifika Şeffaflığını her yerde zorlar |

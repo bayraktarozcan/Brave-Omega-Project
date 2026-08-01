@@ -84,11 +84,36 @@ Describe "Policy Merge" -Tag "Unit" {
         $MergedPolicies.Count | Should -BeExactly 150
     }
 
-    It "DownloadRestrictions should appear in both Balanced and Strict" {
-        $content = Get-Content -Path $ScriptEN -Raw
-        $balancedMatch = [regex]::Match($content, '"Balanced"\s*=\s*@\([\s\S]*?"DownloadRestrictions"')
-        $balancedMatch.Success | Should -Be $true
-        $strictMatch = [regex]::Match($content, '"Strict"\s*=\s*@\([\s\S]*?"DownloadRestrictions"')
-        $strictMatch.Success | Should -Be $true
+    It "DownloadRestrictions should live in Essential only (smart value, not a blanket block)" {
+        function Get-TierSection {
+            param([string]$Content, [string]$Tier)
+            $m = [regex]::Match($Content, '"' + $Tier + '"\s*=\s*@\(')
+            if (-not $m.Success) { return $null }
+            $startIdx = $m.Index + $m.Length
+            $depth = 1
+            for ($i = $startIdx; $i -lt $Content.Length; $i++) {
+                if ($Content[$i] -eq '(') { $depth++ }
+                if ($Content[$i] -eq ')') {
+                    $depth--
+                    if ($depth -eq 0) { return $Content.Substring($m.Index, $i - $m.Index) }
+                }
+            }
+            return $null
+        }
+
+        $content   = Get-Content -Path $ScriptEN -Raw
+        $essential = Get-TierSection -Content $content -Tier "Essential"
+        $balanced  = Get-TierSection -Content $content -Tier "Balanced"
+        $advanced  = Get-TierSection -Content $content -Tier "Advanced"
+        $strict    = Get-TierSection -Content $content -Tier "Strict"
+
+        $essential -match '"DownloadRestrictions"' | Should -Be $true
+        $essential -match '"DownloadRestrictions"[\s\S]*?Value=4' | Should -Be $true
+        $balanced  -match '"DownloadRestrictions"' | Should -Be $false
+        $advanced  -match '"DownloadRestrictions"' | Should -Be $false
+        $strict    -match '"DownloadRestrictions"' | Should -Be $false
+
+        $balanced -match '"DisableSafeBrowsingProceedAnyway"' | Should -Be $true
+        $strict   -match '"DisableSafeBrowsingProceedAnyway"' | Should -Be $false
     }
 }

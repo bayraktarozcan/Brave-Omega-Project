@@ -17,9 +17,36 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.5.4.0)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.0)
 # ─────────────────────────────────────────────────────────────────────────────
-#   v2.5.4.0             Çalışma başına bayat politika temizliği — deterministik kayıt defteri:
+#   v2.5.5.0             Akıllı indirme kontrolü — kurulum dosyaları açılır, kötü
+#                        amaçlı yazılım koruması sürer:
+#
+#     [DEĞİŞTİ]     v2.5.4.0 indirmeleri Katı altında fazla gevşetti. Asıl suçlu,
+#                   Safe Browsing politikaları değil Dengeli'deki
+#                   DownloadRestrictions=1 değeriydi (imzası iyi tanınmayan tüm
+#                   indirmeleri engelliyordu, ör. sürücü kurulumları). v2.5.5.0
+#                   kesin bir ayar geri getirir: DownloadRestrictions Temel'e
+#                   Value=4 ile taşındı (yalnızca kötü amaçlı olduğu doğrulanan
+#                   indirmeler engellenir — meşru kurulumlar her zaman devam eder).
+#                   Eski Behavior=1 değeri hiçbir katmanda kullanılmaz.
+#
+#     [DEĞİŞTİ]     DisableSafeBrowsingProceedAnyway Katı'dan Dengeli'ye geri taşındı.
+#                   Bu politika hiçbir zaman indirme engellemedi; yalnızca kötü amaçlı/
+#                   kimlik avı uyarılarını atlamayı önler. Dengeli artık uyarıyı
+#                   yeniden zorunlu kılar ancak indirmeleri kısıtlamaz.
+#
+#     [AYNI]        SafeBrowsingDeepScanningEnabled yalnızca Katı'da kalır (indirme
+#                   sunucu tarafı taraması bir gizlilik ödünüdür; Katı altında kapalıdır).
+#                   SafeBrowsingProtectionLevel=2 (Gelişmiş) her katmanda etkindir.
+#
+#     [ÖZET]        Katman sayıları: Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38,
+#                   Katı 28 (toplam 150). Kümülatif zincir: 24 -> 52 -> 84 -> 122 -> 150.
+#                   Katı artık toplu indirme engeli (3) uygulamaz; yalnızca kötü amaçlı
+#                   olduğu doğrulanan indirmeleri Temel'deki değer (4) ile engeller.
+#
+#   v2.5.4.0             Çalışma başına bayat politika temizliği — deterministik kayıt
+#                        defteri (indirme anlatımı v2.5.5.0 ile değiştirildi):
 #
 #     [YENİ]        Her çalıştırmada, seçili katmanın birleştirilmiş kümesinde
 #                   OLMAYAN, daha önce uygulanmış Omega politikaları kaldırılır
@@ -31,16 +58,6 @@
 #                   tarafından yönetilen değerlere dokunur; kullanıcının kendi
 #                   ayarladığı yabancı değerler korunur. -WhatIf'e uyar
 #                   (yalnızca önizleme) ve özet rapora dahil edilir.
-#
-#     [DEĞİŞTİ]     Katı altında indirme kontrolü gevşetildi; meşru indirmeler
-#                   (ör. sürücü kurulumları) artık asla engellenmez:
-#                   SafeBrowsingDeepScanningEnabled Temel'den Katı'ya,
-#                   DisableSafeBrowsingProceedAnyway Dengeli'den Katı'ya taşındı ve
-#                   DownloadRestrictions Dengeli'den kaldırıldı (Katı, Value=3 ile
-#                   tam engeli zaten uygular). Dengeli ve Gelişmiş, Safe Browsing
-#                   uyarısını korur ancak kullanıcının devam etmesine izin verir;
-#                   Katı, tam derin tarama, uyarıyı atlama yasağı ve tam indirme
-#                   engelini (3) sürdürür.
 #
 #   v2.5.3.0             Brave Sync politika taşıması — sync Katı dışında açık:
 #
@@ -258,7 +275,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.5.4.0"
+$BetikSurum    = "v2.5.5.0"
 $DogrulananBrave = "1.93.129"
 $DogrulananChromium = "151"
 
@@ -731,6 +748,11 @@ $PolitikaTanimlari = @{
         # ─── Ekran Yakalama Engelleme (Faz 10 — v2.5.0.0) ───
         # Ekran yakalama — web API'lerini engeller (getDisplayMedia vb.); Yerel Windows araçları hâlâ çalışır
         @{Ad="ScreenCaptureAllowed";                Deger=0; Tur="DWord"}
+        # ─── Yeni Temel Politikaları (v2.5.5.0 — akıllı indirme kontrolü) ───
+        # İndirme Kısıtlamaları — YALNIZCA kötü amaçlı olduğu doğrulanan indirmeleri engelle (4).
+        # Meşru kurulum/indirmeler her zaman devam eder; toplu engel (3) kaldırıldı ve
+        # aşırı engelleyen eski Dengeli değeri (1) hiçbir katmanda kullanılmaz.
+        @{Ad="DownloadRestrictions";                 Deger=4; Tur="DWord"}
     )
 
     "Balanced" = @(
@@ -803,6 +825,10 @@ $PolitikaTanimlari = @{
         @{Ad="LocalNetworkAccessPermissionsPolicyDefaultEnabled"; Deger=0; Tur="DWord"}
         # Yerel yapay zekâ modeli — yerel yapay zekâ modeli indirmeyi devre dışı bırakır (Gelişmiş'den taşındı)
         @{Ad="GenAILocalFoundationalModelSettings"; Deger=1; Tur="DWord"}
+        # ─── Yeni Dengeli Politikaları (v2.5.5.0 — Safe Browsing uygulaması) ───
+        # Safe Browsing uyarısını atlama — kötü amaçlı/kimlik avı uyarılarını atlamayı engeller
+        # (Katı'dan geri taşındı; hiçbir zaman indirme engellemedi, yalnızca uyarıyı sıkılaştırdı)
+        @{Ad="DisableSafeBrowsingProceedAnyway";     Deger=1; Tur="DWord"}
     )
 
     "Advanced" = @(
@@ -889,6 +915,10 @@ $PolitikaTanimlari = @{
         @{Ad="LocalNetworkAccessIpAddressSpaceOverrides";  Deger=@(); Tur="MultiString"}
         # Yerel ağ kısıtlamaları geçici çıkış — geçici çıkışmayı devre dışı bırakır
         @{Ad="LocalNetworkAccessRestrictionsTemporaryOptOut"; Deger=0; Tur="DWord"}
+        # ─── Temel'e taşındı (v2.5.5.0) — akıllı indirme kontrolü ───
+        # İndirme Kısıtlamaları — değer (4) (yalnızca kötü amaçlı olduğu doğrulanan
+        # indirmeler engellenir) güvenlik tabanı katmanı olan Temel'de yaşar; böylece
+        # Temel'den yukarı her katmanda yan etkisiz kötü amaçlı yazılım koruması sağlar.
     )
 
     "Strict" = @(
@@ -922,13 +952,14 @@ $PolitikaTanimlari = @{
         # Yazdırma Önizlemesini Devre Dışı Bırak — önizleme iletişim kutusunu kapat
         @{Ad="DisablePrintPreview";                   Deger=1;          Tur="DWord"}
         # ─── Dengeli seviyesinden taşındı (v2.3.0.0) — daha sıkı uygulama ───
-        # İndirme Kısıtlamaları — TÜM indirmeleri engelle (3=tam koruma, yalnızca katı)
-        @{Ad="DownloadRestrictions";                 Deger=3; Tur="DWord"}
+        # ─── Temel'e taşındı (v2.5.5.0) — akıllı indirme kontrolü ───
+        # İndirme Kısıtlamaları — Katı'da artık toplu engel yok; yalnızca kötü amaçlı
+        # olduğu doğrulanan indirmeler Temel'deki değer (4) ile engellenir
         # ─── Temel/Dengeli seviyesinden taşındı (v2.5.4.0) — Katı altında indirmeye izin verir ───
         # Safe Browsing derin tarama — sunucu taraflı indirme taraması (yalnızca Katı)
         @{Ad="SafeBrowsingDeepScanningEnabled";      Deger=1; Tur="DWord"}
-        # Safe Browsing uyarısını atlama — kötü amaçlı site uyarılarını atlamayı engeller (yalnızca Katı)
-        @{Ad="DisableSafeBrowsingProceedAnyway";     Deger=1; Tur="DWord"}
+        # ─── Dengeli'ye geri taşındı (v2.5.5.0) — yalnızca indirme faydası yoktu ───
+        # Safe Browsing uyarısını atlama — kötü amaçlı site uyarılarını Dengeli'den itibaren zorunlu kılar
         # ─── Gelişmiş'den geri taşındı (v2.3.1.1 düzeltme) — F12 yalnızca Katı'da engellenir ───
         # Geliştirici Araçları Kullanılabilirliği — DevTools kullanımını kısıtla (2=tamamen devre dışı)
         @{Ad="DeveloperToolsAvailability";           Deger=2;          Tur="DWord"}

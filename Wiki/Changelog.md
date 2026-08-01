@@ -23,6 +23,21 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.5.0 — 2026-07-31
+
+**Smart Download Control — Precise Protection Restored**
+
+**Changed:**
+
+- `DownloadRestrictions` moved from **Strict** (Value=3 = block all) to **Essential** (Value=4 = block only confirmed-malicious) — legitimate installers (drivers, etc.) always proceed
+- `DisableSafeBrowsingProceedAnyway` moved from **Strict** back to **Balanced** — it never blocked downloads, only enforced malware/phishing warnings
+- `SafeBrowsingDeepScanningEnabled` unchanged — remains Strict-only (privacy trade-off)
+- `SafeBrowsingProtectionLevel=2` (Enhanced) remains active at every tier
+- Tier counts updated: BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (cumulative chain 24→52→84→122→150)
+- Both scripts updated to v2.5.5.0
+
+---
+
 ### v2.5.4.0 — 2026-07-31
 
 **Stale Policy Cleanup — Self-Healing on Every Run**
@@ -486,7 +501,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.4.0** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.5.0** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Previous |
@@ -567,6 +583,21 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.5.5.0 — 2026-07-31
+
+**Akıllı İndirme Kontrolü — Kesin Koruma Geri Getirildi**
+
+**Değiştirilenler:**
+
+- `DownloadRestrictions` **Katı**'dan (Value=3 = tümünü engelle) **Temel**'e (Value=4 = yalnızca kötü amaçlı doğrulanmışı engelle) taşındı — meşru kurulumlar (sürücü vb.) her zaman devam eder
+- `DisableSafeBrowsingProceedAnyway` **Katı**'dan **Dengeli**'ye geri taşındı — hiçbir zaman indirme engellemedi, yalnızca kötü amaçlı/kimlik avı uyarılarını zorunlu kıldı
+- `SafeBrowsingDeepScanningEnabled` değişmedi — yalnızca Katı'da kalır (gizlilik ödünü)
+- `SafeBrowsingProtectionLevel=2` (Gelişmiş) her katmanda etkindir
+- Seviye sayıları güncellendi: Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (kümülatif zincir 24→52→84→122→150)
+- Her iki betik v2.5.5.0'a güncellendi
+
+---
 
 ### v2.5.4.0 — 2026-07-31
 
@@ -1032,7 +1063,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.4.0** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.5.0** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Önceki |

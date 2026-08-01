@@ -17,9 +17,35 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.5.4.0)
+# CHANGELOG (v2.5.5.0)
 # ─────────────────────────────────────────────────────────────────────────────
-#   v2.5.4.0             Per-run stale policy cleanup — deterministic registry state:
+#   v2.5.5.0             Smart download control — unblocks installers, keeps malware
+#                        protection:
+#
+#     [CHANGED]     v2.5.4.0 loosened downloads too far below Strict. The real culprit
+#                   was DownloadRestrictions=1 in Balanced (blocks any download whose
+#                   signature is not well known, e.g. driver installers), not the
+#                   Safe Browsing policies. v2.5.5.0 restores a precise setting:
+#                   DownloadRestrictions moved to Essential with Value=4 (only downloads
+#                   verified as malicious are blocked — legitimate installers always
+#                   proceed). The old Behavior=1 value is NOT used at any tier.
+#
+#     [CHANGED]     DisableSafeBrowsingProceedAnyway moved back from Strict to Balanced.
+#                   It never blocked downloads; it only prevents bypassing malware/
+#                   phishing warnings. Balanced now enforces the warning again while
+#                   leaving downloads unrestricted.
+#
+#     [UNCHANGED]   SafeBrowsingDeepScanningEnabled stays Strict-only (server-side
+#                   scanning of downloads is a privacy trade-off; kept off below Strict).
+#                   SafeBrowsingProtectionLevel=2 (Enhanced) remains active at every tier.
+#
+#     [NET]         Tier counts: BraveOnly 24, Essential 28, Balanced 32, Advanced 38,
+#                   Strict 28 (total 150). Cumulative chain: 24 -> 52 -> 84 -> 122 -> 150.
+#                   Strict no longer performs a blanket download block (3); it blocks
+#                   only confirmed-malicious downloads via the Essential value (4).
+#
+#   v2.5.4.0             Per-run stale policy cleanup — deterministic registry state
+#                        (download narrative superseded by v2.5.5.0):
 #
 #     [NEW]         On every run, the script now removes any previously-applied
 #                   Omega policy that is NOT part of the selected level's merged
@@ -30,15 +56,6 @@
 #     [NEW]         Smart cleanup only touches values present in the registry and
 #                   managed by Omega; user-set foreign values are preserved.
 #                   Respects -WhatIf (preview only) and updates the summary report.
-#
-#     [CHANGED]     Download control relaxed below Strict so legitimate downloads
-#                   (e.g. driver installers) are never blocked: SafeBrowsingDeepScanningEnabled
-#                   moved from Essential to Strict, DisableSafeBrowsingProceedAnyway moved
-#                   from Balanced to Strict, and DownloadRestrictions removed from Balanced
-#                   (Strict already enforces the full block via Value=3). Balanced and
-#                   Advanced keep the Safe Browsing warning but let the user proceed;
-#                   Strict retains full deep-scanning, no-proceed enforcement, and the
-#                   complete download block (3).
 #
 #   v2.5.3.0             Brave Sync policy relocation — sync available except Strict:
 #
@@ -261,7 +278,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.4.0"
+$ScriptVersion   = "v2.5.5.0"
 $ValidatedBrave  = "1.93.129"
 $ValidatedChromium = "151"
 
@@ -727,6 +744,11 @@ $PolicyDefinitions = @{
         # ─── Screen Capture Blocking (Phase 10 — v2.5.0.0) ───
         # Screen capture — blocks web APIs (getDisplayMedia, etc.); Windows native tools still work
         @{Name="ScreenCaptureAllowed";                Value=0; Type="DWord"}
+        # ─── New Essential Policies (v2.5.5.0 — smart download control) ───
+        # Download Restrictions — block ONLY downloads verified as malicious (4).
+        # Legitimate installers/downloads always proceed; the blanket block (3) is
+        # retired and the old over-blocking Balanced value (1) is never used.
+        @{Name="DownloadRestrictions";                 Value=4; Type="DWord"}
     )
 
     "Balanced" = @(
@@ -799,6 +821,10 @@ $PolicyDefinitions = @{
         @{Name="LocalNetworkAccessPermissionsPolicyDefaultEnabled"; Value=0; Type="DWord"}
         # GenAI local model — disables local AI model download (moved from Advanced)
         @{Name="GenAILocalFoundationalModelSettings"; Value=1; Type="DWord"}
+        # ─── New Balanced Policies (v2.5.5.0 — Safe Browsing enforcement) ───
+        # Safe Browsing proceed — prevents bypassing malware/phishing warnings
+        # (moved back from Strict; never blocked downloads, only hardened the warning)
+        @{Name="DisableSafeBrowsingProceedAnyway";     Value=1; Type="DWord"}
     )
 
     "Advanced" = @(
@@ -885,6 +911,10 @@ $PolicyDefinitions = @{
         @{Name="LocalNetworkAccessIpAddressSpaceOverrides";  Value=@(); Type="MultiString"}
         # Local network restrictions temporary opt-out — disable temporary opt-out
         @{Name="LocalNetworkAccessRestrictionsTemporaryOptOut"; Value=0; Type="DWord"}
+        # ─── Moved to Essential (v2.5.5.0) — smart download control ───
+        # Download Restrictions — Value=4 (only confirmed-malicious downloads blocked)
+        # lives at Essential, the security baseline tier, for zero-downside malware
+        # protection on every tier from Essential upward.
     )
 
     "Strict" = @(
@@ -918,13 +948,14 @@ $PolicyDefinitions = @{
         # Disable Print Preview — skip preview dialog
         @{Name="DisablePrintPreview";                   Value=1;          Type="DWord"}
         # ─── Moved from Balanced (v2.3.0.0) — stricter enforcement ───
-        # Download Restrictions — block ALL downloads (3=full protection, strict only)
-        @{Name="DownloadRestrictions";                 Value=3; Type="DWord"}
+        # ─── Moved to Essential (v2.5.5.0) — smart download control ───
+        # Download Restrictions — no blanket block at Strict anymore; only
+        # confirmed-malicious downloads are blocked via the Essential value (4)
         # ─── Moved from Essential/Balanced (v2.5.4.0) — downloads allowed below Strict ───
         # Safe Browsing deep scanning — server-side download scanning (Strict only)
         @{Name="SafeBrowsingDeepScanningEnabled";      Value=1; Type="DWord"}
-        # Safe Browsing proceed — prevents bypassing malware/phishing warnings (Strict only)
-        @{Name="DisableSafeBrowsingProceedAnyway";     Value=1; Type="DWord"}
+        # ─── Moved back to Balanced (v2.5.5.0) — download-only benefit was nil ───
+        # Safe Browsing proceed — enforces malware/phishing warnings from Balanced up
         # ─── Moved back from Advanced (v2.3.1.1 fix) — F12 only blocked at Strict ───
         # Developer Tools Availability — restrict DevTools (2=disallowed entirely)
         @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}

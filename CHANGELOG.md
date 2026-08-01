@@ -26,22 +26,25 @@
 
 ### Table of Contents
 
-1. [v2.5.4.0 — 2026-07-31](#en-v2540)
+1. [v2.5.5.0 — 2026-07-31](#en-v2550)
+    * [Summary](#en-v2550-summary)
+    * [Changed](#en-v2550-changed)
+2. [v2.5.4.0 — 2026-07-31](#en-v2540)
     * [Summary](#en-v2540-summary)
     * [Added](#en-v2540-added)
     * [Changed](#en-v2540-changed)
-2. [v2.5.3.0 — 2026-07-31](#en-v2530)
+3. [v2.5.3.0 — 2026-07-31](#en-v2530)
     * [Summary](#en-v2530-summary)
     * [Added](#en-v2530-added)
     * [Changed](#en-v2530-changed)
-3. [v2.5.2.1 — 2026-07-31](#en-v2521)
+4. [v2.5.2.1 — 2026-07-31](#en-v2521)
     * [Summary](#en-v2521-summary)
     * [Changed](#en-v2521-changed)
-4. [v2.5.2.0 — 2026-07-25](#en-v2520)
+5. [v2.5.2.0 — 2026-07-25](#en-v2520)
     * [Summary](#en-v2520-summary)
     * [Changed](#en-v2520-changed)
-4. [Introduction](#en-introduction)
-5. [v2.5.1.0 — 2026-07-23](#en-v2510)
+5. [Introduction](#en-introduction)
+6. [v2.5.1.0 — 2026-07-23](#en-v2510)
     * [Summary](#en-v2510-summary)
     * [Changed](#en-v2510-changed)
 6. [v2.5.0.0 — 2026-07-21](#en-v2500)
@@ -133,6 +136,34 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v2550"></a>
+
+## [v2.5.5.0] — 2026-07-31
+
+<a id="en-v2550-summary"></a>
+
+### 🎯 Summary
+
+**Smart download control:** v2.5.4.0 loosened downloads below Strict too far — the real culprit was `DownloadRestrictions=1` in Balanced (blocks any download whose signature is not widely known, e.g. driver installers), not the Safe Browsing policies. v2.5.5.0 restores precise protection: `DownloadRestrictions` moves to **Essential** with **Value=4** (only downloads verified as malicious are blocked; legitimate installers always proceed), `DisableSafeBrowsingProceedAnyway` moves back to **Balanced** (it never blocked downloads — it only enforced malware/phishing warnings), and `SafeBrowsingDeepScanningEnabled` stays Strict-only as a privacy trade-off. `SafeBrowsingProtectionLevel=2` (Enhanced) remains active at every tier.
+
+| Metric | Before (v2.5.4.0) | After (v2.5.5.0) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 150 | 150 |
+| Cumulative chain | 24→51→82→120→150 | 24→52→84→122→150 |
+| DownloadRestrictions | Strict only (3 = block all) | Essential (4 = block confirmed-malicious) |
+| DisableSafeBrowsingProceedAnyway | Strict only | Balanced |
+| SafeBrowsingDeepScanningEnabled | Strict only | Strict only (unchanged) |
+
+<a id="en-v2550-changed"></a>
+
+### Changed
+
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion = "v2.5.5.0"`; `DownloadRestrictions` moved from Strict (Value=3) to **Essential (Value=4)**; `DisableSafeBrowsingProceedAnyway` moved from Strict back to **Balanced**; `SafeBrowsingDeepScanningEnabled` unchanged (Strict-only). Tier counts: BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (total 150). Strict no longer performs a blanket download block.
+- **Tests** — `PolicyDefinitions.Tests.ps1` expected counts updated (Essential 28, Balanced 32, Advanced 38, Strict 28); `PolicyMerge.Tests.ps1` now verifies `DownloadRestrictions` lives in Essential only (Value=4) and `DisableSafeBrowsingProceedAnyway` in Balanced only; `ScriptVersion.Tests.ps1`, `FullPipeline-TR.Tests.ps1`, `StaleCleanup.Tests.ps1` updated to v2.5.5.0.
 
 ---
 
@@ -1574,22 +1605,25 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.5.4.0 — 2026-07-31](#tr-v2540)
+1. [v2.5.5.0 — 2026-07-31](#tr-v2550)
+    * [Özet](#tr-v2550-ozet)
+    * [Değiştirildi](#tr-v2550-degistirildi)
+2. [v2.5.4.0 — 2026-07-31](#tr-v2540)
     * [Özet](#tr-v2540-ozet)
     * [Eklendi](#tr-v2540-eklendi)
     * [Değiştirildi](#tr-v2540-degistirildi)
-2. [v2.5.3.0 — 2026-07-31](#tr-v2530)
+3. [v2.5.3.0 — 2026-07-31](#tr-v2530)
     * [Özet](#tr-v2530-ozet)
     * [Eklendi](#tr-v2530-eklendi)
     * [Değiştirildi](#tr-v2530-degistirildi)
-3. [v2.5.2.1 — 2026-07-31](#tr-v2521)
+4. [v2.5.2.1 — 2026-07-31](#tr-v2521)
     * [Özet](#tr-v2521-ozet)
     * [Değiştirildi](#tr-v2521-degistirildi)
-4. [v2.5.2.0 — 2026-07-25](#tr-v2520)
+5. [v2.5.2.0 — 2026-07-25](#tr-v2520)
     * [Özet](#tr-v2520-ozet)
     * [Değiştirildi](#tr-v2520-degistirildi)
-4. [Giriş](#tr-introduction)
-5. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+5. [Giriş](#tr-introduction)
+6. [v2.5.1.0 — 2026-07-23](#tr-v2510)
     * [Özet](#tr-v2510-ozet)
     * [Değiştirildi](#tr-v2510-degistirildi)
 6. [v2.5.0.0 — 2026-07-21](#tr-v2500)
@@ -1696,6 +1730,34 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v2550"></a>
+
+## [v2.5.5.0] — 2026-07-31
+
+<a id="tr-v2550-ozet"></a>
+
+### 🎯 Özet
+
+**Akıllı indirme kontrolü:** v2.5.4.0 indirmeleri Katı altında fazla gevşetti — asıl suçlu Safe Browsing politikaları değil, Dengeli'deki `DownloadRestrictions=1` değeriydi (imzası iyi tanınmayan tüm indirmeleri engelliyordu, ör. sürücü kurulumları). v2.5.5.0 kesin bir koruma geri getirir: `DownloadRestrictions` **Temel** seviyesine **Value=4** ile taşındı (yalnızca kötü amaçlı olduğu doğrulanan indirmeler engellenir; meşru kurulumlar her zaman devam eder), `DisableSafeBrowsingProceedAnyway` **Dengeli**'ye geri taşındı (hiçbir zaman indirme engellemedi — yalnızca kötü amaçlı/kimlik avı uyarılarını zorunlu kıldı) ve `SafeBrowsingDeepScanningEnabled` gizlilik ödünü olduğu için yalnızca Katı'da kaldı. `SafeBrowsingProtectionLevel=2` (Gelişmiş) her katmanda etkindir.
+
+| Metrik | Önce (v2.5.4.0) | Sonra (v2.5.5.0) |
+|--------|------------------|-------------------|
+| Sıkılaştırma kademesi | 5 | 5 |
+| Toplam politika | 150 | 150 |
+| Kümülatif zincir | 24→51→82→120→150 | 24→52→84→122→150 |
+| DownloadRestrictions | Yalnızca Katı (3 = tümünü engelle) | Temel (4 = kötü amaçlı doğrulanmışı engelle) |
+| DisableSafeBrowsingProceedAnyway | Yalnızca Katı | Dengeli |
+| SafeBrowsingDeepScanningEnabled | Yalnızca Katı | Yalnızca Katı (değişmedi) |
+
+<a id="tr-v2550-degistirildi"></a>
+
+### Değiştirildi
+
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$BetikSurum = "v2.5.5.0"`; `DownloadRestrictions` Katı'dan (Value=3) **Temel'e (Value=4)** taşındı; `DisableSafeBrowsingProceedAnyway` Katı'dan **Dengeli'ye** geri taşındı; `SafeBrowsingDeepScanningEnabled` değişmedi (yalnızca Katı). Seviye sayıları: Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (toplam 150). Katı artık toplu indirme engeli uygulamaz.
+- **Testler** — `PolicyDefinitions.Tests.ps1` beklenen sayılar güncellendi (Temel 28, Dengeli 32, Gelişmiş 38, Katı 28); `PolicyMerge.Tests.ps1` artık `DownloadRestrictions`'ın yalnızca Temel'de (Value=4) ve `DisableSafeBrowsingProceedAnyway`'in yalnızca Dengeli'de olduğunu doğrular; `ScriptVersion.Tests.ps1`, `FullPipeline-TR.Tests.ps1`, `StaleCleanup.Tests.ps1` v2.5.5.0'a güncellendi.
 
 ---
 
