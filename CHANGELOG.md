@@ -26,14 +26,17 @@
 
 ### Table of Contents
 
-1. [v2.5.5.0 — 2026-07-31](#en-v2550)
+1. [v2.5.5.1 — 2026-08-01](#en-v2551)
+    * [Summary](#en-v2551-summary)
+    * [Changed](#en-v2551-changed)
+2. [v2.5.5.0 — 2026-07-31](#en-v2550)
     * [Summary](#en-v2550-summary)
     * [Changed](#en-v2550-changed)
-2. [v2.5.4.0 — 2026-07-31](#en-v2540)
+3. [v2.5.4.0 — 2026-07-31](#en-v2540)
     * [Summary](#en-v2540-summary)
     * [Added](#en-v2540-added)
     * [Changed](#en-v2540-changed)
-3. [v2.5.3.0 — 2026-07-31](#en-v2530)
+4. [v2.5.3.0 — 2026-07-31](#en-v2530)
     * [Summary](#en-v2530-summary)
     * [Added](#en-v2530-added)
     * [Changed](#en-v2530-changed)
@@ -136,6 +139,35 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v2551"></a>
+
+## [v2.5.5.1] — 2026-08-01
+
+<a id="en-v2551-summary"></a>
+
+### 🎯 Summary
+
+**Patch release — CI/Release fixes & documentation consistency.** v2.5.5.1 fixes `Release.ps1` to run under Windows PowerShell 5.1 and corrects the wiki-sync workflow authentication (Basic `x-access-token` scheme). It also corrects stale documentation — policy counts and cumulative chains across README, Wiki, index.html, and SECURITY.md now consistently reflect the true **24→52→84→122→150** chain (some docs previously showed 51/82/120 or 85/123). No policy changes.
+
+| Metric | Before (v2.5.5.0) | After (v2.5.5.1) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 150 | 150 |
+| Cumulative chain | 24→52→84→122→150 | 24→52→84→122→150 |
+| Script version | v2.5.5.0 | v2.5.5.1 |
+
+<a id="en-v2551-changed"></a>
+
+### Changed
+
+- **scripts/Release.ps1** — PowerShell 5.1 compatibility fix (b0d7e7b): native `git`/`gh`/`glab` output handling; no longer fails on `$LASTEXITCODE` checks.
+- **CI** — wiki-sync workflow auth corrected to Basic `x-access-token` scheme (5997191) so the wiki push authenticates correctly.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion` / `$BetikSurum` → `v2.5.5.1`. No policy definitions changed; tier counts remain BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (total 150).
+- **Documentation** — corrected stale policy counts/chains (51/82/120 → 52/84/122 and 85/123 → 84/122 where they appeared) in README.md, SECURITY.md, Wiki pages (Home, Overview, Installation, Policy-Reference, Version-Compatibility-Matrix, Rejected-Policies), index.html, and CHANGELOG.
+- **Tests** — `ScriptVersion.Tests.ps1`, `FullPipeline-TR.Tests.ps1`, `StaleCleanup.Tests.ps1` updated to v2.5.5.1.
 
 ---
 
@@ -1605,10 +1637,13 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.5.5.0 — 2026-07-31](#tr-v2550)
+1. [v2.5.5.1 — 2026-08-01](#tr-v2551)
+    * [Özet](#tr-v2551-ozet)
+    * [Değiştirildi](#tr-v2551-degistirildi)
+2. [v2.5.5.0 — 2026-07-31](#tr-v2550)
     * [Özet](#tr-v2550-ozet)
     * [Değiştirildi](#tr-v2550-degistirildi)
-2. [v2.5.4.0 — 2026-07-31](#tr-v2540)
+3. [v2.5.4.0 — 2026-07-31](#tr-v2540)
     * [Özet](#tr-v2540-ozet)
     * [Eklendi](#tr-v2540-eklendi)
     * [Değiştirildi](#tr-v2540-degistirildi)
@@ -1730,6 +1765,35 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v2551"></a>
+
+## [v2.5.5.1] — 2026-08-01
+
+<a id="tr-v2551-ozet"></a>
+
+### 🎯 Özet
+
+**Yama sürümü — CI/Release düzeltmeleri ve dokümantasyon tutarlılığı.** v2.5.5.1, `Release.ps1`'i Windows PowerShell 5.1 altında çalışacak şekilde düzeltir ve wiki-sync iş akışı kimlik doğrulamasını (Basic `x-access-token` düzeni) düzeltir. Ayrıca bayat dokümantasyonu düzeltir — README, Wiki, index.html ve SECURITY.md genelinde politika sayıları ve kümülatif zincirler artık gerçek **24→52→84→122→150** zincirini tutarlı şekilde yansıtır (bazı dokümanlarda önceki 51/82/120 veya 85/123). Politika değişikliği yok.
+
+| Metrik | Önce (v2.5.5.0) | Sonra (v2.5.5.1) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 150 | 150 |
+| Kümülatif zincir | 24→52→84→122→150 | 24→52→84→122→150 |
+| Betik sürümü | v2.5.5.0 | v2.5.5.1 |
+
+<a id="tr-v2551-degistirildi"></a>
+
+### Değiştirildi
+
+- **scripts/Release.ps1** — Windows PowerShell 5.1 uyumluluk düzeltmesi (b0d7e7b): yerel `git`/`gh`/`glab` çıktı işleme; `$LASTEXITCODE` kontrollerinde artık başarısız olmuyor.
+- **CI** — wiki-sync iş akışı kimlik doğrulaması Basic `x-access-token` düzenine düzeltildi (5997191) böylece wiki push'u doğru kimlik doğrular.
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion` / `$BetikSurum` → `v2.5.5.1`. Politika tanımları değişmedi; seviye sayıları Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (toplam 150) olarak korunur.
+- **Dokümantasyon** — README.md, SECURITY.md, Wiki sayfaları (Home, Overview, Installation, Policy-Reference, Version-Compatibility-Matrix, Rejected-Policies), index.html ve CHANGELOG'da görünen bayat politika sayıları/zincirleri düzeltildi (51/82/120 → 52/84/122 ve 85/123 → 84/122).
+- **Testler** — `ScriptVersion.Tests.ps1`, `FullPipeline-TR.Tests.ps1`, `StaleCleanup.Tests.ps1` v2.5.5.1'e güncellendi.
 
 ---
 

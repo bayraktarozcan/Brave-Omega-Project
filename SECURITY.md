@@ -275,10 +275,10 @@ Brave Omega offers five progressive hardening tiers:
 | Level | Policies | Description | Usability Impact |
 |-------|----------|-------------|-----------------|
 | **Brave Only** | 24 Brave-specific | Disables Brave's integrated services only | None |
-| **Essential ⭐** | 51 (Brave Only + 27) | Brave + zero-impact data leak prevention | None |
-| **Balanced** | 82 (Essential + 31) | Full security baseline with minor changes | Low |
-| **Advanced** | 120 (Balanced + 38) | Enhanced privacy — sensors, imports, profiles | Low |
-| **Strict** | 150 (Advanced + 30) | Maximum privacy preservation | Medium |
+| **Essential ⭐** | 52 (Brave Only + 28) | Brave + zero-impact data leak prevention | None |
+| **Balanced** | 84 (Essential + 32) | Full security baseline with minor changes | Low |
+| **Advanced** | 122 (Balanced + 38) | Enhanced privacy — sensors, imports, profiles | Low |
+| **Strict** | 150 (Advanced + 28) | Maximum privacy preservation | Medium |
 
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.
 
@@ -555,10 +555,10 @@ Brave Omega beş kademeli sıkılaştırma seviyesi sunar:
 | Seviye | Politika Sayısı | Açıklama | Kullanım Etkisi |
 |--------|----------------|----------|----------------|
 | **Brave Yalnız** | 24 Brave'e özgü | Yalnızca Brave'in tümleşik hizmetlerini kapatır | Yok |
-| **Temel ⭐** | 51 (Brave Yalnız + 27) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
-| **Dengeli** | 82 (Temel + 31) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
-| **Gelişmiş** | 120 (Dengeli + 38) | Gelişmiş gizlilik — sensörler, içe aktarmalar, profiller | Düşük |
-| **Katı** | 150 (Gelişmiş + 30) | Azami gizlilik koruması | Orta |
+| **Temel ⭐** | 52 (Brave Yalnız + 28) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
+| **Dengeli** | 84 (Temel + 32) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
+| **Gelişmiş** | 122 (Dengeli + 38) | Gelişmiş gizlilik — sensörler, içe aktarmalar, profiller | Düşük |
+| **Katı** | 150 (Gelişmiş + 28) | Azami gizlilik koruması | Orta |
 
 Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 

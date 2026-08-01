@@ -23,6 +23,20 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.5.1 — 2026-08-01
+
+**Patch Release — CI Fixes & Documentation Consistency**
+
+**Changed:**
+
+- `Release.ps1` fixed to run under Windows PowerShell 5.1 (b0d7e7b)
+- Wiki-sync workflow auth fixed to Basic `x-access-token` scheme (5997191)
+- Documentation consistency corrections — stale policy counts/chains corrected to **24→52→84→122→150** across README, Wiki, index.html, SECURITY.md (previously 51/82/120/85/123 in places)
+- Tier counts unchanged: BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (total 150)
+- Both scripts updated to v2.5.5.1
+
+---
+
 ### v2.5.5.0 — 2026-07-31
 
 **Smart Download Control — Precise Protection Restored**
@@ -501,8 +515,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.5.0** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
-| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
+| **v2.5.5.1** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Previous |
@@ -583,6 +597,20 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.5.5.1 — 2026-08-01
+
+**Yama Sürümü — CI Düzeltmeleri ve Dokümantasyon Tutarlılığı**
+
+**Değiştirilenler:**
+
+- `Release.ps1` Windows PowerShell 5.1 altında çalışacak şekilde düzeltildi (b0d7e7b)
+- Wiki-sync iş akışı kimlik doğrulaması Basic `x-access-token` düzenine düzeltildi (5997191)
+- Dokümantasyon tutarlılık düzeltmeleri — bayat politika sayıları/zincirleri **24→52→84→122→150** olarak düzeltildi (README, Wiki, index.html, SECURITY.md genelinde; bazı yerlerde önceki 51/82/120/85/123)
+- Seviye sayıları değişmedi: Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (toplam 150)
+- Her iki betik v2.5.5.1'e güncellendi
+
+---
 
 ### v2.5.5.0 — 2026-07-31
 
@@ -1063,8 +1091,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.5.0** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
-| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
+| **v2.5.5.1** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Önceki |

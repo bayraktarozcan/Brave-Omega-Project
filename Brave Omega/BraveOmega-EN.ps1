@@ -17,8 +17,18 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.5.5.0)
+# CHANGELOG (v2.5.5.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.5.1             Patch release — CI/Release fixes & documentation consistency:
+#
+#     [FIX]         Release.ps1 now works under Windows PowerShell 5.1 (native
+#                   git/gh/glab output handling). Wiki-sync workflow auth corrected
+#                   to Basic x-access-token scheme.
+#
+#     [DOC]         Stale policy counts/chains corrected to 24 -> 52 -> 84 -> 122 -> 150
+#                   across README, Wiki, index.html, SECURITY.md (some showed 51/82/120
+#                   or 85/123). No policy definitions changed.
+#
 #   v2.5.5.0             Smart download control — unblocks installers, keeps malware
 #                        protection:
 #
@@ -278,7 +288,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.5.0"
+$ScriptVersion   = "v2.5.5.1"
 $ValidatedBrave  = "1.93.129"
 $ValidatedChromium = "151"
 

@@ -17,8 +17,18 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.0)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.5.1             Yama sürümü — CI/Release düzeltmeleri ve dokümantasyon tutarlılığı:
+#
+#     [DÜZELT]      Release.ps1 artık Windows PowerShell 5.1 altında çalışır (yerel
+#                   git/gh/glab çıktı işleme). Wiki-sync iş akışı kimlik doğrulaması
+#                   Basic x-access-token düzenine düzeltildi.
+#
+#     [DOK]         Bayat politika sayıları/zincirleri 24 -> 52 -> 84 -> 122 -> 150
+#                   olarak düzeltildi (README, Wiki, index.html, SECURITY.md; bazıları
+#                   51/82/120 veya 85/123 gösteriyordu). Politika tanımı değişmedi.
+#
 #   v2.5.5.0             Akıllı indirme kontrolü — kurulum dosyaları açılır, kötü
 #                        amaçlı yazılım koruması sürer:
 #
@@ -275,7 +285,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.5.5.0"
+$BetikSurum    = "v2.5.5.1"
 $DogrulananBrave = "1.93.129"
 $DogrulananChromium = "151"
 
