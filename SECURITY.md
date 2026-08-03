@@ -59,13 +59,11 @@ Brave Omega is a registry-hardening tool designed to **enhance** browser privacy
 
 | Branch | Status | Supported |
 |--------|--------|-----------|
-| **v2.x (current)** | Active development | ✅ Security patches, policy updates, feature improvements |
-| v1.2.x | Maintained | ✅ Critical security patches only |
-| v1.1.x | End of life | ❌ No longer supported |
-| v1.0 | Archived | ❌ No longer supported |
+| **Latest stable release (currently v2.5.5.1)** | Active | ✅ Fully supported — security patches, policy updates, feature improvements |
+| All previous releases | End of life | ❌ No longer supported |
 
 > [!NOTE]
-> To receive security updates, always use the latest stable release. Older versions may contain unpatched policy gaps as Chromium's enterprise policy landscape evolves.
+> Only the latest stable release receives security patches and policy updates. Older versions are no longer supported and may contain unpatched policy gaps as Chromium's enterprise policy landscape evolves — always upgrade to the newest release.
 
 ---
 
@@ -193,7 +191,7 @@ Every policy in Brave Omega can be traced to its authoritative source:
 | Source | Location | Verification Method |
 |--------|----------|-------------------|
 | Brave ADMX Templates | `policy_templates.zip` from Brave | Extract and inspect ADMX/ADML XML |
-| Chromium Policy Docs | `policy_templates_en-US.json` (1459 policies) | JSON schema validation |
+| Chromium Policy Docs | `policy_templates_en-US.json` (1466 policies) | JSON schema validation |
 | Chromium Preferences | Brave browser Preferences JSON | Inspect at `brave://version` profile path |
 | Omaha Updater Schema | Windows registry `ClientState` keys | `Get-ChildItem` on GUID paths |
 
@@ -337,13 +335,11 @@ Brave Omega, tarayıcı gizliliğini artırmak için tasarlanmış bir kayıt de
 
 | Dal | Durum | Destek |
 |-----|-------|--------|
-| **v2.x (güncel)** | Aktif geliştirme | ✅ Güvenlik yamaları, politika güncellemeleri, yeni özellikler |
-| v1.2.x | Bakımda | ✅ Yalnızca kritik güvenlik yamaları |
-| v1.1.x | Kullanım ömrü sonu | ❌ Artık desteklenmiyor |
-| v1.0 | Arşivlendi | ❌ Artık desteklenmiyor |
+| **En son kararlı sürüm (şu an v2.5.5.1)** | Aktif | ✅ Tam destek — güvenlik yamaları, politika güncellemeleri, yeni özellikler |
+| Önceki tüm sürümler | Kullanım ömrü sonu | ❌ Artık desteklenmiyor |
 
 > [!NOTE]
-> Güvenlik güncellemelerini almak için her zaman en güncel kararlı sürümü kullanın. Eski sürümler, Chromium'un kurumsal politika yapısı geliştikçe güncelliğini yitirebilir.
+> Yalnızca en son kararlı sürüm güvenlik yamaları ve politika güncellemeleri alır. Eski sürümler artık desteklenmez ve Chromium'un kurumsal politika yapısı geliştikçe güncelliğini yitirmiş politika boşlukları içerebilir — her zaman en yeni sürüme yükseltin.
 
 ---
 
@@ -454,15 +450,15 @@ Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -Name "Metr
 
 #### 5.3 Yedek Bütünlüğünü Doğrulama
 
-Yedekler zaman damgalarıyla `%TEMP%\BravePolicyYedek\` klasöründe saklanır:
+Yedekler zaman damgalarıyla `%TEMP%\BravePolicyBackup\` klasöründe saklanır:
 
 ```powershell
-notepad "$env:TEMP\BravePolicyYedek\*"
+notepad "$env:TEMP\BravePolicyBackup\*"
 ```
 
 Önceki duruma dönmek için:
 ```powershell
-reg import "$env:TEMP\BravePolicyYedek\HKLM_BravePolicy_20260607_143022.reg"
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260607_143022.reg"
 ```
 
 #### 5.4 Kaynak Doğrulama
@@ -472,7 +468,7 @@ Brave Omega'daki her politika yetkili kaynağına kadar izlenebilir:
 | Kaynak | Konum | Doğrulama Yöntemi |
 |--------|-------|-------------------|
 | Brave ADMX Şablonları | `policy_templates.zip` | ADMX/ADML XML'ini çıkar ve incele |
-| Chromium Politika Dokümanları | `policy_templates_en-US.json` (1459 politika) | JSON şema doğrulaması |
+| Chromium Politika Dokümanları | `policy_templates_en-US.json` (1466 politika) | JSON şema doğrulaması |
 | Chromium Tercihleri | Brave Preferences JSON | `brave://version` profil yolunda incele |
 | Omaha Güncelleyici Şeması | Windows kayıt defteri `ClientState` anahtarları | GUID yollarında `Get-ChildItem` |
 
@@ -533,7 +529,7 @@ Her kayıt defteri yazma işlemi ayrı ayrı try-catch bloğuyla sarılır:
 
 Tek komutla tam durum geri yükleme:
 ```powershell
-reg import "%TEMP%\BravePolicyYedek\HKLM_BravePolicy_20260607_143022.reg"
+reg import "%TEMP%\BravePolicyBackup\HKLM_BravePolicy_20260607_143022.reg"
 ```
 
 #### 7.5 Politika Türleri

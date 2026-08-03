@@ -73,7 +73,7 @@
 | Field | Value |
 |-------|-------|
 | **Policy Name** | `CloudPrintProxyEnabled` |
-| **Version Removed** | v2.1.6 (2026-07-04) |
+| **Version Removed** | v2.1.6 (2026-07-05) |
 | **Tier at Removal** | Strict (L4 at the time) |
 | **Reason** | Deprecated by Chromium — Google Cloud Print service fully shut down |
 | **Category** | Legacy services |
@@ -85,7 +85,7 @@
 > | Alan | Değer |
 > |------|-------|
 > | **Politika Adı** | `CloudPrintProxyEnabled` |
-> | **Kaldırıldığı Sürüm** | v2.1.6 (2026-07-04) |
+> | **Kaldırıldığı Sürüm** | v2.1.6 (2026-07-05) |
 > | **Kaldırıldığı Katman** | Strict (dönemin L4'ü) |
 > | **Neden** | Chromium tarafından kademeli olarak kaldırıldı — Google Cloud Print hizmeti tamamen kapatıldı |
 > | **Kategori** | Eski hizmetler |
@@ -881,7 +881,7 @@ v2.1.1 (2026-06-18)  — DefaultMediaStreamSetting removed from Balanced (deprec
                         DefaultMediaStreamSetting Balanced'tan kaldırıldı (kademeli)
                         TranslateEnabled taşındı Essential → Strict
   ↓
-v2.1.6 (2026-07-04)  — CloudPrintProxyEnabled removed (deprecated)
+v2.1.6 (2026-07-05)  — CloudPrintProxyEnabled removed (deprecated)
                         CloudPrintProxyEnabled kaldırıldı (kademeli)
   ↓
 v2.2.0.1 (2026-07-06) — BraveLocalAIEnabled removed (Origin-only)

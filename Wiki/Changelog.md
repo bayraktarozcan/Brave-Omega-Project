@@ -37,7 +37,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v2.5.5.0 — 2026-07-31
+### v2.5.5.0 — 2026-08-01
 
 **Smart Download Control — Precise Protection Restored**
 
@@ -104,7 +104,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v2.4.2.0 — 2026-07-17
+### v2.4.2.0 — 2026-07-21
 
 **Brave 1.92.141 (Chromium 150.0.7871.128) Compatibility Validation**
 
@@ -256,7 +256,7 @@ Fixes #50
 
 ---
 
-### v2.1.6.0 — 2026-07-04
+### v2.1.6.0 — 2026-07-05
 
 **Phase 3: Quality & Testing — Pester Test Suite, CI Improvements**
 
@@ -523,7 +523,7 @@ Fixes #50
 | v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Previous |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
-| v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Previous |
+| v2.4.1.0 | 1.92.139 | 150 | 11 25H2 | ✅ Previous |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
@@ -612,7 +612,7 @@ Brave Omega için tam sürüm geçmişi.
 
 ---
 
-### v2.5.5.0 — 2026-07-31
+### v2.5.5.0 — 2026-08-01
 
 **Akıllı İndirme Kontrolü — Kesin Koruma Geri Getirildi**
 
@@ -677,7 +677,7 @@ Brave Omega için tam sürüm geçmişi.
 
 ---
 
-### v2.4.2.0 — 2026-07-17
+### v2.4.2.0 — 2026-07-21
 
 **Brave 1.92.141 (Chromium 150.0.7871.128) Uyumluluk Doğrulaması**
 
@@ -831,7 +831,7 @@ Fixes #50
 
 ---
 
-### v2.1.6.0 — 2026-07-04
+### v2.1.6.0 — 2026-07-05
 
 **Aşama 3: Kalite & Test — Pester Test Takımı, CI İyileştirmeleri**
 
@@ -1099,7 +1099,7 @@ Fixes #50
 | v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Önceki |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
-| v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Önceki |
+| v2.4.1.0 | 1.92.139 | 150 | 11 25H2 | ✅ Önceki |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |

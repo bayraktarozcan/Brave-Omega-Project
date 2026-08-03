@@ -389,7 +389,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 | Kontrol | Yöntem |
 | --------- | -------- |
-| Tüm politikalar etkin | `brave://policy` → 150 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 53, Dengeli'de 86) |
+| Tüm politikalar etkin | `brave://policy` → 150 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 52, Dengeli'de 84) |
 | Kayıt defteri yazıldı | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Yedek oluşturuldu | `BraveOmega_HKLM_*.reg` betik dizininde mevcut |
 | Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[ERROR]` satırı yok |
