@@ -195,10 +195,10 @@ BRAVE OMEGA PROJECT/
 └── Brave Omega/
         BraveOmega-EN.ps1             Main script — English interface
         BraveOmega-TR.ps1             Main script — Turkish interface
-└── Tests/                         Pester test suite (16 files)
-            BraveOmega.EN.Tests.ps1        Unit + integration tests (EN)
-            BraveOmega.TR.Tests.ps1        Unit + integration tests (TR)
-            └── *.Tests.ps1                  Phased policy tests (13 files)
+└── Tests/                         Pester test suite (18 files)
+            FullPipeline-EN.Tests.ps1       Unit + integration tests (EN)
+            FullPipeline-TR.Tests.ps1       Unit + integration tests (TR)
+            └── *.Tests.ps1                  Phased policy tests (16 files)
 ```
 
 ---
@@ -409,10 +409,10 @@ BRAVE OMEGA PROJECT/
 └── Brave Omega/
         BraveOmega-EN.ps1             Ana betik — İngilizce arayüz
         BraveOmega-TR.ps1             Ana betik — Türkçe arayüz
-└── Tests/                         Pester test paketi (16 dosya)
-        BraveOmega.EN.Tests.ps1        Birim + entegrasyon testleri (EN)
-        BraveOmega.TR.Tests.ps1        Birim + entegrasyon testleri (TR)
-        └── *.Tests.ps1                  Aşamalı politika testleri (13 dosya)
+└── Tests/                         Pester test paketi (18 dosya)
+        FullPipeline-EN.Tests.ps1       Birim + entegrasyon testleri (EN)
+        FullPipeline-TR.Tests.ps1       Birim + entegrasyon testleri (TR)
+        └── *.Tests.ps1                  Aşamalı politika testleri (16 dosya)
 ```
 
 ---

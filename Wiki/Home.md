@@ -71,6 +71,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | ------------- | --------------- | ---------- | --------- | -------- |
 | **v2.5.5.1** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Current |
 | v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
+| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | 📦 Previous |
@@ -78,6 +79,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
 | **v2.4.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
+| **v2.4.0.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
 | **v2.3.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
 | **v2.3.0.0** | 1.92.138 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
@@ -99,7 +101,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 > **Latest Release:** [v2.5.5.1 — Brave 1.93.129 Compatibility](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
-> 🧪 **Pester test suite** (~50–60 It blocks across 16 files), PSScriptAnalyzer + policy integrity CI, and quality badges live since v2.1.6.0. See [Changelog](Changelog#v2160) for details.
+> 🧪 **Pester test suite** (109 It blocks across 18 files), PSScriptAnalyzer + policy integrity CI, and quality badges live since v2.1.6.0. See [Changelog](Changelog#v2160) for details.
 
 ---
 
@@ -202,6 +204,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | ------------- | -------------- | ---------- | --------- | ------- |
 | **v2.5.5.1** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
 | v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
+| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | 📦 Önceki |

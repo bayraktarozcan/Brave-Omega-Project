@@ -102,16 +102,16 @@ When Brave releases a new stable version:
 
 ### Testing (Phase 3)
 
-**Pester tests** live in `Tests/` (16 files, ~50–60 It blocks).
+**Pester tests** live in `Tests/` (18 files, 109 It blocks).
 
 When adding or modifying policies:
 
-1. Locate the corresponding test file in `Tests/` (e.g., `Tests/01-BraveOnly.Tests.ps1`)
+1. Locate the corresponding test file in `Tests/` (e.g., `Tests/PolicyDefinitions.Tests.ps1`)
 2. Add a new `It` block for each added or changed policy
 3. Run the relevant test file:
 
    ```powershell
-   Invoke-Pester -Path .\Tests\01-BraveOnly.Tests.ps1
+   Invoke-Pester -Path .\Tests\PolicyDefinitions.Tests.ps1
    ```
 
 4. Run the full suite before submitting:

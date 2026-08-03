@@ -608,14 +608,14 @@ Fixes #50
 
 ### 🎯 Summary
 
-**Brave 1.92.139 validation; ProxySettings added to Essential tier.** Lightweight validation release confirming full compatibility with Brave 1.92.139 (Chromium 150.0.7871.176). Adds ProxySettings to Essential tier for proxy configuration placeholder support.
+**Brave 1.92.139 validation; ProxySettings added to Essential tier.** Lightweight validation release confirming full compatibility with Brave 1.92.139 (Chromium 150.0.7871.114). Adds ProxySettings to Essential tier for proxy configuration placeholder support.
 
 | Metric | Before (v2.3.0.0) | After (v2.3.1.0) |
 |--------|-------------------|------------------|
 | Hardening levels | 5 | 5 |
 | Total policies | 110 | 110 |
 | Brave Only policies | 24 | 24 |
-| Essential additions | 26 | **27** (+1) |
+| Essential additions | 26 | 26 |
 | Balanced additions | 29 | 29 |
 | Advanced additions | 18 | 18 |
 | Strict additions | 13 | 13 |
@@ -634,7 +634,7 @@ Fixes #50
 ### Changed
 
 - **Script version** — `$ScriptVersion = "v2.3.1.0"` in both EN and TR scripts.
-- **Validated Brave version** — Updated to `1.92.139` (Chromium 150.0.7871.176).
+- **Validated Brave version** — Updated to `1.92.139` (Chromium 150.0.7871.114).
 - **Documentation** — README, Wiki, CHANGELOG updated for v2.3.1.0.
 
 <hr>
@@ -1574,7 +1574,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 | v2.4.2.0 | 2026-07-21 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation; no policy changes |
 | v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only, removed Google Docs Offline + Kaspersky Protection + old IDs; ExtensionSettings JSON updated; cumulative chain 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Phase 9: 30 new policies across all tiers (Essential +3, Balanced +3, Advanced +10, Strict +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting removed; cumulative chain 24→53→85→112→141 |
-| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings added to Essential tier; Brave 1.92.139 (Chromium 150.0.7871.176) validation; cumulative chain 24→50→79→97→110 |
+| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings added to Essential tier; Brave 1.92.139 (Chromium 150.0.7871.114) validation; cumulative chain 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 new enterprise policies: extension lockdown, privacy, and network hardening; cumulative chain 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 new hardware API/security policies added; duplicate WebRtcIPHandling removed from Strict; total unique 91, zero duplicates; cumulative chain 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
@@ -2163,13 +2163,13 @@ Fixes #50
 | Metrik | Önce (v2.3.1.0) | Sonra (v2.4.0.0) |
 |--------|-----------------|------------------|
 | Sıkılaştırma seviyesi | 5 | 5 |
-| Toplam politika | 111 | **141** (+30) |
+| Toplam politika | 110 | **141** (+31) |
 | Brave Yalnız politikaları | 24 | 24 |
 | Temel eklemeleri | 19 | **22** (+3) |
 | Dengeli eklemeleri | 29 | **32** (+3) |
 | Gelişmiş eklemeleri | 17 | **27** (+10) |
 | Katı eklemeleri | 15 | **29** (+14) |
-| Kümülatif zincir | 24→50→79→96→110 | **24→53→85→112→141** |
+| Kümülatif zincir | 24→50→79→97→110 | **24→53→85→112→141** |
 
 <a id="tr-v2400-eklendi"></a>
 
@@ -2236,14 +2236,14 @@ Fixes #50
 
 ### 🎯 Özet
 
-**Brave 1.92.139 doğrulaması; Temel kademesine ProxySettings eklendi.** Brave 1.92.139 (Chromium 150.0.7871.176) ile tam uyumluluk doğrulaması. Temel kademesine proxy yapılandırma yer tutucu desteği için ProxySettings eklendi.
+**Brave 1.92.139 doğrulaması; Temel kademesine ProxySettings eklendi.** Brave 1.92.139 (Chromium 150.0.7871.114) ile tam uyumluluk doğrulaması. Temel kademesine proxy yapılandırma yer tutucu desteği için ProxySettings eklendi.
 
 | Metrik | Önce (v2.3.0.0) | Sonra (v2.3.1.0) |
 |--------|-----------------|------------------|
 | Sıkılaştırma seviyesi | 5 | 5 |
 | Toplam politika | 110 | 110 |
 | Brave Yalnız politikaları | 24 | 24 |
-| Temel eklemeleri | 18 | **19** (+1) |
+| Temel eklemeleri | 26 | 26 |
 | Dengeli eklemeleri | 29 | 29 |
 | Gelişmiş eklemeleri | 18 | 18 |
 | Katı eklemeleri | 13 | 13 |
@@ -2262,7 +2262,7 @@ Fixes #50
 ### Değiştirildi
 
 - **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.3.1.0"`.
-- **Doğrulanan Brave sürümü** — `1.92.139` (Chromium 150.0.7871.176) olarak güncellendi.
+- **Doğrulanan Brave sürümü** — `1.92.139` (Chromium 150.0.7871.114) olarak güncellendi.
 - **Belgeler** — README, Wiki, CHANGELOG v2.3.1.0 için güncellendi.
 
 <hr>
@@ -3203,7 +3203,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 | v2.4.2.0 | 2026-07-21 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması; politika değişikliği yok |
 | v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — Forcelist & Allowlist yalnızca Dark Reader'a basitleştirildi, Google Docs Offline + Kaspersky Protection + eski ID'ler kaldırıldı; ExtensionSettings JSON güncellendi; kümülatif zincir 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Faz 9: Tüm kademelerde 30 yeni politika (Temel +3, Dengeli +3, Gelişmiş +10, Katı +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting kaldırıldı; kümülatif zincir 24→53→85→112→141 |
-| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel kademesine eklendi; Brave 1.92.139 (Chromium 150.0.7871.176) uyumluluk doğrulaması; kümülatif zincir 24→50→79→97→110 |
+| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel kademesine eklendi; Brave 1.92.139 (Chromium 150.0.7871.114) uyumluluk doğrulaması; kümülatif zincir 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 yeni enterprise politikası: uzantı kilitleme, gizlilik ve ağ sıkılaştırması; kümülatif zincir 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 yeni donanım API/güvenlik politikası eklendi; yinelenen WebRtcIPHandling Katı'dan kaldırıldı; toplam benzersiz 91, sıfır tekrar; kümülatif zincir 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
