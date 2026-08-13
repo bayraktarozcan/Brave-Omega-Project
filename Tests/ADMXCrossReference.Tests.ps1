@@ -28,3 +28,29 @@ Describe "ADMX Cross-Reference" -Tag "Integration" {
         $cats.Count | Should -BeGreaterOrEqual 1
     }
 }
+
+Describe "ADMX Cross-Reference - Documented Exceptions" -Tag "Integration" {
+    It "validator should declare a documented-exception map" {
+        $validatorPath = Join-Path $PSScriptRoot "..\admx\admx-validate.ps1"
+        $content = Get-Content -Path $validatorPath -Raw
+        $content -match '\$knownAdmxExceptions\s*=\s*@\{' | Should -Be $true
+        $content -match 'DeviceAttributesAllowedForOrigins' | Should -Be $true
+    }
+
+    It "validator should run cleanly with no failures" {
+        $validatorPath = Join-Path $PSScriptRoot "..\admx\admx-validate.ps1"
+        & $validatorPath 2>&1 | Out-Null
+        $LASTEXITCODE | Should -Be 0
+    }
+
+    It "validator should check documented exceptions before reporting a not-found error" {
+        $validatorPath = Join-Path $PSScriptRoot "..\admx\admx-validate.ps1"
+        $content = Get-Content -Path $validatorPath -Raw
+        $exceptionIdx = $content.IndexOf('$knownAdmxExceptions.ContainsKey($policyName)')
+        $errorIdx = $content.IndexOf('Policy ''$policyName'' not found in ADMX')
+        $exceptionIdx | Should -BeGreaterThan 0
+        $errorIdx | Should -BeGreaterThan 0
+        $exceptionIdx | Should -BeLessThan $errorIdx
+        $content -match '\$knownExceptions\+\+' | Should -Be $true
+    }
+}

@@ -23,6 +23,27 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.5.2 — 2026-08-13
+
+**Patch Release — Brave 1.93.136 Validation & ADMX CI Fixes**
+
+**Fixed:**
+
+- Critical Reset-mode regression — `$HKCU_Target`/`$HKLM_Target` path constants were defined after the `-Reset` block, so Reset mode crashed on `Test-Path $null` under PowerShell 5.1. Constants moved above the Reset block (EN + TR).
+- `admx/admx-validate.ps1` no longer hardcodes a partial policy map. It now auto-discovers all 150 policies from `BraveOmega-EN.ps1` and validates every one against `brave.admx`. Added a documented-exception mechanism for Chromium policies intentionally absent from Brave's ADMX (e.g. `DeviceAttributesAllowedForOrigins`).
+
+**Changed:**
+
+- Validated against Brave **1.93.136** (Chromium 151.0.7922.137). Brave 1.93.129 (Chromium 151.0.7922.71) remains supported.
+- Tier counts unchanged: BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (total 150)
+- Both scripts updated to v2.5.5.2
+
+**Tests:**
+
+- Regression tests added for Reset-mode path-constant ordering (`ResetMode.Tests.ps1`) and full ADMX policy coverage + documented-exception handling (`ADMXCrossReference.Tests.ps1`)
+
+---
+
 ### v2.5.5.1 — 2026-08-01
 
 **Patch Release — CI Fixes & Documentation Consistency**
@@ -515,8 +536,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.5.1** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
-| v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
+| **v2.5.5.2** *(current)* | 1.93.136 | 151 | 11 25H2 | ✅ Active |
+| v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
@@ -598,6 +619,27 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.5.5.2 — 2026-08-13
+
+**Yama Sürümü — Brave 1.93.136 Doğrulaması ve ADMX CI Düzeltmeleri**
+
+**Düzeltilenler:**
+
+- Kritik Sıfırlama modu gerilemesi — `$HKCU_Hedef`/`$HKLM_Hedef` yol sabitleri `-Sifirla` bloğundan sonra tanımlanıyordu, bu nedenle Sıfırlama modu PowerShell 5.1 altında `Test-Path $null` hatasıyla çöküyordu. Sabitler Sıfırlama bloğunun üstüne taşındı (EN + TR).
+- `admx/admx-validate.ps1` artık kısmi bir politika haritasını sabit kodlamıyor. 150 politikanın tamamını `BraveOmega-EN.ps1`'den otomatik keşfeder ve her birini `brave.admx` karşısında doğrular. Brave'in ADMX'inde kasıtlı olarak bulunmayan Chromium politikaları için belgelenmiş istisna mekanizması eklendi (örn. `DeviceAttributesAllowedForOrigins`).
+
+**Değiştirilenler:**
+
+- Brave **1.93.136** (Chromium 151.0.7922.137) ile doğrulandı. Brave 1.93.129 (Chromium 151.0.7922.71) desteklenmeye devam eder.
+- Seviye sayıları değişmedi: Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (toplam 150)
+- Her iki betik v2.5.5.2'ye güncellendi
+
+**Testler:**
+
+- Sıfırlama modu yol sabiti sıralaması için gerileme testleri (`ResetMode.Tests.ps1`) ve tam ADMX politika kapsamı + belgelenmiş istisna işleme (`ADMXCrossReference.Tests.ps1`) eklendi
+
+---
 
 ### v2.5.5.1 — 2026-08-01
 
@@ -1092,8 +1134,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.5.1** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
-| v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
+| **v2.5.5.2** *(güncel)* | 1.93.136 | 151 | 11 25H2 | ✅ Etkin |
+| v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |

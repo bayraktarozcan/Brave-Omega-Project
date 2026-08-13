@@ -78,91 +78,48 @@ foreach ($p in $policies) {
 
 Write-Result "ADMX lookup built: $($admxPolicyMap.Count) unique policy names" -Level "Info"
 
-# ─── Our script's policy definitions (from BraveOmega-EN.ps1) ───
+# ─── Our script's policy definitions (auto-discovered from BraveOmega-EN.ps1) ───
+# Parsed dynamically so every policy added to the script is validated — no manual sync.
+$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave Omega\BraveOmega-EN.ps1"
+if (-not (Test-Path -LiteralPath $scriptPath)) {
+    Write-Host "Script file not found: $scriptPath" -ForegroundColor Red
+    exit 1
+}
+
+$scriptContent = Get-Content -LiteralPath $scriptPath -Raw -Encoding UTF8
 $scriptPolicyMap = @{}
-$scriptPolicyMap["BraveRewardsDisabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveWalletDisabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveVPNDisabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveAIChatEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveTalkDisabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveNewsDisabled"] = @{Type="DWord"}
-$scriptPolicyMap["BravePlaylistEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveSpeedreaderEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveWaybackMachineEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveP3AEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveStatsPingEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveWebDiscoveryEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["TorDisabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveDeAmpEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveDebouncingEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveReduceLanguageEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BraveTrackingQueryParametersFilteringEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultBraveAdblockSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultBraveFingerprintingV2Setting"] = @{Type="DWord"}
-$scriptPolicyMap["BraveShieldsDisabledForUrls"] = @{Type="MultiString"}
-$scriptPolicyMap["BraveShieldsEnabledForUrls"] = @{Type="MultiString"}
+$duplicateTypes = @()
+$policyEntryPattern = '^\s*@\{Name\s*=\s*"([^"]+)".*Type\s*=\s*"([^"]+)"\s*\}'
+foreach ($line in ($scriptContent -split "`r?`n")) {
+    $m = [regex]::Match($line, $policyEntryPattern)
+    if (-not $m.Success) { continue }
+    $name = $m.Groups[1].Value
+    $type = $m.Groups[2].Value
+    if ($scriptPolicyMap.ContainsKey($name)) {
+        if ($scriptPolicyMap[$name].Type -ne $type) {
+            $duplicateTypes += "$name ($($scriptPolicyMap[$name].Type) vs $type)"
+        }
+        continue
+    }
+    $scriptPolicyMap[$name] = @{ Type = $type }
+}
 
-$scriptPolicyMap["EmailAliasesEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["MetricsReportingEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["SafeBrowsingExtendedReportingEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["UrlKeyedAnonymizedDataCollectionEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["SearchSuggestEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["NetworkPredictionOptions"] = @{Type="DWord"}
-$scriptPolicyMap["SpellcheckEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["AlternateErrorPagesEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BrowserNetworkTimeQueriesEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["DomainReliabilityAllowed"] = @{Type="DWord"}
-$scriptPolicyMap["BackgroundModeEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["SafeBrowsingSurveysEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["SafeBrowsingDeepScanningEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["WebRtcEventLogCollectionAllowed"] = @{Type="DWord"}
-$scriptPolicyMap["WebRtcTextLogCollectionAllowed"] = @{Type="DWord"}
-$scriptPolicyMap["AudioCaptureAllowed"] = @{Type="DWord"}
-$scriptPolicyMap["VideoCaptureAllowed"] = @{Type="DWord"}
-$scriptPolicyMap["BraveGlobalPrivacyControlEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["WebRtcIPHandling"] = @{Type="String"}
-$scriptPolicyMap["WebRtcLocalIpsAllowedUrls"] = @{Type="MultiString"}
-$scriptPolicyMap["HttpsOnlyMode"] = @{Type="String"}
-$scriptPolicyMap["DnsOverHttpsMode"] = @{Type="String"}
-$scriptPolicyMap["BlockThirdPartyCookies"] = @{Type="DWord"}
-$scriptPolicyMap["PasswordManagerEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["PasswordManagerPasskeysEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["AutofillAddressEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["AutofillCreditCardEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["ShowFullUrlsInAddressBar"] = @{Type="DWord"}
-$scriptPolicyMap["DisableSafeBrowsingProceedAnyway"] = @{Type="DWord"}
-$scriptPolicyMap["QuicAllowed"] = @{Type="DWord"}
-$scriptPolicyMap["ChromeVariations"] = @{Type="DWord"}
-$scriptPolicyMap["NetworkServiceSandboxEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["AudioSandboxEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultGeolocationSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultNotificationsSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultPopupsSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultBraveHttpsUpgradeSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultBraveReferrersSetting"] = @{Type="DWord"}
-$scriptPolicyMap["BraveSyncUrl"] = @{Type="String"}
-$scriptPolicyMap["TranslateEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BrowserGuestModeEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["BrowserAddPersonEnabled"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultSensorsSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultLocalFontsSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultClipboardSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultFileSystemReadGuardSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultFileSystemWriteGuardSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultSerialGuardSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultIdleDetectionSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultInsecureContentSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultJavaScriptJitSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultCookiesSetting"] = @{Type="DWord"}
-$scriptPolicyMap["DefaultBraveRemember1PStorageSetting"] = @{Type="DWord"}
-$scriptPolicyMap["ImportAutofillFormData"] = @{Type="DWord"}
-$scriptPolicyMap["ImportBookmarks"] = @{Type="DWord"}
-$scriptPolicyMap["ImportHistory"] = @{Type="DWord"}
-$scriptPolicyMap["ImportSavedPasswords"] = @{Type="DWord"}
-$scriptPolicyMap["ImportSearchEngine"] = @{Type="DWord"}
-$scriptPolicyMap["ImportHomepage"] = @{Type="DWord"}
+foreach ($dup in $duplicateTypes) {
+    Write-Result "Policy '$dup' declared with conflicting types across levels" -Level "Error"
+}
+if ($duplicateTypes.Count -gt 0) { $ExitCode = 1 }
 
-Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy names (including WebRtcIPHandling cross-tier)" -Level "Info"
+Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy names (auto-discovered)" -Level "Info"
+
+# ─── Known exceptions: valid Chromium policies intentionally absent from Brave's ADMX ───
+# Brave's ADMX bundle is generated from Chromium's Windows GPO policy templates. A few
+# policies this script applies are real Chromium enterprise policies that are only shipped
+# for non-Windows surfaces (e.g. ChromeOS web-capability / IWA policies) and therefore never
+# appear in brave.admx. Each entry is verified against chromeenterprise.google/policies and
+# cross-referenced in CHANGELOG.md / README.md. Do not add entries here to silence typos.
+$knownAdmxExceptions = @{
+    "DeviceAttributesAllowedForOrigins" = "ChromeOS-only web-capability policy (Device Attributes API); intentionally included for future-proofing - see CHANGELOG.md"
+}
 
 # ─── Cross-Reference: Check each script policy against ADMX ───
 Write-Host ""
@@ -172,6 +129,7 @@ Write-Host "================================================" -ForegroundColor M
 
 $found = 0
 $notFound = 0
+$knownExceptions = 0
 $typeMismatch = 0
 $valueNameMismatch = 0
 
@@ -180,6 +138,11 @@ foreach ($policyName in $scriptPolicyMap.Keys | Sort-Object) {
     $expectedType = $scriptEntry.Type
 
     if (-not $admxPolicyMap.ContainsKey($policyName)) {
+        if ($knownAdmxExceptions.ContainsKey($policyName)) {
+            Write-Result "Policy '$policyName' not in ADMX but is a documented exception: $($knownAdmxExceptions[$policyName])" -Level "Warning"
+            $knownExceptions++
+            continue
+        }
         Write-Result "Policy '$policyName' not found in ADMX" -Level "Error"
         $notFound++
         $ExitCode = 1
@@ -306,6 +269,7 @@ Write-Host "  ADMX total entries:           $($policies.Count)" -ForegroundColor
 Write-Host "  ADMX unique policy names:     $($admxPolicyMap.Count)" -ForegroundColor White
 Write-Host "  Script policies checked:      $($scriptPolicyMap.Count)" -ForegroundColor White
 Write-Host "  Found in ADMX:                $found" -ForegroundColor Green
+Write-Host "  Documented exceptions:        $knownExceptions" -ForegroundColor Yellow
 Write-Host "  Not found in ADMX:            $notFound" -ForegroundColor $(if ($notFound -gt 0) { "Red" } else { "Green" })
 Write-Host "  Type mismatches:              $typeMismatch" -ForegroundColor $(if ($typeMismatch -gt 0) { "Red" } else { "Green" })
 Write-Host "  ValueName mismatches:         $valueNameMismatch" -ForegroundColor $(if ($valueNameMismatch -gt 0) { "Yellow" } else { "Green" })

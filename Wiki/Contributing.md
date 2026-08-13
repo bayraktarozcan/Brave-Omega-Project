@@ -102,7 +102,7 @@ When Brave releases a new stable version:
 
 ### Testing (Phase 3)
 
-**Pester tests** live in `Tests/` (18 files, 109 It blocks).
+**Pester tests** live in `Tests/` (18 files, 116 It blocks).
 
 When adding or modifying policies:
 

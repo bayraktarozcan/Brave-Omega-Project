@@ -11,9 +11,9 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v2.5.5.1** — *Brave 1.93.129 Compatibility & Documentation Consistency* (2026-08-01)
+**v2.5.5.2** — *Brave 1.93.136 Compatibility & ADMX CI Fixes* (2026-08-13)
 
-Current release: 150 policies across 5 hardening tiers (Brave Only 24 / Essential 28 / Balanced 32 / Advanced 38 / Strict 28), validated against Brave 1.93.129 (Chromium 151.0.7922.71). Cumulative chain: 24→52→84→122→150.
+Current release: 150 policies across 5 hardening tiers (Brave Only 24 / Essential 28 / Balanced 32 / Advanced 38 / Strict 28), validated against Brave 1.93.136 (Chromium 151.0.7922.137). Cumulative chain: 24→52→84→122→150.
 
 ---
 
@@ -63,7 +63,7 @@ Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 | Component | Description | Status |
 |-----------|-------------|--------|
-| Pester test suite | 18 test files under `Tests/` with 109 It blocks | ✅ Complete |
+| Pester test suite | 18 test files under `Tests/` with 116 It blocks | ✅ Complete |
 | Unit tests | Write-PolicyValue, Level-Selection, Version-Check | ✅ Complete |
 | Integration tests | Registry-Write, -WhatIf mode, admin detection, policy integrity | ✅ Complete |
 | PSScriptAnalyzer | Code quality rules in CI workflow | ✅ Complete |
@@ -254,9 +254,9 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v2.5.5.1** — *Brave 1.93.129 Uyumluluğu ve Dokümantasyon Tutarlılığı* (2026-08-01)
+**v2.5.5.2** — *Brave 1.93.136 Uyumluluğu ve ADMX CI Düzeltmeleri* (2026-08-13)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 150 politika (Brave Yalnız 24 / Temel 28 / Dengeli 32 / Gelişmiş 38 / Katı 28), Brave 1.93.129 (Chromium 151.0.7922.71) ile doğrulandı. Kümülatif zincir: 24→52→84→122→150.
+Güncel sürüm: 5 sıkılaştırma katmanında 150 politika (Brave Yalnız 24 / Temel 28 / Dengeli 32 / Gelişmiş 38 / Katı 28), Brave 1.93.136 (Chromium 151.0.7922.137) ile doğrulandı. Kümülatif zincir: 24→52→84→122→150.
 
 ---
 
@@ -304,7 +304,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
-| Pester test takımı | `Tests/` altında 18 test dosyası, 109 It bloğu | ✅ Tamam |
+| Pester test takımı | `Tests/` altında 18 test dosyası, 116 It bloğu | ✅ Tamam |
 | Birim testleri | Write-PolicyValue, Level-Selection, Version-Check | ✅ Tamam |
 | Entegrasyon testleri | Registry-Write, -WhatIf, yönetici algılama | ✅ Tamam |
 | PSScriptAnalyzer | CI'da kod kalite kuralları | ✅ Tamam |

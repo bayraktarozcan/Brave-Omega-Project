@@ -13,8 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.5.5.1** ⭐ | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | ✅ Active | 2026-08-01 |
-| **v2.5.5.0** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Previous | 2026-08-01 |
+| **v2.5.5.2** ⭐ | 1.93.136 | 151.0.7922.137 | Windows 11 25H2 | ✅ Active | 2026-08-13 |
+| **v2.5.5.1** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Previous | 2026-08-01 |
 | **v2.5.4.0** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Previous | 2026-07-31 |
 | **v2.5.3.0** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Previous | 2026-07-31 |
 | **v2.5.2.1** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Previous | 2026-07-31 |
@@ -70,15 +70,15 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.5.5.1) If
+### Use Current (v2.5.5.2) If
 
-- Running Brave 1.93.129 (latest stable)
+- Running Brave 1.93.136 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 150 total policies
 
-### Use Previous (v2.5.5.0) If
+### Use Previous (v2.5.5.1) If
 
-- Cannot update to v2.5.5.1 immediately
+- Cannot update to v2.5.5.2 immediately
 - Running Brave 1.93.129
 
 ### Use Legacy (v2.2.1.0) If
@@ -130,6 +130,7 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
+| v2.5.5.2 | 150 | 100% | Patch release — Brave 1.93.136 validation & ADMX CI fixes (Reset-mode path-constant ordering regression, ADMX validator auto-discovery of all 150 policies + documented exceptions). No policy changes |
 | v2.5.5.1 | 150 | 100% | Patch release — CI/Release.ps1 fixes and documentation consistency corrections (policy counts, chains, tier placements). No policy changes |
 | v2.5.5.0 | 150 | 100% | Smart download control — DownloadRestrictions moved to Essential (Value=4, block confirmed-malicious only); DisableSafeBrowsingProceedAnyway back to Balanced; DeepScanning stays Strict-only |
 | v2.5.4.0 | 150 | 100% | Stale policy cleanup on every run — Omega-managed values not in the selected tier's merged set are removed automatically; foreign values preserved |
@@ -210,8 +211,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.5.5.1** ⭐ | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | ✅ Güncel | 2026-08-01 |
-| **v2.5.5.0** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Önceki | 2026-08-01 |
+| **v2.5.5.2** ⭐ | 1.93.136 | 151.0.7922.137 | Windows 11 25H2 | ✅ Güncel | 2026-08-13 |
+| **v2.5.5.1** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Önceki | 2026-08-01 |
 | **v2.5.4.0** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Önceki | 2026-07-31 |
 | **v2.5.3.0** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Önceki | 2026-07-31 |
 | **v2.5.2.1** 📦 | 1.93.129 | 151.0.7922.71 | Windows 11 25H2 | 📦 Önceki | 2026-07-31 |
@@ -267,15 +268,15 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.5.5.1) Kullan Eğer
+### Güncel (v2.5.5.2) Kullan Eğer
 
-- Brave 1.93.129 (en güncel kararlı) çalışıyorsa
+- Brave 1.93.136 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 150 toplam politika
 
-### Önceki (v2.5.5.0) Kullan Eğer
+### Önceki (v2.5.5.1) Kullan Eğer
 
-- Hemen v2.5.5.1'e güncelleyemiyorsanız
+- Hemen v2.5.5.2'ye güncelleyemiyorsanız
 - Brave 1.93.129 çalışıyorsa
 
 ### Eski (v2.2.1.0) Kullan Eğer
@@ -327,6 +328,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
+| v2.5.5.2 | 150 | 100% | Yama sürümü — Brave 1.93.136 doğrulaması ve ADMX CI düzeltmeleri (Sıfırlama modu yol sabiti sıralama gerilemesi, 150 politikanın tamamının ADMX doğrulayıcı tarafından otomatik keşfi + belgelenmiş istisnalar). Politika değişikliği yok |
 | v2.5.5.1 | 150 | 100% | Yama sürümü — CI/Release.ps1 düzeltmeleri ve dokümantasyon tutarlılık düzeltmeleri (politika sayıları, zincirler, seviye yerleşimleri). Politika değişikliği yok |
 | v2.5.5.0 | 150 | 100% | Akıllı indirme kontrolü — DownloadRestrictions Temel'e taşındı (Value=4, yalnızca kötü amaçlı doğrulanmışı engelle); DisableSafeBrowsingProceedAnyway Dengeli'ye geri döndü; DeepScanning yalnızca Katı'da kalır |
 | v2.5.4.0 | 150 | 100% | Her çalıştırmada bayat politika temizliği — seçili seviyenin birleştirilmiş kümesinde olmayan Omega yönetimli değerler otomatik kaldırılır; yabancı değerler korunur |
