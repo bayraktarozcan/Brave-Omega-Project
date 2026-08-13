@@ -43,7 +43,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 ├─ Administrator privilege verification
 ├─ Brave process detection (with continue/cancel prompt)
 ├─ Brave version validation against Compatibility Matrix
-├─ Brave version detection (compares against validated version 1.93.129)
+├─ Brave version detection (compares against validated version 1.93.136)
 └─ Registry path ACL validation
 ```
 
@@ -262,7 +262,7 @@ Brave Omega **güvenlik öncelikli** bir yaklaşımla tasarlanmıştır. Her tas
 ├─ Yönetici ayrıcalığı doğrulaması
 ├─ Brave süreç tespiti (devam/iptal istemiyle)
 ├─ Brave sürümünün Uyumluluk Matrisine karşı doğrulaması
-├─ Brave sürüm algılama (doğrulanmış sürüm 1.93.129 ile karşılaştırma)
+├─ Brave sürüm algılama (doğrulanmış sürüm 1.93.136 ile karşılaştırma)
 └─ Kayıt defteri yolu ACL doğrulaması
 ```
 
@@ -389,7 +389,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 | Kontrol | Yöntem |
 | --------- | -------- |
-| Tüm politikalar etkin | `brave://policy` → 150 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 53, Dengeli'de 86) |
+| Tüm politikalar etkin | `brave://policy` → 150 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 52, Dengeli'de 84) |
 | Kayıt defteri yazıldı | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Yedek oluşturuldu | `BraveOmega_HKLM_*.reg` betik dizininde mevcut |
 | Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[ERROR]` satırı yok |

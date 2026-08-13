@@ -14,7 +14,7 @@
 <br>
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
-[![Brave](https://img.shields.io/badge/Brave-1.93.129%20%7C%20Chromium%20151-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
+[![Brave](https://img.shields.io/badge/Brave-1.93.136%20%7C%20Chromium%20151-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-22C55E?style=flat-square)](https://github.com/bayraktarozcan/Brave-Omega-Project)
@@ -67,7 +67,7 @@ systematically disables telemetry, analytics services, background pings, integra
 monetization features, and other privacy-eroding components — all without touching the
 browser's internals or requiring any third-party tools.
 
-Brave Omega v2.5.0.0 introduces a **five-tier hardening model** — Brave Only (24 policies),
+Brave Omega uses a **five-tier hardening model** — Brave Only (24 policies),
 Essential ⭐ (52), Balanced (84), Advanced (122), and Strict (150) — giving users precise control over
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
@@ -312,7 +312,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.5.5.1** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.5.2** *(current)* | 1.93.136 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.5.1** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.5.0** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.3.0** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.2.1** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
@@ -320,7 +321,7 @@ no longer have any effect.
 | **v2.5.1.0** | 1.92.143 | 150 | 11 25H2 | 📦 Previous |
 | **v2.5.0.0** | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
 | **v2.4.2.0** | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
-| **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Previous |
+| **v2.4.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
 | **v2.3.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
 | **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
@@ -585,7 +586,7 @@ BRAVE OMEGA PROJECT/
 ### 12. Troubleshooting
 
 > [!NOTE]
-> Brave Omega is validated against the **Stable channel only** (currently Brave 1.93.129 / Chromium 151). ADMX policy behaviors have not been tested on Beta/Nightly builds and may behave differently.
+> Brave Omega is validated against the **Stable channel only** (currently Brave 1.93.136 / Chromium 151). ADMX policy behaviors have not been tested on Beta/Nightly builds and may behave differently.
 
 | Symptom | Likely Cause | Resolution |
 |---------|-------------|------------|
@@ -937,7 +938,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.5.5.1** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.5.2** *(güncel)* | 1.93.136 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.5.1** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.5.0** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.3.0** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.2.1** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
@@ -945,7 +947,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | **v2.5.1.0** | 1.92.143 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.5.0.0** | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.4.2.0** | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.4.1.0** | 1.92.140 | 150 | 11 25H2 | 📦 Önceki |
+| **v2.4.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.3.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
 | **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
@@ -1069,15 +1071,15 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultGeolocationSetting` | `2` | DWord | Varsayılan olarak konumu engeller |
 | `DefaultNotificationsSetting` | `2` | DWord | Varsayılan olarak bildirimleri engeller |
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
-| `DefaultBraveHttpsUpgradeSetting` | `1` | DWord | HTTP'den HTTPS'ye yükseltmeyi devre dışı bırakır (DNS-over-HTTPS yönetir) |
-| `DefaultBraveReferrersSetting` | `1` | DWord | HTTP Referrer başlığını devre dışı bırakır |
-| `BraveSyncUrl` | `https://noharm.notion.site/...` | String | Brave Sync senkronizasyon kaynağını belirler |
+| `DefaultBraveHttpsUpgradeSetting` | `2` | DWord | HTTPS'i katı modda zorlar (başarısızlıkta uyarı) |
+| `DefaultBraveReferrersSetting` | `2` | DWord | Referrer'ı strict-origin-when-cross-origin'e sınırlar |
+| `BraveSyncUrl` | `"https://sync-v2.brave.com/v2"` | String | Brave Sync sunucu URL'sini belirler |
 | `DefaultWindowManagementSetting` | `2` | DWord | Pencere yönetimi izinlerini engeller |
 | `SitePerProcess` | `1` | DWord | Her siteyi ayrı bir süreçte çalıştırır (site izolasyonu) |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Arka plan sekmelerini uyku moduna alır (enerji tasarrufu) |
 | `UserFeedbackAllowed` | `0` | DWord | Chromium geri bildirim istemcisini devre dışı bırakır |
 | `ExtensionInstallForcelist` | *Dark Reader* | MultiString | Yalnızca zorunlu eklenti — Dark Reader |
-| `DownloadDirectory` | `C:\Users\User\Downloads` | String | Varsayılan indirme dizini |
+| `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Varsayılan indirme klasörünü ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Konum sormaz, varsayılan indirme dizinini kullanır |
 | `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım/oltalama uyarılarını atlamayı engeller (Katı'dan geri taşındı) |
 | `RelaunchNotification` | `2` | DWord | Tarayıcı yeniden başlatma bildirimini zorlar (devre dışı bırakılamaz) |
@@ -1211,7 +1213,7 @@ BRAVE OMEGA PROJECT/
 ### 12. Sorun Giderme
 
 > [!NOTE]
-> Brave Omega yalnızca **Kararlı (Stable) kanalda** doğrulanmıştır (güncel Brave 1.93.129 / Chromium 151). ADMX politika davranışları Beta/Nightly yapılarında test edilmemiştir ve farklılık gösterebilir.
+> Brave Omega yalnızca **Kararlı (Stable) kanalda** doğrulanmıştır (güncel Brave 1.93.136 / Chromium 151). ADMX politika davranışları Beta/Nightly yapılarında test edilmemiştir ve farklılık gösterebilir.
 
 | Belirti | Olası Neden | Çözüm |
 |---------|------------|-------|

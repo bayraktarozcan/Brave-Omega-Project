@@ -11,9 +11,9 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v2.4.1.0** — *Brave 150 Validation & Policy Cleanup* (2026-07-12)
+**v2.5.5.2** — *Brave 1.93.136 Compatibility & ADMX CI Fixes* (2026-08-13)
 
-Phase 9 complete: 133 policies across 5 hardening tiers (Brave Only 24 / Essential 28 / Balanced 31 / Advanced 21 / Strict 29). 30 new policies added in v2.4.0.0, then 8 broken/deprecated/blocked policies removed in v2.4.1.0.
+Current release: 150 policies across 5 hardening tiers (Brave Only 24 / Essential 28 / Balanced 32 / Advanced 38 / Strict 28), validated against Brave 1.93.136 (Chromium 151.0.7922.137). Cumulative chain: 24→52→84→122→150.
 
 ---
 
@@ -63,7 +63,7 @@ Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 | Component | Description | Status |
 |-----------|-------------|--------|
-| Pester test suite | 16 test files under `Tests/` with ~50–60 It blocks | ✅ Complete |
+| Pester test suite | 18 test files under `Tests/` with 116 It blocks | ✅ Complete |
 | Unit tests | Write-PolicyValue, Level-Selection, Version-Check | ✅ Complete |
 | Integration tests | Registry-Write, -WhatIf mode, admin detection, policy integrity | ✅ Complete |
 | PSScriptAnalyzer | Code quality rules in CI workflow | ✅ Complete |
@@ -139,7 +139,7 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 | BuiltInDnsClientEnabled | Network — DNS control | Advanced |
 | BraveUpdateDisabled | Update control | Advanced |
 
-Total: 111→133 policies (+22). Cumulative chain: 24→52→83→104→133.
+Total: 91→110 policies (+19). Cumulative chain: 24→50→79→97→110.
 
 **Removed:** AllowPopupsDuringPageUnload (deprecated upstream, removed after initial 115-policy build).
 
@@ -254,9 +254,9 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v2.4.1.0** — *Brave 150 Doğrulaması ve Politika Temizliği* (2026-07-12)
+**v2.5.5.2** — *Brave 1.93.136 Uyumluluğu ve ADMX CI Düzeltmeleri* (2026-08-13)
 
-9. Aşama tamam: 5 sıkılaştırma katmanında 133 politika (Brave Yalnız 24 / Temel 28 / Dengeli 31 / Gelişmiş 21 / Katı 29). v2.4.0.0'da 30 yeni politika eklendi, v2.4.1.0'da 8 bozuk/kullanım dışı/engellenen politika kaldırıldı.
+Güncel sürüm: 5 sıkılaştırma katmanında 150 politika (Brave Yalnız 24 / Temel 28 / Dengeli 32 / Gelişmiş 38 / Katı 28), Brave 1.93.136 (Chromium 151.0.7922.137) ile doğrulandı. Kümülatif zincir: 24→52→84→122→150.
 
 ---
 
@@ -304,7 +304,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
-| Pester test takımı | `Tests/` altında 16 test dosyası, ~50–60 It bloğu | ✅ Tamam |
+| Pester test takımı | `Tests/` altında 18 test dosyası, 116 It bloğu | ✅ Tamam |
 | Birim testleri | Write-PolicyValue, Level-Selection, Version-Check | ✅ Tamam |
 | Entegrasyon testleri | Registry-Write, -WhatIf, yönetici algılama | ✅ Tamam |
 | PSScriptAnalyzer | CI'da kod kalite kuralları | ✅ Tamam |
@@ -345,7 +345,7 @@ Toplam: 80→91 politika (+11). 90+ politika engeli aşıldı.
 
 22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
 
-Toplam: 111→133 politika (+22). Kümülatif zincir: 24→52→83→104→133.
+Toplam: 91→110 politika (+19). Kümülatif zincir: 24→50→79→97→110.
 
 **Kaldırılan:** AllowPopupsDuringPageUnload (kullanım dışı, ilk 115'lik yapıdan sonra çıkarıldı).
 

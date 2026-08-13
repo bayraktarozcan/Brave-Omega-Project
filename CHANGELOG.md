@@ -26,119 +26,160 @@
 
 ### Table of Contents
 
-1. [v2.5.5.1 — 2026-08-01](#en-v2551)
+1. [v2.5.5.2 — 2026-08-13](#en-v2552)
+    * [Summary](#en-v2552-summary)
+    * [Fixed](#en-v2552-fixed)
+    * [Changed](#en-v2552-changed)
+2. [v2.5.5.1 — 2026-08-01](#en-v2551)
     * [Summary](#en-v2551-summary)
     * [Changed](#en-v2551-changed)
-2. [v2.5.5.0 — 2026-07-31](#en-v2550)
+3. [v2.5.5.0 — 2026-08-01](#en-v2550)
     * [Summary](#en-v2550-summary)
     * [Changed](#en-v2550-changed)
-3. [v2.5.4.0 — 2026-07-31](#en-v2540)
+4. [v2.5.4.0 — 2026-07-31](#en-v2540)
     * [Summary](#en-v2540-summary)
     * [Added](#en-v2540-added)
     * [Changed](#en-v2540-changed)
-4. [v2.5.3.0 — 2026-07-31](#en-v2530)
+5. [v2.5.3.0 — 2026-07-31](#en-v2530)
     * [Summary](#en-v2530-summary)
     * [Added](#en-v2530-added)
     * [Changed](#en-v2530-changed)
-4. [v2.5.2.1 — 2026-07-31](#en-v2521)
+6. [v2.5.2.1 — 2026-07-31](#en-v2521)
     * [Summary](#en-v2521-summary)
     * [Changed](#en-v2521-changed)
-5. [v2.5.2.0 — 2026-07-25](#en-v2520)
+7. [v2.5.2.0 — 2026-07-25](#en-v2520)
     * [Summary](#en-v2520-summary)
     * [Changed](#en-v2520-changed)
-5. [Introduction](#en-introduction)
-6. [v2.5.1.0 — 2026-07-23](#en-v2510)
+8. [Introduction](#en-introduction)
+9. [v2.5.1.0 — 2026-07-23](#en-v2510)
     * [Summary](#en-v2510-summary)
     * [Changed](#en-v2510-changed)
-6. [v2.5.0.0 — 2026-07-21](#en-v2500)
+10. [v2.5.0.0 — 2026-07-21](#en-v2500)
     * [Summary](#en-v2500-summary)
     * [Added](#en-v2500-added)
     * [Removed](#en-v2500-removed)
-7. [v2.4.2.0 — 2026-07-17](#en-v2420)
+11. [v2.4.2.0 — 2026-07-21](#en-v2420)
     * [Summary](#en-v2420-summary)
-8. [v2.4.1.0 — 2026-07-12](#en-v2410)
+12. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-9. [v2.4.0.0 — 2026-07-11](#en-v2400)
+13. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-10. [v2.3.1.0 — 2026-07-10](#en-v2310)
+14. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-10. [v2.3.0.0 — 2026-07-09](#en-v2300)
+15. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
     * [Notes](#en-v2300-notes)
-11. [v2.2.1.0 — 2026-07-07](#en-v2210)
+16. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-12. [v2.2.0.2 — 2026-07-07](#en-v2202)
+17. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-13. [v2.2.0.1 — 2026-07-06](#en-v2201)
+18. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
-14. [v2.2.0 — 2026-07-06](#en-v220)
+19. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
-14. [v2.1.6 — 2026-07-04](#en-v216)
+20. [v2.1.6 — 2026-07-05](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
     * [Changed](#en-v216-changed)
-15. [v2.1.5 — 2026-07-03](#en-v215)
+21. [v2.1.5 — 2026-07-03](#en-v215)
     * [Summary](#en-v215-summary)
     * [Changed](#en-v215-changed)
-16. [v2.1.4 — 2026-06-27](#en-v214)
+22. [v2.1.4 — 2026-06-27](#en-v214)
     * [Summary](#en-v214-summary)
     * [Changed](#en-v214-changed)
-17. [v2.1.3 — 2026-06-26](#en-v213)
+23. [v2.1.3 — 2026-06-26](#en-v213)
     * [Summary](#en-v213-summary)
     * [Changed](#en-v213-changed)
-18. [v2.1.2 — 2026-06-18](#en-v212)
+24. [v2.1.2 — 2026-06-18](#en-v212)
     * [Summary](#en-v212-summary)
     * [Changed](#en-v212-changed)
-19. [v2.1.1 — 2026-06-18](#en-v211)
+25. [v2.1.1 — 2026-06-18](#en-v211)
     * [Summary](#en-v211-summary)
     * [Fixed](#en-v211-fixed)
-20. [v2.1 — 2026-06-16](#en-v21)
+26. [v2.1 — 2026-06-16](#en-v21)
     * [Summary](#en-v21-summary)
     * [Added](#en-v21-added)
     * [Changed](#en-v21-changed)
     * [Statistics](#en-v21-statistics)
-21. [v2.0 — 2026-06-16](#en-v20)
+27. [v2.0 — 2026-06-16](#en-v20)
     * [Summary](#en-v20-summary)
     * [Added](#en-v20-added)
     * [Changed](#en-v20-changed)
     * [Statistics](#en-v20-statistics)
-22. [v1.2.2 — 2026-06-13](#en-v122)
+28. [v1.2.2 — 2026-06-13](#en-v122)
     * [Summary](#en-v122-summary)
     * [Changed](#en-v122-changed)
-23. [v1.2.1 — 2026-06-13](#en-v121)
+29. [v1.2.1 — 2026-06-13](#en-v121)
     * [Changed](#en-v121-changed)
-24. [v1.2 — 2026-06-12](#en-v12)
+30. [v1.2 — 2026-06-12](#en-v12)
     * [Summary](#en-v12-summary)
-25. [v1.1.1 — 2026-06-12](#en-v111)
+31. [v1.1.1 — 2026-06-12](#en-v111)
     * [Fixed](#en-v111-fixed)
-26. [v1.1 — 2026-06-12](#en-v11)
+32. [v1.1 — 2026-06-12](#en-v11)
     * [Summary](#en-v11-summary)
-27. [v1.0.1 — 2026-06-11](#en-v101)
+33. [v1.0.1 — 2026-06-11](#en-v101)
     * [Fixed](#en-v101-fixed)
-28. [v1.0 — 2026-06-08](#en-v10)
+34. [v1.0 — 2026-06-08](#en-v10)
     * [Summary](#en-v10-summary)
-29. [Notes](#en-notes)
+35. [Notes](#en-notes)
 
 ---
 
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v2552"></a>
+
+## [v2.5.5.2] — 2026-08-13
+
+<a id="en-v2552-summary"></a>
+
+### 🎯 Summary
+
+**Patch release — Brave 1.93.136 validation & ADMX CI fixes.** v2.5.5.2 fixes a critical Reset-mode regression (path constants were defined after the `-Reset`/`-Sifirla` block, so Reset crashed under PowerShell 5.1 with `Test-Path $null`), and reworks the ADMX cross-reference validator to auto-discover all 150 script policies instead of a hardcoded partial map. The validator now supports a documented-exception mechanism for Chromium policies intentionally absent from Brave's ADMX (e.g. `DeviceAttributesAllowedForOrigins`, a ChromeOS-only Device Attributes API policy kept for future-proofing). Validated against **Brave 1.93.136** (Chromium **151.0.7922.137**). No policy definitions changed — tier counts remain BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (total 150).
+
+| Metric | Before (v2.5.5.1) | After (v2.5.5.2) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 150 | 150 |
+| Cumulative chain | 24→52→84→122→150 | 24→52→84→122→150 |
+| Script version | v2.5.5.1 | v2.5.5.2 |
+| Validated Brave | 1.93.129 | 1.93.136 |
+| Validated Chromium | 151.0.7922.71 | 151.0.7922.137 |
+
+<a id="en-v2552-fixed"></a>
+
+### Fixed
+
+- **Critical Reset-mode regression (EN + TR)** — `$HKCU_Target`/`$HKLM_Target` and `$HKCU_Hedef`/`$HKLM_Hedef` path constants were defined **after** the `-Reset`/`-Sifirla` block. Reset mode therefore evaluated `Test-Path $null` (PowerShell 5.1 throws `ParameterBindingValidationException`) and crashed before removing any policies. Definitions moved above the Reset block; duplicate late definitions removed.
+- **ADMX validator hardcoded map** — `admx/admx-validate.ps1` validated only ~80 hardcoded policy names. It now auto-discovers all 150 policies directly from `BraveOmega-EN.ps1` and validates every one (type + ValueName) against `brave.admx`.
+
+<a id="en-v2552-changed"></a>
+
+### Changed
+
+- **Brave version bump** — Validated against Brave **1.93.136** (Chromium 151.0.7922.137). Brave 1.93.129 (Chromium 151.0.7922.71) remains supported.
+- **ADMX validator documented exceptions** — `$knownAdmxExceptions` allows policies intentionally absent from Brave's ADMX to be reported as warnings instead of hard failures (only `DeviceAttributesAllowedForOrigins` listed, documented in CHANGELOG; do not use it to silence typos).
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion`/`$BetikSurum` → `v2.5.5.2`, header + changelog updated.
+- **Tests** — new regression tests: Reset-mode path-constant ordering (EN/TR), ADMX validator auto-discovery count, and documented-exception handling.
 
 ---
 
@@ -173,7 +214,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 <a id="en-v2550"></a>
 
-## [v2.5.5.0] — 2026-07-31
+## [v2.5.5.0] — 2026-08-01
 
 <a id="en-v2550-summary"></a>
 
@@ -441,7 +482,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 <a id="en-v2420"></a>
 
-## [v2.4.2.0] — 2026-07-17
+## [v2.4.2.0] — 2026-07-21
 
 <a id="en-v2420-summary"></a>
 
@@ -608,14 +649,14 @@ Fixes #50
 
 ### 🎯 Summary
 
-**Brave 1.92.139 validation; ProxySettings added to Essential tier.** Lightweight validation release confirming full compatibility with Brave 1.92.139 (Chromium 150.0.7871.176). Adds ProxySettings to Essential tier for proxy configuration placeholder support.
+**Brave 1.92.139 validation; ProxySettings added to Essential tier.** Lightweight validation release confirming full compatibility with Brave 1.92.139 (Chromium 150.0.7871.114). Adds ProxySettings to Essential tier for proxy configuration placeholder support.
 
 | Metric | Before (v2.3.0.0) | After (v2.3.1.0) |
 |--------|-------------------|------------------|
 | Hardening levels | 5 | 5 |
 | Total policies | 110 | 110 |
 | Brave Only policies | 24 | 24 |
-| Essential additions | 26 | **27** (+1) |
+| Essential additions | 26 | 26 |
 | Balanced additions | 29 | 29 |
 | Advanced additions | 18 | 18 |
 | Strict additions | 13 | 13 |
@@ -634,7 +675,7 @@ Fixes #50
 ### Changed
 
 - **Script version** — `$ScriptVersion = "v2.3.1.0"` in both EN and TR scripts.
-- **Validated Brave version** — Updated to `1.92.139` (Chromium 150.0.7871.176).
+- **Validated Brave version** — Updated to `1.92.139` (Chromium 150.0.7871.114).
 - **Documentation** — README, Wiki, CHANGELOG updated for v2.3.1.0.
 
 <hr>
@@ -879,7 +920,7 @@ Fixes #50
 
 <a id="en-v216"></a>
 
-## [v2.1.6] — 2026-07-04
+## [v2.1.6] — 2026-07-05
 
 <a id="en-v216-summary"></a>
 
@@ -1571,16 +1612,16 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 | v2.5.2.0 | 2026-07-25 | 150   | Compatibility validation: Brave 1.92.144 (Chromium 150.0.7871.186); no policy changes |
 | v2.5.1.0 | 2026-07-23 | 150   | Compatibility validation: Brave 1.92.143 (Chromium 150.0.7871.182); no policy changes |
 | v2.5.0.0 | 2026-07-21 | 150   | Full policy expansion: 30 new policies (133→150); 9 broken/deprecated/cloud policies removed; AI blocking (13), local network access control, screen capture fine-grained, renderer sandbox; cumulative chain 24→53→86→124→150 |
-| v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation; no policy changes |
+| v2.4.2.0 | 2026-07-21 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation; no policy changes |
 | v2.4.1.0 | 2026-07-12 | 133   | Phase 9 fix: remove 8 broken/deprecated/blocked policies (141→133); extension policy cleanup — Forcelist & Allowlist simplified to Dark Reader only, removed Google Docs Offline + Kaspersky Protection + old IDs; ExtensionSettings JSON updated; cumulative chain 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Phase 9: 30 new policies across all tiers (Essential +3, Balanced +3, Advanced +10, Strict +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting removed; cumulative chain 24→53→85→112→141 |
-| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings added to Essential tier; Brave 1.92.139 (Chromium 150.0.7871.176) validation; cumulative chain 24→50→79→97→110 |
+| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings added to Essential tier; Brave 1.92.139 (Chromium 150.0.7871.114) validation; cumulative chain 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 new enterprise policies: extension lockdown, privacy, and network hardening; cumulative chain 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 new hardware API/security policies added; duplicate WebRtcIPHandling removed from Strict; total unique 91, zero duplicates; cumulative chain 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC alignment — Balanced upgraded to disable_non_proxied_udp (same as Strict), GitHub references removed |
 | v2.2.0.1 | 2026-07-06 | 80    | Policy refinement — one duplicate policy removed per level; Brave Only 23→22, Essential 40→39, Balanced 61→60, Advanced 72→71, Strict 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5-tier architecture (Brave Only/Essential/Balanced/Advanced/Strict), Advanced level added, Katı renumbered to Level 5, 81 policies |
-| v2.1.6 | 2026-07-04 | 81    | 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
+| v2.1.6 | 2026-07-05 | 81    | 15 new Brave-specific policies added, CloudPrintProxyEnabled removed (deprecated) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 upgrade; Chromium 149→150, no policy changes |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 validation; version bump |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 validation; version bump |
@@ -1637,134 +1678,175 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.5.5.1 — 2026-08-01](#tr-v2551)
+1. [v2.5.5.2 — 2026-08-13](#tr-v2552)
+    * [Özet](#tr-v2552-ozet)
+    * [Düzeltildi](#tr-v2552-duzeltildi)
+    * [Değiştirildi](#tr-v2552-degistirildi)
+2. [v2.5.5.1 — 2026-08-01](#tr-v2551)
     * [Özet](#tr-v2551-ozet)
     * [Değiştirildi](#tr-v2551-degistirildi)
-2. [v2.5.5.0 — 2026-07-31](#tr-v2550)
+3. [v2.5.5.0 — 2026-08-01](#tr-v2550)
     * [Özet](#tr-v2550-ozet)
     * [Değiştirildi](#tr-v2550-degistirildi)
-3. [v2.5.4.0 — 2026-07-31](#tr-v2540)
+4. [v2.5.4.0 — 2026-07-31](#tr-v2540)
     * [Özet](#tr-v2540-ozet)
     * [Eklendi](#tr-v2540-eklendi)
     * [Değiştirildi](#tr-v2540-degistirildi)
-3. [v2.5.3.0 — 2026-07-31](#tr-v2530)
+5. [v2.5.3.0 — 2026-07-31](#tr-v2530)
     * [Özet](#tr-v2530-ozet)
     * [Eklendi](#tr-v2530-eklendi)
     * [Değiştirildi](#tr-v2530-degistirildi)
-4. [v2.5.2.1 — 2026-07-31](#tr-v2521)
+6. [v2.5.2.1 — 2026-07-31](#tr-v2521)
     * [Özet](#tr-v2521-ozet)
     * [Değiştirildi](#tr-v2521-degistirildi)
-5. [v2.5.2.0 — 2026-07-25](#tr-v2520)
+7. [v2.5.2.0 — 2026-07-25](#tr-v2520)
     * [Özet](#tr-v2520-ozet)
     * [Değiştirildi](#tr-v2520-degistirildi)
-5. [Giriş](#tr-introduction)
-6. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+8. [Giriş](#tr-introduction)
+9. [v2.5.1.0 — 2026-07-23](#tr-v2510)
     * [Özet](#tr-v2510-ozet)
     * [Değiştirildi](#tr-v2510-degistirildi)
-6. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+10. [v2.5.0.0 — 2026-07-21](#tr-v2500)
     * [Özet](#tr-v2500-ozet)
     * [Eklendi](#tr-v2500-eklendi)
     * [Kaldırıldı](#tr-v2500-kaldirildi)
-7. [v2.4.2.0 — 2026-07-17](#tr-v2420)
+11. [v2.4.2.0 — 2026-07-21](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-8. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+12. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Kaldırıldı](#tr-v2410-kaldirildi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-9. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+13. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-10. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+14. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-11. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+15. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-12. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+16. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
-11. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+17. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
-12. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+18. [v2.2.0.1 — 2026-07-06](#tr-v2201)
     * [Özet](#tr-v2201-ozet)
-13. [v2.2.0 — 2026-07-06](#tr-v220)
+19. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
-14. [v2.1.6 — 2026-07-04](#tr-v216)
+20. [v2.1.6 — 2026-07-05](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
     * [Değiştirildi](#tr-v216-changed)
-15. [v2.1.5 — 2026-07-03](#tr-v215)
+21. [v2.1.5 — 2026-07-03](#tr-v215)
     * [Özet](#tr-v215-summary)
     * [Değiştirildi](#tr-v215-changed)
-16. [v2.1.4 — 2026-06-27](#tr-v214)
+22. [v2.1.4 — 2026-06-27](#tr-v214)
     * [Özet](#tr-v214-summary)
     * [Değiştirildi](#tr-v214-changed)
-17. [v2.1.3 — 2026-06-26](#tr-v213)
+23. [v2.1.3 — 2026-06-26](#tr-v213)
     * [Özet](#tr-v213-summary)
     * [Değiştirildi](#tr-v213-changed)
-18. [v2.1.2 — 2026-06-18](#tr-v212)
+24. [v2.1.2 — 2026-06-18](#tr-v212)
     * [Özet](#tr-v212-summary)
     * [Değiştirildi](#tr-v212-changed)
-19. [v2.1.1 — 2026-06-18](#tr-v211)
+25. [v2.1.1 — 2026-06-18](#tr-v211)
     * [Özet](#tr-v211-summary)
     * [Düzeltildi](#tr-v211-fixed)
-20. [v2.1 — 2026-06-16](#tr-v21)
+26. [v2.1 — 2026-06-16](#tr-v21)
     * [Özet](#tr-v21-summary)
     * [Eklendi](#tr-v21-added)
     * [Değiştirildi](#tr-v21-changed)
     * [İstatistikler](#tr-v21-statistics)
-21. [v2.0 — 2026-06-16](#tr-v20)
+27. [v2.0 — 2026-06-16](#tr-v20)
     * [Özet](#tr-v20-summary)
     * [Eklendi](#tr-v20-added)
     * [Değiştirildi](#tr-v20-changed)
     * [İstatistikler](#tr-v20-statistics)
-22. [v1.2.2 — 2026-06-13](#tr-v122)
+28. [v1.2.2 — 2026-06-13](#tr-v122)
     * [Özet](#tr-v122-summary)
     * [Değiştirildi](#tr-v122-changed)
-23. [v1.2.1 — 2026-06-13](#tr-v121)
+29. [v1.2.1 — 2026-06-13](#tr-v121)
     * [Özet](#tr-v121-summary)
     * [Değiştirildi](#tr-v121-changed)
-24. [v1.2 — 2026-06-12](#tr-v12)
+30. [v1.2 — 2026-06-12](#tr-v12)
     * [Özet](#tr-v12-summary)
     * [Eklendi](#tr-v12-added)
     * [İstatistikler](#tr-v12-statistics)
     * [Değiştirildi](#tr-v12-changed)
     * [Güvenlik](#tr-v12-security)
-25. [v1.1.1 — 2026-06-12](#tr-v111)
+31. [v1.1.1 — 2026-06-12](#tr-v111)
     * [Özet](#tr-v111-ozet)
     * [Düzeltildi](#tr-v111-duzeltildi)
-26. [v1.1 — 2026-06-05](#tr-v11)
+32. [v1.1 — 2026-06-05](#tr-v11)
     * [Özet](#tr-v11-summary)
     * [Eklendi](#tr-v11-added)
     * [Değiştirildi](#tr-v11-changed)
     * [Kaldırıldı](#tr-v11-removed)
     * [Detaylar](#tr-v11-details)
-27. [v1.0.1 — 2026-06-04](#tr-v101)
+33. [v1.0.1 — 2026-06-04](#tr-v101)
     * [Özet](#tr-v101-ozet)
     * [Düzeltildi](#tr-v101-duzeltildi)
-28. [v1.0 — 2026-06-04](#tr-v10)
+34. [v1.0 — 2026-06-04](#tr-v10)
     * [Özet](#tr-v10-summary)
     * [Özellikler](#tr-v10-features)
     * [Başlangıç Politikaları](#tr-v10-initial-policies)
     * [Belgelendirme](#tr-v10-documentation)
-29. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-30. [İlgili Belgelendirme](#tr-related-documentation)
-31. [Notlar](#tr-notes)
+35. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+36. [İlgili Belgelendirme](#tr-related-documentation)
+37. [Notlar](#tr-notes)
 
 ---
 
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v2552"></a>
+
+## [v2.5.5.2] — 2026-08-13
+
+<a id="tr-v2552-ozet"></a>
+
+### 🎯 Özet
+
+**Yama sürümü — Brave 1.93.136 doğrulaması ve ADMX CI düzeltmeleri.** v2.5.5.2, kritik bir Sıfırla modu gerilemesini düzeltir (yol sabitleri `-Sıfırla`/`-Reset` bloğundan **sonra** tanımlanıyordu; Sıfırla bu nedenle Windows PowerShell 5.1 altında `Test-Path $null` ile çöküyordu) ve ADMX çapraz referans doğrulayıcısını, sabit kodlanmış kısmi eşleme yerine 150 politikanın tamamını otomatik keşfedecek şekilde yeniden düzenler. Doğrulayıcı artık Brave'in ADMX'inde kasıtlı olarak bulunmayan Chromium politikaları için belgelenmiş-istisna mekanizması destekler (ör. `DeviceAttributesAllowedForOrigins`, geleceğe hazırlık için korunan, yalnızca ChromeOS'a özgü bir Device Attributes API politikası). **Brave 1.93.136** (Chromium **151.0.7922.137**) ile doğrulandı. Politika tanımı değişmedi — seviye sayıları Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (toplam 150) olarak korunur.
+
+| Metrik | Önce (v2.5.5.1) | Sonra (v2.5.5.2) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 150 | 150 |
+| Kümülatif zincir | 24→52→84→122→150 | 24→52→84→122→150 |
+| Betik sürümü | v2.5.5.1 | v2.5.5.2 |
+| Doğrulanan Brave | 1.93.129 | 1.93.136 |
+| Doğrulanan Chromium | 151.0.7922.71 | 151.0.7922.137 |
+
+<a id="tr-v2552-duzeltildi"></a>
+
+### Düzeltildi
+
+- **Kritik Sıfırla modu gerilemesi (TR + EN)** — `$HKCU_Hedef`/`$HKLM_Hedef` ve `$HKCU_Target`/`$HKLM_Target` yol sabitleri `-Sıfırla`/`-Reset` bloğundan **sonra** tanımlanıyordu. Sıfırla modu bu nedenle `Test-Path $null` değerlendirdi (Windows PowerShell 5.1 `ParameterBindingValidationException` fırlatır) ve herhangi bir politikayı kaldırmadan çöktü. Tanımlar Sıfırla bloğunun üzerine taşındı; yinelenen geç tanımlar kaldırıldı.
+- **ADMX doğrulayıcı sabit kodlanmış eşleme** — `admx/admx-validate.ps1` yalnızca ~80 sabit kodlanmış politika adını doğruluyordu. Artık 150 politikanın tamamını doğrudan `BraveOmega-EN.ps1`'den otomatik keşfeder ve her birini (tür + ValueName) `brave.admx` karşısında doğrular.
+
+<a id="tr-v2552-degistirildi"></a>
+
+### Değiştirildi
+
+- **Brave sürüm güncellemesi** — Brave **1.93.136** (Chromium 151.0.7922.137) ile doğrulandı. Brave 1.93.129 (Chromium 151.0.7922.71) desteklenmeye devam eder.
+- **ADMX doğrulayıcı belgelenmiş istisnalar** — `$knownAdmxExceptions`, Brave'in ADMX'inde kasıtlı olarak bulunmayan politikaların ciddi hata yerine uyarı olarak raporlanmasına izin verir (yalnızca `DeviceAttributesAllowedForOrigins` listelenir, CHANGELOG'da belgelenmiştir; yazım hatası susturmak için kullanmayın).
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion`/`$BetikSurum` → `v2.5.5.2`, başlık ve değişiklik geçmişi güncellendi.
+- **Testler** — yeni regresyon testleri: Sıfırla modu yol sabiti sıralaması (EN/TR), ADMX doğrulayıcı otomatik keşif sayısı ve belgelenmiş-istisna işleme.
 
 ---
 
@@ -1799,7 +1881,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 <a id="tr-v2550"></a>
 
-## [v2.5.5.0] — 2026-07-31
+## [v2.5.5.0] — 2026-08-01
 
 <a id="tr-v2550-ozet"></a>
 
@@ -2069,7 +2151,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 <a id="tr-v2420"></a>
 
-## [v2.4.2.0] — 2026-07-17
+## [v2.4.2.0] — 2026-07-21
 
 <a id="tr-v2420-ozet"></a>
 
@@ -2163,13 +2245,13 @@ Fixes #50
 | Metrik | Önce (v2.3.1.0) | Sonra (v2.4.0.0) |
 |--------|-----------------|------------------|
 | Sıkılaştırma seviyesi | 5 | 5 |
-| Toplam politika | 111 | **141** (+30) |
+| Toplam politika | 110 | **141** (+31) |
 | Brave Yalnız politikaları | 24 | 24 |
 | Temel eklemeleri | 19 | **22** (+3) |
 | Dengeli eklemeleri | 29 | **32** (+3) |
 | Gelişmiş eklemeleri | 17 | **27** (+10) |
 | Katı eklemeleri | 15 | **29** (+14) |
-| Kümülatif zincir | 24→50→79→96→110 | **24→53→85→112→141** |
+| Kümülatif zincir | 24→50→79→97→110 | **24→53→85→112→141** |
 
 <a id="tr-v2400-eklendi"></a>
 
@@ -2236,14 +2318,14 @@ Fixes #50
 
 ### 🎯 Özet
 
-**Brave 1.92.139 doğrulaması; Temel kademesine ProxySettings eklendi.** Brave 1.92.139 (Chromium 150.0.7871.176) ile tam uyumluluk doğrulaması. Temel kademesine proxy yapılandırma yer tutucu desteği için ProxySettings eklendi.
+**Brave 1.92.139 doğrulaması; Temel kademesine ProxySettings eklendi.** Brave 1.92.139 (Chromium 150.0.7871.114) ile tam uyumluluk doğrulaması. Temel kademesine proxy yapılandırma yer tutucu desteği için ProxySettings eklendi.
 
 | Metrik | Önce (v2.3.0.0) | Sonra (v2.3.1.0) |
 |--------|-----------------|------------------|
 | Sıkılaştırma seviyesi | 5 | 5 |
 | Toplam politika | 110 | 110 |
 | Brave Yalnız politikaları | 24 | 24 |
-| Temel eklemeleri | 18 | **19** (+1) |
+| Temel eklemeleri | 26 | 26 |
 | Dengeli eklemeleri | 29 | 29 |
 | Gelişmiş eklemeleri | 18 | 18 |
 | Katı eklemeleri | 13 | 13 |
@@ -2262,7 +2344,7 @@ Fixes #50
 ### Değiştirildi
 
 - **Betik sürümü** — Her iki betikte `$BetikSurum = "v2.3.1.0"`.
-- **Doğrulanan Brave sürümü** — `1.92.139` (Chromium 150.0.7871.176) olarak güncellendi.
+- **Doğrulanan Brave sürümü** — `1.92.139` (Chromium 150.0.7871.114) olarak güncellendi.
 - **Belgeler** — README, Wiki, CHANGELOG v2.3.1.0 için güncellendi.
 
 <hr>
@@ -2506,7 +2588,7 @@ Fixes #50
 
 <a id="tr-v216"></a>
 
-## [v2.1.6] — 2026-07-04
+## [v2.1.6] — 2026-07-05
 
 <a id="tr-v216-summary"></a>
 
@@ -3200,16 +3282,16 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 | v2.5.2.0 | 2026-07-25 | 150   | Uyumluluk doğrulaması: Brave 1.92.144 (Chromium 150.0.7871.186); politika değişikliği yok |
 | v2.5.1.0 | 2026-07-23 | 150   | Uyumluluk doğrulaması: Brave 1.92.143 (Chromium 150.0.7871.182); politika değişikliği yok |
 | v2.5.0.0 | 2026-07-21 | 150   | Tam politika genişletmesi: 30 yeni politika (133→150); 9 bozuk/kullanımdan kaldırılmış/bulut politikası kaldırıldı; Yapay zekâ engelleme (13), yerel ağ erişim kontrolü, ekran yakalama ince ayar, işleyici kum havuzu; kümülatif zincir 24→53→86→124→150 |
-| v2.4.2.0 | 2026-07-17 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması; politika değişikliği yok |
+| v2.4.2.0 | 2026-07-21 | 133   | Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması; politika değişikliği yok |
 | v2.4.1.0 | 2026-07-12 | 133   | Faz 9 düzeltmesi: 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141→133); uzantı politikası temizliği — Forcelist & Allowlist yalnızca Dark Reader'a basitleştirildi, Google Docs Offline + Kaspersky Protection + eski ID'ler kaldırıldı; ExtensionSettings JSON güncellendi; kümülatif zincir 24→52→83→104→133 |
 | v2.4.0.0 | 2026-07-11 | 141   | Faz 9: Tüm kademelerde 30 yeni politika (Temel +3, Dengeli +3, Gelişmiş +10, Katı +14); SpellcheckEnabled 0→1; ExtensionManifestV2Availability/DefaultThirdPartyStoragePartitioningSetting kaldırıldı; kümülatif zincir 24→53→85→112→141 |
-| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel kademesine eklendi; Brave 1.92.139 (Chromium 150.0.7871.176) uyumluluk doğrulaması; kümülatif zincir 24→50→79→97→110 |
+| v2.3.1.0 | 2026-07-10 | 110   | ProxySettings Temel kademesine eklendi; Brave 1.92.139 (Chromium 150.0.7871.114) uyumluluk doğrulaması; kümülatif zincir 24→50→79→97→110 |
 | v2.3.0.0 | 2026-07-09 | 110   | 19 yeni enterprise politikası: uzantı kilitleme, gizlilik ve ağ sıkılaştırması; kümülatif zincir 24→50→79→97→110 |
 | v2.2.1.0 | 2026-07-07 | 91    | 12 yeni donanım API/güvenlik politikası eklendi; yinelenen WebRtcIPHandling Katı'dan kaldırıldı; toplam benzersiz 91, sıfır tekrar; kümülatif zincir 22→47→72→83→91 |
 | v2.2.0.2 | 2026-07-07 | 80    | WebRTC hizalaması — Dengeli disable_non_proxied_udp'a yükseltildi (Katı ile aynı), GitHub atıfları kaldırıldı |
 | v2.2.0.1 | 2026-07-06 | 80    | Politika iyileştirme — seviye başına bir yinelenen politika kaldırıldı; Brave Yalnız 23→22, Temel 40→39, Dengeli 61→60, Gelişmiş 72→71, Katı 81→80 |
 | v2.2.0 | 2026-07-06 | 81    | 5 katmanlı mimari (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı), Gelişmiş seviyesi eklendi, Katı L4→L5, 81 politika |
-| v2.1.6 | 2026-07-04 | 81    | 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |
+| v2.1.6 | 2026-07-05 | 81    | 15 yeni Brave politikası eklendi, CloudPrintProxyEnabled kaldırıldı (kullanımdan kaldırıldı) |
 | v2.1.5 | 2026-07-03 | 67    | Brave 1.92.134 / Chromium 150.0.7871.63 yükseltmesi; Chromium 149→150, politika değişikliği yok |
 | v2.1.4 | 2026-06-27 | 67    | Brave 1.91.180 / Chromium 149.0.7827.201 doğrulaması; sürüm yükseltmesi |
 | v2.1.3 | 2026-06-26 | 67    | Brave 1.91.178 / Chromium 149.0.7827.196 doğrulaması; sürüm yükseltmesi |

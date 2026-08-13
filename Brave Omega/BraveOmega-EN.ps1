@@ -6,19 +6,35 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8894)
-#                    Brave 1.93.129 (Official Build) (64 bit) Chromium: 151.0.7922.71
+#                    Brave 1.93.136 (Official Build) (64 bit) Chromium: 151.0.7922.137
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.93.129, dated July 31, 2026, belongs to the Stable channel.
+#    Brave 1.93.136, dated August 13, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.5.5.1)
+# CHANGELOG (v2.5.5.2)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.5.2             Patch release — Brave 1.93.136 validation & ADMX CI fixes:
+#
+#     [FIX]         Critical Reset-mode regression: $HKCU_Target/$HKLM_Target path
+#                   constants were defined AFTER the -Reset block, so Reset mode
+#                   crashed on Test-Path $null (PowerShell 5.1). Moved definitions
+#                   above the Reset block.
+#
+#     [FIX]         admx/admx-validate.ps1 no longer hardcodes a partial policy
+#                   map. It auto-discovers all 150 policies from BraveOmega-EN.ps1
+#                   and validates every one against brave.admx. Added a documented-
+#                   exception mechanism for Chromium policies intentionally absent
+#                   from Brave's ADMX (e.g. DeviceAttributesAllowedForOrigins).
+#
+#     [CHANGED]     Validated against Brave 1.93.136 (Chromium 151.0.7922.137).
+#                   Brave 1.93.129 (Chromium 151.0.7922.71) remains supported.
+#
 #   v2.5.5.1             Patch release — CI/Release fixes & documentation consistency:
 #
 #     [FIX]         Release.ps1 now works under Windows PowerShell 5.1 (native
@@ -288,8 +304,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.5.1"
-$ValidatedBrave  = "1.93.129"
+$ScriptVersion   = "v2.5.5.2"
+$ValidatedBrave  = "1.93.136"
 $ValidatedChromium = "151"
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -464,6 +480,14 @@ $allPolicyNames = @(
         "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
     )
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PATH CONSTANTS
+# ─────────────────────────────────────────────────────────────────────────────
+$HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
+$HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
+
+
 if ($Reset) {
     Write-Host "[RESET MODE] Removing all Brave Omega policies..." -ForegroundColor Magenta
     Write-Host ""
@@ -623,13 +647,6 @@ if ($BraveProcesses) {
 } else {
     Write-Host "  -> Clean: No running Brave processes detected.`n" -ForegroundColor DarkGreen
 }
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# PATH CONSTANTS
-# ─────────────────────────────────────────────────────────────────────────────
-$HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
-$HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

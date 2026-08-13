@@ -96,7 +96,7 @@ function Get-VariableRegex {
 
 function New-MockBraveVersion {
     param(
-        [string]$Version = "1.93.129",
+        [string]$Version = "1.93.136",
         [string]$ChromiumMajor = "151"
     )
     return @{

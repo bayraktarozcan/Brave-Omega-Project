@@ -23,6 +23,27 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.5.2 — 2026-08-13
+
+**Patch Release — Brave 1.93.136 Validation & ADMX CI Fixes**
+
+**Fixed:**
+
+- Critical Reset-mode regression — `$HKCU_Target`/`$HKLM_Target` path constants were defined after the `-Reset` block, so Reset mode crashed on `Test-Path $null` under PowerShell 5.1. Constants moved above the Reset block (EN + TR).
+- `admx/admx-validate.ps1` no longer hardcodes a partial policy map. It now auto-discovers all 150 policies from `BraveOmega-EN.ps1` and validates every one against `brave.admx`. Added a documented-exception mechanism for Chromium policies intentionally absent from Brave's ADMX (e.g. `DeviceAttributesAllowedForOrigins`).
+
+**Changed:**
+
+- Validated against Brave **1.93.136** (Chromium 151.0.7922.137). Brave 1.93.129 (Chromium 151.0.7922.71) remains supported.
+- Tier counts unchanged: BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (total 150)
+- Both scripts updated to v2.5.5.2
+
+**Tests:**
+
+- Regression tests added for Reset-mode path-constant ordering (`ResetMode.Tests.ps1`) and full ADMX policy coverage + documented-exception handling (`ADMXCrossReference.Tests.ps1`)
+
+---
+
 ### v2.5.5.1 — 2026-08-01
 
 **Patch Release — CI Fixes & Documentation Consistency**
@@ -37,7 +58,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v2.5.5.0 — 2026-07-31
+### v2.5.5.0 — 2026-08-01
 
 **Smart Download Control — Precise Protection Restored**
 
@@ -104,7 +125,7 @@ Complete version history for Brave Omega.
 
 ---
 
-### v2.4.2.0 — 2026-07-17
+### v2.4.2.0 — 2026-07-21
 
 **Brave 1.92.141 (Chromium 150.0.7871.128) Compatibility Validation**
 
@@ -153,7 +174,7 @@ Fixes #50
 **Changed:**
 
 - SpellcheckEnabled changed from `0` → `1` (Essential): local Hunspell is offline-only; online spellcheck blocked separately by SpellCheckServiceEnabled=0 in Strict
-- Cumulative chain: 24→50→79→96→110 → **24→53→85→112→141**
+- Cumulative chain: 24→50→79→97→110 → **24→53→85→112→141**
 
 ---
 
@@ -167,14 +188,14 @@ Fixes #50
 
 **Changed:**
 
-- Brave validated version updated to 1.92.139 (Chromium 150.0.7871.176)
+- Brave validated version updated to 1.92.139 (Chromium 150.0.7871.114)
 - Both scripts updated to v2.3.1.0
 
 ---
 
 ### v2.3.0.0 — 2026-07-09
 
-**Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 111→133 Policies (+19)**
+**Phase 8: Extension Lockdown, Proxy & Privacy Hardening — 91→110 Policies (+19)**
 
 **Added:**
 - 19 new Chromium enterprise policies added:
@@ -186,7 +207,7 @@ Fixes #50
   - **Strict overrides:** TranslateEnabled (top priority), DownloadRestrictions (1→3), plus other tier overrides for IncognitoModeAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Changed:**
-- Cumulative chain restructured: 22→47→72→83→91 → 24→52→83→104→133
+- Cumulative chain restructured: 22→47→72→83→91 → 24→50→79→97→110
 - Brave validated version updated to 1.92.138 (Chromium 150.0.7871.101)
 - Both scripts updated to v2.3.0.0 with `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` overridden to `3` in Strict (Balanced uses `1`)
@@ -256,7 +277,7 @@ Fixes #50
 
 ---
 
-### v2.1.6.0 — 2026-07-04
+### v2.1.6.0 — 2026-07-05
 
 **Phase 3: Quality & Testing — Pester Test Suite, CI Improvements**
 
@@ -515,15 +536,16 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.5.1** *(current)* | 1.93.129 | 151 | 11 25H2 | ✅ Active |
-| v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
+| **v2.5.5.2** *(current)* | 1.93.136 | 151 | 11 25H2 | ✅ Active |
+| v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
+| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Previous |
 | v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Previous |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Previous |
-| v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Previous |
+| v2.4.1.0 | 1.92.139 | 150 | 11 25H2 | ✅ Previous |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Previous |
@@ -598,6 +620,27 @@ Brave Omega için tam sürüm geçmişi.
 
 ## Sürüm Geçmişi
 
+### v2.5.5.2 — 2026-08-13
+
+**Yama Sürümü — Brave 1.93.136 Doğrulaması ve ADMX CI Düzeltmeleri**
+
+**Düzeltilenler:**
+
+- Kritik Sıfırlama modu gerilemesi — `$HKCU_Hedef`/`$HKLM_Hedef` yol sabitleri `-Sifirla` bloğundan sonra tanımlanıyordu, bu nedenle Sıfırlama modu PowerShell 5.1 altında `Test-Path $null` hatasıyla çöküyordu. Sabitler Sıfırlama bloğunun üstüne taşındı (EN + TR).
+- `admx/admx-validate.ps1` artık kısmi bir politika haritasını sabit kodlamıyor. 150 politikanın tamamını `BraveOmega-EN.ps1`'den otomatik keşfeder ve her birini `brave.admx` karşısında doğrular. Brave'in ADMX'inde kasıtlı olarak bulunmayan Chromium politikaları için belgelenmiş istisna mekanizması eklendi (örn. `DeviceAttributesAllowedForOrigins`).
+
+**Değiştirilenler:**
+
+- Brave **1.93.136** (Chromium 151.0.7922.137) ile doğrulandı. Brave 1.93.129 (Chromium 151.0.7922.71) desteklenmeye devam eder.
+- Seviye sayıları değişmedi: Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (toplam 150)
+- Her iki betik v2.5.5.2'ye güncellendi
+
+**Testler:**
+
+- Sıfırlama modu yol sabiti sıralaması için gerileme testleri (`ResetMode.Tests.ps1`) ve tam ADMX politika kapsamı + belgelenmiş istisna işleme (`ADMXCrossReference.Tests.ps1`) eklendi
+
+---
+
 ### v2.5.5.1 — 2026-08-01
 
 **Yama Sürümü — CI Düzeltmeleri ve Dokümantasyon Tutarlılığı**
@@ -612,7 +655,7 @@ Brave Omega için tam sürüm geçmişi.
 
 ---
 
-### v2.5.5.0 — 2026-07-31
+### v2.5.5.0 — 2026-08-01
 
 **Akıllı İndirme Kontrolü — Kesin Koruma Geri Getirildi**
 
@@ -677,7 +720,7 @@ Brave Omega için tam sürüm geçmişi.
 
 ---
 
-### v2.4.2.0 — 2026-07-17
+### v2.4.2.0 — 2026-07-21
 
 **Brave 1.92.141 (Chromium 150.0.7871.128) Uyumluluk Doğrulaması**
 
@@ -726,7 +769,7 @@ Fixes #50
 **Değişenler:**
 
 - SpellcheckEnabled `0`'dan `1`'e değiştirildi (Temel): Yerel Hunspell çevrimdışıdır; çevrimiçi yazım denetimi Katı'daki SpellCheckServiceEnabled=0 ile ayrıca engellenir
-- Kümülatif zincir: 24→50→79→96→110 → **24→53→85→112→141**
+- Kümülatif zincir: 24→50→79→97→110 → **24→53→85→112→141**
 
 ---
 
@@ -740,14 +783,14 @@ Fixes #50
 
 **Değişenler:**
 
-- Doğrulanmış Brave sürümü 1.92.139'e güncellendi (Chromium 150.0.7871.176)
+- Doğrulanmış Brave sürümü 1.92.139'e güncellendi (Chromium 150.0.7871.114)
 - Her iki betik v2.3.1.0'a güncellendi
 
 ---
 
 ### v2.3.0.0 — 2026-07-09
 
-**Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 111→133 Politika (+19)**
+**Aşama 8: Uzantı Kilitleme, Proxy ve Gizlilik Sıkılaştırması — 91→110 Politika (+19)**
 
 **Eklenenler:**
 - 19 yeni Chromium kurumsal politikası eklendi:
@@ -763,7 +806,7 @@ Fixes #50
   ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, DeveloperToolsDisabled, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled
 
 **Değişenler:**
-- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→52→83→104→133
+- Kümülatif zincir yeniden yapılandırıldı: 22→47→72→83→91 → 24→50→79→97→110
 - Doğrulanmış Brave sürümü 1.92.138'e güncellendi (Chromium 150.0.7871.101)
 - Her iki betik v2.3.0.0'a güncellendi, `$ScriptVersion = "v2.3.0.0"` / `$BetikSurum = "v2.3.0.0"`
 - `DownloadRestrictions` Katı'da `3` ile geçersiz kılındı (Dengeli `1` kullanır)
@@ -831,7 +874,7 @@ Fixes #50
 
 ---
 
-### v2.1.6.0 — 2026-07-04
+### v2.1.6.0 — 2026-07-05
 
 **Aşama 3: Kalite & Test — Pester Test Takımı, CI İyileştirmeleri**
 
@@ -1091,15 +1134,16 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.5.1** *(güncel)* | 1.93.129 | 151 | 11 25H2 | ✅ Etkin |
-| v2.5.5.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
+| **v2.5.5.2** *(güncel)* | 1.93.136 | 151 | 11 25H2 | ✅ Etkin |
+| v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
+| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | ✅ Önceki |
 | v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | ✅ Önceki |
 | v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
 | v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | ✅ Önceki |
-| v2.4.1.0 | 1.92.140 | 150 | 11 25H2 | ✅ Önceki |
+| v2.4.1.0 | 1.92.139 | 150 | 11 25H2 | ✅ Önceki |
 | v2.3.0.0 | 1.92.138 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.1.0 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |
 | v2.2.0.2 | 1.92.134 | 150 | 11 25H2 | ✅ Önceki |

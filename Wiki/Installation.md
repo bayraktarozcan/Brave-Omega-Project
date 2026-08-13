@@ -5,7 +5,7 @@
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.5.5.1 (Brave 1.93.129 Compatibility).
+Complete installation guide for Brave Omega v2.5.5.2 (Brave 1.93.136 Compatibility).
 
 ---
 
@@ -99,7 +99,7 @@ Navigate to `brave://policy` — all Essential level policies (52) should show *
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session only | Current process | ✅ Better |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(used)* | **Single command** | **Child process only** | ✅ **Best — no persistence** |
 
-> **Brave Omega v2.5.5.1 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
+> **Brave Omega v2.5.5.2 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
 
 ---
 
@@ -195,10 +195,10 @@ BRAVE OMEGA PROJECT/
 └── Brave Omega/
         BraveOmega-EN.ps1             Main script — English interface
         BraveOmega-TR.ps1             Main script — Turkish interface
-└── Tests/                         Pester test suite (16 files)
-            BraveOmega.EN.Tests.ps1        Unit + integration tests (EN)
-            BraveOmega.TR.Tests.ps1        Unit + integration tests (TR)
-            └── *.Tests.ps1                  Phased policy tests (13 files)
+└── Tests/                         Pester test suite (18 files)
+            FullPipeline-EN.Tests.ps1       Unit + integration tests (EN)
+            FullPipeline-TR.Tests.ps1       Unit + integration tests (TR)
+            └── *.Tests.ps1                  Phased policy tests (16 files)
 ```
 
 ---
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v2.5.5.1 için tam kurulum kılavuzu (Brave 1.93.129 Uyumluluğu).
+Brave Omega v2.5.5.2 için tam kurulum kılavuzu (Brave 1.93.136 Uyumluluğu).
 
 ---
 
@@ -313,7 +313,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Yalnızca oturum | Geçerli işlem | ✅ Daha iyi |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(kullanılan)* | **Tek komut** | **Yalnızca alt işlem** | ✅ **En iyi — kalıcılık yok** |
 
-> **Brave Omega v2.5.5.1 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
+> **Brave Omega v2.5.5.2 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
 
 ---
 
@@ -409,10 +409,10 @@ BRAVE OMEGA PROJECT/
 └── Brave Omega/
         BraveOmega-EN.ps1             Ana betik — İngilizce arayüz
         BraveOmega-TR.ps1             Ana betik — Türkçe arayüz
-└── Tests/                         Pester test paketi (16 dosya)
-        BraveOmega.EN.Tests.ps1        Birim + entegrasyon testleri (EN)
-        BraveOmega.TR.Tests.ps1        Birim + entegrasyon testleri (TR)
-        └── *.Tests.ps1                  Aşamalı politika testleri (13 dosya)
+└── Tests/                         Pester test paketi (18 dosya)
+        FullPipeline-EN.Tests.ps1       Birim + entegrasyon testleri (EN)
+        FullPipeline-TR.Tests.ps1       Birim + entegrasyon testleri (TR)
+        └── *.Tests.ps1                  Aşamalı politika testleri (16 dosya)
 ```
 
 ---

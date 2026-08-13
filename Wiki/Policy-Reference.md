@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.5.5.1 — **150 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v2.5.5.2 — **150 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
@@ -116,13 +116,13 @@ Complete policy reference for Brave Omega v2.5.5.1 — **150 enterprise policies
 | `DefaultPopupsSetting` | `2` | DWord | Blocks pop-ups by default |
 | `DefaultBraveHttpsUpgradeSetting` | `2` | DWord | Forces HTTPS upgrades |
 | `DefaultBraveReferrersSetting` | `2` | DWord | Blocks referrer headers |
-| `BraveSyncUrl` | `""` | String | Disables Brave Sync |
+| `BraveSyncUrl` | `"https://sync-v2.brave.com/v2"` | String | Sets Brave sync server endpoint |
 | `DefaultWindowManagementSetting` | `2` | DWord | Blocks window management API |
 | `SitePerProcess` | `1` | DWord | Forces site-per-process isolation |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Enables intensive wake-up throttling |
 | `UserFeedbackAllowed` | `0` | DWord | Disables user feedback |
 | `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Force-installs Dark Reader |
-| `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Sets default download directory |
+| `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
 | `RelaunchNotification` | `2` | DWord | **[Phase 9]** Mandatory relaunch after update |
 | `RelaunchNotificationPeriod` | `3600000` | DWord | **[Phase 9]** 1-hour delay before forced relaunch |
@@ -263,7 +263,7 @@ All 150 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.5.5.1 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **150 kurumsal politika**.
+Brave Omega v2.5.5.2 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **150 kurumsal politika**.
 
 ---
 
@@ -374,13 +374,13 @@ Brave Omega v2.5.5.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `DefaultPopupsSetting` | `2` | DWord | Varsayılan olarak açılır pencereleri engeller |
 | `DefaultBraveHttpsUpgradeSetting` | `2` | DWord | HTTPS yükseltmelerini zorlar |
 | `DefaultBraveReferrersSetting` | `2` | DWord | Referans başlıklarını engeller |
-| `BraveSyncUrl` | `""` | String | Brave Sync'i devre dışı bırakır |
+| `BraveSyncUrl` | `"https://sync-v2.brave.com/v2"` | String | Brave Sync sunucu uç noktasını belirler |
 | `DefaultWindowManagementSetting` | `2` | DWord | Pencere yönetimini engeller |
 | `SitePerProcess` | `1` | DWord | Site başına süreç izolasyonunu zorlar |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Yoğun uyanma kısıtlamasını etkinleştirir |
 | `UserFeedbackAllowed` | `0` | DWord | Kullanıcı geri bildirimini devre dışı bırakır |
 | `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Dark Reader'ı zorla yükler |
-| `DownloadDirectory` | `"%USERPROFILE%\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
+| `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
 | `RelaunchNotification` | `2` | DWord | **[Faz 9]** Güncelleme sonrası zorunlu yeniden başlatma |
 | `RelaunchNotificationPeriod` | `3600000` | DWord | **[Faz 9]** Zorunlu yeniden başlatma öncesi 1 saat gecikme |
