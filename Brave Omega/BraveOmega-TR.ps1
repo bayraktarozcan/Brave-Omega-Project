@@ -6,19 +6,35 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8894)
-#                  Brave 1.93.129 (Resmi Derleme) (64 bit) Chromium: 151.0.7922.71
+#                  Brave 1.93.136 (Resmi Derleme) (64 bit) Chromium: 151.0.7922.137
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
 #                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
 #                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.93.129, 31 Temmuz 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.93.136, 13 Ağustos 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.1)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.2)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.5.2             Yama sürümü — Brave 1.93.136 doğrulaması ve ADMX CI düzeltmeleri:
+#
+#     [DÜZELT]      Kritik Reset-modu gerilemesi: $HKCU_Hedef/$HKLM_Hedef yol
+#                   sabitleri -Reset bloğundan SONRA tanımlanıyordu; bu yüzden
+#                   Reset modu PowerShell 5.1'de Test-Path $null ile çöküyordu.
+#                   Tanımlar Reset bloğunun üzerine taşındı.
+#
+#     [DÜZELT]      admx/admx-validate.ps1 artık kısmi bir politika haritasını
+#                   sabit kodlamıyor. 150 politikanın tümünü BraveOmega-EN.ps1'den
+#                   otomatik keşfeder ve her birini brave.admx'e karşı doğrular.
+#                   Brave ADMX'inde bilinçli olarak bulunmayan Chromium politikaları
+#                   için belgeli-istisna mekanizması eklendi (ör. DeviceAttributesAllowedForOrigins).
+#
+#     [DEĞİŞTİ]     Brave 1.93.136 (Chromium 151.0.7922.137) ile doğrulandı.
+#                   Brave 1.93.129 (Chromium 151.0.7922.71) desteklenmeye devam eder.
+#
 #   v2.5.5.1             Yama sürümü — CI/Release düzeltmeleri ve dokümantasyon tutarlılığı:
 #
 #     [DÜZELT]      Release.ps1 artık Windows PowerShell 5.1 altında çalışır (yerel
@@ -285,8 +301,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.5.5.1"
-$DogrulananBrave = "1.93.129"
+$BetikSurum    = "v2.5.5.2"
+$DogrulananBrave = "1.93.136"
 $DogrulananChromium = "151"
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -460,6 +476,14 @@ $tumPolitikalar = @(
         "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
     )
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# YOL SABİTLERİ
+# ─────────────────────────────────────────────────────────────────────────────
+$HKCU_Hedef = "HKCU:\Software\BraveSoftware\Brave-Browser"
+$HKLM_Hedef = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
+
+
 if ($Sifirla) {
     Write-Host "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
     Write-Host ""
@@ -627,13 +651,6 @@ if ($BraveIslemleri) {
 } else {
     Write-Host "  -> Temiz: Çalışan Brave süreci tespit edilmedi.`n" -ForegroundColor DarkGreen
 }
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# YOL SABİTLERİ
-# ─────────────────────────────────────────────────────────────────────────────
-$HKCU_Hedef = "HKCU:\Software\BraveSoftware\Brave-Browser"
-$HKLM_Hedef = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

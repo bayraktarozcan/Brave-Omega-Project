@@ -48,6 +48,50 @@ Describe "Reset Mode - Reset Policy Count" -Tag "Unit" {
     }
 }
 
+Describe "Reset Mode - Path Constants Defined Before Reset Block" -Tag "Unit" {
+    It "EN should define HKCU/HKLM target constants before the -Reset block" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $hkcudef = $content.IndexOf('$HKCU_Target = ')
+        $hklmdef = $content.IndexOf('$HKLM_Target = ')
+        $resetIdx = $content.IndexOf('if ($Reset) {')
+        $hkcudef | Should -BeGreaterThan 0
+        $hklmdef | Should -BeGreaterThan 0
+        $resetIdx | Should -BeGreaterThan 0
+        $hkcudef | Should -BeLessThan $resetIdx
+        $hklmdef | Should -BeLessThan $resetIdx
+    }
+
+    It "TR should define HKCU/HKLM target constants before the -Sifirla block" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $hkcudef = $content.IndexOf('$HKCU_Hedef = ')
+        $hklmdef = $content.IndexOf('$HKLM_Hedef = ')
+        $resetIdx = $content.IndexOf('if ($Sifirla) {')
+        $hkcudef | Should -BeGreaterThan 0
+        $hklmdef | Should -BeGreaterThan 0
+        $resetIdx | Should -BeGreaterThan 0
+        $hkcudef | Should -BeLessThan $resetIdx
+        $hklmdef | Should -BeLessThan $resetIdx
+    }
+
+    It "EN should not re-define target constants inside the -Reset block" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $resetIdx = $content.IndexOf('if ($Reset) {')
+        $dupIdx = $content.IndexOf('$HKCU_Target = ', $resetIdx)
+        $dupIdx | Should -Be -1
+        $dupIdx2 = $content.IndexOf('$HKLM_Target = ', $resetIdx)
+        $dupIdx2 | Should -Be -1
+    }
+
+    It "TR should not re-define target constants inside the -Sifirla block" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $resetIdx = $content.IndexOf('if ($Sifirla) {')
+        $dupIdx = $content.IndexOf('$HKCU_Hedef = ', $resetIdx)
+        $dupIdx | Should -Be -1
+        $dupIdx2 = $content.IndexOf('$HKLM_Hedef = ', $resetIdx)
+        $dupIdx2 | Should -Be -1
+    }
+}
+
 Describe "Reset Mode - allPolicyNames Array" -Tag "Unit" {
     It "EN should define allPolicyNames array" {
         $content = Get-Content -Path $ScriptEN -Raw

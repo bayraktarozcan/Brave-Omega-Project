@@ -59,7 +59,7 @@ Copy the template below and fill in placeholders when creating new releases.
 
 ### Summary
 
-Validates full compatibility with Brave **1.92.139** (Chromium 150.0.7871.176).
+Validates full compatibility with Brave **1.92.139** (Chromium 150.0.7871.114).
 Adds `ProxySettings` to Essential tier for proxy configuration placeholder support.
 
 | Metric | Before (v2.3.0.0) | After (v2.3.1.0) |
@@ -67,7 +67,7 @@ Adds `ProxySettings` to Essential tier for proxy configuration placeholder suppo
 | Hardening levels | 5 | 5 |
 | Total policies | 110 | 110 |
 | Brave Only | 24 | 24 |
-| Essential | 18 | **19** (+1) |
+| Essential | 26 | 26 |
 | Balanced | 29 | 29 |
 | Advanced | 18 | 18 |
 | Strict | 13 | 13 |
@@ -81,7 +81,7 @@ Adds `ProxySettings` to Essential tier for proxy configuration placeholder suppo
 ### Changed
 
 - Script version → `v2.3.1.0`
-- Validated Brave → `1.92.139` (Chromium 150.0.7871.176)
+- Validated Brave → `1.92.139` (Chromium 150.0.7871.114)
 - Documentation updated (README, Wiki, CHANGELOG)
 
 ### Files
