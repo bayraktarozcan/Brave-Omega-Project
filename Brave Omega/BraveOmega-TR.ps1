@@ -6,19 +6,31 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8894)
-#                  Brave 1.93.136 (Resmi Derleme) (64 bit) Chromium: 151.0.7922.137
+#                  Brave 1.93.138 (Resmi Derleme) (64 bit) Chromium: 151.0.7922.173
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
 #                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
 #                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.93.136, 13 Ağustos 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.93.138, 21 Ağustos 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.2)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.3)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.5.5.3             Yama sürümü — Brave 1.93.138 uyumluluk doğrulaması:
+#
+#     [DEĞİŞTİ]     Brave 1.93.138 (Chromium 151.0.7922.173) ile doğrulandı;
+#                   21 Ağustos 2026 tarihinde yayınlandı. Brave 1.93.136
+#                   (Chromium 151.0.7922.137) ve Brave 1.93.129 (Chromium
+#                   151.0.7922.71) desteklenmeye devam eder.
+#
+#     [DOK]         README, index.html, Wiki, SECURITY.md ve test paketindeki
+#                   sürüm referansları güncellendi. Politika tanımı değişmedi —
+#                   seviye sayıları Brave Yalnız 24, Temel 28, Dengeli 32,
+#                   Gelişmiş 38, Katı 28 (toplam 150) olarak korunur.
+#
 #   v2.5.5.2             Yama sürümü — Brave 1.93.136 doğrulaması ve ADMX CI düzeltmeleri:
 #
 #     [DÜZELT]      Kritik Reset-modu gerilemesi: $HKCU_Hedef/$HKLM_Hedef yol
@@ -301,8 +313,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.5.5.2"
-$DogrulananBrave = "1.93.136"
+$BetikSurum    = "v2.5.5.3"
+$DogrulananBrave = "1.93.138"
 $DogrulananChromium = "151"
 
 # ─────────────────────────────────────────────────────────────────────────────
