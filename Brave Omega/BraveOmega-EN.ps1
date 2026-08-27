@@ -6,30 +6,32 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8894)
-#                    Brave 1.93.138 (Official Build) (64 bit) Chromium: 151.0.7922.173
+#                    Brave 1.94.117 (Official Build) (64 bit) Chromium: 152.0.7977.64
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.93.138, dated August 21, 2026, belongs to the Stable channel.
+#    Brave 1.94.117, dated August 26, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.5.5.3)
+# CHANGELOG (v2.5.5.4)
 # ─────────────────────────────────────────────────────────────────────────────
-#   v2.5.5.3             Patch release — Brave 1.93.138 compatibility validation:
+#   v2.5.5.4             Patch release — Brave 1.94.117 compatibility validation:
 #
-#     [CHANGED]     Validated against Brave 1.93.138 (Chromium 151.0.7922.173),
-#                   released August 21, 2026. Brave 1.93.136 (Chromium
-#                   151.0.7922.137) and Brave 1.93.129 (Chromium 151.0.7922.71)
-#                   remain supported.
+#     [CHANGED]     Validated against Brave 1.94.117 (Chromium 152.0.7977.64),
+#                   released August 26, 2026. Brave 1.93.138 (Chromium
+#                   151.0.7922.173), Brave 1.93.136 (Chromium 151.0.7922.137)
+#                   and Brave 1.93.129 (Chromium 151.0.7922.71) remain supported.
 #
 #     [DOC]         Version references refreshed across README, index.html,
 #                   Wiki, SECURITY.md and the test suite. No policy definitions
 #                   changed — tier counts remain BraveOnly 24, Essential 28,
 #                   Balanced 32, Advanced 38, Strict 28 (total 150).
+#
+#   v2.5.5.3             Patch release — Brave 1.93.138 compatibility validation:
 #
 #   v2.5.5.2             Patch release — Brave 1.93.136 validation & ADMX CI fixes:
 #
@@ -316,9 +318,9 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.5.3"
-$ValidatedBrave  = "1.93.138"
-$ValidatedChromium = "151"
+$ScriptVersion   = "v2.5.5.4"
+$ValidatedBrave  = "1.94.117"
+$ValidatedChromium = "152"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TERMINAL ENCODING HARDENING (CHARACTER ERROR RESOLUTION)

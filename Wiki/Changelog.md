@@ -23,6 +23,18 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.5.5.4 — 2026-08-27
+
+**Patch Release — Brave 1.94.117 Validation**
+
+**Changed:**
+
+- Validated against Brave **1.94.117** (Chromium 152.0.7977.64). Brave 1.93.138 (Chromium 151.0.7922.173), 1.93.136 (Chromium 151.0.7922.137) and 1.93.129 (Chromium 151.0.7922.71) remain supported.
+- No policy changes; cumulative chain: BraveOnly 24 / Essential 52 / Balanced 84 / Advanced 122 / Strict 150
+- Both scripts updated to v2.5.5.4
+
+---
+
 ### v2.5.5.3 — 2026-08-22
 
 **Patch Release — Brave 1.93.138 Validation**
@@ -548,7 +560,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.5.3** *(current)* | 1.93.138 | 151 | 11 25H2 | ✅ Active |
+| **v2.5.5.4** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
@@ -632,6 +645,18 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.5.5.4 — 2026-08-27
+
+**Yama Sürümü — Brave 1.94.117 Doğrulaması**
+
+**Değiştirilenler:**
+
+- Brave **1.94.117** (Chromium 152.0.7977.64) ile doğrulandı. Brave 1.93.138 (Chromium 151.0.7922.173), 1.93.136 (Chromium 151.0.7922.137) ve 1.93.129 (Chromium 151.0.7922.71) desteklenmeye devam eder.
+- Politika değişikliği yok; kümülatif zincir: BraveOnly 24 / Essential 52 / Balanced 84 / Advanced 122 / Strict 150
+- Her iki betik v2.5.5.4'e güncellendi
+
+---
 
 ### v2.5.5.3 — 2026-08-22
 
@@ -1159,7 +1184,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.5.3** *(güncel)* | 1.93.138 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.5.4** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |

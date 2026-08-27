@@ -12,7 +12,7 @@
 <br>
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
-[![Brave](https://img.shields.io/badge/Brave-1.93.138%20%7C%20Chromium%20151-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
+[![Brave](https://img.shields.io/badge/Brave-1.94.117%20%7C%20Chromium%20152-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-Policy-8B5CF6?style=flat-square)](SECURITY.md)
@@ -59,7 +59,7 @@ Brave Omega is a registry-hardening tool designed to **enhance** browser privacy
 
 | Branch | Status | Supported |
 |--------|--------|-----------|
-| **Latest stable release (currently v2.5.5.3)** | Active | ✅ Fully supported — security patches, policy updates, feature improvements |
+| **Latest stable release (currently v2.5.5.4)** | Active | ✅ Fully supported — security patches, policy updates, feature improvements |
 | All previous releases | End of life | ❌ No longer supported |
 
 > [!NOTE]
@@ -335,7 +335,7 @@ Brave Omega, tarayıcı gizliliğini artırmak için tasarlanmış bir kayıt de
 
 | Dal | Durum | Destek |
 |-----|-------|--------|
-| **En son kararlı sürüm (şu an v2.5.5.3)** | Aktif | ✅ Tam destek — güvenlik yamaları, politika güncellemeleri, yeni özellikler |
+| **En son kararlı sürüm (şu an v2.5.5.4)** | Aktif | ✅ Tam destek — güvenlik yamaları, politika güncellemeleri, yeni özellikler |
 | Önceki tüm sürümler | Kullanım ömrü sonu | ❌ Artık desteklenmiyor |
 
 > [!NOTE]

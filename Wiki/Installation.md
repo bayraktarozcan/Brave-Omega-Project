@@ -5,7 +5,7 @@
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.5.5.3 (Brave 1.93.138 Compatibility).
+Complete installation guide for Brave Omega v2.5.5.4 (Brave 1.94.117 Compatibility).
 
 ---
 
@@ -99,7 +99,7 @@ Navigate to `brave://policy` — all Essential level policies (52) should show *
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session only | Current process | ✅ Better |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(used)* | **Single command** | **Child process only** | ✅ **Best — no persistence** |
 
-> **Brave Omega v2.5.5.3 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
+> **Brave Omega v2.5.5.4 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
 
 ---
 
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v2.5.5.3 için tam kurulum kılavuzu (Brave 1.93.138 Uyumluluğu).
+Brave Omega v2.5.5.4 için tam kurulum kılavuzu (Brave 1.94.117 Uyumluluğu).
 
 ---
 
@@ -313,7 +313,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Yalnızca oturum | Geçerli işlem | ✅ Daha iyi |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(kullanılan)* | **Tek komut** | **Yalnızca alt işlem** | ✅ **En iyi — kalıcılık yok** |
 
-> **Brave Omega v2.5.5.3 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
+> **Brave Omega v2.5.5.4 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
 
 ---
 
