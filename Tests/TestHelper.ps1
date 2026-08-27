@@ -96,8 +96,8 @@ function Get-VariableRegex {
 
 function New-MockBraveVersion {
     param(
-        [string]$Version = "1.93.138",
-        [string]$ChromiumMajor = "151"
+        [string]$Version = "1.94.117",
+        [string]$ChromiumMajor = "152"
     )
     return @{
         Path = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"

@@ -5,22 +5,22 @@ BeforeAll {
 Describe "Version Check" -Tag "Unit" {
     It "EN should have expected Brave version constant" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $content -match 'ValidatedBrave.*=.*"1\.93\.138"' | Should -Be $true
+        $content -match 'ValidatedBrave.*=.*"1\.94\.117"' | Should -Be $true
     }
 
     It "EN should have expected Chromium version constant" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $content -match 'ValidatedChromium.*=.*"151"' | Should -Be $true
+        $content -match 'ValidatedChromium.*=.*"152"' | Should -Be $true
     }
 
     It "TR should have expected Brave version constant" {
         $content = Get-Content -Path $ScriptTR -Raw
-        $content -match 'DogrulananBrave.*=.*"1\.93\.138"' | Should -Be $true
+        $content -match 'DogrulananBrave.*=.*"1\.94\.117"' | Should -Be $true
     }
 
     It "TR should have expected Chromium version constant" {
         $content = Get-Content -Path $ScriptTR -Raw
-        $content -match 'DogrulananChromium.*=.*"151"' | Should -Be $true
+        $content -match 'DogrulananChromium.*=.*"152"' | Should -Be $true
     }
 
     It "should detect version mismatch" {
@@ -30,8 +30,8 @@ Describe "Version Check" -Tag "Unit" {
     }
 
     It "should confirm version match" {
-        $braveVersion = "1.93.138"
-        $ValidatedBrave = "1.93.138"
+        $braveVersion = "1.94.117"
+        $ValidatedBrave = "1.94.117"
         ($braveVersion -eq $ValidatedBrave) | Should -Be $true
     }
 

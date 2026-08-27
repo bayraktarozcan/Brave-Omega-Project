@@ -39,11 +39,11 @@ BeforeAll {
     }
 }
 
-Describe "Stale Policy Cleanup - v2.5.5.3" -Tag "Unit" {
+Describe "Stale Policy Cleanup - v2.5.5.4" -Tag "Unit" {
 
-    It "should declare v2.5.5.3 in both scripts" {
-        (Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion") | Should -Be "v2.5.5.3"
-        (Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum") | Should -Be "v2.5.5.3"
+    It "should declare v2.5.5.4 in both scripts" {
+        (Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion") | Should -Be "v2.5.5.4"
+        (Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum") | Should -Be "v2.5.5.4"
     }
 
     It "should define the known-policy array OUTSIDE the -Reset block in EN script" {

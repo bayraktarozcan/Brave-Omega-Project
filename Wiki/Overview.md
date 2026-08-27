@@ -67,7 +67,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.5.3** *(current)* | 1.93.138 | 151 | 11 25H2 | ✅ Current |
+| **v2.5.5.4** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Current |
+| v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | 📦 Previous |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | 📦 Previous |
 | v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
 | v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
@@ -95,7 +96,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.5.5.3 — Brave 1.93.138 Compatibility](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v2.5.5.4 — Brave 1.94.117 Compatibility](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
@@ -194,7 +195,8 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.5.3** *(güncel)* | 1.93.138 | 151 | 11 25H2 | ✅ Etkin |
+| **v2.5.5.4** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | 📦 Önceki |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | 📦 Önceki |
 | v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
 | v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
@@ -222,7 +224,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.5.5.3 — Brave 1.93.138 Uyumluluğu](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v2.5.5.4 — Brave 1.94.117 Uyumluluğu](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
