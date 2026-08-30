@@ -68,7 +68,7 @@ monetization features, and other privacy-eroding components — all without touc
 browser's internals or requiring any third-party tools.
 
 Brave Omega uses a **five-tier hardening model** — Brave Only (24 policies),
-Essential ⭐ (52), Balanced (84), Advanced (122), and Strict (150) — giving users precise control over
+Essential ⭐ (52), Balanced (84), Advanced (124), and Strict (152) — giving users precise control over
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
 
@@ -99,7 +99,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Feature | Description |
 |---------|-------------|
-| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (24 policies), **Essential ⭐** (52 policies), **Balanced** (84), **Advanced** (122), or **Strict** (150) |
+| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (24 policies), **Essential ⭐** (52 policies), **Balanced** (84), **Advanced** (124), or **Strict** (152) |
 | 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
@@ -194,8 +194,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Strict -Al
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 24 |
 | `-Level Essential` | `-Level Temel` | Essential ⭐ | 52 |
 | `-Level Balanced` | `-Level Dengeli` | Balanced | 84 |
-| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 122 |
-| `-Level Strict` | `-Level Katı` | Strict | 150 |
+| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 124 |
+| `-Level Strict` | `-Level Katı` | Strict | 152 |
 
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
 
@@ -228,7 +228,7 @@ and offers **five hardening levels** that determine how many policies are applie
 ├─────────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  24–150 ADMX-validated enterprise policies (level-based).     │
+│  ↳  24–152 ADMX-validated enterprise policies (level-based).     │
 │     Appear gray and locked in browser Settings UI.         │
 │     Cannot be overridden by user interaction.              │
 ├─────────────────────────────────────────────────────────────┤
@@ -247,8 +247,8 @@ and offers **five hardening levels** that determine how many policies are applie
 | **Brave Only** | 24 | 24 | 0 | 0 | None |
 | **Essential ⭐** | 52 | 24 | 28 | 0 | None |
 | **Balanced** | 84 | 24 | 28 | 32 | Low |
-| **Advanced** | 122 | 24 | 28 | 70 | Low |
-| **Strict** | 150 | 24 | 28 | 98 | High |
+| **Advanced** | 124 | 24 | 28 | 72 | Low |
+| **Strict** | 152 | 24 | 28 | 100 | High |
 
 #### 6.2 Policy Sources & Methodology
 
@@ -312,7 +312,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.5.5.4** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| **v2.6.0.0** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| **v2.5.5.4** | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
 | **v2.5.5.3** | 1.93.138 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.5.2** | 1.93.136 | 151 | 11 25H2 | 📦 Previous |
 | **v2.5.5.1** | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
@@ -354,7 +355,7 @@ no longer have any effect.
 
 ### 9. Policy Reference
 
-> Brave Omega offers **5 hardening levels** with **150 enterprise policies** total. The policy reference below is organized by registry hive and level.
+> Brave Omega offers **5 hardening levels** with **152 enterprise policies** total. The policy reference below is organized by registry hive and level.
 
 #### 9.1 HKCU — User-Level Preferences (all levels)
 
@@ -463,7 +464,7 @@ no longer have any effect.
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Disables auto-approve for local network permission requests |
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Disables local AI model download |
 
-#### 9.5 Advanced Level — Balanced + Enhanced Privacy (38 additional)
+#### 9.5 Advanced Level — Balanced + Enhanced Privacy (40 additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -696,7 +697,7 @@ ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı 
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
 Brave Omega **beş katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (24 politika),
-Temel ⭐ (52), Dengeli (84), Gelişmiş (122) ve Katı (150) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
+Temel ⭐ (52), Dengeli (84), Gelişmiş (124) ve Katı (152) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
 sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
@@ -726,7 +727,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Özellik | Açıklama |
 |---------|----------|
-| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (24 politika), **Temel ⭐** (52), **Dengeli** (84), **Gelişmiş** (122) veya **Katı** (150) |
+| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (24 politika), **Temel ⭐** (52), **Dengeli** (84), **Gelişmiş** (124) veya **Katı** (152) |
 | 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır, PowerShell'de `REG_MULTI_SZ` cmdlet'i bulunmadığından |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
@@ -821,8 +822,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Katı -Sen
 | `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 24 |
 | `-Level Temel` | `-Level Essential` | Temel ⭐ | 52 |
 | `-Level Dengeli` | `-Level Balanced` | Dengeli | 84 |
-| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 122 |
-| `-Level Katı` | `-Level Strict` | Katı | 150 |
+| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 124 |
+| `-Level Katı` | `-Level Strict` | Katı | 152 |
 
 > `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
 
@@ -853,7 +854,7 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  24–150 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
+│  ↳  24–152 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -872,8 +873,8 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 | **Brave Yalnız** | 24 | 24 | 0 | 0 | Yok |
 | **Temel ⭐** | 52 | 24 | 28 | 0 | Yok |
 | **Dengeli** | 84 | 24 | 28 | 32 | Düşük |
-| **Gelişmiş** | 122 | 24 | 28 | 70 | Düşük |
-| **Katı** | 150 | 24 | 28 | 98 | Yüksek |
+| **Gelişmiş** | 124 | 24 | 28 | 72 | Düşük |
+| **Katı** | 152 | 24 | 28 | 100 | Yüksek |
 
 #### 6.2 Politika Kaynakları ve Yöntem
 
@@ -940,7 +941,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.5.5.4** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.6.0.0** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.5.5.4** | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
 | **v2.5.5.3** | 1.93.138 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.5.2** | 1.93.136 | 151 | 11 25H2 | 📦 Önceki |
 | **v2.5.5.1** | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
@@ -982,7 +984,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 9. Politika Başvuru Tablosu
 
-> Brave Omega **5 sıkılaştırma seviyesi** ve **150 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
+> Brave Omega **5 sıkılaştırma seviyesi** ve **152 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
 
 #### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -1091,7 +1093,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Yerel ağ izin isteklerinin otomatik onayını devre dışı bırakır |
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Yerel yapay zeka modeli indirmeyi devre dışı bırakır |
 
-#### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (38 ek)
+#### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (40 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|

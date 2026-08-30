@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.5.5.4 — **150 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v2.6.0.0 — **152 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
@@ -16,12 +16,12 @@ Complete policy reference for Brave Omega v2.5.5.4 — **150 enterprise policies
 | **1. Brave Only** | 24 | — | 24 | Base |
 | **2. Essential** ⭐ | 28 | UsageStatsInSample | 52 | Includes Level 1 |
 | **3. Balanced** | 32 | UsageStatsInSample | 84 | Includes Levels 1-2 |
-| **4. Advanced** | 38 | UsageStatsInSample | 122 | Includes Levels 1-3 |
-| **5. Strict** | 28 | UsageStatsInSample | 150 | Includes Levels 1-4 |
+| **4. Advanced** | 40 | UsageStatsInSample | 124 | Includes Levels 1-3 |
+| **5. Strict** | 28 | UsageStatsInSample | 152 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 150 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 152 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -121,7 +121,7 @@ Complete policy reference for Brave Omega v2.5.5.4 — **150 enterprise policies
 | `SitePerProcess` | `1` | DWord | Forces site-per-process isolation |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Enables intensive wake-up throttling |
 | `UserFeedbackAllowed` | `0` | DWord | Disables user feedback |
-| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Force-installs Dark Reader |
+| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Force-installs Dark Reader + Microsoft S/MIME |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
 | `RelaunchNotification` | `2` | DWord | **[Phase 9]** Mandatory relaunch after update |
@@ -130,7 +130,7 @@ Complete policy reference for Brave Omega v2.5.5.4 — **150 enterprise policies
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Disables local AI model download (moved from Advanced) |
 | `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware/phishing warnings (moved from Strict) |
 
-### Advanced Level — Balanced + Enhanced Privacy (38 total)
+### Advanced Level — Balanced + Enhanced Privacy (40 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -146,10 +146,12 @@ Complete policy reference for Brave Omega v2.5.5.4 — **150 enterprise policies
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except allowlist |
-| `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Allows only Dark Reader |
+| `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Allows Dark Reader + Microsoft S/MIME |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloaded extensions |
-| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | JSON backup layer for extension control |
+| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"},"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | String | JSON backup layer for extension control |
+| `NativeMessagingAllowlist` | `@("com.microsoft.outlook.smime.chromenativeapp")` | MultiString | Allows the Microsoft native messaging host for OWA S/MIME signing/encryption |
+| `NativeMessagingUserLevelHosts` | `1` | DWord | Keeps user-level native messaging hosts active (required by Microsoft OWA S/MIME guidance) |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables built-in DNS client (uses system DNS) |
 | `ShowHomeButton` | `0` | DWord | **[Phase 9]** Hides home button from toolbar |
 | `HideWebStoreIcon` | `1` | DWord | **[Phase 9]** Hides Chrome Web Store icon |
@@ -226,7 +228,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 150 policies should show as **Active** (green checkmark).
+All 152 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -263,7 +265,7 @@ All 150 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.5.5.4 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **150 kurumsal politika**.
+Brave Omega v2.6.0.0 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **152 kurumsal politika**.
 
 ---
 
@@ -274,12 +276,12 @@ Brave Omega v2.5.5.4 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
 | **2. Temel** ⭐ | 28 | UsageStatsInSample | 52 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 32 | UsageStatsInSample | 84 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 38 | UsageStatsInSample | 122 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 28 | UsageStatsInSample | 150 | 1-4. Seviyeleri kapsar |
+| **4. Gelişmiş** | 40 | UsageStatsInSample | 124 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 28 | UsageStatsInSample | 152 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 150 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 152 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -379,7 +381,7 @@ Brave Omega v2.5.5.4 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `SitePerProcess` | `1` | DWord | Site başına süreç izolasyonunu zorlar |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Yoğun uyanma kısıtlamasını etkinleştirir |
 | `UserFeedbackAllowed` | `0` | DWord | Kullanıcı geri bildirimini devre dışı bırakır |
-| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Dark Reader'ı zorla yükler |
+| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Dark Reader ve Microsoft S/MIME'i zorla yükler |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
 | `RelaunchNotification` | `2` | DWord | **[Faz 9]** Güncelleme sonrası zorunlu yeniden başlatma |
@@ -388,7 +390,7 @@ Brave Omega v2.5.5.4 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Yerel yapay zeka modeli indirmeyi devre dışı bırakır (Gelişmiş'ten taşındı) |
 | `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım/oltalama uyarılarını atlamayı engeller (Katı'dan taşındı) |
 
-### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (38 toplam)
+### Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (40 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -404,10 +406,12 @@ Brave Omega v2.5.5.4 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Beyaz listedekiler hariç tüm uzantıları engeller |
-| `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh")` | MultiString | Yalnızca Dark Reader'a izin verir |
+| `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Dark Reader ve Microsoft S/MIME'e izin verir |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Uzantı türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Kenardan yüklenen uzantıları engeller |
-| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}` | String | Uzantı kontrolü için JSON yedek katmanı |
+| `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"},"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | String | Uzantı kontrolü için JSON yedek katmanı |
+| `NativeMessagingAllowlist` | `@("com.microsoft.outlook.smime.chromenativeapp")` | MultiString | OWA S/MIME imzalama/şifreleme için Microsoft yerel mesajlaşma ana bilgisayarına izin verir |
+| `NativeMessagingUserLevelHosts` | `1` | DWord | Kullanıcı düzeyi yerel mesajlaşma ana bilgisayarlarını etkin tutar (Microsoft OWA S/MIME yönergesi gereği) |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Yerleşik DNS istemcisini devre dışı bırakır (sistem DNS kullanır) |
 | `ShowHomeButton` | `0` | DWord | **[Faz 9]** Araç çubuğundaki ana sayfa düğmesini gizler |
 | `HideWebStoreIcon` | `1` | DWord | **[Faz 9]** Chrome Web Mağazası simgesini gizler |
@@ -484,7 +488,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-150 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+152 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

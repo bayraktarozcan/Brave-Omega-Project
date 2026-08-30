@@ -17,8 +17,29 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.5.5.4)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.6.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.0.0             Özellik sürümü — Outlook Web Access için Microsoft S/MIME:
+#
+#     [EKLENDİ]     Microsoft S/MIME uzantısı (maafgiompdekodanheihhgilkjchcakm) artık
+#                   Dengeli seviyede ve üzerinde ExtensionInstallForcelist ile zorla
+#                   yüklenir. Gelişmiş seviyede ExtensionInstallAllowlist'e ve
+#                   ExtensionSettings'e (override_update_url ile) eklendi; böylece
+#                   Outlook Web Access S/MIME güncelleme adresi
+#                   (https://outlook.office.com/owa/SmimeCrxUpdate.ashx) kullanılır.
+#
+#     [EKLENDİ]     OWA'da S/MIME yerel mesajlaşmasını etkinleştiren 2 yeni Gelişmiş
+#                   seviye politikası: NativeMessagingAllowlist (com.microsoft.outlook.
+#                   smime.chromenativeapp) ve NativeMessagingUserLevelHosts (=1);
+#                   Microsoft'un OWA S/MIME kılavuzuna göre kullanıcı düzeyindeki yerel
+#                   ana bilgisayarlar aktif kalır.
+#
+#     [DEĞİŞTİ]     Seviye sayıları değişti — Gelişmiş 38 → 40, toplam 150 → 152
+#                   (zincir: 24 → 52 → 84 → 124 → 152).
+#
+#     [DOK]         policy-catalog, Brave-Group-Policy-Reference, Wiki, README,
+#                   SECURITY.md, index.html ve test paketi 152 politikaya güncellendi.
+#
 #   v2.5.5.4             Yama sürümü — Brave 1.94.117 uyumluluk doğrulaması:
 #
 #     [DEĞİŞTİ]     Brave 1.94.117 (Chromium 152.0.7977.64) ile doğrulandı;
@@ -326,7 +347,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.5.5.4"
+$BetikSurum    = "v2.6.0.0"
 $DogrulananBrave = "1.94.117"
 $DogrulananChromium = "152"
 
@@ -498,7 +519,9 @@ $tumPolitikalar = @(
         "TabCaptureAllowedByOrigins", "WindowCaptureAllowedByOrigins",
         "LocalNetworkAccessIpAddressSpaceOverrides",
         "LocalNetworkAccessRestrictionsTemporaryOptOut",
-        "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
+        "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls",
+        # v2.6.0.0 — 2 yeni politika (S/MIME yerel mesajlaşması)
+        "NativeMessagingAllowlist", "NativeMessagingUserLevelHosts"
     )
 
 
@@ -861,8 +884,8 @@ $PolitikaTanimlari = @{
         # Kullanıcı Geri Bildirimi — tarayıcı içi geri bildirim istemlerini devre dışı bırakır
         @{Ad="UserFeedbackAllowed";                  Deger=0; Tur="DWord"}
         # ─── Yeni Dengeli Politikaları (Faz 8 — Prompt 22 + 24) ───
-        # Uzantı Zorla Yükle — Dark Reader zorla yükle
-        @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"); Tur="MultiString"}
+        # Uzantı Zorla Yükle — Dark Reader + OWA için S/MIME zorla yükle
+        @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Tur="MultiString"}
         # İndirme Klasörü — varsayılan indirme klasörünü ayarla
         @{Ad="DownloadDirectory";                    Deger="${env:USERPROFILE}\Downloads\"; Tur="String"}
         # İndirme Konumu Sor — sorma, varsayılan klasöre kaydet (0)
@@ -911,14 +934,19 @@ $PolitikaTanimlari = @{
         # ─── Katı'dan taşındı (v2.3.0.0 reklasifikasyon) — uzantı kilidi ───
         # Uzantı Yükleme Engel Listesi — beyaz liste dışındaki tüm uzantıları engelle
         @{Ad="ExtensionInstallBlocklist";            Deger=@("*");     Tur="MultiString"}
-        # Uzantı Yükleme İzin Listesi — yalnızca Dark Reader
-        @{Ad="ExtensionInstallAllowlist";            Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Tur="MultiString"}
+        # Uzantı Yükleme İzin Listesi — Dark Reader + OWA için S/MIME
+        @{Ad="ExtensionInstallAllowlist";            Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm"); Tur="MultiString"}
         # İzin Verilen Uzantı Türleri — yalnızca extension ve shared_module
         @{Ad="ExtensionAllowedTypes";                Deger=@("extension", "shared_module"); Tur="MultiString"}
         # Harici Uzantıları Engelle — yan yükleme/sideloading'i engelle
         @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
-        # Uzantı Ayarları — JSON yedek katmanı
-        @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Tur="String"}
+        # Uzantı Ayarları — JSON yedek katmanı (S/MIME override_update_url ile)
+        @{Ad="ExtensionSettings";                    Deger='{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"},"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}'; Tur="String"}
+        # ─── Yeni Gelişmiş Politikaları (v2.6.0.0 — OWA için S/MIME yerel mesajlaşması) ───
+        # Yerel Mesajlaşma İzin Listesi — OWA S/MIME yerel mesajlaşma ana bilgisayarını yetkilendir
+        @{Ad="NativeMessagingAllowlist";             Deger=@("com.microsoft.outlook.smime.chromenativeapp"); Tur="MultiString"}
+        # Yerel Mesajlaşma Kullanıcı Düzeyi Ana Bilgisayarları — kullanıcı düzeyindeki ana bilgisayarları açık tut (OWA S/MIME için gerekli)
+        @{Ad="NativeMessagingUserLevelHosts";        Deger=1;          Tur="DWord"}
         # Yerleşik DNS İstemcisi Etkin — Chrome DNS'i kapat, sistem DNS kullan
         @{Ad="BuiltInDnsClientEnabled";              Deger=0;          Tur="DWord"}
         # ─── Yeni Gelişmiş Politikaları (Faz 9 — Prompt 28) ───

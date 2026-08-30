@@ -23,6 +23,24 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.6.0.0 — 2026-08-29
+
+**Feature Release — Microsoft S/MIME for Outlook Web Access (OWA)**
+
+**Added:**
+
+- `NativeMessagingAllowlist` (MultiString: `com.microsoft.outlook.smime.chromenativeapp`) — enables the Microsoft native messaging host used for S/MIME signing/encryption in OWA
+- `NativeMessagingUserLevelHosts` (DWord: 1) — keeps user-level native messaging hosts active, as required by Microsoft's OWA S/MIME guidance
+- S/MIME extension force-install — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) added to `ExtensionInstallForcelist` at Balanced tier and above; at Advanced tier also added to `ExtensionInstallAllowlist` and `ExtensionSettings` (`override_update_url` enabled)
+
+**Changed:**
+
+- Validated against Brave **1.94.117** (Chromium 152.0.7977.64). Brave 1.93.* (Chromium 151) remains supported.
+- Tier counts updated: BraveOnly 24, Essential 28, Balanced 32, Advanced 40, Strict 28 (cumulative chain 24→52→84→124→152)
+- Both scripts updated to v2.6.0.0
+
+---
+
 ### v2.5.5.4 — 2026-08-27
 
 **Patch Release — Brave 1.94.117 Validation**
@@ -560,7 +578,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.5.5.4** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| **v2.6.0.0** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
 | v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | ✅ Previous |
 | v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Previous |
@@ -645,6 +664,24 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.6.0.0 — 2026-08-29
+
+**Özellik Sürümü — Outlook Web Access için Microsoft S/MIME**
+
+**Eklenenler:**
+
+- `NativeMessagingAllowlist` (MultiString: `com.microsoft.outlook.smime.chromenativeapp`) — OWA'da S/MIME imzalama/şifreleme için kullanılan Microsoft yerel mesajlaşma ana bilgisayarını etkinleştirir
+- `NativeMessagingUserLevelHosts` (DWord: 1) — Microsoft'un OWA S/MIME yönergesi gereği kullanıcı düzeyi yerel mesajlaşma ana bilgisayarlarını etkin tutar
+- S/MIME uzantısı zorunlu kurulumu — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) Dengeli seviyeden itibaren `ExtensionInstallForcelist`'e, Gelişmiş seviyeden itibaren ayrıca `ExtensionInstallAllowlist` ve `ExtensionSettings`'e (`override_update_url` etkin) eklendi
+
+**Değiştirilenler:**
+
+- Brave **1.94.117** (Chromium 152.0.7977.64) ile doğrulandı. Brave 1.93.* (Chromium 151) desteklenmeye devam eder.
+- Seviye sayıları güncellendi: Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 40, Katı 28 (kümülatif zincir 24→52→84→124→152)
+- Her iki betik v2.6.0.0'a güncellendi
+
+---
 
 ### v2.5.5.4 — 2026-08-27
 
@@ -1184,7 +1221,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.5.5.4** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.6.0.0** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
 | v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | ✅ Önceki |
 | v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | ✅ Önceki |

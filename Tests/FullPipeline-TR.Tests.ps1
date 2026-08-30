@@ -34,6 +34,6 @@ Describe "Full Pipeline (TR)" -Tag "Integration" {
 
     It "should have Turkish version variable" {
         $v = Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum"
-        $v | Should -BeExactly "v2.5.5.4"
+        $v | Should -BeExactly "v2.6.0.0"
     }
 }
