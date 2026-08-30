@@ -1,4 +1,4 @@
-﻿<!-- ================================================================== -->
+<!-- ================================================================== -->
 <!--            BRAVE OMEGA PROJECT — CHANGELOG                         -->
 <!--          Community Edition · Open Source · Privacy First           -->
 <!-- ================================================================== -->
@@ -26,129 +26,171 @@
 
 ### Table of Contents
 
-1. [v2.5.5.4 — 2026-08-27](#en-v2554)
+1. [v2.6.0.0 — 2026-08-29](#en-v2600)
+    * [Summary](#en-v2600-summary)
+    * [Added](#en-v2600-added)
+    * [Changed](#en-v2600-changed)
+2. [v2.5.5.4 — 2026-08-27](#en-v2554)
     * [Summary](#en-v2554-summary)
     * [Changed](#en-v2554-changed)
-2. [v2.5.5.3 — 2026-08-22](#en-v2553)
+3. [v2.5.5.3 — 2026-08-22](#en-v2553)
     * [Summary](#en-v2553-summary)
     * [Changed](#en-v2553-changed)
-3. [v2.5.5.2 — 2026-08-13](#en-v2552)
+4. [v2.5.5.2 — 2026-08-13](#en-v2552)
     * [Summary](#en-v2552-summary)
     * [Fixed](#en-v2552-fixed)
     * [Changed](#en-v2552-changed)
-4. [v2.5.5.1 — 2026-08-01](#en-v2551)
+5. [v2.5.5.1 — 2026-08-01](#en-v2551)
     * [Summary](#en-v2551-summary)
     * [Changed](#en-v2551-changed)
-5. [v2.5.5.0 — 2026-08-01](#en-v2550)
+6. [v2.5.5.0 — 2026-08-01](#en-v2550)
     * [Summary](#en-v2550-summary)
     * [Changed](#en-v2550-changed)
-6. [v2.5.4.0 — 2026-07-31](#en-v2540)
+7. [v2.5.4.0 — 2026-07-31](#en-v2540)
     * [Summary](#en-v2540-summary)
     * [Added](#en-v2540-added)
     * [Changed](#en-v2540-changed)
-7. [v2.5.3.0 — 2026-07-31](#en-v2530)
+8. [v2.5.3.0 — 2026-07-31](#en-v2530)
     * [Summary](#en-v2530-summary)
     * [Added](#en-v2530-added)
     * [Changed](#en-v2530-changed)
-8. [v2.5.2.1 — 2026-07-31](#en-v2521)
+9. [v2.5.2.1 — 2026-07-31](#en-v2521)
     * [Summary](#en-v2521-summary)
     * [Changed](#en-v2521-changed)
-9. [v2.5.2.0 — 2026-07-25](#en-v2520)
+10. [v2.5.2.0 — 2026-07-25](#en-v2520)
     * [Summary](#en-v2520-summary)
     * [Changed](#en-v2520-changed)
-10. [Introduction](#en-introduction)
-11. [v2.5.1.0 — 2026-07-23](#en-v2510)
+11. [Introduction](#en-introduction)
+12. [v2.5.1.0 — 2026-07-23](#en-v2510)
     * [Summary](#en-v2510-summary)
     * [Changed](#en-v2510-changed)
-12. [v2.5.0.0 — 2026-07-21](#en-v2500)
+13. [v2.5.0.0 — 2026-07-21](#en-v2500)
     * [Summary](#en-v2500-summary)
     * [Added](#en-v2500-added)
     * [Removed](#en-v2500-removed)
-13. [v2.4.2.0 — 2026-07-21](#en-v2420)
+14. [v2.4.2.0 — 2026-07-21](#en-v2420)
     * [Summary](#en-v2420-summary)
-14. [v2.4.1.0 — 2026-07-12](#en-v2410)
+15. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-15. [v2.4.0.0 — 2026-07-11](#en-v2400)
+16. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-16. [v2.3.1.0 — 2026-07-10](#en-v2310)
+17. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-17. [v2.3.0.0 — 2026-07-09](#en-v2300)
+18. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
     * [Notes](#en-v2300-notes)
-18. [v2.2.1.0 — 2026-07-07](#en-v2210)
+19. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-19. [v2.2.0.2 — 2026-07-07](#en-v2202)
+20. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-20. [v2.2.0.1 — 2026-07-06](#en-v2201)
+21. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
-21. [v2.2.0 — 2026-07-06](#en-v220)
+22. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
-22. [v2.1.6 — 2026-07-05](#en-v216)
+23. [v2.1.6 — 2026-07-05](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
     * [Changed](#en-v216-changed)
-23. [v2.1.5 — 2026-07-03](#en-v215)
+24. [v2.1.5 — 2026-07-03](#en-v215)
     * [Summary](#en-v215-summary)
     * [Changed](#en-v215-changed)
-24. [v2.1.4 — 2026-06-27](#en-v214)
+25. [v2.1.4 — 2026-06-27](#en-v214)
     * [Summary](#en-v214-summary)
     * [Changed](#en-v214-changed)
-25. [v2.1.3 — 2026-06-26](#en-v213)
+26. [v2.1.3 — 2026-06-26](#en-v213)
     * [Summary](#en-v213-summary)
     * [Changed](#en-v213-changed)
-26. [v2.1.2 — 2026-06-18](#en-v212)
+27. [v2.1.2 — 2026-06-18](#en-v212)
     * [Summary](#en-v212-summary)
     * [Changed](#en-v212-changed)
-27. [v2.1.1 — 2026-06-18](#en-v211)
+28. [v2.1.1 — 2026-06-18](#en-v211)
     * [Summary](#en-v211-summary)
     * [Fixed](#en-v211-fixed)
-28. [v2.1 — 2026-06-16](#en-v21)
+29. [v2.1 — 2026-06-16](#en-v21)
     * [Summary](#en-v21-summary)
     * [Added](#en-v21-added)
     * [Changed](#en-v21-changed)
     * [Statistics](#en-v21-statistics)
-29. [v2.0 — 2026-06-16](#en-v20)
+30. [v2.0 — 2026-06-16](#en-v20)
     * [Summary](#en-v20-summary)
     * [Added](#en-v20-added)
     * [Changed](#en-v20-changed)
     * [Statistics](#en-v20-statistics)
-30. [v1.2.2 — 2026-06-13](#en-v122)
+31. [v1.2.2 — 2026-06-13](#en-v122)
     * [Summary](#en-v122-summary)
     * [Changed](#en-v122-changed)
-31. [v1.2.1 — 2026-06-13](#en-v121)
+32. [v1.2.1 — 2026-06-13](#en-v121)
     * [Changed](#en-v121-changed)
-32. [v1.2 — 2026-06-12](#en-v12)
+33. [v1.2 — 2026-06-12](#en-v12)
     * [Summary](#en-v12-summary)
-33. [v1.1.1 — 2026-06-12](#en-v111)
+34. [v1.1.1 — 2026-06-12](#en-v111)
     * [Fixed](#en-v111-fixed)
-34. [v1.1 — 2026-06-12](#en-v11)
+35. [v1.1 — 2026-06-12](#en-v11)
     * [Summary](#en-v11-summary)
-35. [v1.0.1 — 2026-06-11](#en-v101)
+36. [v1.0.1 — 2026-06-11](#en-v101)
     * [Fixed](#en-v101-fixed)
-36. [v1.0 — 2026-06-08](#en-v10)
+37. [v1.0 — 2026-06-08](#en-v10)
     * [Summary](#en-v10-summary)
-37. [Notes](#en-notes)
+38. [Notes](#en-notes)
 
 ---
 
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v2600"></a>
+
+## [v2.6.0.0] — 2026-08-29
+
+<a id="en-v2600-summary"></a>
+
+### 🎯 Summary
+
+**Feature release — Microsoft S/MIME for Outlook Web Access.** v2.6.0.0 enables Microsoft S/MIME signing & encryption in Outlook Web Access (OWA) by adding 2 new Advanced-tier policies and upgrading the S/MIME extension handling. The extension `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) is force-installed from the Balanced tier upward via `ExtensionInstallForcelist` and, from the Advanced tier, is also added to `ExtensionInstallAllowlist` and `ExtensionSettings` with `override_update_url` enabled so the OWA S/MIME update URL (`https://outlook.office.com/owa/SmimeCrxUpdate.ashx`) is honored. Validated against **Brave 1.94.117** (Chromium **152.0.7977.64**); Brave 1.93.* (Chromium 151) remains supported.
+
+| Metric | Before (v2.5.5.4) | After (v2.6.0.0) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 150 | **152** (+2) |
+| Advanced additions | 38 | **40** (+2) |
+| Cumulative chain | 24→52→84→122→150 | **24→52→84→124→152** |
+| Script version | v2.5.5.4 | v2.6.0.0 |
+| Validated Brave | 1.94.117 | 1.94.117 |
+| Validated Chromium | 152.0.7977.64 | 152.0.7977.64 |
+
+<a id="en-v2600-added"></a>
+
+### Added
+
+- **`NativeMessagingAllowlist`** (MultiString: `com.microsoft.outlook.smime.chromenativeapp`) — Allows the Microsoft native messaging host used for S/MIME signing/encryption in Outlook Web Access.
+- **`NativeMessagingUserLevelHosts`** (DWord: 1) — Keeps user-level native messaging hosts active, as required by Microsoft's OWA S/MIME guidance.
+- **S/MIME extension force-install** — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) added to `ExtensionInstallForcelist` at the Balanced tier and above, and to `ExtensionInstallAllowlist`/`ExtensionSettings` (`"override_update_url": true`) at the Advanced tier with the OWA update URL (`https://outlook.office.com/owa/SmimeCrxUpdate.ashx`).
+
+<a id="en-v2600-changed"></a>
+
+### Changed
+
+- **Tier counts** — Advanced 38 → **40**, total 150 → **152**; cumulative chain now 24→52→84→124→152 (BraveOnly 24, Essential 28, Balanced 32, Advanced 40, Strict 28).
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion`/`$BetikSurum` → `v2.6.0.0`, header and changelog updated.
+- **Documentation & tests** — policy-catalog, Brave-Group-Policy-Reference, Wiki, README, SECURITY.md, index.html, and the Pester test suite updated to 152 policies.
 
 ---
 
@@ -1673,6 +1715,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.6.0.0 | 2026-08-29 | 152   | Feature release — Microsoft S/MIME for Outlook Web Access: 2 new Advanced-tier native messaging policies (NativeMessagingAllowlist, NativeMessagingUserLevelHosts); S/MIME extension force-install with override_update_url; total 150→152; cumulative chain 24→52→84→124→152 |
 | v2.5.2.0 | 2026-07-25 | 150   | Compatibility validation: Brave 1.92.144 (Chromium 150.0.7871.186); no policy changes |
 | v2.5.1.0 | 2026-07-23 | 150   | Compatibility validation: Brave 1.92.143 (Chromium 150.0.7871.182); no policy changes |
 | v2.5.0.0 | 2026-07-21 | 150   | Full policy expansion: 30 new policies (133→150); 9 broken/deprecated/cloud policies removed; AI blocking (13), local network access control, screen capture fine-grained, renderer sandbox; cumulative chain 24→53→86→124→150 |
@@ -1742,144 +1785,186 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.5.5.4 — 2026-08-27](#tr-v2554)
+1. [v2.6.0.0 — 2026-08-29](#tr-v2600)
+    * [Özet](#tr-v2600-ozet)
+    * [Eklendi](#tr-v2600-eklendi)
+    * [Değiştirildi](#tr-v2600-degistirildi)
+2. [v2.5.5.4 — 2026-08-27](#tr-v2554)
     * [Özet](#tr-v2554-ozet)
     * [Değiştirildi](#tr-v2554-degistirildi)
-2. [v2.5.5.3 — 2026-08-22](#tr-v2553)
+3. [v2.5.5.3 — 2026-08-22](#tr-v2553)
     * [Özet](#tr-v2553-ozet)
     * [Değiştirildi](#tr-v2553-degistirildi)
-3. [v2.5.5.2 — 2026-08-13](#tr-v2552)
+4. [v2.5.5.2 — 2026-08-13](#tr-v2552)
     * [Özet](#tr-v2552-ozet)
     * [Düzeltildi](#tr-v2552-duzeltildi)
     * [Değiştirildi](#tr-v2552-degistirildi)
-4. [v2.5.5.1 — 2026-08-01](#tr-v2551)
+5. [v2.5.5.1 — 2026-08-01](#tr-v2551)
     * [Özet](#tr-v2551-ozet)
     * [Değiştirildi](#tr-v2551-degistirildi)
-5. [v2.5.5.0 — 2026-08-01](#tr-v2550)
+6. [v2.5.5.0 — 2026-08-01](#tr-v2550)
     * [Özet](#tr-v2550-ozet)
     * [Değiştirildi](#tr-v2550-degistirildi)
-6. [v2.5.4.0 — 2026-07-31](#tr-v2540)
+7. [v2.5.4.0 — 2026-07-31](#tr-v2540)
     * [Özet](#tr-v2540-ozet)
     * [Eklendi](#tr-v2540-eklendi)
     * [Değiştirildi](#tr-v2540-degistirildi)
-7. [v2.5.3.0 — 2026-07-31](#tr-v2530)
+8. [v2.5.3.0 — 2026-07-31](#tr-v2530)
     * [Özet](#tr-v2530-ozet)
     * [Eklendi](#tr-v2530-eklendi)
     * [Değiştirildi](#tr-v2530-degistirildi)
-8. [v2.5.2.1 — 2026-07-31](#tr-v2521)
+9. [v2.5.2.1 — 2026-07-31](#tr-v2521)
     * [Özet](#tr-v2521-ozet)
     * [Değiştirildi](#tr-v2521-degistirildi)
-9. [v2.5.2.0 — 2026-07-25](#tr-v2520)
+10. [v2.5.2.0 — 2026-07-25](#tr-v2520)
     * [Özet](#tr-v2520-ozet)
     * [Değiştirildi](#tr-v2520-degistirildi)
-10. [Giriş](#tr-introduction)
-11. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+11. [Giriş](#tr-introduction)
+12. [v2.5.1.0 — 2026-07-23](#tr-v2510)
     * [Özet](#tr-v2510-ozet)
     * [Değiştirildi](#tr-v2510-degistirildi)
-12. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+13. [v2.5.0.0 — 2026-07-21](#tr-v2500)
     * [Özet](#tr-v2500-ozet)
     * [Eklendi](#tr-v2500-eklendi)
     * [Kaldırıldı](#tr-v2500-kaldirildi)
-13. [v2.4.2.0 — 2026-07-21](#tr-v2420)
+14. [v2.4.2.0 — 2026-07-21](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-14. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+15. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Eklendi](#tr-v2410-eklendi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-15. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+16. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-16. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+17. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-17. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+18. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-18. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+19. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
-19. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+20. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
-20. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+21. [v2.2.0.1 — 2026-07-06](#tr-v2201)
     * [Özet](#tr-v2201-ozet)
-21. [v2.2.0 — 2026-07-06](#tr-v220)
+22. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
-22. [v2.1.6 — 2026-07-05](#tr-v216)
+23. [v2.1.6 — 2026-07-05](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
     * [Değiştirildi](#tr-v216-changed)
-23. [v2.1.5 — 2026-07-03](#tr-v215)
+24. [v2.1.5 — 2026-07-03](#tr-v215)
     * [Özet](#tr-v215-summary)
     * [Değiştirildi](#tr-v215-changed)
-24. [v2.1.4 — 2026-06-27](#tr-v214)
+25. [v2.1.4 — 2026-06-27](#tr-v214)
     * [Özet](#tr-v214-summary)
     * [Değiştirildi](#tr-v214-changed)
-25. [v2.1.3 — 2026-06-26](#tr-v213)
+26. [v2.1.3 — 2026-06-26](#tr-v213)
     * [Özet](#tr-v213-summary)
     * [Değiştirildi](#tr-v213-changed)
-26. [v2.1.2 — 2026-06-18](#tr-v212)
+27. [v2.1.2 — 2026-06-18](#tr-v212)
     * [Özet](#tr-v212-summary)
     * [Değiştirildi](#tr-v212-changed)
-27. [v2.1.1 — 2026-06-18](#tr-v211)
+28. [v2.1.1 — 2026-06-18](#tr-v211)
     * [Özet](#tr-v211-summary)
     * [Düzeltildi](#tr-v211-fixed)
-28. [v2.1 — 2026-06-16](#tr-v21)
+29. [v2.1 — 2026-06-16](#tr-v21)
     * [Özet](#tr-v21-summary)
     * [Eklendi](#tr-v21-added)
     * [Değiştirildi](#tr-v21-changed)
     * [İstatistikler](#tr-v21-statistics)
-29. [v2.0 — 2026-06-16](#tr-v20)
+30. [v2.0 — 2026-06-16](#tr-v20)
     * [Özet](#tr-v20-summary)
     * [Eklendi](#tr-v20-added)
     * [Değiştirildi](#tr-v20-changed)
     * [İstatistikler](#tr-v20-statistics)
-30. [v1.2.2 — 2026-06-13](#tr-v122)
+31. [v1.2.2 — 2026-06-13](#tr-v122)
     * [Özet](#tr-v122-summary)
     * [Değiştirildi](#tr-v122-changed)
-31. [v1.2.1 — 2026-06-13](#tr-v121)
+32. [v1.2.1 — 2026-06-13](#tr-v121)
     * [Özet](#tr-v121-summary)
     * [Değiştirildi](#tr-v121-changed)
-32. [v1.2 — 2026-06-12](#tr-v12)
+33. [v1.2 — 2026-06-12](#tr-v12)
     * [Özet](#tr-v12-summary)
     * [Eklendi](#tr-v12-added)
     * [İstatistikler](#tr-v12-statistics)
     * [Değiştirildi](#tr-v12-changed)
     * [Güvenlik](#tr-v12-security)
-33. [v1.1.1 — 2026-06-12](#tr-v111)
+34. [v1.1.1 — 2026-06-12](#tr-v111)
     * [Özet](#tr-v111-ozet)
     * [Düzeltildi](#tr-v111-duzeltildi)
-34. [v1.1 — 2026-06-05](#tr-v11)
+35. [v1.1 — 2026-06-05](#tr-v11)
     * [Özet](#tr-v11-summary)
     * [Eklendi](#tr-v11-added)
     * [Değiştirildi](#tr-v11-changed)
     * [Kaldırıldı](#tr-v11-removed)
     * [Detaylar](#tr-v11-details)
-35. [v1.0.1 — 2026-06-04](#tr-v101)
+36. [v1.0.1 — 2026-06-04](#tr-v101)
     * [Özet](#tr-v101-ozet)
     * [Düzeltildi](#tr-v101-duzeltildi)
-36. [v1.0 — 2026-06-04](#tr-v10)
+37. [v1.0 — 2026-06-04](#tr-v10)
     * [Özet](#tr-v10-summary)
     * [Özellikler](#tr-v10-features)
     * [Başlangıç Politikaları](#tr-v10-initial-policies)
     * [Belgelendirme](#tr-v10-documentation)
-37. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-38. [İlgili Belgelendirme](#tr-related-documentation)
-39. [Notlar](#tr-notes)
+38. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+39. [İlgili Belgelendirme](#tr-related-documentation)
+40. [Notlar](#tr-notes)
 
 ---
 
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v2600"></a>
+
+## [v2.6.0.0] — 2026-08-29
+
+<a id="tr-v2600-ozet"></a>
+
+### 🎯 Özet
+
+**Özellik sürümü — Outlook Web Access için Microsoft S/MIME.** v2.6.0.0, Outlook Web Access'te (OWA) Microsoft S/MIME imzalama ve şifrelemeyi etkinleştirmek için 2 yeni Gelişmiş seviye politikası ekler ve S/MIME uzantısı işleyişini yükseltir. `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) uzantısı Dengeli seviyeden itibaren `ExtensionInstallForcelist` ile zorla yüklenir; Gelişmiş seviyeden itibaren ayrıca `ExtensionInstallAllowlist` ve `ExtensionSettings` listelerine `override_update_url` etkin olarak eklenir; böylece OWA S/MIME güncelleme adresi (`https://outlook.office.com/owa/SmimeCrxUpdate.ashx`) kullanılır. **Brave 1.94.117** (Chromium **152.0.7977.64**) ile doğrulandı; Brave 1.93.* (Chromium 151) desteklenmeye devam eder.
+
+| Metrik | Önce (v2.5.5.4) | Sonra (v2.6.0.0) |
+|--------|-----------------|------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 150 | **152** (+2) |
+| Gelişmiş eklemeler | 38 | **40** (+2) |
+| Kümülatif zincir | 24→52→84→122→150 | **24→52→84→124→152** |
+| Betik sürümü | v2.5.5.4 | v2.6.0.0 |
+| Doğrulanan Brave | 1.94.117 | 1.94.117 |
+| Doğrulanan Chromium | 152.0.7977.64 | 152.0.7977.64 |
+
+<a id="tr-v2600-eklendi"></a>
+
+### Eklendi
+
+- **`NativeMessagingAllowlist`** (MultiString: `com.microsoft.outlook.smime.chromenativeapp`) — Outlook Web Access'te S/MIME imzalama/şifreleme için kullanılan Microsoft yerel mesajlaşma ana bilgisayarına izin verir.
+- **`NativeMessagingUserLevelHosts`** (DWord: 1) — Microsoft'un OWA S/MIME kılavuzuna göre kullanıcı düzeyi yerel mesajlaşma ana bilgisayarlarını aktif tutar.
+- **S/MIME uzantısı zorunlu kurulumu** — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) Dengeli seviyede ve üzerinde `ExtensionInstallForcelist` listesine, Gelişmiş seviyede `ExtensionInstallAllowlist`/`ExtensionSettings` (`"override_update_url": true`) listelerine OWA güncelleme adresiyle (`https://outlook.office.com/owa/SmimeCrxUpdate.ashx`) eklenir.
+
+<a id="tr-v2600-degistirildi"></a>
+
+### Değiştirildi
+
+- **Seviye sayıları** — Gelişmiş 38 → **40**, toplam 150 → **152**; kümülatif zincir artık 24→52→84→124→152 (Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 40, Katı 28).
+- **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion`/`$BetikSurum` → `v2.6.0.0`, başlık ve değişiklik geçmişi güncellendi.
+- **Dokümantasyon ve testler** — policy-catalog, Brave-Group-Policy-Reference, Wiki, README, SECURITY.md, index.html ve Pester test paketi 152 politikaya güncellendi.
 
 ---
 
@@ -3407,6 +3492,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.6.0.0 | 2026-08-29 | 152   | Özellik sürümü — Outlook Web Access için Microsoft S/MIME: 2 yeni Gelişmiş seviye yerel mesajlaşma politikası (NativeMessagingAllowlist, NativeMessagingUserLevelHosts); S/MIME uzantısı override_update_url ile zorunlu kurulumu; toplam 150→152; kümülatif zincir 24→52→84→124→152 |
 | v2.5.2.0 | 2026-07-25 | 150   | Uyumluluk doğrulaması: Brave 1.92.144 (Chromium 150.0.7871.186); politika değişikliği yok |
 | v2.5.1.0 | 2026-07-23 | 150   | Uyumluluk doğrulaması: Brave 1.92.143 (Chromium 150.0.7871.182); politika değişikliği yok |
 | v2.5.0.0 | 2026-07-21 | 150   | Tam politika genişletmesi: 30 yeni politika (133→150); 9 bozuk/kullanımdan kaldırılmış/bulut politikası kaldırıldı; Yapay zekâ engelleme (13), yerel ağ erişim kontrolü, ekran yakalama ince ayar, işleyici kum havuzu; kümülatif zincir 24→53→86→124→150 |
@@ -3466,4 +3552,6 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 *Gizlilik odaklı tarayıcı sıkılaştırması inşa ediliyor, her seferinde bir politika.*
 
 </div>
+
+
 

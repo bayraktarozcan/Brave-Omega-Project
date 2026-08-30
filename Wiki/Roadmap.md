@@ -11,9 +11,9 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v2.5.5.4** — *Brave 1.94.117 Compatibility* (2026-08-27)
+**v2.6.0.0** — *Microsoft S/MIME for Outlook Web Access* (2026-08-29)
 
-Current release: 150 policies across 5 hardening tiers (Brave Only 24 / Essential 28 / Balanced 32 / Advanced 38 / Strict 28), validated against Brave 1.94.117 (Chromium 152.0.7977.64). Cumulative chain: 24→52→84→122→150.
+Current release: 152 policies across 5 hardening tiers (Brave Only 24 / Essential 28 / Balanced 32 / Advanced 40 / Strict 28), validated against Brave 1.94.117 (Chromium 152.0.7977.64). Cumulative chain: 24→52→84→124→152.
 
 ---
 
@@ -254,9 +254,9 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v2.5.5.4** — *Brave 1.94.117 Uyumluluğu* (2026-08-27)
+**v2.6.0.0** — *Outlook Web Access için Microsoft S/MIME* (2026-08-29)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 150 politika (Brave Yalnız 24 / Temel 28 / Dengeli 32 / Gelişmiş 38 / Katı 28), Brave 1.94.117 (Chromium 152.0.7977.64) ile doğrulandı. Kümülatif zincir: 24→52→84→122→150.
+Güncel sürüm: 5 sıkılaştırma katmanında 152 politika (Brave Yalnız 24 / Temel 28 / Dengeli 32 / Gelişmiş 40 / Katı 28), Brave 1.94.117 (Chromium 152.0.7977.64) ile doğrulandı. Kümülatif zincir: 24→52→84→124→152.
 
 ---
 

@@ -40,7 +40,7 @@ Describe "Policy Definitions" -Tag "Unit" {
             "BraveOnly" = 24
             "Essential" = 28
             "Balanced"  = 32
-            "Advanced"  = 38
+            "Advanced"  = 40
             "Strict"    = 28
         }
         foreach ($tier in @("BraveOnly","Essential","Balanced","Advanced","Strict")) {
@@ -64,11 +64,11 @@ Describe "Policy Definitions" -Tag "Unit" {
         }
     }
 
-    It "should have 150 total policy definitions (EN script)" {
+    It "should have 152 total policy definitions (EN script)" {
         $content = Get-Content -Path $ScriptEN -Raw
         $policyDefStart = $content.IndexOf('$PolicyDefinitions')
         $policyDefSection = $content.Substring($policyDefStart)
         $totalMatches = ([regex]::Matches($policyDefSection, '@\{Name=')).Count
-        $totalMatches | Should -BeExactly 150
+        $totalMatches | Should -BeExactly 152
     }
 }

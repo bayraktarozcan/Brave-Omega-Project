@@ -17,11 +17,11 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega-EN.ps1` v2.5.0.0 | `BraveOmega-TR.ps1` v2.5.0.0  
-> **Date:** 2026-07-21  
-> **Total unique policies:** 150 (151 raw entries, 1 overlap merged)  
-> **Type distribution:** 116 DWord · 7 String · 17 MultiString  
-> **Validated on:** Brave 1.92.141 / Chromium 150.0.7871.128 / Windows 11 26200
+> **Generated from:** `BraveOmega-EN.ps1` v2.6.0.0 | `BraveOmega-TR.ps1` v2.6.0.0  
+> **Date:** 2026-08-29  
+> **Total unique policies:** 152 (153 raw entries, 1 overlap merged)  
+> **Type distribution:** 117 DWord · 7 String · 18 MultiString  
+> **Validated on:** Brave 1.94.117 / Chromium 152.0.7977.64 / Windows 11 26200
 
 ---
 
@@ -121,7 +121,7 @@
 | 76 | `SitePerProcess` | DWord | `1` | Balanced | Windows | Site isolation |
 | 77 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Balanced | Windows | Background timer throttling |
 | 78 | `UserFeedbackAllowed` | DWord | `0` | Balanced | Windows | User feedback prompts |
-| 79 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…` | Balanced | Windows | Force-installed extension |
+| 79 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Balanced | Windows | Force-installed extension |
 | 80 | `DownloadRestrictions` | DWord | `1` | Balanced | Windows | Dangerous download warning |
 | 81 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Balanced | Windows | Download path |
 | 82 | `PromptForDownloadLocation` | DWord | `0` | Balanced | Windows | Download location prompt |
@@ -141,10 +141,10 @@
 | 97 | `ImportSearchEngine` | DWord | `0` | Advanced | Windows | Cross-browser search engine |
 | 98 | `ImportHomepage` | DWord | `0` | Advanced | Windows | Cross-browser homepage |
 | 99 | `ExtensionInstallBlocklist` | MultiString | `*` | Advanced | Windows | Extension blocklist |
-| 100 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh` | Advanced | Windows | Extension allowlist |
+| 100 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | Advanced | Windows | Extension allowlist |
 | 101 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | Advanced | Windows | Allowed extension types |
 | 102 | `BlockExternalExtensions` | DWord | `1` | Advanced | Windows | External extension install |
-| 103 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…}` | Advanced | Windows | Extension policy matrix |
+| 103 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | Advanced | Windows | Extension policy matrix |
 | 104 | `BuiltInDnsClientEnabled` | DWord | `0` | Advanced | Windows | Built-in DNS client |
 | 105 | `ShowHomeButton` | DWord | `0` | Advanced | Windows | Home button visibility |
 | 106 | `HideWebStoreIcon` | DWord | `1` | Advanced | Windows | Web Store icon |
@@ -194,8 +194,10 @@
 | 150 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Window capture allowlist |
 | 151 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Strict | Windows | Local network capture allowlist |
 | 152 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Strict | Windows | Local network capture blocklist |
+| 153 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | Advanced | Windows | Native messaging host allowlist |
+| 154 | `NativeMessagingUserLevelHosts` | DWord | `1` | Advanced | Windows | User-level native messaging hosts |
 
-> **Note:** Row 139 (Strict `DownloadRestrictions`) merges with row 80 (Balanced) — only 1 unique policy. Balanced applies `1` (warn on dangerous downloads); Strict overrides with `3` (block all downloads). This is why 151 raw rows = 150 unique policies.
+> **Note:** Row 139 (Strict `DownloadRestrictions`) merges with row 80 (Balanced) — only 1 unique policy. Balanced applies `1` (warn on dangerous downloads); Strict overrides with `3` (block all downloads). This is why 153 raw rows = 152 unique policies.
 
 ---
 
@@ -210,10 +212,10 @@ Data leak prevention. No usability impact. Stops all Chromium/Brave telemetry, b
 ### Balanced — 33 policies (+33 = 86 cumulative)
 Security & convenience balance. WebRTC hardening, encrypted DNS, cookie blocking, password/autofill disable, permission defaults, site isolation, download controls, Dark Reader extension.
 
-### Advanced — 38 policies (+38 = 124 cumulative)
+### Advanced — 40 policies (+40 = 126 cumulative)
 Extended hardening. Disables sensors, fonts, serial, idle detection, guest mode, cross-browser imports, extension restrictions, JavaScript default off, AI features disabled.
 
-### Strict — 27 policies (+27 = 150 cumulative)
+### Strict — 27 policies (+27 = 153 cumulative)
 Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, printing, downloads, developer tools, cloud reporting. Auto-clears browsing data every 24 hours.
 
 ---
@@ -222,10 +224,10 @@ Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, pri
 
 | Type | Count | Percentage |
 |------|-------|------------|
-| DWord | 116 | 77.3% |
-| String | 7 | 4.7% |
-| MultiString | 17 | 11.3% |
-| **Total (unique)** | **150** | **100%** |
+| DWord | 117 | 77.0% |
+| String | 7 | 4.6% |
+| MultiString | 18 | 11.8% |
+| **Total (unique)** | **152** | **100%** |
 
 ---
 
@@ -265,11 +267,11 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega-EN.ps1` v2.5.0.0 | `BraveOmega-TR.ps1` v2.5.0.0  
-> **Tarih:** 2026-07-21  
-> **Toplam benzersiz politika:** 150 (151 ham girdi, 1 çakışma birleştirildi)  
-> **Tür dağılımı:** 116 DWord · 7 String · 17 MultiString  
-> **Doğrulandı:** Brave 1.92.141 / Chromium 150.0.7871.128 / Windows 11 26200
+> **Kaynak:** `BraveOmega-EN.ps1` v2.6.0.0 | `BraveOmega-TR.ps1` v2.6.0.0  
+> **Tarih:** 2026-08-29  
+> **Toplam benzersiz politika:** 152 (153 ham girdi, 1 çakışma birleştirildi)  
+> **Tür dağılımı:** 117 DWord · 7 String · 18 MultiString  
+> **Doğrulandı:** Brave 1.94.117 / Chromium 152.0.7977.64 / Windows 11 26200
 
 ---
 
@@ -369,7 +371,7 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 76 | `SitePerProcess` | DWord | `1` | Dengeli | Windows | Site izolasyonu |
 | 77 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Dengeli | Windows | Arka plan zamanlayıcı kısıtlaması |
 | 78 | `UserFeedbackAllowed` | DWord | `0` | Dengeli | Windows | Kullanıcı geri bildirim istemleri |
-| 79 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…` | Dengeli | Windows | Zorunlu eklenti |
+| 79 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Dengeli | Windows | Zorunlu eklenti |
 | 80 | `DownloadRestrictions` | DWord | `1` | Dengeli | Windows | Tehlikeli indirme uyarısı |
 | 81 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Dengeli | Windows | İndirme yolu |
 | 82 | `PromptForDownloadLocation` | DWord | `0` | Dengeli | Windows | İndirme konumu istemi |
@@ -389,10 +391,10 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 97 | `ImportSearchEngine` | DWord | `0` | İleri | Windows | Tarayıcılar arası arama motoru |
 | 98 | `ImportHomepage` | DWord | `0` | İleri | Windows | Tarayıcılar arası ana sayfa |
 | 99 | `ExtensionInstallBlocklist` | MultiString | `*` | İleri | Windows | Eklenti engelleme listesi |
-| 100 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh` | İleri | Windows | Eklenti izin listesi |
+| 100 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | İleri | Windows | Eklenti izin listesi |
 | 101 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | İleri | Windows | İzin verilen eklenti türleri |
 | 102 | `BlockExternalExtensions` | DWord | `1` | İleri | Windows | Harici eklenti yükleme |
-| 103 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…}` | İleri | Windows | Eklenti politika matrisi |
+| 103 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | İleri | Windows | Eklenti politika matrisi |
 | 104 | `BuiltInDnsClientEnabled` | DWord | `0` | İleri | Windows | Yerleşik DNS istemcisi |
 | 105 | `ShowHomeButton` | DWord | `0` | İleri | Windows | Ana sayfa düğmesi görünürlüğü |
 | 106 | `HideWebStoreIcon` | DWord | `1` | İleri | Windows | Web Mağazası simgesi |
@@ -442,8 +444,10 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 150 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Pencere yakalama izin listesi |
 | 151 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Katı | Windows | Yerel ağ yakalama izin listesi |
 | 152 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Katı | Windows | Yerel ağ yakalama engelleme listesi |
+| 153 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | İleri | Windows | S/MIME yerel mesajlaşma ana bilgisayarı |
+| 154 | `NativeMessagingUserLevelHosts` | DWord | `1` | İleri | Windows | Kullanıcı düzeyi yerel mesajlaşma ana bilgisayarları |
 
-> **Not:** 139. satır (Katı `DownloadRestrictions`), 80. satırla (Dengeli) birleşir — yalnızca 1 benzersiz politika. Dengeli `1` (tehlikeli indirmelerde uyarı) uygular; Katı `3` (tüm indirmeleri engelle) ile ezdir. Bu nedenle 151 ham satır = 150 benzersiz politika.
+> **Not:** 139. satır (Katı `DownloadRestrictions`), 80. satırla (Dengeli) birleşir — yalnızca 1 benzersiz politika. Dengeli `1` (tehlikeli indirmelerde uyarı) uygular; Katı `3` (tüm indirmeleri engelle) ile ezdir. Bu nedenle 153 ham satır = 152 benzersiz politika.
 
 ---
 
@@ -458,10 +462,10 @@ Veri sızıntısı önleme. Kullanılabilirlik etkisi yok. Tüm Chromium/Brave t
 ### Dengeli — 33 politika (+33 = 86 kümülatif)
 Güvenlik ve kullanım dengesi. WebRTC sıkılaştırması, şifreli DNS, çerez engelleme, parola/otomatik doldurma devre dışı bırakma, izin varsayılanları, site izolasyonu, indirme kontrolleri, Dark Reader eklentisi.
 
-### İleri — 38 politika (+38 = 124 kümülatif)
+### İleri — 40 politika (+40 = 126 kümülatif)
 Genişletilmiş sıkılaştırma. Sensörler, yazı tipleri, seri bağlantı noktası, boşta algılama, misafir modu, tarayıcılar arası içe aktarmalar, eklenti kısıtlamaları, JavaScript varsayılanı kapalı, yapay zeka özellikleri devre dışı.
 
-### Katı — 27 politika (+27 = 150 kümülatif)
+### Katı — 27 politika (+27 = 153 kümülatif)
 Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirmeler, geliştirici araçları, bulut raporlama devre dışı. Gezinti verilerini her 24 saatte bir otomatik temizler.
 
 ---
@@ -470,10 +474,10 @@ Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirme
 
 | Tür | Adet | Yüzde |
 |-----|------|-------|
-| DWord | 116 | %77,3 |
-| String | 7 | %4,7 |
-| MultiString | 17 | %11,3 |
-| **Toplam (benzersiz)** | **150** | **%100** |
+| DWord | 117 | %77,0 |
+| String | 7 | %4,6 |
+| MultiString | 18 | %11,8 |
+| **Toplam (benzersiz)** | **152** | **%100** |
 
 ---
 

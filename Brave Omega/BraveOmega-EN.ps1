@@ -17,8 +17,28 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.5.5.4)
+# CHANGELOG (v2.6.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.0.0             Feature release — Microsoft S/MIME for Outlook Web Access:
+#
+#     [ADD]         Microsoft S/MIME extension (maafgiompdekodanheihhgilkjchcakm) is
+#                   now force-installed at the Balanced tier and above via
+#                   ExtensionInstallForcelist. At the Advanced tier it is added to
+#                   the ExtensionInstallAllowlist and ExtensionSettings (with
+#                   override_update_url) so the Outlook Web Access S/MIME postbox
+#                   (https://outlook.office.com/owa/SmimeCrxUpdate.ashx) is honored.
+#
+#     [ADD]         2 new Advanced-tier policies enable S/MIME native messaging in
+#                   OWA: NativeMessagingAllowlist (com.microsoft.outlook.smime.
+#                   chromenativeapp) and NativeMessagingUserLevelHosts (=1), keeping
+#                   user-level native hosts active per Microsoft's OWA S/MIME guide.
+#
+#     [CHANGED]     Tier counts changed — Advanced 38 → 40, total 150 → 152
+#                   (chain: 24 → 52 → 84 → 124 → 152).
+#
+#     [DOC]         policy-catalog, Brave-Group-Policy-Reference, Wiki, README,
+#                   SECURITY.md, index.html and test suite updated to 152 policies.
+#
 #   v2.5.5.4             Patch release — Brave 1.94.117 compatibility validation:
 #
 #     [CHANGED]     Validated against Brave 1.94.117 (Chromium 152.0.7977.64),
@@ -318,7 +338,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.5.5.4"
+$ScriptVersion   = "v2.6.0.0"
 $ValidatedBrave  = "1.94.117"
 $ValidatedChromium = "152"
 
@@ -491,7 +511,9 @@ $allPolicyNames = @(
         "TabCaptureAllowedByOrigins", "WindowCaptureAllowedByOrigins",
         "LocalNetworkAccessIpAddressSpaceOverrides",
         "LocalNetworkAccessRestrictionsTemporaryOptOut",
-        "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls"
+        "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls",
+        # v2.6.0.0 — 2 new policies (S/MIME native messaging)
+        "NativeMessagingAllowlist", "NativeMessagingUserLevelHosts"
     )
 
 
@@ -846,8 +868,8 @@ $PolicyDefinitions = @{
         # User Feedback — disables in-browser feedback prompts/UI
         @{Name="UserFeedbackAllowed";                  Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
-        # Extension Install Forcelist — force-install Dark Reader
-        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"); Type="MultiString"}
+        # Extension Install Forcelist — force-install Dark Reader + S/MIME for OWA
+        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Type="MultiString"}
         # Download Directory — set default download folder
         @{Name="DownloadDirectory";                    Value="${env:USERPROFILE}\Downloads\"; Type="String"}
         # Prompt For Download Location — do not prompt, use default (0)
@@ -896,14 +918,19 @@ $PolicyDefinitions = @{
         # ─── Moved from Strict (v2.3.0.0 reclassify) — extension lockdown ───
         # Extension Install Blocklist — block all except allowlist
         @{Name="ExtensionInstallBlocklist";            Value=@("*");     Type="MultiString"}
-        # Extension Install Allowlist — Dark Reader only
-        @{Name="ExtensionInstallAllowlist";            Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh"); Type="MultiString"}
+        # Extension Install Allowlist — Dark Reader + S/MIME for OWA
+        @{Name="ExtensionInstallAllowlist";            Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm"); Type="MultiString"}
         # Extension Allowed Types — only extension + shared_module
         @{Name="ExtensionAllowedTypes";                Value=@("extension", "shared_module"); Type="MultiString"}
         # Block External Extensions — prevent sideloading
         @{Name="BlockExternalExtensions";              Value=1;          Type="DWord"}
-        # Extension Settings — JSON backup layer
-        @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"}}'; Type="String"}
+        # Extension Settings — JSON backup layer (S/MIME with override_update_url)
+        @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"},"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}'; Type="String"}
+        # ─── New Advanced Policies (v2.6.0.0 — S/MIME native messaging for OWA) ───
+        # Native Messaging Allowlist — authorize the OWA S/MIME native messaging host
+        @{Name="NativeMessagingAllowlist";             Value=@("com.microsoft.outlook.smime.chromenativeapp"); Type="MultiString"}
+        # Native Messaging User-Level Hosts — keep per-user hosts enabled (required by OWA S/MIME)
+        @{Name="NativeMessagingUserLevelHosts";        Value=1;          Type="DWord"}
         # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS
         @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
         # ─── New Advanced Policies (Phase 9 — Prompt 28) ───
