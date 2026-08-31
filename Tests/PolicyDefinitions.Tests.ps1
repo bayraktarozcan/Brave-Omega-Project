@@ -38,7 +38,7 @@ Describe "Policy Definitions" -Tag "Unit" {
         $content = Get-Content -Path $ScriptEN -Raw
         $expectedCounts = @{
             "BraveOnly" = 24
-            "Essential" = 28
+            "Essential" = 27
             "Balanced"  = 32
             "Advanced"  = 40
             "Strict"    = 28
@@ -64,11 +64,11 @@ Describe "Policy Definitions" -Tag "Unit" {
         }
     }
 
-    It "should have 152 total policy definitions (EN script)" {
+    It "should have 151 total policy definitions (EN script)" {
         $content = Get-Content -Path $ScriptEN -Raw
         $policyDefStart = $content.IndexOf('$PolicyDefinitions')
         $policyDefSection = $content.Substring($policyDefStart)
         $totalMatches = ([regex]::Matches($policyDefSection, '@\{Name=')).Count
-        $totalMatches | Should -BeExactly 152
+        $totalMatches | Should -BeExactly 151
     }
 }

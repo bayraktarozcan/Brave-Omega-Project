@@ -11,12 +11,13 @@
 
 | Metric | Count |
 |--------|-------|
-| Total policies ever removed/rejected | 33 |
+| Total policies ever removed/rejected | 34 |
 | Deprecated by Chromium/Chrome | 9 |
 | Blocked by Brave | 3 |
 | Unrecognized by Brave | 11 |
 | Redundant (superseded) | 2 |
 | Origin-only / not in stable | 1 |
+| ChromeOS-only / not applicable | 1 |
 | Future/unreleased | 1 |
 | Cloud-only (not local) | 3 |
 | Deprecated function (not a policy) | 1 |
@@ -26,12 +27,13 @@
 >
 > | Metrik | Sayı |
 > |--------|------|
-> | Toplam kaldırılan/reddedilen politika | 33 |
+> | Toplam kaldırılan/reddedilen politika | 34 |
 > | Chromium/Chrome tarafından kademeli olarak kaldırılan | 9 |
 > | Brave tarafından engellenen | 3 |
 > | Brave tarafından tanınmayan | 11 |
 > | Gereksiz (yerine geçen) | 2 |
 > | Yalnızca origin / stabilde olmayan | 1 |
+> | Yalnızca ChromeOS / uygulanamaz | 1 |
 > | Gelecek/yayınlanmamış | 1 |
 > | Yalnızca bulut tabanlı (yerel olmayan) | 3 |
 > | Kaldırılmış işlev (politika değil) | 1 |
@@ -811,6 +813,34 @@
 
 ---
 
+### 29. DeviceAttributesAllowedForOrigins
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `DeviceAttributesAllowedForOrigins` |
+| **Version Added** | v2.6.0.0 (2026-08-29) |
+| **Version Removed** | v2.6.1.0 (2026-08-31) |
+| **Tier at Removal** | Essential (L2) |
+| **Reason** | ChromeOS-only Device Attributes API policy unsupported by Brave on Windows; runtime enforcement returns an unknown-policy error |
+| **Category** | ChromeOS-only |
+| **Was in Production** | Yes (v2.6.0.0 only) |
+| **Notes** | Removed from the Essential tier. The policy only applies on ChromeOS, so no Windows hardening is lost. Removing it reduces the Essential tier from 28 to 27 policies and the total from 152 to 151; the cumulative chain drops to 24 → 51 → 83 → 123 → 151. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `DeviceAttributesAllowedForOrigins` |
+> | **Eklendiği Sürüm** | v2.6.0.0 (2026-08-29) |
+> | **Kaldırıldığı Sürüm** | v2.6.1.0 (2026-08-31) |
+> | **Kaldırıldığı Katman** | Essential (L2) |
+> | **Neden** | Brave tarafından Windows'ta desteklenmeyen, yalnızca ChromeOS'a özgü Device Attributes API politikası; çalışma zamanı uygulaması bilinmeyen politika hatası döndürür |
+> | **Kategori** | Yalnızca ChromeOS |
+> | **Üretimde Oldu mu** | Evet (yalnızca v2.6.0.0) |
+> | **Notlar** | Essential katmanından kaldırıldı. Politika yalnızca ChromeOS'ta geçerli olduğundan Windows'ta hiçbir donanım sıkılaştırması kaybolmaz. Kaldırma, Essential katmanını 28'den 27 politikaya ve toplamı 152'den 151'e düşürür; kümülatif zincir 24 → 51 → 83 → 123 → 151'e iner. |
+
+---
+
 ## Policies Moved (Not Removed)
 ## Taşınan Politikalar (Kaldırılmayan)
 
@@ -938,6 +968,9 @@ v2.4.2.0 (2026-07-21) — CrossOriginOpPolicyHeader removed (unrecognized)
                           PasswordReuseDetectionEnabled kaldırıldı (tanınmayan)
                           TabDiscardingEnabled kaldırıldı (tanınmayan)
                           ContextualSearchEnabled kaldırıldı (tanınmayan)
+  ↓
+v2.6.1.0 (2026-08-31) — DeviceAttributesAllowedForOrigins removed (ChromeOS-only)
+                         DeviceAttributesAllowedForOrigins kaldırıldı (yalnızca ChromeOS)
 ```
 
 ---
@@ -1049,12 +1082,13 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 > | `CacheEncryptionEnabled` | "Yalnızca bulut kullanıcı politikası olarak ayarlanabileceği için politika yoksayıldı" |
 > | `CloudReportingEnabled` | "Makine, Brave Tarayıcı Bulut Yönetimi'ne kayıtlı olmadığı için yok sayıldı" |
 
-### Other (4 policies)
-### Diğer (4 politika)
+### Other (5 policies)
+### Diğer (5 politika)
 
 | Policy | Reason |
 |--------|--------|
 | `BraveLocalAIEnabled` | Origin-only, not in stable channel |
+| `DeviceAttributesAllowedForOrigins` | ChromeOS-only, not applicable on Windows |
 | `DefaultDirectSocketsSetting` | Future/unreleased in Brave |
 | `BraveUpdateDisabled` | Unknown in Brave 1.92 |
 | `StartupUrls` / `SSLVersionMin` | Never implemented (planned only) |
@@ -1064,6 +1098,7 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 > | Politika | Neden |
 > |----------|-------|
 > | `BraveLocalAIEnabled` | Yalnızca origin, stabil kanalda yok |
+> | `DeviceAttributesAllowedForOrigins` | Yalnızca ChromeOS, Windows'ta uygulanamaz |
 > | `DefaultDirectSocketsSetting` | Brave'de gelecek/yayınlanmamış |
 > | `BraveUpdateDisabled` | Brave 1.92'de bilinmiyor |
 > | `StartupUrls` / `SSLVersionMin` | Hiç uygulanmadı (yalnızca planlanan) |
@@ -1097,10 +1132,10 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 
 ---
 
-*Last updated: v2.6.0.0 (2026-08-29)*
-*Total policies ever rejected/removed: 33*
-*Current active policies: 152 (v2.6.0.0)*
+*Last updated: v2.6.1.0 (2026-08-31)*
+*Total policies ever rejected/removed: 34*
+*Current active policies: 151 (v2.6.1.0)*
 
-*Son güncelleme: v2.6.0.0 (2026-08-29)*
-*Toplam reddedilen/kaldırılan politika: 33*
-*Mevcut aktif politikalar: 152 (v2.6.0.0)*
+*Son güncelleme: v2.6.1.0 (2026-08-31)*
+*Toplam reddedilen/kaldırılan politika: 34*
+*Mevcut aktif politikalar: 151 (v2.6.1.0)*

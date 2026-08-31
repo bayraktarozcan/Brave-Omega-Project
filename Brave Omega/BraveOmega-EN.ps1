@@ -17,8 +17,20 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.6.0.0)
+# CHANGELOG (v2.6.1.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.1.0             Patch release — remove unsupported ChromeOS-only policy:
+#
+#     [REMOVED]     DeviceAttributesAllowedForOrigins removed from the Essential
+#                   tier and the reset list. It is a ChromeOS-only Device
+#                   Attributes API policy that Brave on Windows does not support,
+#                   so chrome://policy reported "Bilinmeyen politika." with
+#                   value {} — a visible error on every run. Removed entirely;
+#                   the ADMX documented-exception map is now empty.
+#
+#     [CHANGED]     Tier counts changed — Essential 28 → 27, total 152 → 151
+#                   (chain: 24 → 51 → 83 → 123 → 151).
+#
 #   v2.6.0.0             Feature release — Microsoft S/MIME for Outlook Web Access:
 #
 #     [ADD]         Microsoft S/MIME extension (maafgiompdekodanheihhgilkjchcakm) is
@@ -215,7 +227,7 @@
 #     [NEW]        Multi-type registry support:
 #                     - DWord      (REG_DWORD)   for boolean/integer policies
 #                     - String     (REG_SZ)      for string-enum policies
-#                     - MultiString (REG_MULTI_SZ) for list-type policies
+#                     - MultiString -> subkey + numbered REG_SZ rows (Chromium <list>) for list-type policies
 #
 #     [NEW]        Interactive level selection when run without parameters.
 #                   -Level parameter for silent/automated deployment.
@@ -338,7 +350,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.6.0.0"
+$ScriptVersion   = "v2.6.1.0"
 $ValidatedBrave  = "1.94.117"
 $ValidatedChromium = "152"
 
@@ -478,9 +490,9 @@ $allPolicyNames = @(
         "IncognitoModeAvailability", "DeveloperToolsAvailability",
         "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
         "BuiltInDnsClientEnabled",
-        # v2.2.1.0 — 11 hardware API & security policies (missing from prior reset list)
+        # v2.2.1.0 — 10 hardware API & security policies (missing from prior reset list)
         "DefaultWebUsbGuardSetting", "DefaultWebBluetoothGuardSetting", "DefaultWebHidGuardSetting",
-        "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
+        "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
         "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
         "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
         # Phase 9 (v2.4.2.0) — 22 policies across all 5 tiers
@@ -524,6 +536,24 @@ $HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
 $HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 
+# -----------------------------------------------------------------------------
+# Remove a policy entry regardless of its on-disk form: a plain registry value
+# or a list-type subkey (Chromium <list> representation).
+# -----------------------------------------------------------------------------
+function Remove-PolicyEntry {
+    param(
+        [string]$TargetPath,
+        [string]$EntryName
+    )
+
+    Remove-ItemProperty -Path $TargetPath -Name $EntryName -ErrorAction SilentlyContinue | Out-Null
+    $listKeyPath = Join-Path -Path $TargetPath -ChildPath $EntryName
+    if (Test-Path -LiteralPath $listKeyPath) {
+        Remove-Item -LiteralPath $listKeyPath -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
+    }
+}
+
+
 if ($Reset) {
     Write-Host "[RESET MODE] Removing all Brave Omega policies..." -ForegroundColor Magenta
     Write-Host ""
@@ -535,7 +565,7 @@ if ($Reset) {
         foreach ($name in $allPolicyNames) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $HKLM_Target -Name $name
+                    Remove-PolicyEntry -TargetPath $HKLM_Target -EntryName $name
                 }
                 $hkCount++
                 Write-Host "  [OK] HKLM\$name removed" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
@@ -788,8 +818,6 @@ $PolicyDefinitions = @{
         @{Name="DefaultWebBluetoothGuardSetting";      Value=2; Type="DWord"}
         # WebHID — blocks websites from accessing HID devices by default
         @{Name="DefaultWebHidGuardSetting";            Value=2; Type="DWord"}
-        # Device Attributes — blocks all origins from accessing device attributes (ChromeOS)
-        @{Name="DeviceAttributesAllowedForOrigins";    Value=@(); Type="MultiString"}
         # Encrypted ClientHello — forces ECH to encrypt SNI (defense-in-depth)
         @{Name="EncryptedClientHelloEnabled";          Value=1; Type="DWord"}
         # Payment Method Queries — disables Payment Request API queries (fingerprint reduction)
@@ -920,8 +948,8 @@ $PolicyDefinitions = @{
         @{Name="ExtensionInstallBlocklist";            Value=@("*");     Type="MultiString"}
         # Extension Install Allowlist — Dark Reader + S/MIME for OWA
         @{Name="ExtensionInstallAllowlist";            Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm"); Type="MultiString"}
-        # Extension Allowed Types — only extension + shared_module
-        @{Name="ExtensionAllowedTypes";                Value=@("extension", "shared_module"); Type="MultiString"}
+        # Extension Allowed Types — only extension (shared_module not supported by Brave)
+        @{Name="ExtensionAllowedTypes";                Value=@("extension"); Type="MultiString"}
         # Block External Extensions — prevent sideloading
         @{Name="BlockExternalExtensions";              Value=1;          Type="DWord"}
         # Extension Settings — JSON backup layer (S/MIME with override_update_url)
@@ -1122,7 +1150,7 @@ function Write-PolicyValue {
     $displayValue = switch ($ValueType) {
         "DWord"      { "dword:$PolicyValue" }
         "String"     { "sz:`"$PolicyValue`"" }
-        "MultiString" { "multi-sz:`"$($PolicyValue -join ';')`"" }
+        "MultiString" { "list:\`"$($PolicyValue -join ';')\`"" }
         default      { "unknown:$PolicyValue" }
     }
 
@@ -1144,22 +1172,18 @@ function Write-PolicyValue {
             break
         }
         "MultiString" {
-            $hive = if ($TargetPath -match "^HKLM:") { [Microsoft.Win32.Registry]::LocalMachine }
-                    elseif ($TargetPath -match "^HKCU:") { [Microsoft.Win32.Registry]::CurrentUser }
-                    else { throw "Unsupported registry hive: $TargetPath" }
-            $subKey = $TargetPath -replace "^HK[^:]+:\\", ""
-            $key = $hive.OpenSubKey($subKey, $true)
-            if (-not $key) {
-                throw "Registry key not found: $TargetPath"
+            $listKeyPath = Join-Path -Path $TargetPath -ChildPath $PolicyName
+            Remove-ItemProperty -Path $TargetPath -Name $PolicyName -ErrorAction SilentlyContinue | Out-Null
+            if (Test-Path -LiteralPath $listKeyPath) {
+                Remove-Item -LiteralPath $listKeyPath -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
             }
-            try {
-                if ($PolicyValue -and $PolicyValue.Count -gt 0) {
-                    $key.SetValue($PolicyName, [string[]]$PolicyValue, [Microsoft.Win32.RegistryValueKind]::MultiString)
-                } else {
-                    $key.SetValue($PolicyName, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+            New-Item -Path $listKeyPath -Force -ErrorAction Stop | Out-Null
+            if ($PolicyValue -and $PolicyValue.Count -gt 0) {
+                $listIndex = 1
+                foreach ($policyItem in [string[]]$PolicyValue) {
+                    New-ItemProperty -Path $listKeyPath -Name ([string]$listIndex) -Value $policyItem -PropertyType String -Force -ErrorAction Stop | Out-Null
+                    $listIndex++
                 }
-            } finally {
-                if ($key) { $key.Close() }
             }
             break
         }
@@ -1310,6 +1334,12 @@ if (Test-Path $HKLM_Target) {
             } |
             ForEach-Object { $_.Name })
     }
+    $StaleSubkeys = @(Get-ChildItem -Path $HKLM_Target -ErrorAction SilentlyContinue |
+        Where-Object { $_.PSIsContainer -and $_.PSChildName -in $allPolicyNames -and $_.PSChildName -notin $MergedPolicies.Keys } |
+        ForEach-Object { $_.PSChildName })
+    if ($StaleSubkeys.Count -gt 0) {
+        $StaleCandidates = @($StaleCandidates + $StaleSubkeys | Sort-Object -Unique)
+    }
 }
 
 if ($StaleCandidates.Count -gt 0) {
@@ -1317,7 +1347,11 @@ if ($StaleCandidates.Count -gt 0) {
     foreach ($StaleName in $StaleCandidates) {
         try {
             if (-not $WhatIf) {
-                Remove-ItemProperty -Path $HKLM_Target -Name $StaleName -ErrorAction Stop | Out-Null
+                Remove-ItemProperty -Path $HKLM_Target -Name $StaleName -ErrorAction SilentlyContinue | Out-Null
+                $StaleListKeyPath = Join-Path -Path $HKLM_Target -ChildPath $StaleName
+                if (Test-Path -LiteralPath $StaleListKeyPath) {
+                    Remove-Item -LiteralPath $StaleListKeyPath -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
+                }
             }
             $StaleRemovedCount++
             $msg = if ($WhatIf) { "[WhatIf] $StaleName would be removed (stale)" } else { "[OK] $StaleName removed (stale)" }

@@ -17,8 +17,20 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.6.0.0)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.6.1.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.1.0             Yama sürümü — desteklenmeyen ChromeOS'a özgü politika kaldırıldı:
+#
+#     [KALDIRILDI]  DeviceAttributesAllowedForOrigins, Temel kademeden ve sıfırlama
+#                   listesinden kaldırıldı. Brave'in Windows'ta desteklemediği, yalnızca
+#                   ChromeOS'a özgü bir Cihaz Öznitelikleri API politikasıdır; bu yüzden
+#                   chrome://policy her çalıştırmada görünür bir hata olarak
+#                   "Bilinmeyen politika." ve value {} bildiriyordu. Tamamen kaldırıldı;
+#                   ADMX belgeli-istisna haritası artık boş.
+#
+#     [DEĞİŞTİ]     Seviye sayıları değişti — Temel 28 → 27, toplam 152 → 151
+#                   (zincir: 24 → 51 → 83 → 123 → 151).
+#
 #   v2.6.0.0             Özellik sürümü — Outlook Web Access için Microsoft S/MIME:
 #
 #     [EKLENDİ]     Microsoft S/MIME uzantısı (maafgiompdekodanheihhgilkjchcakm) artık
@@ -224,7 +236,7 @@
 #     [YENİ]        Çok türlü kayıt defteri desteği:
 #                     - DWord      (REG_DWORD)   için true/false ve tamsayı
 #                     - String     (REG_SZ)      için metin tipi politikalar
-#                     - MultiString (REG_MULTI_SZ) için liste tipi politikalar
+#                     - MultiString -> alt anahtar + numaralı REG_SZ satırları (Chromium <list>) için liste tipi politikalar
 #
 #     [YENİ]        Parametresiz çalıştırmada etkileşimli katman seçimi.
 #                   -Level parametresi ile sessiz/otomasyon dağıtımı.
@@ -347,7 +359,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.6.0.0"
+$BetikSurum    = "v2.6.1.0"
 $DogrulananBrave = "1.94.117"
 $DogrulananChromium = "152"
 
@@ -486,9 +498,9 @@ $tumPolitikalar = @(
         "IncognitoModeAvailability", "DeveloperToolsAvailability",
         "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
         "BuiltInDnsClientEnabled",
-        # v2.2.1.0 — 11 donanim API ve guvenlik politikasi (onceki sifirla listesinde eksik)
+        # v2.2.1.0 — 10 donanim API ve guvenlik politikasi (onceki sifirla listesinde eksik)
         "DefaultWebUsbGuardSetting", "DefaultWebBluetoothGuardSetting", "DefaultWebHidGuardSetting",
-        "DeviceAttributesAllowedForOrigins", "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
+        "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
         "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
         "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
         # Phase 9 (v2.4.2.0) — 22 politika, 5 kademede
@@ -532,6 +544,24 @@ $HKCU_Hedef = "HKCU:\Software\BraveSoftware\Brave-Browser"
 $HKLM_Hedef = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
 
 
+# -----------------------------------------------------------------------------
+# Bir politika kaydını diskteki biçiminden bağımsız olarak kaldırır: düz bir
+# kayıt defteri değeri veya liste tipi bir alt anahtar (Chromium <list>).
+# -----------------------------------------------------------------------------
+function Kaldir-PolitikaKaydi {
+    param(
+        [string]$HedefYol,
+        [string]$KayitAdi
+    )
+
+    Remove-ItemProperty -Path $HedefYol -Name $KayitAdi -ErrorAction SilentlyContinue | Out-Null
+    $listeAnahtarYolu = Join-Path -Path $HedefYol -ChildPath $KayitAdi
+    if (Test-Path -LiteralPath $listeAnahtarYolu) {
+        Remove-Item -LiteralPath $listeAnahtarYolu -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
+    }
+}
+
+
 if ($Sifirla) {
     Write-Host "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." -ForegroundColor Magenta
     Write-Host ""
@@ -543,7 +573,7 @@ if ($Sifirla) {
         foreach ($ad in $tumPolitikalar) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $HKLM_Hedef -Name $ad
+                    Kaldir-PolitikaKaydi -HedefYol $HKLM_Hedef -KayitAdi $ad
                 }
                 $hkSayac++
                 Write-Host "  [OK] HKLM\$ad kaldırıldı" -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
@@ -804,8 +834,6 @@ $PolitikaTanimlari = @{
         @{Ad="DefaultWebBluetoothGuardSetting";      Deger=2; Tur="DWord"}
         # WebHID — web sitelerinin HID aygıtlarına erişimini varsayılan olarak engeller
         @{Ad="DefaultWebHidGuardSetting";            Deger=2; Tur="DWord"}
-        # Cihaz Özellikleri — tüm kaynakların cihaz özelliklerine erişimini engeller (ChromeOS)
-        @{Ad="DeviceAttributesAllowedForOrigins";    Deger=@(); Tur="MultiString"}
         # Şifreli İstemci Selamı — SNI'yi şifrelemek için ECH'yi zorlar
         @{Ad="EncryptedClientHelloEnabled";          Deger=1; Tur="DWord"}
         # Ödeme Yöntemi Sorguları — Payment Request API sorgularını devre dışı bırakır
@@ -936,8 +964,8 @@ $PolitikaTanimlari = @{
         @{Ad="ExtensionInstallBlocklist";            Deger=@("*");     Tur="MultiString"}
         # Uzantı Yükleme İzin Listesi — Dark Reader + OWA için S/MIME
         @{Ad="ExtensionInstallAllowlist";            Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm"); Tur="MultiString"}
-        # İzin Verilen Uzantı Türleri — yalnızca extension ve shared_module
-        @{Ad="ExtensionAllowedTypes";                Deger=@("extension", "shared_module"); Tur="MultiString"}
+        # İzin Verilen Uzantı Türleri — yalnızca extension (shared_module Brave tarafından desteklenmez)
+        @{Ad="ExtensionAllowedTypes";                Deger=@("extension"); Tur="MultiString"}
         # Harici Uzantıları Engelle — yan yükleme/sideloading'i engelle
         @{Ad="BlockExternalExtensions";              Deger=1;          Tur="DWord"}
         # Uzantı Ayarları — JSON yedek katmanı (S/MIME override_update_url ile)
@@ -1137,7 +1165,7 @@ function Yaz-KayitDegeri {
     $goruntulenecekDeger = switch ($DegerTuru) {
         "DWord"      { "dword:$PolitikaDegeri" }
         "String"     { "sz:`"$PolitikaDegeri`"" }
-        "MultiString" { "multi-sz:`"$(if ($PolitikaDegeri) { $PolitikaDegeri -join ';' } else { 'boş' })`"" }
+        "MultiString" { "list:\`"$(if ($PolitikaDegeri) { $PolitikaDegeri -join ';' } else { 'boş' })\`"" }
         default      { "unknown:$PolitikaDegeri" }
     }
 
@@ -1159,22 +1187,18 @@ function Yaz-KayitDegeri {
             break
         }
         "MultiString" {
-            $kovan = if ($HedefYol -match "^HKLM:") { [Microsoft.Win32.Registry]::LocalMachine }
-                     elseif ($HedefYol -match "^HKCU:") { [Microsoft.Win32.Registry]::CurrentUser }
-                     else { throw "Desteklenmeyen kayıt defteri kovanı: $HedefYol" }
-            $altAnahtar = $HedefYol -replace "^HK[^:]+:\\", ""
-            $anahtar = $kovan.OpenSubKey($altAnahtar, $true)
-            if (-not $anahtar) {
-                throw "Kayıt defteri anahtarı bulunamadı: $HedefYol"
+            $listeAnahtarYolu = Join-Path -Path $HedefYol -ChildPath $PolitikaAdi
+            Remove-ItemProperty -Path $HedefYol -Name $PolitikaAdi -ErrorAction SilentlyContinue | Out-Null
+            if (Test-Path -LiteralPath $listeAnahtarYolu) {
+                Remove-Item -LiteralPath $listeAnahtarYolu -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
             }
-            try {
-                if ($PolitikaDegeri -and $PolitikaDegeri.Count -gt 0) {
-                    $anahtar.SetValue($PolitikaAdi, [string[]]$PolitikaDegeri, [Microsoft.Win32.RegistryValueKind]::MultiString)
-                } else {
-                    $anahtar.SetValue($PolitikaAdi, [string[]]@(), [Microsoft.Win32.RegistryValueKind]::MultiString)
+            New-Item -Path $listeAnahtarYolu -Force -ErrorAction Stop | Out-Null
+            if ($PolitikaDegeri -and $PolitikaDegeri.Count -gt 0) {
+                $listeIndex = 1
+                foreach ($politikaOgesi in [string[]]$PolitikaDegeri) {
+                    New-ItemProperty -Path $listeAnahtarYolu -Name ([string]$listeIndex) -Value $politikaOgesi -PropertyType String -Force -ErrorAction Stop | Out-Null
+                    $listeIndex++
                 }
-            } finally {
-                if ($anahtar) { $anahtar.Close() }
             }
             break
         }
@@ -1327,6 +1351,12 @@ if (Test-Path $HKLM_Hedef) {
             } |
             ForEach-Object { $_.Name })
     }
+    $BayatAltAnahtarlar = @(Get-ChildItem -Path $HKLM_Hedef -ErrorAction SilentlyContinue |
+        Where-Object { $_.PSIsContainer -and $_.PSChildName -in $tumPolitikalar -and $_.PSChildName -notin $BirlestirilmisPolitikalar.Keys } |
+        ForEach-Object { $_.PSChildName })
+    if ($BayatAltAnahtarlar.Count -gt 0) {
+        $BayatAdaylar = @($BayatAdaylar + $BayatAltAnahtarlar | Sort-Object -Unique)
+    }
 }
 
 if ($BayatAdaylar.Count -gt 0) {
@@ -1334,7 +1364,11 @@ if ($BayatAdaylar.Count -gt 0) {
     foreach ($BayatAd in $BayatAdaylar) {
         try {
             if (-not $WhatIf) {
-                Remove-ItemProperty -Path $HKLM_Hedef -Name $BayatAd -ErrorAction Stop | Out-Null
+                Remove-ItemProperty -Path $HKLM_Hedef -Name $BayatAd -ErrorAction SilentlyContinue | Out-Null
+                $bayatListeYolu = Join-Path -Path $HKLM_Hedef -ChildPath $BayatAd
+                if (Test-Path -LiteralPath $bayatListeYolu) {
+                    Remove-Item -LiteralPath $bayatListeYolu -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
+                }
             }
             $BayatSilinenSayac++
             $mesaj = if ($WhatIf) { "[WhatIf] $BayatAd silinecek (bayat)" } else { "[OK] $BayatAd silindi (bayat)" }

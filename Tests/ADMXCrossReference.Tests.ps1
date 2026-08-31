@@ -34,7 +34,22 @@ Describe "ADMX Cross-Reference - Documented Exceptions" -Tag "Integration" {
         $validatorPath = Join-Path $PSScriptRoot "..\admx\admx-validate.ps1"
         $content = Get-Content -Path $validatorPath -Raw
         $content -match '\$knownAdmxExceptions\s*=\s*@\{' | Should -Be $true
-        $content -match 'DeviceAttributesAllowedForOrigins' | Should -Be $true
+    }
+
+    It "removed ChromeOS-only policy should no longer be applied by the validator or scripts" {
+        $validatorPath = Join-Path $PSScriptRoot "..\admx\admx-validate.ps1"
+        $validatorContent = Get-Content -Path $validatorPath -Raw
+        $validatorContent -match 'DeviceAttributesAllowedForOrigins\s*=' | Should -Be $false
+
+        $enScript = Get-Content -Path (Join-Path $PSScriptRoot "..\Brave Omega\BraveOmega-EN.ps1") -Raw
+        $trScript = Get-Content -Path (Join-Path $PSScriptRoot "..\Brave Omega\BraveOmega-TR.ps1") -Raw
+
+        $enScript -match 'Name="DeviceAttributesAllowedForOrigins"' | Should -Be $false
+        $trScript -match 'Ad="DeviceAttributesAllowedForOrigins"' | Should -Be $false
+
+        $resetEntryPattern = '(?m)^\s*"DeviceAttributesAllowedForOrigins",'
+        $enScript -match $resetEntryPattern | Should -Be $false
+        $trScript -match $resetEntryPattern | Should -Be $false
     }
 
     It "validator should run cleanly with no failures" {

@@ -5,7 +5,7 @@
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.6.0.0 (Microsoft S/MIME for Outlook Web Access).
+Complete installation guide for Brave Omega v2.6.1.0 (Device Attributes clean-up).
 
 ---
 
@@ -77,7 +77,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 - Script detects running Brave → prompts continue/cancel
 - Creates timestamped `.reg` backup of HKLM policy hive
-- Displays level selection menu (1-5) and applies policies based on selected level (24/52/84/124/152)
+- Displays level selection menu (1-5) and applies policies based on selected level (24/51/83/123/151)
 - Shows per-category success/failure summary
 
 ### 5. Restart Brave
@@ -87,7 +87,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 6. Verify
 
-Navigate to `brave://policy` — all Essential level policies (52) should show **Active**.
+Navigate to `brave://policy` — all Essential level policies (51) should show **Active**.
 
 ---
 
@@ -99,7 +99,7 @@ Navigate to `brave://policy` — all Essential level policies (52) should show *
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session only | Current process | ✅ Better |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(used)* | **Single command** | **Child process only** | ✅ **Best — no persistence** |
 
-> **Brave Omega v2.6.0.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
+> **Brave Omega v2.6.1.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
 
 ---
 
@@ -108,7 +108,7 @@ Navigate to `brave://policy` — all Essential level policies (52) should show *
 ### 1. Check `brave://policy`
 
 - Open `brave://policy` in Brave
-- All Essential level policies (52) should show **Active** (green ✅)
+- All Essential level policies (51) should show **Active** (green ✅)
 
 ### 2. Check Registry (Optional)
 
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v2.6.0.0 için tam kurulum kılavuzu (Outlook Web Access için Microsoft S/MIME).
+Brave Omega v2.6.1.0 için tam kurulum kılavuzu (Cihaz Öznitelikleri temizliği).
 
 ---
 
@@ -291,7 +291,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 - Betik çalışan Brave'i tespit eder → devam/iptal istemi gösterir
 - HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur
-- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (24/52/84/124/152)
+- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (24/51/83/123/151)
 - Kategori bazında başarı/hata özetini gösterir
 
 ### 5. Brave'i Yeniden Başlat
@@ -301,7 +301,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 6. Doğrula
 
-`brave://policy` adresine git — 52 Temel seviye politikanın tümü **Etkin** görünmelidir.
+`brave://policy` adresine git — 51 Temel seviye politikanın tümü **Etkin** görünmelidir.
 
 ---
 
@@ -313,7 +313,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Yalnızca oturum | Geçerli işlem | ✅ Daha iyi |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(kullanılan)* | **Tek komut** | **Yalnızca alt işlem** | ✅ **En iyi — kalıcılık yok** |
 
-> **Brave Omega v2.6.0.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
+> **Brave Omega v2.6.1.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
 
 ---
 
@@ -322,7 +322,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ### 1. `brave://policy` Kontrol Et
 
 - Brave'de `brave://policy` adresini aç
-- 52 Temel seviye politikanın tümü **Etkin** (yeşil ✅) görünmeli
+- 51 Temel seviye politikanın tümü **Etkin** (yeşil ✅) görünmeli
 
 ### 2. Kayıt Defterini Kontrol Et (İsteğe Bağlı)
 
