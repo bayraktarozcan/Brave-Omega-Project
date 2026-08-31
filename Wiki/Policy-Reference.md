@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.6.0.0 — **152 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v2.6.1.0 — **151 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
@@ -14,14 +14,14 @@ Complete policy reference for Brave Omega v2.6.0.0 — **152 enterprise policies
 | Level | Own Policies | HKCU | HKLM | Cumulative Total |
 | ------- | ---------- | ------ | ------ | ------------ |
 | **1. Brave Only** | 24 | — | 24 | Base |
-| **2. Essential** ⭐ | 28 | UsageStatsInSample | 52 | Includes Level 1 |
-| **3. Balanced** | 32 | UsageStatsInSample | 84 | Includes Levels 1-2 |
-| **4. Advanced** | 40 | UsageStatsInSample | 124 | Includes Levels 1-3 |
-| **5. Strict** | 28 | UsageStatsInSample | 152 | Includes Levels 1-4 |
+| **2. Essential** ⭐ | 27 | UsageStatsInSample | 51 | Includes Level 1 |
+| **3. Balanced** | 32 | UsageStatsInSample | 83 | Includes Levels 1-2 |
+| **4. Advanced** | 40 | UsageStatsInSample | 123 | Includes Levels 1-3 |
+| **5. Strict** | 28 | UsageStatsInSample | 151 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 152 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 151 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -60,7 +60,7 @@ Complete policy reference for Brave Omega v2.6.0.0 — **152 enterprise policies
 | `BraveShieldsEnabledForUrls` | `@()` | MultiString | No URLs force-enabled for Shields |
 | `EmailAliasesEnabled` | `0` | DWord | Disables Brave email aliases |
 
-### Essential Level — Brave Only + Data Leak Prevention (28 total)
+### Essential Level — Brave Only + Data Leak Prevention (27 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -84,7 +84,6 @@ Complete policy reference for Brave Omega v2.6.0.0 — **152 enterprise policies
 | `DefaultWebUsbGuardSetting` | `2` | DWord | Blocks WebUSB by default |
 | `DefaultWebBluetoothGuardSetting` | `2` | DWord | Blocks WebBluetooth by default |
 | `DefaultWebHidGuardSetting` | `2` | DWord | Blocks WebHID by default |
-| `DeviceAttributesAllowedForOrigins` | `@()` | MultiString | Blocks device attribute disclosure |
 | `EncryptedClientHelloEnabled` | `1` | DWord | Enables Encrypted Client Hello |
 | `PaymentMethodQueryEnabled` | `0` | DWord | Blocks payment method queries |
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Suppresses cross-origin subframe dialogs |
@@ -228,7 +227,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 152 policies should show as **Active** (green checkmark).
+All 151 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -265,7 +264,7 @@ All 152 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.6.0.0 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **152 kurumsal politika**.
+Brave Omega v2.6.1.0 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **151 kurumsal politika**.
 
 ---
 
@@ -274,14 +273,14 @@ Brave Omega v2.6.0.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | Seviye | Kendi Politikaları | HKCU | HKLM | Kümülatif Toplam |
 | -------- | ---------- | ------ | ------ | ----------- |
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
-| **2. Temel** ⭐ | 28 | UsageStatsInSample | 52 | 1. Seviyeyi kapsar |
-| **3. Dengeli** | 32 | UsageStatsInSample | 84 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 40 | UsageStatsInSample | 124 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 28 | UsageStatsInSample | 152 | 1-4. Seviyeleri kapsar |
+| **2. Temel** ⭐ | 27 | UsageStatsInSample | 51 | 1. Seviyeyi kapsar |
+| **3. Dengeli** | 32 | UsageStatsInSample | 83 | 1-2. Seviyeleri kapsar |
+| **4. Gelişmiş** | 40 | UsageStatsInSample | 123 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 28 | UsageStatsInSample | 151 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 152 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 151 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -320,7 +319,7 @@ Brave Omega v2.6.0.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `BraveShieldsEnabledForUrls` | `@()` | MultiString | Kalkanları zorla etkinleştirilen URL yok |
 | `EmailAliasesEnabled` | `0` | DWord | Brave e-posta takma adlarını devre dışı bırakır |
 
-### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (28 toplam)
+### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (27 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -344,7 +343,6 @@ Brave Omega v2.6.0.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `DefaultWebUsbGuardSetting` | `2` | DWord | Varsayılan olarak WebUSB'yi engeller |
 | `DefaultWebBluetoothGuardSetting` | `2` | DWord | Varsayılan olarak WebBluetooth'u engeller |
 | `DefaultWebHidGuardSetting` | `2` | DWord | Varsayılan olarak WebHID'i engeller |
-| `DeviceAttributesAllowedForOrigins` | `@()` | MultiString | Cihaz niteliklerinin ifşasını engeller |
 | `EncryptedClientHelloEnabled` | `1` | DWord | Encrypted Client Hello'yu etkinleştirir |
 | `PaymentMethodQueryEnabled` | `0` | DWord | Ödeme yöntemi sorgularını engeller |
 | `SuppressDifferentOriginSubframeDialogs` | `1` | DWord | Farklı kaynaklı alt çerçeve iletişim kutularını bastırır |
@@ -488,7 +486,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-152 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+151 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

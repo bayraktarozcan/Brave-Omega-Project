@@ -39,11 +39,11 @@ BeforeAll {
     }
 }
 
-Describe "Stale Policy Cleanup - v2.6.0.0" -Tag "Unit" {
+Describe "Stale Policy Cleanup - v2.6.1.0" -Tag "Unit" {
 
-    It "should declare v2.6.0.0 in both scripts" {
-        (Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion") | Should -Be "v2.6.0.0"
-        (Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum") | Should -Be "v2.6.0.0"
+    It "should declare v2.6.1.0 in both scripts" {
+        (Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion") | Should -Be "v2.6.1.0"
+        (Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum") | Should -Be "v2.6.1.0"
     }
 
     It "should define the known-policy array OUTSIDE the -Reset block in EN script" {
@@ -71,6 +71,9 @@ Describe "Stale Policy Cleanup - v2.6.0.0" -Tag "Unit" {
         $content -match '\$_.Name -in \$allPolicyNames' | Should -Be $true
         $content -match '\$_.Name -notin \$MergedPolicies\.Keys' | Should -Be $true
         $content -match 'Remove-ItemProperty -Path \$HKLM_Target -Name \$StaleName' | Should -Be $true
+        $content -match 'Get-ChildItem -Path \$HKLM_Target -ErrorAction SilentlyContinue' | Should -Be $true
+        $content -match 'Sort-Object -Unique' | Should -Be $true
+        $content -match 'Remove-Item -LiteralPath \$StaleListKeyPath -Recurse -Force' | Should -Be $true
     }
 
     It "TR script should include the stale cleanup step (smart filter)" {
@@ -80,6 +83,8 @@ Describe "Stale Policy Cleanup - v2.6.0.0" -Tag "Unit" {
         $content -match '\$_.Name -in \$tumPolitikalar' | Should -Be $true
         $content -match '\$_.Name -notin \$BirlestirilmisPolitikalar\.Keys' | Should -Be $true
         $content -match 'Remove-ItemProperty -Path \$HKLM_Hedef -Name \$BayatAd' | Should -Be $true
+        $content -match 'Get-ChildItem -Path \$HKLM_Hedef -ErrorAction SilentlyContinue' | Should -Be $true
+        $content -match 'Remove-Item -LiteralPath \$bayatListeYolu -Recurse -Force' | Should -Be $true
     }
 
     It "cleanup should respect -WhatIf (preview only, no removal)" {

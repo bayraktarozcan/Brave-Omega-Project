@@ -18,7 +18,7 @@
 | [🏠 Overview](Overview) | What is Brave Omega, why it exists, key concepts |
 | [🚀 Quick Start](Quick-Start) | Get running in 3 minutes |
 | [🏗️ Architecture](Architecture) | Multi-layer enforcement model, policy sources |
-| [📋 Policy Reference](Policy-Reference) | Complete 152-policy registry reference |
+| [📋 Policy Reference](Policy-Reference) | Complete 151-policy registry reference |
 | [🔧 Installation](Installation) | Prerequisites, execution policy, step-by-step |
 | [🛡️ Security](Security) | Safety model, backup/rollback, process guard |
 | [🔍 Troubleshooting](Troubleshooting) | Common issues and solutions |
@@ -55,7 +55,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | Feature | Description |
 | --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement** | HKCU + HKLM + Omaha GUID — independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 152 policies (5 tiers, 24→52→84→124→152 chain), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 151 policies (5 tiers, 24→51→83→123→151 chain), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -69,7 +69,8 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.6.0.0** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Current |
+| **v2.6.1.0** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Current |
+| v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
 | v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
 | v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | 📦 Previous |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | 📦 Previous |
@@ -102,7 +103,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.6.0.0 — Microsoft S/MIME for OWA](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v2.6.1.0 — Device Attributes clean-up](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 > 🧪 **Pester test suite** (116 It blocks across 18 files), PSScriptAnalyzer + policy integrity CI, and quality badges live since v2.1.6.0. See [Changelog](Changelog#v2160) for details.
 
@@ -154,7 +155,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | [🏠 Genel Bakış](Overview#-türkçe) | Brave Omega nedir, neden var, temel kavramlar |
 | [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) | 3 dakikada çalıştırma |
 | [🏗️ Mimari](Architecture#-türkçe) | Çok katmanlı uygulama modeli, politika kaynakları |
-| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 152 politikalık kayıt defteri başvuru tablosu |
+| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 151 politikalık kayıt defteri başvuru tablosu |
 | [🔧 Kurulum](Installation#-türkçe) | Ön gereksinimler, çalıştırma ilkesi, adım adım |
 | [🛡️ Güvenlik](Security#-türkçe) | Güvenlik modeli, yedekleme/geri alma, süreç koruyucu |
 | [🔍 Sorun Giderme](Troubleshooting#-türkçe) | Sık karşılaşılan sorunlar ve çözümleri |
@@ -191,7 +192,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | Özellik | Açıklama |
 | --------- | ---------- |
 | 🔒 **Çok Katmanlı Uygulama** | HKCU + HKLM + Omaha GUID — bağımsız uygulama katmanları |
-| 📋 **ADMX Doğrulamalı Politikalar** | 152 politika (5 kademe, 24→52→84→124→152 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 151 politika (5 kademe, 24→51→83→123→151 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
@@ -205,7 +206,8 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.6.0.0** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.6.1.0** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
 | v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
 | v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | 📦 Önceki |
 | v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | 📦 Önceki |
@@ -238,7 +240,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.6.0.0 — OWA için Microsoft S/MIME](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v2.6.1.0 — Cihaz Öznitelikleri temizliği](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 

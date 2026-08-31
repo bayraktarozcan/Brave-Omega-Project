@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.6.0.0** ⭐ | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | ✅ Active | 2026-08-29 |
+| **v2.6.1.0** ⭐ | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | ✅ Active | 2026-08-31 |
+| **v2.6.0.0** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Previous | 2026-08-29 |
 | **v2.5.5.4** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Previous | 2026-08-27 |
 | **v2.5.5.3** 📦 | 1.93.138 | 151.0.7922.173 | Windows 11 25H2 | 📦 Previous | 2026-08-22 |
 | **v2.5.5.2** 📦 | 1.93.136 | 151.0.7922.137 | Windows 11 25H2 | 📦 Previous | 2026-08-13 |
@@ -73,15 +74,15 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.6.0.0) If
+### Use Current (v2.6.1.0) If
 
 - Running Brave 1.94.117 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
-- Need full extension lockdown, proxy enforcement, and 152 total policies
+- Need full extension lockdown, proxy enforcement, and 151 total policies
 
-### Use Previous (v2.5.5.4) If
+### Use Previous (v2.6.0.0) If
 
-- Cannot update to v2.6.0.0 immediately
+- Cannot update to v2.6.1.0 immediately
 - Running Brave 1.94.117
 
 ### Use Legacy (v2.2.1.0) If
@@ -92,7 +93,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ### Avoid Archived (v1.0) If
 
-- Policies outdated (only 7 vs 152 current)
+- Policies outdated (only 7 vs 151 current)
 - No backup/rollback, no process guard
 - No lifecycle commitment features
 
@@ -133,6 +134,7 @@ if (Test-Path $bravePath) {
 
 | Version | Policies | Coverage | New Policies |
 | --------- | ---------- | ---------- | -------------- |
+| v2.6.1.0 | 151 | 100% | Clean-up release — Device attributes clean-up (2026-08-31). 1 policy removed (152→151): ChromeOS-only `DeviceAttributesAllowedForOrigins` unsupported by Brave on Windows. No Windows hardening lost across all 5 tiers |
 | v2.6.0.0 | 152 | 100% | Feature release — Microsoft S/MIME for OWA (Chromium 152.0.7977.64). 2 new policies (150→152): S/MIME native messaging host (Advanced), OWA S/MIME extension lockdown (Balanced+). No regressions across all 5 tiers |
 | v2.5.5.4 | 150 | 100% | Patch release — Brave 1.94.117 validation (Chromium 152.0.7977.64). No policy changes, no regressions across all 5 tiers |
 | v2.5.5.3 | 150 | 100% | Patch release — Brave 1.93.138 validation (Chromium 151.0.7922.173). No policy changes, no regressions across all 5 tiers |
@@ -217,7 +219,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.6.0.0** ⭐ | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | ✅ Güncel | 2026-08-29 |
+| **v2.6.1.0** ⭐ | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | ✅ Güncel | 2026-08-31 |
+| **v2.6.0.0** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Önceki | 2026-08-29 |
 | **v2.5.5.4** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Önceki | 2026-08-27 |
 | **v2.5.5.3** 📦 | 1.93.138 | 151.0.7922.173 | Windows 11 25H2 | 📦 Önceki | 2026-08-22 |
 | **v2.5.5.2** 📦 | 1.93.136 | 151.0.7922.137 | Windows 11 25H2 | 📦 Önceki | 2026-08-13 |
@@ -277,15 +280,15 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.6.0.0) Kullan Eğer
+### Güncel (v2.6.1.0) Kullan Eğer
 
 - Brave 1.94.117 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
-- Tam uzantı kilitleme, proxy zorunlu kılma ve 152 toplam politika
+- Tam uzantı kilitleme, proxy zorunlu kılma ve 151 toplam politika
 
-### Önceki (v2.5.5.4) Kullan Eğer
+### Önceki (v2.6.0.0) Kullan Eğer
 
-- Hemen v2.6.0.0'a güncelleyemiyorsanız
+- Hemen v2.6.1.0'a güncelleyemiyorsanız
 - Brave 1.94.117 çalışıyorsa
 
 ### Eski (v2.2.1.0) Kullan Eğer
@@ -296,7 +299,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Arşivlenmiş (v1.0) Kullanma Eğer
 
-- Politikalar güncel değil (7'ye karşı 152)
+- Politikalar güncel değil (7'ye karşı 151)
 - Yedekleme/geri alma, süreç koruyucusu yok
 - Yaşam döngüsü taahhüdü özellikleri yok
 
@@ -337,6 +340,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | ------- | ---------- | -------- | ------------------ |
+| v2.6.1.0 | 151 | 100% | Temizlik sürümü — Cihaz Öznitelikleri temizliği (2026-08-31). 1 politika kaldırıldı (152→151): Windows'ta Brave tarafından desteklenmeyen yalnızca ChromeOS'a özgü `DeviceAttributesAllowedForOrigins`. 5 seviyede de Windows sıkılaştırması kaybı yok |
 | v2.6.0.0 | 152 | 100% | Özellik sürümü — OWA için Microsoft S/MIME (Chromium 152.0.7977.64). 2 yeni politika (150→152): S/MIME yerel mesajlaşma ana bilgisayarı (Gelişmiş), OWA S/MIME uzantı kilidi (Dengeli+). 5 seviyede de gerileme gözlenmedi |
 | v2.5.5.4 | 150 | 100% | Yama sürümü — Brave 1.94.117 doğrulaması (Chromium 152.0.7977.64). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v2.5.5.3 | 150 | 100% | Yama sürümü — Brave 1.93.138 doğrulaması (Chromium 151.0.7922.173). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |

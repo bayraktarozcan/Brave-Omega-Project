@@ -17,10 +17,10 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega-EN.ps1` v2.6.0.0 | `BraveOmega-TR.ps1` v2.6.0.0  
-> **Date:** 2026-08-29  
-> **Total unique policies:** 152 (153 raw entries, 1 overlap merged)  
-> **Type distribution:** 117 DWord · 7 String · 18 MultiString  
+> **Generated from:** `BraveOmega-EN.ps1` v2.6.1.0 | `BraveOmega-TR.ps1` v2.6.1.0  
+> **Date:** 2026-08-31  
+> **Total unique policies:** 151 (no overlaps)  
+> **Type distribution:** 124 DWord · 8 String · 19 MultiString  
 > **Validated on:** Brave 1.94.117 / Chromium 152.0.7977.64 / Windows 11 26200
 
 ---
@@ -64,9 +64,9 @@
 | 19 | `DefaultBraveFingerprintingV2Setting` | DWord | `3` | BraveOnly | Windows·Mac·Linux | Shields fingerprinting level |
 | 20 | `BraveShieldsDisabledForUrls` | MultiString | `@()` | BraveOnly | Windows·Mac·Linux | Shields bypass list |
 | 21 | `BraveShieldsEnabledForUrls` | MultiString | `@()` | BraveOnly | Windows·Mac·Linux | Shields force list |
-| 22 | `SafeBrowsingProtectionLevel` | DWord | `2` | BraveOnly | Windows·Mac·Linux | Safe Browsing protection level |
-| 23 | `PasswordProtectionWarningTrigger` | DWord | `3` | BraveOnly | Windows·Mac·Linux | Password leak warning trigger |
-| 24 | `EmailAliasesEnabled` | DWord | `0` | BraveOnly | Windows·Mac·Linux | Anonymous email aliases |
+| 22 | `EmailAliasesEnabled` | DWord | `0` | BraveOnly | Windows·Mac·Linux | Anonymous email aliases |
+| 23 | `SafeBrowsingProtectionLevel` | DWord | `2` | BraveOnly | Windows·Mac·Linux | Safe Browsing protection level |
+| 24 | `PasswordProtectionWarningTrigger` | DWord | `3` | BraveOnly | Windows·Mac·Linux | Password leak warning trigger |
 | 25 | `MetricsReportingEnabled` | DWord | `0` | Essential | Windows | Chromium usage/crash metrics |
 | 26 | `SafeBrowsingExtendedReportingEnabled` | DWord | `0` | Essential | Windows | Page content to Google |
 | 27 | `UrlKeyedAnonymizedDataCollectionEnabled` | DWord | `0` | Essential | Windows | Visited URLs to Google |
@@ -78,126 +78,122 @@
 | 33 | `DomainReliabilityAllowed` | DWord | `0` | Essential | Windows | Diagnostic data to Google |
 | 34 | `BackgroundModeEnabled` | DWord | `0` | Essential | Windows | Background process tracking |
 | 35 | `SafeBrowsingSurveysEnabled` | DWord | `0` | Essential | Windows | Post-browsing surveys |
-| 36 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Essential | Windows | Server-side download scan |
-| 37 | `WebRtcEventLogCollectionAllowed` | DWord | `0` | Essential | Windows | WebRTC event logs to Google |
-| 38 | `WebRtcTextLogCollectionAllowed` | DWord | `0` | Essential | Windows | WebRTC text logs to Google |
-| 39 | `AudioCaptureAllowed` | DWord | `0` | Essential | Windows | Microphone access |
-| 40 | `VideoCaptureAllowed` | DWord | `0` | Essential | Windows | Camera access |
-| 41 | `BraveGlobalPrivacyControlEnabled` | DWord | `1` | Essential | Windows | GPC header |
-| 42 | `DefaultWebUsbGuardSetting` | DWord | `2` | Essential | Windows | USB device access |
-| 43 | `DefaultWebBluetoothGuardSetting` | DWord | `2` | Essential | Windows | Bluetooth device access |
-| 44 | `DefaultWebHidGuardSetting` | DWord | `2` | Essential | Windows | HID device access |
-| 45 | `DeviceAttributesAllowedForOrigins` | MultiString | `@()` | Essential | Windows | Device attribute exposure |
-| 46 | `EncryptedClientHelloEnabled` | DWord | `1` | Essential | Windows | TLS ClientHello encryption |
-| 47 | `PaymentMethodQueryEnabled` | DWord | `0` | Essential | Windows | Payment method fingerprint |
-| 48 | `SuppressDifferentOriginSubframeDialogs` | DWord | `1` | Essential | Windows | Cross-origin dialog abuse |
-| 49 | `EnableOnlineRevocationChecks` | DWord | `1` | Essential | Windows | Certificate revocation checks |
-| 50 | `ProxySettings` | String | `{"ProxyMode":"system"}` | Essential | Windows | Proxy configuration |
-| 51 | `BrowserSignin` | DWord | `0` | Essential | Windows | Chrome sign-in prompt |
-| 52 | `ExtensionInstallSources` | MultiString | `@()` | Essential | Windows | Extension install sources |
-| 53 | `ScreenCaptureAllowed` | DWord | `0` | Essential | Windows | Screen capture API |
-| 54 | `WebRtcIPHandling` | String | `disable_non_proxied_udp` | Balanced | Windows | WebRTC IP exposure |
-| 55 | `WebRtcLocalIpsAllowedUrls` | MultiString | `@()` | Balanced | Windows | Local IP via ICE |
-| 56 | `HttpsOnlyMode` | String | `force_enabled` | Balanced | Windows | HTTPS enforcement |
-| 57 | `DnsOverHttpsMode` | String | `automatic` | Balanced | Windows | Encrypted DNS |
-| 58 | `BlockThirdPartyCookies` | DWord | `1` | Balanced | Windows | Cross-site tracking |
-| 59 | `PasswordManagerEnabled` | DWord | `0` | Balanced | Windows | Built-in password storage |
-| 60 | `PasswordManagerPasskeysEnabled` | DWord | `0` | Balanced | Windows | Passkey storage |
-| 61 | `AutofillAddressEnabled` | DWord | `0` | Balanced | Windows | Address form data |
-| 62 | `AutofillCreditCardEnabled` | DWord | `0` | Balanced | Windows | Payment method data |
-| 63 | `ShowFullUrlsInAddressBar` | DWord | `1` | Balanced | Windows | Anti-phishing URL display |
-| 64 | `DisableSafeBrowsingProceedAnyway` | DWord | `1` | Balanced | Windows | Malware warning bypass |
-| 65 | `QuicAllowed` | DWord | `0` | Balanced | Windows | QUIC protocol |
-| 66 | `ChromeVariations` | DWord | `1` | Balanced | Windows | Critical field trials only |
-| 67 | `NetworkServiceSandboxEnabled` | DWord | `1` | Balanced | Windows | Network sandbox |
-| 68 | `AudioSandboxEnabled` | DWord | `1` | Balanced | Windows | Audio sandbox |
-| 69 | `DefaultGeolocationSetting` | DWord | `2` | Balanced | Windows | Device location access |
-| 70 | `DefaultNotificationsSetting` | DWord | `2` | Balanced | Windows | Notification prompts |
-| 71 | `DefaultPopupsSetting` | DWord | `2` | Balanced | Windows | Pop-up windows |
-| 72 | `DefaultBraveHttpsUpgradeSetting` | DWord | `2` | Balanced | Windows | Brave HTTPS upgrade |
-| 73 | `DefaultBraveReferrersSetting` | DWord | `2` | Balanced | Windows | Brave referrer cap |
-| 74 | `BraveSyncUrl` | String | `https://sync-v2.brave.com/v2` | Balanced | Windows | Sync server URL |
-| 75 | `DefaultWindowManagementSetting` | DWord | `2` | Balanced | Windows | Window management permission |
-| 76 | `SitePerProcess` | DWord | `1` | Balanced | Windows | Site isolation |
-| 77 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Balanced | Windows | Background timer throttling |
-| 78 | `UserFeedbackAllowed` | DWord | `0` | Balanced | Windows | User feedback prompts |
-| 79 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Balanced | Windows | Force-installed extension |
-| 80 | `DownloadRestrictions` | DWord | `1` | Balanced | Windows | Dangerous download warning |
-| 81 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Balanced | Windows | Download path |
-| 82 | `PromptForDownloadLocation` | DWord | `0` | Balanced | Windows | Download location prompt |
-| 83 | `RelaunchNotification` | DWord | `2` | Balanced | Windows | Browser relaunch notification |
-| 84 | `RelaunchNotificationPeriod` | DWord | `3600000` | Balanced | Windows | Relaunch timer (1 hour) |
-| 85 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | DWord | `0` | Balanced | Windows | Local network permission default |
-| 86 | `GenAILocalFoundationalModelSettings` | DWord | `1` | Balanced | Windows | On-device AI model |
-| 88 | `DefaultSensorsSetting` | DWord | `2` | Advanced | Windows | Device motion/light sensors |
-| 89 | `DefaultLocalFontsSetting` | DWord | `2` | Advanced | Windows | Font fingerprinting |
-| 90 | `DefaultSerialGuardSetting` | DWord | `2` | Advanced | Windows | Serial API access |
-| 91 | `DefaultIdleDetectionSetting` | DWord | `2` | Advanced | Windows | Idle state detection |
-| 92 | `BrowserGuestModeEnabled` | DWord | `0` | Advanced | Windows | Guest profile |
-| 93 | `BrowserAddPersonEnabled` | DWord | `0` | Advanced | Windows | New profile creation |
-| 94 | `ImportAutofillFormData` | DWord | `0` | Advanced | Windows | Cross-browser autofill |
-| 95 | `ImportHistory` | DWord | `0` | Advanced | Windows | Cross-browser history |
-| 96 | `ImportSavedPasswords` | DWord | `0` | Advanced | Windows | Cross-browser passwords |
-| 97 | `ImportSearchEngine` | DWord | `0` | Advanced | Windows | Cross-browser search engine |
-| 98 | `ImportHomepage` | DWord | `0` | Advanced | Windows | Cross-browser homepage |
-| 99 | `ExtensionInstallBlocklist` | MultiString | `*` | Advanced | Windows | Extension blocklist |
-| 100 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | Advanced | Windows | Extension allowlist |
-| 101 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | Advanced | Windows | Allowed extension types |
-| 102 | `BlockExternalExtensions` | DWord | `1` | Advanced | Windows | External extension install |
-| 103 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | Advanced | Windows | Extension policy matrix |
-| 104 | `BuiltInDnsClientEnabled` | DWord | `0` | Advanced | Windows | Built-in DNS client |
-| 105 | `ShowHomeButton` | DWord | `0` | Advanced | Windows | Home button visibility |
-| 106 | `HideWebStoreIcon` | DWord | `1` | Advanced | Windows | Web Store icon |
-| 107 | `DefaultJavaScriptSetting` | DWord | `0` | Advanced | Windows | JavaScript execution |
-| 108 | `GeminiSettings` | DWord | `1` | Advanced | Windows | Gemini AI suggestions |
-| 109 | `AIModeSettings` | DWord | `1` | Advanced | Windows | AI Mode in Search |
-| 110 | `AutofillPredictionSettings` | DWord | `2` | Advanced | Windows | Autofill predictions |
-| 111 | `ChromeSuggestionsSettings` | DWord | `1` | Advanced | Windows | Chrome suggestions |
-| 112 | `CreateThemesSettings` | DWord | `2` | Advanced | Windows | Theme creation |
-| 113 | `DevToolsGenAiSettings` | DWord | `2` | Advanced | Windows | DevTools AI assistant |
-| 114 | `HelpMeWriteSettings` | DWord | `2` | Advanced | Windows | Help Me Write |
-| 115 | `HistorySearchSettings` | DWord | `2` | Advanced | Windows | History search |
-| 116 | `SearchContentSharingSettings` | DWord | `1` | Advanced | Windows | Search content sharing |
-| 117 | `SmartTabSharingSettings` | DWord | `1` | Advanced | Windows | Smart tab sharing |
-| 118 | `TabCompareSettings` | DWord | `2` | Advanced | Windows | Tab comparison |
-| 119 | `GeminiActOnWebSettings` | DWord | `1` | Advanced | Windows | Gemini web actions |
-| 120 | `GeminiSparkSettings` | DWord | `1` | Advanced | Windows | Gemini page spark |
-| 121 | `RendererAppContainerEnabled` | DWord | `1` | Advanced | Windows | Renderer sandbox |
-| 122 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | Advanced | Windows | Local network allowlist |
-| 123 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | Advanced | Windows | Local network blocklist |
-| 124 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | Advanced | Windows | Local network IP overrides |
-| 125 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | Advanced | Windows | Local network opt-out |
-| 126 | `TranslateEnabled` | DWord | `0` | Strict | Windows | Text to Google for translation |
-| 127 | `DefaultClipboardSetting` | DWord | `2` | Strict | Windows | Clipboard read/write |
-| 128 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Strict | Windows | File system read |
-| 129 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Strict | Windows | File system write |
-| 130 | `DefaultInsecureContentSetting` | DWord | `2` | Strict | Windows | Mixed content |
-| 131 | `DefaultJavaScriptJitSetting` | DWord | `2` | Strict | Windows | JIT compilation |
-| 132 | `DefaultCookiesSetting` | DWord | `2` | Strict | Windows | All cookies |
-| 133 | `ImportBookmarks` | DWord | `0` | Strict | Windows | Cross-browser bookmarks |
-| 134 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Strict | Windows | First-party storage |
-| 135 | `IncognitoModeAvailability` | DWord | `1` | Strict | Windows | Incognito mode |
-| 136 | `TaskManagerEndProcessEnabled` | DWord | `0` | Strict | Windows | Task Manager |
-| 137 | `PrintingEnabled` | DWord | `0` | Strict | Windows | Print function |
-| 138 | `DisablePrintPreview` | DWord | `1` | Strict | Windows | Print preview |
-| 139 | `DownloadRestrictions` | DWord | `3` | Strict | Windows | Block all downloads |
-| 140 | `DeveloperToolsAvailability` | DWord | `2` | Strict | Windows | Developer Tools |
-| 141 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Strict | Windows | Auto-clear browsing data |
-| 142 | `AlwaysOpenPdfExternally` | DWord | `1` | Strict | Windows | Built-in PDF viewer |
-| 143 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Strict | Windows | Certificate Transparency |
-| 144 | `PasswordLeakDetectionEnabled` | DWord | `1` | Strict | Windows | Password leak detection |
-| 145 | `SpellCheckServiceEnabled` | DWord | `0` | Strict | Windows | Spell check network service |
-| 146 | `SyncDisabled` | DWord | `1` | Strict | Windows | Brave Sync |
-| 147 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Screen capture allowlist |
-| 148 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Same-origin tab capture |
-| 149 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Tab capture allowlist |
-| 150 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Window capture allowlist |
-| 151 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Strict | Windows | Local network capture allowlist |
-| 152 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Strict | Windows | Local network capture blocklist |
-| 153 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | Advanced | Windows | Native messaging host allowlist |
-| 154 | `NativeMessagingUserLevelHosts` | DWord | `1` | Advanced | Windows | User-level native messaging hosts |
-
-> **Note:** Row 139 (Strict `DownloadRestrictions`) merges with row 80 (Balanced) — only 1 unique policy. Balanced applies `1` (warn on dangerous downloads); Strict overrides with `3` (block all downloads). This is why 153 raw rows = 152 unique policies.
+| 36 | `WebRtcEventLogCollectionAllowed` | DWord | `0` | Essential | Windows | WebRTC event logs to Google |
+| 37 | `WebRtcTextLogCollectionAllowed` | DWord | `0` | Essential | Windows | WebRTC text logs to Google |
+| 38 | `AudioCaptureAllowed` | DWord | `0` | Essential | Windows | Microphone access |
+| 39 | `VideoCaptureAllowed` | DWord | `0` | Essential | Windows | Camera access |
+| 40 | `BraveGlobalPrivacyControlEnabled` | DWord | `1` | Essential | Windows | GPC header |
+| 41 | `DefaultWebUsbGuardSetting` | DWord | `2` | Essential | Windows | USB device access |
+| 42 | `DefaultWebBluetoothGuardSetting` | DWord | `2` | Essential | Windows | Bluetooth device access |
+| 43 | `DefaultWebHidGuardSetting` | DWord | `2` | Essential | Windows | HID device access |
+| 44 | `EncryptedClientHelloEnabled` | DWord | `1` | Essential | Windows | TLS ClientHello encryption |
+| 45 | `PaymentMethodQueryEnabled` | DWord | `0` | Essential | Windows | Payment method fingerprint |
+| 46 | `SuppressDifferentOriginSubframeDialogs` | DWord | `1` | Essential | Windows | Cross-origin dialog abuse |
+| 47 | `EnableOnlineRevocationChecks` | DWord | `1` | Essential | Windows | Certificate revocation checks |
+| 48 | `ProxySettings` | String | `{"ProxyMode":"system"}` | Essential | Windows | Proxy configuration |
+| 49 | `ExtensionInstallSources` | MultiString | `@()` | Essential | Windows | Extension install sources |
+| 50 | `ScreenCaptureAllowed` | DWord | `0` | Essential | Windows | Screen capture API |
+| 51 | `DownloadRestrictions` | DWord | `4` | Essential | Windows | Dangerous download warnings suppressed |
+| 52 | `WebRtcIPHandling` | String | `disable_non_proxied_udp` | Balanced | Windows | WebRTC IP exposure |
+| 53 | `WebRtcLocalIpsAllowedUrls` | MultiString | `@()` | Balanced | Windows | Local IP via ICE |
+| 54 | `HttpsOnlyMode` | String | `force_enabled` | Balanced | Windows | HTTPS enforcement |
+| 55 | `DnsOverHttpsMode` | String | `automatic` | Balanced | Windows | Encrypted DNS |
+| 56 | `BlockThirdPartyCookies` | DWord | `1` | Balanced | Windows | Cross-site tracking |
+| 57 | `PasswordManagerEnabled` | DWord | `0` | Balanced | Windows | Built-in password storage |
+| 58 | `PasswordManagerPasskeysEnabled` | DWord | `0` | Balanced | Windows | Passkey storage |
+| 59 | `AutofillAddressEnabled` | DWord | `0` | Balanced | Windows | Address form data |
+| 60 | `AutofillCreditCardEnabled` | DWord | `0` | Balanced | Windows | Payment method data |
+| 61 | `ShowFullUrlsInAddressBar` | DWord | `1` | Balanced | Windows | Anti-phishing URL display |
+| 62 | `QuicAllowed` | DWord | `0` | Balanced | Windows | QUIC protocol |
+| 63 | `ChromeVariations` | DWord | `1` | Balanced | Windows | Critical field trials only |
+| 64 | `NetworkServiceSandboxEnabled` | DWord | `1` | Balanced | Windows | Network sandbox |
+| 65 | `AudioSandboxEnabled` | DWord | `1` | Balanced | Windows | Audio sandbox |
+| 66 | `DefaultGeolocationSetting` | DWord | `2` | Balanced | Windows | Device location access |
+| 67 | `DefaultNotificationsSetting` | DWord | `2` | Balanced | Windows | Notification prompts |
+| 68 | `DefaultPopupsSetting` | DWord | `2` | Balanced | Windows | Pop-up windows |
+| 69 | `DefaultBraveHttpsUpgradeSetting` | DWord | `2` | Balanced | Windows | Brave HTTPS upgrade |
+| 70 | `DefaultBraveReferrersSetting` | DWord | `2` | Balanced | Windows | Brave referrer cap |
+| 71 | `BraveSyncUrl` | String | `https://sync-v2.brave.com/v2` | Balanced | Windows | Sync server URL |
+| 72 | `DefaultWindowManagementSetting` | DWord | `2` | Balanced | Windows | Window management permission |
+| 73 | `SitePerProcess` | DWord | `1` | Balanced | Windows | Site isolation |
+| 74 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Balanced | Windows | Background timer throttling |
+| 75 | `UserFeedbackAllowed` | DWord | `0` | Balanced | Windows | User feedback prompts |
+| 76 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Balanced | Windows | Force-installed extension |
+| 77 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Balanced | Windows | Download path |
+| 78 | `PromptForDownloadLocation` | DWord | `0` | Balanced | Windows | Download location prompt |
+| 79 | `RelaunchNotification` | DWord | `2` | Balanced | Windows | Browser relaunch notification |
+| 80 | `RelaunchNotificationPeriod` | DWord | `3600000` | Balanced | Windows | Relaunch timer (1 hour) |
+| 81 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | DWord | `0` | Balanced | Windows | Local network permission default |
+| 82 | `GenAILocalFoundationalModelSettings` | DWord | `1` | Balanced | Windows | On-device AI model |
+| 83 | `DisableSafeBrowsingProceedAnyway` | DWord | `1` | Balanced | Windows | Malware warning bypass |
+| 84 | `DefaultSensorsSetting` | DWord | `2` | Advanced | Windows | Device motion/light sensors |
+| 85 | `DefaultLocalFontsSetting` | DWord | `2` | Advanced | Windows | Font fingerprinting |
+| 86 | `DefaultSerialGuardSetting` | DWord | `2` | Advanced | Windows | Serial API access |
+| 87 | `DefaultIdleDetectionSetting` | DWord | `2` | Advanced | Windows | Idle state detection |
+| 88 | `BrowserGuestModeEnabled` | DWord | `0` | Advanced | Windows | Guest profile |
+| 89 | `BrowserAddPersonEnabled` | DWord | `0` | Advanced | Windows | New profile creation |
+| 90 | `ImportAutofillFormData` | DWord | `0` | Advanced | Windows | Cross-browser autofill |
+| 91 | `ImportHistory` | DWord | `0` | Advanced | Windows | Cross-browser history |
+| 92 | `ImportSavedPasswords` | DWord | `0` | Advanced | Windows | Cross-browser passwords |
+| 93 | `ImportSearchEngine` | DWord | `0` | Advanced | Windows | Cross-browser search engine |
+| 94 | `ImportHomepage` | DWord | `0` | Advanced | Windows | Cross-browser homepage |
+| 95 | `ExtensionInstallBlocklist` | MultiString | `*` | Advanced | Windows | Extension blocklist |
+| 96 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | Advanced | Windows | Extension allowlist |
+| 97 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | Advanced | Windows | Allowed extension types |
+| 98 | `BlockExternalExtensions` | DWord | `1` | Advanced | Windows | External extension install |
+| 99 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | Advanced | Windows | Extension policy matrix |
+| 100 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | Advanced | Windows | Native messaging host allowlist |
+| 101 | `NativeMessagingUserLevelHosts` | DWord | `1` | Advanced | Windows | User-level native messaging hosts |
+| 102 | `BuiltInDnsClientEnabled` | DWord | `0` | Advanced | Windows | Built-in DNS client |
+| 103 | `ShowHomeButton` | DWord | `0` | Advanced | Windows | Home button visibility |
+| 104 | `HideWebStoreIcon` | DWord | `1` | Advanced | Windows | Web Store icon |
+| 105 | `DefaultJavaScriptSetting` | DWord | `0` | Advanced | Windows | JavaScript execution |
+| 106 | `GeminiSettings` | DWord | `1` | Advanced | Windows | Gemini AI suggestions |
+| 107 | `AIModeSettings` | DWord | `1` | Advanced | Windows | AI Mode in Search |
+| 108 | `AutofillPredictionSettings` | DWord | `2` | Advanced | Windows | Autofill predictions |
+| 109 | `ChromeSuggestionsSettings` | DWord | `1` | Advanced | Windows | Chrome suggestions |
+| 110 | `CreateThemesSettings` | DWord | `2` | Advanced | Windows | Theme creation |
+| 111 | `DevToolsGenAiSettings` | DWord | `2` | Advanced | Windows | DevTools AI assistant |
+| 112 | `HelpMeWriteSettings` | DWord | `2` | Advanced | Windows | Help Me Write |
+| 113 | `HistorySearchSettings` | DWord | `2` | Advanced | Windows | History search |
+| 114 | `SearchContentSharingSettings` | DWord | `1` | Advanced | Windows | Search content sharing |
+| 115 | `SmartTabSharingSettings` | DWord | `1` | Advanced | Windows | Smart tab sharing |
+| 116 | `TabCompareSettings` | DWord | `2` | Advanced | Windows | Tab comparison |
+| 117 | `GeminiActOnWebSettings` | DWord | `1` | Advanced | Windows | Gemini web actions |
+| 118 | `GeminiSparkSettings` | DWord | `1` | Advanced | Windows | Gemini page spark |
+| 119 | `RendererAppContainerEnabled` | DWord | `1` | Advanced | Windows | Renderer sandbox |
+| 120 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | Advanced | Windows | Local network allowlist |
+| 121 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | Advanced | Windows | Local network blocklist |
+| 122 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | Advanced | Windows | Local network IP overrides |
+| 123 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | Advanced | Windows | Local network opt-out |
+| 124 | `TranslateEnabled` | DWord | `0` | Strict | Windows | Text to Google for translation |
+| 125 | `DefaultClipboardSetting` | DWord | `2` | Strict | Windows | Clipboard read/write |
+| 126 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Strict | Windows | File system read |
+| 127 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Strict | Windows | File system write |
+| 128 | `DefaultInsecureContentSetting` | DWord | `2` | Strict | Windows | Mixed content |
+| 129 | `DefaultJavaScriptJitSetting` | DWord | `2` | Strict | Windows | JIT compilation |
+| 130 | `DefaultCookiesSetting` | DWord | `2` | Strict | Windows | All cookies |
+| 131 | `ImportBookmarks` | DWord | `0` | Strict | Windows | Cross-browser bookmarks |
+| 132 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Strict | Windows | First-party storage |
+| 133 | `IncognitoModeAvailability` | DWord | `1` | Strict | Windows | Incognito mode |
+| 134 | `TaskManagerEndProcessEnabled` | DWord | `0` | Strict | Windows | Task Manager |
+| 135 | `PrintingEnabled` | DWord | `0` | Strict | Windows | Print function |
+| 136 | `DisablePrintPreview` | DWord | `1` | Strict | Windows | Print preview |
+| 137 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Strict | Windows | Server-side download scan |
+| 138 | `DeveloperToolsAvailability` | DWord | `2` | Strict | Windows | Developer Tools |
+| 139 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Strict | Windows | Auto-clear browsing data |
+| 140 | `AlwaysOpenPdfExternally` | DWord | `1` | Strict | Windows | Built-in PDF viewer |
+| 141 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Strict | Windows | Certificate Transparency |
+| 142 | `PasswordLeakDetectionEnabled` | DWord | `1` | Strict | Windows | Password leak detection |
+| 143 | `SpellCheckServiceEnabled` | DWord | `0` | Strict | Windows | Spell check network service |
+| 144 | `BrowserSignin` | DWord | `0` | Strict | Windows | Chrome sign-in prompt |
+| 145 | `SyncDisabled` | DWord | `1` | Strict | Windows | Brave Sync |
+| 146 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Screen capture allowlist |
+| 147 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Same-origin tab capture |
+| 148 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Tab capture allowlist |
+| 149 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows | Window capture allowlist |
+| 150 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Strict | Windows | Local network capture allowlist |
+| 151 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Strict | Windows | Local network capture blocklist |
 
 ---
 
@@ -206,16 +202,16 @@
 ### BraveOnly — 24 policies
 All Brave-specific features disabled or restricted. Zero usability impact for power users.
 
-### Essential — 29 policies (+29 = 53 cumulative)
+### Essential — 27 policies (+27 = 51 cumulative)
 Data leak prevention. No usability impact. Stops all Chromium/Brave telemetry, background networking, and media capture. Blocks USB/Bluetooth/HID device access.
 
-### Balanced — 33 policies (+33 = 86 cumulative)
+### Balanced — 32 policies (+32 = 83 cumulative)
 Security & convenience balance. WebRTC hardening, encrypted DNS, cookie blocking, password/autofill disable, permission defaults, site isolation, download controls, Dark Reader extension.
 
-### Advanced — 40 policies (+40 = 126 cumulative)
+### Advanced — 40 policies (+40 = 123 cumulative)
 Extended hardening. Disables sensors, fonts, serial, idle detection, guest mode, cross-browser imports, extension restrictions, JavaScript default off, AI features disabled.
 
-### Strict — 27 policies (+27 = 153 cumulative)
+### Strict — 28 policies (+28 = 151 cumulative)
 Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, printing, downloads, developer tools, cloud reporting. Auto-clears browsing data every 24 hours.
 
 ---
@@ -224,18 +220,10 @@ Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, pri
 
 | Type | Count | Percentage |
 |------|-------|------------|
-| DWord | 117 | 77.0% |
-| String | 7 | 4.6% |
-| MultiString | 18 | 11.8% |
-| **Total (unique)** | **152** | **100%** |
-
----
-
-## Overlap Register
-
-| Policy Name | Appears In | Conflict |
-|-------------|------------|----------|
-| `DownloadRestrictions` | Balanced (`1`) → Strict (`3`) | Strict overrides Balanced value |
+| DWord | 124 | 82.1% |
+| String | 8 | 5.3% |
+| MultiString | 19 | 12.6% |
+| **Total (unique)** | **151** | **100%** |
 
 ---
 
@@ -267,10 +255,10 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega-EN.ps1` v2.6.0.0 | `BraveOmega-TR.ps1` v2.6.0.0  
-> **Tarih:** 2026-08-29  
-> **Toplam benzersiz politika:** 152 (153 ham girdi, 1 çakışma birleştirildi)  
-> **Tür dağılımı:** 117 DWord · 7 String · 18 MultiString  
+> **Kaynak:** `BraveOmega-EN.ps1` v2.6.1.0 | `BraveOmega-TR.ps1` v2.6.1.0  
+> **Tarih:** 2026-08-31  
+> **Toplam benzersiz politika:** 151 (çakışma yok)  
+> **Tür dağılımı:** 124 DWord · 8 String · 19 MultiString  
 > **Doğrulandı:** Brave 1.94.117 / Chromium 152.0.7977.64 / Windows 11 26200
 
 ---
@@ -314,9 +302,9 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 19 | `DefaultBraveFingerprintingV2Setting` | DWord | `3` | Brave Yalnız | Windows·Mac·Linux | Kalkan parmak izi düzeyi |
 | 20 | `BraveShieldsDisabledForUrls` | MultiString | `@()` | Brave Yalnız | Windows·Mac·Linux | Kalkan atlama listesi |
 | 21 | `BraveShieldsEnabledForUrls` | MultiString | `@()` | Brave Yalnız | Windows·Mac·Linux | Kalkan zorlama listesi |
-| 22 | `SafeBrowsingProtectionLevel` | DWord | `2` | Brave Yalnız | Windows·Mac·Linux | Safe Browsing koruma düzeyi |
-| 23 | `PasswordProtectionWarningTrigger` | DWord | `3` | Brave Yalnız | Windows·Mac·Linux | Parola sızıntısı uyarı tetikleyici |
-| 24 | `EmailAliasesEnabled` | DWord | `0` | Brave Yalnız | Windows·Mac·Linux | Anonim e-posta takma adları |
+| 22 | `EmailAliasesEnabled` | DWord | `0` | Brave Yalnız | Windows·Mac·Linux | Anonim e-posta takma adları |
+| 23 | `SafeBrowsingProtectionLevel` | DWord | `2` | Brave Yalnız | Windows·Mac·Linux | Safe Browsing koruma düzeyi |
+| 24 | `PasswordProtectionWarningTrigger` | DWord | `3` | Brave Yalnız | Windows·Mac·Linux | Parola sızıntısı uyarı tetikleyici |
 | 25 | `MetricsReportingEnabled` | DWord | `0` | Temel | Windows | Chromium kullanım/çökme metrikleri |
 | 26 | `SafeBrowsingExtendedReportingEnabled` | DWord | `0` | Temel | Windows | Sayfa içeriğini Google'a gönderme |
 | 27 | `UrlKeyedAnonymizedDataCollectionEnabled` | DWord | `0` | Temel | Windows | Ziyaret edilen URL'ler Google'a |
@@ -328,126 +316,122 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 33 | `DomainReliabilityAllowed` | DWord | `0` | Temel | Windows | Google'a tanı verisi |
 | 34 | `BackgroundModeEnabled` | DWord | `0` | Temel | Windows | Arka plan işlem izleme |
 | 35 | `SafeBrowsingSurveysEnabled` | DWord | `0` | Temel | Windows | Gezinti sonrası anketler |
-| 36 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Temel | Windows | Sunucu tarafı indirme taraması |
-| 37 | `WebRtcEventLogCollectionAllowed` | DWord | `0` | Temel | Windows | WebRTC olay günlükleri Google'a |
-| 38 | `WebRtcTextLogCollectionAllowed` | DWord | `0` | Temel | Windows | WebRTC metin günlükleri Google'a |
-| 39 | `AudioCaptureAllowed` | DWord | `0` | Temel | Windows | Mikrofon erişimi |
-| 40 | `VideoCaptureAllowed` | DWord | `0` | Temel | Windows | Kamera erişimi |
-| 41 | `BraveGlobalPrivacyControlEnabled` | DWord | `1` | Temel | Windows | GPC başlığı |
-| 42 | `DefaultWebUsbGuardSetting` | DWord | `2` | Temel | Windows | USB cihaz erişimi |
-| 43 | `DefaultWebBluetoothGuardSetting` | DWord | `2` | Temel | Windows | Bluetooth cihaz erişimi |
-| 44 | `DefaultWebHidGuardSetting` | DWord | `2` | Temel | Windows | HID cihaz erişimi |
-| 45 | `DeviceAttributesAllowedForOrigins` | MultiString | `@()` | Temel | Windows | Cihaz öznitelik ifşası |
-| 46 | `EncryptedClientHelloEnabled` | DWord | `1` | Temel | Windows | TLS ClientHello şifreleme |
-| 47 | `PaymentMethodQueryEnabled` | DWord | `0` | Temel | Windows | Ödeme yöntemi parmak izi |
-| 48 | `SuppressDifferentOriginSubframeDialogs` | DWord | `1` | Temel | Windows | Farklı köken alt çerçeve диалогları |
-| 49 | `EnableOnlineRevocationChecks` | DWord | `1` | Temel | Windows | Sertifika iptal kontrolleri |
-| 50 | `ProxySettings` | String | `{"ProxyMode":"system"}` | Temel | Windows | Vekil sunucu yapılandırması |
-| 51 | `BrowserSignin` | DWord | `0` | Temel | Windows | Chrome giriş istemi |
-| 52 | `ExtensionInstallSources` | MultiString | `@()` | Temel | Windows | Eklenti yükleme kaynakları |
-| 53 | `ScreenCaptureAllowed` | DWord | `0` | Temel | Windows | Ekran yakalama API'si |
-| 54 | `WebRtcIPHandling` | String | `disable_non_proxied_udp` | Dengeli | Windows | WebRTC IP ifşası |
-| 55 | `WebRtcLocalIpsAllowedUrls` | MultiString | `@()` | Dengeli | Windows | ICE yoluyla yerel IP |
-| 56 | `HttpsOnlyMode` | String | `force_enabled` | Dengeli | Windows | HTTPS zorlaması |
-| 57 | `DnsOverHttpsMode` | String | `automatic` | Dengeli | Windows | Şifreli DNS |
-| 58 | `BlockThirdPartyCookies` | DWord | `1` | Dengeli | Windows | Siteler arası izleme |
-| 59 | `PasswordManagerEnabled` | DWord | `0` | Dengeli | Windows | Yerleşik parola depolama |
-| 60 | `PasswordManagerPasskeysEnabled` | DWord | `0` | Dengeli | Windows | Passkey depolama |
-| 61 | `AutofillAddressEnabled` | DWord | `0` | Dengeli | Windows | Adres form verileri |
-| 62 | `AutofillCreditCardEnabled` | DWord | `0` | Dengeli | Windows | Ödeme yöntemi verileri |
-| 63 | `ShowFullUrlsInAddressBar` | DWord | `1` | Dengeli | Windows | Oltalama önleme URL gösterimi |
-| 64 | `DisableSafeBrowsingProceedAnyway` | DWord | `1` | Dengeli | Windows | Kötü amaçlı yazılım uyarı atlama |
-| 65 | `QuicAllowed` | DWord | `0` | Dengeli | Windows | QUIC protokolü |
-| 66 | `ChromeVariations` | DWord | `1` | Dengeli | Windows | Yalnızca kritik alan denemeleri |
-| 67 | `NetworkServiceSandboxEnabled` | DWord | `1` | Dengeli | Windows | Ağ kum havuzu |
-| 68 | `AudioSandboxEnabled` | DWord | `1` | Dengeli | Windows | Ses kum havuzu |
-| 69 | `DefaultGeolocationSetting` | DWord | `2` | Dengeli | Windows | Cihaz konumu erişimi |
-| 70 | `DefaultNotificationsSetting` | DWord | `2` | Dengeli | Windows | Bildirim istemleri |
-| 71 | `DefaultPopupsSetting` | DWord | `2` | Dengeli | Windows | Açılır pencereler |
-| 72 | `DefaultBraveHttpsUpgradeSetting` | DWord | `2` | Dengeli | Windows | Brave HTTPS yükseltme |
-| 73 | `DefaultBraveReferrersSetting` | DWord | `2` | Dengeli | Windows | Brave yönlendiren sınırı |
-| 74 | `BraveSyncUrl` | String | `https://sync-v2.brave.com/v2` | Dengeli | Windows | Senkronizasyon sunucu URL'si |
-| 75 | `DefaultWindowManagementSetting` | DWord | `2` | Dengeli | Windows | Pencere yönetimi izni |
-| 76 | `SitePerProcess` | DWord | `1` | Dengeli | Windows | Site izolasyonu |
-| 77 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Dengeli | Windows | Arka plan zamanlayıcı kısıtlaması |
-| 78 | `UserFeedbackAllowed` | DWord | `0` | Dengeli | Windows | Kullanıcı geri bildirim istemleri |
-| 79 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Dengeli | Windows | Zorunlu eklenti |
-| 80 | `DownloadRestrictions` | DWord | `1` | Dengeli | Windows | Tehlikeli indirme uyarısı |
-| 81 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Dengeli | Windows | İndirme yolu |
-| 82 | `PromptForDownloadLocation` | DWord | `0` | Dengeli | Windows | İndirme konumu istemi |
-| 83 | `RelaunchNotification` | DWord | `2` | Dengeli | Windows | Tarayıcı yeniden başlatma bildirimi |
-| 84 | `RelaunchNotificationPeriod` | DWord | `3600000` | Dengeli | Windows | Yeniden başlatma zamanlayıcı (1 saat) |
-| 85 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | DWord | `0` | Dengeli | Windows | Yerel ağ izin varsayılanı |
-| 86 | `GenAILocalFoundationalModelSettings` | DWord | `1` | Dengeli | Windows | Cihaz içi yapay zeka modeli |
-| 87 | `DefaultSensorsSetting` | DWord | `2` | İleri | Windows | Hareket/ışık sensörleri |
-| 89 | `DefaultLocalFontsSetting` | DWord | `2` | İleri | Windows | Yazı tipi parmak izi |
-| 90 | `DefaultSerialGuardSetting` | DWord | `2` | İleri | Windows | Serial API erişimi |
-| 91 | `DefaultIdleDetectionSetting` | DWord | `2` | İleri | Windows | Boşta algılama |
-| 92 | `BrowserGuestModeEnabled` | DWord | `0` | İleri | Windows | Misafir profili |
-| 93 | `BrowserAddPersonEnabled` | DWord | `0` | İleri | Windows | Yeni profil oluşturma |
-| 94 | `ImportAutofillFormData` | DWord | `0` | İleri | Windows | Tarayıcılar arası otomatik doldurma |
-| 95 | `ImportHistory` | DWord | `0` | İleri | Windows | Tarayıcılar arası geçmiş |
-| 96 | `ImportSavedPasswords` | DWord | `0` | İleri | Windows | Tarayıcılar arası parolalar |
-| 97 | `ImportSearchEngine` | DWord | `0` | İleri | Windows | Tarayıcılar arası arama motoru |
-| 98 | `ImportHomepage` | DWord | `0` | İleri | Windows | Tarayıcılar arası ana sayfa |
-| 99 | `ExtensionInstallBlocklist` | MultiString | `*` | İleri | Windows | Eklenti engelleme listesi |
-| 100 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | İleri | Windows | Eklenti izin listesi |
-| 101 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | İleri | Windows | İzin verilen eklenti türleri |
-| 102 | `BlockExternalExtensions` | DWord | `1` | İleri | Windows | Harici eklenti yükleme |
-| 103 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | İleri | Windows | Eklenti politika matrisi |
-| 104 | `BuiltInDnsClientEnabled` | DWord | `0` | İleri | Windows | Yerleşik DNS istemcisi |
-| 105 | `ShowHomeButton` | DWord | `0` | İleri | Windows | Ana sayfa düğmesi görünürlüğü |
-| 106 | `HideWebStoreIcon` | DWord | `1` | İleri | Windows | Web Mağazası simgesi |
-| 107 | `DefaultJavaScriptSetting` | DWord | `0` | İleri | Windows | JavaScript çalıştırma |
-| 108 | `GeminiSettings` | DWord | `1` | İleri | Windows | Gemini AI önerileri |
-| 109 | `AIModeSettings` | DWord | `1` | İleri | Windows | Arama'da AI Modu |
-| 110 | `AutofillPredictionSettings` | DWord | `2` | İleri | Windows | Otomatik doldurma tahminleri |
-| 111 | `ChromeSuggestionsSettings` | DWord | `1` | İleri | Windows | Chrome önerileri |
-| 112 | `CreateThemesSettings` | DWord | `2` | İleri | Windows | Tema oluşturma |
-| 113 | `DevToolsGenAiSettings` | DWord | `2` | İleri | Windows | Geliştirici araçları AI asistanı |
-| 114 | `HelpMeWriteSettings` | DWord | `2` | İleri | Windows | Yazmama Yardım Et |
-| 115 | `HistorySearchSettings` | DWord | `2` | İleri | Windows | Geçmiş arama |
-| 116 | `SearchContentSharingSettings` | DWord | `1` | İleri | Windows | Arama içeriği paylaşma |
-| 117 | `SmartTabSharingSettings` | DWord | `1` | İleri | Windows | Akıllı sekme paylaşma |
-| 118 | `TabCompareSettings` | DWord | `2` | İleri | Windows | Sekme karşılaştırma |
-| 119 | `GeminiActOnWebSettings` | DWord | `1` | İleri | Windows | Gemini web işlemleri |
-| 120 | `GeminiSparkSettings` | DWord | `1` | İleri | Windows | Gemini sayfa kıvılcımı |
-| 121 | `RendererAppContainerEnabled` | DWord | `1` | İleri | Windows | İşleyici kum havuzu |
-| 122 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | İleri | Windows | Yerel ağ izin listesi |
-| 123 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | İleri | Windows | Yerel ağ engelleme listesi |
-| 124 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | İleri | Windows | Yerel ağ IP overrides |
-| 125 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | İleri | Windows | Yerel ağ çıkış seçeneği |
-| 126 | `TranslateEnabled` | DWord | `0` | Katı | Windows | Google'a çeviri için metin |
-| 127 | `DefaultClipboardSetting` | DWord | `2` | Katı | Windows | Pano okuma/yazma |
-| 128 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Katı | Windows | Dosya sistemi okuma |
-| 129 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Katı | Windows | Dosya sistemi yazma |
-| 130 | `DefaultInsecureContentSetting` | DWord | `2` | Katı | Windows | Karma içerik |
-| 131 | `DefaultJavaScriptJitSetting` | DWord | `2` | Katı | Windows | JIT derleme |
-| 132 | `DefaultCookiesSetting` | DWord | `2` | Katı | Windows | Tüm çerezler |
-| 133 | `ImportBookmarks` | DWord | `0` | Katı | Windows | Tarayıcılar arası yer imleri |
-| 134 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Katı | Windows | Birinci taraf depolama |
-| 135 | `IncognitoModeAvailability` | DWord | `1` | Katı | Windows | Gizli mod |
-| 136 | `TaskManagerEndProcessEnabled` | DWord | `0` | Katı | Windows | Görev Yöneticisi |
-| 137 | `PrintingEnabled` | DWord | `0` | Katı | Windows | Yazdırma işlevi |
-| 138 | `DisablePrintPreview` | DWord | `1` | Katı | Windows | Yazdırma önizleme |
-| 139 | `DownloadRestrictions` | DWord | `3` | Katı | Windows | Tüm indirmeleri engelle |
-| 140 | `DeveloperToolsAvailability` | DWord | `2` | Katı | Windows | Geliştirici araçları |
-| 141 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Katı | Windows | Otomatik gezinti verisi temizleme |
-| 142 | `AlwaysOpenPdfExternally` | DWord | `1` | Katı | Windows | Yerleşik PDF görüntüleyici |
-| 143 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Katı | Windows | Sertifika Saydamlığı |
-| 144 | `PasswordLeakDetectionEnabled` | DWord | `1` | Katı | Windows | Parola sızıntısı algılama |
-| 145 | `SpellCheckServiceEnabled` | DWord | `0` | Katı | Windows | Yazım denetimi ağ hizmeti |
-| 146 | `SyncDisabled` | DWord | `1` | Katı | Windows | Brave Sync |
-| 147 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Ekran yakalama izin listesi |
-| 148 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Aynı köken sekme yakalama |
-| 149 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Sekme yakalama izin listesi |
-| 150 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Pencere yakalama izin listesi |
-| 151 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Katı | Windows | Yerel ağ yakalama izin listesi |
-| 152 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Katı | Windows | Yerel ağ yakalama engelleme listesi |
-| 153 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | İleri | Windows | S/MIME yerel mesajlaşma ana bilgisayarı |
-| 154 | `NativeMessagingUserLevelHosts` | DWord | `1` | İleri | Windows | Kullanıcı düzeyi yerel mesajlaşma ana bilgisayarları |
-
-> **Not:** 139. satır (Katı `DownloadRestrictions`), 80. satırla (Dengeli) birleşir — yalnızca 1 benzersiz politika. Dengeli `1` (tehlikeli indirmelerde uyarı) uygular; Katı `3` (tüm indirmeleri engelle) ile ezdir. Bu nedenle 153 ham satır = 152 benzersiz politika.
+| 36 | `WebRtcEventLogCollectionAllowed` | DWord | `0` | Temel | Windows | WebRTC olay günlükleri Google'a |
+| 37 | `WebRtcTextLogCollectionAllowed` | DWord | `0` | Temel | Windows | WebRTC metin günlükleri Google'a |
+| 38 | `AudioCaptureAllowed` | DWord | `0` | Temel | Windows | Mikrofon erişimi |
+| 39 | `VideoCaptureAllowed` | DWord | `0` | Temel | Windows | Kamera erişimi |
+| 40 | `BraveGlobalPrivacyControlEnabled` | DWord | `1` | Temel | Windows | GPC başlığı |
+| 41 | `DefaultWebUsbGuardSetting` | DWord | `2` | Temel | Windows | USB cihaz erişimi |
+| 42 | `DefaultWebBluetoothGuardSetting` | DWord | `2` | Temel | Windows | Bluetooth cihaz erişimi |
+| 43 | `DefaultWebHidGuardSetting` | DWord | `2` | Temel | Windows | HID cihaz erişimi |
+| 44 | `EncryptedClientHelloEnabled` | DWord | `1` | Temel | Windows | TLS ClientHello şifreleme |
+| 45 | `PaymentMethodQueryEnabled` | DWord | `0` | Temel | Windows | Ödeme yöntemi parmak izi |
+| 46 | `SuppressDifferentOriginSubframeDialogs` | DWord | `1` | Temel | Windows | Farklı köken alt çerçeve diyalogları |
+| 47 | `EnableOnlineRevocationChecks` | DWord | `1` | Temel | Windows | Sertifika iptal kontrolleri |
+| 48 | `ProxySettings` | String | `{"ProxyMode":"system"}` | Temel | Windows | Vekil sunucu yapılandırması |
+| 49 | `ExtensionInstallSources` | MultiString | `@()` | Temel | Windows | Eklenti yükleme kaynakları |
+| 50 | `ScreenCaptureAllowed` | DWord | `0` | Temel | Windows | Ekran yakalama API'si |
+| 51 | `DownloadRestrictions` | DWord | `4` | Temel | Windows | Tehlikeli indirme uyarıları bastırılır |
+| 52 | `WebRtcIPHandling` | String | `disable_non_proxied_udp` | Dengeli | Windows | WebRTC IP ifşası |
+| 53 | `WebRtcLocalIpsAllowedUrls` | MultiString | `@()` | Dengeli | Windows | ICE yoluyla yerel IP |
+| 54 | `HttpsOnlyMode` | String | `force_enabled` | Dengeli | Windows | HTTPS zorlaması |
+| 55 | `DnsOverHttpsMode` | String | `automatic` | Dengeli | Windows | Şifreli DNS |
+| 56 | `BlockThirdPartyCookies` | DWord | `1` | Dengeli | Windows | Siteler arası izleme |
+| 57 | `PasswordManagerEnabled` | DWord | `0` | Dengeli | Windows | Yerleşik parola depolama |
+| 58 | `PasswordManagerPasskeysEnabled` | DWord | `0` | Dengeli | Windows | Passkey depolama |
+| 59 | `AutofillAddressEnabled` | DWord | `0` | Dengeli | Windows | Adres form verileri |
+| 60 | `AutofillCreditCardEnabled` | DWord | `0` | Dengeli | Windows | Ödeme yöntemi verileri |
+| 61 | `ShowFullUrlsInAddressBar` | DWord | `1` | Dengeli | Windows | Oltalama önleme URL gösterimi |
+| 62 | `QuicAllowed` | DWord | `0` | Dengeli | Windows | QUIC protokolü |
+| 63 | `ChromeVariations` | DWord | `1` | Dengeli | Windows | Yalnızca kritik alan denemeleri |
+| 64 | `NetworkServiceSandboxEnabled` | DWord | `1` | Dengeli | Windows | Ağ kum havuzu |
+| 65 | `AudioSandboxEnabled` | DWord | `1` | Dengeli | Windows | Ses kum havuzu |
+| 66 | `DefaultGeolocationSetting` | DWord | `2` | Dengeli | Windows | Cihaz konumu erişimi |
+| 67 | `DefaultNotificationsSetting` | DWord | `2` | Dengeli | Windows | Bildirim istemleri |
+| 68 | `DefaultPopupsSetting` | DWord | `2` | Dengeli | Windows | Açılır pencereler |
+| 69 | `DefaultBraveHttpsUpgradeSetting` | DWord | `2` | Dengeli | Windows | Brave HTTPS yükseltme |
+| 70 | `DefaultBraveReferrersSetting` | DWord | `2` | Dengeli | Windows | Brave yönlendiren sınırı |
+| 71 | `BraveSyncUrl` | String | `https://sync-v2.brave.com/v2` | Dengeli | Windows | Senkronizasyon sunucu URL'si |
+| 72 | `DefaultWindowManagementSetting` | DWord | `2` | Dengeli | Windows | Pencere yönetimi izni |
+| 73 | `SitePerProcess` | DWord | `1` | Dengeli | Windows | Site izolasyonu |
+| 74 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Dengeli | Windows | Arka plan zamanlayıcı kısıtlaması |
+| 75 | `UserFeedbackAllowed` | DWord | `0` | Dengeli | Windows | Kullanıcı geri bildirim istemleri |
+| 76 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Dengeli | Windows | Zorunlu eklenti |
+| 77 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Dengeli | Windows | İndirme yolu |
+| 78 | `PromptForDownloadLocation` | DWord | `0` | Dengeli | Windows | İndirme konumu istemi |
+| 79 | `RelaunchNotification` | DWord | `2` | Dengeli | Windows | Tarayıcı yeniden başlatma bildirimi |
+| 80 | `RelaunchNotificationPeriod` | DWord | `3600000` | Dengeli | Windows | Yeniden başlatma zamanlayıcı (1 saat) |
+| 81 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | DWord | `0` | Dengeli | Windows | Yerel ağ izin varsayılanı |
+| 82 | `GenAILocalFoundationalModelSettings` | DWord | `1` | Dengeli | Windows | Cihaz içi yapay zeka modeli |
+| 83 | `DisableSafeBrowsingProceedAnyway` | DWord | `1` | Dengeli | Windows | Kötü amaçlı yazılım uyarı atlama |
+| 84 | `DefaultSensorsSetting` | DWord | `2` | İleri | Windows | Hareket/ışık sensörleri |
+| 85 | `DefaultLocalFontsSetting` | DWord | `2` | İleri | Windows | Yazı tipi parmak izi |
+| 86 | `DefaultSerialGuardSetting` | DWord | `2` | İleri | Windows | Serial API erişimi |
+| 87 | `DefaultIdleDetectionSetting` | DWord | `2` | İleri | Windows | Boşta algılama |
+| 88 | `BrowserGuestModeEnabled` | DWord | `0` | İleri | Windows | Misafir profili |
+| 89 | `BrowserAddPersonEnabled` | DWord | `0` | İleri | Windows | Yeni profil oluşturma |
+| 90 | `ImportAutofillFormData` | DWord | `0` | İleri | Windows | Tarayıcılar arası otomatik doldurma |
+| 91 | `ImportHistory` | DWord | `0` | İleri | Windows | Tarayıcılar arası geçmiş |
+| 92 | `ImportSavedPasswords` | DWord | `0` | İleri | Windows | Tarayıcılar arası parolalar |
+| 93 | `ImportSearchEngine` | DWord | `0` | İleri | Windows | Tarayıcılar arası arama motoru |
+| 94 | `ImportHomepage` | DWord | `0` | İleri | Windows | Tarayıcılar arası ana sayfa |
+| 95 | `ExtensionInstallBlocklist` | MultiString | `*` | İleri | Windows | Eklenti engelleme listesi |
+| 96 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | İleri | Windows | Eklenti izin listesi |
+| 97 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | İleri | Windows | İzin verilen eklenti türleri |
+| 98 | `BlockExternalExtensions` | DWord | `1` | İleri | Windows | Harici eklenti yükleme |
+| 99 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | İleri | Windows | Eklenti politika matrisi |
+| 100 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | İleri | Windows | S/MIME yerel mesajlaşma ana bilgisayarı |
+| 101 | `NativeMessagingUserLevelHosts` | DWord | `1` | İleri | Windows | Kullanıcı düzeyi yerel mesajlaşma ana bilgisayarları |
+| 102 | `BuiltInDnsClientEnabled` | DWord | `0` | İleri | Windows | Yerleşik DNS istemcisi |
+| 103 | `ShowHomeButton` | DWord | `0` | İleri | Windows | Ana sayfa düğmesi görünürlüğü |
+| 104 | `HideWebStoreIcon` | DWord | `1` | İleri | Windows | Web Mağazası simgesi |
+| 105 | `DefaultJavaScriptSetting` | DWord | `0` | İleri | Windows | JavaScript çalıştırma |
+| 106 | `GeminiSettings` | DWord | `1` | İleri | Windows | Gemini AI önerileri |
+| 107 | `AIModeSettings` | DWord | `1` | İleri | Windows | Arama'da AI Modu |
+| 108 | `AutofillPredictionSettings` | DWord | `2` | İleri | Windows | Otomatik doldurma tahminleri |
+| 109 | `ChromeSuggestionsSettings` | DWord | `1` | İleri | Windows | Chrome önerileri |
+| 110 | `CreateThemesSettings` | DWord | `2` | İleri | Windows | Tema oluşturma |
+| 111 | `DevToolsGenAiSettings` | DWord | `2` | İleri | Windows | Geliştirici araçları AI asistanı |
+| 112 | `HelpMeWriteSettings` | DWord | `2` | İleri | Windows | Yazmaya Yardım Et |
+| 113 | `HistorySearchSettings` | DWord | `2` | İleri | Windows | Geçmiş arama |
+| 114 | `SearchContentSharingSettings` | DWord | `1` | İleri | Windows | Arama içeriği paylaşma |
+| 115 | `SmartTabSharingSettings` | DWord | `1` | İleri | Windows | Akıllı sekme paylaşma |
+| 116 | `TabCompareSettings` | DWord | `2` | İleri | Windows | Sekme karşılaştırma |
+| 117 | `GeminiActOnWebSettings` | DWord | `1` | İleri | Windows | Gemini web işlemleri |
+| 118 | `GeminiSparkSettings` | DWord | `1` | İleri | Windows | Gemini sayfa kıvılcımı |
+| 119 | `RendererAppContainerEnabled` | DWord | `1` | İleri | Windows | İşleyici kum havuzu |
+| 120 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | İleri | Windows | Yerel ağ izin listesi |
+| 121 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | İleri | Windows | Yerel ağ engelleme listesi |
+| 122 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | İleri | Windows | Yerel ağ IP overrides |
+| 123 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | İleri | Windows | Yerel ağ çıkış seçeneği |
+| 124 | `TranslateEnabled` | DWord | `0` | Katı | Windows | Google'a çeviri için metin |
+| 125 | `DefaultClipboardSetting` | DWord | `2` | Katı | Windows | Pano okuma/yazma |
+| 126 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Katı | Windows | Dosya sistemi okuma |
+| 127 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Katı | Windows | Dosya sistemi yazma |
+| 128 | `DefaultInsecureContentSetting` | DWord | `2` | Katı | Windows | Karma içerik |
+| 129 | `DefaultJavaScriptJitSetting` | DWord | `2` | Katı | Windows | JIT derleme |
+| 130 | `DefaultCookiesSetting` | DWord | `2` | Katı | Windows | Tüm çerezler |
+| 131 | `ImportBookmarks` | DWord | `0` | Katı | Windows | Tarayıcılar arası yer imleri |
+| 132 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Katı | Windows | Birinci taraf depolama |
+| 133 | `IncognitoModeAvailability` | DWord | `1` | Katı | Windows | Gizli mod |
+| 134 | `TaskManagerEndProcessEnabled` | DWord | `0` | Katı | Windows | Görev Yöneticisi |
+| 135 | `PrintingEnabled` | DWord | `0` | Katı | Windows | Yazdırma işlevi |
+| 136 | `DisablePrintPreview` | DWord | `1` | Katı | Windows | Yazdırma önizleme |
+| 137 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Katı | Windows | Sunucu tarafı indirme taraması |
+| 138 | `DeveloperToolsAvailability` | DWord | `2` | Katı | Windows | Geliştirici araçları |
+| 139 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Katı | Windows | Otomatik gezinti verisi temizleme |
+| 140 | `AlwaysOpenPdfExternally` | DWord | `1` | Katı | Windows | Yerleşik PDF görüntüleyici |
+| 141 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Katı | Windows | Sertifika Saydamlığı |
+| 142 | `PasswordLeakDetectionEnabled` | DWord | `1` | Katı | Windows | Parola sızıntısı algılama |
+| 143 | `SpellCheckServiceEnabled` | DWord | `0` | Katı | Windows | Yazım denetimi ağ hizmeti |
+| 144 | `BrowserSignin` | DWord | `0` | Katı | Windows | Chrome giriş istemi |
+| 145 | `SyncDisabled` | DWord | `1` | Katı | Windows | Brave Sync |
+| 146 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Ekran yakalama izin listesi |
+| 147 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Aynı köken sekme yakalama |
+| 148 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Sekme yakalama izin listesi |
+| 149 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows | Pencere yakalama izin listesi |
+| 150 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Katı | Windows | Yerel ağ yakalama izin listesi |
+| 151 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Katı | Windows | Yerel ağ yakalama engelleme listesi |
 
 ---
 
@@ -456,16 +440,16 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 ### Brave Yalnız — 24 politika
 Tüm Brave'e özgü özellikler devre dışı bırakıldı veya kısıtlandı. Güç kullanıcıları için sıfır kullanılabilirlik etkisi.
 
-### Temel — 29 politika (+29 = 53 kümülatif)
+### Temel — 27 politika (+27 = 51 kümülatif)
 Veri sızıntısı önleme. Kullanılabilirlik etkisi yok. Tüm Chromium/Brave telemetrisini, arka plan ağ iletişimini ve medya yakalamayı durdurur. USB/Bluetooth/HID cihaz erişimini engeller.
 
-### Dengeli — 33 politika (+33 = 86 kümülatif)
+### Dengeli — 32 politika (+32 = 83 kümülatif)
 Güvenlik ve kullanım dengesi. WebRTC sıkılaştırması, şifreli DNS, çerez engelleme, parola/otomatik doldurma devre dışı bırakma, izin varsayılanları, site izolasyonu, indirme kontrolleri, Dark Reader eklentisi.
 
-### İleri — 40 politika (+40 = 126 kümülatif)
+### İleri — 40 politika (+40 = 123 kümülatif)
 Genişletilmiş sıkılaştırma. Sensörler, yazı tipleri, seri bağlantı noktası, boşta algılama, misafir modu, tarayıcılar arası içe aktarmalar, eklenti kısıtlamaları, JavaScript varsayılanı kapalı, yapay zeka özellikleri devre dışı.
 
-### Katı — 27 politika (+27 = 153 kümülatif)
+### Katı — 28 politika (+28 = 151 kümülatif)
 Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirmeler, geliştirici araçları, bulut raporlama devre dışı. Gezinti verilerini her 24 saatte bir otomatik temizler.
 
 ---
@@ -474,18 +458,10 @@ Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirme
 
 | Tür | Adet | Yüzde |
 |-----|------|-------|
-| DWord | 117 | %77,0 |
-| String | 7 | %4,6 |
-| MultiString | 18 | %11,8 |
-| **Toplam (benzersiz)** | **152** | **%100** |
-
----
-
-## Çakışma Kaydı
-
-| Politika Adı | Görüldüğü Yerler | Çakışma |
-|-------------|------------------|---------|
-| `DownloadRestrictions` | Dengeli (`1`) → Katı (`3`) | Katı, Dengeli değerini ezdir |
+| DWord | 124 | %82,1 |
+| String | 8 | %5,3 |
+| MultiString | 19 | %12,6 |
+| **Toplam (benzersiz)** | **151** | **%100** |
 
 ---
 

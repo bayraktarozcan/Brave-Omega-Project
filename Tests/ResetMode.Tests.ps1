@@ -27,6 +27,16 @@ Describe "Reset Mode - Reset Policy Count" -Tag "Unit" {
         $removals.Count | Should -BeGreaterOrEqual 1
     }
 
+    It "EN reset should use the Remove-PolicyEntry helper for list-aware removal" {
+        $content = Get-Content -Path $ScriptEN -Raw
+        $content -match 'Remove-PolicyEntry -TargetPath \$HKLM_Target -EntryName \$name' | Should -Be $true
+    }
+
+    It "TR reset should use the Kaldir-PolitikaKaydi helper for list-aware removal" {
+        $content = Get-Content -Path $ScriptTR -Raw
+        $content -match 'Kaldir-PolitikaKaydi -HedefYol \$HKLM_Hedef -KayitAdi \$ad' | Should -Be $true
+    }
+
     It "EN reset should also target HKCU policies" {
         $content = Get-Content -Path $ScriptEN -Raw
         $removals = [regex]::Matches($content, 'Remove-ItemProperty\s+-Path\s+\$HKCU_Target')

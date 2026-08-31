@@ -117,9 +117,9 @@ Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy na
 # for non-Windows surfaces (e.g. ChromeOS web-capability / IWA policies) and therefore never
 # appear in brave.admx. Each entry is verified against chromeenterprise.google/policies and
 # cross-referenced in CHANGELOG.md / README.md. Do not add entries here to silence typos.
-$knownAdmxExceptions = @{
-    "DeviceAttributesAllowedForOrigins" = "ChromeOS-only web-capability policy (Device Attributes API); intentionally included for future-proofing - see CHANGELOG.md"
-}
+# NOTE: v2.6.1.0 removed the only entry (DeviceAttributesAllowedForOrigins, a ChromeOS-only
+# policy that Brave on Windows does not support); this map is intentionally empty.
+$knownAdmxExceptions = @{}
 
 # ─── Cross-Reference: Check each script policy against ADMX ───
 Write-Host ""
