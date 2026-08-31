@@ -29,6 +29,7 @@ Describe "Write-PolicyValue" -Tag "Unit" {
     }
 
     It "should write MultiString as numbered REG_SZ values under a list subkey" {
+        Mock Join-Path { return "TestDrive:\$($args[1])" }
         Mock Remove-ItemProperty { return $null }
         Mock Test-Path { return $false }
         Mock New-Item { return $null }
@@ -42,6 +43,7 @@ Describe "Write-PolicyValue" -Tag "Unit" {
     }
 
     It "should create the list subkey even when MultiString value is empty" {
+        Mock Join-Path { return "TestDrive:\$($args[1])" }
         Mock Remove-ItemProperty { return $null }
         Mock Test-Path { return $false }
         Mock New-Item { return $null }
@@ -52,6 +54,7 @@ Describe "Write-PolicyValue" -Tag "Unit" {
     }
 
     It "should remove a stale value and list subkey before writing MultiString" {
+        Mock Join-Path { return "TestDrive:\$($args[1])" }
         Mock Remove-ItemProperty { return $null }
         Mock Test-Path { return $true }
         Mock Remove-Item { return $null }
@@ -65,6 +68,7 @@ Describe "Write-PolicyValue" -Tag "Unit" {
 
 Describe "Remove-PolicyEntry" -Tag "Unit" {
     It "should remove the value and the list subkey" {
+        Mock Join-Path { return "TestDrive:\$($args[1])" }
         Mock Remove-ItemProperty { return $null }
         Mock Test-Path { return $true }
         Mock Remove-Item { return $null }
@@ -74,6 +78,7 @@ Describe "Remove-PolicyEntry" -Tag "Unit" {
     }
 
     It "should skip list subkey removal when it does not exist" {
+        Mock Join-Path { return "TestDrive:\$($args[1])" }
         Mock Remove-ItemProperty { return $null }
         Mock Test-Path { return $false }
         Mock Remove-Item { return $null }
