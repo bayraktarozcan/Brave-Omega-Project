@@ -17,11 +17,11 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega-EN.ps1` v2.6.1.0 | `BraveOmega-TR.ps1` v2.6.1.0  
-> **Date:** 2026-08-31  
+> **Generated from:** `BraveOmega-EN.ps1` v2.6.2.0 | `BraveOmega-TR.ps1` v2.6.2.0  
+> **Date:** 2026-09-07  
 > **Total unique policies:** 151 (no overlaps)  
 > **Type distribution:** 124 DWord · 8 String · 19 MultiString  
-> **Validated on:** Brave 1.94.117 / Chromium 152.0.7977.64 / Windows 11 26200
+> **Validated on:** Brave 1.94.121 / Chromium 152.0.7977.83 / Windows 11 25H2
 
 ---
 
@@ -139,7 +139,7 @@
 | 94 | `ImportHomepage` | DWord | `0` | Advanced | Windows | Cross-browser homepage |
 | 95 | `ExtensionInstallBlocklist` | MultiString | `*` | Advanced | Windows | Extension blocklist |
 | 96 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | Advanced | Windows | Extension allowlist |
-| 97 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | Advanced | Windows | Allowed extension types |
+| 97 | `ExtensionAllowedTypes` | MultiString | `extension` | Advanced | Windows | Allowed extension types |
 | 98 | `BlockExternalExtensions` | DWord | `1` | Advanced | Windows | External extension install |
 | 99 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | Advanced | Windows | Extension policy matrix |
 | 100 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | Advanced | Windows | Native messaging host allowlist |
@@ -255,11 +255,11 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega-EN.ps1` v2.6.1.0 | `BraveOmega-TR.ps1` v2.6.1.0  
-> **Tarih:** 2026-08-31  
+> **Kaynak:** `BraveOmega-EN.ps1` v2.6.2.0 | `BraveOmega-TR.ps1` v2.6.2.0  
+> **Tarih:** 2026-09-07  
 > **Toplam benzersiz politika:** 151 (çakışma yok)  
 > **Tür dağılımı:** 124 DWord · 8 String · 19 MultiString  
-> **Doğrulandı:** Brave 1.94.117 / Chromium 152.0.7977.64 / Windows 11 26200
+> **Doğrulandı:** Brave 1.94.121 / Chromium 152.0.7977.83 / Windows 11 25H2
 
 ---
 
@@ -377,7 +377,7 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 94 | `ImportHomepage` | DWord | `0` | İleri | Windows | Tarayıcılar arası ana sayfa |
 | 95 | `ExtensionInstallBlocklist` | MultiString | `*` | İleri | Windows | Eklenti engelleme listesi |
 | 96 | `ExtensionInstallAllowlist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh, maafgiompdekodanheihhgilkjchcakm` | İleri | Windows | Eklenti izin listesi |
-| 97 | `ExtensionAllowedTypes` | MultiString | `extension, shared_module` | İleri | Windows | İzin verilen eklenti türleri |
+| 97 | `ExtensionAllowedTypes` | MultiString | `extension` | İleri | Windows | İzin verilen eklenti türleri |
 | 98 | `BlockExternalExtensions` | DWord | `1` | İleri | Windows | Harici eklenti yükleme |
 | 99 | `ExtensionSettings` | String | `{"*":{"installation_mode":"blocked"},…,"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | İleri | Windows | Eklenti politika matrisi |
 | 100 | `NativeMessagingAllowlist` | MultiString | `com.microsoft.outlook.smime.chromenativeapp` | İleri | Windows | S/MIME yerel mesajlaşma ana bilgisayarı |

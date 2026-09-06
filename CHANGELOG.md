@@ -191,6 +191,7 @@ All notable changes to this project are documented below, following the [Keep a 
 ### Changed
 
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion`/`$BetikSurum` → `v2.6.2.0`; `$ValidatedBrave`/`$DogrulananBrave` → `1.94.121`; header changelog and channel warning updated.
+- **Documentation audit (post-release)** — aligned `README.md` §9, `Wiki/Policy-Reference.md`, `index.html`, and `docs/policy-catalog.md`: `ExtensionAllowedTypes` corrected to `@("extension")` (removing the unintended `shared_module` type); the OWA S/MIME rows `NativeMessagingAllowlist` / `NativeMessagingUserLevelHosts` added where missing; `policy-catalog.md` header metadata updated to v2.6.2.0 / Brave 1.94.121 / Chromium 152.0.7977.83. No scripts or policy definitions changed.
 
 ---
 
@@ -2073,6 +2074,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 ### Değiştirildi
 
 - **BraveOmega-EN.ps1 / BraveOmega-TR.ps1** — `$ScriptVersion`/`$BetikSurum` → `v2.6.2.0`; `$ValidatedBrave`/`$DogrulananBrave` → `1.94.121`; başlık değişiklik geçmişi ve kanal uyarısı güncellendi.
+- **Belge denetimi (yayın sonrası)** — `README.md` §9, `Wiki/Policy-Reference.md`, `index.html` ve `docs/policy-catalog.md` hizalandı: `ExtensionAllowedTypes`, istenmeyen `shared_module` türü kaldırılarak `@("extension")` olarak düzeltildi; eksik olan OWA S/MIME satırları `NativeMessagingAllowlist` / `NativeMessagingUserLevelHosts` eklendi; `policy-catalog.md` başlık meta verileri v2.6.2.0 / Brave 1.94.121 / Chromium 152.0.7977.83 olarak güncellendi. Betik veya politika tanımı değişmedi.
 
 ---
 
