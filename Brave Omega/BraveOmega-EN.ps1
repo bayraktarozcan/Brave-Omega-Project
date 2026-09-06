@@ -6,19 +6,28 @@
 # ==============================================================================
 # ==============================================================================
 # VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8894)
-#                    Brave 1.94.117 (Official Build) (64 bit) Chromium: 152.0.7977.64
+#                    Brave 1.94.121 (Official Build) (64 bit) Chromium: 152.0.7977.83
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.94.117, dated August 26, 2026, belongs to the Stable channel.
+#    Brave 1.94.121, dated September 4, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.6.1.1)
+# CHANGELOG (v2.6.2.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.2.0             Patch release — Brave 1.94.121 compatibility validation:
+#
+#     [CHANGED]     Validated against Brave 1.94.121 (Chromium 152.0.7977.83),
+#                   released September 4, 2026. Brave 1.94.117 (Chromium
+#                   152.0.7977.64) remains supported.
+#
+#     [UNCHANGED]   No policy changes. Totals remain 151 across 5 tiers
+#                   (chain: 24 → 51 → 83 → 123 → 151).
+#
 #   v2.6.1.1             Patch release — S/MIME documentation correction &
 #                        release-notes cleanup:
 #
@@ -372,8 +381,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.6.1.1"
-$ValidatedBrave  = "1.94.117"
+$ScriptVersion   = "v2.6.2.0"
+$ValidatedBrave  = "1.94.121"
 $ValidatedChromium = "152"
 
 # ─────────────────────────────────────────────────────────────────────────────

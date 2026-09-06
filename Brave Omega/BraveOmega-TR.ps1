@@ -6,19 +6,28 @@
 # ==============================================================================
 # ==============================================================================
 # SÜRÜM BAĞLAMI  : Windows 11 25H2 (Derleme 26200.8894)
-#                  Brave 1.94.117 (Resmi Derleme) (64 bit) Chromium: 152.0.7977.64
+#                  Brave 1.94.121 (Resmi Derleme) (64 bit) Chromium: 152.0.7977.83
 # DOSYA TÜRÜ     : Gelişmiş Çok Katmanlı Tarayıcı Sıkılaştırma Betiği (.ps1)
 # AMAÇ           : Kullanıcı gizliliğini korumak, veri sızıntılarını önlemek,
 #                  tarayıcıyı gereksiz yan hizmetlerden arındırmak. 5 katmanlı
 #                  sıkılaştırma modeli: Brave Yalnız, Temel, Dengeli, Gelişmiş, Katı.
 #
 # !! KANAL UYARISI !!
-#    Brave 1.94.117, 26 Ağustos 2026 tarihli, Stable (kararlı) kanalına aittir.
+#    Brave 1.94.121, 4 Eylül 2026 tarihli, Stable (kararlı) kanalına aittir.
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.6.1.1)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.6.2.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.2.0             Yama sürümü — Brave 1.94.121 uyumluluk doğrulaması:
+#
+#     [DEĞİŞTİ]     Brave 1.94.121 (Chromium 152.0.7977.83), 4 Eylül 2026
+#                   tarihli sürümüne karşı doğrulandı. Brave 1.94.117
+#                   (Chromium 152.0.7977.64) desteklenmeye devam ediyor.
+#
+#     [DEĞİŞMEDİ]   Politika değişikliği yok. 5 seviyede toplam 151
+#                   (zincir: 24 → 51 → 83 → 123 → 151) kaldı.
+#
 #   v2.6.1.1             Yama sürümü — S/MIME belgeleme düzeltmesi ve
 #                        release-notes temizliği:
 #
@@ -382,8 +391,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.6.1.1"
-$DogrulananBrave = "1.94.117"
+$BetikSurum    = "v2.6.2.0"
+$DogrulananBrave = "1.94.121"
 $DogrulananChromium = "152"
 
 # ─────────────────────────────────────────────────────────────────────────────
