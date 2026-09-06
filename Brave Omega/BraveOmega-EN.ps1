@@ -17,8 +17,26 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.6.1.0)
+# CHANGELOG (v2.6.1.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.1.1             Patch release — S/MIME documentation correction &
+#                        release-notes cleanup:
+#
+#     [CHANGED]     S/MIME allow-list entry corrected: it is an allow-list entry
+#                   that uses brave-extension:// (chrome://policy correctly
+#                   reflects the value) — not a force-install. Brave silently
+#                   blocks force-installed CRX files from outside the Chrome Web
+#                   Store and requires a one-time manual acceptance per profile
+#                   (OWA install prompt or chrome://extensions). The manual-
+#                   acceptance guidance is now documented as an allow-list
+#                   behavior, not a force-install behavior.
+#
+#     [REMOVED]     release-notes/ directory removed — release documentation is
+#                   consolidated in CHANGELOG.md and the GitHub Wiki.
+#
+#     [UNCHANGED]   No policy changes. Totals remain 151 across 5 tiers
+#                   (chain: 24 → 51 → 83 → 123 → 151).
+#
 #   v2.6.1.0             Patch release — remove unsupported ChromeOS-only policy:
 #
 #     [REMOVED]     DeviceAttributesAllowedForOrigins removed from the Essential
@@ -34,11 +52,15 @@
 #   v2.6.0.0             Feature release — Microsoft S/MIME for Outlook Web Access:
 #
 #     [ADD]         Microsoft S/MIME extension (maafgiompdekodanheihhgilkjchcakm) is
-#                   now force-installed at the Balanced tier and above via
+#                   allow-listed at the Balanced tier and above via
 #                   ExtensionInstallForcelist. At the Advanced tier it is added to
 #                   the ExtensionInstallAllowlist and ExtensionSettings (with
 #                   override_update_url) so the Outlook Web Access S/MIME postbox
 #                   (https://outlook.office.com/owa/SmimeCrxUpdate.ashx) is honored.
+#                   Brave blocks silent force-install of CRX files from outside the
+#                   Chrome Web Store, so the extension is NOT auto-installed — a
+#                   one-time manual acceptance (OWA install prompt or
+#                   chrome://extensions) is required; a note is printed at runtime.
 #
 #     [ADD]         2 new Advanced-tier policies enable S/MIME native messaging in
 #                   OWA: NativeMessagingAllowlist (com.microsoft.outlook.smime.
@@ -350,7 +372,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.6.1.0"
+$ScriptVersion   = "v2.6.1.1"
 $ValidatedBrave  = "1.94.117"
 $ValidatedChromium = "152"
 
@@ -896,7 +918,7 @@ $PolicyDefinitions = @{
         # User Feedback — disables in-browser feedback prompts/UI
         @{Name="UserFeedbackAllowed";                  Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
-        # Extension Install Forcelist — force-install Dark Reader + S/MIME for OWA
+        # Extension Install Forcelist — force-install Dark Reader; S/MIME allow-listed (Brave blocks silent CRX force-install) for OWA
         @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Type="MultiString"}
         # Download Directory — set default download folder
         @{Name="DownloadDirectory";                    Value="${env:USERPROFILE}\Downloads\"; Type="String"}
@@ -1450,6 +1472,31 @@ Write-Host "  1. Active policies   : brave://policy" -ForegroundColor DarkGray
 Write-Host "  2. Registry path     : HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -ForegroundColor DarkGray
 Write-Host "  3. Backup location   : `$env:TEMP\BravePolicyBackup\" -ForegroundColor DarkGray
 Write-Host "  4. Rollback command  : reg import `"<backup_file.reg>`"`n" -ForegroundColor DarkGray
+
+# ─────────────────────────────────────────────────────────────────────────────
+# S/MIME EXTENSION INSTALL NOTE (v2.6.0+ — OWA signing/encryption)
+# ─────────────────────────────────────────────────────────────────────────────
+# Brave blocks force-install of CRX files from outside the store, so the
+# Microsoft S/MIME extension cannot be auto-installed. It is allowlisted and
+# fully configured, but needs one manual/one-time acceptance to appear.
+if ($Level -in @("Advanced", "Strict")) {
+    Write-Host ""
+    Write-Host $SeparatorLine -ForegroundColor Yellow
+    Write-Host "  S/MIME EXTENSION INSTALL (OWA Signing/Encryption)" -ForegroundColor Yellow
+    Write-Host $SeparatorLine -ForegroundColor Yellow
+    Write-Host "  Brave cannot auto-install extensions from outside the store," -ForegroundColor DarkYellow
+    Write-Host "  so the Microsoft S/MIME extension is not installed automatically." -ForegroundColor DarkYellow
+    Write-Host "  Complete the installation using one of the steps below:" -ForegroundColor White
+    Write-Host ""
+    Write-Host "  1) On your first Outlook Web Access visit, accept Microsoft's" -ForegroundColor White
+    Write-Host "     installation prompt (recommended, automatic suggestion)." -ForegroundColor White
+    Write-Host "  2) Visit chrome://extensions, search for 'Microsoft S/MIME' and" -ForegroundColor White
+    Write-Host "     install the extension manually." -ForegroundColor White
+    Write-Host ""
+    Write-Host "  After installation, OWA signing/encryption features become active." -ForegroundColor DarkGray
+    Write-Host $SeparatorLine -ForegroundColor Yellow
+    Write-Host ""
+}
 
 # Exit code
 if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0) { exit 1 } else { exit 0 }

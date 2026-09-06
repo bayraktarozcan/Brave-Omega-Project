@@ -312,7 +312,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.6.1.0** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| **v2.6.1.1** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| **v2.6.1.0** | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
 | **v2.6.0.0** | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
 | **v2.5.5.4** | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
 | **v2.5.5.3** | 1.93.138 | 151 | 11 25H2 | 📦 Previous |
@@ -455,7 +456,7 @@ no longer have any effect.
 | `SitePerProcess` | `1` | DWord | Forces all sites into separate processes |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Aggressively throttles JavaScript wake-up timers |
 | `UserFeedbackAllowed` | `0` | DWord | Disables in-browser feedback prompts/UI |
-| `ExtensionInstallForcelist` | *(Dark Reader)* | MultiString | Force-installs listed extensions |
+| `ExtensionInstallForcelist` | *(Dark Reader, S/MIME)* | MultiString | Allow-lists these extensions (S/MIME not auto-installed — Brave blocks silent CRX force-install; one-time manual acceptance required) |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download folder |
 | `PromptForDownloadLocation` | `0` | DWord | Does not prompt, uses default download directory |
 | `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Prevents bypassing malware/phishing warnings (moved back from Strict) |
@@ -480,7 +481,7 @@ no longer have any effect.
 | `ImportSearchEngine` | `0` | DWord | Disables search engine import |
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except those on allowlist |
-| `ExtensionInstallAllowlist` | *(Dark Reader)* | MultiString | Only these extensions are permitted |
+| `ExtensionInstallAllowlist` | *(Dark Reader, S/MIME)* | MultiString | Only these extensions are permitted |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts allowed extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloading of external extensions |
 | `ExtensionSettings` | *(JSON block-all + allowlist)* | String | JSON backup layer for extension control |
@@ -941,7 +942,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.6.1.0** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.6.1.1** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.6.1.0** | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
 | **v2.6.0.0** | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
 | **v2.5.5.4** | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
 | **v2.5.5.3** | 1.93.138 | 151 | 11 25H2 | 📦 Önceki |
@@ -1084,7 +1086,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `SitePerProcess` | `1` | DWord | Her siteyi ayrı bir süreçte çalıştırır (site izolasyonu) |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Arka plan sekmelerini uyku moduna alır (enerji tasarrufu) |
 | `UserFeedbackAllowed` | `0` | DWord | Chromium geri bildirim istemcisini devre dışı bırakır |
-| `ExtensionInstallForcelist` | *Dark Reader* | MultiString | Yalnızca zorunlu eklenti — Dark Reader |
+| `ExtensionInstallForcelist` | *(Dark Reader, S/MIME)* | MultiString | Bu uzantıları listeler (S/MIME otomatik kurulmaz — tek seferlik manuel onay gerekir) |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Varsayılan indirme klasörünü ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Konum sormaz, varsayılan indirme dizinini kullanır |
 | `DisableSafeBrowsingProceedAnyway` | `1` | DWord | Kötü amaçlı yazılım/oltalama uyarılarını atlamayı engeller (Katı'dan geri taşındı) |
@@ -1109,7 +1111,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `ImportSearchEngine` | `0` | DWord | Arama motoru içe aktarmayı devre dışı bırakır |
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Tüm eklentileri izin verilen listedekiler dışında engeller |
-| `ExtensionInstallAllowlist` | *(Dark Reader)* | MultiString | Yalnızca bu eklentilere izin verilir |
+| `ExtensionInstallAllowlist` | *(Dark Reader, S/MIME)* | MultiString | Yalnızca bu eklentilere izin verilir |
 | `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | İzin verilen eklenti türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Dış eklenti yan yüklemesini engeller |
 | `ExtensionSettings` *(JSON)* | *(JSON block-all + allowlist)* | String | Eklenti kontrolü için JSON yedek katmanı |
