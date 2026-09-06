@@ -5,12 +5,12 @@ BeforeAll {
 Describe "Script Version Consistency" -Tag "Integration" {
     It "EN script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion"
-        $v | Should -BeExactly "v2.6.1.1"
+        $v | Should -BeExactly "v2.6.2.0"
     }
 
     It "TR script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum"
-        $v | Should -BeExactly "v2.6.1.1"
+        $v | Should -BeExactly "v2.6.2.0"
     }
 
     It "EN and TR script versions should match" {
@@ -21,7 +21,7 @@ Describe "Script Version Consistency" -Tag "Integration" {
 
     It "EN should have validated Brave version" {
         $content = Get-Content -Path $ScriptEN -Raw
-        $content -match '1\.94\.117' | Should -Be $true
+        $content -match '1\.94\.121' | Should -Be $true
     }
 
     It "EN should have validated Chromium version" {
@@ -31,7 +31,7 @@ Describe "Script Version Consistency" -Tag "Integration" {
 
     It "TR should have validated Brave version" {
         $content = Get-Content -Path $ScriptTR -Raw
-        $content -match '1\.94\.117' | Should -Be $true
+        $content -match '1\.94\.121' | Should -Be $true
     }
 
     It "TR should have validated Chromium version" {

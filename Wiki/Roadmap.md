@@ -11,9 +11,9 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v2.6.1.1** — *S/MIME documentation correction* (2026-09-06)
+**v2.6.2.0** — *Brave 1.94.121 compatibility validation* (2026-09-07)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), validated against Brave 1.94.117 (Chromium 152.0.7977.64). Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), validated against Brave 1.94.121 (Chromium 152.0.7977.83). Brave 1.94.117 (Chromium 152.0.7977.64) remains supported. Cumulative chain: 24→51→83→123→151.
 
 ---
 
@@ -254,9 +254,9 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v2.6.1.1** — *S/MIME belgelendirme düzeltmesi* (2026-09-06)
+**v2.6.2.0** — *Brave 1.94.121 uyumluluk doğrulaması* (2026-09-07)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), Brave 1.94.117 (Chromium 152.0.7977.64) ile doğrulandı. Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), Brave 1.94.121 (Chromium 152.0.7977.83) ile doğrulandı. Brave 1.94.117 (Chromium 152.0.7977.64) desteklenmeye devam ediyor. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 
