@@ -17,8 +17,27 @@
 #    Kurumsal dağıtım için her zaman kararlı kol önerilir. Beta/Nightly
 #    sürümlerinde ADMX politika davranışları henüz tam sınanmamış olabilir.
 #
-# DEĞİŞİKLİK GEÇMİŞİ (v2.6.1.0)
+# DEĞİŞİKLİK GEÇMİŞİ (v2.6.1.1)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.6.1.1             Yama sürümü — S/MIME belgeleme düzeltmesi ve
+#                        release-notes temizliği:
+#
+#     [DEĞİŞTİ]     S/MIME izin listesi girdisi düzeltildi: brave-extension://
+#                   kullanan bir izin listesi girdisidir (chrome://policy değeri
+#                   doğru yansıtır) — zorla kurulum (force-install) değildir.
+#                   Brave, Chrome Web Mağazası dışındaki zorla kurulan CRX
+#                   dosyalarını sessizce engeller ve profil başına tek seferlik
+#                   manuel onay gerektirir (OWA kurulum isteği veya
+#                   chrome://extensions). Manuel onay yönergesi artık bir izin
+#                   listesi davranışı olarak belgelenmektedir; zorla kurulum
+#                   davranışı olarak değil.
+#
+#     [KALDIRILDI]  release-notes/ dizini kaldırıldı — sürüm dokümantasyonu
+#                   CHANGELOG.md ve GitHub Wiki'de birleştirildi.
+#
+#     [DEĞİŞMEDİ]   Politika değişikliği yok. 5 seviyede toplam 151
+#                   (zincir: 24 → 51 → 83 → 123 → 151) kaldı.
+#
 #   v2.6.1.0             Yama sürümü — desteklenmeyen ChromeOS'a özgü politika kaldırıldı:
 #
 #     [KALDIRILDI]  DeviceAttributesAllowedForOrigins, Temel kademeden ve sıfırlama
@@ -34,11 +53,15 @@
 #   v2.6.0.0             Özellik sürümü — Outlook Web Access için Microsoft S/MIME:
 #
 #     [EKLENDİ]     Microsoft S/MIME uzantısı (maafgiompdekodanheihhgilkjchcakm) artık
-#                   Dengeli seviyede ve üzerinde ExtensionInstallForcelist ile zorla
-#                   yüklenir. Gelişmiş seviyede ExtensionInstallAllowlist'e ve
+#                   Dengeli seviyede ve üzerinde ExtensionInstallForcelist ile izin
+#                   listesinde. Gelişmiş seviyede ExtensionInstallAllowlist'e ve
 #                   ExtensionSettings'e (override_update_url ile) eklendi; böylece
 #                   Outlook Web Access S/MIME güncelleme adresi
 #                   (https://outlook.office.com/owa/SmimeCrxUpdate.ashx) kullanılır.
+#                   Brave, Chrome Web Mağazası dışındaki CRX dosyalarının sessizce
+#                   zorla yüklenmesini engellediğinden uzantı otomatik KURULMAZ —
+#                   tek seferlik manuel onay gerekir (OWA kurulum isteği veya
+#                   chrome://extensions); süreç çalışma anında nota basar.
 #
 #     [EKLENDİ]     OWA'da S/MIME yerel mesajlaşmasını etkinleştiren 2 yeni Gelişmiş
 #                   seviye politikası: NativeMessagingAllowlist (com.microsoft.outlook.
@@ -359,7 +382,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # BETİK SÜRÜM SABİTLERİ
 # ─────────────────────────────────────────────────────────────────────────────
-$BetikSurum    = "v2.6.1.0"
+$BetikSurum    = "v2.6.1.1"
 $DogrulananBrave = "1.94.117"
 $DogrulananChromium = "152"
 
@@ -912,7 +935,7 @@ $PolitikaTanimlari = @{
         # Kullanıcı Geri Bildirimi — tarayıcı içi geri bildirim istemlerini devre dışı bırakır
         @{Ad="UserFeedbackAllowed";                  Deger=0; Tur="DWord"}
         # ─── Yeni Dengeli Politikaları (Faz 8 — Prompt 22 + 24) ───
-        # Uzantı Zorla Yükle — Dark Reader + OWA için S/MIME zorla yükle
+        # Uzantı Zorla Yükle — Dark Reader zorla kurulur; S/MIME izin listesinde (Brave sessiz CRX zorla kurulumunu engeller) — OWA
         @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Tur="MultiString"}
         # İndirme Klasörü — varsayılan indirme klasörünü ayarla
         @{Ad="DownloadDirectory";                    Deger="${env:USERPROFILE}\Downloads\"; Tur="String"}
@@ -1468,6 +1491,31 @@ Write-Host "  1. Aktif politikalar : brave://policy" -ForegroundColor DarkGray
 Write-Host "  2. Kayıt defteri yolu: HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -ForegroundColor DarkGray
 Write-Host "  3. Yedek konumu      : `$env:TEMP\BravePolicyBackup\" -ForegroundColor DarkGray
 Write-Host "  4. Geri alma komutu  : reg import `"<yedek_dosyasi.reg>`"`n" -ForegroundColor DarkGray
+
+# ─────────────────────────────────────────────────────────────────────────────
+# S/MIME UZANTISI KURULUM NOTU (v2.6.0+ — OWA imzalama/şifreleme)
+# ─────────────────────────────────────────────────────────────────────────────
+# Brave, mağaza dışı CRX dosyalarının zorla yüklenmesini engellediğinden
+# Microsoft S/MIME uzantısı otomatik kurulamaz. Uzantı listeye eklenmiş ve
+# tamamen yapılandırılmıştır, ancak görünmesi için tek seferlik onay gerekir.
+if ($Seviye -in @("Advanced", "Strict")) {
+    Write-Host ""
+    Write-Host $AyracCizgisi -ForegroundColor Yellow
+    Write-Host "  S/MIME UZANTISI KURULUMU (OWA İmzalama/Şifreleme)" -ForegroundColor Yellow
+    Write-Host $AyracCizgisi -ForegroundColor Yellow
+    Write-Host "  Brave, mağaza dışı uzantıları otomatik yükleyemediğinden" -ForegroundColor DarkYellow
+    Write-Host "  Microsoft S/MIME uzantısı otomatik olarak kurulmaz." -ForegroundColor DarkYellow
+    Write-Host "  Kurulumu aşağıdaki adımlardan biriyle tamamlayın:" -ForegroundColor White
+    Write-Host ""
+    Write-Host "  1) İlk Outlook Web Access ziyaretinizde Microsoft'un kurulum" -ForegroundColor White
+    Write-Host "     isteğini onaylayın (önerilir; otomatik öneri)." -ForegroundColor White
+    Write-Host "  2) chrome://extensions adresinde 'Microsoft S/MIME' ifadesini" -ForegroundColor White
+    Write-Host "     arayıp uzantıyı elle kurun." -ForegroundColor White
+    Write-Host ""
+    Write-Host "  Kurulum sonrası OWA'da imzalama/şifreleme özellikleri aktif olur." -ForegroundColor DarkGray
+    Write-Host $AyracCizgisi -ForegroundColor Yellow
+    Write-Host ""
+}
 
 # Çıkış kodu
 if ($HataSayaci -gt 0 -or $BayatHataSayac -gt 0) { exit 1 } else { exit 0 }

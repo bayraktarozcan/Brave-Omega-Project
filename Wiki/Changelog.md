@@ -23,6 +23,30 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.6.1.1 — 2026-09-06
+
+**Patch Release — S/MIME documentation correction**
+
+**Changed:**
+
+- Corrected the S/MIME documentation: the S/MIME extension allow-list entry (`maafgiompdekodanheihhgilkjchcakm`) is an allow-list using `brave-extension://`, not a force-install. Brave silently blocks force-installed CRX files from outside the Chrome Web Store and requires a one-time manual acceptance per profile.
+- No policy changes; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+- Both scripts updated to v2.6.1.1
+
+---
+
+### v2.6.1.0 — 2026-08-31
+
+**Patch Release — Device Attributes Clean-up**
+
+**Changed:**
+
+- Removed the unsupported ChromeOS-only `DeviceAttributesAllowedForOrigins` policy from the Essential tier (unsupported by Brave on Windows); Essential 28→27, total 152→151
+- No Windows hardening lost across all 5 tiers; cumulative chain: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+- Both scripts updated to v2.6.1.0
+
+---
+
 ### v2.6.0.0 — 2026-08-29
 
 **Feature Release — Microsoft S/MIME for Outlook Web Access (OWA)**
@@ -31,7 +55,7 @@ Complete version history for Brave Omega.
 
 - `NativeMessagingAllowlist` (MultiString: `com.microsoft.outlook.smime.chromenativeapp`) — enables the Microsoft native messaging host used for S/MIME signing/encryption in OWA
 - `NativeMessagingUserLevelHosts` (DWord: 1) — keeps user-level native messaging hosts active, as required by Microsoft's OWA S/MIME guidance
-- S/MIME extension force-install — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) added to `ExtensionInstallForcelist` at Balanced tier and above; at Advanced tier also added to `ExtensionInstallAllowlist` and `ExtensionSettings` (`override_update_url` enabled)
+- S/MIME extension allow-list — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) added to `ExtensionInstallForcelist` at Balanced tier and above (not auto-installed — Brave blocks silent force-install of CRX files from outside the Chrome Web Store; one-time manual acceptance required); at Advanced tier also added to `ExtensionInstallAllowlist` and `ExtensionSettings` (`override_update_url` enabled)
 
 **Changed:**
 
@@ -578,7 +602,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.6.1.0** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| **v2.6.1.1** *(current)* | 1.94.117 | 152 | 11 25H2 | ✅ Active |
+| v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
 | v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
 | v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
 | v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | ✅ Previous |
@@ -666,6 +691,30 @@ Brave Omega için tam sürüm geçmişi.
 
 ## Sürüm Geçmişi
 
+### v2.6.1.1 — 2026-09-06
+
+**Yama Sürümü — S/MIME belgelendirme düzeltmesi**
+
+**Değiştirilenler:**
+
+- S/MIME belgelendirmesi düzeltildi: S/MIME uzantısı izin listesi girdisi (`maafgiompdekodanheihhgilkjchcakm`) bir izin listesidir ve `brave-extension://` kullanır, zorla yükleme değildir. Brave, Chrome Web Mağazası dışındaki zorla yüklenen CRX dosyalarını sessizce engeller ve profil başına tek seferlik manuel onay gerektirir.
+- Politika değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+- Her iki betik v2.6.1.1'e güncellendi
+
+---
+
+### v2.6.1.0 — 2026-08-31
+
+**Yama Sürümü — Cihaz Öznitelikleri Temizliği**
+
+**Değiştirilenler:**
+
+- Windows'ta Brave tarafından desteklenmeyen yalnızca ChromeOS'a özgü `DeviceAttributesAllowedForOrigins` politikası Temel seviyesinden kaldırıldı; Temel 28→27, toplam 152→151
+- 5 seviyenin tamamında Windows sıkılaştırması kaybı yok; kümülatif zincir: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+- Her iki betik v2.6.1.0'a güncellendi
+
+---
+
 ### v2.6.0.0 — 2026-08-29
 
 **Özellik Sürümü — Outlook Web Access için Microsoft S/MIME**
@@ -674,7 +723,7 @@ Brave Omega için tam sürüm geçmişi.
 
 - `NativeMessagingAllowlist` (MultiString: `com.microsoft.outlook.smime.chromenativeapp`) — OWA'da S/MIME imzalama/şifreleme için kullanılan Microsoft yerel mesajlaşma ana bilgisayarını etkinleştirir
 - `NativeMessagingUserLevelHosts` (DWord: 1) — Microsoft'un OWA S/MIME yönergesi gereği kullanıcı düzeyi yerel mesajlaşma ana bilgisayarlarını etkin tutar
-- S/MIME uzantısı zorunlu kurulumu — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) Dengeli seviyeden itibaren `ExtensionInstallForcelist`'e, Gelişmiş seviyeden itibaren ayrıca `ExtensionInstallAllowlist` ve `ExtensionSettings`'e (`override_update_url` etkin) eklendi
+- S/MIME uzantısı izin listesi — `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) Dengeli seviyeden itibaren `ExtensionInstallForcelist`'e eklendi (otomatik kurulmaz — Brave, Chrome Web Mağazası dışındaki CRX dosyalarının sessizce zorla yüklenmesini engeller; tek seferlik manuel onay gerekir); Gelişmiş seviyeden itibaren ayrıca `ExtensionInstallAllowlist` ve `ExtensionSettings`'e (`override_update_url` etkin) eklendi
 
 **Değiştirilenler:**
 
@@ -1222,7 +1271,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.6.1.0** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.6.1.1** *(güncel)* | 1.94.117 | 152 | 11 25H2 | ✅ Etkin |
+| v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
 | v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
 | v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
 | v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | ✅ Önceki |

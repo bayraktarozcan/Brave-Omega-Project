@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.6.1.0 — **151 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v2.6.1.1 — **151 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
@@ -120,7 +120,7 @@ Complete policy reference for Brave Omega v2.6.1.0 — **151 enterprise policies
 | `SitePerProcess` | `1` | DWord | Forces site-per-process isolation |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Enables intensive wake-up throttling |
 | `UserFeedbackAllowed` | `0` | DWord | Disables user feedback |
-| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Force-installs Dark Reader + Microsoft S/MIME |
+| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Force-installs Dark Reader + Microsoft S/MIME (Brave blocks silent CRX force-install from outside the Chrome Web Store — manual acceptance required) |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Sets default download directory |
 | `PromptForDownloadLocation` | `0` | DWord | Uses default download directory without prompting |
 | `RelaunchNotification` | `2` | DWord | **[Phase 9]** Mandatory relaunch after update |
@@ -264,7 +264,7 @@ All 151 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.6.1.0 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **151 kurumsal politika**.
+Brave Omega v2.6.1.1 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **151 kurumsal politika**.
 
 ---
 
@@ -379,7 +379,7 @@ Brave Omega v2.6.1.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `SitePerProcess` | `1` | DWord | Site başına süreç izolasyonunu zorlar |
 | `IntensiveWakeUpThrottlingEnabled` | `1` | DWord | Yoğun uyanma kısıtlamasını etkinleştirir |
 | `UserFeedbackAllowed` | `0` | DWord | Kullanıcı geri bildirimini devre dışı bırakır |
-| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Dark Reader ve Microsoft S/MIME'i zorla yükler |
+| `ExtensionInstallForcelist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Dark Reader ve Microsoft S/MIME'i listeler (Brave, Chrome Web Mağazası dışındaki CRX zorla-yüklemesini sessizce engeller — manuel onay gerekir) |
 | `DownloadDirectory` | `"${env:USERPROFILE}\Downloads\"` | String | Varsayılan indirme dizinini ayarlar |
 | `PromptForDownloadLocation` | `0` | DWord | Sormadan varsayılan indirme dizinini kullanır |
 | `RelaunchNotification` | `2` | DWord | **[Faz 9]** Güncelleme sonrası zorunlu yeniden başlatma |
