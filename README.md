@@ -483,9 +483,11 @@ no longer have any effect.
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except those on allowlist |
 | `ExtensionInstallAllowlist` | *(Dark Reader, S/MIME)* | MultiString | Only these extensions are permitted |
-| `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts allowed extension types |
+| `ExtensionAllowedTypes` | `@("extension")` | MultiString | Restricts allowed extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloading of external extensions |
 | `ExtensionSettings` | *(JSON block-all + allowlist)* | String | JSON backup layer for extension control |
+| `NativeMessagingAllowlist` | `@("com.microsoft.outlook.smime.chromenativeapp")` | MultiString | Authorizes the OWA S/MIME native messaging host |
+| `NativeMessagingUserLevelHosts` | `1` | DWord | Keeps user-level native messaging hosts active (required by OWA S/MIME) |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Disables Chrome DNS, uses system DNS |
 | `ShowHomeButton` | `0` | DWord | Hides the home button from the toolbar |
 | `HideWebStoreIcon` | `1` | DWord | Hides Chrome Web Store icon |
@@ -1114,9 +1116,11 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Tüm eklentileri izin verilen listedekiler dışında engeller |
 | `ExtensionInstallAllowlist` | *(Dark Reader, S/MIME)* | MultiString | Yalnızca bu eklentilere izin verilir |
-| `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | İzin verilen eklenti türlerini kısıtlar |
+| `ExtensionAllowedTypes` | `@("extension")` | MultiString | İzin verilen eklenti türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Dış eklenti yan yüklemesini engeller |
 | `ExtensionSettings` *(JSON)* | *(JSON block-all + allowlist)* | String | Eklenti kontrolü için JSON yedek katmanı |
+| `NativeMessagingAllowlist` | `@("com.microsoft.outlook.smime.chromenativeapp")` | MultiString | OWA S/MIME yerel mesajlaşma ana bilgisayarına izin verir |
+| `NativeMessagingUserLevelHosts` | `1` | DWord | Kullanıcı düzeyi yerel mesajlaşma ana bilgisayarlarını aktif tutar (OWA S/MIME için gereklidir) |
 | `BuiltInDnsClientEnabled` | `0` | DWord | Chrome DNS'i devre dışı bırakır, sistem DNS'ini kullanır |
 | `ShowHomeButton` | `0` | DWord | Araç çubuğundaki ana sayfa düğmesini gizler |
 | `HideWebStoreIcon` | `1` | DWord | Chrome Web Mağazası simgesini gizler |

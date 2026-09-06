@@ -146,7 +146,7 @@ Complete policy reference for Brave Omega v2.6.2.0 — **151 enterprise policies
 | `ImportHomepage` | `0` | DWord | Disables homepage import |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Blocks all extensions except allowlist |
 | `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Allows Dark Reader + Microsoft S/MIME |
-| `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Restricts extension types |
+| `ExtensionAllowedTypes` | `@("extension")` | MultiString | Restricts extension types |
 | `BlockExternalExtensions` | `1` | DWord | Prevents sideloaded extensions |
 | `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"},"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | String | JSON backup layer for extension control |
 | `NativeMessagingAllowlist` | `@("com.microsoft.outlook.smime.chromenativeapp")` | MultiString | Allows the Microsoft native messaging host for OWA S/MIME signing/encryption |
@@ -405,7 +405,7 @@ Brave Omega v2.6.2.0 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `ImportHomepage` | `0` | DWord | Ana sayfa içe aktarmayı devre dışı bırakır |
 | `ExtensionInstallBlocklist` | `@("*")` | MultiString | Beyaz listedekiler hariç tüm uzantıları engeller |
 | `ExtensionInstallAllowlist` | `@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm")` | MultiString | Dark Reader ve Microsoft S/MIME'e izin verir |
-| `ExtensionAllowedTypes` | `@("extension", "shared_module")` | MultiString | Uzantı türlerini kısıtlar |
+| `ExtensionAllowedTypes` | `@("extension")` | MultiString | Uzantı türlerini kısıtlar |
 | `BlockExternalExtensions` | `1` | DWord | Kenardan yüklenen uzantıları engeller |
 | `ExtensionSettings` | `{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"},"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}` | String | Uzantı kontrolü için JSON yedek katmanı |
 | `NativeMessagingAllowlist` | `@("com.microsoft.outlook.smime.chromenativeapp")` | MultiString | OWA S/MIME imzalama/şifreleme için Microsoft yerel mesajlaşma ana bilgisayarına izin verir |
