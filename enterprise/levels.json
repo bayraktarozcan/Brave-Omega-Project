@@ -1,0 +1,2308 @@
+{
+    "generatedBy":  "scripts/Export-PolicyCatalog.ps1",
+    "generatedAtUtc":  "2026-09-07T22:51:56Z",
+    "sourceScript":  "Brave Omega\\BraveOmega-EN.ps1",
+    "scriptVersion":  "v2.6.2.0",
+    "registryTargetHklm":  "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
+    "registryTargetPs":  "HKLM:\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
+    "levelOrder":  [
+                       "BraveOnly",
+                       "Essential",
+                       "Balanced",
+                       "Advanced",
+                       "Strict"
+                   ],
+    "perLevelIncremental":  {
+                                "BraveOnly":  24,
+                                "Essential":  27,
+                                "Balanced":  32,
+                                "Advanced":  40,
+                                "Strict":  28
+                            },
+    "cumulativeTotals":  {
+                             "BraveOnly":  24,
+                             "Essential":  51,
+                             "Balanced":  83,
+                             "Advanced":  123,
+                             "Strict":  151
+                         },
+    "levels":  {
+                   "BraveOnly":  {
+                                     "policyCount":  24,
+                                     "cumulativeCount":  24,
+                                     "policies":  [
+                                                      {
+                                                          "name":  "BraveAIChatEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveDeAmpEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveDebouncingEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveNewsDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveP3AEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BravePlaylistEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveReduceLanguageEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveRewardsDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveShieldsDisabledForUrls",
+                                                          "type":  "MultiString",
+                                                          "value":  [
+
+                                                                    ]
+                                                      },
+                                                      {
+                                                          "name":  "BraveShieldsEnabledForUrls",
+                                                          "type":  "MultiString",
+                                                          "value":  [
+
+                                                                    ]
+                                                      },
+                                                      {
+                                                          "name":  "BraveSpeedreaderEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveStatsPingEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveTalkDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveTrackingQueryParametersFilteringEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveVPNDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveWalletDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveWaybackMachineEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveWebDiscoveryEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "DefaultBraveAdblockSetting",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "DefaultBraveFingerprintingV2Setting",
+                                                          "type":  "DWord",
+                                                          "value":  3
+                                                      },
+                                                      {
+                                                          "name":  "EmailAliasesEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "PasswordProtectionWarningTrigger",
+                                                          "type":  "DWord",
+                                                          "value":  3
+                                                      },
+                                                      {
+                                                          "name":  "SafeBrowsingProtectionLevel",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "TorDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      }
+                                                  ]
+                                 },
+                   "Essential":  {
+                                     "policyCount":  51,
+                                     "cumulativeCount":  51,
+                                     "policies":  [
+                                                      {
+                                                          "name":  "AlternateErrorPagesEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "AudioCaptureAllowed",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BackgroundModeEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveAIChatEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveDeAmpEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveDebouncingEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveGlobalPrivacyControlEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveNewsDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveP3AEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BravePlaylistEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveReduceLanguageEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveRewardsDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveShieldsDisabledForUrls",
+                                                          "type":  "MultiString",
+                                                          "value":  [
+
+                                                                    ]
+                                                      },
+                                                      {
+                                                          "name":  "BraveShieldsEnabledForUrls",
+                                                          "type":  "MultiString",
+                                                          "value":  [
+
+                                                                    ]
+                                                      },
+                                                      {
+                                                          "name":  "BraveSpeedreaderEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveStatsPingEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveTalkDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveTrackingQueryParametersFilteringEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveVPNDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveWalletDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "BraveWaybackMachineEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BraveWebDiscoveryEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "BrowserNetworkTimeQueriesEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "DefaultBraveAdblockSetting",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "DefaultBraveFingerprintingV2Setting",
+                                                          "type":  "DWord",
+                                                          "value":  3
+                                                      },
+                                                      {
+                                                          "name":  "DefaultWebBluetoothGuardSetting",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "DefaultWebHidGuardSetting",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "DefaultWebUsbGuardSetting",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "DomainReliabilityAllowed",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "DownloadRestrictions",
+                                                          "type":  "DWord",
+                                                          "value":  4
+                                                      },
+                                                      {
+                                                          "name":  "EmailAliasesEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "EnableOnlineRevocationChecks",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "EncryptedClientHelloEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "ExtensionInstallSources",
+                                                          "type":  "MultiString",
+                                                          "value":  [
+
+                                                                    ]
+                                                      },
+                                                      {
+                                                          "name":  "MetricsReportingEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "NetworkPredictionOptions",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "PasswordProtectionWarningTrigger",
+                                                          "type":  "DWord",
+                                                          "value":  3
+                                                      },
+                                                      {
+                                                          "name":  "PaymentMethodQueryEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "ProxySettings",
+                                                          "type":  "String",
+                                                          "value":  "{\"ProxyMode\":\"system\"}"
+                                                      },
+                                                      {
+                                                          "name":  "SafeBrowsingExtendedReportingEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "SafeBrowsingProtectionLevel",
+                                                          "type":  "DWord",
+                                                          "value":  2
+                                                      },
+                                                      {
+                                                          "name":  "SafeBrowsingSurveysEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "ScreenCaptureAllowed",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "SearchSuggestEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "SpellcheckEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "SuppressDifferentOriginSubframeDialogs",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "TorDisabled",
+                                                          "type":  "DWord",
+                                                          "value":  1
+                                                      },
+                                                      {
+                                                          "name":  "UrlKeyedAnonymizedDataCollectionEnabled",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "VideoCaptureAllowed",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "WebRtcEventLogCollectionAllowed",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      },
+                                                      {
+                                                          "name":  "WebRtcTextLogCollectionAllowed",
+                                                          "type":  "DWord",
+                                                          "value":  0
+                                                      }
+                                                  ]
+                                 },
+                   "Balanced":  {
+                                    "policyCount":  83,
+                                    "cumulativeCount":  83,
+                                    "policies":  [
+                                                     {
+                                                         "name":  "AlternateErrorPagesEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "AudioCaptureAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "AudioSandboxEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "AutofillAddressEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "AutofillCreditCardEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BackgroundModeEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BlockThirdPartyCookies",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveAIChatEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveDeAmpEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveDebouncingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveGlobalPrivacyControlEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveNewsDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveP3AEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BravePlaylistEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveReduceLanguageEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveRewardsDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveShieldsDisabledForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "BraveShieldsEnabledForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "BraveSpeedreaderEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveStatsPingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveSyncUrl",
+                                                         "type":  "String",
+                                                         "value":  "https://sync-v2.brave.com/v2"
+                                                     },
+                                                     {
+                                                         "name":  "BraveTalkDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveTrackingQueryParametersFilteringEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveVPNDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveWalletDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveWaybackMachineEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveWebDiscoveryEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BrowserNetworkTimeQueriesEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ChromeVariations",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveAdblockSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveFingerprintingV2Setting",
+                                                         "type":  "DWord",
+                                                         "value":  3
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveHttpsUpgradeSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveReferrersSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultGeolocationSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultNotificationsSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultPopupsSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWebBluetoothGuardSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWebHidGuardSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWebUsbGuardSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWindowManagementSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DisableSafeBrowsingProceedAnyway",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "DnsOverHttpsMode",
+                                                         "type":  "String",
+                                                         "value":  "automatic"
+                                                     },
+                                                     {
+                                                         "name":  "DomainReliabilityAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "DownloadDirectory",
+                                                         "type":  "ExpandString",
+                                                         "value":  "%USERPROFILE%\\Downloads\\"
+                                                     },
+                                                     {
+                                                         "name":  "DownloadRestrictions",
+                                                         "type":  "DWord",
+                                                         "value":  4
+                                                     },
+                                                     {
+                                                         "name":  "EmailAliasesEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "EnableOnlineRevocationChecks",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "EncryptedClientHelloEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionInstallForcelist",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx",
+                                                                       "maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionInstallSources",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "GenAILocalFoundationalModelSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "HttpsOnlyMode",
+                                                         "type":  "String",
+                                                         "value":  "force_enabled"
+                                                     },
+                                                     {
+                                                         "name":  "IntensiveWakeUpThrottlingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "MetricsReportingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "NetworkPredictionOptions",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "NetworkServiceSandboxEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "PasswordManagerEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "PasswordManagerPasskeysEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "PasswordProtectionWarningTrigger",
+                                                         "type":  "DWord",
+                                                         "value":  3
+                                                     },
+                                                     {
+                                                         "name":  "PaymentMethodQueryEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "PromptForDownloadLocation",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ProxySettings",
+                                                         "type":  "String",
+                                                         "value":  "{\"ProxyMode\":\"system\"}"
+                                                     },
+                                                     {
+                                                         "name":  "QuicAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "RelaunchNotification",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "RelaunchNotificationPeriod",
+                                                         "type":  "DWord",
+                                                         "value":  3600000
+                                                     },
+                                                     {
+                                                         "name":  "SafeBrowsingExtendedReportingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "SafeBrowsingProtectionLevel",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "SafeBrowsingSurveysEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ScreenCaptureAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "SearchSuggestEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ShowFullUrlsInAddressBar",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SitePerProcess",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SpellcheckEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SuppressDifferentOriginSubframeDialogs",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "TorDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "UrlKeyedAnonymizedDataCollectionEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "UserFeedbackAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "VideoCaptureAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcEventLogCollectionAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcIPHandling",
+                                                         "type":  "String",
+                                                         "value":  "disable_non_proxied_udp"
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcLocalIpsAllowedUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcTextLogCollectionAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     }
+                                                 ]
+                                },
+                   "Advanced":  {
+                                    "policyCount":  123,
+                                    "cumulativeCount":  123,
+                                    "policies":  [
+                                                     {
+                                                         "name":  "AIModeSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "AlternateErrorPagesEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "AudioCaptureAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "AudioSandboxEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "AutofillAddressEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "AutofillCreditCardEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "AutofillPredictionSettings",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "BackgroundModeEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BlockExternalExtensions",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BlockThirdPartyCookies",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveAIChatEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveDeAmpEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveDebouncingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveGlobalPrivacyControlEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveNewsDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveP3AEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BravePlaylistEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveReduceLanguageEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveRewardsDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveShieldsDisabledForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "BraveShieldsEnabledForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "BraveSpeedreaderEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveStatsPingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveSyncUrl",
+                                                         "type":  "String",
+                                                         "value":  "https://sync-v2.brave.com/v2"
+                                                     },
+                                                     {
+                                                         "name":  "BraveTalkDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveTrackingQueryParametersFilteringEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveVPNDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveWalletDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "BraveWaybackMachineEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BraveWebDiscoveryEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BrowserAddPersonEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BrowserGuestModeEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BrowserNetworkTimeQueriesEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "BuiltInDnsClientEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ChromeSuggestionsSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "ChromeVariations",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "CreateThemesSettings",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveAdblockSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveFingerprintingV2Setting",
+                                                         "type":  "DWord",
+                                                         "value":  3
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveHttpsUpgradeSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultBraveReferrersSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultGeolocationSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultIdleDetectionSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultJavaScriptSetting",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "DefaultLocalFontsSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultNotificationsSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultPopupsSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultSensorsSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultSerialGuardSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWebBluetoothGuardSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWebHidGuardSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWebUsbGuardSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DefaultWindowManagementSetting",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DevToolsGenAiSettings",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "DisableSafeBrowsingProceedAnyway",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "DnsOverHttpsMode",
+                                                         "type":  "String",
+                                                         "value":  "automatic"
+                                                     },
+                                                     {
+                                                         "name":  "DomainReliabilityAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "DownloadDirectory",
+                                                         "type":  "ExpandString",
+                                                         "value":  "%USERPROFILE%\\Downloads\\"
+                                                     },
+                                                     {
+                                                         "name":  "DownloadRestrictions",
+                                                         "type":  "DWord",
+                                                         "value":  4
+                                                     },
+                                                     {
+                                                         "name":  "EmailAliasesEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "EnableOnlineRevocationChecks",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "EncryptedClientHelloEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionAllowedTypes",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "extension"
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionInstallAllowlist",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "eimadpbcbfnmbkopoojfekhnkhdbieeh",
+                                                                       "maafgiompdekodanheihhgilkjchcakm"
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionInstallBlocklist",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "*"
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionInstallForcelist",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx",
+                                                                       "maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionInstallSources",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "ExtensionSettings",
+                                                         "type":  "String",
+                                                         "value":  "{\"*\":{\"installation_mode\":\"blocked\"},\"eimadpbcbfnmbkopoojfekhnkhdbieeh\":{\"installation_mode\":\"allowed\"},\"maafgiompdekodanheihhgilkjchcakm\":{\"installation_mode\":\"allowed\",\"override_update_url\":true}}"
+                                                     },
+                                                     {
+                                                         "name":  "GeminiActOnWebSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "GeminiSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "GeminiSparkSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "GenAILocalFoundationalModelSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "HelpMeWriteSettings",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "HideWebStoreIcon",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "HistorySearchSettings",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "HttpsOnlyMode",
+                                                         "type":  "String",
+                                                         "value":  "force_enabled"
+                                                     },
+                                                     {
+                                                         "name":  "ImportAutofillFormData",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ImportHistory",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ImportHomepage",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ImportSavedPasswords",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ImportSearchEngine",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "IntensiveWakeUpThrottlingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "LocalNetworkAccessAllowedForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "LocalNetworkAccessBlockedForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "LocalNetworkAccessIpAddressSpaceOverrides",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "LocalNetworkAccessRestrictionsTemporaryOptOut",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "MetricsReportingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "NativeMessagingAllowlist",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "com.microsoft.outlook.smime.chromenativeapp"
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "NativeMessagingUserLevelHosts",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "NetworkPredictionOptions",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "NetworkServiceSandboxEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "PasswordManagerEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "PasswordManagerPasskeysEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "PasswordProtectionWarningTrigger",
+                                                         "type":  "DWord",
+                                                         "value":  3
+                                                     },
+                                                     {
+                                                         "name":  "PaymentMethodQueryEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "PromptForDownloadLocation",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ProxySettings",
+                                                         "type":  "String",
+                                                         "value":  "{\"ProxyMode\":\"system\"}"
+                                                     },
+                                                     {
+                                                         "name":  "QuicAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "RelaunchNotification",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "RelaunchNotificationPeriod",
+                                                         "type":  "DWord",
+                                                         "value":  3600000
+                                                     },
+                                                     {
+                                                         "name":  "RendererAppContainerEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SafeBrowsingExtendedReportingEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "SafeBrowsingProtectionLevel",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "SafeBrowsingSurveysEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ScreenCaptureAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "SearchContentSharingSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SearchSuggestEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "ShowFullUrlsInAddressBar",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "ShowHomeButton",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "SitePerProcess",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SmartTabSharingSettings",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SpellcheckEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "SuppressDifferentOriginSubframeDialogs",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "TabCompareSettings",
+                                                         "type":  "DWord",
+                                                         "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "TorDisabled",
+                                                         "type":  "DWord",
+                                                         "value":  1
+                                                     },
+                                                     {
+                                                         "name":  "UrlKeyedAnonymizedDataCollectionEnabled",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "UserFeedbackAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "VideoCaptureAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcEventLogCollectionAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcIPHandling",
+                                                         "type":  "String",
+                                                         "value":  "disable_non_proxied_udp"
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcLocalIpsAllowedUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+
+                                                                   ]
+                                                     },
+                                                     {
+                                                         "name":  "WebRtcTextLogCollectionAllowed",
+                                                         "type":  "DWord",
+                                                         "value":  0
+                                                     }
+                                                 ]
+                                },
+                   "Strict":  {
+                                  "policyCount":  151,
+                                  "cumulativeCount":  151,
+                                  "policies":  [
+                                                   {
+                                                       "name":  "AIModeSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "AlternateErrorPagesEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "AlwaysOpenPdfExternally",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "AudioCaptureAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "AudioSandboxEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "AutofillAddressEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "AutofillCreditCardEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "AutofillPredictionSettings",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "BackgroundModeEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BlockExternalExtensions",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BlockThirdPartyCookies",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveAIChatEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BraveDeAmpEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveDebouncingEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveGlobalPrivacyControlEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveNewsDisabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveP3AEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BravePlaylistEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BraveReduceLanguageEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveRewardsDisabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveShieldsDisabledForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "BraveShieldsEnabledForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "BraveSpeedreaderEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BraveStatsPingEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BraveSyncUrl",
+                                                       "type":  "String",
+                                                       "value":  "https://sync-v2.brave.com/v2"
+                                                   },
+                                                   {
+                                                       "name":  "BraveTalkDisabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveTrackingQueryParametersFilteringEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveVPNDisabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveWalletDisabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "BraveWaybackMachineEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BraveWebDiscoveryEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BrowserAddPersonEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BrowserGuestModeEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BrowserNetworkTimeQueriesEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BrowserSignin",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "BrowsingDataLifetime",
+                                                       "type":  "String",
+                                                       "value":  "{\"data_types\":[\"browsing_history\",\"download_history\",\"cached_images_and_files\"],\"time_to_live_in_hours\":24}"
+                                                   },
+                                                   {
+                                                       "name":  "BuiltInDnsClientEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "CertificateTransparencyEnforcementDisabledForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "ChromeSuggestionsSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "ChromeVariations",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "CreateThemesSettings",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultBraveAdblockSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultBraveFingerprintingV2Setting",
+                                                       "type":  "DWord",
+                                                       "value":  3
+                                                   },
+                                                   {
+                                                       "name":  "DefaultBraveHttpsUpgradeSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultBraveReferrersSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultBraveRemember1PStorageSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultClipboardSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultCookiesSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultFileSystemReadGuardSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultFileSystemWriteGuardSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultGeolocationSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultIdleDetectionSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultInsecureContentSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultJavaScriptJitSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultJavaScriptSetting",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "DefaultLocalFontsSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultNotificationsSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultPopupsSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultSensorsSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultSerialGuardSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultWebBluetoothGuardSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultWebHidGuardSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultWebUsbGuardSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DefaultWindowManagementSetting",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DeveloperToolsAvailability",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DevToolsGenAiSettings",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "DisablePrintPreview",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "DisableSafeBrowsingProceedAnyway",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "DnsOverHttpsMode",
+                                                       "type":  "String",
+                                                       "value":  "automatic"
+                                                   },
+                                                   {
+                                                       "name":  "DomainReliabilityAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "DownloadDirectory",
+                                                       "type":  "ExpandString",
+                                                       "value":  "%USERPROFILE%\\Downloads\\"
+                                                   },
+                                                   {
+                                                       "name":  "DownloadRestrictions",
+                                                       "type":  "DWord",
+                                                       "value":  4
+                                                   },
+                                                   {
+                                                       "name":  "EmailAliasesEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "EnableOnlineRevocationChecks",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "EncryptedClientHelloEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "ExtensionAllowedTypes",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+                                                                     "extension"
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "ExtensionInstallAllowlist",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+                                                                     "eimadpbcbfnmbkopoojfekhnkhdbieeh",
+                                                                     "maafgiompdekodanheihhgilkjchcakm"
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "ExtensionInstallBlocklist",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+                                                                     "*"
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "ExtensionInstallForcelist",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+                                                                     "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx",
+                                                                     "maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "ExtensionInstallSources",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "ExtensionSettings",
+                                                       "type":  "String",
+                                                       "value":  "{\"*\":{\"installation_mode\":\"blocked\"},\"eimadpbcbfnmbkopoojfekhnkhdbieeh\":{\"installation_mode\":\"allowed\"},\"maafgiompdekodanheihhgilkjchcakm\":{\"installation_mode\":\"allowed\",\"override_update_url\":true}}"
+                                                   },
+                                                   {
+                                                       "name":  "GeminiActOnWebSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "GeminiSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "GeminiSparkSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "GenAILocalFoundationalModelSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "HelpMeWriteSettings",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "HideWebStoreIcon",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "HistorySearchSettings",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "HttpsOnlyMode",
+                                                       "type":  "String",
+                                                       "value":  "force_enabled"
+                                                   },
+                                                   {
+                                                       "name":  "ImportAutofillFormData",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ImportBookmarks",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ImportHistory",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ImportHomepage",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ImportSavedPasswords",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ImportSearchEngine",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "IncognitoModeAvailability",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "IntensiveWakeUpThrottlingEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "LocalNetworkAccessAllowedForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "LocalNetworkAccessBlockedForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "LocalNetworkAccessIpAddressSpaceOverrides",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "LocalNetworkAccessRestrictionsTemporaryOptOut",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "LocalNetworkAllowedForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "LocalNetworkBlockedForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "MetricsReportingEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "NativeMessagingAllowlist",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+                                                                     "com.microsoft.outlook.smime.chromenativeapp"
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "NativeMessagingUserLevelHosts",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "NetworkPredictionOptions",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "NetworkServiceSandboxEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "PasswordLeakDetectionEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "PasswordManagerEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "PasswordManagerPasskeysEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "PasswordProtectionWarningTrigger",
+                                                       "type":  "DWord",
+                                                       "value":  3
+                                                   },
+                                                   {
+                                                       "name":  "PaymentMethodQueryEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "PrintingEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "PromptForDownloadLocation",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ProxySettings",
+                                                       "type":  "String",
+                                                       "value":  "{\"ProxyMode\":\"system\"}"
+                                                   },
+                                                   {
+                                                       "name":  "QuicAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "RelaunchNotification",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "RelaunchNotificationPeriod",
+                                                       "type":  "DWord",
+                                                       "value":  3600000
+                                                   },
+                                                   {
+                                                       "name":  "RendererAppContainerEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "SafeBrowsingDeepScanningEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "SafeBrowsingExtendedReportingEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "SafeBrowsingProtectionLevel",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "SafeBrowsingSurveysEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "SameOriginTabCaptureAllowedByOrigins",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "ScreenCaptureAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ScreenCaptureAllowedByOrigins",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "SearchContentSharingSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "SearchSuggestEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "ShowFullUrlsInAddressBar",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "ShowHomeButton",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "SitePerProcess",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "SmartTabSharingSettings",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "SpellcheckEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "SpellCheckServiceEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "SuppressDifferentOriginSubframeDialogs",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "SyncDisabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "TabCaptureAllowedByOrigins",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "TabCompareSettings",
+                                                       "type":  "DWord",
+                                                       "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "TaskManagerEndProcessEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "TorDisabled",
+                                                       "type":  "DWord",
+                                                       "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "TranslateEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "UrlKeyedAnonymizedDataCollectionEnabled",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "UserFeedbackAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "VideoCaptureAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "WebRtcEventLogCollectionAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "WebRtcIPHandling",
+                                                       "type":  "String",
+                                                       "value":  "disable_non_proxied_udp"
+                                                   },
+                                                   {
+                                                       "name":  "WebRtcLocalIpsAllowedUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   },
+                                                   {
+                                                       "name":  "WebRtcTextLogCollectionAllowed",
+                                                       "type":  "DWord",
+                                                       "value":  0
+                                                   },
+                                                   {
+                                                       "name":  "WindowCaptureAllowedByOrigins",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
+                                                   }
+                                               ]
+                              }
+               }
+}

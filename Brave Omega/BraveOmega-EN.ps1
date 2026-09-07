@@ -930,7 +930,7 @@ $PolicyDefinitions = @{
         # Extension Install Forcelist — force-install Dark Reader; S/MIME allow-listed (Brave blocks silent CRX force-install) for OWA
         @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Type="MultiString"}
         # Download Directory — set default download folder
-        @{Name="DownloadDirectory";                    Value="${env:USERPROFILE}\Downloads\"; Type="String"}
+        @{Name="DownloadDirectory";                    Value="%USERPROFILE%\Downloads\"; Type="ExpandString"}
         # Prompt For Download Location — do not prompt, use default (0)
         @{Name="PromptForDownloadLocation";             Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 9 — Prompt 27) ───
@@ -1181,6 +1181,7 @@ function Write-PolicyValue {
     $displayValue = switch ($ValueType) {
         "DWord"      { "dword:$PolicyValue" }
         "String"     { "sz:`"$PolicyValue`"" }
+        "ExpandString" { "expandsz:`"$PolicyValue`"" }
         "MultiString" { "list:\`"$($PolicyValue -join ';')\`"" }
         default      { "unknown:$PolicyValue" }
     }
@@ -1200,6 +1201,10 @@ function Write-PolicyValue {
                 $PolicyValue | ConvertTo-Json -Compress -Depth 5
             } else { $PolicyValue }
             New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $writeValue -PropertyType String -Force -ErrorAction Stop | Out-Null
+            break
+        }
+        "ExpandString" {
+            New-ItemProperty -Path $TargetPath -Name $PolicyName -Value ([string]$PolicyValue) -PropertyType ExpandString -Force -ErrorAction Stop | Out-Null
             break
         }
         "MultiString" {

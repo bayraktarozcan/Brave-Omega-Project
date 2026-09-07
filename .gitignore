@@ -9,6 +9,9 @@
 # [EN] Prevents leaking system-specific policies and sensitive data.
 # [TR] Sisteme özgü politikaların ve hassas verilerin sızmasını önler.
 *.reg
+# [EN] Policy profiles under enterprise/ are CI-consumed artifacts; keep them tracked.
+# [TR] enterprise/ altındaki politika profilleri CI'da okunan kalıcı artefaktlardır.
+!enterprise/*.reg
 *.bak
 *.backup
 Backup/
