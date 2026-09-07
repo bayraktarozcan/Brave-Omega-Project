@@ -357,6 +357,7 @@ function New-OmegaLevelsJson {
             $sourceScriptValue = $absSource
         }
     }
+    $sourceScriptValue = $sourceScriptValue.Replace('/', '\')
 
     $order = Get-OmegaLevelOrder
 
