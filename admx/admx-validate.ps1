@@ -162,18 +162,25 @@ foreach ($policyName in $scriptPolicyMap.Keys | Sort-Object) {
     }
 
     if ($admxType -ne $expectedType) {
+        # REG_EXPAND_SZ (ExpandString) is a string-family type: ADMX models such values
+        # as plain <text> (String) elements, so they are compatible during the
+        # cross-reference even though the names differ.
+        $expandStringCompat = ($expectedType -eq "ExpandString" -and $admxType -eq "String")
+
         # Special case: some ADMX boolean policies use "enabledValue" which maps to DWord
         # This is our expected mapping, but if ADMX shows something else we should flag it
         # Only flag actual mismatches where our type is wrong
-        if ($admxType -ne "DWord" -or ($expectedType -ne "DWord" -and $expectedType -ne "String" -and $expectedType -ne "MultiString")) {
-            # ADMX says DWord but we use String → error
-            Write-Result "Policy '$policyName': Type mismatch! ADMX=$admxType, Script=$expectedType" -Level "Error"
-            $typeMismatch++
-            $ExitCode = 1
-        } elseif ($admxType -eq "DWord" -and $expectedType -eq "String") {
-            Write-Result "Policy '$policyName': ADMX expects DWord but script uses String" -Level "Error"
-            $typeMismatch++
-            $ExitCode = 1
+        if (-not $expandStringCompat) {
+            if ($admxType -ne "DWord" -or ($expectedType -ne "DWord" -and $expectedType -ne "String" -and $expectedType -ne "MultiString")) {
+                # ADMX says DWord but we use String → error
+                Write-Result "Policy '$policyName': Type mismatch! ADMX=$admxType, Script=$expectedType" -Level "Error"
+                $typeMismatch++
+                $ExitCode = 1
+            } elseif ($admxType -eq "DWord" -and $expectedType -eq "String") {
+                Write-Result "Policy '$policyName': ADMX expects DWord but script uses String" -Level "Error"
+                $typeMismatch++
+                $ExitCode = 1
+            }
         }
     }
 
@@ -190,49 +197,6 @@ Write-Host "================================================" -ForegroundColor M
 Write-Host "   ADMX Brave-Only Policies Not In Script" -ForegroundColor Magenta
 Write-Host "================================================" -ForegroundColor Magenta
 
-# Identify policies that are Brave-specific (parentCategory starts with "BraveSoftware" or key starts with Brave namespace)
-$braveCategories = @("BraveSoftware", "BraveVPN", "BraveRewards", "BraveWallet", "BraveShields", "BraveNews", "BraveSync", "BraveAI", "BraveTalk", "BravePlaylist", "BraveSpeedreader", "BraveP3A", "BraveStats", "BraveWebDiscovery")
-$braveOnlyInAdmx = @()
-foreach ($p in $policies) {
-    $name = $p.name
-    if ($name -like "Brave*" -and -not $name.EndsWith("_recommended") -and -not $scriptPolicyMap.ContainsKey($name)) {
-        # Check parentCategory to see if it's under a Brave-specific category
-        $parentCat = $p.parentCategory
-        if ($parentCat) {
-            $catRef = $parentCat.ref
-            $isBraveSpecific = $false
-            foreach ($bc in $braveCategories) {
-                if ($catRef -and $catRef.StartsWith($bc)) { $isBraveSpecific = $true; break }
-            }
-            # Also include any policy with name starting with Brave that isn't in our list
-            if (-not $isBraveSpecific) {
-                # Check ADMX category hierarchy...
-                # Simplified: just include any Brave-prefixed policy not in our script
-                $isBraveSpecific = $true
-            }
-        } else {
-            # No parentCategory, still flag as Brave-specific
-        }
-        $braveOnlyInAdmx += $name
-    }
-}
-
-# Additional check: known Brave-specific policies from ADMX that we might be missing
-$knownBraveOnlyPolicies = @()
-foreach ($p in $policies) {
-    $name = $p.name
-    if ($name.EndsWith("_recommended")) { continue }
-    # Check if parentCategory ref starts with "BraveSoftware" which is the main Brave-specific category
-    $parentCat = $p.parentCategory
-    if ($parentCat -and $parentCat.ref -eq "BraveSoftware") {
-        if (-not $scriptPolicyMap.ContainsKey($name)) {
-            $knownBraveOnlyPolicies += $name
-        }
-    }
-}
-
-$braveCategoriesAllRefs = @("BraveSoftware", "Accessibility", "ScreenCapture")
-$braveOnlyParentCats = @("BraveSoftware", "Cat_Brave")
 $otherBravePoliciesNotInScript = @()
 foreach ($p in $policies) {
     $name = $p.name

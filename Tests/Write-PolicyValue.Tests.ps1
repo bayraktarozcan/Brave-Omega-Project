@@ -17,6 +17,18 @@ Describe "Write-PolicyValue" -Tag "Unit" {
         Should -Invoke New-ItemProperty -Times 1 -Exactly
     }
 
+    It "should handle ExpandString type in WhatIf mode" {
+        $result = Write-PolicyValue -TargetPath "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -PolicyName "TestExpand" -PolicyValue '%USERPROFILE%\Downloads\' -ValueType "ExpandString" -WhatIf
+        $result | Should -BeExactly 'expandsz:"%USERPROFILE%\Downloads\"'
+    }
+
+    It "should write ExpandString value as REG_EXPAND_SZ" {
+        Mock New-ItemProperty { return $null }
+        Write-PolicyValue -TargetPath "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -PolicyName "TestExpand" -PolicyValue '%USERPROFILE%\Downloads\' -ValueType "ExpandString"
+        Should -Invoke New-ItemProperty -Times 1 -Exactly
+        Should -Invoke New-ItemProperty -ParameterFilter { $Name -eq "TestExpand" -and $Value -eq '%USERPROFILE%\Downloads\' -and $PropertyType -eq "ExpandString" } -Times 1 -Exactly
+    }
+
     It "should handle MultiString type in WhatIf mode" {
         $result = Write-PolicyValue -TargetPath "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -PolicyName "TestMulti" -PolicyValue @("val1","val2") -ValueType "MultiString" -WhatIf
         $result | Should -BeLike "*val1*val2*"
