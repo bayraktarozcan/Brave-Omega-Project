@@ -930,7 +930,7 @@ $PolicyDefinitions = @{
         # Extension Install Forcelist — force-install Dark Reader; S/MIME allow-listed (Brave blocks silent CRX force-install) for OWA
         @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Type="MultiString"}
         # Download Directory — set default download folder
-        @{Name="DownloadDirectory";                    Value="${env:USERPROFILE}\Downloads\"; Type="String"}
+        @{Name="DownloadDirectory";                    Value="%USERPROFILE%\Downloads\"; Type="ExpandString"}
         # Prompt For Download Location — do not prompt, use default (0)
         @{Name="PromptForDownloadLocation";             Value=0; Type="DWord"}
         # ─── New Balanced Policies (Phase 9 — Prompt 27) ───
@@ -1169,6 +1169,34 @@ if ($AllowSync) {
 # ─────────────────────────────────────────────────────────────────────────────
 # REGISTRY WRITING HELPER
 # ─────────────────────────────────────────────────────────────────────────────
+function ConvertTo-OmegaSortedJsonValue {
+    <#
+    .SYNOPSIS
+        Recursively reorders hashtable keys (and nested hashtable keys) into a
+        deterministic order so ConvertTo-Json output is identical on every
+        platform. Array element order is preserved.
+    #>
+    param($Value)
+
+    if ($Value -is [System.Collections.IDictionary]) {
+        $sorted = [ordered]@{}
+        foreach ($key in ($Value.Keys | Sort-Object)) {
+            $sorted[$key] = ConvertTo-OmegaSortedJsonValue -Value $Value[$key]
+        }
+        return $sorted
+    }
+
+    if ($Value -is [System.Collections.IEnumerable] -and $Value -isnot [string]) {
+        $items = @()
+        foreach ($item in $Value) {
+            $items += ConvertTo-OmegaSortedJsonValue -Value $item
+        }
+        return ,$items
+    }
+
+    return $Value
+}
+
 function Write-PolicyValue {
     param(
         [string]$TargetPath,
@@ -1181,6 +1209,7 @@ function Write-PolicyValue {
     $displayValue = switch ($ValueType) {
         "DWord"      { "dword:$PolicyValue" }
         "String"     { "sz:`"$PolicyValue`"" }
+        "ExpandString" { "expandsz:`"$PolicyValue`"" }
         "MultiString" { "list:\`"$($PolicyValue -join ';')\`"" }
         default      { "unknown:$PolicyValue" }
     }
@@ -1197,9 +1226,14 @@ function Write-PolicyValue {
         }
         "String" {
             $writeValue = if ($PolicyValue -is [System.Collections.IEnumerable] -and $PolicyValue -isnot [string]) {
-                $PolicyValue | ConvertTo-Json -Compress -Depth 5
+                $sortedValue = ConvertTo-OmegaSortedJsonValue -Value $PolicyValue
+                (ConvertTo-Json -InputObject $sortedValue -Compress -Depth 5)
             } else { $PolicyValue }
             New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $writeValue -PropertyType String -Force -ErrorAction Stop | Out-Null
+            break
+        }
+        "ExpandString" {
+            New-ItemProperty -Path $TargetPath -Name $PolicyName -Value ([string]$PolicyValue) -PropertyType ExpandString -Force -ErrorAction Stop | Out-Null
             break
         }
         "MultiString" {

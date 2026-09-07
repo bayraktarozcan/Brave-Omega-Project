@@ -947,7 +947,7 @@ $PolitikaTanimlari = @{
         # Uzantı Zorla Yükle — Dark Reader zorla kurulur; S/MIME izin listesinde (Brave sessiz CRX zorla kurulumunu engeller) — OWA
         @{Ad="ExtensionInstallForcelist"; Deger=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Tur="MultiString"}
         # İndirme Klasörü — varsayılan indirme klasörünü ayarla
-        @{Ad="DownloadDirectory";                    Deger="${env:USERPROFILE}\Downloads\"; Tur="String"}
+        @{Ad="DownloadDirectory";                    Deger="%USERPROFILE%\Downloads\"; Tur="ExpandString"}
         # İndirme Konumu Sor — sorma, varsayılan klasöre kaydet (0)
         @{Ad="PromptForDownloadLocation";             Deger=0; Tur="DWord"}
         # ─── Yeni Dengeli Politikaları (Faz 9 — Prompt 27) ───
@@ -1185,6 +1185,34 @@ if ($SenkronizasyonaIzinVer) {
 # ─────────────────────────────────────────────────────────────────────────────
 # KAYIT DEFTERİ YAZMA YARDIMCISI
 # ─────────────────────────────────────────────────────────────────────────────
+function ConvertTo-OmegaSortedJsonValue {
+    <#
+    .SYNOPSIS
+        Recursively reorders hashtable keys (and nested hashtable keys) into a
+        deterministic order so ConvertTo-Json output is identical on every
+        platform. Array element order is preserved.
+    #>
+    param($Deger)
+
+    if ($Deger -is [System.Collections.IDictionary]) {
+        $sirali = [ordered]@{}
+        foreach ($anahtar in ($Deger.Keys | Sort-Object)) {
+            $sirali[$anahtar] = ConvertTo-OmegaSortedJsonValue -Deger $Deger[$anahtar]
+        }
+        return $sirali
+    }
+
+    if ($Deger -is [System.Collections.IEnumerable] -and $Deger -isnot [string]) {
+        $ogeler = @()
+        foreach ($oge in $Deger) {
+            $ogeler += ConvertTo-OmegaSortedJsonValue -Deger $oge
+        }
+        return ,$ogeler
+    }
+
+    return $Deger
+}
+
 function Yaz-KayitDegeri {
     param(
         [string]$HedefYol,
@@ -1197,6 +1225,7 @@ function Yaz-KayitDegeri {
     $goruntulenecekDeger = switch ($DegerTuru) {
         "DWord"      { "dword:$PolitikaDegeri" }
         "String"     { "sz:`"$PolitikaDegeri`"" }
+        "ExpandString" { "expandsz:`"$PolitikaDegeri`"" }
         "MultiString" { "list:\`"$(if ($PolitikaDegeri) { $PolitikaDegeri -join ';' } else { 'boş' })\`"" }
         default      { "unknown:$PolitikaDegeri" }
     }
@@ -1213,9 +1242,14 @@ function Yaz-KayitDegeri {
         }
         "String" {
             $yazilacakDeger = if ($PolitikaDegeri -is [System.Collections.IEnumerable] -and $PolitikaDegeri -isnot [string]) {
-                $PolitikaDegeri | ConvertTo-Json -Compress -Depth 5
+                $siraliDeger = ConvertTo-OmegaSortedJsonValue -Deger $PolitikaDegeri
+                (ConvertTo-Json -InputObject $siraliDeger -Compress -Depth 5)
             } else { $PolitikaDegeri }
             New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $yazilacakDeger -PropertyType String -Force -ErrorAction Stop | Out-Null
+            break
+        }
+        "ExpandString" {
+            New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value ([string]$PolitikaDegeri) -PropertyType ExpandString -Force -ErrorAction Stop | Out-Null
             break
         }
         "MultiString" {
