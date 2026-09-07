@@ -144,6 +144,38 @@ function Get-OmegaCumulativePolicySets {
     return $result
 }
 
+function ConvertTo-OmegaSortedJsonValue {
+    <#
+    .SYNOPSIS
+        Recursively reorders hashtable keys (and nested hashtable keys) into a
+        deterministic order so ConvertTo-Json output is identical on every
+        platform. Array element order is preserved.
+
+    .PARAMETER Value
+        The policy value to normalize.
+    #>
+    [CmdletBinding()]
+    param($Value)
+
+    if ($Value -is [System.Collections.IDictionary]) {
+        $sorted = [ordered]@{}
+        foreach ($key in ($Value.Keys | Sort-Object)) {
+            $sorted[$key] = ConvertTo-OmegaSortedJsonValue -Value $Value[$key]
+        }
+        return $sorted
+    }
+
+    if ($Value -is [System.Collections.IEnumerable] -and $Value -isnot [string]) {
+        $items = @()
+        foreach ($item in $Value) {
+            $items += ConvertTo-OmegaSortedJsonValue -Value $item
+        }
+        return ,$items
+    }
+
+    return $Value
+}
+
 function Convert-OmegaPolicyToOneLineStreamValue {
     <#
     .SYNOPSIS
@@ -167,7 +199,8 @@ function Convert-OmegaPolicyToOneLineStreamValue {
         'String' {
             $value = $Policy['Value']
             if ($value -is [System.Collections.IEnumerable] -and $value -isnot [string]) {
-                return ($value | ConvertTo-Json -Compress -Depth 5)
+                $sortedValue = ConvertTo-OmegaSortedJsonValue -Value $value
+                return (ConvertTo-Json -InputObject $sortedValue -Compress -Depth 5)
             }
             return [string]$value
         }

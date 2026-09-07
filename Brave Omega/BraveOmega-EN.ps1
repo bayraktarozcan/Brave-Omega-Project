@@ -1169,6 +1169,34 @@ if ($AllowSync) {
 # ─────────────────────────────────────────────────────────────────────────────
 # REGISTRY WRITING HELPER
 # ─────────────────────────────────────────────────────────────────────────────
+function ConvertTo-OmegaSortedJsonValue {
+    <#
+    .SYNOPSIS
+        Recursively reorders hashtable keys (and nested hashtable keys) into a
+        deterministic order so ConvertTo-Json output is identical on every
+        platform. Array element order is preserved.
+    #>
+    param($Value)
+
+    if ($Value -is [System.Collections.IDictionary]) {
+        $sorted = [ordered]@{}
+        foreach ($key in ($Value.Keys | Sort-Object)) {
+            $sorted[$key] = ConvertTo-OmegaSortedJsonValue -Value $Value[$key]
+        }
+        return $sorted
+    }
+
+    if ($Value -is [System.Collections.IEnumerable] -and $Value -isnot [string]) {
+        $items = @()
+        foreach ($item in $Value) {
+            $items += ConvertTo-OmegaSortedJsonValue -Value $item
+        }
+        return ,$items
+    }
+
+    return $Value
+}
+
 function Write-PolicyValue {
     param(
         [string]$TargetPath,
@@ -1198,7 +1226,8 @@ function Write-PolicyValue {
         }
         "String" {
             $writeValue = if ($PolicyValue -is [System.Collections.IEnumerable] -and $PolicyValue -isnot [string]) {
-                $PolicyValue | ConvertTo-Json -Compress -Depth 5
+                $sortedValue = ConvertTo-OmegaSortedJsonValue -Value $PolicyValue
+                (ConvertTo-Json -InputObject $sortedValue -Compress -Depth 5)
             } else { $PolicyValue }
             New-ItemProperty -Path $TargetPath -Name $PolicyName -Value $writeValue -PropertyType String -Force -ErrorAction Stop | Out-Null
             break

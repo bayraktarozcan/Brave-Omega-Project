@@ -1185,6 +1185,34 @@ if ($SenkronizasyonaIzinVer) {
 # ─────────────────────────────────────────────────────────────────────────────
 # KAYIT DEFTERİ YAZMA YARDIMCISI
 # ─────────────────────────────────────────────────────────────────────────────
+function ConvertTo-OmegaSortedJsonValue {
+    <#
+    .SYNOPSIS
+        Recursively reorders hashtable keys (and nested hashtable keys) into a
+        deterministic order so ConvertTo-Json output is identical on every
+        platform. Array element order is preserved.
+    #>
+    param($Deger)
+
+    if ($Deger -is [System.Collections.IDictionary]) {
+        $sirali = [ordered]@{}
+        foreach ($anahtar in ($Deger.Keys | Sort-Object)) {
+            $sirali[$anahtar] = ConvertTo-OmegaSortedJsonValue -Deger $Deger[$anahtar]
+        }
+        return $sirali
+    }
+
+    if ($Deger -is [System.Collections.IEnumerable] -and $Deger -isnot [string]) {
+        $ogeler = @()
+        foreach ($oge in $Deger) {
+            $ogeler += ConvertTo-OmegaSortedJsonValue -Deger $oge
+        }
+        return ,$ogeler
+    }
+
+    return $Deger
+}
+
 function Yaz-KayitDegeri {
     param(
         [string]$HedefYol,
@@ -1214,7 +1242,8 @@ function Yaz-KayitDegeri {
         }
         "String" {
             $yazilacakDeger = if ($PolitikaDegeri -is [System.Collections.IEnumerable] -and $PolitikaDegeri -isnot [string]) {
-                $PolitikaDegeri | ConvertTo-Json -Compress -Depth 5
+                $siraliDeger = ConvertTo-OmegaSortedJsonValue -Deger $PolitikaDegeri
+                (ConvertTo-Json -InputObject $siraliDeger -Compress -Depth 5)
             } else { $PolitikaDegeri }
             New-ItemProperty -Path $HedefYol -Name $PolitikaAdi -Value $yazilacakDeger -PropertyType String -Force -ErrorAction Stop | Out-Null
             break
