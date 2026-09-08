@@ -4,10 +4,10 @@
 .SYNOPSIS
     Exports a machine-readable policy catalog (levels.json) and per-level
     .reg files from the authoritative $PolicyDefinitions block of
-    BraveOmega-EN.ps1.
+    BraveOmega.ps1.
 
 .DESCRIPTION
-    Reads the $PolicyDefinitions hashtable out of BraveOmega-EN.ps1 using the
+    Reads the $PolicyDefinitions hashtable out of BraveOmega.ps1 using the
     PowerShell AST, then produces:
       - enterprise\levels.json                 (machine-readable catalog)
       - enterprise\BraveOnly.reg / Essential / Balanced / Advanced / Strict
@@ -21,7 +21,7 @@
     exposed and nothing is generated.
 
 .PARAMETER ScriptPath
-    Path to BraveOmega-EN.ps1. Defaults to the repository copy.
+    Path to BraveOmega.ps1. Defaults to the repository copy.
 
 .PARAMETER OutputDir
     Directory for levels.json and the .reg files. Defaults to
@@ -119,7 +119,7 @@ function Get-OmegaCumulativePolicySets {
     <#
     .SYNOPSIS
         Merges the tier definitions cumulatively (later tiers override earlier
-        tiers), mirroring the consolidation logic in BraveOmega-EN.ps1.
+        tiers), mirroring the consolidation logic in BraveOmega.ps1.
 
     .PARAMETER Definitions
         Hash of tier name -> array of policy hashtables.
@@ -180,7 +180,7 @@ function Convert-OmegaPolicyToOneLineStreamValue {
     <#
     .SYNOPSIS
         Converts a policy value to the exact string written to the registry
-        (matches Write-PolicyValue in BraveOmega-EN.ps1): arrays/hashtables
+        (matches Write-PolicyValue in BraveOmega.ps1): arrays/hashtables
         become compressed JSON, everything else stays a scalar string.
 
     .PARAMETER Policy
@@ -442,7 +442,7 @@ function Export-OmegaPolicyCatalog {
         files, and returns a summary object.
 
     .PARAMETER ScriptPath
-        Path to BraveOmega-EN.ps1.
+        Path to BraveOmega.ps1.
 
     .PARAMETER OutputDir
         Directory the artifacts are written into (created if missing).
@@ -482,7 +482,7 @@ function Export-OmegaPolicyCatalog {
                 $expected = $ExpectedCounts[$tier]
             }
             if ($actual -ne $expected) {
-                throw "Tier '$tier' policy count mismatch: expected $expected, found $actual. Update ExpectedCounts or fix BraveOmega-EN.ps1."
+                throw "Tier '$tier' policy count mismatch: expected $expected, found $actual. Update ExpectedCounts or fix BraveOmega.ps1."
             }
         }
     }
@@ -531,7 +531,7 @@ if ($MyInvocation.InvocationName -ne '.') {
     $resolvedScriptPath = if ($ScriptPath) {
         $ScriptPath
     } else {
-        Join-Path $repoRoot 'Brave Omega\BraveOmega-EN.ps1'
+        Join-Path $repoRoot 'Brave Omega\BraveOmega.ps1'
     }
 
     $catalogOutputDir = if ($OutputDir) {

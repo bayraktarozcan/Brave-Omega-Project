@@ -1,7 +1,7 @@
 {
     "generatedBy":  "scripts/Export-PolicyCatalog.ps1",
     "generatedAtUtc":  "2026-09-07T22:51:56Z",
-    "sourceScript":  "Brave Omega\\BraveOmega-EN.ps1",
+    "sourceScript":  "Brave Omega\\BraveOmega.ps1",
     "scriptVersion":  "v2.6.2.0",
     "registryTargetHklm":  "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
     "registryTargetPs":  "HKLM:\\SOFTWARE\\Policies\\BraveSoftware\\Brave",

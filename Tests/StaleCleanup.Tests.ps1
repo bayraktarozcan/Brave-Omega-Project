@@ -41,13 +41,12 @@ BeforeAll {
 
 Describe "Stale Policy Cleanup - v2.6.2.0" -Tag "Unit" {
 
-    It "should declare v2.6.2.0 in both scripts" {
-        (Get-VariableRegex -ScriptPath $ScriptEN -VariableName "ScriptVersion") | Should -Be "v2.6.2.0"
-        (Get-VariableRegex -ScriptPath $ScriptTR -VariableName "BetikSurum") | Should -Be "v2.6.2.0"
+    It "should declare v2.6.2.0 in the unified script" {
+        (Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion") | Should -Be "v2.6.2.0"
     }
 
-    It "should define the known-policy array OUTSIDE the -Reset block in EN script" {
-        $content = Get-Content -Path $ScriptEN -Raw
+    It "should define the known-policy array OUTSIDE the -Reset block in unified script" {
+        $content = Get-Content -Path $ScriptMain -Raw
         $defIdx  = $content.IndexOf('$allPolicyNames = @(')
         $resetIdx = $content.IndexOf('if ($Reset) {')
         $defIdx   | Should -BeGreaterThan 0
@@ -55,17 +54,8 @@ Describe "Stale Policy Cleanup - v2.6.2.0" -Tag "Unit" {
         $defIdx   | Should -BeLessThan $resetIdx
     }
 
-    It "should define the known-policy array OUTSIDE the -Sifirla block in TR script" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $defIdx  = $content.IndexOf('$tumPolitikalar = @(')
-        $resetIdx = $content.IndexOf('if ($Sifirla) {')
-        $defIdx   | Should -BeGreaterThan 0
-        $resetIdx | Should -BeGreaterThan 0
-        $defIdx   | Should -BeLessThan $resetIdx
-    }
-
-    It "EN script should include the stale cleanup step (smart filter)" {
-        $content = Get-Content -Path $ScriptEN -Raw
+    It "unified script should include the stale cleanup step (smart filter)" {
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match 'STALE POLICY CLEANUP \(v2\.5\.4\.0\)' | Should -Be $true
         $content -match '\$StaleCandidates' | Should -Be $true
         $content -match '\$_.Name -in \$allPolicyNames' | Should -Be $true
@@ -76,66 +66,31 @@ Describe "Stale Policy Cleanup - v2.6.2.0" -Tag "Unit" {
         $content -match 'Remove-Item -LiteralPath \$StaleListKeyPath -Recurse -Force' | Should -Be $true
     }
 
-    It "TR script should include the stale cleanup step (smart filter)" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $content -match 'BAYAT POL' | Should -Be $true
-        $content -match '\$BayatAdaylar' | Should -Be $true
-        $content -match '\$_.Name -in \$tumPolitikalar' | Should -Be $true
-        $content -match '\$_.Name -notin \$BirlestirilmisPolitikalar\.Keys' | Should -Be $true
-        $content -match 'Remove-ItemProperty -Path \$HKLM_Hedef -Name \$BayatAd' | Should -Be $true
-        $content -match 'Get-ChildItem -Path \$HKLM_Hedef -ErrorAction SilentlyContinue' | Should -Be $true
-        $content -match 'Remove-Item -LiteralPath \$bayatListeYolu -Recurse -Force' | Should -Be $true
+    It "unified strings table should carry the Turkish stale-cleanup text" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match 'Bayat Politika Temizli' | Should -Be $true
+        $content -match 'Bayat Temizli' | Should -Be $true
     }
 
     It "cleanup should respect -WhatIf (preview only, no removal)" {
-        $content = Get-Content -Path $ScriptEN -Raw
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match 'if \(-not \$WhatIf\) \{\s*Remove-ItemProperty' | Should -Be $true
         $content -match '\[WhatIf\] \$StaleName would be removed' | Should -Be $true
     }
 
-    It "should list stale cleanup in the summary report and exit code (EN)" {
-        $content = Get-Content -Path $ScriptEN -Raw
-        $content -match 'Stale Cleanup      : \$StaleRemovedCount' | Should -Be $true
+    It "should list stale cleanup in the summary report and exit code" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match "Get-LocalizedString 'SummaryStale'" | Should -Be $true
+        $content -match 'Stale Cleanup      : \{0\} removed' | Should -Be $true
         $content -match 'if \(\$ErrorCount -gt 0 -or \$StaleFailCount -gt 0\)' | Should -Be $true
     }
 
-    It "should list stale cleanup in the summary report and exit code (TR)" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $content -match 'Bayat Temizli' | Should -Be $true
-        $content -match 'if \(\$HataSayaci -gt 0 -or \$BayatHataSayac -gt 0\)' | Should -Be $true
-    }
-
-    It "EN smart filter should flag stale Strict-only policies for Advanced but preserve foreign values" {
-        $known = Get-AllPolicyNames -ScriptPath $ScriptEN -ArrayVar "allPolicyNames"
+    It "unified smart filter should flag stale Strict-only policies for Advanced but preserve foreign values" {
+        $known = Get-AllPolicyNames -ScriptPath $ScriptMain -ArrayVar "allPolicyNames"
         $known.Count | Should -BeGreaterThan 100
         $known -contains "BrowsingDataLifetime" | Should -Be $true
 
-        $merged = Get-MergedPolicyNames -ScriptPath $ScriptEN -Level "Advanced"
-        $merged.ContainsKey("BrowsingDataLifetime") | Should -Be $false
-        $merged.ContainsKey("BraveRewardsDisabled") | Should -Be $true
-
-        $simProps = @{
-            "BrowsingDataLifetime" = "stale"
-            "BraveRewardsDisabled" = 1
-            "MyForeignValue"       = "keep"
-        }
-
-        $stale = @($simProps.Keys | Where-Object {
-            $_ -in $known -and $_ -notin $merged.Keys
-        })
-
-        $stale -contains "BrowsingDataLifetime" | Should -Be $true
-        $stale -contains "BraveRewardsDisabled" | Should -Be $false
-        $stale -contains "MyForeignValue" | Should -Be $false
-        $stale.Count | Should -Be 1
-    }
-
-    It "TR smart filter should flag stale Strict-only policies for Advanced but preserve foreign values" {
-        $known = Get-AllPolicyNames -ScriptPath $ScriptTR -ArrayVar "tumPolitikalar"
-        $known.Count | Should -BeGreaterThan 100
-        $known -contains "BrowsingDataLifetime" | Should -Be $true
-
-        $merged = Get-MergedPolicyNames -ScriptPath $ScriptTR -Level "Advanced"
+        $merged = Get-MergedPolicyNames -ScriptPath $ScriptMain -Level "Advanced"
         $merged.ContainsKey("BrowsingDataLifetime") | Should -Be $false
         $merged.ContainsKey("BraveRewardsDisabled") | Should -Be $true
 

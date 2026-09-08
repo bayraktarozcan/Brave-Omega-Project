@@ -17,7 +17,7 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega-EN.ps1` v2.6.2.0 | `BraveOmega-TR.ps1` v2.6.2.0  
+> **Generated from:** `BraveOmega.ps1` v2.6.2.0 (bilingual EN/TR)  
 > **Date:** 2026-09-07  
 > **Total unique policies:** 151 (no overlaps)  
 > **Type distribution:** 124 DWord · 8 String · 19 MultiString  
@@ -239,7 +239,7 @@ Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, pri
 
 | Platform | Script | Notes |
 |----------|--------|-------|
-| Windows | `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` | Primary target: HKLM registry + Omaha GUID |
+| Windows | `BraveOmega.ps1` | Primary target: HKLM registry + Omaha GUID |
 | macOS | `BraveOmega-Mac-BraveOnly.sh` | Brave-only tier via `defaults write` |
 | Linux | `BraveOmega-Linux-BraveOnly.json` | Brave-only tier via Chromium policy JSON |
 
@@ -255,7 +255,7 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega-EN.ps1` v2.6.2.0 | `BraveOmega-TR.ps1` v2.6.2.0  
+> **Kaynak:** `BraveOmega.ps1` v2.6.2.0 (bilingual EN/TR)  
 > **Tarih:** 2026-09-07  
 > **Toplam benzersiz politika:** 151 (çakışma yok)  
 > **Tür dağılımı:** 124 DWord · 8 String · 19 MultiString  
@@ -477,7 +477,7 @@ Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirme
 
 | Platform | Betik | Notlar |
 |----------|-------|--------|
-| Windows | `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` | Birincil hedef: HKLM kayıt defteri + Omaha GUID |
+| Windows | `BraveOmega.ps1` | Birincil hedef: HKLM kayıt defteri + Omaha GUID |
 | macOS | `BraveOmega-Mac-BraveOnly.sh` | Yalnızca Brave Yalnız katmanı, `defaults write` ile |
 | Linux | `BraveOmega-Linux-BraveOnly.json` | Yalnızca Brave Yalnız katmanı, Chromium JSON politika dosyası |
 

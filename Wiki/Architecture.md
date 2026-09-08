@@ -1,9 +1,9 @@
 > **Language / Dil** &nbsp;
-> [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
+> [EN English](#-english) &nbsp;Â·&nbsp; [TR TÃ¼rkÃ§e](#-tÃ¼rkÃ§e)
 
 <a id="-english"></a>
 
-# 🏗️ Architecture — Multi-Tier Enforcement Model
+# ğŸ—ï¸ Architecture â€” Multi-Tier Enforcement Model
 
 Brave Omega uses a **three-tier enforcement model** that creates redundant, independent policy enforcement at each layer of the Windows + Brave + Omaha stack.
 
@@ -12,25 +12,25 @@ Brave Omega uses a **three-tier enforcement model** that creates redundant, inde
 ## Tier Overview
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  TIER 1 — HKCU (User Preference Layer)                     │
-│  HKCU:\Software\BraveSoftware\Brave-Browser                 │
-│  ↳  UsageStatsInSample = 0                                  │
-│     Chromium user-level telemetry sampling disabled.        │
-│     Provides a fallback during policy propagation delays.   │
-├─────────────────────────────────────────────────────────────┤
-│  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
-│  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  ADMX-validated enterprise policies (level-based), enforced. │
-│     Appear gray and locked in browser Settings UI.         │
-│     Cannot be overridden by user interaction.              │
-├─────────────────────────────────────────────────────────────┤
-│  TIER 3 — Omaha Updater GUID Layer                         │
-│  HKCU:\Software\BraveSoftware\Update\ClientState\{GUID}     │
-│  ↳  usagestats = 0 per application GUID                    │
-│     Targets the update infrastructure's own telemetry,     │
-│     independently of all browser-level policies.           │
-└─────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  TIER 1 â€” HKCU (User Preference Layer)                     â”‚
+â”‚  HKCU:\Software\BraveSoftware\Brave-Browser                 â”‚
+â”‚  â†³  UsageStatsInSample = 0                                  â”‚
+â”‚     Chromium user-level telemetry sampling disabled.        â”‚
+â”‚     Provides a fallback during policy propagation delays.   â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚  TIER 2 â€” HKLM (Enterprise Policy Layer / ADMX)            â”‚
+â”‚  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                â”‚
+â”‚  â†³  ADMX-validated enterprise policies (level-based), enforced. â”‚
+â”‚     Appear gray and locked in browser Settings UI.         â”‚
+â”‚     Cannot be overridden by user interaction.              â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚  TIER 3 â€” Omaha Updater GUID Layer                         â”‚
+â”‚  HKCU:\Software\BraveSoftware\Update\ClientState\{GUID}     â”‚
+â”‚  â†³  usagestats = 0 per application GUID                    â”‚
+â”‚     Targets the update infrastructure's own telemetry,     â”‚
+â”‚     independently of all browser-level policies.           â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ## Hardening Levels (v2.0+)
@@ -40,7 +40,7 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 | Level | Policies | Scope | User Impact |
 | ------- | ---------- | ------- | ------------- |
 | **1. Brave Only** | 24 Brave-specific policies | HKLM | None |
-| **2. Essential** ⭐ | 24 + 27 = 51 | HKLM + HKCU + Omaha | None |
+| **2. Essential** â­ | 24 + 27 = 51 | HKLM + HKCU + Omaha | None |
 | **3. Balanced** | 51 + 32 = 83 | + WebRTC, HTTPS, DNS | Low |
 | **4. Advanced** | 83 + 40 = 123 | + Sensors, Imports, Extensions, Profiles | Low |
 | **5. Strict** | 123 + 28 = 151 | + JIT, Cookies, Clipboard, FS, DevTools | Medium |
@@ -48,21 +48,21 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 Select your level interactively when running the script or use the `-Level` parameter:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
 ```
 
 ---
 
 ## Tier Details
 
-### Tier 1 — HKCU (User Preference Layer)
+### Tier 1 â€” HKCU (User Preference Layer)
 
 - **Registry Path:** `HKCU:\Software\BraveSoftware\Brave-Browser`
 - **Policy:** `UsageStatsInSample = 0`
 - **Effect:** Disables browser-level usage statistics sampling sent to Brave servers
 - **Role:** Fallback during policy propagation delays; user-level preference
 
-### Tier 2 — HKLM (Enterprise Policy Layer / ADMX)
+### Tier 2 â€” HKLM (Enterprise Policy Layer / ADMX)
 
 - **Registry Path:** `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
 - **Policies:** ADMX-validated enterprise policies (level-based)
@@ -70,7 +70,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
 - **Enforcement:** Cannot be overridden by user interaction
 - **Scope:** Machine-wide, applies to all users
 
-### Tier 3 — Omaha Updater GUID Layer
+### Tier 3 â€” Omaha Updater GUID Layer
 
 - **Registry Path:** `HKCU:\Software\BraveSoftware\Update\ClientState\{GUID}`
 - **Policy:** `usagestats = 0` per application GUID
@@ -92,7 +92,7 @@ Every policy is traceable to one authoritative source:
 | **Google Omaha Updater Architecture** | `usagestats` (per GUID, in HKCU update layer) |
 | **Chromium Preferences Schema** | `UsageStatsInSample` (HKCU user preference) |
 
-> **Note:** `BraveShieldsDefault` is intentionally excluded — it does not exist in Brave's official ADMX templates. Brave manages Shields via URL-based policies (`BraveShieldsEnabledForUrls`, `BraveShieldsDisabledForUrls`). Global aggressive mode is applied through user profile preferences (Preferences JSON), not through an enterprise registry policy.
+> **Note:** `BraveShieldsDefault` is intentionally excluded â€” it does not exist in Brave's official ADMX templates. Brave manages Shields via URL-based policies (`BraveShieldsEnabledForUrls`, `BraveShieldsDisabledForUrls`). Global aggressive mode is applied through user profile preferences (Preferences JSON), not through an enterprise registry policy.
 
 ---
 
@@ -114,25 +114,25 @@ Every policy is traceable to one authoritative source:
 
 ```
 1. Pre-flight Checks
-   ├─ Administrator privileges?
-   ├─ Brave running? (prompt continue/cancel)
-   ├─ Level selection (interactive or -Level parameter)
-   └─ Version compatibility check
+   â”œâ”€ Administrator privileges?
+   â”œâ”€ Brave running? (prompt continue/cancel)
+   â”œâ”€ Level selection (interactive or -Level parameter)
+   â””â”€ Version compatibility check
 
 2. Backup
-   └─ Export HKLM:\SOFTWARE\Policies\BraveSoftware\Brave → timestamped .reg
+   â””â”€ Export HKLM:\SOFTWARE\Policies\BraveSoftware\Brave â†’ timestamped .reg
 
 3. Apply Policies (per tier)
-   ├─ Tier 1: HKCU user preferences
-   ├─ Tier 2: HKLM ADMX enterprise policies
-   └─ Tier 3: Omaha GUID usagestats = 0
+   â”œâ”€ Tier 1: HKCU user preferences
+   â”œâ”€ Tier 2: HKLM ADMX enterprise policies
+   â””â”€ Tier 3: Omaha GUID usagestats = 0
 
 4. Verification
-   ├─ Per-policy success/failure counters
-   └─ Summary report with rollback instructions
+   â”œâ”€ Per-policy success/failure counters
+   â””â”€ Summary report with rollback instructions
 
 5. Completion
-   └─ Exit code 0 on success, non-zero on failure
+   â””â”€ Exit code 0 on success, non-zero on failure
 ```
 
 ---
@@ -150,165 +150,165 @@ Every policy is traceable to one authoritative source:
 
 ## Related Pages
 
-- [📋 Policy Reference](Policy-Reference) — Complete policy registry table
-- [🔧 Installation](Installation) — Prerequisites & step-by-step
-- [🛡️ Security](Security) — Safety model & threat model
-- [🔍 Troubleshooting](Troubleshooting) — Common issues
+- [ğŸ“‹ Policy Reference](Policy-Reference) â€” Complete policy registry table
+- [ğŸ”§ Installation](Installation) â€” Prerequisites & step-by-step
+- [ğŸ›¡ï¸ Security](Security) â€” Safety model & threat model
+- [ğŸ” Troubleshooting](Troubleshooting) â€” Common issues
 
 ---
 
 ---
 
-<a id="-türkçe"></a>
+<a id="-tÃ¼rkÃ§e"></a>
 
-# 🏗️ Mimari — Çok Katmanlı Zorunlu Kılma Modeli
+# ğŸ—ï¸ Mimari â€” Ã‡ok KatmanlÄ± Zorunlu KÄ±lma Modeli
 
-Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız politika zorunlu kılması oluşturan **üç katmanlı bir model** kullanır.
+Brave Omega, Windows + Brave + Omaha yÄ±ÄŸÄ±nÄ±nÄ±n her katmanÄ±nda baÄŸÄ±msÄ±z politika zorunlu kÄ±lmasÄ± oluÅŸturan **Ã¼Ã§ katmanlÄ± bir model** kullanÄ±r.
 
 ---
 
-## Katmanlara Genel Bakış
+## Katmanlara Genel BakÄ±ÅŸ
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  KATMAN 1 — HKCU (Kullanıcı Tercihi Katmanı)              │
-│  HKCU:\Software\BraveSoftware\Brave-Browser                 │
-│  ↳  UsageStatsInSample = 0                                  │
-│     Chromium kullanıcı düzeyi veri aktarımı kapatıldı.     │
-│     Politika yayılma gecikmelerinde yedek güvence sağlar.  │
-├─────────────────────────────────────────────────────────────┤
-│  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
-│  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  ADMX doğrulamalı kurumsal ilke (seviye-tabanlı), zorunlu kılındı.   │
-│     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
-│     Kullanıcı etkileşimiyle değiştirilemez.               │
-├─────────────────────────────────────────────────────────────┤
-│  KATMAN 3 — Omaha Güncelleyici GUID Katmanı               │
-│  HKCU:\Software\BraveSoftware\Update\ClientState\{GUID}     │
-│  ↳  Her uygulama GUID'i için usagestats = 0               │
-│     Güncelleme altyapısının kendi veri aktarımını,        │
-│     tarayıcı düzeyi ilkelerden bağımsız olarak kapatır.   │
-└─────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  KATMAN 1 â€” HKCU (KullanÄ±cÄ± Tercihi KatmanÄ±)              â”‚
+â”‚  HKCU:\Software\BraveSoftware\Brave-Browser                 â”‚
+â”‚  â†³  UsageStatsInSample = 0                                  â”‚
+â”‚     Chromium kullanÄ±cÄ± dÃ¼zeyi veri aktarÄ±mÄ± kapatÄ±ldÄ±.     â”‚
+â”‚     Politika yayÄ±lma gecikmelerinde yedek gÃ¼vence saÄŸlar.  â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚  KATMAN 2 â€” HKLM (Kurumsal Ä°lke KatmanÄ± / ADMX)           â”‚
+â”‚  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                â”‚
+â”‚  â†³  ADMX doÄŸrulamalÄ± kurumsal ilke (seviye-tabanlÄ±), zorunlu kÄ±lÄ±ndÄ±.   â”‚
+â”‚     TarayÄ±cÄ± Ayarlar arayÃ¼zÃ¼nde gri/kilitli gÃ¶rÃ¼nÃ¼r.      â”‚
+â”‚     KullanÄ±cÄ± etkileÅŸimiyle deÄŸiÅŸtirilemez.               â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚  KATMAN 3 â€” Omaha GÃ¼ncelleyici GUID KatmanÄ±               â”‚
+â”‚  HKCU:\Software\BraveSoftware\Update\ClientState\{GUID}     â”‚
+â”‚  â†³  Her uygulama GUID'i iÃ§in usagestats = 0               â”‚
+â”‚     GÃ¼ncelleme altyapÄ±sÄ±nÄ±n kendi veri aktarÄ±mÄ±nÄ±,        â”‚
+â”‚     tarayÄ±cÄ± dÃ¼zeyi ilkelerden baÄŸÄ±msÄ±z olarak kapatÄ±r.   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-## Sıkılaştırma Seviyeleri (v2.0+)
+## SÄ±kÄ±laÅŸtÄ±rma Seviyeleri (v2.0+)
 
-Üç zorunlu kılma katmanına ek olarak, Brave Omega v2.0+ **beş sıkılaştırma seviyesi** sunar. Her seviye bir öncekinin tüm politikalarını kapsar:
+ÃœÃ§ zorunlu kÄ±lma katmanÄ±na ek olarak, Brave Omega v2.0+ **beÅŸ sÄ±kÄ±laÅŸtÄ±rma seviyesi** sunar. Her seviye bir Ã¶ncekinin tÃ¼m politikalarÄ±nÄ± kapsar:
 
-| Seviye | Politika | Kapsam | Kullanım Etkisi |
+| Seviye | Politika | Kapsam | KullanÄ±m Etkisi |
 | -------- | ---------- | -------- | ----------------- |
-| **1. Brave Yalnız** | 24 Brave'e özgü politika | HKLM | Yok |
-| **2. Temel** ⭐ | 24 + 27 = 51 | HKLM + HKCU + Omaha | Yok |
-| **3. Dengeli** | 51 + 32 = 83 | + WebRTC, HTTPS, DNS | Düşük |
-| **4. Gelişmiş** | 83 + 40 = 123 | + Sensörler, İçe Aktarmalar, Uzantılar, Profiller | Düşük |
-| **5. Katı** | 123 + 28 = 151 | + JIT, Çerezler, Pano, FS, DevTools | Orta |
+| **1. Brave YalnÄ±z** | 24 Brave'e Ã¶zgÃ¼ politika | HKLM | Yok |
+| **2. Temel** â­ | 24 + 27 = 51 | HKLM + HKCU + Omaha | Yok |
+| **3. Dengeli** | 51 + 32 = 83 | + WebRTC, HTTPS, DNS | DÃ¼ÅŸÃ¼k |
+| **4. GeliÅŸmiÅŸ** | 83 + 40 = 123 | + SensÃ¶rler, Ä°Ã§e Aktarmalar, UzantÄ±lar, Profiller | DÃ¼ÅŸÃ¼k |
+| **5. KatÄ±** | 123 + 28 = 151 | + JIT, Ã‡erezler, Pano, FS, DevTools | Orta |
 
-Betiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:
+BetiÄŸi Ã§alÄ±ÅŸtÄ±rÄ±rken seviyenizi etkileÅŸimli olarak seÃ§in veya `-Level` parametresini kullanÄ±n:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Temel
 ```
 
 ---
 
-## Katman Ayrıntıları
+## Katman AyrÄ±ntÄ±larÄ±
 
-### Katman 1 — HKCU (Kullanıcı Tercihi Katmanı)
+### Katman 1 â€” HKCU (KullanÄ±cÄ± Tercihi KatmanÄ±)
 
-- **Kayıt Defteri Yolu:** `HKCU:\Software\BraveSoftware\Brave-Browser`
+- **KayÄ±t Defteri Yolu:** `HKCU:\Software\BraveSoftware\Brave-Browser`
 - **Politika:** `UsageStatsInSample = 0`
-- **Etki:** Brave sunucularına gönderilen tarayıcı düzeyi kullanım istatistiği örneklemesini devre dışı bırakır
-- **Rol:** Politika yayılma gecikmelerinde yedek güvence; kullanıcı düzeyi tercih
+- **Etki:** Brave sunucularÄ±na gÃ¶nderilen tarayÄ±cÄ± dÃ¼zeyi kullanÄ±m istatistiÄŸi Ã¶rneklemesini devre dÄ±ÅŸÄ± bÄ±rakÄ±r
+- **Rol:** Politika yayÄ±lma gecikmelerinde yedek gÃ¼vence; kullanÄ±cÄ± dÃ¼zeyi tercih
 
-### Katman 2 — HKLM (Kurumsal İlke Katmanı / ADMX)
+### Katman 2 â€” HKLM (Kurumsal Ä°lke KatmanÄ± / ADMX)
 
-- **Kayıt Defteri Yolu:** `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
-- **Politikalar:** ADMX doğrulamalı kurumsal ilke (seviye-tabanlı)
-- **Davranış:** Tarayıcı Ayarlar arayüzünde **gri ve kilitli** görünür
-- **Zorunlu Kılma:** Kullanıcı etkileşimiyle değiştirilemez
-- **Kapsam:** Makine genelinde, tüm kullanıcılar için geçerlidir
+- **KayÄ±t Defteri Yolu:** `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
+- **Politikalar:** ADMX doÄŸrulamalÄ± kurumsal ilke (seviye-tabanlÄ±)
+- **DavranÄ±ÅŸ:** TarayÄ±cÄ± Ayarlar arayÃ¼zÃ¼nde **gri ve kilitli** gÃ¶rÃ¼nÃ¼r
+- **Zorunlu KÄ±lma:** KullanÄ±cÄ± etkileÅŸimiyle deÄŸiÅŸtirilemez
+- **Kapsam:** Makine genelinde, tÃ¼m kullanÄ±cÄ±lar iÃ§in geÃ§erlidir
 
-### Katman 3 — Omaha Güncelleyici GUID Katmanı
+### Katman 3 â€” Omaha GÃ¼ncelleyici GUID KatmanÄ±
 
-- **Kayıt Defteri Yolu:** `HKCU:\Software\BraveSoftware\Update\ClientState\{GUID}`
-- **Politika:** Her uygulama GUID'i için `usagestats = 0`
-- **Etki:** Güncelleme altyapısının kendi veri aktarımını bağımsız olarak hedefler
-- **Bağımsızlık:** Tüm tarayıcı düzeyi ilkelerden bağımsız çalışır
+- **KayÄ±t Defteri Yolu:** `HKCU:\Software\BraveSoftware\Update\ClientState\{GUID}`
+- **Politika:** Her uygulama GUID'i iÃ§in `usagestats = 0`
+- **Etki:** GÃ¼ncelleme altyapÄ±sÄ±nÄ±n kendi veri aktarÄ±mÄ±nÄ± baÄŸÄ±msÄ±z olarak hedefler
+- **BaÄŸÄ±msÄ±zlÄ±k:** TÃ¼m tarayÄ±cÄ± dÃ¼zeyi ilkelerden baÄŸÄ±msÄ±z Ã§alÄ±ÅŸÄ±r
 
 ---
 
-## Politika Kaynakları ve Yöntem
+## Politika KaynaklarÄ± ve YÃ¶ntem
 
-> **Temel İlke: Sıfır gayri resmî veya spekülatif kayıt defteri değişikliği.**
+> **Temel Ä°lke: SÄ±fÄ±r gayri resmÃ® veya spekÃ¼latif kayÄ±t defteri deÄŸiÅŸikliÄŸi.**
 
-Her politika tek bir yetkili kaynağa izlenebilir:
+Her politika tek bir yetkili kaynaÄŸa izlenebilir:
 
 | Kaynak | Kapsanan Politikalar |
 | -------- | --------------------- |
-| **Brave Resmî ADMX Şablon Paketi** (`policy_templates.zip`) | `BraveRewardsDisabled`, `BraveWalletDisabled`, `BraveVPNDisabled`, `BraveAIChatEnabled`, `BraveStatsPingEnabled` |
+| **Brave ResmÃ® ADMX Åablon Paketi** (`policy_templates.zip`) | `BraveRewardsDisabled`, `BraveWalletDisabled`, `BraveVPNDisabled`, `BraveAIChatEnabled`, `BraveStatsPingEnabled` |
 | **Chromium Kurumsal Politika Belgelendirmesi** | `MetricsReportingEnabled`, `SafeBrowsingExtendedReportingEnabled` |
-| **Google Omaha Güncelleyici Mimarisi** | `usagestats` (GUID başına, HKCU güncelleme katmanında) |
-| **Chromium Tercihler Şeması** | `UsageStatsInSample` (HKCU kullanıcı tercihi) |
+| **Google Omaha GÃ¼ncelleyici Mimarisi** | `usagestats` (GUID baÅŸÄ±na, HKCU gÃ¼ncelleme katmanÄ±nda) |
+| **Chromium Tercihler ÅemasÄ±** | `UsageStatsInSample` (HKCU kullanÄ±cÄ± tercihi) |
 
-> **Not:** `BraveShieldsDefault` kasıtlı olarak dışarıda bırakıldı — Brave'in resmî ADMX şablonlarında bulunmamaktadır. Brave, kalkanları URL bazlı politikalarla (`BraveShieldsEnabledForUrls`, `BraveShieldsDisabledForUrls`) yönetir. Genel saldırgan mod, kurumsal kayıt defteri politikası değil; kullanıcı profil tercihleri (Preferences JSON) aracılığıyla uygulanır.
+> **Not:** `BraveShieldsDefault` kasÄ±tlÄ± olarak dÄ±ÅŸarÄ±da bÄ±rakÄ±ldÄ± â€” Brave'in resmÃ® ADMX ÅŸablonlarÄ±nda bulunmamaktadÄ±r. Brave, kalkanlarÄ± URL bazlÄ± politikalarla (`BraveShieldsEnabledForUrls`, `BraveShieldsDisabledForUrls`) yÃ¶netir. Genel saldÄ±rgan mod, kurumsal kayÄ±t defteri politikasÄ± deÄŸil; kullanÄ±cÄ± profil tercihleri (Preferences JSON) aracÄ±lÄ±ÄŸÄ±yla uygulanÄ±r.
 
 ---
 
-## Neden Üç Katman?
+## Neden ÃœÃ§ Katman?
 
-| Katman | Bağımsızlık | Geçersiz Kılmaya Direnç | Yayılma Hızı |
+| Katman | BaÄŸÄ±msÄ±zlÄ±k | GeÃ§ersiz KÄ±lmaya DirenÃ§ | YayÄ±lma HÄ±zÄ± |
 | -------- | ------------- | ------------------------ | -------------- |
-| HKCU (Katman 1) | Kullanıcı düzeyi | Kullanıcı tarafından geçersiz kılınabilir | Anlık |
-| HKLM ADMX (Katman 2) | Makine düzeyi | **Kullanıcı tarafından geçersiz kılınamaz** | Grup İlkesi yenileme |
-| Omaha GUID (Katman 3) | Güncelleme altyapısı düzeyi | Tarayıcıdan bağımsız | Güncelleme kontrol döngüsü |
+| HKCU (Katman 1) | KullanÄ±cÄ± dÃ¼zeyi | KullanÄ±cÄ± tarafÄ±ndan geÃ§ersiz kÄ±lÄ±nabilir | AnlÄ±k |
+| HKLM ADMX (Katman 2) | Makine dÃ¼zeyi | **KullanÄ±cÄ± tarafÄ±ndan geÃ§ersiz kÄ±lÄ±namaz** | Grup Ä°lkesi yenileme |
+| Omaha GUID (Katman 3) | GÃ¼ncelleme altyapÄ±sÄ± dÃ¼zeyi | TarayÄ±cÄ±dan baÄŸÄ±msÄ±z | GÃ¼ncelleme kontrol dÃ¶ngÃ¼sÃ¼ |
 
-**Yedeklilik şunları sağlar:** Bir katman başarısız olursa veya gecikirse, diğerleri gizlilik korumalarını uygulamaya devam eder.
+**Yedeklilik ÅŸunlarÄ± saÄŸlar:** Bir katman baÅŸarÄ±sÄ±z olursa veya gecikirse, diÄŸerleri gizlilik korumalarÄ±nÄ± uygulamaya devam eder.
 
-**Sıkılaştırma Seviyeleri (v2.0+):** Yukarıdaki beş seviye, Katman 2'ye ek ayrıntı düzeyi ekleyerek kaç ADMX politikası uygulanacağını seçmenizi sağlar.
+**SÄ±kÄ±laÅŸtÄ±rma Seviyeleri (v2.0+):** YukarÄ±daki beÅŸ seviye, Katman 2'ye ek ayrÄ±ntÄ± dÃ¼zeyi ekleyerek kaÃ§ ADMX politikasÄ± uygulanacaÄŸÄ±nÄ± seÃ§menizi saÄŸlar.
 
 ---
 
-## Politika Uygulama Akışı
+## Politika Uygulama AkÄ±ÅŸÄ±
 
 ```
-1. Ön Kontroller
-   ├─ Yönetici ayrıcalıkları?
-   ├─ Brave çalışıyor mu? (devam/iptal istemi)
-   ├─ Seviye seçimi (etkileşimli veya -Level parametresi)
-   └─ Sürüm uyumluluk kontrolü
+1. Ã–n Kontroller
+   â”œâ”€ YÃ¶netici ayrÄ±calÄ±klarÄ±?
+   â”œâ”€ Brave Ã§alÄ±ÅŸÄ±yor mu? (devam/iptal istemi)
+   â”œâ”€ Seviye seÃ§imi (etkileÅŸimli veya -Level parametresi)
+   â””â”€ SÃ¼rÃ¼m uyumluluk kontrolÃ¼
 
 2. Yedekleme
-   └─ HKLM:\SOFTWARE\Policies\BraveSoftware\Brave → zaman damgalı .reg
+   â””â”€ HKLM:\SOFTWARE\Policies\BraveSoftware\Brave â†’ zaman damgalÄ± .reg
 
-3. Politikaları Uygula (katman başına)
-   ├─ Katman 1: HKCU kullanıcı tercihleri
-   ├─ Katman 2: HKLM ADMX kurumsal ilkeler
-   └─ Katman 3: Omaha GUID usagestats = 0
+3. PolitikalarÄ± Uygula (katman baÅŸÄ±na)
+   â”œâ”€ Katman 1: HKCU kullanÄ±cÄ± tercihleri
+   â”œâ”€ Katman 2: HKLM ADMX kurumsal ilkeler
+   â””â”€ Katman 3: Omaha GUID usagestats = 0
 
-4. Doğrulama
-   ├─ Politika başına başarı/hata sayaçları
-   └─ Geri alma talimatlarıyla özet rapor
+4. DoÄŸrulama
+   â”œâ”€ Politika baÅŸÄ±na baÅŸarÄ±/hata sayaÃ§larÄ±
+   â””â”€ Geri alma talimatlarÄ±yla Ã¶zet rapor
 
 5. Tamamlama
-   └─ Başarıda çıkış kodu 0, hatada sıfır değil
+   â””â”€ BaÅŸarÄ±da Ã§Ä±kÄ±ÅŸ kodu 0, hatada sÄ±fÄ±r deÄŸil
 ```
 
 ---
 
-## Kararsız Olmama Garantisi
+## KararsÄ±z Olmama Garantisi
 
-- **`-Force` parametresi** güvenli yeniden çalıştırmayı sağlar
-- **`-WhatIf` parametresi** değişiklikleri uygulamadan önizler
-- **`-Reset` parametresi** uygulanan tüm politikaları geri alır
-- rirden fazla çalıştırma = **özdeş sonuç**
-- Yinelenen kayıt defteri girişi yok, çakışma yok
-- Otomasyon / zamanlanmış görevler için güvenli
+- **`-Force` parametresi** gÃ¼venli yeniden Ã§alÄ±ÅŸtÄ±rmayÄ± saÄŸlar
+- **`-WhatIf` parametresi** deÄŸiÅŸiklikleri uygulamadan Ã¶nizler
+- **`-Reset` parametresi** uygulanan tÃ¼m politikalarÄ± geri alÄ±r
+- rirden fazla Ã§alÄ±ÅŸtÄ±rma = **Ã¶zdeÅŸ sonuÃ§**
+- Yinelenen kayÄ±t defteri giriÅŸi yok, Ã§akÄ±ÅŸma yok
+- Otomasyon / zamanlanmÄ±ÅŸ gÃ¶revler iÃ§in gÃ¼venli
 
 ---
 
-## İlgili Sayfalar
+## Ä°lgili Sayfalar
 
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Politika kayıt defteri tablosu
-- [🔧 Kurulum](Installation#-türkçe) — Ön gereksinimler ve adım adım
-- [🛡️ Güvenlik](Security#-türkçe) — Güvenlik modeli ve tehdit modeli
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe) — Sık karşılaşılan sorunlar
+- [ğŸ“‹ Politika BaÅŸvurusu](Policy-Reference#-tÃ¼rkÃ§e) â€” Politika kayÄ±t defteri tablosu
+- [ğŸ”§ Kurulum](Installation#-tÃ¼rkÃ§e) â€” Ã–n gereksinimler ve adÄ±m adÄ±m
+- [ğŸ›¡ï¸ GÃ¼venlik](Security#-tÃ¼rkÃ§e) â€” GÃ¼venlik modeli ve tehdit modeli
+- [ğŸ” Sorun Giderme](Troubleshooting#-tÃ¼rkÃ§e) â€” SÄ±k karÅŸÄ±laÅŸÄ±lan sorunlar

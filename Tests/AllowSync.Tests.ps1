@@ -31,15 +31,20 @@ BeforeAll {
     }
 }
 
-Describe "AllowSync - EN Script" -Tag "Unit" {
+Describe "AllowSync - Unified Script" -Tag "Unit" {
     It "should declare -AllowSync as switch parameter" {
-        $content = Get-Content -Path $ScriptEN -Raw
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match '\[switch\]\$AllowSync' | Should -Be $true
     }
 
+    It "should alias -SenkronizasyonaIzinVer to -AllowSync" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match '\[Alias\("SenkronizasyonaIzinVer"\)\]\[switch\]\$AllowSync' | Should -Be $true
+    }
+
     It "should exclude BrowserSignin and SyncDisabled when AllowSync is used at Strict level" {
-        $content = Get-Content -Path $ScriptEN -Raw
-        $merged = Get-MergedPolicyNames -ScriptPath $ScriptEN -Level "Strict"
+        $content = Get-Content -Path $ScriptMain -Raw
+        $merged = Get-MergedPolicyNames -ScriptPath $ScriptMain -Level "Strict"
         $merged.ContainsKey("BrowserSignin") | Should -Be $true
         $merged.ContainsKey("SyncDisabled") | Should -Be $true
         $content -match '\$MergedPolicies\.Remove\(\$SyncPolicyName\)' | Should -Be $true
@@ -47,37 +52,11 @@ Describe "AllowSync - EN Script" -Tag "Unit" {
     }
 
     It "should have BrowserSignin only at Strict and not at lower levels" {
-        $content = Get-Content -Path $ScriptEN -Raw
-        $advanced = Get-MergedPolicyNames -ScriptPath $ScriptEN -Level "Advanced"
+        $content = Get-Content -Path $ScriptMain -Raw
+        $advanced = Get-MergedPolicyNames -ScriptPath $ScriptMain -Level "Advanced"
         $advanced.ContainsKey("BrowserSignin") | Should -Be $false
         $advanced.ContainsKey("SyncDisabled") | Should -Be $false
-        $strict = Get-MergedPolicyNames -ScriptPath $ScriptEN -Level "Strict"
-        $strict.ContainsKey("BrowserSignin") | Should -Be $true
-        $strict.ContainsKey("SyncDisabled") | Should -Be $true
-    }
-}
-
-Describe "AllowSync - TR Script" -Tag "Unit" {
-    It "should declare -SenkronizasyonaIzinVer as switch parameter" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $content -match '\[switch\]\$SenkronizasyonaIzinVer' | Should -Be $true
-    }
-
-    It "should exclude BrowserSignin and SyncDisabled when SenkronizasyonaIzinVer is used at Strict level" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $merged = Get-MergedPolicyNames -ScriptPath $ScriptTR -Level "Strict"
-        $merged.ContainsKey("BrowserSignin") | Should -Be $true
-        $merged.ContainsKey("SyncDisabled") | Should -Be $true
-        $content -match '\$BirlestirilmisPolitikalar\.Remove\(\$SyncPolitikaAdi\)' | Should -Be $true
-        $content -match '\$SyncEngelleyenPolitikalar\s*=\s*@\("BrowserSignin"\s*,\s*"SyncDisabled"\)' | Should -Be $true
-    }
-
-    It "should have BrowserSignin only at Strict and not at lower levels" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $advanced = Get-MergedPolicyNames -ScriptPath $ScriptTR -Level "Advanced"
-        $advanced.ContainsKey("BrowserSignin") | Should -Be $false
-        $advanced.ContainsKey("SyncDisabled") | Should -Be $false
-        $strict = Get-MergedPolicyNames -ScriptPath $ScriptTR -Level "Strict"
+        $strict = Get-MergedPolicyNames -ScriptPath $ScriptMain -Level "Strict"
         $strict.ContainsKey("BrowserSignin") | Should -Be $true
         $strict.ContainsKey("SyncDisabled") | Should -Be $true
     }

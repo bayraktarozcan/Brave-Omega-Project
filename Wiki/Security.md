@@ -1,9 +1,9 @@
 > **Language / Dil** &nbsp;
-> [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
+> [EN English](#-english) &nbsp;Â·&nbsp; [TR TÃ¼rkÃ§e](#-tÃ¼rkÃ§e)
 
 <a id="-english"></a>
 
-# 🛡️ Security — Safety Model & Threat Analysis
+# ğŸ›¡ï¸ Security â€” Safety Model & Threat Analysis
 
 Brave Omega is designed with a **security-first** approach. Every design decision prioritizes user safety, transparency, and auditability.
 
@@ -13,9 +13,9 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 
 | Principle | Implementation |
 | ----------- | ---------------- |
-| **Zero Obfuscation** | 100% readable PowerShell source — no encoding, no compression, no hidden logic |
-| **Zero Network Calls** | Script makes **zero outbound network connections** — fully offline operation |
-| **Zero Executables** | Pure PowerShell — no binaries, no DLLs, no external dependencies |
+| **Zero Obfuscation** | 100% readable PowerShell source â€” no encoding, no compression, no hidden logic |
+| **Zero Network Calls** | Script makes **zero outbound network connections** â€” fully offline operation |
+| **Zero Executables** | Pure PowerShell â€” no binaries, no DLLs, no external dependencies |
 | **Least Privilege** | Only requests Administrator for HKLM writes; HKCU/Omaha need no elevation |
 | **Auditability** | Every registry change traceable to official ADMX/Chromium documentation |
 
@@ -25,7 +25,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 
 | Threat | Mitigation |
 | -------- | ------------ |
-| **Malicious script modification** | Full source on GitHub — verify checksums before running |
+| **Malicious script modification** | Full source on GitHub â€” verify checksums before running |
 | **Supply chain compromise** | No external dependencies; no package manager; no binary blobs |
 | **Registry corruption** | Automatic `.reg` backup before any HKLM writes; one-command rollback |
 | **Partial application** | Per-operation try/catch with individual success/failure counters |
@@ -40,11 +40,11 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 ### 1. Pre-Flight Checks
 
 ```
-├─ Administrator privilege verification
-├─ Brave process detection (with continue/cancel prompt)
-├─ Brave version validation against Compatibility Matrix
-├─ Brave version detection (compares against validated version 1.94.121)
-└─ Registry path ACL validation
+â”œâ”€ Administrator privilege verification
+â”œâ”€ Brave process detection (with continue/cancel prompt)
+â”œâ”€ Brave version validation against Compatibility Matrix
+â”œâ”€ Brave version detection (compares against validated version 1.94.121)
+â””â”€ Registry path ACL validation
 ```
 
 ### 2. Backup Before Write
@@ -72,19 +72,19 @@ reg import "BraveOmega_HKLM_20260613_120000.reg"
 ### 5. Execution Policy Safety (v1.2.2+)
 
 ```powershell
-# Single-command bypass — no persistence
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
+# Single-command bypass â€” no persistence
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
-- **No `Set-ExecutionPolicy` call** — no permanent registry changes
-- Bypass applies **only to child process** — parent shell unaffected
+- **No `Set-ExecutionPolicy` call** â€” no permanent registry changes
+- Bypass applies **only to child process** â€” parent shell unaffected
 - No attack surface exposure, no residual policy changes
 
 ### 6. Preview Mode (-WhatIf)
 
 ```powershell
 # Preview all changes without writing
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 ```
 
 - No registry writes occur in WhatIf mode
@@ -96,7 +96,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
 
 ```powershell
 # Remove all Brave Omega policies
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
 ```
 
 - Removes all 151 policies from HKLM, HKCU, and Omaha GUIDs
@@ -109,9 +109,9 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
 
 | Method | Persistence | Scope | Attack Surface | Used? |
 | -------- | ------------- | ------- | ---------------- | ------- |
-| `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` | Permanent | User-wide | ❌ High | ❌ No |
-| `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session | Current process | ⚠️ Medium | ❌ No |
-| **`PowerShell -ExecutionPolicy Bypass -File ...`** | **Single command** | **Child process only** | ✅ **None** | ✅ **Yes** |
+| `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` | Permanent | User-wide | âŒ High | âŒ No |
+| `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session | Current process | âš ï¸ Medium | âŒ No |
+| **`PowerShell -ExecutionPolicy Bypass -File ...`** | **Single command** | **Child process only** | âœ… **None** | âœ… **Yes** |
 
 ---
 
@@ -170,7 +170,7 @@ Before running, verify:
 
 | Check | Method |
 | ------- | -------- |
-| All policies active | `brave://policy` → policies show **Active** (51 for Essential level) |
+| All policies active | `brave://policy` â†’ policies show **Active** (51 for Essential level) |
 | Registry written | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Backup created | `BraveOmega_HKLM_*.reg` exists in script directory |
 | No errors in output | Script exits with code 0, no `[ERROR]` lines |
@@ -194,11 +194,11 @@ If unexpected behavior occurs:
 
 ## Related Pages
 
-- [🔧 Installation](Installation) — Safe execution procedure
-- [🏗️ Architecture](Architecture) — Three-tier model
-- [📋 Policy Reference](Policy-Reference) — What policies are applied
-- [🔍 Troubleshooting](Troubleshooting) — Common issues
-- [🗺️ Roadmap](Roadmap) — Planned security enhancements
+- [ğŸ”§ Installation](Installation) â€” Safe execution procedure
+- [ğŸ—ï¸ Architecture](Architecture) â€” Three-tier model
+- [ğŸ“‹ Policy Reference](Policy-Reference) â€” What policies are applied
+- [ğŸ” Troubleshooting](Troubleshooting) â€” Common issues
+- [ğŸ—ºï¸ Roadmap](Roadmap) â€” Planned security enhancements
 
 ---
 
@@ -208,162 +208,162 @@ The Pester test suite at `Tests/` follows the same security model:
 
 | Principle | Implementation |
 | ----------- | ---------------- |
-| **No live registry writes** | Tests use mock paths or `-WhatIf` mode — no HKLM/HKCU modification |
-| **No network calls** | Tests are fully offline — no internet dependency |
+| **No live registry writes** | Tests use mock paths or `-WhatIf` mode â€” no HKLM/HKCU modification |
+| **No network calls** | Tests are fully offline â€” no internet dependency |
 | **Isolation** | Each test file is self-contained; no cross-file state |
-| **Inspectable** | 100% readable Pester code — no hidden test logic |
+| **Inspectable** | 100% readable Pester code â€” no hidden test logic |
 | **Admin not required** | Unit tests run without elevation; integration tests skip if not admin |
 
-> 🧪 Run `Invoke-Pester -Path .\Tests\` to validate the suite before any PR.
+> ğŸ§ª Run `Invoke-Pester -Path .\Tests\` to validate the suite before any PR.
 
 ---
 
 ---
 
-<a id="-türkçe"></a>
+<a id="-tÃ¼rkÃ§e"></a>
 
-# 🛡️ Güvenlik — Güvenlik Modeli ve Tehdit Analizi
+# ğŸ›¡ï¸ GÃ¼venlik â€” GÃ¼venlik Modeli ve Tehdit Analizi
 
-Brave Omega **güvenlik öncelikli** bir yaklaşımla tasarlanmıştır. Her tasarım kararı kullanıcı güvenliğini, şeffaflığı ve denetlenebilirliği önceliklendirir.
+Brave Omega **gÃ¼venlik Ã¶ncelikli** bir yaklaÅŸÄ±mla tasarlanmÄ±ÅŸtÄ±r. Her tasarÄ±m kararÄ± kullanÄ±cÄ± gÃ¼venliÄŸini, ÅŸeffaflÄ±ÄŸÄ± ve denetlenebilirliÄŸi Ã¶nceliklendirir.
 
 ---
 
-## Güvenlik İlkeleri
+## GÃ¼venlik Ä°lkeleri
 
-| İlke | Uygulama |
+| Ä°lke | Uygulama |
 | ------ | ---------- |
-| **Sıfır Gizleme** | %100 okunabilir PowerShell kaynağı — kodlama, sıkıştırma veya gizli mantık yok |
-| **Sıfır Ağ Çağrısı** | Betik **sıfır giden ağ bağlantısı** yapar — tamamen çevrimdışı çalışma |
-| **Sıfır Çalıştırılabilir** | Saf PowerShell — ikili dosya, DLL veya harici bağımlılık yok |
-| **En Az Ayrıcalık** | Yalnızca HKLM yazmaları için Yönetici ister; HKCU/Omaha yükseltme gerektirmez |
-| **Denetlenebilirlik** | Her kayıt defteri değişikliği resmî ADMX/Chromium belgelendirmesine izlenebilir |
+| **SÄ±fÄ±r Gizleme** | %100 okunabilir PowerShell kaynaÄŸÄ± â€” kodlama, sÄ±kÄ±ÅŸtÄ±rma veya gizli mantÄ±k yok |
+| **SÄ±fÄ±r AÄŸ Ã‡aÄŸrÄ±sÄ±** | Betik **sÄ±fÄ±r giden aÄŸ baÄŸlantÄ±sÄ±** yapar â€” tamamen Ã§evrimdÄ±ÅŸÄ± Ã§alÄ±ÅŸma |
+| **SÄ±fÄ±r Ã‡alÄ±ÅŸtÄ±rÄ±labilir** | Saf PowerShell â€” ikili dosya, DLL veya harici baÄŸÄ±mlÄ±lÄ±k yok |
+| **En Az AyrÄ±calÄ±k** | YalnÄ±zca HKLM yazmalarÄ± iÃ§in YÃ¶netici ister; HKCU/Omaha yÃ¼kseltme gerektirmez |
+| **Denetlenebilirlik** | Her kayÄ±t defteri deÄŸiÅŸikliÄŸi resmÃ® ADMX/Chromium belgelendirmesine izlenebilir |
 
 ---
 
 ## Tehdit Modeli
 
-| Tehdit | Önlem |
+| Tehdit | Ã–nlem |
 | -------- | ------- |
-| **Kötü amaçlı betik değişikliği** | GitHub'da tam kaynak — çalıştırmadan önce sağlama toplamlarını doğrulayın |
-| **Tedarik zinciri ihlali** | Harici bağımlılık yok; paket yöneticisi yok; ikili dosya yok |
-| **Kayıt defteri bozulması** | HKLM yazmalarından önce otomatik `.reg` yedeği; tek komutla geri alma |
-| **Kısmi uygulama** | İşlem başına try/catch ile bireysel başarı/hata sayaçları |
-| **Brave veri kaybı** | Süreç koruyucusu çalışan Brave'i tespit eder, devam/iptal istemi gösterir |
-| **Ayrıcalık yükseltme** | Betik yalnızca HKLM için Yönetici ister; HKCU/Omaha yükseltme gerektirmez |
-| **Güncel olmayan politika uygulaması** | Sürüm sabitleme + çalışma zamanında Brave sürümü kontrolü |
+| **KÃ¶tÃ¼ amaÃ§lÄ± betik deÄŸiÅŸikliÄŸi** | GitHub'da tam kaynak â€” Ã§alÄ±ÅŸtÄ±rmadan Ã¶nce saÄŸlama toplamlarÄ±nÄ± doÄŸrulayÄ±n |
+| **Tedarik zinciri ihlali** | Harici baÄŸÄ±mlÄ±lÄ±k yok; paket yÃ¶neticisi yok; ikili dosya yok |
+| **KayÄ±t defteri bozulmasÄ±** | HKLM yazmalarÄ±ndan Ã¶nce otomatik `.reg` yedeÄŸi; tek komutla geri alma |
+| **KÄ±smi uygulama** | Ä°ÅŸlem baÅŸÄ±na try/catch ile bireysel baÅŸarÄ±/hata sayaÃ§larÄ± |
+| **Brave veri kaybÄ±** | SÃ¼reÃ§ koruyucusu Ã§alÄ±ÅŸan Brave'i tespit eder, devam/iptal istemi gÃ¶sterir |
+| **AyrÄ±calÄ±k yÃ¼kseltme** | Betik yalnÄ±zca HKLM iÃ§in YÃ¶netici ister; HKCU/Omaha yÃ¼kseltme gerektirmez |
+| **GÃ¼ncel olmayan politika uygulamasÄ±** | SÃ¼rÃ¼m sabitleme + Ã§alÄ±ÅŸma zamanÄ±nda Brave sÃ¼rÃ¼mÃ¼ kontrolÃ¼ |
 
 ---
 
-## Güvenlik Kontrolleri
+## GÃ¼venlik Kontrolleri
 
-### 1. Ön Uçuş Kontrolleri
+### 1. Ã–n UÃ§uÅŸ Kontrolleri
 
 ```
-├─ Yönetici ayrıcalığı doğrulaması
-├─ Brave süreç tespiti (devam/iptal istemiyle)
-├─ Brave sürümünün Uyumluluk Matrisine karşı doğrulaması
-├─ Brave sürüm algılama (doğrulanmış sürüm 1.94.121 ile karşılaştırma)
-└─ Kayıt defteri yolu ACL doğrulaması
+â”œâ”€ YÃ¶netici ayrÄ±calÄ±ÄŸÄ± doÄŸrulamasÄ±
+â”œâ”€ Brave sÃ¼reÃ§ tespiti (devam/iptal istemiyle)
+â”œâ”€ Brave sÃ¼rÃ¼mÃ¼nÃ¼n Uyumluluk Matrisine karÅŸÄ± doÄŸrulamasÄ±
+â”œâ”€ Brave sÃ¼rÃ¼m algÄ±lama (doÄŸrulanmÄ±ÅŸ sÃ¼rÃ¼m 1.94.121 ile karÅŸÄ±laÅŸtÄ±rma)
+â””â”€ KayÄ±t defteri yolu ACL doÄŸrulamasÄ±
 ```
 
-### 2. Yazmadan Önce Yedekleme
+### 2. Yazmadan Ã–nce Yedekleme
 
-- **Otomatik** zaman damgalı `.reg` dışa aktarımı: `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
-- Dosya adı: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg`
-- Kolay geri alma için betik dizininde saklanır
+- **Otomatik** zaman damgalÄ± `.reg` dÄ±ÅŸa aktarÄ±mÄ±: `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
+- Dosya adÄ±: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg`
+- Kolay geri alma iÃ§in betik dizininde saklanÄ±r
 
-### 3. Kararsız Olmayan Uygulama
+### 3. KararsÄ±z Olmayan Uygulama
 
-- **`-Force` parametresi** güvenli yeniden çalıştırmayı sağlar
-- Politika başına try/catch ile bireysel başarı/hata takibi
-- Birden fazla çalıştırma = **özdeş sonuç**, yinelenen kayıt yok
+- **`-Force` parametresi** gÃ¼venli yeniden Ã§alÄ±ÅŸtÄ±rmayÄ± saÄŸlar
+- Politika baÅŸÄ±na try/catch ile bireysel baÅŸarÄ±/hata takibi
+- Birden fazla Ã§alÄ±ÅŸtÄ±rma = **Ã¶zdeÅŸ sonuÃ§**, yinelenen kayÄ±t yok
 
-### 4. Geri Alma Yeteneği
+### 4. Geri Alma YeteneÄŸi
 
 ```powershell
-# Tek komutla eski duruma dönüş
+# Tek komutla eski duruma dÃ¶nÃ¼ÅŸ
 reg import "BraveOmega_HKLM_20260613_120000.reg"
 ```
 
-- Yedek, tam HKLM politika kovası durumunu içerir
-- Geri yükleme atomik ve eksiksizdir
+- Yedek, tam HKLM politika kovasÄ± durumunu iÃ§erir
+- Geri yÃ¼kleme atomik ve eksiksizdir
 
-### 5. Çalıştırma İlkesi Güvenliği (v1.2.2+)
-
-```powershell
-# Tek komutla bypass — kalıcılık yok
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
-```
-
-- **`Set-ExecutionPolicy` çağrısı yok** — kalıcı kayıt defteri değişikliği yok
-- Bypass **yalnızca alt işlem için** geçerlidir — üst kabuk etkilenmez
-- Saldırı yüzeyi maruziyeti yok, artık politika değişikliği yok
-
-### 6. Ön İzleme Kipi (-WhatIf)
+### 5. Ã‡alÄ±ÅŸtÄ±rma Ä°lkesi GÃ¼venliÄŸi (v1.2.2+)
 
 ```powershell
-# Tüm değişiklikleri yazmadan önizle
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
+# Tek komutla bypass â€” kalÄ±cÄ±lÄ±k yok
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
-- WhatIf kipinde kayıt defterine yazma olmaz
-- Tüm işlemler if (-not $WhatIf) ile korunur
-- Yedekleme ve dizin oluşturma tamamen atlanır
-- Macenta [WhatIf] etiketleri neyin değişeceğini belirtir
+- **`Set-ExecutionPolicy` Ã§aÄŸrÄ±sÄ± yok** â€” kalÄ±cÄ± kayÄ±t defteri deÄŸiÅŸikliÄŸi yok
+- Bypass **yalnÄ±zca alt iÅŸlem iÃ§in** geÃ§erlidir â€” Ã¼st kabuk etkilenmez
+- SaldÄ±rÄ± yÃ¼zeyi maruziyeti yok, artÄ±k politika deÄŸiÅŸikliÄŸi yok
 
-### 7. Temiz Kaldırma (-Reset)
+### 6. Ã–n Ä°zleme Kipi (-WhatIf)
 
 ```powershell
-# Tüm Brave Omega politikalarını kaldır
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
+# TÃ¼m deÄŸiÅŸiklikleri yazmadan Ã¶nizle
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 ```
 
-- 151 politikanın tümünü HKLM, HKCU ve Omaha GUID'lerinden kaldırır
-- Boş kayıt defteri anahtarlarını otomatik temizler
-- -WhatIf'e sessizce saygı duyar
+- WhatIf kipinde kayÄ±t defterine yazma olmaz
+- TÃ¼m iÅŸlemler if (-not $WhatIf) ile korunur
+- Yedekleme ve dizin oluÅŸturma tamamen atlanÄ±r
+- Macenta [WhatIf] etiketleri neyin deÄŸiÅŸeceÄŸini belirtir
+
+### 7. Temiz KaldÄ±rma (-Reset)
+
+```powershell
+# TÃ¼m Brave Omega politikalarÄ±nÄ± kaldÄ±r
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
+```
+
+- 151 politikanÄ±n tÃ¼mÃ¼nÃ¼ HKLM, HKCU ve Omaha GUID'lerinden kaldÄ±rÄ±r
+- BoÅŸ kayÄ±t defteri anahtarlarÄ±nÄ± otomatik temizler
+- -WhatIf'e sessizce saygÄ± duyar
 
 ---
 
-## Çalıştırma İlkesi Karşılaştırması
+## Ã‡alÄ±ÅŸtÄ±rma Ä°lkesi KarÅŸÄ±laÅŸtÄ±rmasÄ±
 
-| Yöntem | Kalıcılık | Kapsam | Saldırı Yüzeyi | Kullanıldı mı? |
+| YÃ¶ntem | KalÄ±cÄ±lÄ±k | Kapsam | SaldÄ±rÄ± YÃ¼zeyi | KullanÄ±ldÄ± mÄ±? |
 | -------- | ----------- | -------- | ---------------- | ---------------- |
-| `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` | Kalıcı | Kullanıcı genelinde | ❌ Yüksek | ❌ Hayır |
-| `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Oturum | Geçerli işlem | ⚠️ Orta | ❌ Hayır |
-| **`PowerShell -ExecutionPolicy Bypass -File ...`** | **Tek komut** | **Yalnızca alt işlem** | ✅ **Hiçbiri** | ✅ **Evet** |
+| `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` | KalÄ±cÄ± | KullanÄ±cÄ± genelinde | âŒ YÃ¼ksek | âŒ HayÄ±r |
+| `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Oturum | GeÃ§erli iÅŸlem | âš ï¸ Orta | âŒ HayÄ±r |
+| **`PowerShell -ExecutionPolicy Bypass -File ...`** | **Tek komut** | **YalnÄ±zca alt iÅŸlem** | âœ… **HiÃ§biri** | âœ… **Evet** |
 
 ---
 
-## Yedekleme ve Geri Alma Ayrıntıları
+## Yedekleme ve Geri Alma AyrÄ±ntÄ±larÄ±
 
-### Yedek Dosyası Biçimi
+### Yedek DosyasÄ± BiÃ§imi
 
 ```
-Dosya adı: BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg
-Konum: Betik çalıştırma dizini
-Biçim: Standart Windows REGEDIT4 biçimi
-İçerik: Tam HKLM:\SOFTWARE\Policies\BraveSoftware\Brave kovası
+Dosya adÄ±: BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg
+Konum: Betik Ã§alÄ±ÅŸtÄ±rma dizini
+BiÃ§im: Standart Windows REGEDIT4 biÃ§imi
+Ä°Ã§erik: Tam HKLM:\SOFTWARE\Policies\BraveSoftware\Brave kovasÄ±
 ```
 
-### Geri Alma Prosedürü
+### Geri Alma ProsedÃ¼rÃ¼
 
 ```powershell
 # 1. Brave'i kapat
-# 2. Yedeği içe aktar
+# 2. YedeÄŸi iÃ§e aktar
 reg import "BraveOmega_HKLM_20260613_120000.reg"
-# 3. Brave'i yeniden başlat
+# 3. Brave'i yeniden baÅŸlat
 ```
 
 ### Manuel Geri Alma (yedek kaybolursa)
 
 ```powershell
-# HKLM politikalarını kaldır
+# HKLM politikalarÄ±nÄ± kaldÄ±r
 Remove-Item "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -Recurse -Force
 
-# HKCU kullanıcı tercihlerini kaldır
+# HKCU kullanÄ±cÄ± tercihlerini kaldÄ±r
 Remove-Item "HKCU:\Software\BraveSoftware\Brave-Browser" -Recurse -Force
 
-# Omaha usagestats'i sıfırla
+# Omaha usagestats'i sÄ±fÄ±rla
 Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
     Set-ItemProperty $_.PSPath -Name "usagestats" -Value 1
 }
@@ -371,50 +371,50 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 ---
 
-## Doğrulama Kontrol Listesi
+## DoÄŸrulama Kontrol Listesi
 
-Çalıştırmadan önce doğrulayın:
+Ã‡alÄ±ÅŸtÄ±rmadan Ã¶nce doÄŸrulayÄ±n:
 
-- [ ] Betik resmî GitHub sürümünden indirildi
-- [ ] SHA256 sağlama toplamı sürüm notlarıyla eşleşiyor (varsa)
-- [ ] Windows 11'de en güncel güncellemelerle çalışıyor
-- [ ] Brave Browser **en güncel kararlı** sürümü yüklü
-- [ ] Brave sürümü [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile eşleşiyor
-- [ ] PowerShell Yönetici olarak çalışıyor
-- [ ] Çakışabilecek kritik uygulamalar çalışmıyor
+- [ ] Betik resmÃ® GitHub sÃ¼rÃ¼mÃ¼nden indirildi
+- [ ] SHA256 saÄŸlama toplamÄ± sÃ¼rÃ¼m notlarÄ±yla eÅŸleÅŸiyor (varsa)
+- [ ] Windows 11'de en gÃ¼ncel gÃ¼ncellemelerle Ã§alÄ±ÅŸÄ±yor
+- [ ] Brave Browser **en gÃ¼ncel kararlÄ±** sÃ¼rÃ¼mÃ¼ yÃ¼klÃ¼
+- [ ] Brave sÃ¼rÃ¼mÃ¼ [Uyumluluk Matrisi](Version-Compatibility-Matrix#-tÃ¼rkÃ§e) ile eÅŸleÅŸiyor
+- [ ] PowerShell YÃ¶netici olarak Ã§alÄ±ÅŸÄ±yor
+- [ ] Ã‡akÄ±ÅŸabilecek kritik uygulamalar Ã§alÄ±ÅŸmÄ±yor
 
 ---
 
-## Çalıştırma Sonrası Doğrulama
+## Ã‡alÄ±ÅŸtÄ±rma SonrasÄ± DoÄŸrulama
 
-| Kontrol | Yöntem |
+| Kontrol | YÃ¶ntem |
 | --------- | -------- |
-| Tüm politikalar etkin | `brave://policy` → 151 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 51, Dengeli'de 83) |
-| Kayıt defteri yazıldı | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
-| Yedek oluşturuldu | `BraveOmega_HKLM_*.reg` betik dizininde mevcut |
-| Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[ERROR]` satırı yok |
+| TÃ¼m politikalar etkin | `brave://policy` â†’ 151 politikanÄ±n tÃ¼mÃ¼ **Etkin** gÃ¶steriyor (KatÄ± seviye; Temel'de 51, Dengeli'de 83) |
+| KayÄ±t defteri yazÄ±ldÄ± | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
+| Yedek oluÅŸturuldu | `BraveOmega_HKLM_*.reg` betik dizininde mevcut |
+| Ã‡Ä±ktÄ±da hata yok | Betik kod 0 ile Ã§Ä±kÄ±yor, `[ERROR]` satÄ±rÄ± yok |
 
 ---
 
-## Olay Müdahalesi
+## Olay MÃ¼dahalesi
 
-Beklenmeyen davranış oluşursa:
+Beklenmeyen davranÄ±ÅŸ oluÅŸursa:
 
-1. **Acil:** Brave'i kapat, `reg import` ile yedeği içe aktar
-2. **İncele:** `[HATA]` satırları için betik çıktısını gözden geçir
-3. **Raporla:** GitHub sorunu aç:
-   - Brave sürümü (`brave://version`)
-   - Windows sürümü (`winver`)
-   - Tam betik çıktısı
-   - `brave://policy` sayfası dışa aktarımı
-4. **Geri al:** Yedek veya manuel kaldırma prosedürünü kullan
+1. **Acil:** Brave'i kapat, `reg import` ile yedeÄŸi iÃ§e aktar
+2. **Ä°ncele:** `[HATA]` satÄ±rlarÄ± iÃ§in betik Ã§Ä±ktÄ±sÄ±nÄ± gÃ¶zden geÃ§ir
+3. **Raporla:** GitHub sorunu aÃ§:
+   - Brave sÃ¼rÃ¼mÃ¼ (`brave://version`)
+   - Windows sÃ¼rÃ¼mÃ¼ (`winver`)
+   - Tam betik Ã§Ä±ktÄ±sÄ±
+   - `brave://policy` sayfasÄ± dÄ±ÅŸa aktarÄ±mÄ±
+4. **Geri al:** Yedek veya manuel kaldÄ±rma prosedÃ¼rÃ¼nÃ¼ kullan
 
 ---
 
-## İlgili Sayfalar
+## Ä°lgili Sayfalar
 
-- [🔧 Kurulum](Installation#-türkçe) — Güvenli çalıştırma prosedürü
-- [🏗️ Mimari](Architecture#-türkçe) — Üç katmanlı model
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Hangi politikalar uygulanır
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe) — Sık karşılaşılan sorunlar
-- [🗺️ Yol Haritası](Roadmap#-türkçe) — Planlanan güvenlik iyileştirmeleri
+- [ğŸ”§ Kurulum](Installation#-tÃ¼rkÃ§e) â€” GÃ¼venli Ã§alÄ±ÅŸtÄ±rma prosedÃ¼rÃ¼
+- [ğŸ—ï¸ Mimari](Architecture#-tÃ¼rkÃ§e) â€” ÃœÃ§ katmanlÄ± model
+- [ğŸ“‹ Politika BaÅŸvurusu](Policy-Reference#-tÃ¼rkÃ§e) â€” Hangi politikalar uygulanÄ±r
+- [ğŸ” Sorun Giderme](Troubleshooting#-tÃ¼rkÃ§e) â€” SÄ±k karÅŸÄ±laÅŸÄ±lan sorunlar
+- [ğŸ—ºï¸ Yol HaritasÄ±](Roadmap#-tÃ¼rkÃ§e) â€” Planlanan gÃ¼venlik iyileÅŸtirmeleri

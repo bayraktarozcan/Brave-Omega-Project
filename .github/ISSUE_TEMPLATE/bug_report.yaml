@@ -59,7 +59,7 @@ body:
       label: "Reproduction Steps / Tekrarlama Adımları"
       description: "Exact command and parameters you used"
       placeholder: |
-        .\BraveOmega-EN.ps1 -Level Essential
+        .\BraveOmega.ps1 -Language EN -Level Essential
     validations:
       required: true
 

@@ -1,9 +1,9 @@
 > **Language / Dil** &nbsp;
-> [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
+> [EN English](#-english) &nbsp;Â·&nbsp; [TR TÃ¼rkÃ§e](#-tÃ¼rkÃ§e)
 
 <a id="-english"></a>
 
-# 🤝 Contributing — How to Contribute
+# ğŸ¤ Contributing â€” How to Contribute
 
 Thank you for your interest in contributing to Brave Omega! This guide covers everything you need to know.
 
@@ -13,12 +13,12 @@ Thank you for your interest in contributing to Brave Omega! This guide covers ev
 
 | Area | Description | Difficulty |
 | ------ | ------------- | ------------ |
-| **Version Updates** | Update policy values when Brave releases new stable | 🟢 Easy |
-| **New Policies** | Add new ADMX-validated policies with source references | 🟡 Medium |
-| **Bug Reports** | Report issues with reproduction steps | 🟢 Easy |
-| **Translations** | Add new language editions (EN/TR template) | 🟡 Medium |
-| **Documentation** | Improve wiki, README, code comments | 🟢 Easy |
-| **Testing** | Test on different Windows/Brave versions | 🟡 Medium |
+| **Version Updates** | Update policy values when Brave releases new stable | ğŸŸ¢ Easy |
+| **New Policies** | Add new ADMX-validated policies with source references | ğŸŸ¡ Medium |
+| **Bug Reports** | Report issues with reproduction steps | ğŸŸ¢ Easy |
+| **Translations** | Add new language editions (EN/TR template) | ğŸŸ¡ Medium |
+| **Documentation** | Improve wiki, README, code comments | ğŸŸ¢ Easy |
+| **Testing** | Test on different Windows/Brave versions | ğŸŸ¡ Medium |
 
 ---
 
@@ -47,8 +47,8 @@ git checkout -b feature/your-feature-name
 
 ```powershell
 # Test both scripts
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Force
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
 ```
 
 ### 5. Submit PR
@@ -66,7 +66,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
 When Brave releases a new stable version:
 
 1. Check [Brave ADMX templates](https://github.com/brave/brave-browser/tree/master/policy_templates)
-2. Update policy values in both `BraveOmega-EN.ps1` and `BraveOmega-TR.ps1`
+2. Update policy values in the unified `BraveOmega.ps1` (single source; both languages follow)
 3. Update `Version Compatibility Matrix` in wiki & README
 4. Update changelog with migration notes if keys changed
 
@@ -124,7 +124,7 @@ When adding or modifying policies:
 
 Test expectations:
 
-- All `It` blocks must pass (green ✓)
+- All `It` blocks must pass (green âœ“)
 - Tests must run without administrative privileges where possible
 - Registry tests should use registry mock paths (not HKLM/HKCU) or `-WhatIf`
 
@@ -132,17 +132,17 @@ Test expectations:
 
 **Requirements:**
 
-- Follow EN/TR template structure exactly
+- Add a column to the $Strings table and $LevelDisplayNames map in BraveOmega.ps1`r
 - Maintain functional parity (same features, same order)
 - Use consistent terminology
 - Native speaker review preferred
 
 **New Language Template:**
 
-1. Copy `BraveOmega-EN.ps1` to `BraveOmega-XX.ps1`
-2. Translate all user-facing strings
-3. Update wiki: `Page-TR.md` to `Page-XX.md`
-4. Update `_Sidebar.md` with new language section
+1. Extend -Language's ValidateSet and the bilingual startup prompt
+2. Translate all user-facing strings into the table (code identifiers stay English)
+3. Update wiki: Page-TR.md to Page-XX.md`r
+4. Update _Sidebar.md with new language section
 
 ---
 
@@ -208,28 +208,28 @@ Contributors are recognized in:
 
 ---
 
-<a id="-türkçe"></a>
+<a id="-tÃ¼rkÃ§e"></a>
 
-# 🤝 Katkıda Bulunma — Nasıl Katkıda Bulunulur
+# ğŸ¤ KatkÄ±da Bulunma â€” NasÄ±l KatkÄ±da Bulunulur
 
-Brave Omega'ya katkıda bulunmakla ilgilendiğiniz için teşekkürler! Bu kılavuz bilmeniz gereken her şeyi kapsar.
+Brave Omega'ya katkÄ±da bulunmakla ilgilendiÄŸiniz iÃ§in teÅŸekkÃ¼rler! Bu kÄ±lavuz bilmeniz gereken her ÅŸeyi kapsar.
 
 ---
 
-## Katkıda Bulunma Yolları
+## KatkÄ±da Bulunma YollarÄ±
 
-| Alan | Açıklama | Zorluk |
+| Alan | AÃ§Ä±klama | Zorluk |
 | ------ | ---------- | -------- |
-| **Sürüm Güncellemeleri** | Brave yeni kararlı sürüm yayımladığında politika değerlerini güncelleme | 🟢 Kolay |
-| **Yeni Politikalar** | Kaynak referanslarıyla yeni ADMX doğrulamalı politikalar ekleme | 🟡 Orta |
-| **Hata Raporları** | Tekrar üretme adımlarıyla sorun bildirme | 🟢 Kolay |
-| **Çeviriler** | Yeni dil sürümleri ekleme (EN/TR şablonu) | 🟡 Orta |
-| **Belgelendirme** | Wiki, README, kod yorumlarını iyileştirme | 🟢 Kolay |
-| **Test** | Farklı Windows/Brave sürümlerinde test | 🟡 Orta |
+| **SÃ¼rÃ¼m GÃ¼ncellemeleri** | Brave yeni kararlÄ± sÃ¼rÃ¼m yayÄ±mladÄ±ÄŸÄ±nda politika deÄŸerlerini gÃ¼ncelleme | ğŸŸ¢ Kolay |
+| **Yeni Politikalar** | Kaynak referanslarÄ±yla yeni ADMX doÄŸrulamalÄ± politikalar ekleme | ğŸŸ¡ Orta |
+| **Hata RaporlarÄ±** | Tekrar Ã¼retme adÄ±mlarÄ±yla sorun bildirme | ğŸŸ¢ Kolay |
+| **Ã‡eviriler** | Yeni dil sÃ¼rÃ¼mleri ekleme (EN/TR ÅŸablonu) | ğŸŸ¡ Orta |
+| **Belgelendirme** | Wiki, README, kod yorumlarÄ±nÄ± iyileÅŸtirme | ğŸŸ¢ Kolay |
+| **Test** | FarklÄ± Windows/Brave sÃ¼rÃ¼mlerinde test | ğŸŸ¡ Orta |
 
 ---
 
-## Başlarken
+## BaÅŸlarken
 
 ### 1. Fork & Clone
 
@@ -238,90 +238,90 @@ git clone https://github.com/KULLANICI_ADINIZ/Brave-Omega-Project.git
 cd Brave-Omega-Project
 ```
 
-### 2. Özellik Dalı Oluştur
+### 2. Ã–zellik DalÄ± OluÅŸtur
 
 ```bash
 git checkout -b ozellik/ozellik-adiniz
 ```
 
-### 3. Değişiklikleri Yap
+### 3. DeÄŸiÅŸiklikleri Yap
 
 - Mevcut kod stilini izleyin
-- Kullanıcıya yönelik metinlerde EN/TR eşlemesini koruyun
-- İlgili belgelendirmeyi güncelleyin
+- KullanÄ±cÄ±ya yÃ¶nelik metinlerde EN/TR eÅŸlemesini koruyun
+- Ä°lgili belgelendirmeyi gÃ¼ncelleyin
 
 ### 4. Test
 
 ```powershell
-# Her iki betiği de test edin
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Force
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Force
+# Her iki betiÄŸi de test edin
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
 ```
 
-### 5. PR Gönder
+### 5. PR GÃ¶nder
 
-- Açık başlık: `feat: X politikası eklendi` / `fix: Y sorunu çözüldü`
-- Açıklama: Ne değişti, neden, yapılan testler
-- İlgili sorunlara referans verin
+- AÃ§Ä±k baÅŸlÄ±k: `feat: X politikasÄ± eklendi` / `fix: Y sorunu Ã§Ã¶zÃ¼ldÃ¼`
+- AÃ§Ä±klama: Ne deÄŸiÅŸti, neden, yapÄ±lan testler
+- Ä°lgili sorunlara referans verin
 
 ---
 
-## Katkıda Bulunma Yönergeleri
+## KatkÄ±da Bulunma YÃ¶nergeleri
 
-### Sürüm Güncellemeleri
+### SÃ¼rÃ¼m GÃ¼ncellemeleri
 
-Brave yeni bir kararlı sürüm yayımladığında:
+Brave yeni bir kararlÄ± sÃ¼rÃ¼m yayÄ±mladÄ±ÄŸÄ±nda:
 
-1. [Brave ADMX şablonlarını](https://github.com/brave/brave-browser/tree/master/policy_templates) kontrol edin
-2. `BraveOmega-EN.ps1` ve `BraveOmega-TR.ps1` içindeki politika değerlerini güncelleyin
-3. Wiki ve README'deki `Sürüm Uyumluluk Matrisi`ni güncelleyin
-4. Anahtarlar değiştiyse geçiş notlarıyla değişiklik günlüğünü güncelleyin
+1. [Brave ADMX ÅŸablonlarÄ±nÄ±](https://github.com/brave/brave-browser/tree/master/policy_templates) kontrol edin
+2. Politika değerlerini birleşik `BraveOmega.ps1` içinde güncelleyin (tek kaynak; iki dil de uyar)
+3. Wiki ve README'deki `SÃ¼rÃ¼m Uyumluluk Matrisi`ni gÃ¼ncelleyin
+4. Anahtarlar deÄŸiÅŸtiyse geÃ§iÅŸ notlarÄ±yla deÄŸiÅŸiklik gÃ¼nlÃ¼ÄŸÃ¼nÃ¼ gÃ¼ncelleyin
 
 ### Yeni Politikalar
 
 **Gereksinimler:**
 
-- Brave'in resmî ADMX şablonlarında (`policy_templates.zip`) bulunmalıdır
+- Brave'in resmÃ® ADMX ÅŸablonlarÄ±nda (`policy_templates.zip`) bulunmalÄ±dÄ±r
 - VEYA Chromium kurumsal politika belgelendirmesinde
-- Kaynak referansı gerekli (resmî belgelere URL)
-- Hem EN hem TR açıklamaları gerekli
+- Kaynak referansÄ± gerekli (resmÃ® belgelere URL)
+- Hem EN hem TR aÃ§Ä±klamalarÄ± gerekli
 
-**Şablon:**
+**Åablon:**
 
 ```powershell
-# Politika Adı: YeniPolitikaAdi
+# Politika AdÄ±: YeniPolitikaAdi
 # Kovan: HKLM / HKCU
-# Değer: 0 / 1
+# DeÄŸer: 0 / 1
 # Kaynak: https://kaynak.url
-# Açıklama EN: ...
-# Açıklama TR: ...
+# AÃ§Ä±klama EN: ...
+# AÃ§Ä±klama TR: ...
 ```
 
-### Hata Raporları
+### Hata RaporlarÄ±
 
-**Şunları ekleyin:**
+**ÅunlarÄ± ekleyin:**
 
-- Brave sürümü (`brave://version`)
-- Windows sürümü (`winver`)
-- Tam betik çıktısı (tüm PowerShell penceresini kopyalayın)
-- `brave://policy` sayfası dışa aktarımı (HTML veya ekran görüntüsü)
-- Tekrar üretme adımları
+- Brave sÃ¼rÃ¼mÃ¼ (`brave://version`)
+- Windows sÃ¼rÃ¼mÃ¼ (`winver`)
+- Tam betik Ã§Ä±ktÄ±sÄ± (tÃ¼m PowerShell penceresini kopyalayÄ±n)
+- `brave://policy` sayfasÄ± dÄ±ÅŸa aktarÄ±mÄ± (HTML veya ekran gÃ¶rÃ¼ntÃ¼sÃ¼)
+- Tekrar Ã¼retme adÄ±mlarÄ±
 
-### Çeviriler
+### Ã‡eviriler
 
 **Gereksinimler:**
 
-- EN/TR şablon yapısını aynen izleyin
-- İşlevsel eşdeğerliği koruyun (aynı özellikler, aynı sıra)
-- Tutarlı terminoloji kullanın
-- Anadil konuşmacısı incelemesi tercih edilir
+- `BraveOmega.ps1` içindeki `$Strings` tablosuna ve `$LevelDisplayNames` eşlemesine sütun ekleyin
+- Ä°ÅŸlevsel eÅŸdeÄŸerliÄŸi koruyun (aynÄ± Ã¶zellikler, aynÄ± sÄ±ra)
+- TutarlÄ± terminoloji kullanÄ±n
+- Anadil konuÅŸmacÄ±sÄ± incelemesi tercih edilir
 
-**Yeni Dil Şablonu:**
+**Yeni Dil Åablonu:**
 
-1. `BraveOmega-EN.ps1` dosyasını `BraveOmega-XX.ps1` olarak kopyalayın
-2. Kullanıcıya yönelik tüm metinleri çevirin
-3. Wiki'yi güncelleyin: `Page-TR.md` yerine `Page-XX.md`
-4. `_Sidebar.md`'yi yeni dil bölümüyle güncelleyin
+1. `-Language` `ValidateSet` listesini ve iki dilli açılış istemini genişletin
+2. Kullanıcıya yönelik tüm metinleri tabloya çevirin (kod tanıtıcıları İngilizce kalır)
+3. Wiki'yi gÃ¼ncelleyin: `Page-TR.md` yerine `Page-XX.md`
+4. `_Sidebar.md`'yi yeni dil bÃ¶lÃ¼mÃ¼yle gÃ¼ncelleyin
 
 ---
 
@@ -329,56 +329,56 @@ Brave yeni bir kararlı sürüm yayımladığında:
 
 ### PowerShell
 
-- Fonksiyonlar için `PascalCase`, değişkenler için `camelCase` kullanın
-- Karmaşık mantığı yorumlayın
-- Kullanıcı çıktısı için `Write-Host`, hata ayıklama için `Write-Verbose` kullanın
-- Tüm kayıt defteri yazmalarını try/catch ile doğrulayın
+- Fonksiyonlar iÃ§in `PascalCase`, deÄŸiÅŸkenler iÃ§in `camelCase` kullanÄ±n
+- KarmaÅŸÄ±k mantÄ±ÄŸÄ± yorumlayÄ±n
+- KullanÄ±cÄ± Ã§Ä±ktÄ±sÄ± iÃ§in `Write-Host`, hata ayÄ±klama iÃ§in `Write-Verbose` kullanÄ±n
+- TÃ¼m kayÄ±t defteri yazmalarÄ±nÄ± try/catch ile doÄŸrulayÄ±n
 
 ### Wiki/Markdown
 
-- Ana bölümler için `##`, alt bölümler için `###` kullanın
-- Yapılandırılmış veriler için tablolar
-- Dil ipucuyla kod blokları (```powershell)
-- `[Bağlantı](Sayfa-Adi)` ile çapraz referans
+- Ana bÃ¶lÃ¼mler iÃ§in `##`, alt bÃ¶lÃ¼mler iÃ§in `###` kullanÄ±n
+- YapÄ±landÄ±rÄ±lmÄ±ÅŸ veriler iÃ§in tablolar
+- Dil ipucuyla kod bloklarÄ± (```powershell)
+- `[BaÄŸlantÄ±](Sayfa-Adi)` ile Ã§apraz referans
 
 ---
 
-## Çekme İsteği Kontrol Listesi
+## Ã‡ekme Ä°steÄŸi Kontrol Listesi
 
 - [ ] Kod proje stilini izliyor
-- [ ] EN/TR eşlemesi korundu (kullanıcıya yönelikse)
-- [ ] Belgelendirme güncellendi (wiki + README gerekirse)
-- [ ] Değişiklik günlüğü girdisi eklendi (sürüm/politika değişiklikleri için)
-- [ ] Windows 11 + en güncel kararlı Brave'de test edildi
-- [ ] Çıktıda `[HATA]` satırı yok
-- [ ] `brave://policy` tüm politikaları etkin gösteriyor
+- [ ] EN/TR eÅŸlemesi korundu (kullanÄ±cÄ±ya yÃ¶nelikse)
+- [ ] Belgelendirme gÃ¼ncellendi (wiki + README gerekirse)
+- [ ] DeÄŸiÅŸiklik gÃ¼nlÃ¼ÄŸÃ¼ girdisi eklendi (sÃ¼rÃ¼m/politika deÄŸiÅŸiklikleri iÃ§in)
+- [ ] Windows 11 + en gÃ¼ncel kararlÄ± Brave'de test edildi
+- [ ] Ã‡Ä±ktÄ±da `[HATA]` satÄ±rÄ± yok
+- [ ] `brave://policy` tÃ¼m politikalarÄ± etkin gÃ¶steriyor
 
 ---
 
-## Davranış Kuralları
+## DavranÄ±ÅŸ KurallarÄ±
 
-- Saygılı ve yapıcı olun
-- Taciz, ayrımcılık veya saldırgan dil kullanmayın
-- Teknik değere odaklanın
-- Yeni başlayanların öğrenmesine yardımcı olun
-
----
-
-## Tanınma
-
-Katkıda bulunanlar şuralarda tanınır:
-
-- Sürüm notları
-- README'deki Katkıda Bulunanlar bölümü
-- GitHub katkıda bulunan grafikleri
+- SaygÄ±lÄ± ve yapÄ±cÄ± olun
+- Taciz, ayrÄ±mcÄ±lÄ±k veya saldÄ±rgan dil kullanmayÄ±n
+- Teknik deÄŸere odaklanÄ±n
+- Yeni baÅŸlayanlarÄ±n Ã¶ÄŸrenmesine yardÄ±mcÄ± olun
 
 ---
 
-## Sorularınız mı Var?
+## TanÄ±nma
 
-- [GitHub Tartışmaları](https://github.com/bayraktarozcan/Brave-Omega-Project/discussions)
-- [Sorun Takipçisi](https://github.com/bayraktarozcan/Brave-Omega-Project/issues)
+KatkÄ±da bulunanlar ÅŸuralarda tanÄ±nÄ±r:
+
+- SÃ¼rÃ¼m notlarÄ±
+- README'deki KatkÄ±da Bulunanlar bÃ¶lÃ¼mÃ¼
+- GitHub katkÄ±da bulunan grafikleri
 
 ---
 
-*Brave Omega'yı daha iyi hale getirdiğiniz için teşekkürler!*
+## SorularÄ±nÄ±z mÄ± Var?
+
+- [GitHub TartÄ±ÅŸmalarÄ±](https://github.com/bayraktarozcan/Brave-Omega-Project/discussions)
+- [Sorun TakipÃ§isi](https://github.com/bayraktarozcan/Brave-Omega-Project/issues)
+
+---
+
+*Brave Omega'yÄ± daha iyi hale getirdiÄŸiniz iÃ§in teÅŸekkÃ¼rler!*

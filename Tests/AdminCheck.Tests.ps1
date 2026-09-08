@@ -11,7 +11,7 @@ Describe "Admin Check" -Tag "Integration" {
     }
 
     It "script should define `$IsAdmin variable" {
-        $content = Get-Content -Path $ScriptEN -Raw
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match '\$IsAdmin\s*=' | Should -Be $true
     }
 }

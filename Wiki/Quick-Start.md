@@ -1,9 +1,9 @@
 > **Language / Dil** &nbsp;
-> [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
+> [EN English](#-english) &nbsp;Â·&nbsp; [TR TÃ¼rkÃ§e](#-tÃ¼rkÃ§e)
 
 <a id="-english"></a>
 
-# 🚀 Quick Start — Brave Omega
+# ğŸš€ Quick Start â€” Brave Omega
 
 > Get Brave Omega running in **3 minutes** with a single copy-paste command.
 
@@ -14,37 +14,33 @@
 | Requirement | Detail |
 | ------------- | -------- |
 | **OS** | Windows 11 (latest stable 25H2 build recommended) |
-| **Browser** | **Brave Browser — latest stable** ([brave.com/download](https://brave.com/download)) |
+| **Browser** | **Brave Browser â€” latest stable** ([brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (included with Windows 11) |
 | **Privileges** | **Administrator** (required for HKLM registry writes) |
 | **Execution Policy** | Handled automatically via `-ExecutionPolicy Bypass` flag |
 
-> ⚠️ **Always use the latest stable Brave release** before running. Verify at [brave.com/latest](https://brave.com/latest).
+> âš ï¸ **Always use the latest stable Brave release** before running. Verify at [brave.com/latest](https://brave.com/latest).
 
 ---
 
 ## One-Line Execution
 
-### Turkish Interface
+The unified script asks for your language on first launch (`Press 1 for English / Türkçe için 2'ye basın`), or pin it up front:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR
+
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 ```
 
-### English Interface
-
-```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
-```
-
-> The `-ExecutionPolicy Bypass` flag applies **only to this single command** — no permanent execution policy change, no attack surface exposure. Close the window and everything resets.
+> The `-ExecutionPolicy Bypass` flag applies **only to this single command** â€” no permanent execution policy change, no attack surface exposure. Close the window and everything resets.
 
 ---
 
 ### Preview Mode (-WhatIf)
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 ```
 
 Shows what would change without writing to the registry.
@@ -52,7 +48,7 @@ Shows what would change without writing to the registry.
 ### Clean Uninstall (-Reset)
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
 ```
 
 Removes all Brave Omega policies from HKLM, HKCU, and Omaha GUIDs.
@@ -76,10 +72,10 @@ To skip the menu in automated deployments:
 
 ```powershell
 # Essential level (recommended)
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Essential
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
 
-# English
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
+# (add -Language EN or -Language TR to skip the language question)
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
 ```
 
 Available levels: `BraveOnly`, `Essential`, `Balanced`, `Advanced`, `Strict` (EN) or `BraveYalniz`, `Temel`, `Dengeli`, `Gelismis`, `Kati` (TR).
@@ -90,8 +86,8 @@ Available levels: `BraveOnly`, `Essential`, `Balanced`, `Advanced`, `Strict` (EN
 
 ### 1. Open PowerShell as Administrator
 
-- Press `Win` → type `PowerShell`
-- Right-click **Windows PowerShell** → **Run as Administrator**
+- Press `Win` â†’ type `PowerShell`
+- Right-click **Windows PowerShell** â†’ **Run as Administrator**
 
 ### 2. Navigate to Project Folder
 
@@ -105,10 +101,10 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 ```powershell
 # Turkish
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
-# English
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
+# (add -Language EN or -Language TR to skip the language question)
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
 ### 4. Restart Brave
@@ -118,7 +114,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 
 ### 5. Verify
 
-Navigate to `brave://policy` in Brave — all policies (51 for Essential level) should show as **Active**.
+Navigate to `brave://policy` in Brave â€” all policies (51 for Essential level) should show as **Active**.
 
 ---
 
@@ -130,7 +126,7 @@ Navigate to `brave://policy` in Brave — all policies (51 for Essential level) 
 | **2. Backup** | Creates timestamped `.reg` backup of HKLM policy hive |
 | **3. Apply** | Writes policies across 3 tiers based on selected level (24/51/83/123/151) |
 | **4. Summary** | Per-category success/failure counters + rollback info |
-| **5. Cleanup** | Exits cleanly — no residual processes |
+| **5. Cleanup** | Exits cleanly â€” no residual processes |
 
 ---
 
@@ -148,7 +144,7 @@ The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.
 
 | Issue | Resolution |
 | ------- | ------------ |
-| "CRITICAL ERROR" on launch | Right-click PowerShell → **Run as Administrator** |
+| "CRITICAL ERROR" on launch | Right-click PowerShell â†’ **Run as Administrator** |
 | No policies in `brave://policy` | Close **all** Brave windows and reopen |
 | `[ERROR]` in output | Confirm Administrator mode; re-run |
 | "Unknown" policy in `brave://policy` | Verify Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix) |
@@ -157,145 +153,141 @@ The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.
 
 ## Next Steps
 
-- [📖 Full Installation Guide](Installation)
-- [🏗️ Architecture Overview](Architecture)
-- [📋 Policy Reference](Policy-Reference)
-- [🛡️ Security Model](Security)
+- [ğŸ“– Full Installation Guide](Installation)
+- [ğŸ—ï¸ Architecture Overview](Architecture)
+- [ğŸ“‹ Policy Reference](Policy-Reference)
+- [ğŸ›¡ï¸ Security Model](Security)
 
 ---
 
 ---
 
-<a id="-türkçe"></a>
+<a id="-tÃ¼rkÃ§e"></a>
 
-# 🚀 Hızlı Başlangıç — Brave Omega
+# ğŸš€ HÄ±zlÄ± BaÅŸlangÄ±Ã§ â€” Brave Omega
 
-> Brave Omega'yı **3 dakikada** çalıştırın, tek bir kopyala-yapıştır komutuyla.
+> Brave Omega'yÄ± **3 dakikada** Ã§alÄ±ÅŸtÄ±rÄ±n, tek bir kopyala-yapÄ±ÅŸtÄ±r komutuyla.
 
 ---
 
-## Ön Gereksinimler
+## Ã–n Gereksinimler
 
-| Gereksinim | Ayrıntı |
+| Gereksinim | AyrÄ±ntÄ± |
 | ------------ | --------- |
-| **İşletim Sistemi** | Windows 11 (önerilen: en güncel kararlı 25H2 derlemesi) |
-| **Tarayıcı** | **Brave Browser — en güncel kararlı** ([brave.com/download](https://brave.com/download)) |
+| **Ä°ÅŸletim Sistemi** | Windows 11 (Ã¶nerilen: en gÃ¼ncel kararlÄ± 25H2 derlemesi) |
+| **TarayÄ±cÄ±** | **Brave Browser â€” en gÃ¼ncel kararlÄ±** ([brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir) |
-| **Ayrıcalık** | **Yönetici** (HKLM kayıt defteri yazmaları için gerekli) |
-| **Çalıştırma İlkesi** | `-ExecutionPolicy Bypass` bayrağı ile otomatik olarak yönetilir |
+| **AyrÄ±calÄ±k** | **YÃ¶netici** (HKLM kayÄ±t defteri yazmalarÄ± iÃ§in gerekli) |
+| **Ã‡alÄ±ÅŸtÄ±rma Ä°lkesi** | `-ExecutionPolicy Bypass` bayraÄŸÄ± ile otomatik olarak yÃ¶netilir |
 
-> ⚠️ **Çalıştırmadan önce her zaman en güncel kararlı Brave sürümünü kullanın.** [brave.com/latest](https://brave.com/latest) adresinden doğrulayın.
-
----
-
-## Tek Satırda Çalıştırma
-
-### Türkçe Arayüz
-
-```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
-```
-
-### İngilizce Arayüz
-
-```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
-```
-
-> `-ExecutionPolicy Bypass` bayrağı **yalnızca bu tek komut için** geçerlidir — kalıcı çalıştırma ilkesi değişikliği yok, saldırı yüzeyi maruziyeti yok. Pencereyi kapatın, her şey sıfırlanır.
+> âš ï¸ **Ã‡alÄ±ÅŸtÄ±rmadan Ã¶nce her zaman en gÃ¼ncel kararlÄ± Brave sÃ¼rÃ¼mÃ¼nÃ¼ kullanÄ±n.** [brave.com/latest](https://brave.com/latest) adresinden doÄŸrulayÄ±n.
 
 ---
 
-### Ön İzleme Kipi (-WhatIf)
+## Tek SatÄ±rda Ã‡alÄ±ÅŸtÄ±rma
+
+Birleşik betik ilk açılışta dilinizi sorar (`Press 1 for English / Türkçe için 2'ye basın`) veya önden sabitleyin:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR
+
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 ```
 
-Kayıt defterine yazmadan nelerin değişeceğini gösterir.
-
-### Temiz Kaldırma (-Reset)
-
-```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Reset
-```
-
-Tüm Brave Omega politikalarını HKLM, HKCU ve Omaha GUID'lerinden kaldırır.
+> `-ExecutionPolicy Bypass` bayraÄŸÄ± **yalnÄ±zca bu tek komut iÃ§in** geÃ§erlidir â€” kalÄ±cÄ± Ã§alÄ±ÅŸtÄ±rma ilkesi deÄŸiÅŸikliÄŸi yok, saldÄ±rÄ± yÃ¼zeyi maruziyeti yok. Pencereyi kapatÄ±n, her ÅŸey sÄ±fÄ±rlanÄ±r.
 
 ---
 
-## Sıkılaştırma Seviyesi Seçme
+### Ã–n Ä°zleme Kipi (-WhatIf)
 
-Betik parametresiz çalıştırıldığında etkileşimli bir menü gösterir:
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
+```
+
+KayÄ±t defterine yazmadan nelerin deÄŸiÅŸeceÄŸini gÃ¶sterir.
+
+### Temiz KaldÄ±rma (-Reset)
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
+```
+
+TÃ¼m Brave Omega politikalarÄ±nÄ± HKLM, HKCU ve Omaha GUID'lerinden kaldÄ±rÄ±r.
+
+---
+
+## SÄ±kÄ±laÅŸtÄ±rma Seviyesi SeÃ§me
+
+Betik parametresiz Ã§alÄ±ÅŸtÄ±rÄ±ldÄ±ÄŸÄ±nda etkileÅŸimli bir menÃ¼ gÃ¶sterir:
 
 ```
-1. Brave Yalnız
-2. Temel [Önerilen]
+1. Brave YalnÄ±z
+2. Temel [Ã–nerilen]
 3. Dengeli
-4. Gelişmiş
-5. Katı
-Seçiminiz (2):
+4. GeliÅŸmiÅŸ
+5. KatÄ±
+SeÃ§iminiz (2):
 ```
 
-Otomatik dağıtımlarda menüyü atlamak için:
+Otomatik daÄŸÄ±tÄ±mlarda menÃ¼yÃ¼ atlamak iÃ§in:
 
 ```powershell
-# Temel seviye (önerilen)
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel
+# Temel seviye (Ã¶nerilen)
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Temel
 
-# İngilizce
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
+# (dil sorusunu atlamak için -Language TR veya -Language EN ekleyin)
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
 ```
 
-Kullanılabilir seviyeler: `BraveOnly`/`BraveYalniz`, `Essential`/`Temel`, `Balanced`/`Dengeli`, `Advanced`/`Gelismis`, `Strict`/`Kati`.
+KullanÄ±labilir seviyeler: `BraveOnly`/`BraveYalniz`, `Essential`/`Temel`, `Balanced`/`Dengeli`, `Advanced`/`Gelismis`, `Strict`/`Kati`.
 
 ---
 
-## Adım Adım (Genişletilmiş)
+## AdÄ±m AdÄ±m (GeniÅŸletilmiÅŸ)
 
-### 1. PowerShell'i Yönetici Olarak Aç
+### 1. PowerShell'i YÃ¶netici Olarak AÃ§
 
-- `Win` tuşuna bas → `PowerShell` yaz
-- **Windows PowerShell**'e sağ tıkla → **Yönetici olarak çalıştır**
+- `Win` tuÅŸuna bas â†’ `PowerShell` yaz
+- **Windows PowerShell**'e saÄŸ tÄ±kla â†’ **YÃ¶netici olarak Ã§alÄ±ÅŸtÄ±r**
 
-### 2. Proje Klasörüne Git
+### 2. Proje KlasÃ¶rÃ¼ne Git
 
 ```powershell
 cd "C:\Users\Downloads\Brave-Omega"
 ```
 
-> Farklı bir yere çıkardıysanız yolu buna göre ayarlayın.
+> FarklÄ± bir yere Ã§Ä±kardÄ±ysanÄ±z yolu buna gÃ¶re ayarlayÄ±n.
 
-### 3. Betiği Çalıştır
+### 3. BetiÄŸi Ã‡alÄ±ÅŸtÄ±r
 
 ```powershell
-# Türkçe
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
+# TÃ¼rkÃ§e
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
-# İngilizce
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
+# (dil sorusunu atlamak için -Language TR veya -Language EN ekleyin)
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
-### 4. Brave'i Yeniden Başlat
+### 4. Brave'i Yeniden BaÅŸlat
 
-- **Tüm** Brave pencerelerini tamamen kapat
-- Brave'i yeniden aç
+- **TÃ¼m** Brave pencerelerini tamamen kapat
+- Brave'i yeniden aÃ§
 
-### 5. Doğrula
+### 5. DoÄŸrula
 
-Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 51) **Etkin** olarak görünmelidir.
+Brave'de `brave://policy` adresine git â€” tÃ¼m politikalar (Temel seviyede 51) **Etkin** olarak gÃ¶rÃ¼nmelidir.
 
 ---
 
 ## Betik Ne Yapar?
 
-| Aşama | Eylem |
+| AÅŸama | Eylem |
 | ------- | ------- |
-| **1. Ön Kontrol** | Çalışan Brave'i tespit eder, devam/iptal istemi gösterir |
-| **2. Yedekleme** | HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur |
-| **3. Uygulama** | Seçilen seviyeye göre 3 katmanda politikaları yazar (24/51/83/123/151) |
-| **4. Özet** | Kategori bazında başarı/hata sayaçları + geri alma bilgisi |
-| **5. Temizlik** | Artık süreç bırakmadan temiz çıkış |
+| **1. Ã–n Kontrol** | Ã‡alÄ±ÅŸan Brave'i tespit eder, devam/iptal istemi gÃ¶sterir |
+| **2. Yedekleme** | HKLM politika kovasÄ±nÄ±n zaman damgalÄ± `.reg` yedeÄŸini oluÅŸturur |
+| **3. Uygulama** | SeÃ§ilen seviyeye gÃ¶re 3 katmanda politikalarÄ± yazar (24/51/83/123/151) |
+| **4. Ã–zet** | Kategori bazÄ±nda baÅŸarÄ±/hata sayaÃ§larÄ± + geri alma bilgisi |
+| **5. Temizlik** | ArtÄ±k sÃ¼reÃ§ bÄ±rakmadan temiz Ã§Ä±kÄ±ÅŸ |
 
 ---
 
@@ -305,24 +297,24 @@ Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 51) 
 reg import "BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg"
 ```
 
-Yedek dosyası zaman damgasıyla adlandırılır (ör. `BraveOmega_HKLM_20260613_120000.reg`).
+Yedek dosyasÄ± zaman damgasÄ±yla adlandÄ±rÄ±lÄ±r (Ã¶r. `BraveOmega_HKLM_20260613_120000.reg`).
 
 ---
 
-## Sık Karşılaşılan Sorunlar
+## SÄ±k KarÅŸÄ±laÅŸÄ±lan Sorunlar
 
-| Sorun | Çözüm |
+| Sorun | Ã‡Ã¶zÃ¼m |
 | ------- | ------- |
-| Başlatmada "KRİTİK HATA" | PowerShell'e sağ tıkla → **Yönetici olarak çalıştır** |
-| `brave://policy`'de politika yok | **Tüm** Brave pencerelerini kapat ve yeniden aç |
-| Çıktıda `[HATA]` satırları | Yönetici modunu doğrula; yeniden çalıştır |
-| `brave://policy`'de "Bilinmiyor" politikası | Brave sürümünün [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile eşleştiğini doğrula |
+| BaÅŸlatmada "KRÄ°TÄ°K HATA" | PowerShell'e saÄŸ tÄ±kla â†’ **YÃ¶netici olarak Ã§alÄ±ÅŸtÄ±r** |
+| `brave://policy`'de politika yok | **TÃ¼m** Brave pencerelerini kapat ve yeniden aÃ§ |
+| Ã‡Ä±ktÄ±da `[HATA]` satÄ±rlarÄ± | YÃ¶netici modunu doÄŸrula; yeniden Ã§alÄ±ÅŸtÄ±r |
+| `brave://policy`'de "Bilinmiyor" politikasÄ± | Brave sÃ¼rÃ¼mÃ¼nÃ¼n [Uyumluluk Matrisi](Version-Compatibility-Matrix#-tÃ¼rkÃ§e) ile eÅŸleÅŸtiÄŸini doÄŸrula |
 
 ---
 
-## Sonraki Adımlar
+## Sonraki AdÄ±mlar
 
-- [📖 Tam Kurulum Kılavuzu](Installation#-türkçe)
-- [🏗️ Mimari Genel Bakış](Architecture#-türkçe)
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe)
-- [🛡️ Güvenlik Modeli](Security#-türkçe)
+- [ğŸ“– Tam Kurulum KÄ±lavuzu](Installation#-tÃ¼rkÃ§e)
+- [ğŸ—ï¸ Mimari Genel BakÄ±ÅŸ](Architecture#-tÃ¼rkÃ§e)
+- [ğŸ“‹ Politika BaÅŸvurusu](Policy-Reference#-tÃ¼rkÃ§e)
+- [ğŸ›¡ï¸ GÃ¼venlik Modeli](Security#-tÃ¼rkÃ§e)

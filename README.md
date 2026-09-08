@@ -72,10 +72,12 @@ Essential ⭐ (51), Balanced (83), Advanced (123), and Strict (151) — giving u
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
 
-> **Two scripts. One goal. Zero cost.**
+> **One script. Two languages. Zero cost.**
 >
-> `BraveOmega-EN.ps1` — Full English interface, for international users
-> `BraveOmega-TR.ps1` — Full Turkish interface, for Turkish-speaking users
+> `BraveOmega.ps1` — Unified bilingual script. On first launch it asks
+> `Press 1 for English / Türkçe için 2'ye basın`, or pin the language with
+> `-Language EN|TR`. `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` remain as thin
+> wrappers that pin English / Turkish and forward every argument.
 
 ---
 
@@ -149,45 +151,46 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 **Step 3 — Run the script with temporary bypass**
 
-*Interactive mode (you choose the hardening level when prompted):*
+*Interactive mode (you choose the language, then the hardening level, when prompted):*
 ```powershell
-# English interface:
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
+# Bilingual entry point — asks: Press 1 for English / Türkçe için 2'ye basın
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
-# Turkish interface:
+# Pinned-language wrappers (same behavior, no language question):
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 ```
 
 *Silent/automated mode (specify level directly):*
 ```powershell
 # Apply Essential (Recommended):
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Level Essential
 
 # Turkish: apply minimal Brave-only policies:
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level "Brave Yalnız"
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Level "Brave Yalnız"
 ```
 
 *Preview mode (show all changes without writing to registry):*
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Essential -WhatIf
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Level Essential -WhatIf
 ```
 
 *Reset/clean uninstall (remove all applied policies):*
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Reset
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Reset
 ```
 
 *Keep Brave Sync enabled even at the Strict tier (bookmarks/settings sync stays available):*
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Strict -AllowSync
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Level Strict -AllowSync
 ```
 
 > [!NOTE]
 > Brave Sync is **available by default** at Brave Only, Essential, Balanced, and Advanced.
 > Only the **Strict** tier disables sync (`BrowserSignin=0` + `SyncDisabled=1`).
-> Add `-AllowSync` (EN) / `-SenkronizasyonaIzinVer` (TR) at the Strict tier to exclude
+> Add `-AllowSync` (alias `-SenkronizasyonaIzinVer`) at the Strict tier to exclude
 > `BrowserSignin` and `SyncDisabled` from the applied set and clear previously written
-> values — all other hardening remains active.
+> values — all other hardening remains active. Both spellings work in every entry point.
 
 | Parameter Value (EN) | Parameter Value (TR) | Level | Policies |
 |---------------------|---------------------|-------|----------|
@@ -567,8 +570,9 @@ BRAVE OMEGA PROJECT/
 │       ├── admx-validate.ps1           ADMX validation script
 │       └── admx-validate.yml           ADMX validation pipeline
 └── Brave Omega/
-        BraveOmega-EN.ps1               Main script — English interface
-        BraveOmega-TR.ps1               Main script — Turkish interface
+         BraveOmega.ps1                  Unified bilingual script (EN/TR)
+         BraveOmega-EN.ps1               Wrapper — pins English
+         BraveOmega-TR.ps1               Wrapper — pins Turkish
 ```
 
 ---
@@ -624,7 +628,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Quality & Test Infrastructure** — 56 Pester 5 tests (16 test files), PSScriptAnalyzer, policy integrity CI, platform matrix (Ubuntu + Windows), version-check workflow (v2.1.6)
 - [ ] Additional language editions (community contributions welcome — see CONTRIBUTING.md)
 - [ ] Per-policy override support — explicitly include/exclude individual policies from any level
-- [ ] PowerShell help system (`Get-Help BraveOmega-EN.ps1 -Detailed`)
+- [ ] PowerShell help system (`Get-Help BraveOmega.ps1 -Detailed`)
 - [ ] Signed releases with SHA-256 checksums
 
 ---
@@ -704,10 +708,12 @@ Brave Omega **beş katmanlı bir sıkılaştırma modeli** sunar — Brave Yaln�
 Temel ⭐ (51), Dengeli (83), Gelişmiş (123) ve Katı (151) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
 sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
 
-> **İki betik. Tek hedef. Sıfır maliyet.**
+> **Tek betik. İki dil. Sıfır maliyet.**
 >
-> `BraveOmega-EN.ps1` — Tam İngilizce arayüz, uluslararası kullanıcılar için
-> `BraveOmega-TR.ps1` — Tam Türkçe arayüz, Türkçe konuşan kullanıcılar için
+> `BraveOmega.ps1` — Birleşik iki dilli betik. İlk açılışta
+> `Press 1 for English / Türkçe için 2'ye basın` diye sorar; `-Language EN|TR`
+> ile dil sabitlenebilir. `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` dosyaları,
+> dili sabitleyip tüm argümanları ileten ince sarmalayıcılardır.
 
 ---
 
@@ -781,45 +787,46 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 **Adım 3 — Geçici bypass ile betiği çalıştır**
 
-*Etkileşimli mod (seviyeyi çalıştırınca seçersiniz):*
+*Etkileşimli mod (önce dili, sonra seviyeyi seçersiniz):*
 ```powershell
-# Türkçe arayüz:
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
+# İki dilli giriş noktası — sorar: Press 1 for English / Türkçe için 2'ye basın
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
-# İngilizce arayüz:
+# Dili sabitlenmiş sarmalayıcılar (aynı davranış, dil sorusu yok):
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
 ```
 
 *Sessiz/otomatik mod (seviyeyi doğrudan belirtin):*
 ```powershell
 # Temel (Önerilen) seviyeyi uygula:
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Level Temel
 
 # İngilizce: en katı seviye:
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -Level Strict
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Level Strict
 ```
 
 *Önizleme kipi (kayıt defterine yazmadan tüm değişiklikleri göster):*
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Temel -WhatIf
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Level Temel -WhatIf
 ```
 
 *Sıfırlama (uygulanan tüm politikaları kaldır):*
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Sıfırla
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Reset
 ```
 
 *Brave Sync'i Katı kademesinde bile açık tut (yer işareti/ayar senkronu kullanılabilir kalır):*
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -Level Katı -SenkronizasyonaIzinVer
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Level Katı -SenkronizasyonaIzinVer
 ```
 
 > [!NOTE]
 > Brave Sync varsayılan olarak Brave Yalnız, Temel, Dengeli ve Gelişmiş kademelerinde **açıktır**.
 > Yalnızca **Katı** kademesi sync'i kapatır (`BrowserSignin=0` + `SyncDisabled=1`).
-> Katı kademesinde `-SenkronizasyonaIzinVer` (TR) / `-AllowSync` (EN) parametresini ekleyerek
-> `BrowserSignin` ve `SyncDisabled` politikalarını uygulanan kümeden çıkarır ve önceden yazılmış
-> değerleri temizlersiniz — diğer tüm sıkılaştırmalar etkin kalır.
+> Katı kademesinde `-SenkronizasyonaIzinVer` (`-AllowSync` ile aynı; her girişte geçerli)
+> parametresini ekleyerek `BrowserSignin` ve `SyncDisabled` politikalarını uygulanan kümeden
+> çıkarır ve önceden yazılmış değerleri temizlersiniz — diğer tüm sıkılaştırmalar etkin kalır.
 
 | Parametre Değeri (TR) | Parametre Değeri (EN) | Seviye | Politika |
 |----------------------|----------------------|--------|----------|
@@ -1200,8 +1207,9 @@ BRAVE OMEGA PROJECT/
 │       ├── admx-validate.ps1           ADMX doğrulama betiği
 │       └── admx-validate.yml           ADMX doğrulama hattı
 └── Brave Omega/
-        BraveOmega-EN.ps1               Ana betik — İngilizce arayüz
-        BraveOmega-TR.ps1               Ana betik — Türkçe arayüz
+         BraveOmega.ps1                  Birleşik iki dilli betik (EN/TR)
+         BraveOmega-EN.ps1               Sarmalayıcı — İngilizce sabitler
+         BraveOmega-TR.ps1               Sarmalayıcı — Türkçe sabitler
 ```
 
 ---

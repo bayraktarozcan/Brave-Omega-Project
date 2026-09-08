@@ -78,9 +78,9 @@ foreach ($p in $policies) {
 
 Write-Result "ADMX lookup built: $($admxPolicyMap.Count) unique policy names" -Level "Info"
 
-# ─── Our script's policy definitions (auto-discovered from BraveOmega-EN.ps1) ───
+# ─── Our script's policy definitions (auto-discovered from BraveOmega.ps1) ───
 # Parsed dynamically so every policy added to the script is validated — no manual sync.
-$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave Omega\BraveOmega-EN.ps1"
+$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave Omega\BraveOmega.ps1"
 if (-not (Test-Path -LiteralPath $scriptPath)) {
     Write-Host "Script file not found: $scriptPath" -ForegroundColor Red
     exit 1

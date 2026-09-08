@@ -145,7 +145,7 @@ Brave Omega itself collects **zero telemetry**. The script:
 The recommended invocation method uses a **session-scoped bypass**:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 ```
 
 This affects only the current PowerShell window. No permanent execution policy change is made. No attack surface is introduced.
@@ -421,7 +421,7 @@ Brave Omega'nın kendisi **sıfır veri aktarımı** toplar:
 Önerilen çalıştırma yöntemi **oturum bazlı bypass** kullanır:
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR
 ```
 
 Bu ayar yalnızca geçerli PowerShell penceresini etkiler. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz. Hiçbir saldırı yüzeyi oluşturulmaz.

@@ -41,15 +41,12 @@ Describe "ADMX Cross-Reference - Documented Exceptions" -Tag "Integration" {
         $validatorContent = Get-Content -Path $validatorPath -Raw
         $validatorContent -match 'DeviceAttributesAllowedForOrigins\s*=' | Should -Be $false
 
-        $enScript = Get-Content -Path (Join-Path $PSScriptRoot "..\Brave Omega\BraveOmega-EN.ps1") -Raw
-        $trScript = Get-Content -Path (Join-Path $PSScriptRoot "..\Brave Omega\BraveOmega-TR.ps1") -Raw
+        $mainScript = Get-Content -Path (Join-Path $PSScriptRoot "..\Brave Omega\BraveOmega.ps1") -Raw
 
-        $enScript -match 'Name="DeviceAttributesAllowedForOrigins"' | Should -Be $false
-        $trScript -match 'Ad="DeviceAttributesAllowedForOrigins"' | Should -Be $false
+        $mainScript -match 'Name="DeviceAttributesAllowedForOrigins"' | Should -Be $false
 
         $resetEntryPattern = '(?m)^\s*"DeviceAttributesAllowedForOrigins",'
-        $enScript -match $resetEntryPattern | Should -Be $false
-        $trScript -match $resetEntryPattern | Should -Be $false
+        $mainScript -match $resetEntryPattern | Should -Be $false
     }
 
     It "validator should run cleanly with no failures" {
