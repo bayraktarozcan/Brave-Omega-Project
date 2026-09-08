@@ -33,10 +33,4 @@ Describe "Policy Integrity" -Tag "Integration" {
         $lines.Count | Should -BeGreaterOrEqual 149
     }
 
-    It "wrappers should not duplicate policy definitions" {
-        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
-            $lines = Get-PolicyLines -ScriptPath $wrapper
-            @($lines).Count | Should -BeExactly 0
-        }
-    }
 }

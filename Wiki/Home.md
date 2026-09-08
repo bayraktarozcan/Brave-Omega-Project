@@ -46,7 +46,6 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 > **Two scripts. One goal. Zero cost.**
 >
 > - `BraveOmega.ps1` — Unified bilingual script (asks language on first launch)
-> - `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` — Wrappers pinning English / Turkish
 
 ---
 
@@ -185,7 +184,6 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 > **İki betik. Tek hedef. Sıfır maliyet.**
 >
 > - `BraveOmega.ps1` — Birleşik iki dilli betik (dili ilk açılışta sorar)
-> - `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` — Dili sabitleyen sarmalayıcılar (İngilizce / Türkçe)
 
 ---
 

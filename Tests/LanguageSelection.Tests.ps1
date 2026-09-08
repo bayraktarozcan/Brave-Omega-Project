@@ -54,34 +54,6 @@ Describe "Language Selection - Strings Table" -Tag "Unit" {
     }
 }
 
-Describe "Language Selection - Wrappers" -Tag "Unit" {
-    It "EN wrapper should pin Language to EN" {
-        $content = Get-Content -Path $ScriptEN -Raw
-        $content -match "\['Language'\] = 'EN'" | Should -Be $true
-    }
-
-    It "TR wrapper should pin Language to TR" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $content -match "\['Language'\] = 'TR'" | Should -Be $true
-    }
-
-    It "wrappers should honor an explicitly passed -Language" {
-        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
-            $content = Get-Content -Path $wrapper -Raw
-            $content -match "ContainsKey\('Language'\)" | Should -Be $true
-        }
-    }
-
-    It "wrappers should forward to the canonical script" {
-        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
-            $content = Get-Content -Path $wrapper -Raw
-            $content -match "Join-Path.*BraveOmega\.ps1" | Should -Be $true
-            $content -match '& \$canonical @forward' | Should -Be $true
-            $content -match 'exit \$LASTEXITCODE' | Should -Be $true
-        }
-    }
-}
-
 Describe "Language Selection - Canonical Logic Guards" -Tag "Unit" {
     It "S/MIME notice condition should use the canonical level key (both languages)" {
         $content = Get-Content -Path $ScriptMain -Raw

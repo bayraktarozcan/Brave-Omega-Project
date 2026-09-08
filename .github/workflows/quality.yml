@@ -104,12 +104,6 @@ jobs:
         run: |
           $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
           if ($results) { $results | Format-Table; exit 1 }
-      - name: Run Invoke-ScriptAnalyzer on language wrappers
-        shell: pwsh
-        run: |
-          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-EN.ps1" -Severity Warning
-          $results += Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-TR.ps1" -Severity Warning
-          if ($results) { $results | Format-Table; exit 1 }
 
   policy-integrity:
     name: Policy Integrity
