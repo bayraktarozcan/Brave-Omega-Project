@@ -79,5 +79,4 @@ Describe "Parameter Binding - Write-PolicyValue Function" -Tag "Unit" {
         $content -match '\[string\]\$ValueType' | Should -Be $true
         $content -match '\[switch\]\$WhatIf' | Should -Be $true
     }
-
-
+}

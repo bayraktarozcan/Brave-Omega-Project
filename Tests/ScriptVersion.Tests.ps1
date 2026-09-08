@@ -28,4 +28,4 @@ Describe "Script Version Consistency" -Tag "Integration" {
         $policies = Get-PolicyLines -ScriptPath $ScriptMain
         $policies.Count | Should -BeGreaterOrEqual 149
     }
-
+}
