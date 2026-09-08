@@ -38,7 +38,7 @@ Describe "Parameter Binding - Unified Script" -Tag "Unit" {
     }
 }
 
-Describe "Parameter Binding - TR Aliases and Wrappers" -Tag "Unit" {
+Describe "Parameter Binding - TR Aliases" -Tag "Unit" {
     It "should alias Seviye to Level" {
         $content = Get-Content -Path $ScriptMain -Raw
         $content -match '\[Alias\("Seviye"\)\]\[string\]\$Level' | Should -Be $true
@@ -54,7 +54,7 @@ Describe "Parameter Binding - TR Aliases and Wrappers" -Tag "Unit" {
         $content -match '\[Alias\("SenkronizasyonaIzinVer"\)\]\[switch\]\$AllowSync' | Should -Be $true
     }
 
-    It "EN and TR wrappers should mirror the unified param block" {
+    It "unified script should declare all five canonical parameters" {
         function Get-ParamAstNames {
             param([string]$Path)
             $tokens = $null; $errs = $null
@@ -65,12 +65,6 @@ Describe "Parameter Binding - TR Aliases and Wrappers" -Tag "Unit" {
         $mainNames = Get-ParamAstNames -Path $ScriptMain
         foreach ($name in @('Level', 'WhatIf', 'Reset', 'AllowSync', 'Language')) {
             $mainNames -contains $name | Should -Be $true -Because "unified script should declare $name"
-        }
-        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
-            $wrapNames = Get-ParamAstNames -Path $wrapper
-            foreach ($name in @('Level', 'WhatIf', 'Reset', 'AllowSync', 'Language')) {
-                $wrapNames -contains $name | Should -Be $true -Because "$wrapper should declare $name"
-            }
         }
     }
 }
@@ -86,11 +80,4 @@ Describe "Parameter Binding - Write-PolicyValue Function" -Tag "Unit" {
         $content -match '\[switch\]\$WhatIf' | Should -Be $true
     }
 
-    It "wrappers should contain no policy-writing logic" {
-        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
-            $content = Get-Content -Path $wrapper -Raw
-            $content -match 'function\s+Write-PolicyValue' | Should -Be $false
-            $content -match 'New-ItemProperty' | Should -Be $false
-        }
-    }
-}
+

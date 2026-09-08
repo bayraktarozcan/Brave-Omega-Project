@@ -74,10 +74,9 @@ hardening. Levels are cumulative: each tier includes all policies from previous 
 
 > **One script. Two languages. Zero cost.**
 >
-> `BraveOmega.ps1` — Unified bilingual script. On first launch it asks
+> `BraveOmega.ps1` — The single unified bilingual script. On first launch it asks
 > `Press 1 for English / Türkçe için 2'ye basın`, or pin the language with
-> `-Language EN|TR`. `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` remain as thin
-> wrappers that pin English / Turkish and forward every argument.
+> `-Language EN|TR`. One file, both languages, all 151 policies.
 
 ---
 
@@ -153,12 +152,12 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 *Interactive mode (you choose the language, then the hardening level, when prompted):*
 ```powershell
-# Bilingual entry point — asks: Press 1 for English / Türkçe için 2'ye basın
+# Single bilingual script — asks: Press 1 for English / Türkçe için 2'ye basın
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
-# Pinned-language wrappers (same behavior, no language question):
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
+# ...or pin the language up front (skips the question):
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR
 ```
 
 *Silent/automated mode (specify level directly):*
@@ -570,9 +569,7 @@ BRAVE OMEGA PROJECT/
 │       ├── admx-validate.ps1           ADMX validation script
 │       └── admx-validate.yml           ADMX validation pipeline
 └── Brave Omega/
-         BraveOmega.ps1                  Unified bilingual script (EN/TR)
-         BraveOmega-EN.ps1               Wrapper — pins English
-         BraveOmega-TR.ps1               Wrapper — pins Turkish
+         BraveOmega.ps1                  The single bilingual script (EN/TR)
 ```
 
 ---
@@ -710,10 +707,9 @@ sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikaların
 
 > **Tek betik. İki dil. Sıfır maliyet.**
 >
-> `BraveOmega.ps1` — Birleşik iki dilli betik. İlk açılışta
+> `BraveOmega.ps1` — Tek birleşik iki dilli betik. İlk açılışta
 > `Press 1 for English / Türkçe için 2'ye basın` diye sorar; `-Language EN|TR`
-> ile dil sabitlenebilir. `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` dosyaları,
-> dili sabitleyip tüm argümanları ileten ince sarmalayıcılardır.
+> ile dil sabitlenebilir. Tek dosya, iki dil, 151 politikanın tamamı.
 
 ---
 
@@ -789,12 +785,12 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 *Etkileşimli mod (önce dili, sonra seviyeyi seçersiniz):*
 ```powershell
-# İki dilli giriş noktası — sorar: Press 1 for English / Türkçe için 2'ye basın
+# Tek iki dilli betik — sorar: Press 1 for English / Türkçe için 2'ye basın
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
-# Dili sabitlenmiş sarmalayıcılar (aynı davranış, dil sorusu yok):
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"
+# ...veya dili önden sabitleyin (soru sorulmaz):
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 ```
 
 *Sessiz/otomatik mod (seviyeyi doğrudan belirtin):*
@@ -1207,9 +1203,7 @@ BRAVE OMEGA PROJECT/
 │       ├── admx-validate.ps1           ADMX doğrulama betiği
 │       └── admx-validate.yml           ADMX doğrulama hattı
 └── Brave Omega/
-         BraveOmega.ps1                  Birleşik iki dilli betik (EN/TR)
-         BraveOmega-EN.ps1               Sarmalayıcı — İngilizce sabitler
-         BraveOmega-TR.ps1               Sarmalayıcı — Türkçe sabitler
+         BraveOmega.ps1                  Tek iki dilli betik (EN/TR)
 ```
 
 ---

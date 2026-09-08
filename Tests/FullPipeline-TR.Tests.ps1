@@ -31,11 +31,6 @@ Describe "Full Pipeline (TR coverage via unified script)" -Tag "Integration" {
         $content.Contains("Kat$($dotlessI)") | Should -Be $true
     }
 
-    It "should pin the TR wrapper to Turkish" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $content -match "\['Language'\] = 'TR'" | Should -Be $true
-    }
-
     It "should have a single script version variable" {
         $v = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion"
         $v | Should -BeExactly "v2.6.2.0"

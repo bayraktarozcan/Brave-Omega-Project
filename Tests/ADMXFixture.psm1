@@ -1,7 +1,7 @@
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
 $admxPath = Join-Path $ProjectRoot "admx\brave.admx"
 $admxValidatePath = Join-Path $ProjectRoot "admx\admx-validate.ps1"
-$scriptEN = Join-Path $ProjectRoot "Brave Omega\BraveOmega.ps1"
+$scriptMain = Join-Path $ProjectRoot "Brave Omega\BraveOmega.ps1"
 
 function Get-AdmxPolicyNames {
     if (-not (Test-Path $admxPath)) { throw "ADMX file not found: $admxPath" }
@@ -16,8 +16,8 @@ function Get-AdmxPolicyNames {
 }
 
 function Get-ScriptPolicyNames {
-    if (-not (Test-Path $scriptEN)) { throw "Script not found: $scriptEN" }
-    $content = Get-Content -Path $scriptEN -Raw
+    if (-not (Test-Path $scriptMain)) { throw "Script not found: $scriptMain" }
+    $content = Get-Content -Path $scriptMain -Raw
     $pattern = 'Name\s*=\s*"([^"]+)"'
     $matches = [regex]::Matches($content, $pattern)
     $names = @()
@@ -44,7 +44,7 @@ function Test-PolicyTypeMatch {
         [string]$PolicyName,
         [int]$ExpectedValue
     )
-    $scriptContent = Get-Content -Path $scriptEN -Raw
+    $scriptContent = Get-Content -Path $scriptMain -Raw
     $pattern = "Name\s*=\s*`"$PolicyName`"\s*;\s*Value\s*=\s*(\d+)"
     $match = [regex]::Match($scriptContent, $pattern)
     if (-not $match.Success) { return $false }

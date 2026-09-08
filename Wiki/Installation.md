@@ -195,8 +195,6 @@ BRAVE OMEGA PROJECT/
 â”‚       â””â”€â”€ admx-validate.yml         ADMX validation pipeline
 â””â”€â”€ Brave Omega/
         BraveOmega.ps1             Unified bilingual script (EN/TR)
-        BraveOmega-EN.ps1          Wrapper — pins English
-        BraveOmega-TR.ps1          Wrapper — pins Turkish
 â””â”€â”€ Tests/                         Pester test suite (23 files)
             FullPipeline-EN.Tests.ps1       Unit + integration tests (EN)
             FullPipeline-TR.Tests.ps1       Unit + integration tests (TR)
@@ -410,8 +408,6 @@ BRAVE OMEGA PROJECT/
 â”‚       â””â”€â”€ admx-validate.yml         ADMX doÄŸrulama hattÄ±
 â””â”€â”€ Brave Omega/
         BraveOmega.ps1             Birleşik iki dilli betik (EN/TR)
-        BraveOmega-EN.ps1          Sarmalayıcı — İngilizce sabitler
-        BraveOmega-TR.ps1          Sarmalayıcı — Türkçe sabitler
 â””â”€â”€ Tests/                         Pester test paketi (18 dosya)
         FullPipeline-EN.Tests.ps1       Birim + entegrasyon testleri (EN)
         FullPipeline-TR.Tests.ps1       Birim + entegrasyon testleri (TR)

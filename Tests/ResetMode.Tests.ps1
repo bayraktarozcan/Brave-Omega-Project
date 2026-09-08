@@ -31,14 +31,6 @@ Describe "Reset Mode - Reset Policy Count" -Tag "Unit" {
         $removals = [regex]::Matches($content, 'Remove-ItemProperty\s+-Path\s+\$HKCU_Target')
         $removals.Count | Should -BeGreaterOrEqual 1
     }
-
-    It "wrappers should not implement reset logic themselves" {
-        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
-            $content = Get-Content -Path $wrapper -Raw
-            $content -match 'Remove-ItemProperty' | Should -Be $false
-            $content -match 'Remove-PolicyEntry' | Should -Be $false
-        }
-    }
 }
 
 Describe "Reset Mode - Path Constants Defined Before Reset Block" -Tag "Unit" {

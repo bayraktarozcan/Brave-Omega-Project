@@ -29,11 +29,3 @@ Describe "Script Version Consistency" -Tag "Integration" {
         $policies.Count | Should -BeGreaterOrEqual 149
     }
 
-    It "wrappers should not define their own version or policies" {
-        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
-            $content = Get-Content -Path $wrapper -Raw
-            $content -match '\$ScriptVersion\s*=' | Should -Be $false
-            $content -match '@\{Name=' | Should -Be $false
-        }
-    }
-}
