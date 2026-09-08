@@ -19,7 +19,7 @@ Quick-reference guide for common Brave Omega issues.
 | Brave overwrites HKCU prefs | Brave was open during run | Close Brave first; re-run |
 | Policy shows "Unknown" in `brave://policy` | Version mismatch | Verify Brave version vs [Compatibility Matrix](Version-Compatibility-Matrix) |
 | `reg export` fails at backup | Restricted HKLM ACL | Run `regedit` â†’ inspect path â†’ check ACL |
-| Script hangs / no output | Brave process detection | Close Brave manually, re-run with `-Force` |
+| Script hangs / no output | Brave process detection | Close Brave manually, re-run |
 | `-Reset` doesn't remove all policies | Brave was running | Close Brave completely, re-run `-Reset` |
 | `-WhatIf` shows unexpected changes | Wrong level selected | Re-run with correct `-Level` parameter |
 | Test fails: "Command not found" | Tests run from wrong directory | `cd` to project root â†’ `Invoke-Pester -Path .\Tests\` |
@@ -81,10 +81,10 @@ Quick-reference guide for common Brave Omega issues.
 
 1. Close **all** Brave windows before running script
 2. Use script's built-in process guard (prompts continue/cancel if Brave detected)
-3. If missed: Close Brave, re-run script with `-Force`
+3. If missed: Close Brave, re-run script
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
 ---
@@ -131,10 +131,10 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
 1. Check if PowerShell is waiting for input (look at title bar)
 2. Close all Brave windows manually
 3. Press `Enter` in PowerShell if prompted
-4. Or re-run with `-Force` to skip process guard:
+4. Or close Brave and re-run (the guard prompts again):
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
 ---
@@ -351,10 +351,10 @@ SÄ±k karÅŸÄ±laÅŸÄ±lan Brave Omega sorunlarÄ± iÃ§in hÄ±zlÄ± ba�
 
 1. BetiÄŸi Ã§alÄ±ÅŸtÄ±rmadan Ã¶nce **tÃ¼m** Brave pencerelerini kapatÄ±n
 2. BetiÄŸin yerleÅŸik sÃ¼reÃ§ koruyucusunu kullanÄ±n (Brave tespit edilirse devam/iptal istemi gÃ¶sterir)
-3. KaÃ§Ä±rÄ±ldÄ±ysa: Brave'i kapatÄ±n, `-Force` ile betiÄŸi yeniden Ã§alÄ±ÅŸtÄ±rÄ±n
+3. KaÃ§Ä±rÄ±ldÄ±ysa: Brave'i kapatÄ±n betiÄŸi yeniden Ã§alÄ±ÅŸtÄ±rÄ±n
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
 ---
@@ -401,10 +401,10 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
 1. PowerShell'in giriÅŸ bekleyip beklemediÄŸini kontrol edin (baÅŸlÄ±k Ã§ubuÄŸuna bakÄ±n)
 2. TÃ¼m Brave pencerelerini manuel kapatÄ±n
 3. Ä°stem varsa PowerShell'de `Enter` tuÅŸuna basÄ±n
-4. Veya sÃ¼reÃ§ koruyucusunu atlamak iÃ§in `-Force` ile yeniden Ã§alÄ±ÅŸtÄ±rÄ±n:
+4. Veya Brave'i kapatıp yeniden çalıştırın (koruyucu tekrar sorar):
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
 ---

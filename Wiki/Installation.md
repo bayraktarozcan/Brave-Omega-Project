@@ -196,7 +196,7 @@ BRAVE OMEGA PROJECT/
 â””â”€â”€ Brave Omega/
         BraveOmega.ps1             Unified bilingual script (EN/TR)
 â””â”€â”€ Tests/                         Pester test suite (23 files)
-            FullPipeline-EN.Tests.ps1       Unit + integration tests (EN)
+            FullPipeline.Tests.ps1          Unit + integration tests
             FullPipeline-TR.Tests.ps1       Unit + integration tests (TR)
             â””â”€â”€ *.Tests.ps1                  Phased policy tests (21 files)
 ```
@@ -408,10 +408,10 @@ BRAVE OMEGA PROJECT/
 â”‚       â””â”€â”€ admx-validate.yml         ADMX doÄŸrulama hattÄ±
 â””â”€â”€ Brave Omega/
         BraveOmega.ps1             Birleşik iki dilli betik (EN/TR)
-â””â”€â”€ Tests/                         Pester test paketi (18 dosya)
-        FullPipeline-EN.Tests.ps1       Birim + entegrasyon testleri (EN)
+â””â”€â”€ Tests/                         Pester test paketi (23 dosya)
+        FullPipeline.Tests.ps1          Birim + entegrasyon testleri
         FullPipeline-TR.Tests.ps1       Birim + entegrasyon testleri (TR)
-        â””â”€â”€ *.Tests.ps1                  AÅŸamalÄ± politika testleri (16 dosya)
+        â””â”€â”€ *.Tests.ps1                  AÅŸamalÄ± politika testleri (21 dosya)
 ```
 
 ---

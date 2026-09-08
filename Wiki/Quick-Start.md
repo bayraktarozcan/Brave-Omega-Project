@@ -71,10 +71,7 @@ Your selection (2):
 To skip the menu in automated deployments:
 
 ```powershell
-# Essential level (recommended)
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
-
-# (add -Language EN or -Language TR to skip the language question)
+# Essential level (recommended) — add -Language EN/TR to skip the language question:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
 ```
 
@@ -100,10 +97,7 @@ cd "C:\Users\Downloads\Brave-Omega"
 ### 3. Run the Script
 
 ```powershell
-# Turkish
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
-
-# (add -Language EN or -Language TR to skip the language question)
+# Unified script asks for language first (or pin with -Language EN/TR):
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
@@ -234,9 +228,6 @@ Otomatik daÄŸÄ±tÄ±mlarda menÃ¼yÃ¼ atlamak iÃ§in:
 ```powershell
 # Temel seviye (Ã¶nerilen)
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Temel
-
-# (dil sorusunu atlamak için -Language TR veya -Language EN ekleyin)
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
 ```
 
 KullanÄ±labilir seviyeler: `BraveOnly`/`BraveYalniz`, `Essential`/`Temel`, `Balanced`/`Dengeli`, `Advanced`/`Gelismis`, `Strict`/`Kati`.
@@ -262,9 +253,6 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 ```powershell
 # TÃ¼rkÃ§e
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
-
-# (dil sorusunu atlamak için -Language TR veya -Language EN ekleyin)
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
