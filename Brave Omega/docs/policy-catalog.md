@@ -240,8 +240,8 @@ Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, pri
 | Platform | Script | Notes |
 |----------|--------|-------|
 | Windows | `BraveOmega.ps1` | Primary target: HKLM registry + Omaha GUID |
-| macOS | `BraveOmega-Mac-BraveOnly.sh` | Brave-only tier via `defaults write` |
-| Linux | `BraveOmega-Linux-BraveOnly.json` | Brave-only tier via Chromium policy JSON |
+| macOS | _(planned)_ | Brave-only tier via `defaults write` |
+| Linux | _(planned)_ | Brave-only tier via Chromium policy JSON |
 
 All 24 BraveOnly policies are also applied on macOS and Linux, though the mechanism differs (CLI/JSON instead of registry). Essential/Balanced/Advanced/Strict tiers are Windows-only due to HKLM+GUID dependency.
 
@@ -255,7 +255,7 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega.ps1` v2.6.2.0 (bilingual EN/TR)  
+> **Kaynak:** `BraveOmega.ps1` v2.6.2.0 (iki dilli EN/TR)  
 > **Tarih:** 2026-09-07  
 > **Toplam benzersiz politika:** 151 (çakışma yok)  
 > **Tür dağılımı:** 124 DWord · 8 String · 19 MultiString  
@@ -478,7 +478,7 @@ Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirme
 | Platform | Betik | Notlar |
 |----------|-------|--------|
 | Windows | `BraveOmega.ps1` | Birincil hedef: HKLM kayıt defteri + Omaha GUID |
-| macOS | `BraveOmega-Mac-BraveOnly.sh` | Yalnızca Brave Yalnız katmanı, `defaults write` ile |
-| Linux | `BraveOmega-Linux-BraveOnly.json` | Yalnızca Brave Yalnız katmanı, Chromium JSON politika dosyası |
+| macOS | _(planlandı)_ | Yalnızca Brave Yalnız katmanı, `defaults write` ile |
+| Linux | _(planlandı)_ | Yalnızca Brave Yalnız katmanı, Chromium JSON politika dosyası |
 
 24 Brave Yalnız politikasının tamamı macOS ve Linux'ta da uygulanır, ancak mekanizma farklıdır (CLI/JSON, kayıt defteri yerine). Temel/Dengeli/İleri/Katı katmanları yalnızca Windows'a özgüdür (HKLM+GUID bağımlılığı).
