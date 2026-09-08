@@ -15,7 +15,7 @@ body:
     attributes:
       label: "Brave Version / Brave Sürümü"
       description: "Output of brave://version"
-      placeholder: "e.g. 1.92.134 Chromium: 150.0.7871.63"
+      placeholder: "e.g. 1.94.121 Chromium: 152.0.7977.83"
     validations:
       required: true
 
