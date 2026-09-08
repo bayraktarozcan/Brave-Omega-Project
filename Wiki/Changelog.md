@@ -23,6 +23,25 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.7.0.0 - 2026-09-09
+
+**Feature Release - Unified bilingual script**
+
+**Added:**
+
+- Merged `BraveOmega-EN.ps1` and `BraveOmega-TR.ps1` into a single `BraveOmega.ps1` with a 108-key EN/TR strings table; first launch asks language, `-Language EN|TR|Auto` pins it (TR aliases kept)
+- Gitleaks secret-scan CI (pinned v8.30.1 binary, full history on push and pull requests)
+
+**Changed:**
+
+- `Brave Omega/` now holds exactly one script; tests, ADMX validator, workflows, catalog tooling, and docs updated to the wrapper-free layout
+- Fixed latent TR bug: the S/MIME install notice never displayed in Turkish runs (canonical `$Level` fixes it, regression test added)
+- No policy changes; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+- Script updated to v2.7.0.0
+
+---
+
+
 ### v2.6.2.0 — 2026-09-07
 
 **Patch Release — Brave 1.94.121 compatibility validation**
@@ -614,7 +633,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.6.2.0** *(current)* | 1.94.121 | 152 | 11 25H2 | ✅ Active |
+| **v2.7.0.0** *(current)* | 1.94.121 | 152 | 11 25H2 | ✅ Active |
+| v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
 | v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
 | v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
 | v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
@@ -703,6 +723,25 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.7.0.0 - 2026-09-09
+
+**Özellik Sürümü - Birleşik iki dilli betik**
+
+**Eklenenler:**
+
+- `BraveOmega-EN.ps1` ve `BraveOmega-TR.ps1`, 108 anahtarlı EN/TR metin tablolu tek `BraveOmega.ps1` dosyasında birleştirildi; ilk açılışta dil sorulur, `-Language EN|TR|Auto` sabitler (TR kısaltmaları korunur)
+- Gitleaks secret-scan CI (sabitlenmiş v8.30.1 ikilisi, push ve pull requestlerde tüm tarihçe)
+
+**Değiştirilenler:**
+
+- `Brave Omega/` dizininde artık tek betik vardır; testler, ADMX doğrulayıcı, workflowlar, katalog araçları ve belgeler sarmalayıcısız düzene güncellendi
+- Gizli TR hatası düzeltildi: S/MIME kurulum notu Türkçe çalışmalarda hiç görüntülenmiyordu (kanonik `$Level` düzeltir, regresyon testi eklendi)
+- Politika değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+- Betik v2.7.0.0 sürümüne güncellendi
+
+---
+
 
 ### v2.6.2.0 — 2026-09-07
 
@@ -1296,7 +1335,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.6.2.0** *(güncel)* | 1.94.121 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.7.0.0** *(güncel)* | 1.94.121 | 152 | 11 25H2 | ✅ Etkin |
+| v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |
 | v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
 | v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
 | v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |

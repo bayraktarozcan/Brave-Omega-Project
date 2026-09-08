@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.6.2.0** ⭐ | 1.94.121 | 152.0.7977.83 | Windows 11 25H2 | ✅ Active | 2026-09-07 |
+| **v2.7.0.0** ✅ | 1.94.121 | 152.0.7977.83 | Windows 11 25H2 | ✅ Active | 2026-09-09 |
+| **v2.6.2.0** 📦 | 1.94.121 | 152.0.7977.83 | Windows 11 25H2 | 📦 Previous | 2026-09-07 |
 | **v2.6.1.1** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Previous | 2026-09-06 |
 | **v2.6.1.0** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Previous | 2026-08-31 |
 | **v2.5.5.4** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Previous | 2026-08-27 |
@@ -75,7 +76,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.6.2.0) If
+### Use Current (v2.7.0.0) If
 
 - Running Brave 1.94.121 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
@@ -83,7 +84,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ### Use Previous (v2.6.1.1) If
 
-- Cannot update to v2.6.2.0 immediately
+- Cannot update to v2.7.0.0 immediately
 - Running Brave 1.94.117
 
 ### Use Legacy (v2.2.1.0) If
@@ -134,6 +135,7 @@ if (Test-Path $bravePath) {
 ## Policy Coverage by Version
 
 | Version | Policies | Coverage | New Policies |
+| v2.7.0.0 | 151 | 100% | Feature release - unified bilingual script (2026-09-09). No policy changes, no regressions across all 5 tiers |
 | --------- | ---------- | ---------- | -------------- |
 | v2.6.2.0 | 151 | 100% | Patch release — Brave 1.94.121 compatibility validation (Chromium 152.0.7977.83; 2026-09-07). No policy changes, no regressions across all 5 tiers |
 | v2.6.1.1 | 151 | 100% | Patch release — S/MIME documentation correction (2026-09-06). No policy changes, no regressions across all 5 tiers |
@@ -222,7 +224,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.6.2.0** ⭐ | 1.94.121 | 152.0.7977.83 | Windows 11 25H2 | ✅ Güncel | 2026-09-07 |
+| **v2.7.0.0** ✅ | 1.94.121 | 152.0.7977.83 | Windows 11 25H2 | ✅ Active | 2026-09-09 |
+| **v2.6.2.0** 📦 | 1.94.121 | 152.0.7977.83 | Windows 11 25H2 | 📦 Önceki | 2026-09-07 |
 | **v2.6.1.1** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Önceki | 2026-09-06 |
 | **v2.6.1.0** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Önceki | 2026-08-31 |
 | **v2.6.0.0** 📦 | 1.94.117 | 152.0.7977.64 | Windows 11 25H2 | 📦 Önceki | 2026-08-29 |
@@ -285,7 +288,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.6.2.0) Kullan Eğer
+### Güncel (v2.7.0.0) Kullan Eğer
 
 - Brave 1.94.121 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
@@ -293,7 +296,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Önceki (v2.6.1.1) Kullan Eğer
 
-- Hemen v2.6.2.0'e güncelleyemiyorsanız
+- Hemen v2.7.0.0'e güncelleyemiyorsanız
 - Brave 1.94.117 çalışıyorsa
 
 ### Eski (v2.2.1.0) Kullan Eğer
@@ -344,6 +347,7 @@ if (Test-Path $bravePath) {
 ## Sürüme Göre Politika Kapsamı
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
+| v2.7.0.0 | 151 | 100% | Özellik sürümü - birleşik iki dilli betik (2026-09-09). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | ------- | ---------- | -------- | ------------------ |
 | v2.6.2.0 | 151 | 100% | Yama sürümü — Brave 1.94.121 uyumluluk doğrulaması (Chromium 152.0.7977.83; 2026-09-07). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v2.6.1.1 | 151 | 100% | Yama sürümü — S/MIME belgelendirme düzeltmesi (2026-09-06). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
