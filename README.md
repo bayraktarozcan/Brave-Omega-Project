@@ -587,7 +587,7 @@ BRAVE OMEGA PROJECT/
 | **Unrecoverable state** | Automatic time-stamped `.reg` backup before any HKLM writes. Restore with `reg import`. |
 | **Partial application** | Per-operation try-catch with individual success/failure counters. You know exactly what was applied. |
 | **Browser data loss** | Brave process detection with explicit continue/cancel prompt before any changes are made. |
-| **Repeated execution** | Idempotent design via `-Force` parameter. Running multiple times produces no side effects. |
+| **Repeated execution** | Idempotent registry writes (`New-Item* -Force` internally). Running multiple times produces no side effects. |
 
 ---
 
@@ -662,7 +662,6 @@ All registry modifications are performed at the user's own risk. The project aut
 responsibility for system instability, policy conflicts, data loss, or unintended behavior
 resulting from the use of this project. Always verify backups, test in a non-production
 environment first, and review the source code before executing in any managed or enterprise setting.
-
 
 
 ---
@@ -1222,7 +1221,7 @@ BRAVE OMEGA PROJECT/
 | **Geri alınamaz durum** | Her HKLM yazma işleminden önce otomatik zaman damgalı `.reg` yedeği. `reg import` ile geri al. |
 | **Kısmi uygulama** | Her işlem için bireysel try-catch ve başarı/hata sayaçları. Tam olarak neyin uygulandığını bilirsiniz. |
 | **Tarayıcı veri kaybı** | Değişiklik uygulanmadan önce Brave süreç tespiti ve açık devam/iptal istemi. |
-| **Yinelenen çalıştırma** | `-Force` parametresiyle kararsız olmayan tasarım. Birden fazla çalıştırmanın yan etkisi yoktur. |
+| **Yinelenen çalıştırma** | Idempotent kayıt yazmaları (içeride `New-Item* -Force`). Birden fazla çalıştırmanın yan etkisi yoktur. |
 
 ---
 

@@ -139,7 +139,7 @@ Every policy is traceable to one authoritative source:
 
 ## Idempotency Guarantee
 
-- **`-Force` parameter** enables safe re-execution
+- **Idempotent writes** (`New-Item* -Force` internally) enable safe re-execution
 - **`-WhatIf` parameter** previews changes without applying them
 - **`-Reset` parameter** reverts all applied policies
 - Running multiple times = **identical result**
@@ -297,7 +297,7 @@ Her politika tek bir yetkili kaynaÄŸa izlenebilir:
 
 ## KararsÄ±z Olmama Garantisi
 
-- **`-Force` parametresi** gÃ¼venli yeniden Ã§alÄ±ÅŸtÄ±rmayÄ± saÄŸlar
+- **Idempotent yazmalar** (`New-Item* -Force` içeride) güvenli yeniden çalıştırmayı sağlar
 - **`-WhatIf` parametresi** deÄŸiÅŸiklikleri uygulamadan Ã¶nizler
 - **`-Reset` parametresi** uygulanan tÃ¼m politikalarÄ± geri alÄ±r
 - rirden fazla Ã§alÄ±ÅŸtÄ±rma = **Ã¶zdeÅŸ sonuÃ§**

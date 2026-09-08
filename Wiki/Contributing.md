@@ -46,9 +46,8 @@ git checkout -b feature/your-feature-name
 ### 4. Test
 
 ```powershell
-# Test both scripts
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+# Test the script
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 ```
 
 ### 5. Submit PR
@@ -253,9 +252,8 @@ git checkout -b ozellik/ozellik-adiniz
 ### 4. Test
 
 ```powershell
-# Her iki betiÄŸi de test edin
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Force
+# Betiği test edin
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 ```
 
 ### 5. PR GÃ¶nder

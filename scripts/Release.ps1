@@ -284,3 +284,4 @@ Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "GitHub: https://github.com/$repo/releases/tag/$Version" -ForegroundColor Cyan
 Write-Host "GitLab: https://gitlab.com/$repo/-/releases/$Version" -ForegroundColor Cyan
+
