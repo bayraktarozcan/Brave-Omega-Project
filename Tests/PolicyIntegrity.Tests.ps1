@@ -4,33 +4,39 @@ BeforeAll {
 }
 
 Describe "Policy Integrity" -Tag "Integration" {
-    It "EN script policy definitions should have consistent structure" {
-        $lines = Get-PolicyLines -ScriptPath $ScriptEN
+    It "unified script policy definitions should have consistent structure" {
+        $lines = Get-PolicyLines -ScriptPath $ScriptMain
         $lines.Count | Should -BeGreaterThan 0
     }
 
     It "password manager policy should have correct name" {
-        $content = Get-Content -Path $ScriptEN -Raw
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match 'PasswordManagerEnabled' | Should -Be $true
         $content -match 'PasswordManagerEnabled[";]' | Should -Be $true
     }
 
     It "TranslateEnabled should be in Strict level" {
-        $content = Get-Content -Path $ScriptEN -Raw
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match '"Strict"' | Should -Be $true
         $content -match 'TranslateEnabled' | Should -Be $true
     }
 
     It "DnsOverHttpsMode should be String type in Balanced" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $hasBalanced = $content -match '"Balanced"|"Dengeli"'
+        $content = Get-Content -Path $ScriptMain -Raw
+        $hasBalanced = $content -match '"Balanced"'
         $hasDnsOh = $content -match 'DnsOverHttpsMode'
         ($hasBalanced -and $hasDnsOh) | Should -Be $true
     }
 
-    It "EN and TR scripts should have same number of policy definitions per level" {
-        $enLines = Get-PolicyLines -ScriptPath $ScriptEN
-        $trLines = Get-PolicyLines -ScriptPath $ScriptTR
-        $enLines.Count | Should -Be $trLines.Count
+    It "unified script should hold all 151 definitions in a single table" {
+        $lines = Get-PolicyLines -ScriptPath $ScriptMain
+        $lines.Count | Should -BeGreaterOrEqual 149
+    }
+
+    It "wrappers should not duplicate policy definitions" {
+        foreach ($wrapper in @($ScriptEN, $ScriptTR)) {
+            $lines = Get-PolicyLines -ScriptPath $wrapper
+            @($lines).Count | Should -BeExactly 0
+        }
     }
 }

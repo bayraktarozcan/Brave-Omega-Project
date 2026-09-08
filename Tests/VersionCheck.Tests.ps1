@@ -3,24 +3,20 @@ BeforeAll {
 }
 
 Describe "Version Check" -Tag "Unit" {
-    It "EN should have expected Brave version constant" {
-        $content = Get-Content -Path $ScriptEN -Raw
+    It "unified script should have expected Brave version constant" {
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match 'ValidatedBrave.*=.*"1\.94\.121"' | Should -Be $true
     }
 
-    It "EN should have expected Chromium version constant" {
-        $content = Get-Content -Path $ScriptEN -Raw
+    It "unified script should have expected Chromium version constant" {
+        $content = Get-Content -Path $ScriptMain -Raw
         $content -match 'ValidatedChromium.*=.*"152"' | Should -Be $true
     }
 
-    It "TR should have expected Brave version constant" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $content -match 'DogrulananBrave.*=.*"1\.94\.121"' | Should -Be $true
-    }
-
-    It "TR should have expected Chromium version constant" {
-        $content = Get-Content -Path $ScriptTR -Raw
-        $content -match 'DogrulananChromium.*=.*"152"' | Should -Be $true
+    It "unified script should have no per-language version fork" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match 'DogrulananBrave' | Should -Be $false
+        $content -match 'DogrulananChromium' | Should -Be $false
     }
 
     It "should detect version mismatch" {
@@ -35,23 +31,9 @@ Describe "Version Check" -Tag "Unit" {
         ($braveVersion -eq $ValidatedBrave) | Should -Be $true
     }
 
-    It "EN and TR should have matching Brave version constants" {
-        $enContent = Get-Content -Path $ScriptEN -Raw
-        $trContent = Get-Content -Path $ScriptTR -Raw
-        $enMatch = [regex]::Match($enContent, 'ValidatedBrave.*=.*"([0-9.]+)"')
-        $trMatch = [regex]::Match($trContent, 'DogrulananBrave.*=.*"([0-9.]+)"')
-        $enMatch.Success | Should -Be $true
-        $trMatch.Success | Should -Be $true
-        $enMatch.Groups[1].Value | Should -Be $trMatch.Groups[1].Value
-    }
-
-    It "EN and TR should have matching Chromium version constants" {
-        $enContent = Get-Content -Path $ScriptEN -Raw
-        $trContent = Get-Content -Path $ScriptTR -Raw
-        $enMatch = [regex]::Match($enContent, 'ValidatedChromium.*=.*"([0-9]+)"')
-        $trMatch = [regex]::Match($trContent, 'DogrulananChromium.*=.*"([0-9]+)"')
-        $enMatch.Success | Should -Be $true
-        $trMatch.Success | Should -Be $true
-        $enMatch.Groups[1].Value | Should -Be $trMatch.Groups[1].Value
+    It "version constants should be defined exactly once" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        ([regex]::Matches($content, '\$ValidatedBrave\s*=').Count) | Should -BeExactly 1
+        ([regex]::Matches($content, '\$ValidatedChromium\s*=').Count) | Should -BeExactly 1
     }
 }

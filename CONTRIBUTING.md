@@ -67,8 +67,8 @@ When a new Brave stable version is released:
 1. Check `brave://policy` for any deprecated or changed policies.
 2. Compare against Brave's official ADMX templates (downloaded via Group Policy
    Administrative Templates or the Chromium policy list).
-3. Update the version constants in `BraveOmega-EN.ps1` and `BraveOmega-TR.ps1`
-   (`$DogrulananBrave`, `$DogrulananChromium`).
+3. Update the version constants in `BraveOmega.ps1`
+   (`$ValidatedBrave`, `$ValidatedChromium`) — a single place covers both languages.
 4. Add a changelog entry.
 
 ### 4. New Policies
@@ -112,15 +112,16 @@ Large feature requests should be discussed in an issue **before** any code is wr
 
 ### 7. Translations
 
-Additional language editions following the EN/TR template structure are welcome:
+Additional languages are welcome — and no longer require a file copy. `BraveOmega.ps1`
+carries a `$Strings` table (`EN`/`TR` today) plus `$LevelDisplayNames`; a new language
+means a new table column:
 
-- Maintain **functional parity** with the English version — same parameters, same
-  policy list, same tier system.
-- Keep the same `$ScriptVersion` and version-check logic.
-- User-facing text (menus, prompts, output messages) should be in the target language.
-- File name convention: `BraveOmega-XX.ps1` where `XX` is the language code (e.g.,
-  `DE` for German, `FR` for French).
-- Update the language switch links in README.md and index.html.
+- Maintain **functional parity** — same parameters, same policy list, same tier system.
+- Keep the single `$ScriptVersion` and version-check logic untouched.
+- User-facing text (menus, prompts, output messages) goes into the table and the
+  display-name map in the target language; code identifiers stay English.
+- Extend `-Language`'s `ValidateSet`, the startup prompt, and the language links in
+  README.md and index.html.
 
 ### 8. Pull Request Workflow
 
@@ -224,8 +225,8 @@ Yeni bir Brave kararlı sürümü yayınlandığında:
    kontrol edin.
 2. Brave'in resmî ADMX şablonları (Grup Yönetim İlkeleri Yönetim Şablonları veya Chromium
    politika listesi üzerinden indirilir) ile karşılaştırın.
-3. `BraveOmega-EN.ps1` ve `BraveOmega-TR.ps1` dosyalarındaki sürüm sabitlerini
-   (`$DogrulananBrave`, `$DogrulananChromium`) güncelleyin.
+3. `BraveOmega.ps1` dosyasındaki sürüm sabitlerini
+   (`$ValidatedBrave`, `$ValidatedChromium`) güncelleyin — tek yer iki dili kapsar.
 4. Değişiklik günlüğüne bir girdi ekleyin.
 
 ### 4. Yeni Politikalar
@@ -272,15 +273,16 @@ tartışılmalıdır.
 
 ### 7. Çeviriler
 
-EN/TR şablon yapısını takip eden ek dil sürümleri memnuniyetle karşılanır:
+Ek diller memnuniyetle karşılanır — artık dosya kopyası gerekmez. `BraveOmega.ps1`,
+`$Strings` tablosunu (bugün `EN`/`TR`) ve `$LevelDisplayNames` eşlemesini taşır;
+yeni dil, tabloya yeni bir sütun demektir:
 
-- İngilizce sürümle **işlevsel denklik** sağlayın — aynı parametreler, aynı politika
-  listesi, aynı katman sistemi.
-- Aynı `$ScriptVersion` ve sürüm denetimi mantığını koruyun.
-- Kullanıcıya dönük metinler (menüler, istemler, çıktı mesajları) hedef dilde olmalıdır.
-- Dosya adı kuralı: `BraveOmega-XX.ps1` burada `XX` dil kodudur (örn. `DE` Almanca,
-  `FR` Fransızca için).
-- Dil değiştirme bağlantılarını README.md ve index.html'de güncelleyin.
+- **İşlevsel denklik** sağlayın — aynı parametreler, aynı politika listesi, aynı katman sistemi.
+- Tek `$ScriptVersion` ve sürüm denetimi mantığına dokunmayın.
+- Kullanıcıya dönük metinler (menüler, istemler, çıktı mesajları) tabloya ve hedef
+  dildeki görünen-ad eşlemesine yazılır; kod tanıtıcıları İngilizce kalır.
+- `-Language` `ValidateSet` listesini, açılış istemini ve README.md ile index.html'deki
+  dil bağlantılarını genişletin.
 
 ### 8. Pull Request İş Akışı
 

@@ -2,13 +2,13 @@ BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
     . (Join-Path $ProjectRoot 'scripts\Export-PolicyCatalog.ps1')
 
-    $script:Definitions = Get-OmegaPolicyDefinitions -ScriptPath $ScriptEN
+    $script:Definitions = Get-OmegaPolicyDefinitions -ScriptPath $ScriptMain
     $script:Cumulative   = Get-OmegaCumulativePolicySets -Definitions $script:Definitions
     $script:Order        = Get-OmegaLevelOrder
 }
 
 Describe "Policy Definitions Loading" -Tag "Unit" {
-    It "extracts definitions for all 5 tiers from EN script" {
+    It "extracts definitions for all 5 tiers from unified script" {
         $script:Definitions.Keys.Count | Should -BeExactly 5
     }
 
@@ -153,15 +153,15 @@ Describe "Levels Json" -Tag "Unit" {
         $script:Json = New-OmegaLevelsJson `
             -Definitions $script:Definitions `
             -Cumulative $script:Cumulative `
-            -SourceScript $ScriptEN `
-            -ScriptVersion (Get-OmegaScriptVersion -ScriptPath $ScriptEN) `
+            -SourceScript $ScriptMain `
+            -ScriptVersion (Get-OmegaScriptVersion -ScriptPath $ScriptMain) `
             -GeneratedAtUtc (Get-Date)
         $script:JsonText = ($script:Json | ConvertTo-Json -Depth 10)
     }
 
     It "exposes catalog metadata" {
         $script:Json.generatedBy        | Should -BeExactly 'scripts/Export-PolicyCatalog.ps1'
-        $script:Json.sourceScript       | Should -BeExactly 'Brave Omega\BraveOmega-EN.ps1'
+        $script:Json.sourceScript       | Should -BeExactly 'Brave Omega\BraveOmega.ps1'
         [System.IO.Path]::IsPathRooted($script:Json.sourceScript) | Should -Be $false
         $script:Json.scriptVersion      | Should -Match '^v\d+\.\d+\.\d+\.\d+$'
         $script:Json.registryTargetHklm | Should -BeExactly 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave'
@@ -220,7 +220,7 @@ Describe "Full Export" -Tag "Integration" {
     BeforeAll {
         $script:OutDir = Join-Path ([System.IO.Path]::GetTempPath()) ('OmegaCatalog_' + [guid]::NewGuid().ToString('N'))
         New-Item -ItemType Directory -Path $script:OutDir -Force | Out-Null
-        $script:Summary = Export-OmegaPolicyCatalog -ScriptPath $ScriptEN -OutputDir $script:OutDir
+        $script:Summary = Export-OmegaPolicyCatalog -ScriptPath $ScriptMain -OutputDir $script:OutDir
     }
 
     AfterAll {
@@ -254,7 +254,7 @@ Describe "Full Export" -Tag "Integration" {
     }
 
     It "fails loudly when expected counts are out of date" {
-        { Export-OmegaPolicyCatalog -ScriptPath $ScriptEN -OutputDir $script:OutDir `
+        { Export-OmegaPolicyCatalog -ScriptPath $ScriptMain -OutputDir $script:OutDir `
             -ExpectedCounts @{ 'Strict' = 999 } } | Should -Throw
     }
 }
@@ -350,7 +350,7 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
             $script:CheckedInReg[$tier] = ConvertFrom-OmegaRegFile (Join-Path $script:EnterpriseDir "$tier.reg")
         }
 
-        Export-OmegaPolicyCatalog -ScriptPath $ScriptEN -OutputDir $script:RegDriftDir | Out-Null
+        Export-OmegaPolicyCatalog -ScriptPath $ScriptMain -OutputDir $script:RegDriftDir | Out-Null
 
         foreach ($tier in $script:Order) {
             $script:DriftReg[$tier] = ConvertFrom-OmegaRegFile (Join-Path $script:RegDriftDir "$tier.reg")

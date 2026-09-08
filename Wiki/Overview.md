@@ -22,8 +22,8 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 > **Two scripts. One goal. Zero cost.**
 >
-> - `BraveOmega-EN.ps1` — Full English interface
-> - `BraveOmega-TR.ps1` — Full Turkish interface
+> - `BraveOmega.ps1` — Unified bilingual script (asks language on first launch)
+> - `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` — Wrappers pinning English / Turkish
 
 ---
 
@@ -154,8 +154,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 > **İki betik. Tek hedef. Sıfır maliyet.**
 >
-> - `BraveOmega-EN.ps1` — Tam İngilizce arayüz
-> - `BraveOmega-TR.ps1` — Tam Türkçe arayüz
+> - `BraveOmega.ps1` — Birleşik iki dilli betik (dili ilk açılışta sorar)
+> - `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` — Dili sabitleyen sarmalayıcılar (İngilizce / Türkçe)
 
 ---
 

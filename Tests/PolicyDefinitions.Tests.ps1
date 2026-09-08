@@ -34,8 +34,8 @@ Describe "Policy Definitions" -Tag "Unit" {
         ($p.ContainsKey("Name") -and $p.ContainsKey("Value") -and $p.ContainsKey("Type")) | Should -Be $true
     }
 
-    It "should have correct policy counts per tier from EN script" {
-        $content = Get-Content -Path $ScriptEN -Raw
+    It "should have correct policy counts per tier from unified script" {
+        $content = Get-Content -Path $ScriptMain -Raw
         $expectedCounts = @{
             "BraveOnly" = 24
             "Essential" = 27
@@ -64,8 +64,8 @@ Describe "Policy Definitions" -Tag "Unit" {
         }
     }
 
-    It "should have 151 total policy definitions (EN script)" {
-        $content = Get-Content -Path $ScriptEN -Raw
+    It "should have 151 total policy definitions (unified script)" {
+        $content = Get-Content -Path $ScriptMain -Raw
         $policyDefStart = $content.IndexOf('$PolicyDefinitions')
         $policyDefSection = $content.Substring($policyDefStart)
         $totalMatches = ([regex]::Matches($policyDefSection, '@\{Name=')).Count

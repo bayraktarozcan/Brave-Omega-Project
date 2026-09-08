@@ -106,7 +106,7 @@ if ($Version -notmatch "^v\d+\.\d+\.\d+\.\d+$") {
 }
 
 # Check if version exists in script
-$scriptPath = Join-Path $scriptDir "Brave Omega\BraveOmega-EN.ps1"
+$scriptPath = Join-Path $scriptDir "Brave Omega\BraveOmega.ps1"
 if (Test-Path $scriptPath) {
     $scriptContent = Get-Content $scriptPath -Raw
     if ($scriptContent -notmatch "\`$ScriptVersion\s*=\s*`"$([regex]::Escape($Version))`"") {

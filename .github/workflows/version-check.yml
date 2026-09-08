@@ -1,5 +1,6 @@
 # Brave Omega Project — Version Check
-# Ensures EN and TR script version strings stay in sync.
+# Ensures the unified script carries a single version string and both
+# language wrappers pin their language and forward to it.
 
 name: "Version Check"
 
@@ -22,24 +23,22 @@ jobs:
       - name: Extract version strings
         shell: pwsh
         run: |
+          $mainContent = Get-Content -Path "Brave Omega/BraveOmega.ps1" -Raw
           $enContent = Get-Content -Path "Brave Omega/BraveOmega-EN.ps1" -Raw
           $trContent = Get-Content -Path "Brave Omega/BraveOmega-TR.ps1" -Raw
 
-          $enMatch = [regex]::Match($enContent, '\$ScriptVersion\s*=\s*"([^"]+)"')
-          $trMatch = [regex]::Match($trContent, '\$BetikSurum\s*=\s*"([^"]+)"')
+          $verMatch = [regex]::Match($mainContent, '\$ScriptVersion\s*=\s*"([^"]+)"')
+          if (-not $verMatch.Success) { Write-Error "Unified script version not found"; exit 1 }
+          $ver = $verMatch.Groups[1].Value
+          Write-Host "Unified version: $ver"
 
-          if (-not $enMatch.Success) { Write-Error "EN script version not found"; exit 1 }
-          if (-not $trMatch.Success) { Write-Error "TR script version not found"; exit 1 }
+          if ($mainContent -match '\$BetikSurum') { Write-Error "Per-language version fork detected"; exit 1 }
 
-          $enVer = $enMatch.Groups[1].Value
-          $trVer = $trMatch.Groups[1].Value
-
-          Write-Host "EN version: $enVer"
-          Write-Host "TR version: $trVer"
-
-          if ($enVer -ne $trVer) {
-            Write-Error "Version mismatch: EN='$enVer' vs TR='$trVer'"
-            exit 1
+          foreach ($pair in @(@{ File = "Brave Omega/BraveOmega-EN.ps1"; Content = $enContent; Lang = "EN" },
+                              @{ File = "Brave Omega/BraveOmega-TR.ps1"; Content = $trContent; Lang = "TR" })) {
+            if ($pair.Content -notmatch "BraveOmega\.ps1") { Write-Error "$($pair.File) does not forward to BraveOmega.ps1"; exit 1 }
+            if ($pair.Content -notmatch "\['Language'\] = '$($pair.Lang)'") { Write-Error "$($pair.File) does not pin Language to $($pair.Lang)"; exit 1 }
+            Write-Host "✓ $($pair.File) pins Language to $($pair.Lang)"
           }
 
-          Write-Host "✓ Versions match: $enVer"
+          Write-Host "✓ Version check passed: $ver"

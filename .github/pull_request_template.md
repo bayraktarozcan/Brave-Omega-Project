@@ -36,5 +36,5 @@ _Describe the change and what problem it solves._
 _Steps to verify:_
 
 ```powershell
-.\"Brave Omega\BraveOmega-EN.ps1" -WhatIf -Level Essential
+.\"Brave Omega\BraveOmega.ps1" -Language EN -WhatIf -Level Essential
 ```

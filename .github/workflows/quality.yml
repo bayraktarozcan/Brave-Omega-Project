@@ -99,15 +99,16 @@ jobs:
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module -Name PSScriptAnalyzer -RequiredVersion 1.23.0 -Force -SkipPublisherCheck
-      - name: Run Invoke-ScriptAnalyzer on EN script
+      - name: Run Invoke-ScriptAnalyzer on unified script
         shell: pwsh
         run: |
-          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-EN.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
+          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
           if ($results) { $results | Format-Table; exit 1 }
-      - name: Run Invoke-ScriptAnalyzer on TR script
+      - name: Run Invoke-ScriptAnalyzer on language wrappers
         shell: pwsh
         run: |
-          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-TR.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseApprovedVerbs
+          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-EN.ps1" -Severity Warning
+          $results += Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega-TR.ps1" -Severity Warning
           if ($results) { $results | Format-Table; exit 1 }
 
   policy-integrity:

@@ -1,6 +1,6 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
-    $funcBlock = New-FunctionScriptBlock -ScriptPath $ScriptEN
+    $funcBlock = New-FunctionScriptBlock -ScriptPath $ScriptMain
     . $funcBlock
 }
 

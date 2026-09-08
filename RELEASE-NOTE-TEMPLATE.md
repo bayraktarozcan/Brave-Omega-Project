@@ -38,8 +38,8 @@ Copy the template below and fill in placeholders when creating new releases.
 
 ### Files
 
-- `BraveOmega-EN.ps1` — English script
-- `BraveOmega-TR.ps1` — Turkish script
+- `BraveOmega.ps1` — Unified bilingual script (EN/TR)
+- `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` — Language wrappers
 - `index.html` — Interactive policy configurator
 
 ### Documentation
@@ -86,8 +86,8 @@ Adds `ProxySettings` to Essential tier for proxy configuration placeholder suppo
 
 ### Files
 
-- `BraveOmega-EN.ps1` — English script
-- `BraveOmega-TR.ps1` — Turkish script
+- `BraveOmega.ps1` — Unified bilingual script (EN/TR)
+- `BraveOmega-EN.ps1` / `BraveOmega-TR.ps1` — Language wrappers
 - `index.html` — Interactive policy configurator
 
 ### Documentation

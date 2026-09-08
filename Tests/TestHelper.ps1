@@ -1,4 +1,5 @@
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
+$ScriptMain = Join-Path $ProjectRoot "Brave Omega\BraveOmega.ps1"
 $ScriptEN = Join-Path $ProjectRoot "Brave Omega\BraveOmega-EN.ps1"
 $ScriptTR = Join-Path $ProjectRoot "Brave Omega\BraveOmega-TR.ps1"
 
