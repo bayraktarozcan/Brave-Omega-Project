@@ -17,8 +17,28 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.6.2.0)
+# CHANGELOG (v2.7.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.7.0.0             Feature release — unified bilingual script:
+#
+#     [NEW]         BraveOmega-EN.ps1 and BraveOmega-TR.ps1 merged into a
+#                   single BraveOmega.ps1 with a 108-key EN/TR strings table.
+#                   First launch asks for EN/TR with a bilingual prompt;
+#                   -Language EN|TR|Auto pins the language (Auto prompts when
+#                   interactive, else EN). TR aliases kept: -Seviye, -Sifirla,
+#                   -SenkronizasyonaIzinVer, -Dil.
+#
+#     [FIX]         Latent TR bug fixed: the S/MIME install notice never
+#                   displayed in Turkish runs (Turkish display name compared
+#                   against English level keys). Canonical $Level fixes it.
+#
+#     [CHANGED]     Brave Omega/ now holds exactly one script. Gitleaks
+#                   secret-scan CI added (pinned v8.30.1 binary, full history).
+#
+#     [UNCHANGED]   No policy changes. Totals remain 151 across 5 tiers
+#                   (chain: 24 → 51 → 83 → 123 → 151). Validated Brave
+#                   stays 1.94.121 (Chromium 152.0.7977.83).
+#
 #   v2.6.2.0             Patch release — Brave 1.94.121 compatibility validation:
 #
 #     [CHANGED]     Validated against Brave 1.94.121 (Chromium 152.0.7977.83),
@@ -382,7 +402,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.6.2.0"
+$ScriptVersion   = "v2.7.0.0"
 $ValidatedBrave  = "1.94.121"
 $ValidatedChromium = "152"
 
