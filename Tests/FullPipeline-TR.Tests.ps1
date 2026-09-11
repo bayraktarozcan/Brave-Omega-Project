@@ -33,6 +33,6 @@ Describe "Full Pipeline (TR coverage via unified script)" -Tag "Integration" {
 
     It "should have a single script version variable" {
         $v = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion"
-        $v | Should -BeExactly "v2.7.0.0"
+        $v | Should -BeExactly "v2.7.1.0"
     }
 }

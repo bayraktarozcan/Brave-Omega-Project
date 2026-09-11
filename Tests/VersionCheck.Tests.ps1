@@ -5,12 +5,12 @@ BeforeAll {
 Describe "Version Check" -Tag "Unit" {
     It "unified script should have expected Brave version constant" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'ValidatedBrave.*=.*"1\.94\.121"' | Should -Be $true
+        $content -match 'ValidatedBrave.*=.*"1\.95\.101"' | Should -Be $true
     }
 
     It "unified script should have expected Chromium version constant" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'ValidatedChromium.*=.*"152"' | Should -Be $true
+        $content -match 'ValidatedChromium.*=.*"153"' | Should -Be $true
     }
 
     It "unified script should have no per-language version fork" {
@@ -26,8 +26,8 @@ Describe "Version Check" -Tag "Unit" {
     }
 
     It "should confirm version match" {
-        $braveVersion = "1.94.121"
-        $ValidatedBrave = "1.94.121"
+        $braveVersion = "1.95.101"
+        $ValidatedBrave = "1.95.101"
         ($braveVersion -eq $ValidatedBrave) | Should -Be $true
     }
 

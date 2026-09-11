@@ -23,6 +23,19 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.7.1.0 - 2026-09-11
+
+**Patch Release - Brave 1.95.101 compatibility validation**
+
+**Changed:**
+
+- Validated against Brave 1.95.101 (Chromium 153.0.8010.37), released September 11, 2026; Brave 1.94.121 (Chromium 152.0.7977.83) remains supported
+- No policy changes; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+- Script updated to v2.7.1.0
+
+---
+
+
 ### v2.7.0.0 - 2026-09-09
 
 **Feature Release - Unified bilingual script**
@@ -633,7 +646,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.7.0.0** *(current)* | 1.94.121 | 152 | 11 25H2 | ✅ Active |
+| **v2.7.1.0** *(current)* | 1.95.101 | 153 | 11 25H2 | ✅ Active |
+| v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
 | v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
 | v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
 | v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | ✅ Previous |
@@ -723,6 +737,19 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.7.1.0 - 2026-09-11
+
+**Yama Sürümü - Brave 1.95.101 uyumluluk doğrulaması**
+
+**Değiştirilenler:**
+
+- Brave 1.95.101 (Chromium 153.0.8010.37), 11 Eylül 2026 tarihli kararlı sürüme karşı doğrulandı; Brave 1.94.121 (Chromium 152.0.7977.83) desteklenmeye devam ediyor
+- Politika değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+- Betik v2.7.1.0 sürümüne güncellendi
+
+---
+
 
 ### v2.7.0.0 - 2026-09-09
 
@@ -1335,7 +1362,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.7.0.0** *(güncel)* | 1.94.121 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.7.1.0** *(güncel)* | 1.95.101 | 153 | 11 25H2 | ✅ Etkin |
+| v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |
 | v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |
 | v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
 | v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | ✅ Önceki |
