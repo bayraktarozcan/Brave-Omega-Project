@@ -68,7 +68,8 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.7.0.0** *(current)* | 1.94.121 | 152 | 11 25H2 | ✅ Current |
+| **v2.7.1.0** *(current)* | 1.95.101 | 153 | 11 25H2 | ✅ Current |
+| v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
 | v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
 | v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
 | v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
@@ -105,7 +106,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.7.0.0 - Unified bilingual script](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v2.7.1.0 - Brave 1.95.101 compatibility validation](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 > 🧪 **Pester test suite** (169 It blocks across 21 files), PSScriptAnalyzer + policy integrity CI, and quality badges live since v2.1.6.0. See [Changelog](Changelog#v2160) for details.
 
@@ -207,7 +208,8 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.7.0.0** *(güncel)* | 1.94.121 | 152 | 11 25H2 | ✅ Etkin |
+| **v2.7.1.0** *(güncel)* | 1.95.101 | 153 | 11 25H2 | ✅ Etkin |
+| v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |
 | v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |
 | v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
 | v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
@@ -244,7 +246,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.7.0.0 - Birleşik iki dilli betik](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v2.7.1.0 - Brave 1.95.101 uyumluluk ğrulaması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
