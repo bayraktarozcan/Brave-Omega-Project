@@ -698,7 +698,7 @@ environment first, and review the source code before executing in any managed or
 Brave Omega, [Brave Browser](https://brave.com)'ı **resmî kurumsal politika kanalları**
 aracılığıyla sıkılaştıran açık kaynaklı bir PowerShell özdevim projesidir. Windows Kayıt
 Defteri Grup İlkesi mimarisi ve Brave'in resmî ADMX politika çerçevesi kullanılarak; veri
-aktarımı (telemetri), analiz hizmetleri, arka plan pinglari, tümleşik para kazanma bileşenleri
+aktarımı (telemetri), analiz hizmetleri, arka plan pingleri, tümleşik para kazanma bileşenleri
 ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı bırakılır. Tarayıcının iç
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
