@@ -354,7 +354,7 @@ no longer have any effect.
 
 > [!TIP]
 > **Before running:** Verify your installed Brave version against the matrix above.
-> If a newer Brave version has been released, check the [Releases](../../releases) page
+> If a newer Brave version has been released, check the [Releases](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) page
 > for a corresponding updated Brave Omega release before running an older script version.
 > When in doubt, always update Brave to the latest stable release first.
 
@@ -990,7 +990,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 > [!TIP]
 > **Çalıştırmadan önce:** Yüklü Brave sürümünüzün yukarıdaki matrisle eşleşip eşleşmediğini
 > doğrulayın. Daha yeni bir Brave sürümü yayımlandıysa eski bir betik sürümünü çalıştırmadan
-> önce [Sürümler](../../releases) sayfasında güncellenmiş bir Brave Omega sürümü olup
+> önce [Sürümler](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) sayfasında güncellenmiş bir Brave Omega sürümü olup
 > olmadığını kontrol edin. Şüphe durumunda önce Brave'i en güncel kararlı sürüme güncelleyin.
 
 ---
