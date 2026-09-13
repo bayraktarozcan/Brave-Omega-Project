@@ -24,5 +24,11 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --verbose --max-retries 2 './**/*.md'
+          # file:// = author-machine absolute paths, never valid in CI
+          # support.brave.app = Zendesk blocks bots with 403, human browsers work
+          # chrome-policies = vendored Chromium reference full of example URLs
+          args: >-
+            --no-progress --verbose --max-retries 2 --exclude '^file://'
+            --exclude 'support\.brave\.app' --exclude-path 'chrome-policies'
+            './**/*.md'
           fail: true

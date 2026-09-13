@@ -1254,7 +1254,7 @@ Fixes #50
 - **Documentation — ADMX-validate fix** — `admx-validate.yml` path corrected from `BraveOmega/` › `Brave Omega/` (space in directory name).
 - **Documentation — Wiki** — All 14 Wiki pages updated with Phase 3 test references, version bumps to v2.1.6.0.
 - **Documentation — README / index.html** — Test badge, CI badge, and compatibility table test row added.
-- **Issue [#30](https://github.com/brave-omega/brave-omega/issues/30)** — Tracks Phase 3 completion.
+- **Issue [#30](https://github.com/bayraktarozcan/Brave-Omega-Project/issues/30)** — Tracks Phase 3 completion.
 
 <a id="en-v215"></a>
 
@@ -3211,7 +3211,7 @@ Fixes #50
 - **Belgeler — ADMX-validate düzeltmesi** — `admx-validate.yml` yol hatası `BraveOmega/` › `Brave Omega/` olarak düzeltildi.
 - **Belgeler — Wiki** — 14 Wiki sayfasının tümü Aşama 3 test referansları ve v2.1.6.0 sürüm yükseltmeleriyle güncellendi.
 - **Belgeler — README / index.html** — Test rozeti, CI rozeti ve uyumluluk tablosu test satırı eklendi.
-- **Issue [#30](https://github.com/brave-omega/brave-omega/issues/30)** — Aşama 3 tamamlanmasını takip eder.
+- **Issue [#30](https://github.com/bayraktarozcan/Brave-Omega-Project/issues/30)** — Aşama 3 tamamlanmasını takip eder.
 
 <a id="tr-v215"></a>
 
