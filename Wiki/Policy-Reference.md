@@ -243,7 +243,7 @@ All 151 policies should show as **Active** (green checkmark).
 
 | Source | URL |
 | -------- | ----- |
-| Brave ADMX Templates | [brave.com/enterprise](https://brave.com/enterprise/) |
+| Brave ADMX Templates | [brave-core policy templates](https://github.com/brave/brave-core/tree/master/components/policy/resources/templates/policy_definitions/BraveSoftware) |
 | Chromium Enterprise Policies | [chromium.org/administrators/policy-list-3](https://www.chromium.org/administrators/policy-list-3) |
 | Google Omaha Architecture | [omaha documentation](https://github.com/google/omaha) |
 
@@ -502,7 +502,7 @@ brave://policy
 
 | Kaynak | URL |
 | -------- | ----- |
-| Brave ADMX Şablonları | [brave.com/enterprise](https://brave.com/enterprise/) |
+| Brave ADMX Şablonları | [brave-core policy templates](https://github.com/brave/brave-core/tree/master/components/policy/resources/templates/policy_definitions/BraveSoftware) |
 | Chromium Kurumsal Politikaları | [chromium.org/administrators/policy-list-3](https://www.chromium.org/administrators/policy-list-3) |
 | Google Omaha Mimarisi | [omaha belgelendirmesi](https://github.com/google/omaha) |
 
