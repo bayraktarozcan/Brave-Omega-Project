@@ -64,7 +64,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 
 When Brave releases a new stable version:
 
-1. Check [Brave ADMX templates](https://github.com/brave/brave-browser/tree/master/policy_templates)
+1. Check [Brave ADMX templates](https://github.com/brave/brave-core/tree/master/components/policy/resources/templates/policy_definitions/BraveSoftware)
 2. Update policy values in the unified `BraveOmega.ps1` (single source; both languages follow)
 3. Update `Version Compatibility Matrix` in wiki & README
 4. Update changelog with migration notes if keys changed
@@ -270,7 +270,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 
 Brave yeni bir kararlÄ± sÃ¼rÃ¼m yayÄ±mladÄ±ÄŸÄ±nda:
 
-1. [Brave ADMX ÅŸablonlarÄ±nÄ±](https://github.com/brave/brave-browser/tree/master/policy_templates) kontrol edin
+1. [Brave ADMX ÅŸablonlarÄ±nÄ±](https://github.com/brave/brave-core/tree/master/components/policy/resources/templates/policy_definitions/BraveSoftware) kontrol edin
 2. Politika değerlerini birleşik `BraveOmega.ps1` içinde güncelleyin (tek kaynak; iki dil de uyar)
 3. Wiki ve README'deki `SÃ¼rÃ¼m Uyumluluk Matrisi`ni gÃ¼ncelleyin
 4. Anahtarlar deÄŸiÅŸtiyse geÃ§iÅŸ notlarÄ±yla deÄŸiÅŸiklik gÃ¼nlÃ¼ÄŸÃ¼nÃ¼ gÃ¼ncelleyin

@@ -1,0 +1,34 @@
+﻿# Brave Omega Project — Link Check
+# Checks Markdown links weekly and on PRs touching docs. Fails only in Actions tab.
+
+name: "Link Check"
+
+on:
+  schedule:
+    - cron: "30 6 * * 1"
+  pull_request:
+    branches: [main]
+    paths:
+      - "**/*.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    name: Check Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # file:// = author-machine absolute paths, never valid in CI
+          # support.brave.app = Zendesk blocks bots with 403, human browsers work
+          # chrome-policies = vendored Chromium reference full of example URLs
+          args: >-
+            --no-progress --verbose --max-retries 2 --exclude '^file://'
+            --exclude 'support\.brave\.app' --exclude-path 'chrome-policies'
+            './**/*.md'
+          fail: true
