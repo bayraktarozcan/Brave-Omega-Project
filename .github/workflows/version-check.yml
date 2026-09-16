@@ -5,6 +5,10 @@
 name: "Version Check"
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "Brave Omega/*.ps1"
   pull_request:
     branches: [main]
     paths:
