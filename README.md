@@ -27,6 +27,8 @@
 [![ADMX Validate](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/admx-validate.yml?branch=main&label=ADMX%20Validate&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/admx-validate.yml)
 [![Pages](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/pages.yml?branch=main&label=Pages&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/pages.yml)
 [![Version Check](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/version-check.yml?branch=main&label=Version%20Check&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/version-check.yml)
+[![Stale](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/stale.yml?branch=main&label=Stale&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/stale.yml)
+[![Wiki Sync](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/wiki-sync.yml?branch=main&label=Wiki%20Sync&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/wiki-sync.yml)
 
 <br>
 
