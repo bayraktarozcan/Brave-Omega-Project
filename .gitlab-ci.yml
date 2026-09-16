@@ -14,7 +14,7 @@ stages:
 
 secret-scan:
   stage: scan
-  image: alpine:3.21
+  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
   before_script:
     - apk add --no-cache git curl tar
     - curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
