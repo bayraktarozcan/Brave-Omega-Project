@@ -16,10 +16,11 @@
 #                                             ps-script-analyzer, policy-integrity
 #   .github/workflows/admx-validate.yml    -> admx-validate
 #   .github/workflows/version-check.yml    -> version-check
+#   .github/workflows/hygiene.yml          -> hygiene (actionlint)
 #   .github/workflows/link-check.yml       -> link-check
 #   .github/workflows/pages.yml            -> pages
-# GitHub-only (no GitLab equivalent): hygiene (actionlint), stale (bot),
-# wiki-sync (dedicated GitHub wiki), CodeQL (not on GitLab Free).
+# GitHub-only (no GitLab equivalent): stale (bot), wiki-sync (dedicated
+# GitHub wiki), CodeQL (not on GitLab Free).
 #
 # NOTES
 # * The runner does its git checkout with the image's git, so every image
@@ -127,6 +128,23 @@ version-check:
       if ($verCount -ne 1) { Write-Error "Expected exactly one version assignment, found $verCount"; exit 1 }
       Write-Host "Version check passed: $ver"
       PWSH
+
+hygiene:
+  stage: validate
+  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      changes: [".github/workflows/**"]
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  variables:
+    ACTIONLINT_VERSION: v1.7.12
+  before_script:
+    - apk add --no-cache git curl tar
+    - cd /tmp && curl -sSL -o actionlint_linux_amd64.tar.gz "https://github.com/rhysd/actionlint/releases/download/${ACTIONLINT_VERSION}/actionlint_1.7.12_linux_amd64.tar.gz"
+    - cd /tmp && curl -sSL -o actionlint_1.7.12_checksums.txt "https://github.com/rhysd/actionlint/releases/download/${ACTIONLINT_VERSION}/actionlint_1.7.12_checksums.txt"
+    - cd /tmp && grep "actionlint_1.7.12_linux_amd64.tar.gz" actionlint_1.7.12_checksums.txt | sha256sum --check --strict && tar -xzf actionlint_1.7.12_linux_amd64.tar.gz
+  script:
+    - /tmp/actionlint
 
 link-check:
   stage: validate
