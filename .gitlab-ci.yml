@@ -1,24 +1,246 @@
-﻿# Brave Omega Project — GitLab mirror CI (minimal).
-# Canonical CI lives in .github/workflows (GitHub). This file only guards
-# the mirror with the same pinned gitleaks secret scan. No other jobs on
-# purpose: solo/hobby, zero extra maintenance.
-# [TR] GitLab aynasi icin en az CI: ayna korumasi amacli sabitlenmis
-# gitleaks gizli-anahtar taramasi. Asil CI GitHub tarafindadir.
+# Brave Omega Project - GitLab mirror CI.
+# Canonical CI lives in .github/workflows (GitHub). This file mirrors the same
+# quality gates on the mirror with pinned tool versions so both sides behave
+# identically. GitLab-specific additions: GitLab Pages deployment (pages) and
+# JUnit test report upload (pester-tests).
+#
+# IMPORTANT: these jobs only run once identity verification is completed at
+# GitLab > Settings > Account > Identity verification. Until then every
+# pipeline fails with "Identity verification is required in order to run CI
+# jobs"; no re-import or project setting can bypass it (account-level gate).
+#
+# Mirrors:
+#   .github/workflows/secret-scan.yml      -> secret-scan
+#   .github/workflows/quality.yml          -> markdown-lint, yaml-validate,
+#                                             powershell-syntax, pester-tests,
+#                                             ps-script-analyzer, policy-integrity
+#   .github/workflows/admx-validate.yml    -> admx-validate
+#   .github/workflows/version-check.yml    -> version-check
+#   .github/workflows/link-check.yml       -> link-check
+#   .github/workflows/pages.yml            -> pages
+# GitHub-only (no GitLab equivalent): hygiene (actionlint), stale (bot),
+# wiki-sync (dedicated GitHub wiki), CodeQL (not on GitLab Free).
+#
+# NOTES
+# * The runner does its git checkout with the image's git, so every image
+#   below includes git (node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32, python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970,
+#   mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a, alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d -> apk git).
+# * The runner shell is bash/sh; PowerShell is piped to `pwsh -Command -`
+#   via a quoted heredoc (<<"'PWSH'">>), so the exact GitHub bodies run
+#   verbatim with no quoting mangling.
+# * Checksum files from the tool releases are verified before the tarballs
+#   are unpacked. Downloads keep their exact release filename so
+#   `sha256sum --check` sees the file it names.
 
 variables:
   GIT_DEPTH: 0
   GITLEAKS_VERSION: v8.30.1
+  PESTER_VERSION: 5.7.1
+  PSSA_VERSION: 1.23.0
+  MARKDOWNLINT_CLI2_VERSION: 0.23.2
+  LYCHEE_VERSION: lychee-v0.24.2
 
 stages:
   - scan
+  - validate
+  - test
+  - deploy
+
+# ------------------------------------------------------------------ scan
+# Mirror of .github/workflows/secret-scan.yml (pinned gitleaks, full history).
 
 secret-scan:
   stage: scan
   image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
     - apk add --no-cache git curl tar
-    - curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
-    - curl -sSL -o /tmp/checksums.txt "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_checksums.txt"
-    - cd /tmp && grep "gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" checksums.txt | sha256sum --check --strict && tar -xzf gitleaks.tar.gz gitleaks && cd -
+    - cd /tmp && curl -sSL -o "gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
+    - cd /tmp && curl -sSL -o "gitleaks_${GITLEAKS_VERSION#v}_checksums.txt" "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_checksums.txt"
+    - cd /tmp && grep "gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" "gitleaks_${GITLEAKS_VERSION#v}_checksums.txt" | sha256sum --check --strict && tar -xzf "gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" gitleaks
   script:
     - /tmp/gitleaks git --redact --exit-code 1
+
+# -------------------------------------------------------------- validate
+# Mirrors of .github/workflows/quality.yml, admx-validate.yml,
+# version-check.yml and link-check.yml.
+
+markdown-lint:
+  stage: validate
+  image: node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - npm install --silent --global "markdownlint-cli2@${MARKDOWNLINT_CLI2_VERSION}"
+  script:
+    - markdownlint-cli2 --config ".github/linters/.markdownlint.json" "**/*.md"
+
+yaml-validate:
+  stage: validate
+  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - pip install --quiet yamllint
+  script:
+    - yamllint .gitlab-ci.yml .github/ --config-file .github/linters/.yamllint.yml --format colored || exit 1
+
+powershell-syntax:
+  stage: validate
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  script:
+    - |
+      pwsh -NoProfile -Command - <<'PWSH'
+      $files = Get-ChildItem -Path "." -Recurse -Filter "*.ps1" | Select-Object -ExpandProperty FullName
+      $exitCode = 0
+      foreach ($file in $files) {
+        try {
+          $ast = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref]$null, [ref]$null)
+          Write-Host "OK $file"
+        } catch {
+          Write-Host "FAIL $file : $_"
+          $exitCode = 1
+        }
+      }
+      exit $exitCode
+      PWSH
+
+version-check:
+  stage: validate
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+      changes: ["Brave Omega/*.ps1"]
+  script:
+    - |
+      pwsh -NoProfile -Command - <<'PWSH'
+      $mainContent = Get-Content -Path "Brave Omega/BraveOmega.ps1" -Raw
+      $verMatch = [regex]::Match($mainContent, '\$ScriptVersion\s*=\s*"([^"]+)"')
+      if (-not $verMatch.Success) { Write-Error "Unified script version not found"; exit 1 }
+      $ver = $verMatch.Groups[1].Value
+      Write-Host "Unified version: $ver"
+      if ($mainContent -match '\$BetikSurum') { Write-Error "Per-language version fork detected"; exit 1 }
+      $verCount = ([regex]::Matches($mainContent, '\$ScriptVersion\s*=\s*"')).Count
+      if ($verCount -ne 1) { Write-Error "Expected exactly one version assignment, found $verCount"; exit 1 }
+      Write-Host "Version check passed: $ver"
+      PWSH
+
+link-check:
+  stage: validate
+  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      changes: ["**/*.md"]
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - apk add --no-cache git curl tar
+    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-gnu.tar.gz "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-gnu.tar.gz"
+    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-gnu.tar.gz.sha256 "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-gnu.tar.gz.sha256"
+    - cd /tmp && sha256sum --check --strict lychee-x86_64-unknown-linux-gnu.tar.gz.sha256 && tar -xzf lychee-x86_64-unknown-linux-gnu.tar.gz
+  script:
+    - /tmp/lychee --no-progress --verbose --max-retries 2 --exclude '^file://' --exclude 'support\.brave\.app' --exclude-path 'chrome-policies' './**/*.md'
+
+admx-validate:
+  stage: validate
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+      changes: ["admx/**", "Brave Omega/BraveOmega-*.ps1"]
+  script:
+    - |
+      pwsh -NoProfile -Command - <<'PWSH'
+      ./admx/admx-validate.ps1
+      if ($LASTEXITCODE -ne 0) { exit 1 }
+      $versionFile = "admx/VERSION_BRAVE_ADMX"
+      $oldVersion = ""
+      if (Test-Path -LiteralPath $versionFile) {
+        $oldVersion = (Get-Content -LiteralPath $versionFile -Raw).Trim()
+      }
+      try {
+        $result = Invoke-WebRequest -Uri "https://brave-browser-downloads.s3.brave.com/latest/policy_templates.zip" -Method Head -UseBasicParsing
+        $newEtag = $result.Headers["ETag"]
+        $newLastMod = $result.Headers["Last-Modified"]
+        Write-Host "Current ADMX version: $oldVersion"
+        Write-Host "Remote ADMX ETag: $newEtag"
+        Write-Host "Remote ADMX Last-Modified: $newLastMod"
+      } catch {
+        Write-Host "Could not reach Brave S3 to check for updates - skipping"
+      }
+      PWSH
+
+# ------------------------------------------------------------------ test
+# Mirror of .github/workflows/quality.yml (tests + analyzers; GH runs Pester
+# on a ubuntu+windows matrix, GitLab runs the single Ubuntu-based image).
+
+pester-tests:
+  stage: test
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name Pester -RequiredVersion ${PESTER_VERSION} -Force -SkipPublisherCheck"
+  script:
+    - |
+      pwsh -NoProfile -Command - <<'PWSH'
+      Import-Module Pester -PassThru
+      $config = New-PesterConfiguration
+      $config.Run.Path = "Tests/"
+      $config.Run.PassThru = $true
+      $config.TestResult.Enabled = $true
+      $config.TestResult.OutputFormat = "NUnitXml"
+      $config.TestResult.OutputPath = "test-results.xml"
+      $config.Output.Verbosity = "Detailed"
+      $result = Invoke-Pester -Configuration $config
+      if ($result.FailedCount -gt 0) { exit 1 }
+      PWSH
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - test-results.xml
+    reports:
+      junit: test-results.xml
+
+ps-script-analyzer:
+  stage: test
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name PSScriptAnalyzer -RequiredVersion ${PSSA_VERSION} -Force -SkipPublisherCheck"
+  script:
+    - |
+      pwsh -NoProfile -Command - <<'PWSH'
+      $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
+      if ($results) { $results | Format-Table; exit 1 }
+      PWSH
+
+policy-integrity:
+  stage: test
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  script:
+    - |
+      pwsh -NoProfile -Command - <<'PWSH'
+      & "admx/admx-validate.ps1"
+      if ($LASTEXITCODE -ne 0) { exit 1 }
+      PWSH
+
+# ------------------------------------------------------------------ deploy
+# Mirror of .github/workflows/pages.yml via GitLab Pages.
+
+pages:
+  stage: deploy
+  image: node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  script:
+    - mkdir -p public
+    - cp index.html public/
+  artifacts:
+    paths:
+      - public
