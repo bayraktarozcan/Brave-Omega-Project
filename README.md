@@ -21,6 +21,12 @@
 [![Community](https://img.shields.io/badge/Community-Open%20Source-8B5CF6?style=flat-square)](https://github.com/bayraktarozcan/Brave-Omega-Project)
 [![Tests](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/quality.yml?branch=main&label=Tests&style=flat-square&logo=github)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/quality.yml)
 [![Pester](https://img.shields.io/badge/Pester-5.0%2B-FF60A0?style=flat-square&logo=powershell&logoColor=white)](https://pester.dev)
+[![Secret Scan](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/secret-scan.yml?branch=main&label=Secret%20Scan&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/secret-scan.yml)
+[![Link Check](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/link-check.yml?branch=main&label=Link%20Check&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/link-check.yml)
+[![Lint](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/hygiene.yml?branch=main&label=Lint&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/hygiene.yml)
+[![ADMX Validate](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/admx-validate.yml?branch=main&label=ADMX%20Validate&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/admx-validate.yml)
+[![Pages](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/pages.yml?branch=main&label=Pages&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/pages.yml)
+[![Version Check](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/version-check.yml?branch=main&label=Version%20Check&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/version-check.yml)
 
 <br>
 
