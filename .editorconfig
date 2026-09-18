@@ -1,0 +1,26 @@
+# Brave Omega Project — EditorConfig
+# Editor-agnostic style defaults. Aligned with .gitattributes
+# (YAML files are normalized to LF; everything else follows Git's autocrlf).
+
+root = true
+
+[*]
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+
+[*.ps1]
+indent_style = space
+indent_size = 4
+
+[*.{html,css,js,json}]
+indent_style = space
+indent_size = 2
