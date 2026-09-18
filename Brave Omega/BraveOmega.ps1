@@ -683,7 +683,7 @@ $allPolicyNames = @(
         "DefaultFileSystemReadGuardSetting", "DefaultFileSystemWriteGuardSetting",
         "DefaultSerialGuardSetting", "DefaultIdleDetectionSetting",
         "DefaultInsecureContentSetting", "DefaultJavaScriptJitSetting", "DefaultCookiesSetting",
-        "BrowserGuestModeEnabled", "BrowserAddPersonEnabled", "CloudPrintProxyEnabled",
+        "BrowserGuestModeEnabled", "BrowserAddPersonEnabled",
         "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
         "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage",
         # Phase 8 (v2.3.0.0) — 19 new policies (3 removed: ManifestV2ExtensionUnsupported,

@@ -43,7 +43,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 â”œâ”€ Administrator privilege verification
 â”œâ”€ Brave process detection (with continue/cancel prompt)
 â”œâ”€ Brave version validation against Compatibility Matrix
-â”œâ”€ Brave version detection (compares against validated version 1.94.121)
+â”œâ”€ Brave version detection (compares against validated version 1.95.101)
 â””â”€ Registry path ACL validation
 ```
 
@@ -262,7 +262,7 @@ Brave Omega **gÃ¼venlik Ã¶ncelikli** bir yaklaÅŸÄ±mla tasarlanmÄ±ÅŸt
 â”œâ”€ YÃ¶netici ayrÄ±calÄ±ÄŸÄ± doÄŸrulamasÄ±
 â”œâ”€ Brave sÃ¼reÃ§ tespiti (devam/iptal istemiyle)
 â”œâ”€ Brave sÃ¼rÃ¼mÃ¼nÃ¼n Uyumluluk Matrisine karÅŸÄ± doÄŸrulamasÄ±
-â”œâ”€ Brave sÃ¼rÃ¼m algÄ±lama (doÄŸrulanmÄ±ÅŸ sÃ¼rÃ¼m 1.94.121 ile karÅŸÄ±laÅŸtÄ±rma)
+â”œâ”€ Brave sÃ¼rÃ¼m algÄ±lama (doÄŸrulanmÄ±ÅŸ sÃ¼rÃ¼m 1.95.101 ile karÅŸÄ±laÅŸtÄ±rma)
 â””â”€ KayÄ±t defteri yolu ACL doÄŸrulamasÄ±
 ```
 

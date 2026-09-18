@@ -21,7 +21,7 @@
 > **Date:** 2026-09-07  
 > **Total unique policies:** 151 (no overlaps)  
 > **Type distribution:** 124 DWord · 8 String · 19 MultiString  
-> **Validated on:** Brave 1.94.121 / Chromium 152.0.7977.83 / Windows 11 25H2
+> **Validated on:** Brave 1.95.101 / Chromium 153.0.8010.37 / Windows 11 25H2
 
 ---
 
@@ -259,7 +259,7 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 > **Tarih:** 2026-09-07  
 > **Toplam benzersiz politika:** 151 (çakışma yok)  
 > **Tür dağılımı:** 124 DWord · 8 String · 19 MultiString  
-> **Doğrulandı:** Brave 1.94.121 / Chromium 152.0.7977.83 / Windows 11 25H2
+> **Doğrulandı:** Brave 1.95.101 / Chromium 153.0.8010.37 / Windows 11 25H2
 
 ---
 

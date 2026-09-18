@@ -5,7 +5,7 @@
 
 # ğŸ”§ Installation â€” Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.7.1.0 (Brave 1.94.121 / Chromium 152.0.7977.83 compatibility validation).
+Complete installation guide for Brave Omega v2.7.1.0 (Brave 1.95.101 / Chromium 153.0.8010.37 compatibility validation).
 
 ---
 
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # ğŸ”§ Kurulum â€” Tam Kurulum KÄ±lavuzu
 
-Brave Omega v2.7.1.0 iÃ§in tam kurulum kÄ±lavuzu (Brave 1.94.121 / Chromium 152.0.7977.83 uyumluluk doÄŸrulamasÄ±).
+Brave Omega v2.7.1.0 iÃ§in tam kurulum kÄ±lavuzu (Brave 1.95.101 / Chromium 153.0.8010.37 uyumluluk doÄŸrulamasÄ±).
 
 ---
 
