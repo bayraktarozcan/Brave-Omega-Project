@@ -4,10 +4,9 @@
 # identically. GitLab-specific additions: GitLab Pages deployment (pages) and
 # JUnit test report upload (pester-tests).
 #
-# IMPORTANT: these jobs only run once identity verification is completed at
-# GitLab > Settings > Account > Identity verification. Until then every
-# pipeline fails with "Identity verification is required in order to run CI
-# jobs"; no re-import or project setting can bypass it (account-level gate).
+# IMPORTANT: CI is enabled. Account identity verification
+# (GitLab > Settings > Account > Identity verification) has been completed, so
+# these jobs run normally on push and schedule. No account-level gate is active.
 #
 # Mirrors:
 #   .github/workflows/secret-scan.yml      -> secret-scan
@@ -166,7 +165,7 @@ admx-validate:
   image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
-      changes: ["admx/**", "Brave Omega/BraveOmega-*.ps1"]
+      changes: ["admx/**", "Brave Omega/BraveOmega.ps1"]
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'

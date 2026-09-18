@@ -20,6 +20,7 @@
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-22C55E?style=flat-square)](https://github.com/bayraktarozcan/Brave-Omega-Project)
 [![Community](https://img.shields.io/badge/Community-Open%20Source-8B5CF6?style=flat-square)](https://github.com/bayraktarozcan/Brave-Omega-Project)
 [![Tests](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/quality.yml?branch=main&label=Tests&style=flat-square&logo=github)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/quality.yml)
+[![GitLab Pipeline](https://img.shields.io/gitlab/pipeline-status/bayraktarozcan/Brave-Omega-Project/main?style=flat-square&logo=gitlab&logoColor=white&label=GitLab%20Pipeline)](https://gitlab.com/bayraktarozcan/Brave-Omega-Project/-/pipelines)
 [![Pester](https://img.shields.io/badge/Pester-5.0%2B-FF60A0?style=flat-square&logo=powershell&logoColor=white)](https://pester.dev)
 [![Secret Scan](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/secret-scan.yml?branch=main&label=Secret%20Scan&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/secret-scan.yml)
 [![Link Check](https://img.shields.io/github/actions/workflow/status/bayraktarozcan/Brave-Omega-Project/link-check.yml?branch=main&label=Link%20Check&style=flat-square&logo=github&logoColor=white)](https://github.com/bayraktarozcan/Brave-Omega-Project/actions/workflows/link-check.yml)
