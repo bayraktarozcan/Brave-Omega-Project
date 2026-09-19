@@ -5,7 +5,7 @@ BeforeAll {
 Describe "Version Check" -Tag "Unit" {
     It "unified script should have expected Brave version constant" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'ValidatedBrave.*=.*"1\.95\.102"' | Should -Be $true
+        $content -match 'ValidatedBrave.*=.*"1\.95\.104"' | Should -Be $true
     }
 
     It "unified script should have expected Chromium version constant" {
@@ -26,8 +26,8 @@ Describe "Version Check" -Tag "Unit" {
     }
 
     It "should confirm version match" {
-        $braveVersion = "1.95.102"
-        $ValidatedBrave = "1.95.102"
+        $braveVersion = "1.95.104"
+        $ValidatedBrave = "1.95.104"
         ($braveVersion -eq $ValidatedBrave) | Should -Be $true
     }
 

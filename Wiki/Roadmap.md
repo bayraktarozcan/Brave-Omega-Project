@@ -11,17 +11,17 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v2.7.2.0** — *Brave 1.95.102 compatibility validation* (2026-09-18)
+**v2.7.3.0** — *Brave 1.95.104 compatibility validation* (2026-09-19)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), single bilingual script with `-Language EN|TR|Auto`, validated against Brave 1.95.102 (Chromium 153.0.8010.48). Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), single bilingual script with `-Language EN|TR|Auto`, validated against Brave 1.95.104 (Chromium 153.0.8010.53). Cumulative chain: 24→51→83→123→151.
 
 ---
 
 ## Previous Version
 
-**v2.7.1.0** — *Brave 1.95.101 compatibility validation* (2026-09-11)
+**v2.7.2.0** — *Brave 1.95.102 compatibility validation* (2026-09-18)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), validated against Brave 1.95.101 (Chromium 153.0.8010.37). Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), validated against Brave 1.95.102 (Chromium 153.0.8010.48). Cumulative chain: 24→51→83→123→151.
 
 ---
 
@@ -262,17 +262,17 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v2.7.2.0** — *Brave 1.95.102 uyumluluk doğrulaması* (2026-09-18)
+**v2.7.3.0** — *Brave 1.95.104 uyumluluk doğrulaması* (2026-09-19)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), `-Language EN|TR|Auto` seçenekli tek iki dilli betik, Brave 1.95.102 (Chromium 153.0.8010.48) ile doğrulandı. Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), `-Language EN|TR|Auto` seçenekli tek iki dilli betik, Brave 1.95.104 (Chromium 153.0.8010.53) ile doğrulandı. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 
 ## Önceki Sürüm
 
-**v2.7.1.0** — *Brave 1.95.101 uyumluluk doğrulaması* (2026-09-11)
+**v2.7.2.0** — *Brave 1.95.102 uyumluluk doğrulaması* (2026-09-18)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), Brave 1.95.101 (Chromium 153.0.8010.37) ile doğrulandı. Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), Brave 1.95.102 (Chromium 153.0.8010.48) ile doğrulandı. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 

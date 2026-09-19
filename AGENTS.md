@@ -42,8 +42,8 @@ Operational notes for humans and AI agents working in this repository.
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v2.7.2.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
-| Brave | `1.95.102` | `$ValidatedBrave` |
+| Script | `v2.7.3.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Brave | `1.95.104` | `$ValidatedBrave` |
 | Chromium | `153` | `$ValidatedChromium` (major only) |
 
 Policy totals: 151 across 5 tiers; cumulative chain `24 → 51 → 83 → 123 → 151`.
@@ -113,8 +113,8 @@ Bu depoda çalışan insan ve yapay zekâ ajanları için operasyonel notlar.
 
 | Sabit | Güncel | Nerede |
 |-------|--------|--------|
-| Betik | `v2.7.2.0` | `BraveOmega.ps1` başlığı + `$ScriptVersion` |
-| Brave | `1.95.102` | `$ValidatedBrave` |
+| Betik | `v2.7.3.0` | `BraveOmega.ps1` başlığı + `$ScriptVersion` |
+| Brave | `1.95.104` | `$ValidatedBrave` |
 | Chromium | `153` | `$ValidatedChromium` (yalnızca ana sürüm) |
 
 Politika toplamı: 5 seviyede 151; kümülatif zincir `24 → 51 → 83 → 123 → 151`.
