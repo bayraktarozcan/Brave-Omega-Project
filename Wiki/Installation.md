@@ -5,7 +5,7 @@
 
 # ğŸ”§ Installation â€” Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.7.1.0 (Brave 1.95.101 / Chromium 153.0.8010.37 compatibility validation).
+Complete installation guide for Brave Omega v2.7.2.0 (Brave 1.95.102 / Chromium 153.0.8010.48 compatibility validation).
 
 ---
 
@@ -100,7 +100,7 @@ Navigate to `brave://policy` â€” all Essential level policies (51) should s
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session only | Current process | âœ… Better |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(used)* | **Single command** | **Child process only** | âœ… **Best â€” no persistence** |
 
-> **Brave Omega v2.7.1.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag â€” applies only to the child process, no registry changes, no attack surface.
+> **Brave Omega v2.7.2.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag â€” applies only to the child process, no registry changes, no attack surface.
 
 ---
 
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # ğŸ”§ Kurulum â€” Tam Kurulum KÄ±lavuzu
 
-Brave Omega v2.7.1.0 iÃ§in tam kurulum kÄ±lavuzu (Brave 1.95.101 / Chromium 153.0.8010.37 uyumluluk doÄŸrulamasÄ±).
+Brave Omega v2.7.2.0 iÃ§in tam kurulum kÄ±lavuzu (Brave 1.95.102 / Chromium 153.0.8010.48 uyumluluk doÄŸrulamasÄ±).
 
 ---
 
@@ -313,7 +313,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | YalnÄ±zca oturum | GeÃ§erli iÅŸlem | âœ… Daha iyi |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(kullanÄ±lan)* | **Tek komut** | **YalnÄ±zca alt iÅŸlem** | âœ… **En iyi â€” kalÄ±cÄ±lÄ±k yok** |
 
-> **Brave Omega v2.7.1.0 en gÃ¼venli yÃ¶ntemi kullanÄ±r:** `-ExecutionPolicy Bypass` baÅŸlatma bayraÄŸÄ± olarak â€” yalnÄ±zca alt iÅŸlem iÃ§in geÃ§erlidir, kayÄ±t defteri deÄŸiÅŸikliÄŸi yok, saldÄ±rÄ± yÃ¼zeyi yok.
+> **Brave Omega v2.7.2.0 en gÃ¼venli yÃ¶ntemi kullanÄ±r:** `-ExecutionPolicy Bypass` baÅŸlatma bayraÄŸÄ± olarak â€” yalnÄ±zca alt iÅŸlem iÃ§in geÃ§erlidir, kayÄ±t defteri deÄŸiÅŸikliÄŸi yok, saldÄ±rÄ± yÃ¼zeyi yok.
 
 ---
 

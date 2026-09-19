@@ -25,150 +25,181 @@
 ## EN English Changelog
 
 ### Table of Contents
-1. [v2.7.1.0 — 2026-09-11](#en-v2710)
+1. [v2.7.2.0 — 2026-09-18](#en-v2720)
+    * [Summary](#en-v2720-summary)
+    * [Changed](#en-v2720-changed)
+2. [v2.7.1.0 — 2026-09-11](#en-v2710)
     * [Summary](#en-v2710-summary)
     * [Changed](#en-v2710-changed)
-2. [v2.7.0.0 — 2026-09-09](#en-v2700)
+3. [v2.7.0.0 — 2026-09-09](#en-v2700)
     * [Summary](#en-v2700-summary)
     * [Added](#en-v2700-added)
     * [Changed](#en-v2700-changed)
-3. [v2.6.2.0 — 2026-09-07](#en-v2620)
+4. [v2.6.2.0 — 2026-09-07](#en-v2620)
     * [Summary](#en-v2620-summary)
     * [Changed](#en-v2620-changed)
-4. [v2.6.1.1 — 2026-09-06](#en-v2611)
+5. [v2.6.1.1 — 2026-09-06](#en-v2611)
     * [Summary](#en-v2611-summary)
     * [Changed](#en-v2611-changed)
-5. [v2.6.1.0 — 2026-08-31](#en-v2610)
+6. [v2.6.1.0 — 2026-08-31](#en-v2610)
     * [Summary](#en-v2610-summary)
     * [Removed](#en-v2610-removed)
     * [Changed](#en-v2610-changed)
-6. [v2.6.0.0 — 2026-08-29](#en-v2600)
+7. [v2.6.0.0 — 2026-08-29](#en-v2600)
     * [Summary](#en-v2600-summary)
     * [Added](#en-v2600-added)
     * [Changed](#en-v2600-changed)
-7. [v2.5.5.4 — 2026-08-27](#en-v2554)
+8. [v2.5.5.4 — 2026-08-27](#en-v2554)
     * [Summary](#en-v2554-summary)
     * [Changed](#en-v2554-changed)
-8. [v2.5.5.3 — 2026-08-22](#en-v2553)
+9. [v2.5.5.3 — 2026-08-22](#en-v2553)
     * [Summary](#en-v2553-summary)
     * [Changed](#en-v2553-changed)
-9. [v2.5.5.2 — 2026-08-13](#en-v2552)
+10. [v2.5.5.2 — 2026-08-13](#en-v2552)
     * [Summary](#en-v2552-summary)
     * [Fixed](#en-v2552-fixed)
     * [Changed](#en-v2552-changed)
-10. [v2.5.5.1 — 2026-08-01](#en-v2551)
+11. [v2.5.5.1 — 2026-08-01](#en-v2551)
     * [Summary](#en-v2551-summary)
     * [Changed](#en-v2551-changed)
-11. [v2.5.5.0 — 2026-08-01](#en-v2550)
+12. [v2.5.5.0 — 2026-08-01](#en-v2550)
     * [Summary](#en-v2550-summary)
     * [Changed](#en-v2550-changed)
-12. [v2.5.4.0 — 2026-07-31](#en-v2540)
+13. [v2.5.4.0 — 2026-07-31](#en-v2540)
     * [Summary](#en-v2540-summary)
     * [Added](#en-v2540-added)
     * [Changed](#en-v2540-changed)
-13. [v2.5.3.0 — 2026-07-31](#en-v2530)
+14. [v2.5.3.0 — 2026-07-31](#en-v2530)
     * [Summary](#en-v2530-summary)
     * [Added](#en-v2530-added)
     * [Changed](#en-v2530-changed)
-14. [v2.5.2.1 — 2026-07-31](#en-v2521)
+15. [v2.5.2.1 — 2026-07-31](#en-v2521)
     * [Summary](#en-v2521-summary)
     * [Changed](#en-v2521-changed)
-15. [v2.5.2.0 — 2026-07-25](#en-v2520)
+16. [v2.5.2.0 — 2026-07-25](#en-v2520)
     * [Summary](#en-v2520-summary)
     * [Changed](#en-v2520-changed)
-16. [Introduction](#en-introduction)
-17. [v2.5.1.0 — 2026-07-23](#en-v2510)
+17. [Introduction](#en-introduction)
+18. [v2.5.1.0 — 2026-07-23](#en-v2510)
     * [Summary](#en-v2510-summary)
     * [Changed](#en-v2510-changed)
-18. [v2.5.0.0 — 2026-07-21](#en-v2500)
+19. [v2.5.0.0 — 2026-07-21](#en-v2500)
     * [Summary](#en-v2500-summary)
     * [Added](#en-v2500-added)
     * [Removed](#en-v2500-removed)
-19. [v2.4.2.0 — 2026-07-21](#en-v2420)
+20. [v2.4.2.0 — 2026-07-21](#en-v2420)
     * [Summary](#en-v2420-summary)
-20. [v2.4.1.0 — 2026-07-12](#en-v2410)
+21. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-21. [v2.4.0.0 — 2026-07-11](#en-v2400)
+22. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-22. [v2.3.1.0 — 2026-07-10](#en-v2310)
+23. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-23. [v2.3.0.0 — 2026-07-09](#en-v2300)
+24. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
     * [Notes](#en-v2300-notes)
-24. [v2.2.1.0 — 2026-07-07](#en-v2210)
+25. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-25. [v2.2.0.2 — 2026-07-07](#en-v2202)
+26. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-26. [v2.2.0.1 — 2026-07-06](#en-v2201)
+27. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
-27. [v2.2.0 — 2026-07-06](#en-v220)
+28. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
-28. [v2.1.6 — 2026-07-05](#en-v216)
+29. [v2.1.6 — 2026-07-05](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
     * [Changed](#en-v216-changed)
-29. [v2.1.5 — 2026-07-03](#en-v215)
+30. [v2.1.5 — 2026-07-03](#en-v215)
     * [Summary](#en-v215-summary)
     * [Changed](#en-v215-changed)
-30. [v2.1.4 — 2026-06-27](#en-v214)
+31. [v2.1.4 — 2026-06-27](#en-v214)
     * [Summary](#en-v214-summary)
     * [Changed](#en-v214-changed)
-31. [v2.1.3 — 2026-06-26](#en-v213)
+32. [v2.1.3 — 2026-06-26](#en-v213)
     * [Summary](#en-v213-summary)
     * [Changed](#en-v213-changed)
-32. [v2.1.2 — 2026-06-18](#en-v212)
+33. [v2.1.2 — 2026-06-18](#en-v212)
     * [Summary](#en-v212-summary)
     * [Changed](#en-v212-changed)
-33. [v2.1.1 — 2026-06-18](#en-v211)
+34. [v2.1.1 — 2026-06-18](#en-v211)
     * [Summary](#en-v211-summary)
     * [Fixed](#en-v211-fixed)
-34. [v2.1 — 2026-06-16](#en-v21)
+35. [v2.1 — 2026-06-16](#en-v21)
     * [Summary](#en-v21-summary)
     * [Added](#en-v21-added)
     * [Changed](#en-v21-changed)
     * [Statistics](#en-v21-statistics)
-35. [v2.0 — 2026-06-16](#en-v20)
+36. [v2.0 — 2026-06-16](#en-v20)
     * [Summary](#en-v20-summary)
     * [Added](#en-v20-added)
     * [Changed](#en-v20-changed)
     * [Statistics](#en-v20-statistics)
-36. [v1.2.2 — 2026-06-13](#en-v122)
+37. [v1.2.2 — 2026-06-13](#en-v122)
     * [Summary](#en-v122-summary)
     * [Changed](#en-v122-changed)
-37. [v1.2.1 — 2026-06-13](#en-v121)
+38. [v1.2.1 — 2026-06-13](#en-v121)
     * [Changed](#en-v121-changed)
-38. [v1.2 — 2026-06-12](#en-v12)
+39. [v1.2 — 2026-06-12](#en-v12)
     * [Summary](#en-v12-summary)
-39. [v1.1.1 — 2026-06-12](#en-v111)
+40. [v1.1.1 — 2026-06-12](#en-v111)
     * [Fixed](#en-v111-fixed)
-40. [v1.1 — 2026-06-12](#en-v11)
+41. [v1.1 — 2026-06-12](#en-v11)
     * [Summary](#en-v11-summary)
-41. [v1.0.1 — 2026-06-11](#en-v101)
+42. [v1.0.1 — 2026-06-11](#en-v101)
     * [Fixed](#en-v101-fixed)
-42. [v1.0 — 2026-06-08](#en-v10)
+43. [v1.0 — 2026-06-08](#en-v10)
     * [Summary](#en-v10-summary)
-43. [Notes](#en-notes)
+44. [Notes](#en-notes)
 
 ---
 
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v2720"></a>
+
+## [v2.7.2.0] — 2026-09-18
+
+<a id="en-v2720-summary"></a>
+
+### Summary
+
+**Brave 1.95.102 compatibility validation.** v2.7.2.0 validates the configuration against Brave 1.95.102 (Chromium 153.0.8010.48), released September 16, 2026. Brave 1.95.101 (Chromium 153.0.8010.37) remains supported. No policies changed: totals remain **151** across 5 tiers; cumulative chain remains 24 → 51 → 83 → 123 → 151.
+
+| Metric | Before (v2.7.1.0) | After (v2.7.2.0) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 151 | **151** (no change) |
+| Cumulative chain | 24→51→83→123→151 | **24→51→83→123→151** |
+| Script version | v2.7.1.0 | v2.7.2.0 |
+| Validated Brave | 1.95.101 | 1.95.102 |
+| Validated Chromium | 153.0.8010.37 | 153.0.8010.48 |
+
+<a id="en-v2720-changed"></a>
+
+### Changed
+
+- **BraveOmega.ps1** — `$ScriptVersion` → `v2.7.2.0`; `$ValidatedBrave` → `1.95.102`; `$ValidatedChromium` → `153`; header changelog and channel warning updated.
+- **Version matrices and catalog** — README, SECURITY, index.html, Wiki compatibility matrix, and regenerated `levels.json` bumped; `.reg` artifacts byte-identical (no policy drift).
 
 ---
 
@@ -1891,6 +1922,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 | Version | Date       | Policies | Major Changes |
 |---------|------------|----------|---------------|
+| v2.7.2.0 | 2026-09-18 | 151   | Compatibility validation: Brave 1.95.102 (Chromium 153.0.8010.48); no policy changes; total 151; cumulative chain 24→51→83→123→151 |
 | v2.7.1.0 | 2026-09-11 | 151   | Compatibility validation: Brave 1.95.101 (Chromium 153.0.8010.37); no policy changes; total 151; cumulative chain 24→51→83→123→151 |
 | v2.7.0.0 | 2026-09-09 | 151   | Feature release - unified bilingual script (108-key EN/TR table, -Language, bilingual prompt); wrappers removed; gitleaks secret-scan CI; no policy changes; total 151; cumulative chain 24→51→83→123→151 |
 | v2.6.2.0 | 2026-09-07 | 151   | Compatibility validation: Brave 1.94.121 (Chromium 152.0.7977.83); no policy changes; total 151; cumulative chain 24›51›83›123›151 |
@@ -1966,165 +1998,196 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.7.1.0 — 2026-09-11](#tr-v2710)
+1. [v2.7.2.0 — 2026-09-18](#tr-v2720)
+    * [Özet](#tr-v2720-ozet)
+    * [Değiştirildi](#tr-v2720-degistirildi)
+2. [v2.7.1.0 — 2026-09-11](#tr-v2710)
     * [Özet](#tr-v2710-ozet)
     * [Değiştirildi](#tr-v2710-degistirildi)
-2. [v2.7.0.0 — 2026-09-09](#tr-v2700)
+3. [v2.7.0.0 — 2026-09-09](#tr-v2700)
     * [Özet](#tr-v2700-ozet)
     * [Eklendi](#tr-v2700-eklendi)
     * [Değiştirildi](#tr-v2700-degistirildi)
-3. [v2.6.2.0 — 2026-09-07](#tr-v2620)
+4. [v2.6.2.0 — 2026-09-07](#tr-v2620)
     * [Özet](#tr-v2620-ozet)
     * [Değiştirildi](#tr-v2620-degistirildi)
-4. [v2.6.1.1 — 2026-09-06](#tr-v2611)
+5. [v2.6.1.1 — 2026-09-06](#tr-v2611)
     * [Özet](#tr-v2611-ozet)
     * [Değiştirildi](#tr-v2611-degistirildi)
-5. [v2.6.1.0 — 2026-08-31](#tr-v2610)
+6. [v2.6.1.0 — 2026-08-31](#tr-v2610)
     * [Özet](#tr-v2610-ozet)
     * [Kaldırıldı](#tr-v2610-kaldirildi)
     * [Değiştirildi](#tr-v2610-degistirildi)
-6. [v2.6.0.0 — 2026-08-29](#tr-v2600)
+7. [v2.6.0.0 — 2026-08-29](#tr-v2600)
     * [Özet](#tr-v2600-ozet)
     * [Eklendi](#tr-v2600-eklendi)
     * [Değiştirildi](#tr-v2600-degistirildi)
-7. [v2.5.5.4 — 2026-08-27](#tr-v2554)
+8. [v2.5.5.4 — 2026-08-27](#tr-v2554)
     * [Özet](#tr-v2554-ozet)
     * [Değiştirildi](#tr-v2554-degistirildi)
-8. [v2.5.5.3 — 2026-08-22](#tr-v2553)
+9. [v2.5.5.3 — 2026-08-22](#tr-v2553)
     * [Özet](#tr-v2553-ozet)
     * [Değiştirildi](#tr-v2553-degistirildi)
-9. [v2.5.5.2 — 2026-08-13](#tr-v2552)
+10. [v2.5.5.2 — 2026-08-13](#tr-v2552)
     * [Özet](#tr-v2552-ozet)
     * [Düzeltildi](#tr-v2552-duzeltildi)
     * [Değiştirildi](#tr-v2552-degistirildi)
-10. [v2.5.5.1 — 2026-08-01](#tr-v2551)
+11. [v2.5.5.1 — 2026-08-01](#tr-v2551)
     * [Özet](#tr-v2551-ozet)
     * [Değiştirildi](#tr-v2551-degistirildi)
-11. [v2.5.5.0 — 2026-08-01](#tr-v2550)
+12. [v2.5.5.0 — 2026-08-01](#tr-v2550)
     * [Özet](#tr-v2550-ozet)
     * [Değiştirildi](#tr-v2550-degistirildi)
-12. [v2.5.4.0 — 2026-07-31](#tr-v2540)
+13. [v2.5.4.0 — 2026-07-31](#tr-v2540)
     * [Özet](#tr-v2540-ozet)
     * [Eklendi](#tr-v2540-eklendi)
     * [Değiştirildi](#tr-v2540-degistirildi)
-13. [v2.5.3.0 — 2026-07-31](#tr-v2530)
+14. [v2.5.3.0 — 2026-07-31](#tr-v2530)
     * [Özet](#tr-v2530-ozet)
     * [Eklendi](#tr-v2530-eklendi)
     * [Değiştirildi](#tr-v2530-degistirildi)
-14. [v2.5.2.1 — 2026-07-31](#tr-v2521)
+15. [v2.5.2.1 — 2026-07-31](#tr-v2521)
     * [Özet](#tr-v2521-ozet)
     * [Değiştirildi](#tr-v2521-degistirildi)
-15. [v2.5.2.0 — 2026-07-25](#tr-v2520)
+16. [v2.5.2.0 — 2026-07-25](#tr-v2520)
     * [Özet](#tr-v2520-ozet)
     * [Değiştirildi](#tr-v2520-degistirildi)
-16. [Giriş](#tr-introduction)
-17. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+17. [Giriş](#tr-introduction)
+18. [v2.5.1.0 — 2026-07-23](#tr-v2510)
     * [Özet](#tr-v2510-ozet)
     * [Değiştirildi](#tr-v2510-degistirildi)
-18. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+19. [v2.5.0.0 — 2026-07-21](#tr-v2500)
     * [Özet](#tr-v2500-ozet)
     * [Eklendi](#tr-v2500-eklendi)
     * [Kaldırıldı](#tr-v2500-kaldirildi)
-19. [v2.4.2.0 — 2026-07-21](#tr-v2420)
+20. [v2.4.2.0 — 2026-07-21](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-20. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+21. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Eklendi](#tr-v2410-eklendi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-21. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+22. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-22. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+23. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-23. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+24. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-24. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+25. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
-25. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+26. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
-26. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+27. [v2.2.0.1 — 2026-07-06](#tr-v2201)
     * [Özet](#tr-v2201-ozet)
-27. [v2.2.0 — 2026-07-06](#tr-v220)
+28. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
-28. [v2.1.6 — 2026-07-05](#tr-v216)
+29. [v2.1.6 — 2026-07-05](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
     * [Değiştirildi](#tr-v216-changed)
-29. [v2.1.5 — 2026-07-03](#tr-v215)
+30. [v2.1.5 — 2026-07-03](#tr-v215)
     * [Özet](#tr-v215-summary)
     * [Değiştirildi](#tr-v215-changed)
-30. [v2.1.4 — 2026-06-27](#tr-v214)
+31. [v2.1.4 — 2026-06-27](#tr-v214)
     * [Özet](#tr-v214-summary)
     * [Değiştirildi](#tr-v214-changed)
-31. [v2.1.3 — 2026-06-26](#tr-v213)
+32. [v2.1.3 — 2026-06-26](#tr-v213)
     * [Özet](#tr-v213-summary)
     * [Değiştirildi](#tr-v213-changed)
-32. [v2.1.2 — 2026-06-18](#tr-v212)
+33. [v2.1.2 — 2026-06-18](#tr-v212)
     * [Özet](#tr-v212-summary)
     * [Değiştirildi](#tr-v212-changed)
-33. [v2.1.1 — 2026-06-18](#tr-v211)
+34. [v2.1.1 — 2026-06-18](#tr-v211)
     * [Özet](#tr-v211-summary)
     * [Düzeltildi](#tr-v211-fixed)
-34. [v2.1 — 2026-06-16](#tr-v21)
+35. [v2.1 — 2026-06-16](#tr-v21)
     * [Özet](#tr-v21-summary)
     * [Eklendi](#tr-v21-added)
     * [Değiştirildi](#tr-v21-changed)
     * [İstatistikler](#tr-v21-statistics)
-35. [v2.0 — 2026-06-16](#tr-v20)
+36. [v2.0 — 2026-06-16](#tr-v20)
     * [Özet](#tr-v20-summary)
     * [Eklendi](#tr-v20-added)
     * [Değiştirildi](#tr-v20-changed)
     * [İstatistikler](#tr-v20-statistics)
-36. [v1.2.2 — 2026-06-13](#tr-v122)
+37. [v1.2.2 — 2026-06-13](#tr-v122)
     * [Özet](#tr-v122-summary)
     * [Değiştirildi](#tr-v122-changed)
-37. [v1.2.1 — 2026-06-13](#tr-v121)
+38. [v1.2.1 — 2026-06-13](#tr-v121)
     * [Özet](#tr-v121-summary)
     * [Değiştirildi](#tr-v121-changed)
-38. [v1.2 — 2026-06-12](#tr-v12)
+39. [v1.2 — 2026-06-12](#tr-v12)
     * [Özet](#tr-v12-summary)
     * [Eklendi](#tr-v12-added)
     * [İstatistikler](#tr-v12-statistics)
     * [Değiştirildi](#tr-v12-changed)
     * [Güvenlik](#tr-v12-security)
-39. [v1.1.1 — 2026-06-12](#tr-v111)
+40. [v1.1.1 — 2026-06-12](#tr-v111)
     * [Özet](#tr-v111-ozet)
     * [Düzeltildi](#tr-v111-duzeltildi)
-40. [v1.1 — 2026-06-05](#tr-v11)
+41. [v1.1 — 2026-06-05](#tr-v11)
     * [Özet](#tr-v11-summary)
     * [Eklendi](#tr-v11-added)
     * [Değiştirildi](#tr-v11-changed)
     * [Kaldırıldı](#tr-v11-removed)
     * [Detaylar](#tr-v11-details)
-41. [v1.0.1 — 2026-06-04](#tr-v101)
+42. [v1.0.1 — 2026-06-04](#tr-v101)
     * [Özet](#tr-v101-ozet)
     * [Düzeltildi](#tr-v101-duzeltildi)
-42. [v1.0 — 2026-06-04](#tr-v10)
+43. [v1.0 — 2026-06-04](#tr-v10)
     * [Özet](#tr-v10-summary)
     * [Özellikler](#tr-v10-features)
     * [Başlangıç Politikaları](#tr-v10-initial-policies)
     * [Belgelendirme](#tr-v10-documentation)
-43. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-44. [İlgili Belgelendirme](#tr-related-documentation)
-45. [Notlar](#tr-notes)
+44. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+45. [İlgili Belgelendirme](#tr-related-documentation)
+46. [Notlar](#tr-notes)
 
 ---
 
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v2720"></a>
+
+## [v2.7.2.0] — 2026-09-18
+
+<a id="tr-v2720-ozet"></a>
+
+### Özet
+
+**Brave 1.95.102 uyumluluk doğrulaması.** v2.7.2.0, yapılandırmayı 16 Eylül 2026'da yayımlanan Brave 1.95.102 (Chromium 153.0.8010.48) sürümüne karşı doğrular. Brave 1.95.101 (Chromium 153.0.8010.37) desteklenmeye devam ediyor. Politika değişikliği yoktur: 5 seviyede toplam **151**; kümülatif zincir 24 → 51 → 83 → 123 → 151 olarak kalır.
+
+| Metrik | Önce (v2.7.1.0) | Sonra (v2.7.2.0) |
+|--------|-----------------|-------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 151 | **151** (değişiklik yok) |
+| Kümülatif zincir | 24→51→83→123→151 | **24→51→83→123→151** |
+| Betik sürümü | v2.7.1.0 | v2.7.2.0 |
+| Doğrulanan Brave | 1.95.101 | 1.95.102 |
+| Doğrulanan Chromium | 153.0.8010.37 | 153.0.8010.48 |
+
+<a id="tr-v2720-degistirildi"></a>
+
+### Değiştirildi
+
+- **BraveOmega.ps1** — `$ScriptVersion` → `v2.7.2.0`; `$ValidatedBrave` → `1.95.102`; `$ValidatedChromium` → `153`; başlık değişiklik geçmişi ve kanal uyarısı güncellendi.
+- **Sürüm matrisleri ve katalog** — README, SECURITY, index.html, Wiki uyumluluk matrisi ve yeniden üretilmiş `levels.json` güncellendi; `.reg` dosyaları bayt-bayt aynı (politika farkı yok).
 
 ---
 
@@ -3850,6 +3913,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 | Sürüm | Tarih      | Politikalar | Ana Değişiklikler |
 |-------|------------|-------------|-------------------|
+| v2.7.2.0 | 2026-09-18 | 151   | Uyumluluk doğrulaması: Brave 1.95.102 (Chromium 153.0.8010.48); politika değişikliği yok; toplam 151; kümülatif zincir 24→51→83→123→151 |
 | v2.7.1.0 | 2026-09-11 | 151   | Uyumluluk doğrulaması: Brave 1.95.101 (Chromium 153.0.8010.37); politika değişikliği yok; toplam 151; kümülatif zincir 24→51→83→123→151 |
 | v2.7.0.0 | 2026-09-09 | 151   | Özellik sürümü - birleşik iki dilli betik (108 anahtarlı EN/TR tablo, -Language, iki dilli istem); sarmalayıcılar kaldırıldı; gitleaks secret-scan CI; politika değişikliği yok; toplam 151; kümülatif zincir 24→51→83→123→151 |
 | v2.6.2.0 | 2026-09-07 | 151   | Uyumluluk doğrulaması: Brave 1.94.121 (Chromium 152.0.7977.83); politika değişikliği yok; toplam 151; kümülatif zincir 24›51›83›123›151 |

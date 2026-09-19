@@ -5,20 +5,29 @@
 #
 # ==============================================================================
 # ==============================================================================
-# VERSION CONTEXT  : Windows 11 25H2 (Build 26200.8894)
-#                    Brave 1.95.101 (Official Build) (64 bit) Chromium: 153.0.8010.37
+# VERSION CONTEXT  : Windows 11 25H2 (Build 26200.9457)
+#                    Brave 1.95.102 (Official Build) (64 bit) Chromium: 153.0.8010.48
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.95.101, dated September 11, 2026, belongs to the Stable channel.
+#    Brave 1.95.102, dated September 16, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.7.1.0)
+# CHANGELOG (v2.7.2.0)
 # ─────────────────────────────────────────────────────────────────────────────
+#   v2.7.2.0             Patch release — Brave 1.95.102 compatibility validation:
+#
+#     [CHANGED]     Validated against Brave 1.95.102 (Chromium 153.0.8010.48),
+#                   released September 16, 2026. Brave 1.95.101 (Chromium
+#                   153.0.8010.37) remains supported.
+#
+#     [UNCHANGED]   No policy changes. Totals remain 151 across 5 tiers
+#                   (chain: 24 → 51 → 83 → 123 → 151).
+#
 #   v2.7.1.0             Patch release — Brave 1.95.101 compatibility validation:
 #
 #     [CHANGED]     Validated against Brave 1.95.101 (Chromium 153.0.8010.37),
@@ -411,8 +420,8 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.7.1.0"
-$ValidatedBrave  = "1.95.101"
+$ScriptVersion   = "v2.7.2.0"
+$ValidatedBrave  = "1.95.102"
 $ValidatedChromium = "153"
 
 # ─────────────────────────────────────────────────────────────────────────────
