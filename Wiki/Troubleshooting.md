@@ -1,9 +1,9 @@
 > **Language / Dil** &nbsp;
-> [EN English](#-english) &nbsp;Â·&nbsp; [TR TÃ¼rkÃ§e](#-tÃ¼rkÃ§e)
+> [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
 
-# ğŸ” Troubleshooting â€” Common Issues & Solutions
+# 🔍 Troubleshooting — Common Issues & Solutions
 
 Quick-reference guide for common Brave Omega issues.
 
@@ -13,16 +13,16 @@ Quick-reference guide for common Brave Omega issues.
 
 | Symptom | Likely Cause | Quick Fix |
 | --------- | -------------- | ----------- |
-| Script exits with "CRITICAL ERROR" | Not running as Administrator | Right-click PowerShell â†’ **Run as Administrator** |
+| Script exits with "CRITICAL ERROR" | Not running as Administrator | Right-click PowerShell → **Run as Administrator** |
 | `brave://policy` shows **no policies** | Brave not restarted | Close **all** Brave windows and reopen |
 | `[ERROR]` lines in output | HKLM permission issue | Confirm Admin mode; re-run |
 | Brave overwrites HKCU prefs | Brave was open during run | Close Brave first; re-run |
 | Policy shows "Unknown" in `brave://policy` | Version mismatch | Verify Brave version vs [Compatibility Matrix](Version-Compatibility-Matrix) |
-| `reg export` fails at backup | Restricted HKLM ACL | Run `regedit` â†’ inspect path â†’ check ACL |
+| `reg export` fails at backup | Restricted HKLM ACL | Run `regedit` → inspect path → check ACL |
 | Script hangs / no output | Brave process detection | Close Brave manually, re-run |
 | `-Reset` doesn't remove all policies | Brave was running | Close Brave completely, re-run `-Reset` |
 | `-WhatIf` shows unexpected changes | Wrong level selected | Re-run with correct `-Level` parameter |
-| Test fails: "Command not found" | Tests run from wrong directory | `cd` to project root â†’ `Invoke-Pester -Path .\Tests\` |
+| Test fails: "Command not found" | Tests run from wrong directory | `cd` to project root → `Invoke-Pester -Path .\Tests\` |
 | Pester test skipped in CI | Missing Pester module | `Install-Module Pester -Force -SkipPublisherCheck` |
 
 ---
@@ -36,8 +36,8 @@ Quick-reference guide for common Brave Omega issues.
 **Resolution:**
 
 1. Close PowerShell
-2. Press `Win` â†’ type `PowerShell`
-3. Right-click **Windows PowerShell** â†’ **Run as Administrator**
+2. Press `Win` → type `PowerShell`
+3. Right-click **Windows PowerShell** → **Run as Administrator**
 4. Navigate to project folder and re-run
 
 > **Note:** HKLM writes **require** Administrator. HKCU/Omaha layers do not.
@@ -69,7 +69,7 @@ Quick-reference guide for common Brave Omega issues.
 1. Verify running as Administrator (check title bar says "Administrator")
 2. Close any registry editors (`regedit`) that might lock the path
 3. Re-run script
-4. If persists: Run `regedit` â†’ navigate to `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` â†’ check **Permissions** â†’ ensure `Administrators` has **Full Control**
+4. If persists: Run `regedit` → navigate to `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` → check **Permissions** → ensure `Administrators` has **Full Control**
 
 ---
 
@@ -91,7 +91,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
 ### 5. Policy Shows "Unknown" in `brave://policy`
 
-**Cause:** Brave version mismatch â€” policy key renamed/deprecated in newer Brave.
+**Cause:** Brave version mismatch — policy key renamed/deprecated in newer Brave.
 
 **Resolution:**
 
@@ -112,10 +112,10 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
 1. Open `regedit` as Administrator
 2. Navigate to `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
-3. Right-click â†’ **Permissions**
+3. Right-click → **Permissions**
 4. Ensure **Administrators** group has **Full Control**
 5. Check **Replace all child object permission entries**
-6. Apply â†’ OK
+6. Apply → OK
 7. Re-run script
 
 > **Alternative:** Run script from elevated CMD instead of PowerShell.
@@ -149,7 +149,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
-> **Do NOT** run `Set-ExecutionPolicy` manually â€” the bypass flag handles it safely.
+> **Do NOT** run `Set-ExecutionPolicy` manually — the bypass flag handles it safely.
 
 ---
 
@@ -161,7 +161,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
 1. Verify registry value types in `regedit`:
    - DWORD policies: `0` or `1` (not `"0"` or `"1"`)
-2. Re-run script â€” it enforces correct types
+2. Re-run script — it enforces correct types
 3. If persistent: Manual cleanup + re-run
 
 ```powershell
@@ -176,7 +176,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
 ### 10. Pester Test Fails or Is Skipped
 
-**Cause:** Test environment issue â€” wrong directory, missing module, or admin requirement.
+**Cause:** Test environment issue — wrong directory, missing module, or admin requirement.
 
 **Resolution:**
 
@@ -208,30 +208,13 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 | Registry test fails | Running without `-WhatIf` mock |
 | CI test not triggered | Branch not pushed / PR not open |
 
-**Cause:** Registry value type mismatch (DWORD vs String) or invalid value.
-
-**Resolution:**
-
-1. Verify registry value types in `regedit`:
-   - DWORD policies: `0` or `1` (not `"0"` or `"1"`)
-2. Re-run script â€” it enforces correct types
-3. If persistent: Manual cleanup + re-run
-
-```powershell
-# Cleanup
-Remove-Item "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -Recurse -Force
-Remove-Item "HKCU:\Software\BraveSoftware\Brave-Browser" -Recurse -Force
-# Re-run
-PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
-```
-
 ---
 
 ## Error Code Reference
 
 | Exit Code | Meaning |
 | ----------- | --------- |
-| `0` | Success â€” all policies applied |
+| `0` | Success — all policies applied |
 | `1` | General failure (see output) |
 | `2` | Administrator check failed |
 | `3` | Brave version mismatch |
@@ -263,95 +246,95 @@ If issue persists:
 
 ## Related Pages
 
-- [ğŸ”§ Installation](Installation) â€” Step-by-step guide
-- [ğŸ—ï¸ Architecture](Architecture) â€” Understanding the tiers
-- [ğŸ“‹ Policy Reference](Policy-Reference) â€” What each policy does
-- [ğŸ›¡ï¸ Security](Security) â€” Safety model
-- [ğŸ—ºï¸ Roadmap](Roadmap) â€” Planned improvements
+- [🔧 Installation](Installation) — Step-by-step guide
+- [🏗️ Architecture](Architecture) — Understanding the tiers
+- [📋 Policy Reference](Policy-Reference) — What each policy does
+- [🛡️ Security](Security) — Safety model
+- [🗺️ Roadmap](Roadmap) — Planned improvements
 
 ---
 
 ---
 
-<a id="-tÃ¼rkÃ§e"></a>
+<a id="-türkçe"></a>
 
-# ğŸ” Sorun Giderme â€” SÄ±k KarÅŸÄ±laÅŸÄ±lan Sorunlar ve Ã‡Ã¶zÃ¼mler
+# 🔍 Sorun Giderme — Sık Karşılaşılan Sorunlar ve Çözümler
 
-SÄ±k karÅŸÄ±laÅŸÄ±lan Brave Omega sorunlarÄ± iÃ§in hÄ±zlÄ± baÅŸvuru kÄ±lavuzu.
+Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 
 ---
 
-## HÄ±zlÄ± TanÄ±
+## Hızlı Tanı
 
-| Belirti | OlasÄ± Neden | HÄ±zlÄ± Ã‡Ã¶zÃ¼m |
+| Belirti | Olası Neden | Hızlı Çözüm |
 | --------- | ------------- | ------------- |
-| Betik "KRÄ°TÄ°K HATA" ile Ã§Ä±kÄ±yor | YÃ¶netici olarak Ã§alÄ±ÅŸmÄ±yor | PowerShell'e saÄŸ tÄ±kla â†’ **YÃ¶netici olarak Ã§alÄ±ÅŸtÄ±r** |
-| `brave://policy` **politika gÃ¶stermiyor** | Brave yeniden baÅŸlatÄ±lmadÄ± | **TÃ¼m** Brave pencerelerini kapat ve yeniden aÃ§ |
-| Ã‡Ä±ktÄ±da `[HATA]` satÄ±rlarÄ± | HKLM izin sorunu | YÃ¶netici modunu doÄŸrula; yeniden Ã§alÄ±ÅŸtÄ±r |
-| Brave HKCU tercihlerini Ã¼zerine yazÄ±yor | Ã‡alÄ±ÅŸma sÄ±rasÄ±nda Brave aÃ§Ä±ktÄ± | Ã–nce Brave'i kapat; yeniden Ã§alÄ±ÅŸtÄ±r |
-| `brave://policy`'de "Bilinmiyor" politikasÄ± | SÃ¼rÃ¼m uyuÅŸmazlÄ±ÄŸÄ± | Brave sÃ¼rÃ¼mÃ¼nÃ¼ [Uyumluluk Matrisi](Version-Compatibility-Matrix#-tÃ¼rkÃ§e) ile karÅŸÄ±laÅŸtÄ±r |
-| Yedeklemede `reg export` baÅŸarÄ±sÄ±z | KÄ±sÄ±tlÄ± HKLM ACL | `regedit` Ã§alÄ±ÅŸtÄ±r â†’ yolu incele â†’ ACL'i kontrol et |
-| Betik takÄ±lÄ±yor / Ã§Ä±ktÄ± yok | Brave sÃ¼reÃ§ tespiti | Brave'i manuel kapat, `-Force` ile yeniden Ã§alÄ±ÅŸtÄ±r |
-| `-Reset` tÃ¼m politikalarÄ± kaldÄ±rmÄ±yor | Brave Ã§alÄ±ÅŸÄ±yordu | Brave'i tamamen kapatÄ±n, `-Reset`'i yeniden Ã§alÄ±ÅŸtÄ±rÄ±n |
-| `-WhatIf` beklenmeyen deÄŸiÅŸiklikler gÃ¶steriyor | YanlÄ±ÅŸ seviye seÃ§ildi | DoÄŸru `-Level` parametresiyle yeniden Ã§alÄ±ÅŸtÄ±rÄ±n |
+| Betik "KRİTİK HATA" ile çıkıyor | Yönetici olarak çalışmıyor | PowerShell'e sağ tıkla → **Yönetici olarak çalıştır** |
+| `brave://policy` **politika göstermiyor** | Brave yeniden başlatılmadı | **Tüm** Brave pencerelerini kapat ve yeniden aç |
+| Çıktıda `[HATA]` satırları | HKLM izin sorunu | Yönetici modunu doğrula; yeniden çalıştır |
+| Brave HKCU tercihlerini üzerine yazıyor | Çalışma sırasında Brave açıktı | Önce Brave'i kapat; yeniden çalıştır |
+| `brave://policy`'de "Bilinmiyor" politikası | Sürüm uyuşmazlığı | Brave sürümünü [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile karşılaştır |
+| Yedeklemede `reg export` başarısız | Kısıtlı HKLM ACL | `regedit` çalıştır → yolu incele → ACL'i kontrol et |
+| Betik takılıyor / çıktı yok | Brave süreç tespiti | Brave'i manuel kapat, `-Force` ile yeniden çalıştır |
+| `-Reset` tüm politikaları kaldırmıyor | Brave çalışıyordu | Brave'i tamamen kapatın, `-Reset`'i yeniden çalıştırın |
+| `-WhatIf` beklenmeyen değişiklikler gösteriyor | Yanlış seviye seçildi | Doğru `-Level` parametresiyle yeniden çalıştırın |
 
 ---
 
-## AyrÄ±ntÄ±lÄ± Ã‡Ã¶zÃ¼mler
+## Ayrıntılı Çözümler
 
-### 1. "KRÄ°TÄ°K HATA: YÃ¶netici ayrÄ±calÄ±klarÄ± gerekli"
+### 1. "KRİTİK HATA: Yönetici ayrıcalıkları gerekli"
 
-**Neden:** Betik yÃ¼kseltilmiÅŸ ayrÄ±calÄ±klarla Ã§alÄ±ÅŸmÄ±yor.
+**Neden:** Betik yükseltilmiş ayrıcalıklarla çalışmıyor.
 
-**Ã‡Ã¶zÃ¼m:**
+**Çözüm:**
 
 1. PowerShell'i kapat
-2. `Win` tuÅŸuna bas â†’ `PowerShell` yaz
-3. **Windows PowerShell**'e saÄŸ tÄ±kla â†’ **YÃ¶netici olarak Ã§alÄ±ÅŸtÄ±r**
-4. Proje klasÃ¶rÃ¼ne git ve yeniden Ã§alÄ±ÅŸtÄ±r
+2. `Win` tuşuna bas → `PowerShell` yaz
+3. **Windows PowerShell**'e sağ tıkla → **Yönetici olarak çalıştır**
+4. Proje klasörüne git ve yeniden çalıştır
 
-> **Not:** HKLM yazmalarÄ± **YÃ¶netici gerektirir**. HKCU/Omaha katmanlarÄ± gerektirmez.
+> **Not:** HKLM yazmaları **Yönetici gerektirir**. HKCU/Omaha katmanları gerektirmez.
 
 ---
 
-### 2. `brave://policy`'de Politika GÃ¶sterilmiyor
+### 2. `brave://policy`'de Politika Gösterilmiyor
 
-**Neden:** Politikalar uygulanÄ±rken Brave Ã§alÄ±ÅŸÄ±yordu veya Brave yeniden baÅŸlatÄ±lmadÄ±.
+**Neden:** Politikalar uygulanırken Brave çalışıyordu veya Brave yeniden başlatılmadı.
 
-**Ã‡Ã¶zÃ¼m:**
+**Çözüm:**
 
-1. **TÃ¼m** Brave pencerelerini kapat (sistem tepsisini kontrol et)
+1. **Tüm** Brave pencerelerini kapat (sistem tepsisini kontrol et)
 2. 2 saniye bekle
-3. Brave'i yeniden aÃ§
+3. Brave'i yeniden aç
 4. `brave://policy` adresine git
-5. SayfayÄ± yenile (F5)
+5. Sayfayı yenile (F5)
 
-> **Neden:** Brave politikalarÄ± baÅŸlangÄ±Ã§ta okur. DeÄŸiÅŸiklikler bir sonraki aÃ§Ä±lÄ±ÅŸta devreye girer.
-
----
-
-### 3. Betik Ã‡Ä±ktÄ±sÄ±nda `[HATA]` SatÄ±rlarÄ±
-
-**Neden:** HKLM kayÄ±t defteri yoluna yazma izni reddedildi.
-
-**Ã‡Ã¶zÃ¼m:**
-
-1. YÃ¶netici olarak Ã§alÄ±ÅŸtÄ±rdÄ±ÄŸÄ±nÄ±zÄ± doÄŸrulayÄ±n (baÅŸlÄ±k Ã§ubuÄŸunda "YÃ¶netici" yazdÄ±ÄŸÄ±nÄ± kontrol edin)
-2. Yolu kilitleyebilecek kayÄ±t defteri dÃ¼zenleyicilerini (`regedit`) kapatÄ±n
-3. BetiÄŸi yeniden Ã§alÄ±ÅŸtÄ±rÄ±n
-4. Devam ederse: `regedit` Ã§alÄ±ÅŸtÄ±rÄ±n â†’ `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` yoluna gidin â†’ **Ä°zinler**'i kontrol edin â†’ **YÃ¶neticiler**'in **Tam Denetim**'e sahip olduÄŸundan emin olun
+> **Neden:** Brave politikaları başlangıçta okur. Değişiklikler bir sonraki açılışta devreye girer.
 
 ---
 
-### 4. Brave HKCU Tercihlerini Ãœzerine YazÄ±yor
+### 3. Betik Çıktısında `[HATA]` Satırları
 
-**Neden:** Betik Ã§alÄ±ÅŸtÄ±rma sÄ±rasÄ±nda Brave Ã§alÄ±ÅŸÄ±yordu.
+**Neden:** HKLM kayıt defteri yoluna yazma izni reddedildi.
 
-**Ã‡Ã¶zÃ¼m:**
+**Çözüm:**
 
-1. BetiÄŸi Ã§alÄ±ÅŸtÄ±rmadan Ã¶nce **tÃ¼m** Brave pencerelerini kapatÄ±n
-2. BetiÄŸin yerleÅŸik sÃ¼reÃ§ koruyucusunu kullanÄ±n (Brave tespit edilirse devam/iptal istemi gÃ¶sterir)
-3. KaÃ§Ä±rÄ±ldÄ±ysa: Brave'i kapatÄ±n betiÄŸi yeniden Ã§alÄ±ÅŸtÄ±rÄ±n
+1. Yönetici olarak çalıştırdığınızı doğrulayın (başlık çubuğunda "Yönetici" yazdığını kontrol edin)
+2. Yolu kilitleyebilecek kayıt defteri düzenleyicilerini (`regedit`) kapatın
+3. Betiği yeniden çalıştırın
+4. Devam ederse: `regedit` çalıştırın → `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` yoluna gidin → **İzinler**'i kontrol edin → **Yöneticiler**'in **Tam Denetim**'e sahip olduğundan emin olun
+
+---
+
+### 4. Brave HKCU Tercihlerini Üzerine Yazıyor
+
+**Neden:** Betik çalıştırma sırasında Brave çalışıyordu.
+
+**Çözüm:**
+
+1. Betiği çalıştırmadan önce **tüm** Brave pencerelerini kapatın
+2. Betiğin yerleşik süreç koruyucusunu kullanın (Brave tespit edilirse devam/iptal istemi gösterir)
+3. Kaçırıldıysa: Brave'i kapatın betiği yeniden çalıştırın
 
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
@@ -359,48 +342,48 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
 ---
 
-### 5. `brave://policy`'de "Bilinmiyor" PolitikasÄ±
+### 5. `brave://policy`'de "Bilinmiyor" Politikası
 
-**Neden:** Brave sÃ¼rÃ¼m uyuÅŸmazlÄ±ÄŸÄ± â€” politika anahtarÄ± yeniden adlandÄ±rÄ±lmÄ±ÅŸ/kullanÄ±mdan kaldÄ±rÄ±lmÄ±ÅŸ.
+**Neden:** Brave sürüm uyuşmazlığı — politika anahtarı yeniden adlandırılmış/kullanımdan kaldırılmış.
 
-**Ã‡Ã¶zÃ¼m:**
+**Çözüm:**
 
-1. Brave sÃ¼rÃ¼mÃ¼nÃ¼ kontrol edin: `brave://version`
-2. Brave Omega sÃ¼rÃ¼mÃ¼nÃ¼z iÃ§in [Uyumluluk Matrisi](Version-Compatibility-Matrix#-tÃ¼rkÃ§e)'ni kontrol edin
-3. Brave matristen yeniyse: GÃ¼ncellenmiÅŸ Brave Omega iÃ§in [SÃ¼rÃ¼mlere](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) bakÄ±n
-4. Brave eskiyse: Brave'i en gÃ¼ncel kararlÄ± sÃ¼rÃ¼me gÃ¼ncelleyin
+1. Brave sürümünü kontrol edin: `brave://version`
+2. Brave Omega sürümünüz için [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe)'ni kontrol edin
+3. Brave matristen yeniyse: Güncellenmiş Brave Omega için [Sürümlere](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) bakın
+4. Brave eskiyse: Brave'i en güncel kararlı sürüme güncelleyin
 
-> **Kural:** Her zaman yÃ¼klÃ¼ Brave sÃ¼rÃ¼mÃ¼nÃ¼zle eÅŸleÅŸen Brave Omega sÃ¼rÃ¼mÃ¼nÃ¼ Ã§alÄ±ÅŸtÄ±rÄ±n.
+> **Kural:** Her zaman yüklü Brave sürümünüzle eşleşen Brave Omega sürümünü çalıştırın.
 
 ---
 
-### 6. Yedekleme AdÄ±mÄ±nda `reg export` BaÅŸarÄ±sÄ±z
+### 6. Yedekleme Adımında `reg export` Başarısız
 
-**Neden:** `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` Ã¼zerinde kÄ±sÄ±tlÄ± ACL
+**Neden:** `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` üzerinde kısıtlı ACL
 
-**Ã‡Ã¶zÃ¼m:**
+**Çözüm:**
 
-1. `regedit`'i YÃ¶netici olarak aÃ§Ä±n
+1. `regedit`'i Yönetici olarak açın
 2. `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` yoluna gidin
-3. SaÄŸ tÄ±kla â†’ **Ä°zinler**
-4. **YÃ¶neticiler** grubunun **Tam Denetim**'e sahip olduÄŸundan emin olun
-5. **Alt nesne izin girdilerinin tÃ¼mÃ¼nÃ¼ deÄŸiÅŸtir** seÃ§eneÄŸini iÅŸaretleyin
-6. Uygula â†’ Tamam
-7. BetiÄŸi yeniden Ã§alÄ±ÅŸtÄ±rÄ±n
+3. Sağ tıkla → **İzinler**
+4. **Yöneticiler** grubunun **Tam Denetim**'e sahip olduğundan emin olun
+5. **Alt nesne izin girdilerinin tümünü değiştir** seçeneğini işaretleyin
+6. Uygula → Tamam
+7. Betiği yeniden çalıştırın
 
-> **Alternatif:** BetiÄŸi PowerShell yerine yÃ¼kseltilmiÅŸ CMD'den Ã§alÄ±ÅŸtÄ±rÄ±n.
+> **Alternatif:** Betiği PowerShell yerine yükseltilmiş CMD'den çalıştırın.
 
 ---
 
-### 7. Betik TakÄ±lÄ±yor / Ã‡Ä±ktÄ± Yok
+### 7. Betik Takılıyor / Çıktı Yok
 
-**Neden:** Brave sÃ¼reÃ§ tespiti kullanÄ±cÄ± giriÅŸi bekliyor (gizli istem).
+**Neden:** Brave süreç tespiti kullanıcı girişi bekliyor (gizli istem).
 
-**Ã‡Ã¶zÃ¼m:**
+**Çözüm:**
 
-1. PowerShell'in giriÅŸ bekleyip beklemediÄŸini kontrol edin (baÅŸlÄ±k Ã§ubuÄŸuna bakÄ±n)
-2. TÃ¼m Brave pencerelerini manuel kapatÄ±n
-3. Ä°stem varsa PowerShell'de `Enter` tuÅŸuna basÄ±n
+1. PowerShell'in giriş bekleyip beklemediğini kontrol edin (başlık çubuğuna bakın)
+2. Tüm Brave pencerelerini manuel kapatın
+3. İstem varsa PowerShell'de `Enter` tuşuna basın
 4. Veya Brave'i kapatıp yeniden çalıştırın (koruyucu tekrar sorar):
 
 ```powershell
@@ -409,79 +392,115 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 
 ---
 
-### 8. Ã‡alÄ±ÅŸtÄ±rma Ä°lkesi HatalarÄ±
+### 8. Çalıştırma İlkesi Hataları
 
-**Hata:** `Bu sistemde betik Ã§alÄ±ÅŸtÄ±rma devre dÄ±ÅŸÄ± bÄ±rakÄ±lmÄ±ÅŸtÄ±r`
+**Hata:** `Bu sistemde betik çalıştırma devre dışı bırakılmıştır`
 
-**Ã‡Ã¶zÃ¼m:** Bayrak kullanÄ±n (v1.2.2+ iÃ§inde yerleÅŸik):
+**Çözüm:** Bayrak kullanın (v1.2.2+ içinde yerleşik):
 
 ```powershell
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
-> **`Set-ExecutionPolicy`'yi manuel olarak Ã‡ALIÅTIRMAYIN** â€” bypass bayraÄŸÄ± gÃ¼venle halleder.
+> **`Set-ExecutionPolicy`'yi manuel olarak ÇALIŞTIRMAYIN** — bypass bayrağı güvenle halleder.
 
 ---
 
-### 9. `brave://policy`'de "Hata" veya KÄ±rmÄ±zÄ± Politika
+### 9. `brave://policy`'de "Hata" veya Kırmızı Politika
 
-**Neden:** KayÄ±t defteri deÄŸer tÃ¼rÃ¼ uyuÅŸmazlÄ±ÄŸÄ± (DWORD vs String) veya geÃ§ersiz deÄŸer.
+**Neden:** Kayıt defteri değer türü uyuşmazlığı (DWORD vs String) veya geçersiz değer.
 
-**Ã‡Ã¶zÃ¼m:**
+**Çözüm:**
 
-1. KayÄ±t defteri deÄŸer tÃ¼rlerini `regedit`'te doÄŸrulayÄ±n:
-   - DWORD politikalarÄ±: `0` veya `1` (`"0"` veya `"1"` deÄŸil)
-2. BetiÄŸi yeniden Ã§alÄ±ÅŸtÄ±rÄ±n â€” doÄŸru tÃ¼rleri zorlar
-3. Devam ederse: Manuel temizlik + yeniden Ã§alÄ±ÅŸtÄ±rma
+1. Kayıt defteri değer türlerini `regedit`'te doğrulayın:
+   - DWORD politikaları: `0` veya `1` (`"0"` veya `"1"` değil)
+2. Betiği yeniden çalıştırın — doğru türleri zorlar
+3. Devam ederse: Manuel temizlik + yeniden çalıştırma
 
 ```powershell
 # Temizlik
 Remove-Item "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -Recurse -Force
 Remove-Item "HKCU:\Software\BraveSoftware\Brave-Browser" -Recurse -Force
-# Yeniden Ã§alÄ±ÅŸtÄ±r
+# Yeniden çalıştır
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 ```
 
 ---
 
-## Hata Kodu ReferansÄ±
+### 10. Pester Testi Başarısız Oluyor veya Atlanıyor
 
-| Ã‡Ä±kÄ±ÅŸ Kodu | AnlamÄ± |
-| ------------ | -------- |
-| `0` | BaÅŸarÄ±lÄ± â€” tÃ¼m politikalar uygulandÄ± |
-| `1` | Genel hata (Ã§Ä±ktÄ±ya bakÄ±n) |
-| `2` | YÃ¶netici kontrolÃ¼ baÅŸarÄ±sÄ±z |
-| `3` | Brave sÃ¼rÃ¼m uyuÅŸmazlÄ±ÄŸÄ± |
-| `4` | KayÄ±t defteri yedeklemesi baÅŸarÄ±sÄ±z |
-| `5` | HKLM yazma eriÅŸimi reddedildi |
-| `6` | Politika uygulamasÄ± kÄ±smi baÅŸarÄ±sÄ±zlÄ±k |
+**Neden:** Test ortamı sorunu — yanlış dizin, eksik modül veya yönetici gereksinimi.
+
+**Çözüm:**
+
+1. Proje kökünde olduğunuzdan emin olun (`Tests/` klasörünün bulunduğu yer):
+
+   ```powershell
+   cd "C:\path\to\Brave-Omega-Project"
+   ```
+
+2. Pester'ın kurulu olduğunu doğrulayın:
+
+   ```powershell
+   Install-Module Pester -Force -SkipPublisherCheck
+   ```
+
+3. Hataları yalıtmak için tek bir test dosyası çalıştırın:
+
+   ```powershell
+   Invoke-Pester -Path .\Tests\01-BraveOnly.Tests.ps1
+   ```
+
+4. Depo README'sindeki CI durum rozetlerini kontrol edin.
+
+**Yaygın hatalar:**
+
+| Belirti | Neden |
+| --------- | ------- |
+| Tüm testler atlandı | Proje kökünden çalıştırılmıyor |
+| Kayıt defteri testi başarısız | `-WhatIf` sahtesi olmadan çalıştırılıyor |
+| CI testi tetiklenmedi | Dal gönderilmedi / PR açık değil |
 
 ---
 
-## YardÄ±m Alma
+## Hata Kodu Referansı
+
+| Çıkış Kodu | Anlamı |
+| ------------ | -------- |
+| `0` | Başarılı — tüm politikalar uygulandı |
+| `1` | Genel hata (çıktıya bakın) |
+| `2` | Yönetici kontrolü başarısız |
+| `3` | Brave sürüm uyuşmazlığı |
+| `4` | Kayıt defteri yedeklemesi başarısız |
+| `5` | HKLM yazma erişimi reddedildi |
+| `6` | Politika uygulaması kısmi başarısızlık |
+
+---
+
+## Yardım Alma
 
 Sorun devam ederse:
 
 1. **Topla:**
-   - Brave sÃ¼rÃ¼mÃ¼: `brave://version` (tÃ¼mÃ¼nÃ¼ kopyala)
-   - Windows sÃ¼rÃ¼mÃ¼: `winver`
-   - Tam betik Ã§Ä±ktÄ±sÄ± (tÃ¼m PowerShell penceresini kopyala)
-   - `brave://policy` sayfasÄ± (HTML veya ekran gÃ¶rÃ¼ntÃ¼sÃ¼ olarak kaydet)
+   - Brave sürümü: `brave://version` (tümünü kopyala)
+   - Windows sürümü: `winver`
+   - Tam betik çıktısı (tüm PowerShell penceresini kopyala)
+   - `brave://policy` sayfası (HTML veya ekran görüntüsü olarak kaydet)
 
 2. **Ara:** [Mevcut Sorunlar](https://github.com/bayraktarozcan/Brave-Omega-Project/issues)
 
-3. **Raporla:** [Yeni Sorun](https://github.com/bayraktarozcan/Brave-Omega-Project/issues/new) ÅŸunlarla:
-   - Brave sÃ¼rÃ¼mÃ¼
-   - Windows sÃ¼rÃ¼mÃ¼
-   - Tam betik Ã§Ä±ktÄ±sÄ±
-   - `brave://policy` dÄ±ÅŸa aktarÄ±mÄ± (HTML)
+3. **Raporla:** [Yeni Sorun](https://github.com/bayraktarozcan/Brave-Omega-Project/issues/new) şunlarla:
+   - Brave sürümü
+   - Windows sürümü
+   - Tam betik çıktısı
+   - `brave://policy` dışa aktarımı (HTML)
 
 ---
 
-## Ä°lgili Sayfalar
+## İlgili Sayfalar
 
-- [ğŸ”§ Kurulum](Installation#-tÃ¼rkÃ§e) â€” AdÄ±m adÄ±m kÄ±lavuz
-- [ğŸ—ï¸ Mimari](Architecture#-tÃ¼rkÃ§e) â€” KatmanlarÄ± anlama
-- [ğŸ“‹ Politika BaÅŸvurusu](Policy-Reference#-tÃ¼rkÃ§e) â€” Her politikanÄ±n ne yaptÄ±ÄŸÄ±
-- [ğŸ›¡ï¸ GÃ¼venlik](Security#-tÃ¼rkÃ§e) â€” GÃ¼venlik modeli
-- [ğŸ—ºï¸ Yol HaritasÄ±](Roadmap#-tÃ¼rkÃ§e) â€” Planlanan iyileÅŸtirmeler
+- [🔧 Kurulum](Installation#-türkçe) — Adım adım kılavuz
+- [🏗️ Mimari](Architecture#-türkçe) — Katmanları anlama
+- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Her politikanın ne yaptığı
+- [🛡️ Güvenlik](Security#-türkçe) — Güvenlik modeli
+- [🗺️ Yol Haritası](Roadmap#-türkçe) — Planlanan iyileştirmeler

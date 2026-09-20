@@ -238,7 +238,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.7.3.0 - Brave 1.95.104 uyumluluk ğrulaması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v2.7.3.0 - Brave 1.95.104 uyumluluk doğrulaması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
