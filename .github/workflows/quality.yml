@@ -117,3 +117,12 @@ jobs:
         run: |
           & "admx/admx-validate.ps1"
           if ($LASTEXITCODE -ne 0) { exit 1 }
+
+  utf8-integrity:
+    name: UTF-8 / Mojibake Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Scan repo for mojibake and invalid UTF-8
+        run: |
+          python3 scripts/mojibake-scan.py .
