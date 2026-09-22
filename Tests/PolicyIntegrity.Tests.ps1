@@ -9,23 +9,18 @@ Describe "Policy Integrity" -Tag "Integration" {
         $lines.Count | Should -BeGreaterThan 0
     }
 
-    It "password manager policy should have correct name" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'PasswordManagerEnabled' | Should -Be $true
-        $content -match 'PasswordManagerEnabled[";]' | Should -Be $true
+    It "password manager policy should have correct name in the data layer" {
+        (Get-OmegaAllPolicyNames -ScriptPath $ScriptMain) -contains "PasswordManagerEnabled" | Should -Be $true
     }
 
     It "TranslateEnabled should be in Strict level" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $content -match '"Strict"' | Should -Be $true
-        $content -match 'TranslateEnabled' | Should -Be $true
+        (Get-OmegaTierPolicies -Level "Strict" -ScriptPath $ScriptMain).name -contains "TranslateEnabled" | Should -Be $true
     }
 
     It "DnsOverHttpsMode should be String type in Balanced" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $hasBalanced = $content -match '"Balanced"'
-        $hasDnsOh = $content -match 'DnsOverHttpsMode'
-        ($hasBalanced -and $hasDnsOh) | Should -Be $true
+        $policy = Get-OmegaTierPolicies -Level "Balanced" -ScriptPath $ScriptMain | Where-Object { $_.name -eq "DnsOverHttpsMode" }
+        $policy -ne $null | Should -Be $true
+        $policy.type | Should -Be "String"
     }
 
     It "unified script should hold all 151 definitions in a single table" {

@@ -3,12 +3,11 @@
 <#
 .SYNOPSIS
     Exports a machine-readable policy catalog (levels.json) and per-level
-    .reg files from the authoritative $PolicyDefinitions block of
-    BraveOmega.ps1.
+    .reg files from the authoritative policy data in Brave Omega.
 
 .DESCRIPTION
-    Reads the $PolicyDefinitions hashtable out of BraveOmega.ps1 using the
-    PowerShell AST, then produces:
+    Reads the tier policy data from Brave Omega\config.json and
+    Brave Omega\profiles\<Tier>.json, then produces:
       - enterprise\levels.json                 (machine-readable catalog)
       - enterprise\BraveOnly.reg / Essential / Balanced / Advanced / Strict
 
@@ -21,7 +20,8 @@
     exposed and nothing is generated.
 
 .PARAMETER ScriptPath
-    Path to BraveOmega.ps1. Defaults to the repository copy.
+    Path to BraveOmega.ps1 (used to locate the adjacent config.json and
+    profiles\ directory). Defaults to the repository copy.
 
 .PARAMETER OutputDir
     Directory for levels.json and the .reg files. Defaults to
@@ -29,7 +29,7 @@
 
 .PARAMETER ExpectedCounts
     Hashtable of tier -> expected incremental policy count used as a sanity
-    check against $PolicyDefinitions. Defaults to the v2.6.2.0 baseline.
+    check against the profile data. Defaults to the current 5-tier baseline.
     Set to @{} to skip the tier count check.
 
 .EXAMPLE
@@ -42,18 +42,100 @@ param(
     [hashtable]$ExpectedCounts
 )
 
+function Get-OmegaDataDir {
+    return Join-Path (Split-Path -Parent $PSScriptRoot) 'Brave Omega'
+}
+
+function Get-OmegaConfig {
+    $configPath = Join-Path (Get-OmegaDataDir) 'config.json'
+    if (-not (Test-Path -LiteralPath $configPath)) {
+        throw "config.json not found: $configPath"
+    }
+    return (Get-Content -LiteralPath $configPath -Raw -ErrorAction Stop | ConvertFrom-Json)
+}
+
 function Get-OmegaLevelOrder {
-    return @('BraveOnly', 'Essential', 'Balanced', 'Advanced', 'Strict')
+    $config = Get-OmegaConfig
+    return @($config.levelOrder)
+}
+
+function ConvertTo-OmegaHashtable {
+    <#
+    .SYNOPSIS
+        Recursively converts PSCustomObject graph into a hashtable graph so
+        JSON-object policy values (e.g. BrowsingDataLifetime) keep the same
+        in-memory shape BraveOmega.ps1 used and serialize to compressed JSON.
+    #>
+    [CmdletBinding()]
+    param($Value)
+
+    if ($Value -is [pscustomobject]) {
+        $hash = [ordered]@{}
+        foreach ($prop in $Value.PSObject.Properties) {
+            $hash[$prop.Name] = ConvertTo-OmegaHashtable -Value $prop.Value
+        }
+        return $hash
+    }
+
+    if ($Value -is [System.Collections.IEnumerable] -and $Value -isnot [string]) {
+        $items = @()
+        foreach ($item in $Value) {
+            $items += ConvertTo-OmegaHashtable -Value $item
+        }
+        return ,$items
+    }
+
+    return $Value
+}
+
+function ConvertTo-OmegaPolicyValue {
+    <#
+    .SYNOPSIS
+        Normalizes a profile JSON value into the in-memory type the rest of
+        this module expects for the given policy type.
+    #>
+    [CmdletBinding()]
+    param(
+        $Value,
+        [string]$Type,
+        [string]$PolicyName,
+        [string]$Tier
+    )
+
+    switch ($Type) {
+        'DWord' {
+            try {
+                return [int64]$Value
+            } catch {
+                throw "Invalid DWord value for '$PolicyName' in tier '$Tier'."
+            }
+        }
+        'ExpandString' {
+            return [string]$Value
+        }
+        'MultiString' {
+            return ,@($Value)
+        }
+        'String' {
+            if ($Value -is [pscustomobject]) {
+                return ConvertTo-OmegaHashtable -Value $Value
+            }
+            return [string]$Value
+        }
+        default {
+            throw "Unsupported policy type '$Type' for '$PolicyName' in tier '$Tier'."
+        }
+    }
 }
 
 function Get-OmegaPolicyDefinitions {
     <#
     .SYNOPSIS
-        Extracts and evaluates the $PolicyDefinitions hashtable from a
-        Brave Omega script via the PowerShell AST.
+        Loads the per-tier policy definitions from Brave Omega\config.json and
+        Brave Omega\profiles\<Tier>.json.
 
     .PARAMETER ScriptPath
-        Path to the .ps1 file containing $PolicyDefinitions.
+        Path to the .ps1 file used to locate the adjacent data directory.
     #>
     [CmdletBinding()]
     param(
@@ -65,51 +147,38 @@ function Get-OmegaPolicyDefinitions {
         throw "ScriptPath not found: $ScriptPath"
     }
 
-    $raw = Get-Content -LiteralPath $ScriptPath -Raw -ErrorAction Stop
-
-    $tokens = $null
-    $parseErrors = $null
-    $ast = [System.Management.Automation.Language.Parser]::ParseInput($raw, [ref]$tokens, [ref]$parseErrors)
-    if ($parseErrors -and $parseErrors.Count -gt 0) {
-        throw "Failed to parse '$ScriptPath': $($parseErrors[0].Message)"
+    $dataDir = Split-Path -Path $ScriptPath -Parent
+    $configPath = Join-Path $dataDir 'config.json'
+    if (-not (Test-Path -LiteralPath $configPath)) {
+        throw "config.json not found next to ScriptPath: $configPath"
     }
 
-    $assignment = $null
-    foreach ($node in $ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.AssignmentStatementAst] }, $true)) {
-        if ($node.Left -is [System.Management.Automation.Language.VariableExpressionAst] -and
-            $node.Left.VariablePath.UserPath -eq 'PolicyDefinitions') {
-            $assignment = $node
-            break
-        }
-    }
-    if (-not $assignment) {
-        throw "Could not locate `$PolicyDefinitions assignment in '$ScriptPath'."
+    $config = Get-Content -LiteralPath $configPath -Raw -ErrorAction Stop | ConvertFrom-Json
+    $knownTiers = @($config.levelOrder)
+    if ($knownTiers.Count -eq 0) {
+        throw "levelOrder is empty in '$configPath'."
     }
 
-    $definitions = Invoke-Expression -Command $assignment.Right.Extent.Text -ErrorAction Stop
-    if (-not $definitions -or $definitions.Count -eq 0) {
-        throw "`$PolicyDefinitions evaluated to an empty result in '$ScriptPath'."
-    }
-
-    $knownTiers = Get-OmegaLevelOrder
+    $profilesDir = Join-Path $dataDir 'profiles'
+    $definitions = @{}
     foreach ($tier in $knownTiers) {
-        if (-not $definitions.ContainsKey($tier)) {
-            throw "Tier '$tier' is missing from `$PolicyDefinitions in '$ScriptPath'."
+        $profilePath = Join-Path $profilesDir "$tier.json"
+        if (-not (Test-Path -LiteralPath $profilePath)) {
+            throw "Profile file not found: $profilePath"
         }
 
-        foreach ($policy in $definitions[$tier]) {
-            if ($policy -isnot [hashtable]) {
-                throw "Policy entry in tier '$tier' is not a hashtable."
+        $profile = Get-Content -LiteralPath $profilePath -Raw -ErrorAction Stop | ConvertFrom-Json
+        $policies = @()
+        foreach ($p in @($profile.policies)) {
+            $name = $p.name
+            $type = $p.type
+            if ($type -notin @('DWord', 'String', 'MultiString', 'ExpandString')) {
+                throw "Unsupported policy type '$type' in tier '$tier'."
             }
-            foreach ($requiredKey in @('Name', 'Value', 'Type')) {
-                if (-not $policy.ContainsKey($requiredKey)) {
-                    throw "Policy in tier '$tier' is missing the '$requiredKey' key."
-                }
-            }
-            if ($policy['Type'] -notin @('DWord', 'String', 'MultiString', 'ExpandString')) {
-                throw "Unsupported policy type '$($policy['Type'])' in tier '$tier'."
-            }
+            $value = ConvertTo-OmegaPolicyValue -Value $p.value -Type $type -PolicyName $name -Tier $tier
+            $policies += @{ Name = $name; Value = $value; Type = $type }
         }
+        $definitions[$tier] = $policies
     }
 
     return $definitions
@@ -482,7 +551,7 @@ function Export-OmegaPolicyCatalog {
                 $expected = $ExpectedCounts[$tier]
             }
             if ($actual -ne $expected) {
-                throw "Tier '$tier' policy count mismatch: expected $expected, found $actual. Update ExpectedCounts or fix BraveOmega.ps1."
+                throw "Tier '$tier' policy count mismatch: expected $expected, found $actual. Update ExpectedCounts or fix the profile data."
             }
         }
     }

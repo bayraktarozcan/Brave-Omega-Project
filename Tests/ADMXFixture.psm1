@@ -17,11 +17,15 @@ function Get-AdmxPolicyNames {
 
 function Get-ScriptPolicyNames {
     if (-not (Test-Path $scriptMain)) { throw "Script not found: $scriptMain" }
-    $content = Get-Content -Path $scriptMain -Raw
-    $pattern = 'Name\s*=\s*"([^"]+)"'
-    $matches = [regex]::Matches($content, $pattern)
+    $dataDir = Split-Path -Path $scriptMain -Parent
+    $config = Get-Content -Path (Join-Path $dataDir "config.json") -Raw | ConvertFrom-Json
+    $profilesDir = Join-Path $dataDir "profiles"
     $names = @()
-    foreach ($m in $matches) { $names += $m.Groups[1].Value }
+    foreach ($tier in @($config.levelOrder)) {
+        if (-not (Test-Path (Join-Path $profilesDir "$tier.json"))) { continue }
+        $profile = Get-Content -Path (Join-Path $profilesDir "$tier.json") -Raw | ConvertFrom-Json
+        foreach ($p in @($profile.policies)) { $names += $p.name }
+    }
     return $names | Sort-Object -Unique
 }
 
@@ -44,12 +48,17 @@ function Test-PolicyTypeMatch {
         [string]$PolicyName,
         [int]$ExpectedValue
     )
-    $scriptContent = Get-Content -Path $scriptMain -Raw
-    $pattern = "Name\s*=\s*`"$PolicyName`"\s*;\s*Value\s*=\s*(\d+)"
-    $match = [regex]::Match($scriptContent, $pattern)
-    if (-not $match.Success) { return $false }
-    $actualValue = [int]$match.Groups[1].Value
-    return ($actualValue -eq $ExpectedValue)
+    $dataDir = Split-Path -Path $scriptMain -Parent
+    $config = Get-Content -Path (Join-Path $dataDir "config.json") -Raw | ConvertFrom-Json
+    $profilesDir = Join-Path $dataDir "profiles"
+    foreach ($tier in @($config.levelOrder)) {
+        if (-not (Test-Path (Join-Path $profilesDir "$tier.json"))) { continue }
+        $profile = Get-Content -Path (Join-Path $profilesDir "$tier.json") -Raw | ConvertFrom-Json
+        foreach ($p in @($profile.policies)) {
+            if ($p.name -eq $PolicyName -and $p.value -eq $ExpectedValue) { return $true }
+        }
+    }
+    return $false
 }
 
 function Invoke-AdmxValidation {

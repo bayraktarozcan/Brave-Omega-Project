@@ -1,0 +1,142 @@
+﻿{
+    "tier":  "Essential",
+    "policies":  [
+                     {
+                         "name":  "MetricsReportingEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "SafeBrowsingExtendedReportingEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "UrlKeyedAnonymizedDataCollectionEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "SearchSuggestEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "NetworkPredictionOptions",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "SpellcheckEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "AlternateErrorPagesEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BrowserNetworkTimeQueriesEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "DomainReliabilityAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BackgroundModeEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "SafeBrowsingSurveysEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "WebRtcEventLogCollectionAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "WebRtcTextLogCollectionAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "AudioCaptureAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "VideoCaptureAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BraveGlobalPrivacyControlEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "DefaultWebUsbGuardSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultWebBluetoothGuardSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultWebHidGuardSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "EncryptedClientHelloEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "PaymentMethodQueryEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "SuppressDifferentOriginSubframeDialogs",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "EnableOnlineRevocationChecks",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "ProxySettings",
+                         "type":  "String",
+                         "value":  "{\"ProxyMode\":\"system\"}"
+                     },
+                     {
+                         "name":  "ExtensionInstallSources",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "ScreenCaptureAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "DownloadRestrictions",
+                         "type":  "DWord",
+                         "value":  4
+                     }
+                 ]
+}

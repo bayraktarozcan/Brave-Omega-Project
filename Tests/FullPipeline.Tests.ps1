@@ -25,13 +25,15 @@ Describe "Full Pipeline (Unified)" -Tag "Integration" {
         $names -contains "Write-PolicyValue" | Should -Be $true
     }
 
-    It "should have required level order" {
+    It "should have required level order from the data layer" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match '\$LevelOrder\s*=\s*@\("BraveOnly"\s*,\s*"Essential"\s*,\s*"Balanced"\s*,\s*"Advanced"\s*,\s*"Strict"\)' | Should -Be $true
+        $content -match '\$LevelOrder\s*=\s*\$OmegaState\.LevelOrder' | Should -Be $true
+        $order = Get-OmegaLevelOrder -ScriptPath $ScriptMain
+        ($order -join ",") | Should -Be "BraveOnly,Essential,Balanced,Advanced,Strict"
     }
 
-    It "should define valid level names" {
-        $names = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ValidLevels"
-        $names -ne $null | Should -Be $true
+    It "should define valid level names from the data layer" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match '\$ValidLevels\s*=\s*\$OmegaState\.LevelOrder' | Should -Be $true
     }
 }

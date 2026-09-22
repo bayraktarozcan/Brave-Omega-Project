@@ -17,9 +17,22 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.7.3.0)
+# CHANGELOG (v2.8.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
-#   v2.7.3.0             Patch release — Brave 1.95.104 compatibility validation:
+# v2.8.0.0             Feature release — Data-layer refactor:
+#
+#     [CHANGED]     Policy definitions moved out of the script body into a
+#                   validated data layer: `config.json` (registry targets +
+#                   level order) and `profiles/<Tier>.json` (one file per
+#                   tier, 151 policies) ship next to the script. Runtime
+#                   loads them via Import-OmegaPolicyData into $OmegaState.
+#                   Byte-identical registry output; totals remain 151 across
+#                   5 tiers (chain: 24 → 51 → 83 → 123 → 151).
+#                   ADMX validator, Pester suite, and catalog generator all
+#                   read the same data layer (single source of truth).
+#                   CI Pester job emits a CodeCoverage report.
+#
+# v2.7.3.0             Patch release — Brave 1.95.104 compatibility validation:
 #
 #     [CHANGED]     Validated against Brave 1.95.104 (Chromium 153.0.8010.53),
 #                   released September 18, 2026. Brave 1.95.102 (Chromium
@@ -429,7 +442,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.7.3.0"
+$ScriptVersion   = "v2.8.0.0"
 $ValidatedBrave  = "1.95.104"
 $ValidatedChromium = "153"
 
@@ -666,99 +679,110 @@ if ($braveInfo) {
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# OMEGA DATA LAYER (config.json + profiles) — Issue #28
+# Policy data now lives in config.json + profiles/*.json; the loaders below
+# wire them into the same script variables used throughout (identical runtime
+# behavior, data-driven definitions).
+# ─────────────────────────────────────────────────────────────────────────────
+$OmegaConfigPath  = Join-Path -Path $PSScriptRoot -ChildPath "config.json"
+$OmegaProfilesDir = Join-Path -Path $PSScriptRoot -ChildPath "profiles"
+
+# Convert a ConvertFrom-Json object (PSCustomObject / arrays) into equivalent
+# PowerShell hashtables/arrays so downstream JSON re-serialization behaves the
+# same as the former inline hashtable literals (e.g. BrowsingDataLifetime).
+function ConvertTo-OmegaHashtable {
+    param($Value)
+    if ($Value -is [System.Management.Automation.PSCustomObject]) {
+        $result = @{}
+        foreach ($prop in $Value.PSObject.Properties) {
+            $result[$prop.Name] = ConvertTo-OmegaHashtable -Value $prop.Value
+        }
+        return $result
+    }
+    if ($Value -is [System.Collections.IDictionary]) {
+        $result = @{}
+        foreach ($key in $Value.Keys) {
+            $result[$key] = ConvertTo-OmegaHashtable -Value $Value[$key]
+        }
+        return $result
+    }
+    if ($Value -is [System.Collections.IEnumerable] -and $Value -isnot [string]) {
+        $items = @()
+        foreach ($item in $Value) {
+            $items += ConvertTo-OmegaHashtable -Value $item
+        }
+        return ,$items
+    }
+    return $Value
+}
+
+function Import-OmegaPolicyData {
+    $config = Get-Content -LiteralPath $OmegaConfigPath -Raw | ConvertFrom-Json
+    $order  = @($config.levelOrder)
+    $registry = @{
+        hkcuTarget = [string]$config.registry.hkcuTarget
+        hklmTarget = [string]$config.registry.hklmTarget
+        hkcuRoot   = [string]$config.registry.hkcuRoot
+    }
+
+    $definitions = @{}
+    $allNames    = @()
+    foreach ($tier in $order) {
+        $profilePath = Join-Path -Path $OmegaProfilesDir -ChildPath ("{0}.json" -f $tier)
+        $tierProfile = ConvertTo-OmegaHashtable -Value (Get-Content -LiteralPath $profilePath -Raw | ConvertFrom-Json)
+        if ($tierProfile['tier'] -ne $tier) {
+            throw "Profile tier mismatch: expected '$tier', found '$($tierProfile['tier'])' in $profilePath"
+        }
+        $tierPolicies = @()
+        foreach ($entry in @($tierProfile['policies'])) {
+            $name = [string]$entry['name']
+            $type = [string]$entry['type']
+            $raw  = $entry['value']
+            switch ($type) {
+                "DWord"        { $value = [int]$raw; break }
+                "ExpandString" { $value = [string]$raw; break }
+                "MultiString"  {
+                    if ($null -eq $raw) {
+                        $value = @()
+                    } else {
+                        $value = @([string[]]$raw)
+                        if ($value.Count -eq 1 -and $null -eq $value[0]) { $value = [string[]]@() }
+                    }
+                    break
+                }
+                "String"       { $value = $raw; break }
+                default        { throw "Unsupported policy type '$type' for policy '$name' in $tier" }
+            }
+            $tierPolicies += @{ Name = $name; Value = $value; Type = $type }
+            if ($allNames -notcontains $name) { $allNames += $name }
+        }
+        $definitions[$tier] = $tierPolicies
+    }
+
+    return @{
+        LevelOrder        = $order
+        Registry          = $registry
+        AllPolicyNames    = $allNames
+        PolicyDefinitions = $definitions
+    }
+}
+
+$OmegaState = Import-OmegaPolicyData
+
+# ─────────────────────────────────────────────────────────────────────────────
 # STEP 0C: RESET MODE
 # ─────────────────────────────────────────────────────────────────────────────
 
-# All known policy names across all levels (hardcoded for safety before definitions load)
+# All known policy names (union across all levels, from the data layer).
 # Used by both -Reset mode and the per-run stale policy cleanup (v2.5.4.0)
-$allPolicyNames = @(
-        "UsageStatsInSample", "OmahaMachineLevelUserMetrics",
-        "BraveRewardsDisabled", "BraveWalletDisabled", "BraveVPNDisabled",
-        "BraveAIChatEnabled", "BraveTalkDisabled", "BraveNewsDisabled",
-        "BravePlaylistEnabled", "BraveSpeedreaderEnabled", "BraveWaybackMachineEnabled",
-        "BraveP3AEnabled", "BraveStatsPingEnabled", "BraveWebDiscoveryEnabled", "TorDisabled",
-        "BraveDeAmpEnabled", "BraveDebouncingEnabled", "BraveReduceLanguageEnabled",
-        "BraveTrackingQueryParametersFilteringEnabled", "DefaultBraveAdblockSetting",
-        "DefaultBraveFingerprintingV2Setting", "BraveShieldsDisabledForUrls", "BraveShieldsEnabledForUrls",
-        "EmailAliasesEnabled",
-        "BraveGlobalPrivacyControlEnabled",
-        "DefaultBraveHttpsUpgradeSetting", "DefaultBraveReferrersSetting", "BraveSyncUrl",
-        "DefaultBraveRemember1PStorageSetting",
-        "MetricsReportingEnabled", "SafeBrowsingExtendedReportingEnabled",
-        "UrlKeyedAnonymizedDataCollectionEnabled", "SearchSuggestEnabled",
-        "NetworkPredictionOptions", "TranslateEnabled", "SpellcheckEnabled",
-        "AlternateErrorPagesEnabled", "BrowserNetworkTimeQueriesEnabled",
-        "DomainReliabilityAllowed", "BackgroundModeEnabled", "SafeBrowsingSurveysEnabled",
-        "SafeBrowsingDeepScanningEnabled", "WebRtcEventLogCollectionAllowed",
-        "WebRtcTextLogCollectionAllowed", "AudioCaptureAllowed", "VideoCaptureAllowed",
-        "WebRtcIPHandling", "WebRtcLocalIpsAllowedUrls", "HttpsOnlyMode", "DnsOverHttpsMode",
-        "BlockThirdPartyCookies", "PasswordManagerEnabled", "PasswordManagerPasskeysEnabled",
-        "AutofillAddressEnabled", "AutofillCreditCardEnabled", "ShowFullUrlsInAddressBar",
-        "DisableSafeBrowsingProceedAnyway", "QuicAllowed", "ChromeVariations",
-        "NetworkServiceSandboxEnabled", "AudioSandboxEnabled",
-        "DefaultGeolocationSetting", "DefaultNotificationsSetting", "DefaultPopupsSetting",
-        "DefaultSensorsSetting", "DefaultLocalFontsSetting", "DefaultClipboardSetting",
-        "DefaultFileSystemReadGuardSetting", "DefaultFileSystemWriteGuardSetting",
-        "DefaultSerialGuardSetting", "DefaultIdleDetectionSetting",
-        "DefaultInsecureContentSetting", "DefaultJavaScriptJitSetting", "DefaultCookiesSetting",
-        "BrowserGuestModeEnabled", "BrowserAddPersonEnabled",
-        "ImportAutofillFormData", "ImportBookmarks", "ImportHistory",
-        "ImportSavedPasswords", "ImportSearchEngine", "ImportHomepage",
-        # Phase 8 (v2.3.0.0) — 19 new policies (3 removed: ManifestV2ExtensionUnsupported,
-        # DeveloperToolsDisabled, BraveUpdateDisabled — unknown/deprecated in Brave 1.92)
-        "SafeBrowsingProtectionLevel", "PasswordProtectionWarningTrigger",
-        "EnableOnlineRevocationChecks",
-        "ExtensionInstallForcelist", "DownloadRestrictions", "DownloadDirectory",
-        "PromptForDownloadLocation",
-        "ExtensionInstallBlocklist", "ExtensionInstallAllowlist", "ExtensionAllowedTypes",
-        "BlockExternalExtensions", "ExtensionSettings",
-        "IncognitoModeAvailability", "DeveloperToolsAvailability",
-        "TaskManagerEndProcessEnabled", "PrintingEnabled", "DisablePrintPreview",
-        "BuiltInDnsClientEnabled",
-        # v2.2.1.0 — 10 hardware API & security policies (missing from prior reset list)
-        "DefaultWebUsbGuardSetting", "DefaultWebBluetoothGuardSetting", "DefaultWebHidGuardSetting",
-        "EncryptedClientHelloEnabled", "PaymentMethodQueryEnabled",
-        "SuppressDifferentOriginSubframeDialogs", "DefaultWindowManagementSetting",
-        "SitePerProcess", "IntensiveWakeUpThrottlingEnabled", "UserFeedbackAllowed",
-        # Phase 9 (v2.4.2.0) — 22 policies across all 5 tiers
-        # (8 removed: AutoFillEnabled, SigninAllowed, DefaultMediaStreamSetting,
-        #  TabFreezingEnabled, HomepageLocation, NewTabPageLocation,
-        #  RestoreOnStartup, GenAiDefaultSettings — deprecated/blocked/unrecognized)
-        "ExtensionInstallSources", "ProxySettings",
-        "RelaunchNotification", "RelaunchNotificationPeriod",
-        "ShowHomeButton", "HideWebStoreIcon", "DefaultJavaScriptSetting",
-        "GeminiSettings",
-        "BrowsingDataLifetime",
-        "AlwaysOpenPdfExternally", "CertificateTransparencyEnforcementDisabledForUrls",
-        "PasswordLeakDetectionEnabled",
-        "SpellCheckServiceEnabled",
-        "BrowserSignin",
-        "SyncDisabled",
-        # Phase 10 (v2.5.0.0) — 15 new policies (AI blocking + sandbox hardening)
-        "ScreenCaptureAllowed",
-        "AIModeSettings", "AutofillPredictionSettings", "ChromeSuggestionsSettings",
-        "CreateThemesSettings", "DevToolsGenAiSettings", "HelpMeWriteSettings",
-        "HistorySearchSettings", "SearchContentSharingSettings", "SmartTabSharingSettings",
-        "TabCompareSettings", "GeminiActOnWebSettings", "GeminiSparkSettings",
-        "GenAILocalFoundationalModelSettings", "RendererAppContainerEnabled",
-        # v2.5.0.0 — 11 new policies (local network, screen capture fine-grained)
-        "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
-        "LocalNetworkAccessAllowedForUrls", "LocalNetworkAccessBlockedForUrls",
-        "ScreenCaptureAllowedByOrigins", "SameOriginTabCaptureAllowedByOrigins",
-        "TabCaptureAllowedByOrigins", "WindowCaptureAllowedByOrigins",
-        "LocalNetworkAccessIpAddressSpaceOverrides",
-        "LocalNetworkAccessRestrictionsTemporaryOptOut",
-        "LocalNetworkAllowedForUrls", "LocalNetworkBlockedForUrls",
-        # v2.6.0.0 — 2 new policies (S/MIME native messaging)
-        "NativeMessagingAllowlist", "NativeMessagingUserLevelHosts"
-    )
+$allPolicyNames = $OmegaState.AllPolicyNames
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PATH CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
-$HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
+$HKCU_Target = $OmegaState.Registry.hkcuTarget
+$HKLM_Target = $OmegaState.Registry.hklmTarget
 
 
 # -----------------------------------------------------------------------------
@@ -868,7 +892,7 @@ if ($Reset) {
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0D: LEVEL SELECTION
 # ─────────────────────────────────────────────────────────────────────────────
-$ValidLevels = @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict")
+$ValidLevels = $OmegaState.LevelOrder
 
 if (-not $Level -or $Level -eq "") {
     Write-Host (Get-LocalizedString 'LevelMenuTitle') -ForegroundColor White
@@ -956,378 +980,13 @@ if ($BraveProcesses) {
 # Each policy: @{Name=""; Value=; Type="DWord|String|MultiString"}
 # Levels are cumulative: each level includes all policies from previous levels.
 
-$PolicyDefinitions = @{
-    "BraveOnly" = @(
-        # Brave Rewards — disables integrated ad network, BAT tokens, and rewards
-        @{Name="BraveRewardsDisabled";                 Value=1; Type="DWord"}
-        # Brave Wallet — disables crypto wallet, Web3, and decentralized DNS
-        @{Name="BraveWalletDisabled";                  Value=1; Type="DWord"}
-        # Brave VPN — removes VPN button and blocks background VPN service
-        @{Name="BraveVPNDisabled";                     Value=1; Type="DWord"}
-        # Leo AI Chat — disables the built-in AI assistant in sidebar
-        @{Name="BraveAIChatEnabled";                   Value=0; Type="DWord"}
-        # Brave Talk — disables built-in video conferencing tool
-        @{Name="BraveTalkDisabled";                    Value=1; Type="DWord"}
-        # Brave News — disables news feed on New Tab Page
-        @{Name="BraveNewsDisabled";                    Value=1; Type="DWord"}
-        # Brave Playlist — disables offline video/audio saving feature
-        @{Name="BravePlaylistEnabled";                 Value=0; Type="DWord"}
-        # Speedreader — disables reader mode suggestion on article pages
-        @{Name="BraveSpeedreaderEnabled";              Value=0; Type="DWord"}
-        # Wayback Machine — disables Internet Archive integration for 404 pages
-        @{Name="BraveWaybackMachineEnabled";           Value=0; Type="DWord"}
-        # P3A — disables Privacy-Preserving Product Analytics data transmission
-        @{Name="BraveP3AEnabled";                      Value=0; Type="DWord"}
-        # Stats Ping — disables status/authentication ping requests to Brave
-        @{Name="BraveStatsPingEnabled";                Value=0; Type="DWord"}
-        # Web Discovery Project — disables anonymous search index contribution
-        @{Name="BraveWebDiscoveryEnabled";             Value=0; Type="DWord"}
-        # Tor — disables New Private Window with Tor integration
-        @{Name="TorDisabled";                          Value=1; Type="DWord"}
-        # ─── New BraveOnly Policies (Phase 2) ───
-        # De-AMP — bypass Google AMP pages, redirect to publisher directly
-        @{Name="BraveDeAmpEnabled";                    Value=1; Type="DWord"}
-        # Bounce tracking — skip known tracking domains automatically
-        @{Name="BraveDebouncingEnabled";               Value=1; Type="DWord"}
-        # Language fingerprint reduction — prevent sites from reading exact locale
-        @{Name="BraveReduceLanguageEnabled";            Value=1; Type="DWord"}
-        # Tracking query param filtering — strip known trackers from URLs
-        @{Name="BraveTrackingQueryParametersFilteringEnabled"; Value=1; Type="DWord"}
-        # Ad blocking — lock Shields ad blocking to Block (default Brave behavior)
-        @{Name="DefaultBraveAdblockSetting";           Value=2; Type="DWord"}
-        # Fingerprinting — lock Shields fingerprinting to strict mode
-        @{Name="DefaultBraveFingerprintingV2Setting";  Value=3; Type="DWord"}
-        # Shields disabled for URLs — empty set, no URLs whitelisted
-        @{Name="BraveShieldsDisabledForUrls";          Value=@(); Type="MultiString"}
-        # Shields enabled for URLs — empty set, no URLs blacklisted
-        @{Name="BraveShieldsEnabledForUrls";           Value=@(); Type="MultiString"}
-        # Email aliases — disable anonymous email alias feature for sign-ups
-        @{Name="EmailAliasesEnabled";                  Value=0; Type="DWord"}
-        # ─── New BraveOnly Policies (Phase 8 — Prompt 25) ───
-        # Safe Browsing Protection Level — enhanced protection for all levels (2)
-        @{Name="SafeBrowsingProtectionLevel";          Value=2; Type="DWord"}
-        # Password Protection Warning Trigger — leak detection + password reuse (3)
-        @{Name="PasswordProtectionWarningTrigger";     Value=3; Type="DWord"}
-    )
-
-    "Essential" = @(
-        # ─── Data Leak Prevention (zero usability impact) ───
-
-        # Chromium metrics master switch — stops usage/crash data to Google/Brave
-        @{Name="MetricsReportingEnabled";              Value=0; Type="DWord"}
-        # Safe Browsing extended reporting — stops sending page content to Google
-        @{Name="SafeBrowsingExtendedReportingEnabled"; Value=0; Type="DWord"}
-        # URL-keyed data collection — stops sending visited URLs to Google
-        @{Name="UrlKeyedAnonymizedDataCollectionEnabled"; Value=0; Type="DWord"}
-        # Search suggestions — stops keystroke data from leaving the device
-        @{Name="SearchSuggestEnabled";                 Value=0; Type="DWord"}
-        # Network prediction — stops DNS prefetching and pre-connection
-        @{Name="NetworkPredictionOptions";             Value=2; Type="DWord"}
-        # Spellcheck — enables local Hunspell spellcheck (offline-only, no data sent)
-        @{Name="SpellcheckEnabled";                    Value=1; Type="DWord"}
-        # Alternate error pages — stops network requests when DNS resolution fails
-        @{Name="AlternateErrorPagesEnabled";           Value=0; Type="DWord"}
-        # Network time queries — stops time synchronization requests to Google
-        @{Name="BrowserNetworkTimeQueriesEnabled";     Value=0; Type="DWord"}
-        # Domain reliability — stops diagnostic data reporting to Google
-        @{Name="DomainReliabilityAllowed";             Value=0; Type="DWord"}
-        # Background mode — prevents Brave from running when all windows closed
-        @{Name="BackgroundModeEnabled";                Value=0; Type="DWord"}
-        # Safe Browsing surveys — disables post-browsing surveys
-        @{Name="SafeBrowsingSurveysEnabled";           Value=0; Type="DWord"}
-        # WebRTC event log — stops WebRTC event log upload to Google
-        @{Name="WebRtcEventLogCollectionAllowed";     Value=0; Type="DWord"}
-        # WebRTC text log — stops WebRTC text log upload to Google
-        @{Name="WebRtcTextLogCollectionAllowed";      Value=0; Type="DWord"}
-        # Audio capture — blocks microphone access by default (can be per-site)
-        @{Name="AudioCaptureAllowed";                  Value=0; Type="DWord"}
-        # Video capture — blocks camera access by default (can be per-site)
-        @{Name="VideoCaptureAllowed";                  Value=0; Type="DWord"}
-        # ─── New Essential Policies (Phase 2) ───
-        # GPC — sends Global Privacy Control Sec-GPC header to opt out of sale
-        @{Name="BraveGlobalPrivacyControlEnabled";     Value=1; Type="DWord"}
-        # ─── New Essential Policies (v2.2.1.0 — Hardware API & Security) ───
-        # WebUSB — blocks websites from accessing USB devices by default
-        @{Name="DefaultWebUsbGuardSetting";            Value=2; Type="DWord"}
-        # Web Bluetooth — blocks websites from accessing Bluetooth devices by default
-        @{Name="DefaultWebBluetoothGuardSetting";      Value=2; Type="DWord"}
-        # WebHID — blocks websites from accessing HID devices by default
-        @{Name="DefaultWebHidGuardSetting";            Value=2; Type="DWord"}
-        # Encrypted ClientHello — forces ECH to encrypt SNI (defense-in-depth)
-        @{Name="EncryptedClientHelloEnabled";          Value=1; Type="DWord"}
-        # Payment Method Queries — disables Payment Request API queries (fingerprint reduction)
-        @{Name="PaymentMethodQueryEnabled";            Value=0; Type="DWord"}
-        # Suppress Dialogs — suppresses dialogs from different-origin subframes
-        @{Name="SuppressDifferentOriginSubframeDialogs"; Value=1; Type="DWord"}
-        # ─── New Essential Policies (Phase 8 — Prompt 25) ───
-        # Enable Online Revocation Checks — force OCSP/CRL certificate validation (all levels)
-        @{Name="EnableOnlineRevocationChecks";         Value=1; Type="DWord"}
-        # Proxy Settings — explicitly uses system proxy, silences deprecated ProxyMode warning
-        @{Name="ProxySettings";                      Value='{"ProxyMode":"system"}'; Type="String"}
-        # ─── New Essential Policies (Phase 9 — Prompt 26) ───
-        # Extension Install Sources — restrict extension installation to Chrome Web Store only
-        @{Name="ExtensionInstallSources";                  Value=@();         Type="MultiString"}
-        # ─── Screen Capture Blocking (Phase 10 — v2.5.0.0) ───
-        # Screen capture — blocks web APIs (getDisplayMedia, etc.); Windows native tools still work
-        @{Name="ScreenCaptureAllowed";                Value=0; Type="DWord"}
-        # ─── New Essential Policies (v2.5.5.0 — smart download control) ───
-        # Download Restrictions — block ONLY downloads verified as malicious (4).
-        # Legitimate installers/downloads always proceed; the blanket block (3) is
-        # retired and the old over-blocking Balanced value (1) is never used.
-        @{Name="DownloadRestrictions";                 Value=4; Type="DWord"}
-    )
-
-    "Balanced" = @(
-        # ─── Security & Convenience Balance ───
-
-        # WebRTC IP handling — proxies all WebRTC traffic through configured proxy
-        @{Name="WebRtcIPHandling";                     Value="disable_non_proxied_udp"; Type="String"}
-        # WebRTC local IPs — empty list prevents any URL from getting local IP via ICE
-        @{Name="WebRtcLocalIpsAllowedUrls";            Value=@(); Type="MultiString"}
-        # HTTPS-Only Mode — forces all navigations to use HTTPS
-        @{Name="HttpsOnlyMode";                        Value="force_enabled"; Type="String"}
-        # DNS-over-HTTPS — upgrades DNS to encrypted queries automatically
-        @{Name="DnsOverHttpsMode";                     Value="automatic"; Type="String"}
-        # Third-party cookies — blocks cross-site tracking cookies
-        @{Name="BlockThirdPartyCookies";               Value=1; Type="DWord"}
-        # Password manager — disables built-in password saving
-        @{Name="PasswordManagerEnabled";               Value=0; Type="DWord"}
-        # Passkeys — disables passkey saving in the browser
-        @{Name="PasswordManagerPasskeysEnabled";       Value=0; Type="DWord"}
-        # Address autofill — disables address form autofill data storage
-        @{Name="AutofillAddressEnabled";               Value=0; Type="DWord"}
-        # Credit card autofill — disables payment method autofill data storage
-        @{Name="AutofillCreditCardEnabled";            Value=0; Type="DWord"}
-        # Full URLs — shows full URL including scheme and subdomain (anti-phishing)
-        @{Name="ShowFullUrlsInAddressBar";             Value=1; Type="DWord"}
-        # QUIC protocol — disables QUIC, falls back to TCP/TLS
-        @{Name="QuicAllowed";                          Value=0; Type="DWord"}
-        # Chrome variations — restricts to critical field trials only
-        @{Name="ChromeVariations";                     Value=1; Type="DWord"}
-        # Network service sandbox — runs network service in sandboxed process
-        @{Name="NetworkServiceSandboxEnabled";         Value=1; Type="DWord"}
-        # Audio sandbox — runs audio service in sandboxed process
-        @{Name="AudioSandboxEnabled";                  Value=1; Type="DWord"}
-        # Geolocation — blocks site access to device location by default
-        @{Name="DefaultGeolocationSetting";            Value=2; Type="DWord"}
-        # Notifications — blocks site notification requests by default
-        @{Name="DefaultNotificationsSetting";          Value=2; Type="DWord"}
-        # Pop-ups — blocks pop-up windows by default
-        @{Name="DefaultPopupsSetting";                 Value=2; Type="DWord"}
-        # ─── New Balanced Policies (Phase 2) ───
-        # HTTPS upgrade — Strict mode, requires HTTPS with interstitial on failure
-        @{Name="DefaultBraveHttpsUpgradeSetting";      Value=2; Type="DWord"}
-        # Referrer policy — caps to strict-origin-when-cross-origin
-        @{Name="DefaultBraveReferrersSetting";         Value=2; Type="DWord"}
-        # Sync server — explicit default Brave sync server URL
-        @{Name="BraveSyncUrl";                         Value="https://sync-v2.brave.com/v2"; Type="String"}
-        # ─── New Balanced Policies (v2.2.1.0 — Hardware API & Security) ───
-        # Window Management — blocks sites from seeing full screen info by default
-        @{Name="DefaultWindowManagementSetting";       Value=2; Type="DWord"}
-        # Site Isolation — forces all sites into separate processes
-        @{Name="SitePerProcess";                       Value=1; Type="DWord"}
-        # Wake-Up Throttling — aggressively throttles JavaScript wake-up timers
-        @{Name="IntensiveWakeUpThrottlingEnabled";     Value=1; Type="DWord"}
-        # User Feedback — disables in-browser feedback prompts/UI
-        @{Name="UserFeedbackAllowed";                  Value=0; Type="DWord"}
-        # ─── New Balanced Policies (Phase 8 — Prompt 22 + 24) ───
-        # Extension Install Forcelist — force-install Dark Reader; S/MIME allow-listed (Brave blocks silent CRX force-install) for OWA
-        @{Name="ExtensionInstallForcelist"; Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx","maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"); Type="MultiString"}
-        # Download Directory — set default download folder
-        @{Name="DownloadDirectory";                    Value="%USERPROFILE%\Downloads\"; Type="ExpandString"}
-        # Prompt For Download Location — do not prompt, use default (0)
-        @{Name="PromptForDownloadLocation";             Value=0; Type="DWord"}
-        # ─── New Balanced Policies (Phase 9 — Prompt 27) ───
-        # Relaunch Notification — force relaunch notification (non-dismissible)
-        @{Name="RelaunchNotification";                     Value=2;           Type="DWord"}
-        # Relaunch Notification Period — 1 hour in milliseconds (force immediate update relaunch)
-        @{Name="RelaunchNotificationPeriod";               Value=3600000;     Type="DWord"}
-        # ─── New Balanced Policies (v2.5.0.0 — AI & Local Network) ───
-        # Local network permissions — auto-approve permission requests in sub-frames
-        @{Name="LocalNetworkAccessPermissionsPolicyDefaultEnabled"; Value=0; Type="DWord"}
-        # GenAI local model — disables local AI model download (moved from Advanced)
-        @{Name="GenAILocalFoundationalModelSettings"; Value=1; Type="DWord"}
-        # ─── New Balanced Policies (v2.5.5.0 — Safe Browsing enforcement) ───
-        # Safe Browsing proceed — prevents bypassing malware/phishing warnings
-        # (moved back from Strict; never blocked downloads, only hardened the warning)
-        @{Name="DisableSafeBrowsingProceedAnyway";     Value=1; Type="DWord"}
-    )
-
-    "Advanced" = @(
-        # ─── Enhanced Privacy — medium-high protection ───
-
-        # Sensors — blocks device motion/light sensor access by default
-        @{Name="DefaultSensorsSetting";                Value=2; Type="DWord"}
-        # Local fonts — blocks font enumeration (reduces fingerprinting surface)
-        @{Name="DefaultLocalFontsSetting";             Value=2; Type="DWord"}
-        # Serial ports — blocks Serial API access by default
-        @{Name="DefaultSerialGuardSetting";            Value=2; Type="DWord"}
-        # Idle detection — blocks site access to user idle state by default
-        @{Name="DefaultIdleDetectionSetting";          Value=2; Type="DWord"}
-        # Guest mode — prevents browser guest profile creation
-        @{Name="BrowserGuestModeEnabled";              Value=0; Type="DWord"}
-        # Add person — prevents new profile creation from user manager
-        @{Name="BrowserAddPersonEnabled";              Value=0; Type="DWord"}
-        # Import autofill — disables importing autofill data from other browsers
-        @{Name="ImportAutofillFormData";               Value=0; Type="DWord"}
-        # Import history — disables importing browsing history from other browsers
-        @{Name="ImportHistory";                        Value=0; Type="DWord"}
-        # Import passwords — disables importing saved passwords from other browsers
-        @{Name="ImportSavedPasswords";                 Value=0; Type="DWord"}
-        # Import search engine — disables importing search engine settings
-        @{Name="ImportSearchEngine";                   Value=0; Type="DWord"}
-        # Import homepage — disables importing homepage settings
-        @{Name="ImportHomepage";                       Value=0; Type="DWord"}
-        # ─── Moved from Strict (v2.3.0.0 reclassify) — extension lockdown ───
-        # Extension Install Blocklist — block all except allowlist
-        @{Name="ExtensionInstallBlocklist";            Value=@("*");     Type="MultiString"}
-        # Extension Install Allowlist — Dark Reader + S/MIME for OWA
-        @{Name="ExtensionInstallAllowlist";            Value=@("eimadpbcbfnmbkopoojfekhnkhdbieeh","maafgiompdekodanheihhgilkjchcakm"); Type="MultiString"}
-        # Extension Allowed Types — only extension (shared_module not supported by Brave)
-        @{Name="ExtensionAllowedTypes";                Value=@("extension"); Type="MultiString"}
-        # Block External Extensions — prevent sideloading
-        @{Name="BlockExternalExtensions";              Value=1;          Type="DWord"}
-        # Extension Settings — JSON backup layer (S/MIME with override_update_url)
-        @{Name="ExtensionSettings";                    Value='{"*":{"installation_mode":"blocked"},"eimadpbcbfnmbkopoojfekhnkhdbieeh":{"installation_mode":"allowed"},"maafgiompdekodanheihhgilkjchcakm":{"installation_mode":"allowed","override_update_url":true}}'; Type="String"}
-        # ─── New Advanced Policies (v2.6.0.0 — S/MIME native messaging for OWA) ───
-        # Native Messaging Allowlist — authorize the OWA S/MIME native messaging host
-        @{Name="NativeMessagingAllowlist";             Value=@("com.microsoft.outlook.smime.chromenativeapp"); Type="MultiString"}
-        # Native Messaging User-Level Hosts — keep per-user hosts enabled (required by OWA S/MIME)
-        @{Name="NativeMessagingUserLevelHosts";        Value=1;          Type="DWord"}
-        # Built-in DNS Client Enabled — disable Chrome DNS, use system DNS
-        @{Name="BuiltInDnsClientEnabled";              Value=0;          Type="DWord"}
-        # ─── New Advanced Policies (Phase 9 — Prompt 28) ───
-        # Show Home Button — hide the home button
-        @{Name="ShowHomeButton";                           Value=0;           Type="DWord"}
-        # Hide Web Store Icon — hide Chrome Web Store icon
-        @{Name="HideWebStoreIcon";                         Value=1;           Type="DWord"}
-        # Default JavaScript Setting — allow by default
-        @{Name="DefaultJavaScriptSetting";                 Value=0;           Type="DWord"}
-        # Gemini Settings — disable Gemini AI integration
-        @{Name="GeminiSettings";                           Value=1;           Type="DWord"}
-        # ─── AI Tool Blocking (Phase 10 — v2.5.0.0) ───
-        # AI Mode — blocks Chrome AI Mode entirely
-        @{Name="AIModeSettings";                      Value=1; Type="DWord"}
-        # Autofill predictions — disables AI-powered autofill predictions
-        @{Name="AutofillPredictionSettings";          Value=2; Type="DWord"}
-        # Chrome suggestions — disables AI-powered suggestions
-        @{Name="ChromeSuggestionsSettings";           Value=1; Type="DWord"}
-        # Create themes — disables AI theme creation
-        @{Name="CreateThemesSettings";                Value=2; Type="DWord"}
-        # DevTools GenAI — disables AI in DevTools
-        @{Name="DevToolsGenAiSettings";               Value=2; Type="DWord"}
-        # Help me write — disables AI writing assistant
-        @{Name="HelpMeWriteSettings";                 Value=2; Type="DWord"}
-        # History search — disables AI-powered history search
-        @{Name="HistorySearchSettings";               Value=2; Type="DWord"}
-        # Search content sharing — disables AI content sharing
-        @{Name="SearchContentSharingSettings";        Value=1; Type="DWord"}
-        # Smart tab sharing — disables AI tab sharing
-        @{Name="SmartTabSharingSettings";             Value=1; Type="DWord"}
-        # Tab compare — disables AI tab comparison
-        @{Name="TabCompareSettings";                  Value=2; Type="DWord"}
-        # Gemini on web — disables Gemini integration on web pages
-        @{Name="GeminiActOnWebSettings";              Value=1; Type="DWord"}
-        # Gemini spark — disables Gemini Spark features
-        @{Name="GeminiSparkSettings";                 Value=1; Type="DWord"}
-        # ─── Sandbox Hardening (Phase 10 — v2.5.0.0) ───
-        # Renderer App Container — enables renderer process sandbox
-        @{Name="RendererAppContainerEnabled";         Value=1; Type="DWord"}
-        # ─── Local Network Access Control (v2.5.0.0) ───
-        # Local network allowed URLs — exempt certain URLs from LNA checks
-        @{Name="LocalNetworkAccessAllowedForUrls";       Value=@(); Type="MultiString"}
-        # Local network blocked URLs — block certain URLs from local network access
-        @{Name="LocalNetworkAccessBlockedForUrls";        Value=@(); Type="MultiString"}
-        # Local network IP space overrides — empty list uses default IP mappings
-        @{Name="LocalNetworkAccessIpAddressSpaceOverrides";  Value=@(); Type="MultiString"}
-        # Local network restrictions temporary opt-out — disable temporary opt-out
-        @{Name="LocalNetworkAccessRestrictionsTemporaryOptOut"; Value=0; Type="DWord"}
-        # ─── Moved to Essential (v2.5.5.0) — smart download control ───
-        # Download Restrictions — Value=4 (only confirmed-malicious downloads blocked)
-        # lives at Essential, the security baseline tier, for zero-downside malware
-        # protection on every tier from Essential upward.
-    )
-
-    "Strict" = @(
-        # ─── Maximum Privacy — some usability trade-offs ───
-
-        # Translation — disables built-in translation (stops sending text to Google)
-        @{Name="TranslateEnabled";                     Value=0; Type="DWord"}
-        # Clipboard — blocks site clipboard read/write access by default
-        @{Name="DefaultClipboardSetting";              Value=2; Type="DWord"}
-        # File system read — blocks site file system read access by default
-        @{Name="DefaultFileSystemReadGuardSetting";    Value=2; Type="DWord"}
-        # File system write — blocks site file system write access by default
-        @{Name="DefaultFileSystemWriteGuardSetting";   Value=2; Type="DWord"}
-        # Insecure content — blocks mixed content (HTTP on HTTPS pages) by default
-        @{Name="DefaultInsecureContentSetting";        Value=2; Type="DWord"}
-        # JavaScript JIT — disables JIT compilation (reduces attack surface)
-        @{Name="DefaultJavaScriptJitSetting";          Value=2; Type="DWord"}
-        # Cookies — blocks all cookies by default (may break login-dependent sites)
-        @{Name="DefaultCookiesSetting";                Value=2; Type="DWord"}
-        # Import bookmarks — disables importing bookmarks from other browsers
-        @{Name="ImportBookmarks";                      Value=0; Type="DWord"}
-        # First-party storage — forget on tab/nav end (causes login loss per session)
-        @{Name="DefaultBraveRemember1PStorageSetting"; Value=2; Type="DWord"}
-        # ─── Strict-only Policies (v2.3.0.0) ───
-        # Incognito Mode Availability — disable incognito mode
-        @{Name="IncognitoModeAvailability";            Value=1;          Type="DWord"}
-        # Task Manager End Process Enabled — prevent ending processes
-        @{Name="TaskManagerEndProcessEnabled";         Value=0;          Type="DWord"}
-        # Printing Enabled — disable all printing
-        @{Name="PrintingEnabled";                       Value=0;          Type="DWord"}
-        # Disable Print Preview — skip preview dialog
-        @{Name="DisablePrintPreview";                   Value=1;          Type="DWord"}
-        # ─── Moved from Balanced (v2.3.0.0) — stricter enforcement ───
-        # ─── Moved to Essential (v2.5.5.0) — smart download control ───
-        # Download Restrictions — no blanket block at Strict anymore; only
-        # confirmed-malicious downloads are blocked via the Essential value (4)
-        # ─── Moved from Essential/Balanced (v2.5.4.0) — downloads allowed below Strict ───
-        # Safe Browsing deep scanning — server-side download scanning (Strict only)
-        @{Name="SafeBrowsingDeepScanningEnabled";      Value=1; Type="DWord"}
-        # ─── Moved back to Balanced (v2.5.5.0) — download-only benefit was nil ───
-        # Safe Browsing proceed — enforces malware/phishing warnings from Balanced up
-        # ─── Moved back from Advanced (v2.3.1.1 fix) — F12 only blocked at Strict ───
-        # Developer Tools Availability — restrict DevTools (2=disallowed entirely)
-        @{Name="DeveloperToolsAvailability";           Value=2;          Type="DWord"}
-        # ─── New Strict Policies (Phase 9 — Prompt 29) ───
-        # Browsing Data Lifetime — auto-clear history/cache after 24 hours
-        @{Name="BrowsingDataLifetime";                               Value=@{"data_types"=@("browsing_history","download_history","cached_images_and_files");"time_to_live_in_hours"=24}; Type="String"}
-        # ─── Personal-Use Friendly Hardening ───
-        # Always Open PDF Externally — open PDFs in external app (PDF exploit mitigation)
-        @{Name="AlwaysOpenPdfExternally";                             Value=1;           Type="DWord"}
-        # Certificate Transparency Enforcement Disabled For URLs — empty (enforce CT everywhere)
-        @{Name="CertificateTransparencyEnforcementDisabledForUrls";  Value=@();         Type="MultiString"}
-        # Password Leak Detection Enabled — check passwords against data breaches
-        @{Name="PasswordLeakDetectionEnabled";                       Value=1;           Type="DWord"}
-        # SpellCheck Service Enabled — disable online spellcheck (data leak vector)
-        @{Name="SpellCheckServiceEnabled";                           Value=0;           Type="DWord"}
-        # Browser Signin — disable browser sign-in flow (blocks Brave Sync)
-        @{Name="BrowserSignin";                                     Value=0;           Type="DWord"}
-        # Sync Disabled — disable Chrome Sync (data leak vector)
-        @{Name="SyncDisabled";                                       Value=1;           Type="DWord"}
-        # ─── Screen Capture Fine-Grained Control (v2.5.0.0) ───
-        # Screen capture allowed by origins — empty list blocks all origins
-        @{Name="ScreenCaptureAllowedByOrigins";              Value=@(); Type="MultiString"}
-        # Same-origin tab capture — empty list blocks all same-origin tab capture
-        @{Name="SameOriginTabCaptureAllowedByOrigins";       Value=@(); Type="MultiString"}
-        # Tab capture allowed by origins — empty list blocks all tab capture
-        @{Name="TabCaptureAllowedByOrigins";                 Value=@(); Type="MultiString"}
-        # Window capture allowed by origins — empty list blocks all window capture
-        @{Name="WindowCaptureAllowedByOrigins";              Value=@(); Type="MultiString"}
-        # ─── Local Network Access Fine-Grained Control (v2.5.0.0) ───
-        # Local network allowed URLs — exempt certain URLs from local network blocking
-        @{Name="LocalNetworkAllowedForUrls";                 Value=@(); Type="MultiString"}
-        # Local network blocked URLs — block certain URLs from local network access
-        @{Name="LocalNetworkBlockedForUrls";                  Value=@(); Type="MultiString"}
-    )
-}
+$PolicyDefinitions = $OmegaState.PolicyDefinitions
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # POLICY MERGING (Cumulative)
 # ─────────────────────────────────────────────────────────────────────────────
-$LevelOrder = @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict")
+$LevelOrder = $OmegaState.LevelOrder
 
 $MergedPolicies = @{}
 $SelectedIndex = [array]::IndexOf($LevelOrder, $Level)
@@ -1470,7 +1129,7 @@ function Write-PolicyValue {
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host (Get-LocalizedString 'StepGuidScan') -ForegroundColor Gray
 
-$RootPath          = "HKCU:\Software\BraveSoftware"
+$RootPath          = $OmegaState.Registry.hkcuRoot
 $OmahaSuccessCount = 0
 $OmahaErrorCount   = 0
 

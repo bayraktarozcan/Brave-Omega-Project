@@ -34,8 +34,7 @@ Describe "Policy Definitions" -Tag "Unit" {
         ($p.ContainsKey("Name") -and $p.ContainsKey("Value") -and $p.ContainsKey("Type")) | Should -Be $true
     }
 
-    It "should have correct policy counts per tier from unified script" {
-        $content = Get-Content -Path $ScriptMain -Raw
+    It "should have correct policy counts per tier from data layer" {
         $expectedCounts = @{
             "BraveOnly" = 24
             "Essential" = 27
@@ -44,31 +43,13 @@ Describe "Policy Definitions" -Tag "Unit" {
             "Strict"    = 28
         }
         foreach ($tier in @("BraveOnly","Essential","Balanced","Advanced","Strict")) {
-            $pattern = '"' + $tier + '"\s*=\s*@\('
-            $tierMatch = [regex]::Match($content, $pattern)
-            $tierMatch.Success | Should -Be $true -Because "tier '$tier' should exist in EN script"
-            $startIdx = $tierMatch.Index + $tierMatch.Length
-            $depth = 1
-            for ($i = $startIdx; $i -lt $content.Length; $i++) {
-                if ($content[$i] -eq '(') { $depth++ }
-                if ($content[$i] -eq ')') {
-                    $depth--
-                    if ($depth -eq 0) {
-                        $section = $content.Substring($tierMatch.Index, $i - $tierMatch.Index)
-                        $policyCount = ([regex]::Matches($section, '@\{Name=')).Count
-                        $policyCount | Should -BeExactly $expectedCounts[$tier] -Because "tier '$tier' should have $($expectedCounts[$tier]) policies"
-                        break
-                    }
-                }
-            }
+            $policies = Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptMain
+            $policies.Count | Should -BeExactly $expectedCounts[$tier] -Because "tier '$tier' should have $($expectedCounts[$tier]) policies"
         }
     }
 
-    It "should have 151 total policy definitions (unified script)" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $policyDefStart = $content.IndexOf('$PolicyDefinitions')
-        $policyDefSection = $content.Substring($policyDefStart)
-        $totalMatches = ([regex]::Matches($policyDefSection, '@\{Name=')).Count
-        $totalMatches | Should -BeExactly 151
+    It "should have 151 total policy definitions (data layer)" {
+        $lines = Get-PolicyLines -ScriptPath $ScriptMain
+        $lines.Count | Should -BeExactly 151
     }
 }

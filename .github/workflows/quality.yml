@@ -81,8 +81,16 @@ jobs:
           $config.TestResult.Enabled = $true
           $config.TestResult.OutputFormat = "NUnitXml"
           $config.TestResult.OutputPath = "test-results.xml"
+          $config.CodeCoverage.Enabled = $true
+          $config.CodeCoverage.OutputPath = "coverage.xml"
+          $config.CodeCoverage.OutputFormat = "Cobertura"
+          $config.CodeCoverage.CoveragePercentTarget = 0
           $config.Output.Verbosity = "Detailed"
           $result = Invoke-Pester -Configuration $config
+          if ($null -ne $result.CodeCoverage) {
+            $percent = [math]::Round($result.CodeCoverage.CoveredPercent, 2)
+            Write-Host "Code coverage: $percent% (informational, no gate)"
+          }
           if ($result.FailedCount -gt 0) { exit 1 }
       - name: Upload test results
         if: always()
@@ -90,6 +98,13 @@ jobs:
         with:
           name: test-results-${{ matrix.os }}
           path: test-results.xml
+      - name: Upload code coverage
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: code-coverage-${{ matrix.os }}
+          path: coverage.xml
+          if-no-files-found: ignore
 
   ps-script-analyzer:
     name: PSScriptAnalyzer

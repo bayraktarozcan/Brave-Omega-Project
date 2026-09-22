@@ -78,30 +78,37 @@ foreach ($p in $policies) {
 
 Write-Result "ADMX lookup built: $($admxPolicyMap.Count) unique policy names" -Level "Info"
 
-# ─── Our script's policy definitions (auto-discovered from BraveOmega.ps1) ───
-# Parsed dynamically so every policy added to the script is validated — no manual sync.
-$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave Omega\BraveOmega.ps1"
-if (-not (Test-Path -LiteralPath $scriptPath)) {
-    Write-Host "Script file not found: $scriptPath" -ForegroundColor Red
+# ─── Policy definitions (auto-discovered from config.json + profiles\<Tier>.json) ───
+# Parsed dynamically so every policy added to the data layer is validated — no manual sync.
+$dataDir = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave Omega"
+$configPath = Join-Path -Path $dataDir -ChildPath "config.json"
+$profilesDir = Join-Path -Path $dataDir -ChildPath "profiles"
+if (-not (Test-Path -LiteralPath $configPath)) {
+    Write-Host "Config file not found: $configPath" -ForegroundColor Red
     exit 1
 }
 
-$scriptContent = Get-Content -LiteralPath $scriptPath -Raw -Encoding UTF8
+$config = Get-Content -LiteralPath $configPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $scriptPolicyMap = @{}
 $duplicateTypes = @()
-$policyEntryPattern = '^\s*@\{Name\s*=\s*"([^"]+)".*Type\s*=\s*"([^"]+)"\s*\}'
-foreach ($line in ($scriptContent -split "`r?`n")) {
-    $m = [regex]::Match($line, $policyEntryPattern)
-    if (-not $m.Success) { continue }
-    $name = $m.Groups[1].Value
-    $type = $m.Groups[2].Value
-    if ($scriptPolicyMap.ContainsKey($name)) {
-        if ($scriptPolicyMap[$name].Type -ne $type) {
-            $duplicateTypes += "$name ($($scriptPolicyMap[$name].Type) vs $type)"
-        }
-        continue
+foreach ($tier in @($config.levelOrder)) {
+    $profilePath = Join-Path -Path $profilesDir -ChildPath "$tier.json"
+    if (-not (Test-Path -LiteralPath $profilePath)) {
+        Write-Host "Profile file not found: $profilePath" -ForegroundColor Red
+        exit 1
     }
-    $scriptPolicyMap[$name] = @{ Type = $type }
+    $profile = Get-Content -LiteralPath $profilePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($p in @($profile.policies)) {
+        $name = $p.name
+        $type = $p.type
+        if ($scriptPolicyMap.ContainsKey($name)) {
+            if ($scriptPolicyMap[$name].Type -ne $type) {
+                $duplicateTypes += "$name ($($scriptPolicyMap[$name].Type) vs $type)"
+            }
+            continue
+        }
+        $scriptPolicyMap[$name] = @{ Type = $type }
+    }
 }
 
 foreach ($dup in $duplicateTypes) {
@@ -109,7 +116,7 @@ foreach ($dup in $duplicateTypes) {
 }
 if ($duplicateTypes.Count -gt 0) { $ExitCode = 1 }
 
-Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy names (auto-discovered)" -Level "Info"
+Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy names (auto-discovered from profiles)" -Level "Info"
 
 # ─── Known exceptions: valid Chromium policies intentionally absent from Brave's ADMX ───
 # Brave's ADMX bundle is generated from Chromium's Windows GPO policy templates. A few

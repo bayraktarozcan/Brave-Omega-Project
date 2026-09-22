@@ -3,28 +3,11 @@ BeforeAll {
 
     function Get-MergedPolicyNames {
         param([string]$ScriptPath, [string]$Level)
-        $content = Get-Content -Path $ScriptPath -Raw
-        $LevelOrder = @("BraveOnly","Essential","Balanced","Advanced","Strict")
+        $LevelOrder = Get-OmegaLevelOrder -ScriptPath $ScriptPath
         $Merged = @{}
         foreach ($tier in $LevelOrder[0..([array]::IndexOf($LevelOrder, $Level))]) {
-            $pattern = '"' + $tier + '"\s*=\s*@\('
-            $tierMatch = [regex]::Match($content, $pattern)
-            if (-not $tierMatch.Success) { continue }
-            $startIdx = $tierMatch.Index + $tierMatch.Length
-            $depth = 1
-            for ($i = $startIdx; $i -lt $content.Length; $i++) {
-                if ($content[$i] -eq '(') { $depth++ }
-                if ($content[$i] -eq ')') {
-                    $depth--
-                    if ($depth -eq 0) {
-                        $section = $content.Substring($tierMatch.Index, $i - $tierMatch.Index)
-                        $policyMatches = [regex]::Matches($section, '@\{(?:Name|Ad)="([^"]+)"')
-                        foreach ($m in $policyMatches) {
-                            $Merged[$m.Groups[1].Value] = $true
-                        }
-                        break
-                    }
-                }
+            foreach ($p in (Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptPath)) {
+                $Merged[$p.name] = $true
             }
         }
         return $Merged
@@ -32,22 +15,19 @@ BeforeAll {
 
     function Get-AllPolicyNames {
         param([string]$ScriptPath, [string]$ArrayVar)
-        $content = Get-Content -Path $ScriptPath -Raw
-        $m = [regex]::Match($content, '\$' + [regex]::Escape($ArrayVar) + '\s*=\s*@\((.*?)\)\s*(?=if \(\$)', 'Singleline')
-        if (-not $m.Success) { return @() }
-        return @([regex]::Matches($m.Groups[1].Value, '"([^"]+)"') | ForEach-Object { $_.Groups[1].Value })
+        return Get-OmegaAllPolicyNames -ScriptPath $ScriptPath
     }
 }
 
-Describe "Stale Policy Cleanup - v2.7.3.0" -Tag "Unit" {
+Describe "Stale Policy Cleanup - v2.8.0.0" -Tag "Unit" {
 
-    It "should declare v2.7.3.0 in the unified script" {
-        (Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion") | Should -Be "v2.7.3.0"
+    It "should declare v2.8.0.0 in the unified script" {
+        (Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion") | Should -Be "v2.8.0.0"
     }
 
     It "should define the known-policy array OUTSIDE the -Reset block in unified script" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $defIdx  = $content.IndexOf('$allPolicyNames = @(')
+        $defIdx  = $content.IndexOf('$allPolicyNames = ')
         $resetIdx = $content.IndexOf('if ($Reset) {')
         $defIdx   | Should -BeGreaterThan 0
         $resetIdx | Should -BeGreaterThan 0

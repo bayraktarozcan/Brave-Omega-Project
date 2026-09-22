@@ -1,0 +1,220 @@
+﻿{
+    "tier":  "Advanced",
+    "policies":  [
+                     {
+                         "name":  "DefaultSensorsSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultLocalFontsSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultSerialGuardSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultIdleDetectionSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "BrowserGuestModeEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BrowserAddPersonEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ImportAutofillFormData",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ImportHistory",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ImportSavedPasswords",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ImportSearchEngine",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ImportHomepage",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ExtensionInstallBlocklist",
+                         "type":  "MultiString",
+                         "value":  [
+                                       "*"
+                                   ]
+                     },
+                     {
+                         "name":  "ExtensionInstallAllowlist",
+                         "type":  "MultiString",
+                         "value":  [
+                                       "eimadpbcbfnmbkopoojfekhnkhdbieeh",
+                                       "maafgiompdekodanheihhgilkjchcakm"
+                                   ]
+                     },
+                     {
+                         "name":  "ExtensionAllowedTypes",
+                         "type":  "MultiString",
+                         "value":  [
+                                       "extension"
+                                   ]
+                     },
+                     {
+                         "name":  "BlockExternalExtensions",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "ExtensionSettings",
+                         "type":  "String",
+                         "value":  "{\"*\":{\"installation_mode\":\"blocked\"},\"eimadpbcbfnmbkopoojfekhnkhdbieeh\":{\"installation_mode\":\"allowed\"},\"maafgiompdekodanheihhgilkjchcakm\":{\"installation_mode\":\"allowed\",\"override_update_url\":true}}"
+                     },
+                     {
+                         "name":  "NativeMessagingAllowlist",
+                         "type":  "MultiString",
+                         "value":  [
+                                       "com.microsoft.outlook.smime.chromenativeapp"
+                                   ]
+                     },
+                     {
+                         "name":  "NativeMessagingUserLevelHosts",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BuiltInDnsClientEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ShowHomeButton",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "HideWebStoreIcon",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "DefaultJavaScriptSetting",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "GeminiSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "AIModeSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "AutofillPredictionSettings",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "ChromeSuggestionsSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "CreateThemesSettings",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DevToolsGenAiSettings",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "HelpMeWriteSettings",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "HistorySearchSettings",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "SearchContentSharingSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "SmartTabSharingSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "TabCompareSettings",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "GeminiActOnWebSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "GeminiSparkSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "RendererAppContainerEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "LocalNetworkAccessAllowedForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "LocalNetworkAccessBlockedForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "LocalNetworkAccessIpAddressSpaceOverrides",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "LocalNetworkAccessRestrictionsTemporaryOptOut",
+                         "type":  "DWord",
+                         "value":  0
+                     }
+                 ]
+}

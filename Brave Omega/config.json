@@ -1,0 +1,14 @@
+﻿{
+    "levelOrder":  [
+                       "BraveOnly",
+                       "Essential",
+                       "Balanced",
+                       "Advanced",
+                       "Strict"
+                   ],
+    "registry":  {
+                     "hkcuTarget":  "HKCU:\\Software\\BraveSoftware\\Brave-Browser",
+                     "hklmTarget":  "HKLM:\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
+                     "hkcuRoot":  "HKCU:\\Software\\BraveSoftware"
+                 }
+}

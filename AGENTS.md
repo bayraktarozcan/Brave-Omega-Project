@@ -42,7 +42,7 @@ Operational notes for humans and AI agents working in this repository.
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v2.7.3.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v2.8.0.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | `1.95.104` | `$ValidatedBrave` |
 | Chromium | `153` | `$ValidatedChromium` (major only) |
 
@@ -76,9 +76,11 @@ yamllint .github/ --config-file .github/linters/.yamllint.yml
 
 - **Bilingual docs.** User-facing `.md` files follow the EN-first + TR-mirror
   pattern (see CONTRIBUTING.md). Keep headings, anchors, and badges consistent.
-- **Policy edits.** Change policy definitions only in `BraveOmega.ps1`
-  (`$allPolicyNames` and friends). Deprecated policies must be removed from that
-  list — the ADMX validator (`admx-validate.ps1`) enforces the cross-reference.
+- **Policy edits.** Change policy definitions only in the data layer
+  (`Brave Omega/config.json` + `Brave Omega/profiles/*.json`; loaded at runtime
+  via `Import-OmegaPolicyData` into `$OmegaState`). Deprecated policies must be
+  removed from the profile files — the ADMX validator (`admx-validate.ps1`)
+  enforces the cross-reference.
 - **Version bumps.** Add a changelog entry (CHANGELOG.md + `Wiki/Changelog.md`),
   bump `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`, then update
   the hand-maintained "Validated on" header in `docs/policy-catalog.md`, README §8,
@@ -113,7 +115,7 @@ Bu depoda çalışan insan ve yapay zekâ ajanları için operasyonel notlar.
 
 | Sabit | Güncel | Nerede |
 |-------|--------|--------|
-| Betik | `v2.7.3.0` | `BraveOmega.ps1` başlığı + `$ScriptVersion` |
+| Betik | `v2.8.0.0` | `BraveOmega.ps1` başlığı + `$ScriptVersion` |
 | Brave | `1.95.104` | `$ValidatedBrave` |
 | Chromium | `153` | `$ValidatedChromium` (yalnızca ana sürüm) |
 
@@ -147,9 +149,11 @@ Yerelde `pwsh` kurulu değildir — `powershell` / Windows PowerShell 5.1 kullan
 
 - **İki dilli belgeler.** Kullanıcıya dönük `.md` dosyaları EN-önce + TR-yansıma
   düzenini izler (bkz. CONTRIBUTING.md). Başlıkları, çapaları ve rozetleri tutarlı tutun.
-- **Politika düzenlemeleri.** Politika tanımlarını yalnızca `BraveOmega.ps1` içinde
-  değiştirin (`$allPolicyNames` ve benzerleri). Kullanımdan kaldırılan politikalar o
-  listeden çıkarılmalıdır — ADMX doğrulayıcı (`admx-validate.ps1`) çapraz referansı zorlar.
+- **Politika düzenlemeleri.** Politika tanımlarını yalnızca veri katmanında
+  değiştirin (`Brave Omega/config.json` + `Brave Omega/profiles/*.json`; çalışma
+  zamanında `Import-OmegaPolicyData` ile `$OmegaState` içine yüklenir). Kullanımdan
+  kaldırılan politikalar profil dosyalarından çıkarılmalıdır — ADMX doğrulayıcı
+  (`admx-validate.ps1`) çapraz referansı zorlar.
 - **Sürüm güncellemeleri.** Değişiklik günlüğü satırı ekleyin (CHANGELOG.md +
   `Wiki/Changelog.md`), `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`
   sürümlerini yükseltin, ardından elle bakılan `docs/policy-catalog.md` "Validated on"

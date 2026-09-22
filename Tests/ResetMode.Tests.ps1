@@ -57,23 +57,20 @@ Describe "Reset Mode - Path Constants Defined Before Reset Block" -Tag "Unit" {
 }
 
 Describe "Reset Mode - allPolicyNames Array" -Tag "Unit" {
-    It "unified script should define allPolicyNames array" {
+    It "unified script should source allPolicyNames from the data layer" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match '\$allPolicyNames\s*=\s*@\(' | Should -Be $true
+        $content -match '\$allPolicyNames\s*=\s*\$OmegaState\.AllPolicyNames' | Should -Be $true
     }
 
-    It "unified allPolicyNames should include BraveRewardsDisabled" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'BraveRewardsDisabled' | Should -Be $true
+    It "data-layer allPolicyNames should include BraveRewardsDisabled" {
+        (Get-OmegaAllPolicyNames -ScriptPath $ScriptMain) -contains "BraveRewardsDisabled" | Should -Be $true
     }
 
-    It "unified allPolicyNames should include MetricsReportingEnabled" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'MetricsReportingEnabled' | Should -Be $true
+    It "data-layer allPolicyNames should include MetricsReportingEnabled" {
+        (Get-OmegaAllPolicyNames -ScriptPath $ScriptMain) -contains "MetricsReportingEnabled" | Should -Be $true
     }
 
-    It "unified allPolicyNames should include DefaultJavaScriptSetting" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'DefaultJavaScriptSetting' | Should -Be $true
+    It "data-layer allPolicyNames should include DefaultJavaScriptSetting" {
+        (Get-OmegaAllPolicyNames -ScriptPath $ScriptMain) -contains "DefaultJavaScriptSetting" | Should -Be $true
     }
 }

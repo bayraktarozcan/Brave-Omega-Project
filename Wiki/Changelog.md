@@ -23,6 +23,20 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.8.0.0 - 2026-09-22
+
+**Feature Release - Data-layer refactor**
+
+**Changed:**
+
+- All 151 policy definitions moved out of the script body into a validated data layer: `config.json` (registry targets + level order) and `profiles/<Tier>.json` (one file per tier)
+- Script loads policies at runtime via `Import-OmegaPolicyData` into a single `$OmegaState`; byte-identical registry output
+- ADMX validator, Pester suite, and policy-catalog generator now read the same data layer (single source of truth); CI Pester job emits a CodeCoverage report
+- No policy changes; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+- Script updated to v2.8.0.0
+
+---
+
 ### v2.7.3.0 - 2026-09-19
 
 **Patch Release - Brave 1.95.104 compatibility validation**
@@ -670,7 +684,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.7.3.0** *(current)* | 1.95.104 | 153 | 11 25H2 | ✅ Active |
+| **v2.8.0.0** *(current)* | 1.95.104 | 153 | 11 25H2 | ✅ Active |
+| v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
@@ -763,6 +778,20 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.8.0.0 - 2026-09-22
+
+**Özellik Sürümü - Veri katmanı yeniden düzenlemesi**
+
+**Değiştirilenler:**
+
+- 151 politika tanımının tamamı betik gövdesinden doğrulanmış bir veri katmanına taşındı: `config.json` (kayıt defteri hedefleri + seviye sırası) ve `profiles/<Seviye>.json` (her seviye için bir dosya)
+- Betik politikaları çalışma zamanında `Import-OmegaPolicyData` ile tek bir `$OmegaState` içine yükler; bayt-bayt aynı kayıt defteri çıktısı
+- ADMX doğrulayıcı, Pester paketi ve politika kataloğu üreticisi artık aynı veri katmanını okur (tek doğruluk kaynağı); CI Pester işi bir CodeCoverage raporu üretir
+- Politika değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+- Betik v2.8.0.0 sürümüne güncellendi
+
+---
 
 ### v2.7.3.0 - 2026-09-19
 
@@ -1412,7 +1441,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.7.3.0** *(güncel)* | 1.95.104 | 153 | 11 25H2 | ✅ Etkin |
+| **v2.8.0.0** *(güncel)* | 1.95.104 | 153 | 11 25H2 | ✅ Etkin |
+| v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |

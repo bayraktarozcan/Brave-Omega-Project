@@ -44,28 +44,53 @@ function Get-ScriptFunctions {
 
 function Get-PolicyLines {
     param([string]$ScriptPath)
-    $content = Get-ScriptContent -ScriptPath $ScriptPath
-    $lines = $content -split "`r`n|`n"
-    $inDefs = $false
-    $depth = 0
-    $result = @()
-    foreach ($line in $lines) {
-        if ($line -match '\$PolicyDefinitions\s*=\s*@|\$PolitikaTanimlari\s*=\s*@') {
-            if ($line -match '@\{') { $inDefs = $true; $depth = 1; continue }
-            $inDefs = $true; $depth = 1; continue
-        }
-        if ($inDefs) {
-            if ($line -match '\{') { $depth++ }
-            if ($line -match '\}') {
-                $depth--
-                if ($depth -eq 0) { $inDefs = $false; continue }
-            }
-            if ($line -match '@\{') {
-                $result += $line.Trim()
-            }
+    $lines = @()
+    foreach ($p in Get-OmegaProfilePolicies -ScriptPath $ScriptPath) {
+        $lines += ('@{{Name="{0}";Type="{1}"}}' -f $p.name, $p.type)
+    }
+    return $lines
+}
+
+function Get-OmegaLevelOrder {
+    param([string]$ScriptPath = $ScriptMain)
+    $dataDir = Split-Path -Path $ScriptPath -Parent
+    $config = Get-Content -Path (Join-Path $dataDir "config.json") -Raw | ConvertFrom-Json
+    return @($config.levelOrder)
+}
+
+function Get-OmegaProfilePolicies {
+    param([string]$ScriptPath = $ScriptMain)
+    $dataDir = Split-Path -Path $ScriptPath -Parent
+    $config = Get-Content -Path (Join-Path $dataDir "config.json") -Raw | ConvertFrom-Json
+    $profilesDir = Join-Path $dataDir "profiles"
+    $all = @()
+    foreach ($tier in @($config.levelOrder)) {
+        $profile = Get-Content -Path (Join-Path $profilesDir "$tier.json") -Raw | ConvertFrom-Json
+        foreach ($p in @($profile.policies)) {
+            $all += $p
         }
     }
-    return $result
+    return $all
+}
+
+function Get-OmegaTierPolicies {
+    param(
+        [string]$Level,
+        [string]$ScriptPath = $ScriptMain
+    )
+    $dataDir = Split-Path -Path $ScriptPath -Parent
+    if ($Level -notin (Get-OmegaLevelOrder -ScriptPath $ScriptPath)) { throw "Unknown level: $Level" }
+    $profile = Get-Content -Path (Join-Path $dataDir "profiles\$Level.json") -Raw | ConvertFrom-Json
+    return @($profile.policies)
+}
+
+function Get-OmegaAllPolicyNames {
+    param([string]$ScriptPath = $ScriptMain)
+    $names = @()
+    foreach ($p in Get-OmegaProfilePolicies -ScriptPath $ScriptPath) {
+        if ($p.name -notin $names) { $names += $p.name }
+    }
+    return $names
 }
 
 function New-FunctionScriptBlock {

@@ -1,0 +1,170 @@
+﻿{
+    "tier":  "Balanced",
+    "policies":  [
+                     {
+                         "name":  "WebRtcIPHandling",
+                         "type":  "String",
+                         "value":  "disable_non_proxied_udp"
+                     },
+                     {
+                         "name":  "WebRtcLocalIpsAllowedUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "HttpsOnlyMode",
+                         "type":  "String",
+                         "value":  "force_enabled"
+                     },
+                     {
+                         "name":  "DnsOverHttpsMode",
+                         "type":  "String",
+                         "value":  "automatic"
+                     },
+                     {
+                         "name":  "BlockThirdPartyCookies",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "PasswordManagerEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "PasswordManagerPasskeysEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "AutofillAddressEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "AutofillCreditCardEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ShowFullUrlsInAddressBar",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "QuicAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ChromeVariations",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "NetworkServiceSandboxEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "AudioSandboxEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "DefaultGeolocationSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultNotificationsSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultPopupsSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultBraveHttpsUpgradeSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultBraveReferrersSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "BraveSyncUrl",
+                         "type":  "String",
+                         "value":  "https://sync-v2.brave.com/v2"
+                     },
+                     {
+                         "name":  "DefaultWindowManagementSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "SitePerProcess",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "IntensiveWakeUpThrottlingEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "UserFeedbackAllowed",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "ExtensionInstallForcelist",
+                         "type":  "MultiString",
+                         "value":  [
+                                       "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx",
+                                       "maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"
+                                   ]
+                     },
+                     {
+                         "name":  "DownloadDirectory",
+                         "type":  "ExpandString",
+                         "value":  "%USERPROFILE%\\Downloads\\"
+                     },
+                     {
+                         "name":  "PromptForDownloadLocation",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "RelaunchNotification",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "RelaunchNotificationPeriod",
+                         "type":  "DWord",
+                         "value":  3600000
+                     },
+                     {
+                         "name":  "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "GenAILocalFoundationalModelSettings",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "DisableSafeBrowsingProceedAnyway",
+                         "type":  "DWord",
+                         "value":  1
+                     }
+                 ]
+}

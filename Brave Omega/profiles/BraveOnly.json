@@ -1,0 +1,129 @@
+﻿{
+    "tier":  "BraveOnly",
+    "policies":  [
+                     {
+                         "name":  "BraveRewardsDisabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveWalletDisabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveVPNDisabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveAIChatEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BraveTalkDisabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveNewsDisabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BravePlaylistEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BraveSpeedreaderEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BraveWaybackMachineEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BraveP3AEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BraveStatsPingEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BraveWebDiscoveryEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "TorDisabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveDeAmpEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveDebouncingEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveReduceLanguageEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "BraveTrackingQueryParametersFilteringEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "DefaultBraveAdblockSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultBraveFingerprintingV2Setting",
+                         "type":  "DWord",
+                         "value":  3
+                     },
+                     {
+                         "name":  "BraveShieldsDisabledForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "BraveShieldsEnabledForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "EmailAliasesEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "SafeBrowsingProtectionLevel",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "PasswordProtectionWarningTrigger",
+                         "type":  "DWord",
+                         "value":  3
+                     }
+                 ]
+}

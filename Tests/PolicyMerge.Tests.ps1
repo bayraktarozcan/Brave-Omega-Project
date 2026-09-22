@@ -57,63 +57,32 @@ Describe "Policy Merge" -Tag "Unit" {
         $MergedPolicies.Count | Should -Be 5
     }
 
-    It "should produce 151 unique policies after cumulative merge from unified script" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $LevelOrder = @("BraveOnly","Essential","Balanced","Advanced","Strict")
+    It "should produce 151 unique policies after cumulative merge from data layer" {
+        $LevelOrder = Get-OmegaLevelOrder -ScriptPath $ScriptMain
         $MergedPolicies = @{}
         foreach ($tier in $LevelOrder) {
-            $pattern = '"' + $tier + '"\s*=\s*@\('
-            $tierMatch = [regex]::Match($content, $pattern)
-            $startIdx = $tierMatch.Index + $tierMatch.Length
-            $depth = 1
-            for ($i = $startIdx; $i -lt $content.Length; $i++) {
-                if ($content[$i] -eq '(') { $depth++ }
-                if ($content[$i] -eq ')') {
-                    $depth--
-                    if ($depth -eq 0) {
-                        $section = $content.Substring($tierMatch.Index, $i - $tierMatch.Index)
-                        $policyMatches = [regex]::Matches($section, '@\{Name="([^"]+)"')
-                        foreach ($m in $policyMatches) {
-                            $MergedPolicies[$m.Groups[1].Value] = $tier
-                        }
-                        break
-                    }
-                }
+            foreach ($p in (Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptMain)) {
+                $MergedPolicies[$p.name] = $tier
             }
         }
         $MergedPolicies.Count | Should -BeExactly 151
     }
 
     It "DownloadRestrictions should live in Essential only (smart value, not a blanket block)" {
-        function Get-TierSection {
-            param([string]$Content, [string]$Tier)
-            $m = [regex]::Match($Content, '"' + $Tier + '"\s*=\s*@\(')
-            if (-not $m.Success) { return $null }
-            $startIdx = $m.Index + $m.Length
-            $depth = 1
-            for ($i = $startIdx; $i -lt $Content.Length; $i++) {
-                if ($Content[$i] -eq '(') { $depth++ }
-                if ($Content[$i] -eq ')') {
-                    $depth--
-                    if ($depth -eq 0) { return $Content.Substring($m.Index, $i - $m.Index) }
-                }
-            }
-            return $null
-        }
+        $essential = Get-OmegaTierPolicies -Level "Essential" -ScriptPath $ScriptMain
+        $balanced  = Get-OmegaTierPolicies -Level "Balanced" -ScriptPath $ScriptMain
+        $advanced  = Get-OmegaTierPolicies -Level "Advanced" -ScriptPath $ScriptMain
+        $strict    = Get-OmegaTierPolicies -Level "Strict" -ScriptPath $ScriptMain
 
-        $content   = Get-Content -Path $ScriptMain -Raw
-        $essential = Get-TierSection -Content $content -Tier "Essential"
-        $balanced  = Get-TierSection -Content $content -Tier "Balanced"
-        $advanced  = Get-TierSection -Content $content -Tier "Advanced"
-        $strict    = Get-TierSection -Content $content -Tier "Strict"
+        $dl = $essential | Where-Object { $_.name -eq "DownloadRestrictions" }
+        $dl -ne $null | Should -Be $true
+        [int]$dl.value | Should -Be 4
 
-        $essential -match '"DownloadRestrictions"' | Should -Be $true
-        $essential -match '"DownloadRestrictions"[\s\S]*?Value=4' | Should -Be $true
-        $balanced  -match '"DownloadRestrictions"' | Should -Be $false
-        $advanced  -match '"DownloadRestrictions"' | Should -Be $false
-        $strict    -match '"DownloadRestrictions"' | Should -Be $false
+        $balanced.name -contains "DownloadRestrictions" | Should -Be $false
+        $advanced.name -contains "DownloadRestrictions" | Should -Be $false
+        $strict.name   -contains "DownloadRestrictions" | Should -Be $false
 
-        $balanced -match '"DisableSafeBrowsingProceedAnyway"' | Should -Be $true
-        $strict   -match '"DisableSafeBrowsingProceedAnyway"' | Should -Be $false
+        $balanced.name -contains "DisableSafeBrowsingProceedAnyway" | Should -Be $true
+        $strict.name   -contains "DisableSafeBrowsingProceedAnyway" | Should -Be $false
     }
 }

@@ -43,7 +43,8 @@ Describe "ADMX Cross-Reference - Documented Exceptions" -Tag "Integration" {
 
         $mainScript = Get-Content -Path (Join-Path $PSScriptRoot "..\Brave Omega\BraveOmega.ps1") -Raw
 
-        $mainScript -match 'Name="DeviceAttributesAllowedForOrigins"' | Should -Be $false
+        $allNames = Get-OmegaAllPolicyNames -ScriptPath (Join-Path $PSScriptRoot "..\Brave Omega\BraveOmega.ps1")
+        $allNames -contains "DeviceAttributesAllowedForOrigins" | Should -Be $false
 
         $resetEntryPattern = '(?m)^\s*"DeviceAttributesAllowedForOrigins",'
         $mainScript -match $resetEntryPattern | Should -Be $false

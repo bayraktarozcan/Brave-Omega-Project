@@ -1,0 +1,166 @@
+﻿{
+    "tier":  "Strict",
+    "policies":  [
+                     {
+                         "name":  "TranslateEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "DefaultClipboardSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultFileSystemReadGuardSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultFileSystemWriteGuardSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultInsecureContentSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultJavaScriptJitSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "DefaultCookiesSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "ImportBookmarks",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "DefaultBraveRemember1PStorageSetting",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "IncognitoModeAvailability",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "TaskManagerEndProcessEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "PrintingEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "DisablePrintPreview",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "SafeBrowsingDeepScanningEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "DeveloperToolsAvailability",
+                         "type":  "DWord",
+                         "value":  2
+                     },
+                     {
+                         "name":  "BrowsingDataLifetime",
+                         "type":  "String",
+                         "value":  {
+                                       "data_types":  [
+                                                          "browsing_history",
+                                                          "download_history",
+                                                          "cached_images_and_files"
+                                                      ],
+                                       "time_to_live_in_hours":  24
+                                   }
+                     },
+                     {
+                         "name":  "AlwaysOpenPdfExternally",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "CertificateTransparencyEnforcementDisabledForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "PasswordLeakDetectionEnabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "SpellCheckServiceEnabled",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "BrowserSignin",
+                         "type":  "DWord",
+                         "value":  0
+                     },
+                     {
+                         "name":  "SyncDisabled",
+                         "type":  "DWord",
+                         "value":  1
+                     },
+                     {
+                         "name":  "ScreenCaptureAllowedByOrigins",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "SameOriginTabCaptureAllowedByOrigins",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "TabCaptureAllowedByOrigins",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "WindowCaptureAllowedByOrigins",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "LocalNetworkAllowedForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     },
+                     {
+                         "name":  "LocalNetworkBlockedForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ]
+                     }
+                 ]
+}

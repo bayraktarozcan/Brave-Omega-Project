@@ -3,28 +3,11 @@ BeforeAll {
 
     function Get-MergedPolicyNames {
         param([string]$ScriptPath, [string]$Level)
-        $content = Get-Content -Path $ScriptPath -Raw
-        $LevelOrder = @("BraveOnly","Essential","Balanced","Advanced","Strict")
+        $LevelOrder = Get-OmegaLevelOrder -ScriptPath $ScriptPath
         $Merged = @{}
         foreach ($tier in $LevelOrder[0..([array]::IndexOf($LevelOrder, $Level))]) {
-            $pattern = '"' + $tier + '"\s*=\s*@\('
-            $tierMatch = [regex]::Match($content, $pattern)
-            if (-not $tierMatch.Success) { continue }
-            $startIdx = $tierMatch.Index + $tierMatch.Length
-            $depth = 1
-            for ($i = $startIdx; $i -lt $content.Length; $i++) {
-                if ($content[$i] -eq '(') { $depth++ }
-                if ($content[$i] -eq ')') {
-                    $depth--
-                    if ($depth -eq 0) {
-                        $section = $content.Substring($tierMatch.Index, $i - $tierMatch.Index)
-                        $policyMatches = [regex]::Matches($section, '@\{(?:Name|Ad)="([^"]+)"')
-                        foreach ($m in $policyMatches) {
-                            $Merged[$m.Groups[1].Value] = $true
-                        }
-                        break
-                    }
-                }
+            foreach ($p in (Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptPath)) {
+                $Merged[$p.name] = $true
             }
         }
         return $Merged
