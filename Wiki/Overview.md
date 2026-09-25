@@ -66,7 +66,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.8.0.0** *(current)* | 1.95.104 | 153 | 11 25H2 | ✅ Current |
+| **v2.8.1.0** *(current)* | 1.96.59 | 154 | 11 25H2 | ✅ Current |
+| v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Previous |
@@ -104,7 +105,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v2.8.0.0 - Brave 1.95.104 data-layer refactor](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v2.8.1.0 - Brave 1.96.59 compatibility validation](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
@@ -202,7 +203,8 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.8.0.0** *(güncel)* | 1.95.104 | 153 | 11 25H2 | ✅ Etkin |
+| **v2.8.1.0** *(güncel)* | 1.96.59 | 154 | 11 25H2 | ✅ Etkin |
+| v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Önceki |
@@ -240,7 +242,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v2.8.0.0 - Brave 1.95.104 veri katmanı yeniden düzenlemesi](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v2.8.1.0 - Brave 1.96.59 uyumluluk doğrulaması](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 

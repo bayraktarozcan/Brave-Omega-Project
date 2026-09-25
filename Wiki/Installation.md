@@ -5,7 +5,7 @@
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v2.8.0.0 (Brave 1.95.104 / Chromium 153.0.8010.53 compatibility validation).
+Complete installation guide for Brave Omega v2.8.1.0 (Brave 1.96.59 / Chromium 154.0.8037.58 compatibility validation).
 
 ---
 
@@ -100,7 +100,7 @@ Navigate to `brave://policy` — all Essential level policies (51) should show *
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session only | Current process | ✅ Better |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(used)* | **Single command** | **Child process only** | ✅ **Best — no persistence** |
 
-> **Brave Omega v2.8.0.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
+> **Brave Omega v2.8.1.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
 
 ---
 
@@ -219,7 +219,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v2.8.0.0 için tam kurulum kılavuzu (Brave 1.95.104 / Chromium 153.0.8010.53 uyumluluk doğrulaması).
+Brave Omega v2.8.1.0 için tam kurulum kılavuzu (Brave 1.96.59 / Chromium 154.0.8037.58 uyumluluk doğrulaması).
 
 ---
 
@@ -313,7 +313,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Yalnızca oturum | Geçerli işlem | ✅ Daha iyi |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(kullanılan)* | **Tek komut** | **Yalnızca alt işlem** | ✅ **En iyi — kalıcılık yok** |
 
-> **Brave Omega v2.8.0.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
+> **Brave Omega v2.8.1.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
 
 ---
 

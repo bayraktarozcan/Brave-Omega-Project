@@ -5,21 +5,30 @@
 #
 # ==============================================================================
 # ==============================================================================
-# VERSION CONTEXT  : Windows 11 25H2 (Build 26200.9457)
-#                    Brave 1.95.104 (Official Build) (64 bit) Chromium: 153.0.8010.53
+# VERSION CONTEXT  : Windows 11 25H2 (Build 26200.9550)
+#                    Brave 1.96.59 (Official Build) (64 bit) Chromium: 154.0.8037.58
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
 # !! CHANNEL WARNING !!
-#    Brave 1.95.104, dated September 18, 2026, belongs to the Stable channel.
+#    Brave 1.96.59, dated September 24, 2026, belongs to the Stable channel.
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.8.0.0)
+# CHANGELOG (v2.8.1.0)
 # ─────────────────────────────────────────────────────────────────────────────
-# v2.8.0.0             Feature release — Data-layer refactor:
+# v2.8.1.0             Patch release — Brave 1.96.59 compatibility validation:
+#
+#     [CHANGED]     Validated against Brave 1.96.59 (Chromium 154.0.8037.58),
+#                   released September 24, 2026. Brave 1.95.104 (Chromium
+#                   153.0.8010.53) remains supported.
+#
+#     [UNCHANGED]   No policy changes. Totals remain 151 across 5 tiers
+#                   (chain: 24 → 51 → 83 → 123 → 151).
+#
+#   v2.8.0.0             Feature release — Data-layer refactor:
 #
 #     [CHANGED]     Policy definitions moved out of the script body into a
 #                   validated data layer: `config.json` (registry targets +
@@ -442,9 +451,9 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.8.0.0"
-$ValidatedBrave  = "1.95.104"
-$ValidatedChromium = "153"
+$ScriptVersion   = "v2.8.1.0"
+$ValidatedBrave  = "1.96.59"
+$ValidatedChromium = "154"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TERMINAL ENCODING HARDENING (CHARACTER ERROR RESOLUTION)

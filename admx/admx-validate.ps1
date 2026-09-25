@@ -213,7 +213,9 @@ foreach ($p in $policies) {
     if ($parentCat) {
         $catRef = $parentCat.ref
         # Check if this policy is under BraveSoftware category (Brave-specific, not Chromium)
-        if ($catRef -eq "BraveSoftware" -and $name -like "Brave*") {
+        # Note: category check only — the `Brave*` name prefix filter was removed because
+        # not all BraveSoftware-category policies use it (e.g. `PsstEnabled`).
+        if ($catRef -eq "BraveSoftware") {
             $otherBravePoliciesNotInScript += $name
         }
     }

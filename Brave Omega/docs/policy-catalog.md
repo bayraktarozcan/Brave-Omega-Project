@@ -17,11 +17,11 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega.ps1` v2.8.0.0 (bilingual EN/TR)  
-> **Date:** 2026-09-19  
+> **Generated from:** `BraveOmega.ps1` v2.8.1.0 (bilingual EN/TR)  
+> **Date:** 2026-09-25  
 > **Total unique policies:** 151 (no overlaps)  
 > **Type distribution:** 124 DWord · 8 String · 19 MultiString  
-> **Validated on:** Brave 1.95.104 / Chromium 153.0.8010.53 / Windows 11 25H2 (Build 26200.9457)
+> **Validated on:** Brave 1.96.59 / Chromium 154.0.8037.58 / Windows 11 25H2 (Build 26200.9550)
 
 ---
 

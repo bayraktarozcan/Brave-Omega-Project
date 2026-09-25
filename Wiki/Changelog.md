@@ -23,6 +23,19 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.8.1.0 - 2026-09-25
+
+**Patch Release - Brave 1.96.59 compatibility validation**
+
+**Changed:**
+
+- Validated against Brave 1.96.59 (Chromium 154.0.8037.58), released September 24, 2026; Brave 1.95.104 (Chromium 153.0.8010.53) remains supported
+- ADMX artifacts refreshed to official 154.1.98.28 policy templates (`brave.admx`, `brave.adml`, `VERSION_BRAVE_ADMX`); `PsstEnabled` and `BraveLocalAIEnabled` cross-referenced as intentional warnings (candidates for a future feature release)
+- No policy changes; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+- Script updated to v2.8.1.0
+
+---
+
 ### v2.8.0.0 - 2026-09-22
 
 **Feature Release - Data-layer refactor**
@@ -684,7 +697,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.8.0.0** *(current)* | 1.95.104 | 153 | 11 25H2 | ✅ Active |
+| **v2.8.1.0** *(current)* | 1.96.59 | 154 | 11 25H2 | ✅ Active |
+| v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Previous |
@@ -778,6 +792,19 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.8.1.0 - 2026-09-25
+
+**Yama Sürümü - Brave 1.96.59 uyumluluk doğrulaması**
+
+**Değiştirilenler:**
+
+- Brave 1.96.59 (Chromium 154.0.8037.58), 24 Eylül 2026 tarihli kararlı sürüme karşı doğrulandı; Brave 1.95.104 (Chromium 153.0.8010.53) desteklenmeye devam ediyor
+- ADMX yapıtları resmî 154.1.98.28 politika şablonlarıyla tazelendi (`brave.admx`, `brave.adml`, `VERSION_BRAVE_ADMX`); `PsstEnabled` ve `BraveLocalAIEnabled` bilinçli uyarılar olarak çapraz referanslandı (gelecekteki bir özellik sürümü adayları)
+- Politika değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+- Betik v2.8.1.0 sürümüne güncellendi
+
+---
 
 ### v2.8.0.0 - 2026-09-22
 
@@ -1441,7 +1468,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.8.0.0** *(güncel)* | 1.95.104 | 153 | 11 25H2 | ✅ Etkin |
+| **v2.8.1.0** *(güncel)* | 1.96.59 | 154 | 11 25H2 | ✅ Etkin |
+| v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Önceki |

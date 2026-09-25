@@ -43,7 +43,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 ├─ Administrator privilege verification
 ├─ Brave process detection (with continue/cancel prompt)
 ├─ Brave version validation against Compatibility Matrix
-├─ Brave version detection (compares against validated version 1.95.104)
+├─ Brave version detection (compares against validated version 1.96.59)
 └─ Registry path ACL validation
 ```
 
@@ -262,7 +262,7 @@ Brave Omega **güvenlik öncelikli** bir yaklaşımla tasarlanmıştır. Her tas
 ├─ Yönetici ayrıcalığı doğrulaması
 ├─ Brave süreç tespiti (devam/iptal istemiyle)
 ├─ Brave sürümünün Uyumluluk Matrisine karşı doğrulaması
-├─ Brave sürüm algılama (doğrulanmış sürüm 1.95.104 ile karşılaştırma)
+├─ Brave sürüm algılama (doğrulanmış sürüm 1.96.59 ile karşılaştırma)
 └─ Kayıt defteri yolu ACL doğrulaması
 ```
 

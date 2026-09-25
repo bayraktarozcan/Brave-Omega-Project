@@ -12,7 +12,7 @@
 <br>
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
-[![Brave](https://img.shields.io/badge/Brave-1.95.104%20%7C%20Chromium%20153-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
+[![Brave](https://img.shields.io/badge/Brave-1.96.59%20%7C%20Chromium%20154-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 
@@ -44,7 +44,7 @@
 |-----------|-------------|
 | Windows | 11 25H2 (validated build) |
 | PowerShell | 5.1 or newer (Windows PowerShell; `pwsh` is not required) |
-| Brave | Stable 1.95.104 (Chromium 153) — latest stable recommended |
+| Brave | Stable 1.96.59 (Chromium 154) — latest stable recommended |
 | Privileges | Elevated (Administrator) session required for policy writes |
 
 See the [Version Compatibility Matrix](Wiki/Version-Compatibility-Matrix.md) for the full version history.
@@ -82,7 +82,7 @@ See the [Version Compatibility Matrix](Wiki/Version-Compatibility-Matrix.md) for
 |---------|------------|
 | Windows | 11 25H2 (doğrulanmış derleme) |
 | PowerShell | 5.1 veya üzeri (Windows PowerShell; `pwsh` gerekmez) |
-| Brave | Kararlı 1.95.104 (Chromium 153) — güncel kararlı sürüm önerilir |
+| Brave | Kararlı 1.96.59 (Chromium 154) — güncel kararlı sürüm önerilir |
 | Ayrıcalıklar | Politika yazımı için yükseltilmiş (Yönetici) oturum gerekir |
 
 Tam sürüm geçmişi için [Sürüm Uyumluluk Matrisi'ne](Wiki/Version-Compatibility-Matrix.md) bakın.

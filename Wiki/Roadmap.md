@@ -11,17 +11,17 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v2.8.0.0** — *Brave 1.95.104 data-layer refactor* (2026-09-22)
+**v2.8.1.0** — *Brave 1.96.59 compatibility validation* (2026-09-25)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), single bilingual script with `-Language EN|TR|Auto`, validated against Brave 1.95.104 (Chromium 153.0.8010.53). Policy definitions live in the data layer (`config.json` + `profiles/*.json`). Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), validated against Brave 1.96.59 (Chromium 154.0.8037.58). ADMX artifacts refreshed to official 154.1.98.28 policy templates. Cumulative chain: 24→51→83→123→151.
 
 ---
 
 ## Previous Version
 
-**v2.7.2.0** — *Brave 1.95.102 compatibility validation* (2026-09-18)
+**v2.8.0.0** — *Brave 1.95.104 data-layer refactor* (2026-09-22)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), validated against Brave 1.95.102 (Chromium 153.0.8010.48). Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), single bilingual script with `-Language EN|TR|Auto`, validated against Brave 1.95.104 (Chromium 153.0.8010.53). Policy definitions live in the data layer (`config.json` + `profiles/*.json`). Cumulative chain: 24→51→83→123→151.
 
 ---
 
@@ -262,17 +262,17 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v2.8.0.0** — *Brave 1.95.104 veri katmanı yeniden düzenlemesi* (2026-09-22)
+**v2.8.1.0** — *Brave 1.96.59 uyumluluk doğrulaması* (2026-09-25)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), `-Language EN|TR|Auto` seçenekli tek iki dilli betik, Brave 1.95.104 (Chromium 153.0.8010.53) ile doğrulandı. Politika tanımları veri katmanında yaşar (`config.json` + `profiles/*.json`). Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), Brave 1.96.59 (Chromium 154.0.8037.58) ile doğrulandı. ADMX yapıtları resmî 154.1.98.28 politika şablonlarıyla tazelendi. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 
 ## Önceki Sürüm
 
-**v2.7.2.0** — *Brave 1.95.102 uyumluluk doğrulaması* (2026-09-18)
+**v2.8.0.0** — *Brave 1.95.104 veri katmanı yeniden düzenlemesi* (2026-09-22)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), Brave 1.95.102 (Chromium 153.0.8010.48) ile doğrulandı. Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), `-Language EN|TR|Auto` seçenekli tek iki dilli betik, Brave 1.95.104 (Chromium 153.0.8010.53) ile doğrulandı. Politika tanımları veri katmanında yaşar (`config.json` + `profiles/*.json`). Kümülatif zincir: 24→51→83→123→151.
 
 ---
 
