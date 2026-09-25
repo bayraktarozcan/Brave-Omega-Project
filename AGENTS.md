@@ -11,20 +11,13 @@
 
 <br>
 
-> **Language / Dil** &nbsp;
-> [EN English](#-english-agent-guide) &nbsp;·&nbsp; [TR Türkçe](#-türkçe-agent-rehberi)
-
-<br>
-
 </div>
 
 ---
 
-<a id="-english-agent-guide"></a>
+## Agent Guide
 
-## EN English Agent Guide
-
-Operational notes for humans and AI agents working in this repository.
+Operational notes for humans and AI agents working in this repository. English is the single source of operational truth; the untracked local file `AGENTS-TR.md` mirrors it in Turkish for human review.
 
 ### Repository Layout
 
@@ -91,76 +84,13 @@ yamllint .github/ --config-file .github/linters/.yamllint.yml
 - **Wiki.** Edits belong in `Wiki/` here — `wiki-sync.yml` mirrors them to the
   live wiki after every push that touches `Wiki/**`.
 
----
+### Local Turkish Mirror
 
-<a id="-türkçe-agent-rehberi"></a>
+- `AGENTS-TR.md` is an untracked, gitignored Turkish mirror of this file — read
+  by the human for auditing, never committed or pushed.
+- **Rule:** whenever this file changes, refresh `AGENTS-TR.md` so the `sync-sha`
+  values in both files are identical.
+- `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
+  `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
 
-## TR Türkçe Agent Rehberi
-
-Bu depoda çalışan insan ve yapay zekâ ajanları için operasyonel notlar.
-
-### Depo Düzeni
-
-| Yol | Amaç |
-|-----|------|
-| `Brave Omega/BraveOmega.ps1` | Birleşik EN/TR sıkılaştırma betiği (politikaların tek kaynağı) |
-| `Brave Omega/docs/policy-catalog.md` | Meta verili tam politika kataloğu |
-| `admx/` | ADMX şablonları + `admx-validate.ps1` çapraz referans doğrulayıcısı |
-| `Tests/` | Pester 5.7.1 test paketi |
-| `Wiki/` | GitHub Wiki'nin gerçek kaynağı (`wiki-sync.yml` ile otomatik eşitlenir) |
-| `.github/workflows/` | CI/CD: Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene |
-| `.github/linters/` | Ortak markdownlint / yamllint yapılandırması |
-
-### Sürümler
-
-| Sabit | Güncel | Nerede |
-|-------|--------|--------|
-| Betik | `v2.8.1.0` | `BraveOmega.ps1` başlığı + `$ScriptVersion` |
-| Brave | `1.96.59` | `$ValidatedBrave` |
-| Chromium | `154` | `$ValidatedChromium` (yalnızca ana sürüm) |
-
-Politika toplamı: 5 seviyede 151; kümülatif zincir `24 → 51 → 83 → 123 → 151`.
-
-### Doğrulama Komutları
-
-Depo kökünden Windows PowerShell 5.1 ile çalıştırın:
-
-```powershell
-# Pester
-Invoke-Pester Tests/ -PassThru          # beklenen: 169/169 geçti
-
-# ADMX çapraz referans
-& "admx/admx-validate.ps1"              # beklenen: PASS - 151/151
-
-# PSScriptAnalyzer
-Invoke-ScriptAnalyzer "Brave Omega/BraveOmega.ps1" -Severity Warning `
-  -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
-
-# Markdown (depo yapılandırması)
-markdownlint -c .github/linters/.markdownlint.json "**/*.md"
-
-# YAML
-yamllint .github/ --config-file .github/linters/.yamllint.yml
-```
-
-Yerelde `pwsh` kurulu değildir — `powershell` / Windows PowerShell 5.1 kullanın.
-
-### Kurallar
-
-- **İki dilli belgeler.** Kullanıcıya dönük `.md` dosyaları EN-önce + TR-yansıma
-  düzenini izler (bkz. CONTRIBUTING.md). Başlıkları, çapaları ve rozetleri tutarlı tutun.
-- **Politika düzenlemeleri.** Politika tanımlarını yalnızca veri katmanında
-  değiştirin (`Brave Omega/config.json` + `Brave Omega/profiles/*.json`; çalışma
-  zamanında `Import-OmegaPolicyData` ile `$OmegaState` içine yüklenir). Kullanımdan
-  kaldırılan politikalar profil dosyalarından çıkarılmalıdır — ADMX doğrulayıcı
-  (`admx-validate.ps1`) çapraz referansı zorlar.
-- **Sürüm güncellemeleri.** Değişiklik günlüğü satırı ekleyin (CHANGELOG.md +
-  `Wiki/Changelog.md`), `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`
-  sürümlerini yükseltin, ardından elle bakılan `docs/policy-catalog.md` "Validated on"
-  başlığını, README §8'i, `index.html`'i (hero, ön koşullar, uyumluluk satırları) ve
-  Wiki sayfalarını güncelleyin.
-- **Uyumluluk.** Betik Windows PowerShell 5.1+ hedeflidir; `pwsh`-yalnız sözdizimi kullanmayın.
-- **Git.** `origin` hem GitHub hem GitLab'e gönderir (çift pushurl). İki uzak depo
-  arasında eşitlik sağlayın — kendi commit'leriniz için PR/MR akışı yoktur.
-- **Wiki.** Düzenlemeler buradaki `Wiki/` klasörüne yapılır — `wiki-sync.yml`,
-  `Wiki/**` dokunulan her push sonrası değişiklikleri canlı wiki'ye yansıtır.
+<!-- mirror-sync: sync-sha=7173d05317c881477c011fe73a474de74544b48b -->
