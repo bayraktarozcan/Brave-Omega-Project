@@ -231,11 +231,11 @@ Exception: `.gitignore` patterns, functional code paths, and marker-file logic (
 
 ### GitHub & Dependencies
 
-Repository management and dependency conventions (this repo already implements these as workflow files).
+Repository management and dependency conventions, with their current state in this repo.
 
-- **Security files.** `SECURITY.md` (vulnerability reporting) and the tool-maintained `dependabot-log.md` live at the repository root and are kept current by workflows; enabling GitHub's security features requires them at the root.
+- **Security files.** `SECURITY.md` (vulnerability reporting) lives at the repository root; enabling GitHub's security features requires it there. Target: a tool-maintained `dependabot-log.md` at the root, kept current by a workflow (not yet implemented).
 - **Dependabot.** Configured via `.github/dependabot.yml`; weekly cadence is preferred to avoid daily PR pile-ups; commit messages follow Conventional Commits (`chore(deps)`).
-- **CodeQL.** `.github/workflows/codeql.yml` runs on every push and weekly; personal repos can use CodeQL Actions without Advanced Security.
+- **CodeQL.** Target: a `.github/workflows/codeql.yml` running on every push and weekly (not yet implemented); personal repos can use CodeQL Actions without Advanced Security. Secrets are currently scanned via gitleaks in `.github/workflows/secret-scan.yml` instead.
 - **Auto-approve.** Only trusted usernames may be auto-approved: after passing status checks, logged, with minimal permissions (`contents: write`, `pull-requests: write`).
 - **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot.
 
@@ -270,4 +270,4 @@ Repository management and dependency conventions (this repo already implements t
 - `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
   `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
 
-<!-- mirror-sync: sync-sha=02b62f15673ca45150c6fe788d74060395acf9fe -->
+<!-- mirror-sync: sync-sha=766220f4e11ef5090df67bbd5f1cf68a20ecccdd -->
