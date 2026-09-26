@@ -283,13 +283,19 @@ Repository management and dependency conventions, with their current state in th
 
 - **Bilingual docs.** User-facing `.md` files follow the EN-first + TR-mirror
   pattern (see CONTRIBUTING.md). Keep headings, anchors, and badges consistent.
+- **Documentation structure.** Every project keeps a `Docs/` folder whose
+  chapters cover overview/setup, architecture, API (when applicable),
+  troubleshooting, and changelog; a `PLANNING/` subfolder under it holds
+  work plans and task tracking, managed by the AI assistant as it goes.
 - **Naming.** Repository names, descriptions, topics, branch names, release tags
   (`v1.0.0`), PR titles, and issue titles are English; user-facing UI text may
   be bilingual.
 - **Language & character.** Turkish text keeps its Turkish characters
-  (`ç ş ğ ü ö ı İ Â Î Û`); never flatten to ASCII. PowerShell 5.1 scripts
-  are saved UTF-8 with BOM so characters render correctly in console, IDE,
-  and runtime. Inside PowerShell code, identifiers (variables, parameters,
+  (`ç ş ğ ü ö ı İ Â Î Û`); never flatten to ASCII. The nispa suffix — the
+  derivation that turns nouns into adjectives — is written with circumflex
+  `î` (ahlâkî, medenî, askerî); avoid the mark where accepted usage does not
+  call for it. PowerShell 5.1 scripts are saved UTF-8 with BOM so characters
+  render correctly in console, IDE, and runtime. Inside PowerShell code, identifiers (variables, parameters,
   functions) are ASCII-only — the PS 5.1 parser mishandles Turkish characters
   in identifiers even in BOM files — while user-facing strings, comments, and
   string data keep full Turkish characters.
@@ -367,4 +373,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
   `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
 
-<!-- mirror-sync: sync-sha=66e6d89932c186827666eb27591fc44b15c4db6b -->
+<!-- mirror-sync: sync-sha=cfb96e5b04f20228cb64432920437b10a44d5b5d -->
