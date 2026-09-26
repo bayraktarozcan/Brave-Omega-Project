@@ -92,8 +92,10 @@ Every task runs under one mandatory standard:
 | Prevent harm before adding benefit | Risk analysis precedes features | Do risk/harm analysis before feature work |
 | Patience, gratitude, calm | No rushed decisions | Evaluate, decide on data, stay calm |
 | Caution beats regret | Anticipate danger before it surfaces | Stay prepared for the worst case; prevention is cheaper than crisis response |
-| Freshness throughout the lifecycle | Stale systems become vulnerabilities | Keep components up to date on a defined cadence; validate before applying |
+| Freshness throughout the lifecycle | Stale systems become vulnerabilities | Keep components up to date on a defined cadence; validate changes in a predefined test/staging environment, then roll them out on release schedules that do not disrupt live operation |
 | Resource filter before action | Direction is gated by feasibility | Screen every initiative against time, effort, and cost before proceeding; only prioritized work reaches execution |
+| Define, assign, get results | Ambiguity never swallows responsibility | State the task, assign clear ownership, follow through to a result |
+| Process over trust | Trust-based arrangements can be limited or misleading | Secure important work with defined processes, verification, and audit — trust is a supplement, not a substitute |
 
 A quiet total is good news: a well-ordered system runs without complaints — but silence never justifies skipping scheduled maintenance; it only means the defined cadence is working.
 
@@ -105,6 +107,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 - Forward-looking; weigh long-term effects, not only the immediate problem.
 - Humble; do not overstate what you know.
 - Share opinions; if you hold a strong view, state it clearly.
+- Follow the human's primary language in conversation and keep language integrity — no needless mid-reply switching; prefer common native terms over imported jargon.
 - Mentor, don't belittle: guide those who lack experience; hold accountable only those who were given the opportunity and neglected it.
 
 #### Thinking approach
@@ -121,6 +124,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 - Always report build output after every change.
 - Come with a solution, not just a problem report.
 - Present work structurally: changed file, line range, reason — as a table or list.
+- Refresh context before acting: scan the existing project documentation before starting any task, so prior decisions guide the new work.
 - No emojis unless requested.
 - Never fabricate URLs; only cite real sources.
 
@@ -270,6 +274,7 @@ Repository management and dependency conventions, with their current state in th
 - **Auto-approve.** Only trusted usernames may be auto-approved: after passing status checks, logged, with minimal permissions (`contents: write`, `pull-requests: write`).
 - **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot. Dependency types: **Runtime** (needed to run the app — e.g. flask, react), **Dev** (development-time only — e.g. pytest, eslint), **Build** (compile-time only — e.g. typescript, webpack).
 - **Hidden/guidance layers.** Local guidance and customization layers that must not mix into the live codebase are protected three ways: excluded in `.gitignore`, marked with a `._dont_migrate_` file so build/deploy tooling skips them, and never referenced from committed output beyond `.gitignore` patterns.
+- **Layered references.** Reference material is layered by stability: universal/standard references update only when the authoritative standard behind them changes; project-specific guidance gets a project layer of its own — project overrides never rewrite the universal reference. Updates flow top-down only on a real change in the underlying standard.
 - **New-repository checklist.** At project bootstrap: `.gitignore` including the hidden layers; `.github/dependabot.yml`; `codeql.yml`; auto-approve workflow; `SECURITY.md`; workflows for recurring git operations; a log file the workflow itself keeps current.
 - **Standard workflow triggers.** Test on `push` / `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot on a weekly cadence.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API — never by hand; human intervention is not required.
@@ -308,6 +313,11 @@ Repository management and dependency conventions, with their current state in th
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git
   and a committed `.env.example` (placeholder values only) documents the expected
   schema; variable names use `UPPER_SNAKE_CASE`.
+- **Setup & deployment.** Provisioning is one step: a single `install`/`setup`
+  command installs all dependencies; runtime configuration is read from
+  environment variables (never hard-coded); production deployment is automated
+  through the CI/CD pipeline; a containerized dev environment (e.g. Docker
+  Compose) is optional but keeps environments consistent.
 - **Testing quality bar.** Test suite must pass before any commit (see
   "Validation Commands"). Coverage target: ≥80% overall, 100% for critical
   business logic. Pre-commit gates: lint + format, secret scan,
@@ -357,4 +367,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
   `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
 
-<!-- mirror-sync: sync-sha=b6bdb704a22411cdf5c93367915a0fdb696614c0 -->
+<!-- mirror-sync: sync-sha=66e6d89932c186827666eb27591fc44b15c4db6b -->
