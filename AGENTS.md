@@ -41,7 +41,7 @@ Operational notes for humans and AI agents working in this repository. English i
 
 Policy totals: 151 across 5 tiers; cumulative chain `24 → 51 → 83 → 123 → 151`.
 
-Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Runtime/build dependencies are pinned (`Pester 5.7.1`); dev tooling may use flexible ranges.
+Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = bug fixes, Minor = security patches/improvements, Major = features, Version = major additions. Runtime/build dependencies are pinned (`Pester 5.7.1`); dev tooling may use flexible ranges.
 
 ### Validation Commands
 
@@ -111,6 +111,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 
 - Think innovatively: go beyond standard solutions; propose alternatives.
 - Constructive dissent: if the chosen approach is inefficient, wrong, or risky, say so politely and with justification.
+- Security-aware execution: when a task genuinely requires security-software-triggering methods (low-level access, APO/COM components, memory injection), do not hesitate — pick the most correct, safe, and clean method; weigh completeness against compatibility with security software.
 - Learn, exemplify, internalize: grasp the theory, apply it in practice, then make the logic second nature.
 
 #### Working principles
@@ -267,9 +268,11 @@ Repository management and dependency conventions, with their current state in th
 - **Dependabot.** Configured via `.github/dependabot.yml`; weekly cadence is preferred to avoid daily PR pile-ups; commit messages follow Conventional Commits (`chore(deps)`).
 - **CodeQL.** Target: a `.github/workflows/codeql.yml` running on every push and weekly (not yet implemented); personal repos can use CodeQL Actions without Advanced Security. Secrets are currently scanned via gitleaks in `.github/workflows/secret-scan.yml` instead.
 - **Auto-approve.** Only trusted usernames may be auto-approved: after passing status checks, logged, with minimal permissions (`contents: write`, `pull-requests: write`).
-- **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot.
+- **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot. Dependency types: **Runtime** (needed to run the app — e.g. flask, react), **Dev** (development-time only — e.g. pytest, eslint), **Build** (compile-time only — e.g. typescript, webpack).
 - **Hidden/guidance layers.** Local guidance and customization layers that must not mix into the live codebase are protected three ways: excluded in `.gitignore`, marked with a `._dont_migrate_` file so build/deploy tooling skips them, and never referenced from committed output beyond `.gitignore` patterns.
 - **New-repository checklist.** At project bootstrap: `.gitignore` including the hidden layers; `.github/dependabot.yml`; `codeql.yml`; auto-approve workflow; `SECURITY.md`; workflows for recurring git operations; a log file the workflow itself keeps current.
+- **Standard workflow triggers.** Test on `push` / `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot on a weekly cadence.
+- **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API — never by hand; human intervention is not required.
 
 ### Conventions
 
@@ -293,7 +296,9 @@ Repository management and dependency conventions, with their current state in th
 - **Version bumps.** Add a changelog entry (CHANGELOG.md + `Wiki/Changelog.md`),
   bump `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`, then update
   the hand-maintained "Validated on" header in `docs/policy-catalog.md`, README §8,
-  `index.html` (hero, prerequisites, compat rows), and the Wiki pages.
+  `index.html` (hero, prerequisites, compat rows), and the Wiki pages. Changelogs
+  follow the Keep a Changelog format (Added / Changed / Deprecated / Removed /
+  Fixed / Security) under SemVer headings, newest first.
 - **Release parity.** GitHub and GitLab releases mirror each other exactly —
   same tag, title, description, and notes. Release notes are bilingual:
   EN paragraph first, TR paragraph after, at equal scope, detail, and quality.
@@ -306,13 +311,42 @@ Repository management and dependency conventions, with their current state in th
 - **Testing quality bar.** Test suite must pass before any commit (see
   "Validation Commands"). Coverage target: ≥80% overall, 100% for critical
   business logic. Pre-commit gates: lint + format, secret scan,
-  `.gitignore` compliance, unit tests.
+  `.gitignore` compliance, unit tests. Test levels: unit (single function/method),
+  integration (module interaction), end-to-end (full user flow), performance
+  (load and bottleneck analysis); each level gets its own suite and CI job.
+- **Service security.** API keys, tokens, and passwords live in environment
+  variables, never in code; every endpoint defines input validation, rate-limiting,
+  and a CORS policy.
 - **Wiki.** Edits belong in `Wiki/` here — `wiki-sync.yml` mirrors them to the
   live wiki after every push that touches `Wiki/**`.
+- **Standards freshness.** If a recurring pattern or standard surfaces during a
+  session, fold it into this file on completion — keep entries abstract (general
+  principles, not concrete project paths or tech names).
 - **Landing page (`index.html`).** Single page: OLED-friendly true black
   (`#000000`) background, low-blue-light soft contrast, dark theme, minimal JS
   with no external libraries; carries the project name, description, links, and
-  technical facts.
+  technical facts. 16px-base `system-ui` font stack, CSS Grid/Flexbox layout,
+  gzip footprint < 10 KB.
+
+#### Per-language toolchain defaults
+
+| Language | Package manager | Tests | Lint & format | Type check |
+|----------|-----------------|-------|----------------|------------|
+| Python | `pip` / `poetry` / `uv` | `pytest` + `coverage` | `ruff` + `black` | `mypy` (strict) |
+| Node.js/TS | `pnpm` (default) / `npm` / `yarn` | `vitest` (default) / `jest` | `eslint` + `prettier` | `tsc --strict` |
+| .NET/C# | `dotnet` / NuGet | `xunit` (default) / `nunit` | `.editorconfig` + `StyleCop.Analyzers` | — |
+| Go | `go mod` | `go test` / `testify` | `gofmt` + `golangci-lint` | — |
+| Rust | `cargo` | `cargo test` | `rustfmt` + `clippy` | — |
+
+Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes through the language's standard build command (`dotnet build`, `go build`, `cargo build`). Virtual environments are per-project (Python: `.venv/`).
+
+#### Supplemental `.gitignore` patterns (by project type)
+
+- Python: `__pycache__/`, `*.pyc`, `.venv/`, `*.egg-info/`, `.mypy_cache/`, `.pytest_cache/`, `.ruff_cache/`
+- Node.js: `node_modules/`, `dist/`, `.next/`, `*.tsbuildinfo`
+- .NET: `bin/`, `obj/`, `*.nupkg`, `packages/`
+- Go: `vendor/`
+- Rust: `target/`, `**/*.rs.bk`
 
 ### Local Turkish Mirror
 
@@ -323,4 +357,4 @@ Repository management and dependency conventions, with their current state in th
 - `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
   `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
 
-<!-- mirror-sync: sync-sha=141963849f80af35f1ef302fa1397ef466e100c8 -->
+<!-- mirror-sync: sync-sha=b6bdb704a22411cdf5c93367915a0fdb696614c0 -->
