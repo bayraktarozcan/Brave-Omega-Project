@@ -450,7 +450,7 @@ Fixes #50
 - PSScriptAnalyzer (`Invoke-PSScriptAnalyzer`) integration in CI quality workflow
 - Platform matrix CI: Windows Server 2025, Windows 11 25H2, Windows 10 22H2
 - Version checks and policy integrity validation in CI pipeline
-- QA report: `docs/reports/phase-3-kalite-test/`
+- QA report produced (phase-3 validation summary, archived locally)
 - Quality badges for test pass rate, code coverage, CI status
 
 **Changed:**
@@ -1220,7 +1220,7 @@ Fixes #50
 - CI kalite iş akışında PSScriptAnalyzer (`Invoke-PSScriptAnalyzer`) entegrasyonu
 - Platform matrisi CI: Windows Server 2025, Windows 11 25H2, Windows 10 22H2
 - CI hattında sürüm kontrolleri ve politika bütünlüğü doğrulaması
-- QA raporu: `docs/reports/phase-3-kalite-test/`
+- QA raporu oluşturuldu (aşama-3 doğrulama özeti, yerel arşivlendi)
 - Test geçme oranı, kod kapsamı, CI durumu için kalite rozetleri
 
 **Değişenler:**
