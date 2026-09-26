@@ -246,6 +246,13 @@ Repository management and dependency conventions, with their current state in th
 - **Naming.** Repository names, descriptions, topics, branch names, release tags
   (`v1.0.0`), PR titles, and issue titles are English; user-facing UI text may
   be bilingual.
+- **Language & character.** Turkish text keeps its Turkish characters
+  (`ç ş ğ ü ö ı İ Â Î Û`); never flatten to ASCII. PowerShell 5.1 scripts
+  are saved UTF-8 with BOM so characters render correctly in console, IDE,
+  and runtime. Inside PowerShell code, identifiers (variables, parameters,
+  functions) are ASCII-only — the PS 5.1 parser mishandles Turkish characters
+  in identifiers even in BOM files — while user-facing strings, comments, and
+  string data keep full Turkish characters.
 - **Policy edits.** Change policy definitions only in the data layer
   (`Brave Omega/config.json` + `Brave Omega/profiles/*.json`; loaded at runtime
   via `Import-OmegaPolicyData` into `$OmegaState`). Deprecated policies must be
@@ -255,9 +262,19 @@ Repository management and dependency conventions, with their current state in th
   bump `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`, then update
   the hand-maintained "Validated on" header in `docs/policy-catalog.md`, README §8,
   `index.html` (hero, prerequisites, compat rows), and the Wiki pages.
+- **Release parity.** GitHub and GitLab releases mirror each other exactly —
+  same tag, title, description, and notes. Release notes are bilingual:
+  EN paragraph first, TR paragraph after, at equal scope, detail, and quality.
 - **Compatibility.** The script targets Windows PowerShell 5.1+; no `pwsh`-only syntax.
 - **Git.** `origin` pushes to both GitHub and GitLab (dual pushurl). Keep the two
   remotes in parity — there is no PR/MR workflow for own commits.
+- **Environment variables.** Never commit real secrets: `.env` stays out of Git
+  and a committed `.env.example` (placeholder values only) documents the expected
+  schema; variable names use `UPPER_SNAKE_CASE`.
+- **Testing quality bar.** Test suite must pass before any commit (see
+  "Validation Commands"). Coverage target: ≥80% overall, 100% for critical
+  business logic. Pre-commit gates: lint + format, secret scan,
+  `.gitignore` compliance, unit tests.
 - **Wiki.** Edits belong in `Wiki/` here — `wiki-sync.yml` mirrors them to the
   live wiki after every push that touches `Wiki/**`.
 
@@ -270,4 +287,4 @@ Repository management and dependency conventions, with their current state in th
 - `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
   `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
 
-<!-- mirror-sync: sync-sha=766220f4e11ef5090df67bbd5f1cf68a20ecccdd -->
+<!-- mirror-sync: sync-sha=1a7e4fd761bd6be9ecf694df1cd2935ff56c0f4f -->
