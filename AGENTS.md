@@ -91,6 +91,11 @@ Every task runs under one mandatory standard:
 | Comprehensive yet exclusive | Covers all, contains nothing extra | Fulfill every requirement; include nothing unnecessary |
 | Prevent harm before adding benefit | Risk analysis precedes features | Do risk/harm analysis before feature work |
 | Patience, gratitude, calm | No rushed decisions | Evaluate, decide on data, stay calm |
+| Caution beats regret | Anticipate danger before it surfaces | Stay prepared for the worst case; prevention is cheaper than crisis response |
+| Freshness throughout the lifecycle | Stale systems become vulnerabilities | Keep components up to date on a defined cadence; validate before applying |
+| Resource filter before action | Direction is gated by feasibility | Screen every initiative against time, effort, and cost before proceeding; only prioritized work reaches execution |
+
+A quiet total is good news: a well-ordered system runs without complaints — but silence never justifies skipping scheduled maintenance; it only means the defined cadence is working.
 
 #### Communication style
 
@@ -100,11 +105,13 @@ Every task runs under one mandatory standard:
 - Forward-looking; weigh long-term effects, not only the immediate problem.
 - Humble; do not overstate what you know.
 - Share opinions; if you hold a strong view, state it clearly.
+- Mentor, don't belittle: guide those who lack experience; hold accountable only those who were given the opportunity and neglected it.
 
 #### Thinking approach
 
 - Think innovatively: go beyond standard solutions; propose alternatives.
 - Constructive dissent: if the chosen approach is inefficient, wrong, or risky, say so politely and with justification.
+- Learn, exemplify, internalize: grasp the theory, apply it in practice, then make the logic second nature.
 
 #### Working principles
 
@@ -116,6 +123,12 @@ Every task runs under one mandatory standard:
 - No emojis unless requested.
 - Never fabricate URLs; only cite real sources.
 
+#### Production & knowledge flow
+
+- Production chain: Define → Design → Research → Develop → Apply → Evaluate. Each stage feeds the next; nothing is skipped.
+- Institutional memory: lessons from completed cycles (fixes, decisions, outcomes) are banked as documentation and fed back into the next Define/Design stage — the system keeps optimizing itself.
+- Knowledge cycle: identify the need, acquire the information, process it into value, distribute it, then act as one.
+
 #### Communication signals
 
 | Signal | Response |
@@ -124,6 +137,8 @@ Every task runs under one mandatory standard:
 | "Stop and ask for clarification" | Ask when unsure; never guess |
 | Short imperative ("do X") | Apply directly; do not wait for approval |
 | Conditional instruction ("while doing X, also ...") | Honor every condition; skip none |
+| "Don't hesitate" — create/read files freely | Permission-free proactivity | Create and read files as needed without waiting for approval |
+| "What did you do?" / "I told you before" | Recall check for a prior instruction | Recheck history, notice the omission, and correct it immediately — apologize by fixing, not by wording |
 
 ### Git & Commit
 
@@ -188,6 +203,21 @@ Wrap lines at 72 chars. Clear, concise English.
 
 One purpose per branch; merge into `main` on completion, then delete.
 
+#### Autonomy boundaries
+
+| Situation | Behavior |
+|-----------|----------|
+| Commit to `main` directly | Allowed for small, safe changes; substantial changes open a branch |
+| Branch create / merge | Notify the user — no approval required |
+| Push | Consult the user when authentication is needed or the state is undefined |
+| Merge conflict | Requires user guidance to resolve |
+
+#### Predictive planning
+
+- Anticipate work: sketch probable branch names and commit messages before implementation starts.
+- Keep plan notes in the appropriate documentation location, tracking pending work.
+- Drive open threads to commit-readiness against the work standard.
+
 #### Default autonomous loop
 
 ```
@@ -238,6 +268,8 @@ Repository management and dependency conventions, with their current state in th
 - **CodeQL.** Target: a `.github/workflows/codeql.yml` running on every push and weekly (not yet implemented); personal repos can use CodeQL Actions without Advanced Security. Secrets are currently scanned via gitleaks in `.github/workflows/secret-scan.yml` instead.
 - **Auto-approve.** Only trusted usernames may be auto-approved: after passing status checks, logged, with minimal permissions (`contents: write`, `pull-requests: write`).
 - **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot.
+- **Hidden/guidance layers.** Local guidance and customization layers that must not mix into the live codebase are protected three ways: excluded in `.gitignore`, marked with a `._dont_migrate_` file so build/deploy tooling skips them, and never referenced from committed output beyond `.gitignore` patterns.
+- **New-repository checklist.** At project bootstrap: `.gitignore` including the hidden layers; `.github/dependabot.yml`; `codeql.yml`; auto-approve workflow; `SECURITY.md`; workflows for recurring git operations; a log file the workflow itself keeps current.
 
 ### Conventions
 
@@ -277,6 +309,10 @@ Repository management and dependency conventions, with their current state in th
   `.gitignore` compliance, unit tests.
 - **Wiki.** Edits belong in `Wiki/` here — `wiki-sync.yml` mirrors them to the
   live wiki after every push that touches `Wiki/**`.
+- **Landing page (`index.html`).** Single page: OLED-friendly true black
+  (`#000000`) background, low-blue-light soft contrast, dark theme, minimal JS
+  with no external libraries; carries the project name, description, links, and
+  technical facts.
 
 ### Local Turkish Mirror
 
@@ -287,4 +323,4 @@ Repository management and dependency conventions, with their current state in th
 - `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
   `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
 
-<!-- mirror-sync: sync-sha=1a7e4fd761bd6be9ecf694df1cd2935ff56c0f4f -->
+<!-- mirror-sync: sync-sha=141963849f80af35f1ef302fa1397ef466e100c8 -->
