@@ -17,7 +17,7 @@
 
 ## Agent Guide
 
-Operational notes for humans and AI agents working in this repository. English is the single source of operational truth; the untracked local file `AGENTS-TR.md` mirrors it in Turkish for human review.
+Operational notes for humans and AI agents working in this repository. English is the single source of operational truth; a Turkish mirror of this file is maintained locally for human review.
 
 ### Repository Layout
 
@@ -25,7 +25,10 @@ Operational notes for humans and AI agents working in this repository. English i
 |------|---------|
 | `Brave Omega/BraveOmega.ps1` | Unified EN/TR hardening script (single source of policy truth) |
 | `Brave Omega/docs/policy-catalog.md` | Full per-policy catalog with metadata |
+| `Brave Omega/config.json` + `Brave Omega/profiles/*.json` | Policy data layer - the only place policy definitions change |
+| `enterprise/` | Per-tier `.reg` templates + `levels.json` registry export |
 | `admx/` | ADMX templates + `admx-validate.ps1` cross-reference validator |
+| `scripts/` | Release, wiki sync, deploy/detect, catalog export, mojibake scan |
 | `Tests/` | Pester 5.7.1 test suite |
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
 | `.github/workflows/` | CI/CD: Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene |
@@ -35,7 +38,7 @@ Operational notes for humans and AI agents working in this repository. English i
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v2.8.1.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v2.8.1.1` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | `1.96.59` | `$ValidatedBrave` |
 | Chromium | `154` | `$ValidatedChromium` (major only) |
 
@@ -49,7 +52,7 @@ Run from the repository root with Windows PowerShell 5.1:
 
 ```powershell
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 169/169 passing
+Invoke-Pester Tests/ -PassThru          # expected: 183/183 passing
 
 # ADMX cross-reference
 & "admx/admx-validate.ps1"              # expected: PASS - 151/151
@@ -60,6 +63,9 @@ Invoke-ScriptAnalyzer "Brave Omega/BraveOmega.ps1" -Severity Warning `
 
 # Markdown (repo config)
 markdownlint -c .github/linters/.markdownlint.json "**/*.md"
+
+# Mirror sync (local only; the operator supplies the mirror path)
+& "scripts/verify-mirror-sync.ps1" -Canonical AGENTS.md -Mirror <mirror-path>
 
 # YAML
 yamllint .github/ --config-file .github/linters/.yamllint.yml
@@ -144,6 +150,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 | Conditional instruction ("while doing X, also ...") | Honor every condition; skip none |
 | "Don't hesitate" — create/read files freely | Permission-free proactivity | Create and read files as needed without waiting for approval |
 | "What did you do?" / "I told you before" | Recall check for a prior instruction | Recheck history, notice the omission, and correct it immediately — apologize by fixing, not by wording |
+| "Write it so I can understand it while reading" / "use a better wording" | Raw phrasing must be stored in processed form | Record and present the user's words analyzed and structured, not verbatim |
 
 ### Git & Commit
 
@@ -273,7 +280,7 @@ Repository management and dependency conventions, with their current state in th
 - **CodeQL.** Target: a `.github/workflows/codeql.yml` running on every push and weekly (not yet implemented); personal repos can use CodeQL Actions without Advanced Security. Secrets are currently scanned via gitleaks in `.github/workflows/secret-scan.yml` instead.
 - **Auto-approve.** Only trusted usernames may be auto-approved: after passing status checks, logged, with minimal permissions (`contents: write`, `pull-requests: write`).
 - **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot. Dependency types: **Runtime** (needed to run the app — e.g. flask, react), **Dev** (development-time only — e.g. pytest, eslint), **Build** (compile-time only — e.g. typescript, webpack).
-- **Hidden/guidance layers.** Local guidance and customization layers that must not mix into the live codebase are protected three ways: excluded in `.gitignore`, marked with a `._dont_migrate_` file so build/deploy tooling skips them, and never referenced from committed output beyond `.gitignore` patterns.
+- **Hidden/guidance layers.** Local guidance and customization layers that must not mix into the live codebase are protected four ways: excluded in `.gitignore`, marked with a `._dont_migrate_` file so build/deploy tooling skips them, never referenced from committed output beyond `.gitignore` patterns, and never named or quoted in any other output — their existence and content stay inside the layer, the single exception being work the user explicitly directs inside that layer. This last protection is absolute: a private layer that leaks through a code comment, a doc, a commit message, or a chat reply is broken, however well-intentioned the mention.
 - **Layered references.** Reference material is layered by stability: universal/standard references update only when the authoritative standard behind them changes; project-specific guidance gets a project layer of its own — project overrides never rewrite the universal reference. Updates flow top-down only on a real change in the underlying standard.
 - **New-repository checklist.** At project bootstrap: `.gitignore` including the hidden layers; `.github/dependabot.yml`; `codeql.yml`; auto-approve workflow; `SECURITY.md`; workflows for recurring git operations; a log file the workflow itself keeps current.
 - **Standard workflow triggers.** Test on `push` / `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot on a weekly cadence.
@@ -287,6 +294,10 @@ Repository management and dependency conventions, with their current state in th
   chapters cover overview/setup, architecture, API (when applicable),
   troubleshooting, and changelog; a `PLANNING/` subfolder under it holds
   work plans and task tracking, managed by the AI assistant as it goes.
+- **Documentation mirrors code.** Any meaningful change (component, dependency,
+  configuration, architecture decision, test setup) updates the affected
+  documentation in the same commit. The update is reported, not approved; a
+  document that contradicts the code is a defect, not a backlog item.
 - **Naming.** Repository names, descriptions, topics, branch names, release tags
   (`v1.0.0`), PR titles, and issue titles are English; user-facing UI text may
   be bilingual.
@@ -366,11 +377,25 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 
 ### Local Turkish Mirror
 
-- `AGENTS-TR.md` is an untracked, gitignored Turkish mirror of this file — read
-  by the human for auditing, never committed or pushed.
-- **Rule:** whenever this file changes, refresh `AGENTS-TR.md` so the `sync-sha`
-  values in both files are identical.
-- `sync-sha` = SHA1 (UTF-8, no BOM) of this file with its own
-  `<!-- mirror-sync: ... -->` line removed. A mismatch means drift.
+- An untracked, gitignored Turkish mirror of this file is read by the human for
+  auditing. It is never committed or pushed, and it is not named anywhere in
+  committed output.
+- **Rule:** whenever this file changes, refresh the mirror content, then re-run
+  `scripts/verify-mirror-sync.ps1` and write the value it reports into the
+  `sync-sha` marker of both files. The check is mechanical on purpose — a
+  hand-remembered hash drifts silently the moment this file is edited twice
+  without the mirror being revisited.
+- `sync-sha` = SHA1 of this file, computed as: read the bytes, drop a UTF-8
+  BOM if present, decode as UTF-8, normalize every CRLF and lone CR to LF,
+  remove the whole `<!-- mirror-sync: ... -->` line including its terminator,
+  then hash the UTF-8 encoding of what remains. Normalizing to LF is what makes
+  a single value valid for a CRLF checkout, an LF checkout, and the committed
+  blob alike, so the number never depends on how the file happened to be saved.
+- The verifier takes both paths as parameters and names neither, so nothing
+  about this layer's location is recorded in committed output. Pass
+  `-AllowMissingMirror` where the mirror is intentionally absent, such as CI.
+- A mismatch means drift. Fix it by refreshing the mirror, then setting the
+  reported value in both markers; never by editing one marker to match the
+  other.
 
-<!-- mirror-sync: sync-sha=cfb96e5b04f20228cb64432920437b10a44d5b5d -->
+<!-- mirror-sync: sync-sha=bacaec36214a7b4f1d083af097835b39049461c9 -->
