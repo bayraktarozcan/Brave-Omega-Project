@@ -110,7 +110,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | Feature | Description |
 |---------|-------------|
 | 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (24 policies), **Essential ⭐** (51 policies), **Balanced** (83), **Advanced** (123), or **Strict** (151) |
-| 🌐 **Multi-Type Registry Engine** | Supports DWord, String, and MultiString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets |
+| 🌐 **Multi-Type Registry Engine** | Supports DWord, String, MultiString, and ExpandString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets, and ExpandString is written as `REG_EXPAND_SZ` so environment variables such as `%USERPROFILE%` resolve |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
 | 💾 **Automatic Backup** | Time-stamped `.reg` backup of the HKLM policy hive before any modifications (stored at `$env:TEMP\BravePolicyBackup\`) |
@@ -323,7 +323,7 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v2.8.1.0** *(current)* | 1.96.59 | 154 | 11 25H2 | ✅ Active |
+| **v2.8.1.1** *(current)* | 1.96.59 | 154 | 11 25H2 | ✅ Active |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Previous |
@@ -625,7 +625,7 @@ BRAVE OMEGA PROJECT/
 ### 13. Roadmap
 
 - [x] **Multi-tier hardening system** — Brave Only / Essential / Balanced / Strict levels with cumulative inheritance (v2.0)
-- [x] **Multi-type registry engine** — DWord, String, MultiString type-aware dispatching (v2.0)
+- [x] **Multi-type registry engine** — DWord, String, MultiString, ExpandString type-aware dispatching (v2.0)
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
 - [x] **150 total policies** — expanded from 17 to 150 across 5 levels (v2.0–v2.5.0.0)
@@ -748,7 +748,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | Özellik | Açıklama |
 |---------|----------|
 | 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (24 politika), **Temel ⭐** (51), **Dengeli** (83), **Gelişmiş** (123) veya **Katı** (151) |
-| 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String ve MultiString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır, PowerShell'de `REG_MULTI_SZ` cmdlet'i bulunmadığından |
+| 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String, MultiString ve ExpandString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır (PowerShell'de `REG_MULTI_SZ` cmdlet'i yoktur), ExpandString ise `REG_EXPAND_SZ` olarak yazılır; böylece `%USERPROFILE%` gibi ortam değişkenleri genişletilir |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği (`$env:TEMP\BravePolicyBackup\` konumunda saklanır) |
@@ -962,7 +962,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v2.8.1.0** *(güncel)* | 1.96.59 | 154 | 11 25H2 | ✅ Etkin |
+| **v2.8.1.1** *(güncel)* | 1.96.59 | 154 | 11 25H2 | ✅ Etkin |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Önceki |
@@ -1267,7 +1267,7 @@ BRAVE OMEGA PROJECT/
 #### ✅ Tamamlanan (Önceki Sürümler)
 
 - [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı
-- [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString
+- [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString, ExpandString
 - [x] **`-Level` parametresi** — sessiz/otomatik dağıtım
 - [x] **150 toplam politika** — 17'den 150'e genişletildi
 - [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar

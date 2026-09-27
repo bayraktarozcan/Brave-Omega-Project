@@ -11,10 +11,10 @@
 
 | Metric | Count |
 |--------|-------|
-| Total policies ever removed/rejected | 34 |
+| Total policies ever removed/rejected | 35 |
 | Deprecated by Chromium/Chrome | 9 |
 | Blocked by Brave | 3 |
-| Unrecognized by Brave | 11 |
+| Unrecognized by Brave | 12 |
 | Redundant (superseded) | 2 |
 | Origin-only / not in stable | 1 |
 | ChromeOS-only / not applicable | 1 |
@@ -27,10 +27,10 @@
 >
 > | Metrik | Sayı |
 > |--------|------|
-> | Toplam kaldırılan/reddedilen politika | 34 |
+> | Toplam kaldırılan/reddedilen politika | 35 |
 > | Chromium/Chrome tarafından kademeli olarak kaldırılan | 9 |
 > | Brave tarafından engellenen | 3 |
-> | Brave tarafından tanınmayan | 11 |
+> | Brave tarafından tanınmayan | 12 |
 > | Gereksiz (yerine geçen) | 2 |
 > | Yalnızca origin / stabilde olmayan | 1 |
 > | Yalnızca ChromeOS / uygulanamaz | 1 |
@@ -101,24 +101,24 @@
 | Field | Value |
 |-------|-------|
 | **Policy Name** | `BraveLocalAIEnabled` |
-| **Version Removed** | v2.2.0.1 (2026-07-06) |
+| **Version Removed** | v2.2.0.1 (2026-07-06) — script; v2.8.1.1 (2026-09-26) — ADMX/ADML |
 | **Tier at Removal** | Brave Only |
-| **Reason** | Origin-only policy — not recognized by Brave 1.92.134 stable |
+| **Reason** | Origin-only policy — not recognized by Brave 1.92.134 stable; re-verified as non-functional in v2.8.1.1 |
 | **Category** | Brave-specific |
 | **Was in Production** | Yes (v2.1.6 → v2.2.0.0) |
-| **Notes** | Was an Origin-only policy (Brave PR #37357) that had not yet been promoted to the stable channel. Caused "Hata: Bilinmeyen politika" (Error: Unknown policy) errors in brave://policy/. Removed in the v2.2.0.1 refinement release along with duplicate cleanup. |
+| **Notes** | Was an Origin-only policy (Brave PR #37357) that had not yet been promoted to the stable channel. Caused "Hata: Bilinmeyen politika" (Error: Unknown policy) errors in brave://policy/. Removed in the v2.2.0.1 refinement release along with duplicate cleanup. A later upstream ADMX refresh re-introduced it in v2.5.0.0 and it was dropped from `BraveOmega.ps1` again, but the ADMX/ADML definitions survived that removal — the shipped template kept advertising a policy the project does not manage. v2.8.1.1 deletes the `<policy>` block, its string resources and its presentation reference from the ADMX/ADML, dropping the ADMX entry count from 766 to 764 and clearing the "Brave policies not in script" warning. |
 
 > 🇹🇷 **Türkçe:**
 >
 > | Alan | Değer |
 > |------|-------|
 > | **Politika Adı** | `BraveLocalAIEnabled` |
-> | **Kaldırıldığı Sürüm** | v2.2.0.1 (2026-07-06) |
+> | **Kaldırıldığı Sürüm** | v2.2.0.1 (2026-07-06) — betik; v2.8.1.1 (2026-09-26) — ADMX/ADML |
 > | **Kaldırıldığı Katman** | Brave Only |
-> | **Neden** | Yalnızca origin politikası — Brave 1.92.134 stabil tarafından tanınmıyor |
+> | **Neden** | Yalnızca origin politikası — Brave 1.92.134 stabil tarafından tanınmıyor; v2.8.1.1'de yeniden doğrulandı ve çalışmadığı teyit edildi |
 > | **Kategori** | Brave'e özgü |
 > | **Üretimde Oldu mu** | Evet (v2.1.6 → v2.2.0.0) |
-> | **Notlar** | Henüz stabil kanala geçirilmemiş bir Yalnızca origin politikasıydı (Brave PR #37357). brave://policy/ bölümünde "Hata: Bilinmeyen politika" hatalarına neden oldu. v2.2.0.1 iyileştirme sürümünde yinelenen temizlikle birlikte kaldırıldı. |
+> | **Notlar** | Henüz stabil kanala geçirilmemiş bir Yalnızca origin politikasıydı (Brave PR #37357). brave://policy/ bölümünde "Hata: Bilinmeyen politika" hatalarına neden oldu. v2.2.0.1 iyileştirme sürümünde yinelenen temizlikle birlikte kaldırıldı. Sonraki bir yukarı akış ADMX yenilemesi v2.5.0.0'de yeniden getirdi ve `BraveOmega.ps1`'den ikinci kez çıkarıldı; ancak ADMX/ADML tanımları o kaldırmada hayatta kaldı — sevk edilen şablon, projenin yönetmediği bir politikayı tanıtmaya devam etti. v2.8.1.1 `<policy>` bloğunu, string kaynaklarını ve presentation referansını ADMX/ADML'den siler; ADMX giriş sayısı 766'dan 764'e iner ve "Brave policies not in script" uyarısı temizlenir. |
 
 ---
 
@@ -841,6 +841,34 @@
 
 ---
 
+### 30. PsstEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `PsstEnabled` |
+| **Version Added** | Never — shipped only inside the upstream ADMX/ADML template |
+| **Version Removed** | v2.8.1.1 (2026-09-26) |
+| **Tier at Removal** | None — never assigned to a tier |
+| **Reason** | Inactive in Brave and non-functional (user-verified on Brave 1.96.59) |
+| **Category** | Unrecognized by Brave |
+| **Was in Production** | No — never managed by `BraveOmega.ps1`, `config.json` or any profile |
+| **Notes** | Privacy Settings Tuning Tool master switch (DWord: 1 = enabled). The policy reached users only as a definition inside `admx/brave.admx` and `admx/brave.adml`; the project never set it, so it produced no hardening while advertising a control that does not work. The cross-reference validator reported it every run as a Brave-only policy absent from the script. v2.8.1.1 deletes the `<policy>` block, its string resources and its presentation reference, matching the treatment of `BraveLocalAIEnabled`. No tier totals change — the project total stays at 151. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `PsstEnabled` |
+> | **Eklendiği Sürüm** | Hiç — yalnızca yukarı akış ADMX/ADML şablonu içinde geldi |
+> | **Kaldırıldığı Sürüm** | v2.8.1.1 (2026-09-26) |
+> | **Kaldırıldığı Katman** | Yok — hiçbir katmana atanmadı |
+> | **Neden** | Brave'de etkin değil ve işlevsel değil (Brave 1.96.59 üzerinde kullanıcı tarafından doğrulandı) |
+> | **Kategori** | Brave tarafından tanınmayan |
+> | **Üretimde Oldu mu** | Hayır — `BraveOmega.ps1`, `config.json` veya herhangi bir profil tarafından yönetilmedi |
+> | **Notlar** | Privacy Settings Tuning Tool ana anahtarı (DWord: 1 = etkin). Politika kullanıcılara yalnızca `admx/brave.admx` ve `admx/brave.adml` içindeki bir tanım olarak ulaştı; proje onu hiç ayarlamadı, dolayısıyla çalışmayan bir kontrolü tanıtırken hiçbir sıkılaştırma sağlamadı. Çapraz referans doğrulayıcısı onu her çalıştırmada betikte bulunmayan Brave'e özgü politika olarak raporluyordu. v2.8.1.1 `<policy>` bloğunu, string kaynaklarını ve presentation referansını siler; bu, `BraveLocalAIEnabled` ile aynı işlemdir. Katman toplamları değişmez — proje toplamı 151 olarak kalır. |
+
+---
+
 ## Policies Moved (Not Removed)
 ## Taşınan Politikalar (Kaldırılmayan)
 
@@ -971,6 +999,13 @@ v2.4.2.0 (2026-07-21) — CrossOriginOpPolicyHeader removed (unrecognized)
   ↓
 v2.6.1.0 (2026-08-31) — DeviceAttributesAllowedForOrigins removed (ChromeOS-only)
                          DeviceAttributesAllowedForOrigins kaldırıldı (yalnızca ChromeOS)
+  ↓
+v2.8.1.1 (2026-09-26) — BraveLocalAIEnabled removed from ADMX/ADML (re-verified non-functional)
+                         PsstEnabled removed from ADMX/ADML (inactive, non-functional)
+                         ADMX entries 766 → 764; script total unchanged at 151
+                         BraveLocalAIEnabled ADMX/ADML'den kaldırıldı (yeniden doğrulandı, işlevsel değil)
+                         PsstEnabled ADMX/ADML'den kaldırıldı (etkin değil, işlevsel değil)
+                         ADMX girişleri 766 → 764; betik toplamı 151 olarak değişmedi
 ```
 
 ---
@@ -1028,8 +1063,8 @@ Brave tarayıcısının Chromium kurumsal politikasını açıkça engellediği 
 > | `NewTabPageLocation` | HomepageLocation ile aynı |
 > | `RestoreOnStartup` | Brave başlangıcı kendi ayarları aracılığıyla kontrol eder |
 
-### Unrecognized by Brave (11 policies)
-### Brave Tarafından Tanınmayan (11 politika)
+### Unrecognized by Brave (12 policies)
+### Brave Tarafından Tanınmayan (12 politika)
 Policies not present in Brave's policy engine.
 Brave'in politika motorunda bulunmayan politikalar.
 
@@ -1046,6 +1081,7 @@ Brave'in politika motorunda bulunmayan politikalar.
 | `PasswordReuseDetectionEnabled` | "Unknown policy" |
 | `TabDiscardingEnabled` | "Unknown policy" |
 | `ContextualSearchEnabled` | "Unknown policy" |
+| `PsstEnabled` | Inactive in Brave; does not function |
 
 > 🇹🇷 **Türkçe:**
 >
@@ -1062,6 +1098,7 @@ Brave'in politika motorunda bulunmayan politikalar.
 > | `PasswordReuseDetectionEnabled` | "Bilinmeyen politika" |
 > | `TabDiscardingEnabled` | "Bilinmeyen politika" |
 > | `ContextualSearchEnabled` | "Bilinmeyen politika" |
+> | `PsstEnabled` | Brave'de etkin değil; işlevsel değil |
 
 ### Cloud-only (not local) (3 policies)
 ### Yalnızca bulut tabanlı (yerel olmayan) (3 politika)
@@ -1114,9 +1151,10 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 4. **Cloud vs. local** — `GenAiDefaultSettings` requires enterprise cloud management infrastructure; local registry deployment is insufficient.
 5. **Brave-specific overrides** — Brave blocks certain Chromium policies (homepage, new tab, startup) through its own enforcement layer.
 6. **Don't re-add deprecated policies** — `DefaultMediaStreamSetting` was removed in v2.1.1, re-added in v2.4.0.0, and removed again in v2.4.1.0.
-7. **Origin-only policies** — `BraveLocalAIEnabled` was an Origin-only policy that hadn't reached stable. Check policy promotion status.
+7. **Origin-only policies** — `BraveLocalAIEnabled` was an Origin-only policy that hadn't reached stable. Check policy promotion status; it was still absent from stable two versions later, when v2.8.1.1 finally removed it from the ADMX.
 8. **Document removals** — This file exists because removals were tracked. Future contributors can learn from past mistakes.
 9. **Always test on brave://policy/** — Two policies (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) existed in Chromium ADMX but showed "Bilinmeyen politika" in Brave 1.92. Always verify before shipping.
+10. **The ADMX is a separate artifact** — Removing a policy from `BraveOmega.ps1` does not remove it from `admx/brave.admx` and `admx/brave.adml`. `BraveLocalAIEnabled` and `PsstEnabled` both stayed in the shipped template after their script removal, silently advertising controls the project does not manage. Edit the template, then re-run `admx/admx-validate.ps1` and treat its "Brave policies not in script" count as a release gate.
 
 > 🇹🇷 **Türkçe:**
 >
@@ -1126,16 +1164,17 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 > 4. **Bulut vs. yerel** — `GenAiDefaultSettings` kurumsal bulut yönetim altyapısı gerektirir; yerel kayıt defteri dağıtımı yetersizdir.
 > 5. **Brave'e özgü geçersiz kılmalar** — Brave, kendi uygulama katmanı aracılığıyla belirli Chromium politikalarını (ana sayfa, yeni sekme, başlangıç) engeller.
 > 6. **Kaldırılmış politikaları yeniden eklemeyin** — `DefaultMediaStreamSetting` v2.1.1'de kaldırıldı, v2.4.0.0'da yeniden eklendi ve v2.4.1.0'da tekrar kaldırıldı.
-> 7. **Yalnızca origin politikaları** — `BraveLocalAIEnabled` stabilde ulaşmamış bir Yalnızca origin politikasıydı. Politika geçirme durumunu kontrol edin.
+> 7. **Yalnızca origin politikaları** — `BraveLocalAIEnabled` stabilde ulaşmamış bir Yalnızca origin politikasıydı. Politika geçirme durumunu kontrol edin; v2.8.1.1 ADMX'den kaldırdığında hâlâ stabilde yoktu.
 > 8. **Kaldırmaları belgeleyin** — Bu dosya kaldırma kayıtları takip edildiği için mevcuttur. Gelecekteki katılımcılar geçmiş hatalardan öğrenebilir.
 > 9. **Her zaman brave://policy/'de test edin** — İki politika (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) Chromium ADMX'sinde mevcuttu ancak Brave 150'de "Bilinmeyen politika" olarak göründü. Üretime geçirmeden önce her zaman doğrulayın.
+> 10. **ADMX ayrı bir yapıttır** — Bir politikayı `BraveOmega.ps1`'den kaldırmak onu `admx/brave.admx` ve `admx/brave.adml`'den kaldırmaz. `BraveLocalAIEnabled` ve `PsstEnabled`, betikten kaldırıldıktan sonra da sevk edilen şablonda kalarak projenin yönetmediği kontrolleri sessizce tanıtmaya devam etti. Şablonu düzenleyin, ardından `admx/admx-validate.ps1`'i yeniden çalıştırın ve "Brave policies not in script" sayısını sürüm kapısı olarak değerlendirin.
 
 ---
 
-*Last updated: v2.8.0.0 (2026-09-22)*
-*Total policies ever rejected/removed: 34*
-*Current active policies: 151 (v2.8.0.0)*
+*Last updated: v2.8.1.1 (2026-09-26)*
+*Total policies ever rejected/removed: 35*
+*Current active policies: 151 (v2.8.1.1)*
 
-*Son güncelleme: v2.8.0.0 (2026-09-22)*
-*Toplam reddedilen/kaldırılan politika: 34*
-*Mevcut aktif politikalar: 151 (v2.8.0.0)*
+*Son güncelleme: v2.8.1.1 (2026-09-26)*
+*Toplam reddedilen/kaldırılan politika: 35*
+*Mevcut aktif politikalar: 151 (v2.8.1.1)*

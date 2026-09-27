@@ -23,6 +23,31 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v2.8.1.1 - 2026-09-26
+
+**Patch Release - ExpandString registry type reporting fix, and two dead Brave-only policies removed from the ADMX/ADML templates**
+
+**Removed:**
+
+- `BraveLocalAIEnabled` deleted from `admx/brave.admx` and `admx/brave.adml` - `<policy>` block, both string resources, and the `<presentation id="BraveLocalAIEnabled"/>` reference. An Origin-only policy (Brave PR #37357) already removed from `BraveOmega.ps1` in v2.2.0.1, re-introduced to the template by an upstream refresh in v2.5.0.0, and now removed for good
+- `PsstEnabled` deleted the same way - `<policy>` block, both string resources, and the `<presentation id="PsstEnabled"/>` reference. This Privacy Settings Tuning Tool switch was never managed by the script, `config.json`, or any profile; it is inactive in Brave and does not function (user-verified against Brave 1.96.59), so no technical root cause is claimed
+- ADMX policy entries 766 → 764; `admx-validate.ps1` warnings 2 → 0 ("Brave policies not in script" now 0)
+- `admx/brave.admx` carries a comment recording both exclusions and pointing at `Wiki/Rejected-Policies.md`; the upstream `154.1.98.28` base stamp stays intact so the divergence remains traceable
+- `admx/admx-validate.ps1` - the category-check comment used `PsstEnabled` as its example of a Brave-only policy without the `Brave` name prefix; the example now points at `TorDisabled` / `EmailAliasesEnabled` and the check is documented as a forward-looking guard
+- `Wiki/Rejected-Policies.md` - `BraveLocalAIEnabled` entry extended with the re-introduction and the final ADMX removal, `PsstEnabled` added as a new record; the ledger now holds 35 rejected/removed policies (up from 34) with "Unrecognized by Brave" at 12; timeline, category table, lessons learned, and footer updated in both languages
+- Historical references untouched: the v2.8.1.0 entry below, the v2.2.0.1 roadmap and version-matrix entries, and the `index.html` release notes remain as published
+
+**Fixed:**
+
+- Startup summary and console report now count and display the fourth registry value type, `ExpandString`, used by `DownloadDirectory`; previously only DWord, String, and MultiString were reported
+- `docs/policy-catalog.md` documents `DownloadDirectory` as `ExpandString` in both the EN and TR tables; the per-type distribution line reports all four types (124 DWord / 7 String / 19 MultiString / 1 ExpandString); the stale TR source version, date, and validation header corrected to v2.8.1.1 / 2026-09-26
+- Version surfaces aligned to v2.8.1.1: README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `enterprise/levels.json`, and the `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test expectations
+- New `Tests/TypeDistribution.Tests.ps1` derives the distribution from the data layer and asserts the 151-policy total, the four supported types, the runtime counters, and every catalog row
+- Validation triple unchanged: Brave 1.96.59 / Chromium 154.0.8037.58 / build 26200.9550; ADMX remains 154.1.98.28
+- No policy or registry value changes; `.reg` output byte-identical; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+
+---
+
 ### v2.8.1.0 - 2026-09-25
 
 **Patch Release - Brave 1.96.59 compatibility validation**
@@ -792,6 +817,31 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v2.8.1.1 - 2026-09-26
+
+**Yama Sürümü - ExpandString kayıt türü raporlama düzeltmesi ve iki ölü Brave'e özgü politikanın ADMX/ADML şablonlarından kaldırılması**
+
+**Kaldırılanlar:**
+
+- `BraveLocalAIEnabled` `admx/brave.admx` ve `admx/brave.adml` dosyalarından silindi - `<policy>` bloğu, iki string kaynağı ve `<presentation id="BraveLocalAIEnabled"/>` referansı. Brave PR #37357 kapsamında bir Yalnızca origin politikasıydı; `BraveOmega.ps1`'den zaten v2.2.0.1'de kaldırılmış, yukarı akış tazelemesiyle v2.5.0.0'de şablona yeniden gelmiş ve artık kalıcı olarak kaldırıldı
+- `PsstEnabled` aynı şekilde silindi - `<policy>` bloğu, iki string kaynağı ve `<presentation id="PsstEnabled"/>` referansı. Bu Privacy Settings Tuning Tool anahtarı betik, `config.json` veya hiçbir profil tarafından yönetilmedi; Brave'de etkin değil ve işlevsel değil (Brave 1.96.59 üzerinde kullanıcı doğrulaması), dolayısıyla teknik bir kök neden iddiasında bulunulmuyor
+- ADMX politika girişleri 766 → 764; `admx-validate.ps1` uyarıları 2 → 0 ("Brave politikaları betikte yok" artık 0)
+- `admx/brave.admx` her iki istisnayı kaydeden ve `Wiki/Rejected-Policies.md`'ye işaret eden bir yorum taşıyor; yukarı akış `154.1.98.28` temel damgası bozulmadan kalıyor, böylece ayrışma izlenebilir durumda
+- `admx/admx-validate.ps1` - kategori kontrolü yorumu, `Brave` ad ön eki olmayan bir Brave'e özgü politika örneği olarak `PsstEnabled`'i kullanıyordu; örnek artık `TorDisabled` / `EmailAliasesEnabled` değerlerine işaret ediyor ve kontrol ileriye dönük bir koruma olarak belgeleniyor
+- `Wiki/Rejected-Policies.md` - `BraveLocalAIEnabled` kaydı yeniden eklenme ve nihai ADMX kaldırma bilgisiyle genişletildi, `PsstEnabled` yeni kayıt olarak eklendi; defter artık 35 reddedilen/kaldırılan politika tutuyor (34'ten) ve "Brave tarafından tanınmayan" kovası 12; zaman çizelgesi, kategori tablosu, öğrenilen dersler ve footer iki dilde güncellendi
+- Tarihsel referanslara dokunulmadı: aşağıdaki `v2.8.1.0` kaydı, v2.2.0.1 roadmap ve sürüm matrisi kayıtları ve `index.html` sürüm notları yayımlandıkları hâliyle korunuyor
+
+**Düzeltilenler:**
+
+- Başlangıç özeti ve konsol raporu artık `DownloadDirectory` politikasının kullandığı dördüncü kayıt değer türü olan `ExpandString` türünü de sayıyor ve gösteriyor; önceden yalnız DWord, String ve MultiString raporlanıyordu
+- `docs/policy-catalog.md` içinde `DownloadDirectory` hem EN hem TR tabloda `ExpandString` olarak belgelendi; tür dağılımı satırı artık dört türün tamamını raporluyor (124 DWord / 7 String / 19 MultiString / 1 ExpandString); bayat TR kaynak sürüm, tarih ve doğrulama başlığı v2.8.1.1 / 2026-09-26 olarak düzeltildi
+- Sürüm yüzeyleri v2.8.1.1 ile hizalandı: README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `enterprise/levels.json` ve `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test beklentileri
+- Yeni `Tests/TypeDistribution.Tests.ps1` tür dağılımını veri katmanından türetir ve 151 politika toplamını, dört desteklenen türü, çalışma zamanı sayaçlarını ve katalogdaki her satırı doğrular
+- Doğrulama üçlüsü değişmedi: Brave 1.96.59 / Chromium 154.0.8037.58 / derleme 26200.9550; ADMX 154.1.98.28 olarak kalıyor
+- Politika veya kayıt değeri değişikliği yok; `.reg` çıktısı bayt-bayt aynı; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+
+---
 
 ### v2.8.1.0 - 2026-09-25
 

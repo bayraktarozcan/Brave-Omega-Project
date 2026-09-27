@@ -25,156 +25,160 @@
 ## EN English Changelog
 
 ### Table of Contents
-1. [v2.8.1.0 — 2026-09-25](#en-v2810)
+1. [v2.8.1.1 — 2026-09-26](#en-v2811)
+    * [Summary](#en-v2811-summary)
+    * [Removed](#en-v2811-removed)
+    * [Fixed](#en-v2811-fixed)
+2. [v2.8.1.0 — 2026-09-25](#en-v2810)
     * [Summary](#en-v2810-summary)
     * [Changed](#en-v2810-changed)
-2. [v2.8.0.0 — 2026-09-22](#en-v2800)
+3. [v2.8.0.0 — 2026-09-22](#en-v2800)
     * [Summary](#en-v2800-summary)
     * [Changed](#en-v2800-changed)
-3. [v2.7.3.0 — 2026-09-19](#en-v2730)
+4. [v2.7.3.0 — 2026-09-19](#en-v2730)
     * [Summary](#en-v2730-summary)
     * [Changed](#en-v2730-changed)
-4. [v2.7.2.0 — 2026-09-18](#en-v2720)
+5. [v2.7.2.0 — 2026-09-18](#en-v2720)
     * [Summary](#en-v2720-summary)
     * [Changed](#en-v2720-changed)
-5. [v2.7.1.0 — 2026-09-11](#en-v2710)
+6. [v2.7.1.0 — 2026-09-11](#en-v2710)
     * [Summary](#en-v2710-summary)
     * [Changed](#en-v2710-changed)
-6. [v2.7.0.0 — 2026-09-09](#en-v2700)
+7. [v2.7.0.0 — 2026-09-09](#en-v2700)
     * [Summary](#en-v2700-summary)
     * [Added](#en-v2700-added)
     * [Changed](#en-v2700-changed)
-7. [v2.6.2.0 — 2026-09-07](#en-v2620)
+8. [v2.6.2.0 — 2026-09-07](#en-v2620)
     * [Summary](#en-v2620-summary)
     * [Changed](#en-v2620-changed)
-8. [v2.6.1.1 — 2026-09-06](#en-v2611)
+9. [v2.6.1.1 — 2026-09-06](#en-v2611)
     * [Summary](#en-v2611-summary)
     * [Changed](#en-v2611-changed)
-9. [v2.6.1.0 — 2026-08-31](#en-v2610)
+10. [v2.6.1.0 — 2026-08-31](#en-v2610)
     * [Summary](#en-v2610-summary)
     * [Removed](#en-v2610-removed)
     * [Changed](#en-v2610-changed)
-10. [v2.6.0.0 — 2026-08-29](#en-v2600)
+11. [v2.6.0.0 — 2026-08-29](#en-v2600)
     * [Summary](#en-v2600-summary)
     * [Added](#en-v2600-added)
     * [Changed](#en-v2600-changed)
-11. [v2.5.5.4 — 2026-08-27](#en-v2554)
+12. [v2.5.5.4 — 2026-08-27](#en-v2554)
     * [Summary](#en-v2554-summary)
     * [Changed](#en-v2554-changed)
-12. [v2.5.5.3 — 2026-08-22](#en-v2553)
+13. [v2.5.5.3 — 2026-08-22](#en-v2553)
     * [Summary](#en-v2553-summary)
     * [Changed](#en-v2553-changed)
-13. [v2.5.5.2 — 2026-08-13](#en-v2552)
+14. [v2.5.5.2 — 2026-08-13](#en-v2552)
     * [Summary](#en-v2552-summary)
     * [Fixed](#en-v2552-fixed)
     * [Changed](#en-v2552-changed)
-14. [v2.5.5.1 — 2026-08-01](#en-v2551)
+15. [v2.5.5.1 — 2026-08-01](#en-v2551)
     * [Summary](#en-v2551-summary)
     * [Changed](#en-v2551-changed)
-15. [v2.5.5.0 — 2026-08-01](#en-v2550)
+16. [v2.5.5.0 — 2026-08-01](#en-v2550)
     * [Summary](#en-v2550-summary)
     * [Changed](#en-v2550-changed)
-16. [v2.5.4.0 — 2026-07-31](#en-v2540)
+17. [v2.5.4.0 — 2026-07-31](#en-v2540)
     * [Summary](#en-v2540-summary)
     * [Added](#en-v2540-added)
     * [Changed](#en-v2540-changed)
-17. [v2.5.3.0 — 2026-07-31](#en-v2530)
+18. [v2.5.3.0 — 2026-07-31](#en-v2530)
     * [Summary](#en-v2530-summary)
     * [Added](#en-v2530-added)
     * [Changed](#en-v2530-changed)
-18. [v2.5.2.1 — 2026-07-31](#en-v2521)
+19. [v2.5.2.1 — 2026-07-31](#en-v2521)
     * [Summary](#en-v2521-summary)
     * [Changed](#en-v2521-changed)
-19. [v2.5.2.0 — 2026-07-25](#en-v2520)
+20. [v2.5.2.0 — 2026-07-25](#en-v2520)
     * [Summary](#en-v2520-summary)
     * [Changed](#en-v2520-changed)
-20. [Introduction](#en-introduction)
-21. [v2.5.1.0 — 2026-07-23](#en-v2510)
+21. [Introduction](#en-introduction)
+22. [v2.5.1.0 — 2026-07-23](#en-v2510)
     * [Summary](#en-v2510-summary)
     * [Changed](#en-v2510-changed)
-22. [v2.5.0.0 — 2026-07-21](#en-v2500)
+23. [v2.5.0.0 — 2026-07-21](#en-v2500)
     * [Summary](#en-v2500-summary)
     * [Added](#en-v2500-added)
     * [Removed](#en-v2500-removed)
-23. [v2.4.2.0 — 2026-07-21](#en-v2420)
+24. [v2.4.2.0 — 2026-07-21](#en-v2420)
     * [Summary](#en-v2420-summary)
-24. [v2.4.1.0 — 2026-07-12](#en-v2410)
+25. [v2.4.1.0 — 2026-07-12](#en-v2410)
     * [Summary](#en-v2410-summary)
     * [Removed](#en-v2410-removed)
     * [Changed](#en-v2410-changed)
-25. [v2.4.0.0 — 2026-07-11](#en-v2400)
+26. [v2.4.0.0 — 2026-07-11](#en-v2400)
     * [Summary](#en-v2400-summary)
     * [Added](#en-v2400-added)
     * [Changed](#en-v2400-changed)
-26. [v2.3.1.0 — 2026-07-10](#en-v2310)
+27. [v2.3.1.0 — 2026-07-10](#en-v2310)
     * [Summary](#en-v2310-summary)
     * [Added](#en-v2310-added)
     * [Changed](#en-v2310-changed)
-27. [v2.3.0.0 — 2026-07-09](#en-v2300)
+28. [v2.3.0.0 — 2026-07-09](#en-v2300)
     * [Summary](#en-v2300-summary)
     * [Added](#en-v2300-added)
     * [Changed](#en-v2300-changed)
     * [Notes](#en-v2300-notes)
-28. [v2.2.1.0 — 2026-07-07](#en-v2210)
+29. [v2.2.1.0 — 2026-07-07](#en-v2210)
     * [Summary](#en-v2210-summary)
     * [Added](#en-v2210-added)
     * [Changed](#en-v2210-changed)
-29. [v2.2.0.2 — 2026-07-07](#en-v2202)
+30. [v2.2.0.2 — 2026-07-07](#en-v2202)
     * [Summary](#en-v2202-summary)
     * [Changed](#en-v2202-changed)
     * [Removed](#en-v2202-removed)
-30. [v2.2.0.1 — 2026-07-06](#en-v2201)
+31. [v2.2.0.1 — 2026-07-06](#en-v2201)
     * [Summary](#en-v2201-summary)
-31. [v2.2.0 — 2026-07-06](#en-v220)
+32. [v2.2.0 — 2026-07-06](#en-v220)
     * [Summary](#en-v220-summary)
     * [Added](#en-v220-added)
     * [Changed](#en-v220-changed)
-32. [v2.1.6 — 2026-07-05](#en-v216)
+33. [v2.1.6 — 2026-07-05](#en-v216)
     * [Summary](#en-v216-summary)
     * [Added](#en-v216-added)
     * [Removed](#en-v216-removed)
     * [Changed](#en-v216-changed)
-33. [v2.1.5 — 2026-07-03](#en-v215)
+34. [v2.1.5 — 2026-07-03](#en-v215)
     * [Summary](#en-v215-summary)
     * [Changed](#en-v215-changed)
-34. [v2.1.4 — 2026-06-27](#en-v214)
+35. [v2.1.4 — 2026-06-27](#en-v214)
     * [Summary](#en-v214-summary)
     * [Changed](#en-v214-changed)
-35. [v2.1.3 — 2026-06-26](#en-v213)
+36. [v2.1.3 — 2026-06-26](#en-v213)
     * [Summary](#en-v213-summary)
     * [Changed](#en-v213-changed)
-36. [v2.1.2 — 2026-06-18](#en-v212)
+37. [v2.1.2 — 2026-06-18](#en-v212)
     * [Summary](#en-v212-summary)
     * [Changed](#en-v212-changed)
-37. [v2.1.1 — 2026-06-18](#en-v211)
+38. [v2.1.1 — 2026-06-18](#en-v211)
     * [Summary](#en-v211-summary)
     * [Fixed](#en-v211-fixed)
-38. [v2.1 — 2026-06-16](#en-v21)
+39. [v2.1 — 2026-06-16](#en-v21)
     * [Summary](#en-v21-summary)
     * [Added](#en-v21-added)
     * [Changed](#en-v21-changed)
     * [Statistics](#en-v21-statistics)
-39. [v2.0 — 2026-06-16](#en-v20)
+40. [v2.0 — 2026-06-16](#en-v20)
     * [Summary](#en-v20-summary)
     * [Added](#en-v20-added)
     * [Changed](#en-v20-changed)
     * [Statistics](#en-v20-statistics)
-40. [v1.2.2 — 2026-06-13](#en-v122)
+41. [v1.2.2 — 2026-06-13](#en-v122)
     * [Summary](#en-v122-summary)
     * [Changed](#en-v122-changed)
-41. [v1.2.1 — 2026-06-13](#en-v121)
+42. [v1.2.1 — 2026-06-13](#en-v121)
     * [Changed](#en-v121-changed)
-42. [v1.2 — 2026-06-12](#en-v12)
+43. [v1.2 — 2026-06-12](#en-v12)
     * [Summary](#en-v12-summary)
-43. [v1.1.1 — 2026-06-12](#en-v111)
+44. [v1.1.1 — 2026-06-12](#en-v111)
     * [Fixed](#en-v111-fixed)
-44. [v1.1 — 2026-06-12](#en-v11)
+45. [v1.1 — 2026-06-12](#en-v11)
     * [Summary](#en-v11-summary)
-45. [v1.0.1 — 2026-06-11](#en-v101)
+46. [v1.0.1 — 2026-06-11](#en-v101)
     * [Fixed](#en-v101-fixed)
-46. [v1.0 — 2026-06-08](#en-v10)
+47. [v1.0 — 2026-06-08](#en-v10)
     * [Summary](#en-v10-summary)
-47. [Notes](#en-notes)
+48. [Notes](#en-notes)
 
 
 ---
@@ -182,6 +186,51 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-v2811"></a>
+
+## [v2.8.1.1] — 2026-09-26
+
+<a id="en-v2811-summary"></a>
+
+### Summary
+
+**ExpandString registry type reporting fix, and two dead Brave-only policies removed from the ADMX/ADML templates.** v2.8.1.1 closes a reporting gap: the startup summary and the console report counted and displayed only three registry value types, silently omitting `ExpandString` — the type used by `DownloadDirectory`, the one policy in the registry that is neither DWord, String, nor MultiString. The policy catalog additionally carried stale EN/TR source headers. Separately, `BraveLocalAIEnabled` and `PsstEnabled` were removed from `admx/brave.admx` and `admx/brave.adml`: both are inactive in Brave and do not function, and both had survived earlier script-level removals inside the shipped templates, so the ADMX kept advertising controls the project does not manage. No policy or registry value changed: totals remain **151** across 5 tiers; the cumulative chain remains 24 → 51 → 83 → 123 → 151, and the true type distribution is 124 DWord / 7 String / 19 MultiString / 1 ExpandString.
+
+| Metric | Before (v2.8.1.0) | After (v2.8.1.1) |
+|--------|-------------------|-------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 151 | **151** (no change) |
+| Cumulative chain | 24→51→83→123→151 | **24→51→83→123→151** |
+| Script version | v2.8.1.0 | v2.8.1.1 |
+| Validated Brave | 1.96.59 | 1.96.59 (unchanged) |
+| Validated Chromium | 154.0.8037.58 | 154.0.8037.58 (unchanged) |
+| Registry types reported | 3 (DWord, String, MultiString) | **4** (DWord, String, MultiString, ExpandString) |
+| ADMX policy entries | 766 | **764** (two dead policies removed) |
+| ADMX warnings from `admx-validate.ps1` | 2 | **0** |
+
+<a id="en-v2811-removed"></a>
+
+### Removed
+
+- **`BraveLocalAIEnabled`** — `<policy>` block, both string resources (`BraveLocalAIEnabled`, `BraveLocalAIEnabled_Explain`) and the `<presentation id="BraveLocalAIEnabled"/>` reference deleted from the ADMX/ADML. An Origin-only policy (Brave PR #37357) that was already removed from `BraveOmega.ps1` in v2.2.0.1 and re-introduced to the template by a later upstream refresh in v2.5.0.0; v2.8.1.1 removes it for good.
+- **`PsstEnabled`** — same treatment: `<policy>` block, both string resources and the `<presentation id="PsstEnabled"/>` reference deleted. This Privacy Settings Tuning Tool switch was never managed by `BraveOmega.ps1`, `config.json` or any profile, so it applied no hardening while advertising a non-functional control. No technical root cause is claimed for its non-functioning; the decision rests on user verification against Brave 1.96.59.
+- `admx/brave.admx` carries a comment recording both exclusions and pointing at `Wiki/Rejected-Policies.md`; the upstream `154.1.98.28` base stamp is left intact so the divergence from upstream stays traceable.
+- `admx/admx-validate.ps1` — the category-check comment cited `PsstEnabled` as its example of a Brave-only policy without the `Brave` name prefix; since that policy no longer exists, the example now points at `TorDisabled` / `EmailAliasesEnabled` and the check is documented as a forward-looking guard. The 7 remaining Brave-only policies are still all covered by the script.
+- `Wiki/Rejected-Policies.md` — `BraveLocalAIEnabled` entry extended with the re-introduction and the final ADMX removal; `PsstEnabled` added as a new record. The ledger now holds **35** rejected/removed policies (up from 34) with the "Unrecognized by Brave" bucket at 12. The removal timeline, category table, lessons learned and footer are updated in both languages.
+- Historical references are untouched: the v2.8.1.0 changelog entries that first reported these two warnings, the v2.2.0.1 roadmap and version-matrix entries, and the `index.html` release notes all remain as published.
+
+<a id="en-v2811-fixed"></a>
+
+### Fixed
+
+- **BraveOmega.ps1** — `$ScriptVersion` → `v2.8.1.1`; the EN/TR `$SummaryTypes` formats carry a fourth field; the type counter now initialises `"ExpandString" = 0`; the summary call passes the fourth counter; the registry type parser accepts `ExpandString`.
+- **docs/policy-catalog.md** — `DownloadDirectory` documented as `ExpandString` in both the EN and TR tables; the type-distribution line and the per-type tables report the fourth type; the stale TR source version, date, and validation header corrected to v2.8.1.1 / 2026-09-26.
+- **Version surfaces** — README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `enterprise/levels.json`, and the `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test expectations aligned to `v2.8.1.1`; historical `v2.8.1.0` changelog and roadmap entries left intact.
+- **Tests** — new `Tests/TypeDistribution.Tests.ps1` derives the distribution from the data layer and asserts the 151-policy total, the four supported types, the runtime counters, and every catalog row. Confirmed by mutation: reverting the script to three types and desynchronising the catalog each fail four tests.
+- Registry payloads and policy values are unchanged — `.reg` output stays byte-identical.
 
 ---
 
@@ -1730,7 +1779,7 @@ Files Modified:
   ? CHANGELOG.md (v2.0 entry)
   ? index.html (4-tier system, version references)
   ? SECURITY.md (new file, 500+ lines)
-  ? Knowledge-Intelligence/README.md (source updates)
+  ? Knowledge source updates
 
 Policies:
   ? Brave Only:  13 Brave-specific policies
@@ -2098,171 +2147,175 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v2.8.1.0 — 2026-09-25](#tr-v2810)
+1. [v2.8.1.1 — 2026-09-26](#tr-v2811)
+    * [Özet](#tr-v2811-ozet)
+    * [Kaldırıldı](#tr-v2811-kaldirildi)
+    * [Düzeltildi](#tr-v2811-duzeltildi)
+2. [v2.8.1.0 — 2026-09-25](#tr-v2810)
     * [Özet](#tr-v2810-ozet)
     * [Değiştirildi](#tr-v2810-degistirildi)
-2. [v2.8.0.0 — 2026-09-22](#tr-v2800)
+3. [v2.8.0.0 — 2026-09-22](#tr-v2800)
     * [Özet](#tr-v2800-ozet)
     * [Değiştirildi](#tr-v2800-degistirildi)
-3. [v2.7.3.0 — 2026-09-19](#tr-v2730)
+4. [v2.7.3.0 — 2026-09-19](#tr-v2730)
     * [Özet](#tr-v2730-ozet)
     * [Değiştirildi](#tr-v2730-degistirildi)
-4. [v2.7.2.0 — 2026-09-18](#tr-v2720)
+5. [v2.7.2.0 — 2026-09-18](#tr-v2720)
     * [Özet](#tr-v2720-ozet)
     * [Değiştirildi](#tr-v2720-degistirildi)
-5. [v2.7.1.0 — 2026-09-11](#tr-v2710)
+6. [v2.7.1.0 — 2026-09-11](#tr-v2710)
     * [Özet](#tr-v2710-ozet)
     * [Değiştirildi](#tr-v2710-degistirildi)
-6. [v2.7.0.0 — 2026-09-09](#tr-v2700)
+7. [v2.7.0.0 — 2026-09-09](#tr-v2700)
     * [Özet](#tr-v2700-ozet)
     * [Eklendi](#tr-v2700-eklendi)
     * [Değiştirildi](#tr-v2700-degistirildi)
-7. [v2.6.2.0 — 2026-09-07](#tr-v2620)
+8. [v2.6.2.0 — 2026-09-07](#tr-v2620)
     * [Özet](#tr-v2620-ozet)
     * [Değiştirildi](#tr-v2620-degistirildi)
-8. [v2.6.1.1 — 2026-09-06](#tr-v2611)
+9. [v2.6.1.1 — 2026-09-06](#tr-v2611)
     * [Özet](#tr-v2611-ozet)
     * [Değiştirildi](#tr-v2611-degistirildi)
-9. [v2.6.1.0 — 2026-08-31](#tr-v2610)
+10. [v2.6.1.0 — 2026-08-31](#tr-v2610)
     * [Özet](#tr-v2610-ozet)
     * [Kaldırıldı](#tr-v2610-kaldirildi)
     * [Değiştirildi](#tr-v2610-degistirildi)
-10. [v2.6.0.0 — 2026-08-29](#tr-v2600)
+11. [v2.6.0.0 — 2026-08-29](#tr-v2600)
     * [Özet](#tr-v2600-ozet)
     * [Eklendi](#tr-v2600-eklendi)
     * [Değiştirildi](#tr-v2600-degistirildi)
-11. [v2.5.5.4 — 2026-08-27](#tr-v2554)
+12. [v2.5.5.4 — 2026-08-27](#tr-v2554)
     * [Özet](#tr-v2554-ozet)
     * [Değiştirildi](#tr-v2554-degistirildi)
-12. [v2.5.5.3 — 2026-08-22](#tr-v2553)
+13. [v2.5.5.3 — 2026-08-22](#tr-v2553)
     * [Özet](#tr-v2553-ozet)
     * [Değiştirildi](#tr-v2553-degistirildi)
-13. [v2.5.5.2 — 2026-08-13](#tr-v2552)
+14. [v2.5.5.2 — 2026-08-13](#tr-v2552)
     * [Özet](#tr-v2552-ozet)
     * [Düzeltildi](#tr-v2552-duzeltildi)
     * [Değiştirildi](#tr-v2552-degistirildi)
-14. [v2.5.5.1 — 2026-08-01](#tr-v2551)
+15. [v2.5.5.1 — 2026-08-01](#tr-v2551)
     * [Özet](#tr-v2551-ozet)
     * [Değiştirildi](#tr-v2551-degistirildi)
-15. [v2.5.5.0 — 2026-08-01](#tr-v2550)
+16. [v2.5.5.0 — 2026-08-01](#tr-v2550)
     * [Özet](#tr-v2550-ozet)
     * [Değiştirildi](#tr-v2550-degistirildi)
-16. [v2.5.4.0 — 2026-07-31](#tr-v2540)
+17. [v2.5.4.0 — 2026-07-31](#tr-v2540)
     * [Özet](#tr-v2540-ozet)
     * [Eklendi](#tr-v2540-eklendi)
     * [Değiştirildi](#tr-v2540-degistirildi)
-17. [v2.5.3.0 — 2026-07-31](#tr-v2530)
+18. [v2.5.3.0 — 2026-07-31](#tr-v2530)
     * [Özet](#tr-v2530-ozet)
     * [Eklendi](#tr-v2530-eklendi)
     * [Değiştirildi](#tr-v2530-degistirildi)
-18. [v2.5.2.1 — 2026-07-31](#tr-v2521)
+19. [v2.5.2.1 — 2026-07-31](#tr-v2521)
     * [Özet](#tr-v2521-ozet)
     * [Değiştirildi](#tr-v2521-degistirildi)
-19. [v2.5.2.0 — 2026-07-25](#tr-v2520)
+20. [v2.5.2.0 — 2026-07-25](#tr-v2520)
     * [Özet](#tr-v2520-ozet)
     * [Değiştirildi](#tr-v2520-degistirildi)
-20. [Giriş](#tr-introduction)
-21. [v2.5.1.0 — 2026-07-23](#tr-v2510)
+21. [Giriş](#tr-introduction)
+22. [v2.5.1.0 — 2026-07-23](#tr-v2510)
     * [Özet](#tr-v2510-ozet)
     * [Değiştirildi](#tr-v2510-degistirildi)
-22. [v2.5.0.0 — 2026-07-21](#tr-v2500)
+23. [v2.5.0.0 — 2026-07-21](#tr-v2500)
     * [Özet](#tr-v2500-ozet)
     * [Eklendi](#tr-v2500-eklendi)
     * [Kaldırıldı](#tr-v2500-kaldirildi)
-23. [v2.4.2.0 — 2026-07-21](#tr-v2420)
+24. [v2.4.2.0 — 2026-07-21](#tr-v2420)
     * [Özet](#tr-v2420-ozet)
-24. [v2.4.1.0 — 2026-07-12](#tr-v2410)
+25. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
     * [Eklendi](#tr-v2410-eklendi)
     * [Değiştirildi](#tr-v2410-degistirildi)
-25. [v2.4.0.0 — 2026-07-11](#tr-v2400)
+26. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
     * [Eklendi](#tr-v2400-eklendi)
     * [Değiştirildi](#tr-v2400-degistirildi)
-26. [v2.3.1.0 — 2026-07-10](#tr-v2310)
+27. [v2.3.1.0 — 2026-07-10](#tr-v2310)
     * [Özet](#tr-v2310-ozet)
     * [Eklendi](#tr-v2310-eklendi)
     * [Değiştirildi](#tr-v2310-degistirildi)
-27. [v2.3.0.0 — 2026-07-09](#tr-v2300)
+28. [v2.3.0.0 — 2026-07-09](#tr-v2300)
     * [Özet](#tr-v2300-ozet)
     * [Eklendi](#tr-v2300-eklendi)
     * [Değiştirildi](#tr-v2300-degisti)
     * [Notlar](#tr-v2300-notlar)
-28. [v2.2.1.0 — 2026-07-07](#tr-v2210)
+29. [v2.2.1.0 — 2026-07-07](#tr-v2210)
     * [Özet](#tr-v2210-ozet)
     * [Eklendi](#tr-v2210-eklendi)
     * [Değiştirildi](#tr-v2210-degisti)
-29. [v2.2.0.2 — 2026-07-07](#tr-v2202)
+30. [v2.2.0.2 — 2026-07-07](#tr-v2202)
     * [Özet](#tr-v2202-ozet)
     * [Değiştirildi](#tr-v2202-degisti)
-30. [v2.2.0.1 — 2026-07-06](#tr-v2201)
+31. [v2.2.0.1 — 2026-07-06](#tr-v2201)
     * [Özet](#tr-v2201-ozet)
-31. [v2.2.0 — 2026-07-06](#tr-v220)
+32. [v2.2.0 — 2026-07-06](#tr-v220)
     * [Özet](#tr-v220-ozet)
     * [Eklendi](#tr-v220-eklendi)
     * [Değiştirildi](#tr-v220-degistirildi)
-32. [v2.1.6 — 2026-07-05](#tr-v216)
+33. [v2.1.6 — 2026-07-05](#tr-v216)
     * [Özet](#tr-v216-summary)
     * [Eklendi](#tr-v216-added)
     * [Kaldırıldı](#tr-v216-removed)
     * [Değiştirildi](#tr-v216-changed)
-33. [v2.1.5 — 2026-07-03](#tr-v215)
+34. [v2.1.5 — 2026-07-03](#tr-v215)
     * [Özet](#tr-v215-summary)
     * [Değiştirildi](#tr-v215-changed)
-34. [v2.1.4 — 2026-06-27](#tr-v214)
+35. [v2.1.4 — 2026-06-27](#tr-v214)
     * [Özet](#tr-v214-summary)
     * [Değiştirildi](#tr-v214-changed)
-35. [v2.1.3 — 2026-06-26](#tr-v213)
+36. [v2.1.3 — 2026-06-26](#tr-v213)
     * [Özet](#tr-v213-summary)
     * [Değiştirildi](#tr-v213-changed)
-36. [v2.1.2 — 2026-06-18](#tr-v212)
+37. [v2.1.2 — 2026-06-18](#tr-v212)
     * [Özet](#tr-v212-summary)
     * [Değiştirildi](#tr-v212-changed)
-37. [v2.1.1 — 2026-06-18](#tr-v211)
+38. [v2.1.1 — 2026-06-18](#tr-v211)
     * [Özet](#tr-v211-summary)
     * [Düzeltildi](#tr-v211-fixed)
-38. [v2.1 — 2026-06-16](#tr-v21)
+39. [v2.1 — 2026-06-16](#tr-v21)
     * [Özet](#tr-v21-summary)
     * [Eklendi](#tr-v21-added)
     * [Değiştirildi](#tr-v21-changed)
     * [İstatistikler](#tr-v21-statistics)
-39. [v2.0 — 2026-06-16](#tr-v20)
+40. [v2.0 — 2026-06-16](#tr-v20)
     * [Özet](#tr-v20-summary)
     * [Eklendi](#tr-v20-added)
     * [Değiştirildi](#tr-v20-changed)
     * [İstatistikler](#tr-v20-statistics)
-40. [v1.2.2 — 2026-06-13](#tr-v122)
+41. [v1.2.2 — 2026-06-13](#tr-v122)
     * [Özet](#tr-v122-summary)
     * [Değiştirildi](#tr-v122-changed)
-41. [v1.2.1 — 2026-06-13](#tr-v121)
+42. [v1.2.1 — 2026-06-13](#tr-v121)
     * [Özet](#tr-v121-summary)
     * [Değiştirildi](#tr-v121-changed)
-42. [v1.2 — 2026-06-12](#tr-v12)
+43. [v1.2 — 2026-06-12](#tr-v12)
     * [Özet](#tr-v12-summary)
     * [Eklendi](#tr-v12-added)
     * [İstatistikler](#tr-v12-statistics)
     * [Değiştirildi](#tr-v12-changed)
     * [Güvenlik](#tr-v12-security)
-43. [v1.1.1 — 2026-06-12](#tr-v111)
+44. [v1.1.1 — 2026-06-12](#tr-v111)
     * [Özet](#tr-v111-ozet)
     * [Düzeltildi](#tr-v111-duzeltildi)
-44. [v1.1 — 2026-06-05](#tr-v11)
+45. [v1.1 — 2026-06-05](#tr-v11)
     * [Özet](#tr-v11-summary)
     * [Eklendi](#tr-v11-added)
     * [Değiştirildi](#tr-v11-changed)
     * [Kaldırıldı](#tr-v11-removed)
     * [Detaylar](#tr-v11-details)
-45. [v1.0.1 — 2026-06-04](#tr-v101)
+46. [v1.0.1 — 2026-06-04](#tr-v101)
     * [Özet](#tr-v101-ozet)
     * [Düzeltildi](#tr-v101-duzeltildi)
-46. [v1.0 — 2026-06-04](#tr-v10)
+47. [v1.0 — 2026-06-04](#tr-v10)
     * [Özet](#tr-v10-summary)
     * [Özellikler](#tr-v10-features)
     * [Başlangıç Politikaları](#tr-v10-initial-policies)
     * [Belgelendirme](#tr-v10-documentation)
-47. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
-48. [İlgili Belgelendirme](#tr-related-documentation)
-49. [Notlar](#tr-notes)
+48. [Sürüm Geçmişi Özeti](#tr-version-history-summary)
+49. [İlgili Belgelendirme](#tr-related-documentation)
+50. [Notlar](#tr-notes)
 
 
 ---
@@ -2270,6 +2323,51 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-v2811"></a>
+
+## [v2.8.1.1] — 2026-09-26
+
+<a id="tr-v2811-ozet"></a>
+
+### Özet
+
+**ExpandString kayıt türü raporlama düzeltmesi ve iki ölü Brave'e özgü politikanın ADMX/ADML şablonlarından kaldırılması.** v2.8.1.1 bir raporlama boşluğunu kapatır: başlangıç özeti ve konsol raporu yalnız üç kayıt değer türünü sayıyor ve gösteriyordu; `DownloadDirectory` politikasının kullandığı ve ne DWord ne String ne de MultiString olan `ExpandString` türü sessizce dışarıda kalıyordu. Politika kataloğunda ayrıca bayat EN/TR kaynak başlıkları bulunuyordu. Ayrıca `BraveLocalAIEnabled` ve `PsstEnabled`, `admx/brave.admx` ve `admx/brave.adml` dosyalarından kaldırıldı: ikisi de Brave'de etkin değil ve işlevsel değil; ikisi de daha önce betik düzeyinde yapılan kaldırmalardan sonra sevk edilen şablonlarda hayatta kaldığı için ADMX, projenin yönetmediği kontrolleri tanıtmaya devam ediyordu. Politika veya kayıt değeri değişikliği yoktur: 5 seviyede toplam **151**; kümülatif zincir 24 → 51 → 83 → 123 → 151 olarak kalır ve gerçek tür dağılımı 124 DWord / 7 String / 19 MultiString / 1 ExpandString'dir.
+
+| Metrik | Önce (v2.8.1.0) | Sonra (v2.8.1.1) |
+|--------|-----------------|-------------------|
+| Sıkılaştırma seviyesi | 5 | 5 |
+| Toplam politika | 151 | **151** (değişiklik yok) |
+| Kümülatif zincir | 24→51→83→123→151 | **24→51→83→123→151** |
+| Betik sürümü | v2.8.1.0 | v2.8.1.1 |
+| Doğrulanan Brave | 1.96.59 | 1.96.59 (değişmedi) |
+| Doğrulanan Chromium | 154.0.8037.58 | 154.0.8037.58 (değişmedi) |
+| Raporlanan kayıt türü | 3 (DWord, String, MultiString) | **4** (DWord, String, MultiString, ExpandString) |
+| ADMX politika girişi | 766 | **764** (iki ölü politika kaldırıldı) |
+| `admx-validate.ps1` ADMX uyarısı | 2 | **0** |
+
+<a id="tr-v2811-kaldirildi"></a>
+
+### Kaldırıldı
+
+- **`BraveLocalAIEnabled`** — `<policy>` bloğu, iki string kaynağı (`BraveLocalAIEnabled`, `BraveLocalAIEnabled_Explain`) ve `<presentation id="BraveLocalAIEnabled"/>` referansı ADMX/ADML'den silindi. Brave PR #37357 kapsamında bir Yalnızca origin politikasıydı; `BraveOmega.ps1`'den zaten v2.2.0.1'de kaldırılmış, sonraki bir yukarı akış tazelemesiyle v2.5.0.0'de şablona yeniden gelmişti. v2.8.1.1 onu kalıcı olarak kaldırıyor.
+- **`PsstEnabled`** — aynı işlem: `<policy>` bloğu, iki string kaynağı ve `<presentation id="PsstEnabled"/>` referansı silindi. Bu Privacy Settings Tuning Tool ana anahtarı `BraveOmega.ps1`, `config.json` veya hiçbir profil tarafından yönetilmedi; dolayısıyla işlevsiz bir kontrolü tanıtırken hiçbir sıkılaştırma uygulamıyordu. İşlevsizliği için teknik bir kök neden iddiasında bulunulmaz; karar Brave 1.96.59 üzerinde kullanıcı doğrulamasına dayanır.
+- `admx/brave.admx` her iki istisnayı kaydeden ve `Wiki/Rejected-Policies.md`'ye işaret eden bir yorum taşır; yukarı akış `154.1.98.28` temel damgası bozulmadan bırakıldı, böylece yukarı akıştan ayrışma izlenebilir kalır.
+- `admx/admx-validate.ps1` — kategori kontrolü yorumu, `Brave` ad ön eki olmayan bir Brave'e özgü politika örneği olarak `PsstEnabled`'i gösteriyordu; bu politika artık var olmadığından örnek artık `TorDisabled` / `EmailAliasesEnabled` değerlerine işaret ediyor ve kontrol ileriye dönük bir koruma olarak belgeleniyor. Kalan 7 Brave'e özgü politikanın tamamı hâlâ betik tarafından kapsanıyor.
+- `Wiki/Rejected-Policies.md` — `BraveLocalAIEnabled` kaydı yeniden eklenme ve nihai ADMX kaldırma bilgisiyle genişletildi; `PsstEnabled` yeni kayıt olarak eklendi. Defter artık **35** reddedilen/kaldırılan politika tutuyor (34'ten) ve "Brave tarafından tanınmayan" kovası 12. Kaldırma zaman çizelgesi, kategori tablosu, öğrenilen dersler ve footer iki dilde güncellendi.
+- Tarihsel referanslara dokunulmadı: bu iki uyarıyı ilk kez bildiren `v2.8.1.0` changelog kayıtları, v2.2.0.1 roadmap ve sürüm matrisi kayıtları ve `index.html` sürüm notları yayımlandıkları hâliyle korunuyor.
+
+<a id="tr-v2811-duzeltildi"></a>
+
+### Düzeltildi
+
+- **BraveOmega.ps1** — `$ScriptVersion` → `v2.8.1.1`; EN/TR `$SummaryTypes` biçimleri dördüncü alanı taşıyor; tür sayacı artık `"ExpandString" = 0` ile başlatılıyor; özet çağrısı dördüncü sayacı geçiyor; kayıt türü ayrıştırıcısı `ExpandString` değerini kabul ediyor.
+- **docs/policy-catalog.md** — `DownloadDirectory` EN ve TR tablolarında `ExpandString` olarak belgelendi; tür dağılımı satırı ve tür tabloları dördüncü türü raporluyor; bayat TR kaynak sürüm, tarih ve doğrulama başlığı v2.8.1.1 / 2026-09-26 olarak düzeltildi.
+- **Sürüm yüzeyleri** — README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `enterprise/levels.json` ve `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test beklentileri `v2.8.1.1` ile hizalandı; tarihsel `v2.8.1.0` changelog ve roadmap kayıtları korundu.
+- **Testler** — yeni `Tests/TypeDistribution.Tests.ps1` tür dağılımını veri katmanından türetir ve 151 politika toplamını, dört desteklenen türü, çalışma zamanı sayaçlarını ve katalogdaki her satırı doğrular. Mutasyonla doğrulandı: betiği üç türe geri almak ve katalogu kaydırmak her birinde dört testi başarısız kılıyor.
+- Kayıt yükleri ve politika değerleri değişmedi — `.reg` çıktısı bayt-bayt aynı kalıyor.
 
 ---
 
@@ -3821,7 +3919,7 @@ Değiştirilen Dosyalar:
   ? CHANGELOG.md (v2.0 girdisi)
   ? index.html (4 kademeli sistem, sürüm referansları)
   ? SECURITY.md (yeni dosya, 500+ satır)
-  ? Knowledge-Intelligence/README.md (kaynak güncellemeleri)
+  ? Kaynak güncellemeleri
 
 Politikalar:
   ? Brave Yalnız:  13 Brave'e özgü politika

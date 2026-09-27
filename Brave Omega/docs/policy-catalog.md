@@ -17,10 +17,10 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega.ps1` v2.8.1.0 (bilingual EN/TR)  
-> **Date:** 2026-09-25  
+> **Generated from:** `BraveOmega.ps1` v2.8.1.1 (bilingual EN/TR)  
+> **Date:** 2026-09-26  
 > **Total unique policies:** 151 (no overlaps)  
-> **Type distribution:** 124 DWord · 8 String · 19 MultiString  
+> **Type distribution:** 124 DWord · 7 String · 19 MultiString · 1 ExpandString  
 > **Validated on:** Brave 1.96.59 / Chromium 154.0.8037.58 / Windows 11 25H2 (Build 26200.9550)
 
 ---
@@ -119,7 +119,7 @@
 | 74 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Balanced | Windows | Background timer throttling |
 | 75 | `UserFeedbackAllowed` | DWord | `0` | Balanced | Windows | User feedback prompts |
 | 76 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Balanced | Windows | Force-installed extension |
-| 77 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Balanced | Windows | Download path |
+| 77 | `DownloadDirectory` | ExpandString | `${env:USERPROFILE}\Downloads\` | Balanced | Windows | Download path |
 | 78 | `PromptForDownloadLocation` | DWord | `0` | Balanced | Windows | Download location prompt |
 | 79 | `RelaunchNotification` | DWord | `2` | Balanced | Windows | Browser relaunch notification |
 | 80 | `RelaunchNotificationPeriod` | DWord | `3600000` | Balanced | Windows | Relaunch timer (1 hour) |
@@ -221,8 +221,9 @@ Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, pri
 | Type | Count | Percentage |
 |------|-------|------------|
 | DWord | 124 | 82.1% |
-| String | 8 | 5.3% |
+| String | 7 | 4.6% |
 | MultiString | 19 | 12.6% |
+| ExpandString | 1 | 0.7% |
 | **Total (unique)** | **151** | **100%** |
 
 ---
@@ -255,11 +256,11 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega.ps1` v2.8.0.0 (iki dilli EN/TR)  
-> **Tarih:** 2026-09-19  
+> **Kaynak:** `BraveOmega.ps1` v2.8.1.1 (iki dilli EN/TR)  
+> **Tarih:** 2026-09-26  
 > **Toplam benzersiz politika:** 151 (çakışma yok)  
-> **Tür dağılımı:** 124 DWord · 8 String · 19 MultiString  
-> **Doğrulandı:** Brave 1.95.104 / Chromium 153.0.8010.53 / Windows 11 25H2 (Derleme 26200.9457)
+> **Tür dağılımı:** 124 DWord · 7 String · 19 MultiString · 1 ExpandString  
+> **Doğrulandı:** Brave 1.96.59 / Chromium 154.0.8037.58 / Windows 11 25H2 (Derleme 26200.9550)
 
 ---
 
@@ -357,7 +358,7 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 74 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Dengeli | Windows | Arka plan zamanlayıcı kısıtlaması |
 | 75 | `UserFeedbackAllowed` | DWord | `0` | Dengeli | Windows | Kullanıcı geri bildirim istemleri |
 | 76 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Dengeli | Windows | Zorunlu eklenti |
-| 77 | `DownloadDirectory` | String | `${env:USERPROFILE}\Downloads\` | Dengeli | Windows | İndirme yolu |
+| 77 | `DownloadDirectory` | ExpandString | `${env:USERPROFILE}\Downloads\` | Dengeli | Windows | İndirme yolu |
 | 78 | `PromptForDownloadLocation` | DWord | `0` | Dengeli | Windows | İndirme konumu istemi |
 | 79 | `RelaunchNotification` | DWord | `2` | Dengeli | Windows | Tarayıcı yeniden başlatma bildirimi |
 | 80 | `RelaunchNotificationPeriod` | DWord | `3600000` | Dengeli | Windows | Yeniden başlatma zamanlayıcı (1 saat) |
@@ -459,8 +460,9 @@ Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirme
 | Tür | Adet | Yüzde |
 |-----|------|-------|
 | DWord | 124 | %82,1 |
-| String | 8 | %5,3 |
+| String | 7 | %4,6 |
 | MultiString | 19 | %12,6 |
+| ExpandString | 1 | %0,7 |
 | **Toplam (benzersiz)** | **151** | **%100** |
 
 ---

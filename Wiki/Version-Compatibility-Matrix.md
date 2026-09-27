@@ -13,7 +13,7 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.8.1.0** ✅ | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | ✅ Active | 2026-09-25 |
+| **v2.8.1.1** ✅ | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | ✅ Active | 2026-09-26 |
 | v2.8.0.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Previous | 2026-09-22 |
 | v2.7.3.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Previous | 2026-09-19 |
 | **v2.7.2.0** 📦 | 1.95.102 | 153.0.8010.48 | Windows 11 25H2 | 📦 Previous | 2026-09-18 |
@@ -81,7 +81,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.8.1.0) If
+### Use Current (v2.8.1.1) If
 
 - Running Brave 1.96.59 (latest stable)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
@@ -89,7 +89,7 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ### Use Previous (v2.8.0.0) If
 
-- Cannot update to v2.8.1.0 immediately
+- Cannot update to v2.8.1.1 immediately
 - Running Brave 1.95.104
 
 ### Use Legacy (v2.2.1.0) If
@@ -234,7 +234,7 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.8.1.0** ✅ | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | ✅ Etkin | 2026-09-25 |
+| **v2.8.1.1** ✅ | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | ✅ Etkin | 2026-09-26 |
 | v2.8.0.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Önceki | 2026-09-22 |
 | v2.7.3.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Önceki | 2026-09-19 |
 | **v2.7.2.0** 📦 | 1.95.102 | 153.0.8010.48 | Windows 11 25H2 | 📦 Önceki | 2026-09-18 |
@@ -303,7 +303,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.8.1.0) Kullan Eğer
+### Güncel (v2.8.1.1) Kullan Eğer
 
 - Brave 1.96.59 (en güncel kararlı) çalışıyorsa
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
@@ -311,7 +311,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Önceki (v2.8.0.0) Kullan Eğer
 
-- Hemen v2.8.1.0'a güncelleyemiyorsanız
+- Hemen v2.8.1.1'a güncelleyemiyorsanız
 - Brave 1.95.104 çalışıyorsa
 
 ### Eski (v2.2.1.0) Kullan Eğer

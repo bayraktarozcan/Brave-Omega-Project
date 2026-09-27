@@ -17,8 +17,31 @@
 #    The stable branch is always recommended for enterprise deployment.
 #    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
 #
-# CHANGELOG (v2.8.1.0)
+# CHANGELOG (v2.8.1.1)
 # ─────────────────────────────────────────────────────────────────────────────
+# v2.8.1.1             Patch release — ExpandString reporting fix:
+#
+#     [FIXED]        The "Types Applied" summary omitted REG_EXPAND_SZ. The
+#                   type counter was seeded with only DWord/String/
+#                   MultiString, so the ExpandString policy
+#                   (DownloadDirectory, inherited from the Balanced tier)
+#                   was applied but never counted. On the Balanced,
+#                   Advanced, and Strict tiers the three reported numbers
+#                   summed to one less than the applied policy count.
+#                   The counter and the EN/TR summary format now carry an
+#                   ExpandString slot.
+#
+#     [FIXED]        Policy catalog type distribution was wrong in both
+#                   languages: 8 String was really 7 String + 1
+#                   ExpandString, and DownloadDirectory was listed as
+#                   String. Counts are now 124 DWord / 7 String /
+#                   19 MultiString / 1 ExpandString = 151.
+#
+#     [UNCHANGED]   No policy definition, registry, or ADMX change. Totals
+#                   remain 151 across 5 tiers (chain: 24 → 51 → 83 →
+#                   123 → 151). Still validated against Brave 1.96.59
+#                   (Chromium 154.0.8037.58).
+#
 # v2.8.1.0             Patch release — Brave 1.96.59 compatibility validation:
 #
 #     [CHANGED]     Validated against Brave 1.96.59 (Chromium 154.0.8037.58),
@@ -451,7 +474,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.8.1.0"
+$ScriptVersion   = "v2.8.1.1"
 $ValidatedBrave  = "1.96.59"
 $ValidatedChromium = "154"
 
@@ -567,7 +590,7 @@ $script:Strings = @{
     SummaryHkcu = @{ EN = "  HKCU Preference    : UsageStatsInSample    → {0}"; TR = "  HKCU Tercihi       : UsageStatsInSample    → {0}" }
     SummaryHklm = @{ EN = "  HKLM Policies      : {0} applied / {1} failed"; TR = "  HKLM Politikaları  : {0} uygulandı / {1} başarısız" }
     SummaryStale = @{ EN = "  Stale Cleanup      : {0} removed / {1} failed"; TR = "  Bayat Temizliği    : {0} silindi / {1} başarısız" }
-    SummaryTypes = @{ EN = "  Types Applied      : DWord={0} / String={1} / MultiString={2}"; TR = "  Tür Dağılımı       : DWord={0} / String={1} / MultiString={2}" }
+    SummaryTypes = @{ EN = "  Types Applied      : DWord={0} / String={1} / MultiString={2} / ExpandString={3}"; TR = "  Tür Dağılımı       : DWord={0} / String={1} / MultiString={2} / ExpandString={3}" }
     FinalWarn1 = @{ EN = "`n  [WARNING] {0} policy/policies could not be written. Please"; TR = "`n  [UYARI] {0} politika yazılamadı. Lütfen" }
     FinalSuccess1 = @{ EN = "`n  [SUCCESS] {0} enterprise privacy policies were successfully"; TR = "`n  [BAŞARILI] {0} kurumsal gizlilik politikaları" }
     FinalSuccess2 = @{ EN = "            applied to Brave on Windows 11 25H2."; TR = "            Windows 11 25H2 üzerinde Brave'e başarıyla uygulandı." }
@@ -986,7 +1009,7 @@ if ($BraveProcesses) {
 # ─────────────────────────────────────────────────────────────────────────────
 # LEVEL POLICY DEFINITIONS
 # ─────────────────────────────────────────────────────────────────────────────
-# Each policy: @{Name=""; Value=; Type="DWord|String|MultiString"}
+# Each policy: @{Name=""; Value=; Type="DWord|String|MultiString|ExpandString"}
 # Levels are cumulative: each level includes all policies from previous levels.
 
 $PolicyDefinitions = $OmegaState.PolicyDefinitions
@@ -1246,7 +1269,7 @@ $SuccessCount = 0
 $ErrorCount   = 0
 
 # Track which type counts for summary
-$typeCounts = @{ "DWord" = 0; "String" = 0; "MultiString" = 0 }
+$typeCounts = @{ "DWord" = 0; "String" = 0; "MultiString" = 0; "ExpandString" = 0 }
 
 # ─────────────────────────────────────────────────────────────────────────────
 # STALE POLICY CLEANUP (v2.5.4.0)
@@ -1362,7 +1385,7 @@ Write-Host ((Get-LocalizedString 'SummaryHklm') -f $SuccessCount, $ErrorCount) -
 if ($StaleRemovedCount -gt 0 -or $StaleFailCount -gt 0) {
     Write-Host ((Get-LocalizedString 'SummaryStale') -f $StaleRemovedCount, $StaleFailCount) -ForegroundColor Gray
 }
-Write-Host ((Get-LocalizedString 'SummaryTypes') -f $($typeCounts.DWord), $($typeCounts.String), $($typeCounts.MultiString)) -ForegroundColor Gray
+Write-Host ((Get-LocalizedString 'SummaryTypes') -f $($typeCounts.DWord), $($typeCounts.String), $($typeCounts.MultiString), $($typeCounts.ExpandString)) -ForegroundColor Gray
 Write-Host $SeparatorLine -ForegroundColor DarkGray
 
 if ($ErrorCount -gt 0) {
