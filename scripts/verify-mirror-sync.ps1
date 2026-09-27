@@ -102,6 +102,14 @@ function Get-DeclaredSha {
 # expanded into nested sub-items - leaves every one of these numbers untouched,
 # which is why they are compared instead of line or word counts.
 #
+# One kind of nested list is deliberately excluded from that tolerance. An
+# ordered action checklist is a sequence of steps, not prose: a translation that
+# reads more smoothly may still drop a step, and a dropped step is a lost
+# instruction rather than a rendering choice. Each item is therefore reduced to
+# the first backticked token it carries, which is language-neutral, and that
+# sequence is compared. The prose around the token is not compared, and a token
+# reordered inside a single item is not caught either.
+#
 # Headings, bullets and tables inside a fenced block are not counted: a shell
 # comment that starts with '#' is not a section, and a list inside a code sample
 # is not a rule.
@@ -113,6 +121,7 @@ function Get-StructureProfile {
         # compared over the same number of slots.
         SectionLevels  = New-Object System.Collections.Generic.List[int]
         SectionBullets = New-Object System.Collections.Generic.List[int]
+        SectionChecklists = New-Object System.Collections.Generic.List[string]
         CodeFences      = 0
         TableBlocks     = 0
         TopLevelBullets = 0
@@ -123,6 +132,7 @@ function Get-StructureProfile {
     $inFence = $false
     $inTable = $false
     $bulletsInSection = 0
+    $checklistInSection = New-Object System.Collections.Generic.List[string]
 
     foreach ($line in ($Text -split "`n")) {
         if ($line.TrimStart().StartsWith('```')) {
@@ -137,7 +147,9 @@ function Get-StructureProfile {
         if ($heading.Success) {
             $structureProfile.SectionLevels.Add($heading.Groups[1].Value.Length)
             $structureProfile.SectionBullets.Add($bulletsInSection)
+            $structureProfile.SectionChecklists.Add(($checklistInSection -join '>'))
             $bulletsInSection = 0
+            $checklistInSection = New-Object System.Collections.Generic.List[string]
             $inTable = $false
             continue
         }
@@ -151,6 +163,13 @@ function Get-StructureProfile {
         }
         $inTable = $false
 
+        if ($line -match '^\s*- \[ \]') {
+            $firstToken = ''
+            $token = [regex]::Match($line, '`([^`]+)`')
+            if ($token.Success) { $firstToken = $token.Groups[1].Value }
+            $checklistInSection.Add($firstToken)
+        }
+
         if ($line -match '^- ') {
             $structureProfile.TopLevelBullets++
             $bulletsInSection++
@@ -159,6 +178,7 @@ function Get-StructureProfile {
         }
     }
     $structureProfile.SectionBullets.Add($bulletsInSection)
+    $structureProfile.SectionChecklists.Add(($checklistInSection -join '>'))
 
     return $structureProfile
 }
@@ -225,6 +245,7 @@ if (-not $MirrorPresent) {
     # It changes none of the counts below, which is exactly why they are the
     # ones compared.
     Write-Result "Nested sub-items: canonical $($CanonicalProfile.NestedBullets), mirror $($MirrorProfile.NestedBullets) (informational)" -Level "Info"
+    Write-Result "Action checklists: canonical $(($CanonicalProfile.SectionChecklists | Where-Object { $_ -ne '' }).Count) section(s), mirror $(($MirrorProfile.SectionChecklists | Where-Object { $_ -ne '' }).Count) section(s)" -Level "Info"
 
     $SectionCountMatches = $CanonicalProfile.SectionLevels.Count -eq $MirrorProfile.SectionLevels.Count
     if ($SectionCountMatches) {
@@ -253,6 +274,23 @@ if (-not $MirrorPresent) {
                 "slot $_ (canonical $($CanonicalProfile.SectionBullets[$_]), mirror $($MirrorProfile.SectionBullets[$_]))"
             }) -join '; '
             Add-CheckResult -Passed $false -Message "Rule count differs under $($DriftedSections.Count) section(s): $detail"
+        }
+
+        # A section with no checklist on either side yields an empty signature,
+        # so the comparison is a no-op there and only speaks where a checklist
+        # actually exists.
+        $DriftedChecklists = @()
+        for ($i = 0; $i -lt $CanonicalProfile.SectionChecklists.Count; $i++) {
+            if ($CanonicalProfile.SectionChecklists[$i] -ne $MirrorProfile.SectionChecklists[$i]) { $DriftedChecklists += $i }
+        }
+        $CanonicalChecklistTotal = ($CanonicalProfile.SectionChecklists | Where-Object { $_ -ne '' }).Count
+        if ($DriftedChecklists.Count -eq 0) {
+            Add-CheckResult -Passed $true -Message "Action checklist order matches ($CanonicalChecklistTotal section(s) with a checklist)"
+        } else {
+            $detail = ($DriftedChecklists | Select-Object -First 3 | ForEach-Object {
+                "slot $_ (canonical '$($CanonicalProfile.SectionChecklists[$_])', mirror '$($MirrorProfile.SectionChecklists[$_])')"
+            }) -join '; '
+            Add-CheckResult -Passed $false -Message "Action checklist differs under $($DriftedChecklists.Count) section(s) - an action was lost, added or reordered: $detail"
         }
     }
 
@@ -291,7 +329,8 @@ if ($ErrorMessages.Count -gt 0) {
 } else {
     Write-Host "  PASS: Mirror is in sync with the canonical file." -ForegroundColor Green
     Write-Host "        Marker values agree, and the structure matches section for section:" -ForegroundColor Green
-    Write-Host "        same sections, same rule count under each, same code fences, same tables." -ForegroundColor Green
+    Write-Host "        same sections, same rule count under each, same code fences, same tables," -ForegroundColor Green
+    Write-Host "        same action-checklist order." -ForegroundColor Green
     Write-Host "        Rule wording still needs a human read - structure cannot prove" -ForegroundColor DarkGray
     Write-Host "        that a translated sentence carries the same meaning." -ForegroundColor DarkGray
 }

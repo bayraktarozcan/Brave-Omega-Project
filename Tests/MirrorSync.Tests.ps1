@@ -53,6 +53,32 @@
         }
     }
 
+    # A pair that differs only in its ordered action checklist. The scaffolding
+    # around it is identical, so a failure can only be about the checklist and
+    # never about the section skeleton the other checks compare.
+    function Write-ChecklistPair {
+        param([string]$Dir, [string]$CanonicalItems, [string]$MirrorItems)
+
+        $scaffold = @'
+## Bootstrap
+
+Sıra kuraldır, öneri değil.
+
+## Sonrası
+
+- Kural.
+'@
+
+        $canonicalBody = "# Kılavuz`n" + $scaffold + "`n" + $CanonicalItems + "`n"
+        $mirrorBody = "# Kilavuz`n" + $scaffold + "`n" + $MirrorItems + "`n"
+        $sha = Get-FixtureSha -Body $canonicalBody
+
+        return [pscustomobject]@{
+            Canonical = Write-Fixture -Path (Join-Path $Dir 'checklist-canonical.md') -Body $canonicalBody -Sha $sha
+            Mirror    = Write-Fixture -Path (Join-Path $Dir 'checklist-mirror.md') -Body $mirrorBody -Sha $sha
+        }
+    }
+
     # Two documents with identical structure. The mirror is a different language
     # on purpose: the verifier must not compare wording, only shape.
     $script:CanonicalBody = @'
@@ -203,6 +229,82 @@ Describe "Mirror sync verification" -Tag "Unit" {
             $result = Invoke-SyncCheck -Canonical $script:CanonicalPath -Mirror $script:MirrorPath
             $result.ExitCode | Should -Be 1
             $result.Failures -join ' ' | Should -Match 'Canonical sync-sha is stale'
+        }
+    }
+
+    Context "Ordered action checklist" {
+
+        # A checklist is a sequence of steps, so the tolerance granted to prose -
+        # a rule expanded into nested sub-items - does not apply to it. Losing a
+        # step is a lost instruction, and these fixtures pin that the check
+        # notices rather than passing on shape alone.
+        It "passes when the mirror keeps every action in the same order" {
+            $pair = Write-ChecklistPair -Dir $TestDrive -CanonicalItems @'
+  - [ ] `.gitignore` written first?
+  - [ ] `README.md` added?
+'@ -MirrorItems @'
+  - [ ] `.gitignore` ilk yazılan mı?
+  - [ ] `README.md` eklendi mi?
+'@
+            $result = Invoke-SyncCheck -Canonical $pair.Canonical -Mirror $pair.Mirror
+            $result.ExitCode | Should -Be 0 -Because "only the wording differs, and the tokens are the same in both languages"
+        }
+
+        It "fails when the mirror lost an action" {
+            $pair = Write-ChecklistPair -Dir $TestDrive -CanonicalItems @'
+  - [ ] `.gitignore` written first?
+  - [ ] `README.md` added?
+'@ -MirrorItems @'
+  - [ ] `.gitignore` ilk yazılan mı?
+'@
+            $result = Invoke-SyncCheck -Canonical $pair.Canonical -Mirror $pair.Mirror
+            $result.ExitCode | Should -Be 1
+            $result.Failures -join ' ' | Should -Match 'Action checklist differs'
+        }
+
+        It "fails when the mirror reordered the actions" {
+            $pair = Write-ChecklistPair -Dir $TestDrive -CanonicalItems @'
+  - [ ] `.gitignore` written first?
+  - [ ] `README.md` added?
+'@ -MirrorItems @'
+  - [ ] `README.md` eklendi mi?
+  - [ ] `.gitignore` ilk yazılan mı?
+'@
+            $result = Invoke-SyncCheck -Canonical $pair.Canonical -Mirror $pair.Mirror
+            $result.ExitCode | Should -Be 1
+            $result.Failures -join ' ' | Should -Match 'Action checklist differs'
+        }
+
+        It "fails when a side drops the token that names the action" {
+            # The token is the language-neutral anchor of a step, so both files
+            # are expected to name their target the same way. Writing a
+            # checklist item without its token is a contract violation, not a
+            # translation choice, and the check says so instead of passing
+            # because the item count still agrees.
+            $pair = Write-ChecklistPair -Dir $TestDrive -CanonicalItems @'
+  - [ ] `.gitignore` written first?
+  - [ ] `README.md` added?
+'@ -MirrorItems @'
+  - [ ] Önce `.gitignore` yazıldı mı?
+  - [ ] Belgeler eklendi mi?
+'@
+            $result = Invoke-SyncCheck -Canonical $pair.Canonical -Mirror $pair.Mirror
+            $result.ExitCode | Should -Be 1 -Because "an action that lost its anchor is no longer the same action on both sides"
+        }
+
+        It "tolerates prose granularity that leaves the anchors intact" {
+            # Same actions, same order, same tokens, different words - and a rule
+            # elsewhere in the document expanded into nested sub-items, which is
+            # the granularity a translation is allowed to add.
+            $pair = Write-ChecklistPair -Dir $TestDrive -CanonicalItems @'
+  - [ ] `.gitignore` written first?
+  - [ ] `README.md` added?
+'@ -MirrorItems @'
+  - [ ] `.gitignore` en başta mı yazıldı?
+  - [ ] `README.md` eklendi mi?
+'@
+            $result = Invoke-SyncCheck -Canonical $pair.Canonical -Mirror $pair.Mirror
+            $result.ExitCode | Should -Be 0 -Because "a mirror is allowed to read more naturally than the canonical wording"
         }
     }
 
