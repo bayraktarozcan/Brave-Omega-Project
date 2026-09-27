@@ -137,6 +137,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 #### Production & knowledge flow
 
 - Production chain: Define → Design → Research → Develop → Apply → Evaluate. Each stage feeds the next; nothing is skipped.
+- Self-review closes the chain: the Evaluate stage is also an individual self-check whose result is what institutional memory banks, so a cycle cannot be declared finished on delivery alone.
 - Institutional memory: lessons from completed cycles (fixes, decisions, outcomes) are banked as documentation and fed back into the next Define/Design stage — the system keeps optimizing itself.
 - Estimates are hypotheses, not commitments: a plan records what it predicted alongside what actually happened, because a forecast that misses in both directions teaches more than one that lands. A rejected proposal must not reappear silently in the next plan, and the next estimate is recomputed from the canonical data source rather than from the previous estimate.
 - Knowledge cycle: identify the need, acquire the information, process it into value, distribute it, then act as one.
@@ -430,4 +431,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=e74b0faf6a1ea2170737608ac3336e6c870404ea -->
+<!-- mirror-sync: sync-sha=910b9c581a0af5e419c2f4ddac15058ba91fae9e -->
