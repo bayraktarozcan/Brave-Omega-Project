@@ -156,8 +156,15 @@ wiki-tmp/
 # 10. PROJECT KNOWLEDGE BASE / PROJE BİLGİ TABANI
 # ─────────────────────────────────────────────────────────────────────────────
 # [EN] General-purpose reference documents for the agent, not committed to Git.
+#      Root-anchored on purpose: product documentation in a nested docs/
+#      directory (for example "Brave Omega/docs/") is tracked output and must
+#      stay addable. A bare "docs/" matches at every depth and silently swallows
+#      any new product file added under a nested docs/ directory.
 # [TR] Ajan için genel amaçlı referans belgeleri, Git'e eklenmez.
-docs/
+#      Bilinçli olarak kök dizine sabitlendi: iç içe docs/ dizinlerindeki ürün
+#      belgeleri izlenen çıktıdır ve eklenebilir kalmalıdır. Çıplak "docs/"
+#      her derinlikte eşleşir ve yeni ürün dosyalarını sessizce yutar.
+/docs/
 
 # 11. RESEARCH & VERSION AUDIT NOTES / ARAŞTIRMA VE SÜRÜM DENETİM NOTLARI
 # ─────────────────────────────────────────────────────────────────────────────
