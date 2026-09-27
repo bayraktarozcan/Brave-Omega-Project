@@ -64,6 +64,7 @@
 14. [Contributing](#14-contributing)
 15. [License](#15-license)
 16. [Disclaimer](#16-disclaimer)
+17. [Project Governance](#17-project-governance)
 
 ---
 
@@ -678,6 +679,25 @@ responsibility for system instability, policy conflicts, data loss, or unintende
 resulting from the use of this project. Always verify backups, test in a non-production
 environment first, and review the source code before executing in any managed or enterprise setting.
 
+---
+
+### 17. Project Governance
+
+Every root document is reachable from here; a document nobody links to does not exist.
+
+| Document | Purpose |
+|----------|---------|
+| [README.md](README.md) | This page - overview, usage and compatibility |
+| [CHANGELOG.md](CHANGELOG.md) | The single canonical version log, newest first |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution process and the bilingual documentation pattern |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Expected behavior in the project community |
+| [SECURITY.md](SECURITY.md) | How to report a vulnerability or a leaked secret |
+| [PRIVACY.md](PRIVACY.md) | What the script collects, stores and transmits - the answer is nothing |
+| [SUPPORT.md](SUPPORT.md) | Where to ask questions and how to report an issue |
+| [LICENSE](LICENSE) | MIT License terms |
+| [NOTICE](NOTICE) | Third-party attribution |
+| [RELEASE-NOTE-TEMPLATE.md](RELEASE-NOTE-TEMPLATE.md) | Structure every release note follows |
+| [CODEOWNERS](CODEOWNERS) | Who reviews which path |
 
 ---
 
@@ -703,6 +723,7 @@ environment first, and review the source code before executing in any managed or
 14. [Katkıda Bulunma](#14-katkıda-bulunma)
 15. [Lisans](#15-lisans)
 16. [Sorumluluk Reddi](#16-sorumluluk-reddi)
+17. [Proje Yönetişimi](#17-proje-yönetişimi)
 
 ---
 
@@ -1345,6 +1366,26 @@ projenin kullanımından kaynaklanan sistem kararsızlığı, politika çakışm
 istenmeyen davranışlardan dolayı hiçbir sorumluluk kabul etmez. Yönetilen ya da kurumsal bir
 ortamda çalıştırmadan önce her zaman üretim dışı bir ortamda sınayın, yedekleri doğrulayın ve
 kaynak kodu inceleyin.
+
+---
+
+### 17. Proje Yönetişimi
+
+Buraya bağlanmayan belge var olmayan belgedir; her kök belge buradan erişilebilir.
+
+| Belge | Amacı |
+|-------|-------|
+| [README.md](README.md) | Bu sayfa - genel bakış, kullanım ve uyumluluk |
+| [CHANGELOG.md](CHANGELOG.md) | Tek canonical sürüm günlüğü, en yeni en üstte |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Katkı süreci ve iki dilli belge düzeni |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Proje topluluğunda beklenen davranış |
+| [SECURITY.md](SECURITY.md) | Bir zafiyeti ya da sızan bir sırrı nasıl bildirilir |
+| [PRIVACY.md](PRIVACY.md) | Betiğin topladığı, sakladığı ve ilettiği şey - yanıt hiçbir şey |
+| [SUPPORT.md](SUPPORT.md) | Sorular nereye sorulur, bir hata nasıl bildirilir |
+| [LICENSE](LICENSE) | MIT Lisansı koşulları |
+| [NOTICE](NOTICE) | Üçüncü taraf atıfları |
+| [RELEASE-NOTE-TEMPLATE.md](RELEASE-NOTE-TEMPLATE.md) | Her sürüm notunun izlediği yapı |
+| [CODEOWNERS](CODEOWNERS) | Hangi yolu kim inceler |
 
 ---
 

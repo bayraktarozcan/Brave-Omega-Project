@@ -29,9 +29,14 @@ Operational notes for humans and AI agents working in this repository. English i
 | `enterprise/` | Per-tier `.reg` templates + `levels.json` registry export |
 | `admx/` | ADMX templates + `admx-validate.ps1` cross-reference validator |
 | `scripts/` | Release, wiki sync, deploy/detect, catalog export, mojibake scan |
-| `Tests/` | Pester 5.7.1 test suite |
+| `Tests/` | Pester 5.7.1 test suite - one file per invariant |
+| `Tests/MirrorSync.Tests.ps1` | Fixtures pinning the bilingual mirror contract (clean pair, CRLF mirror, each drift class, ordered checklist, absent mirror) |
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
+| `docs/` | Project-level references: group policy reference, roadmap and opportunities |
+| `index.html` | Single-page landing page (true black, dark theme, no external JS, < 10 KB gzipped) |
+| Root governance set | `README.md`, `SECURITY.md`, `PRIVACY.md`, `SUPPORT.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `RELEASE-NOTE-TEMPLATE.md`, `CODEOWNERS`, `LICENSE`, `NOTICE` |
 | `.github/workflows/` | CI/CD: Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene |
+| `.gitlab-ci.yml` | Second gate - the same checks enforced on the GitLab remote |
 | `.github/linters/` | Shared markdownlint / yamllint configuration |
 
 ### Versions
@@ -52,14 +57,21 @@ Run from the repository root with Windows PowerShell 5.1:
 
 ```powershell
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 209/209 passing
+Invoke-Pester Tests/ -PassThru          # expected: 214/214 passing
 
 # ADMX cross-reference
 & "admx/admx-validate.ps1"              # expected: PASS - 151/151
 
 # PSScriptAnalyzer
-Invoke-ScriptAnalyzer "Brave Omega/BraveOmega.ps1" -Severity Warning `
-  -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
+# -ExcludeRule takes an array. A comma-joined string is silently accepted and
+# then ignored, so the run reports every rule the list was meant to drop.
+$excluded = @(
+  'PSAvoidUsingWriteHost',
+  'PSAvoidUsingEmptyCatchBlock',
+  'PSUseSupportsShouldProcess',
+  'PSUseShouldProcessForStateChangingFunctions'
+)
+Invoke-ScriptAnalyzer "Brave Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule $excluded
 
 # Markdown (repo config)
 markdownlint -c .github/linters/.markdownlint.json "**/*.md"
@@ -102,6 +114,9 @@ Every task runs under one mandatory standard:
 | Resource filter before action | Direction is gated by feasibility | Screen every initiative against time, effort, and cost before proceeding; only prioritized work reaches execution |
 | Define, assign, get results | Ambiguity never swallows responsibility | State the task, assign clear ownership, follow through to a result |
 | Process over trust | Trust-based arrangements can be limited or misleading | Secure important work with defined processes, verification, and audit — trust is a supplement, not a substitute |
+| A machine check proves only what it measures | Every automated check has a blind spot, and a green run is a statement about the measured axis alone | The bilingual mirror passed every structural gate while one side had silently lost two checklist items, so structure parity is never reported as semantic parity; each check names what it cannot see and that gap stays a human read |
+| A rule that can rot silently gets its own named test | Coverage of code is not coverage of rules; the invariant gets the test, and the test fails when the rule breaks rather than when the code moves | The test tree is one file per invariant — ignore rules, mirror sync, script version, policy integrity, stale cleanup, updater GUID, type distribution — so a rule that stops holding fails by name instead of passing unnoticed |
+| Pin against the upstream artifact, not against your own copy | A check whose oracle was written by the same hand as the subject agrees with itself and detects nothing | Policy conformance is verified against the vendor's own schema, so a drift the project could not have anticipated still fails the build instead of passing on a hand-kept list |
 
 A quiet total is good news: a well-ordered system runs without complaints — but silence never justifies skipping scheduled maintenance; it only means the defined cadence is working.
 
@@ -257,7 +272,7 @@ Change done
 #### Security & privacy
 
 - Never commit `.env`, `*.key`, `*.pem`, `*.cert`, `token*`, `secret*`, or similar.
-- No usernames, passwords, API keys, IP addresses, or license keys in messages, diffs, or file contents.
+- No usernames, passwords, API keys, IP addresses, or license keys in messages, diffs, or file contents. The one carve-out is a file whose entire purpose is to name an identity — a `CODEOWNERS` handle, a maintainer contact — because such a file cannot do its job anonymously; it is narrowed to that single value, never widened into commit messages, logs, or prose.
 - If previously committed sensitive data is found, inform the user and suggest tools like BFG Repo-Cleaner.
 
 #### File naming
@@ -289,7 +304,19 @@ Repository management and dependency conventions, with their current state in th
 - **Layer onboarding order.** An assistant entering a project reads the hidden layers in a fixed order before it changes anything: personal context first, so the person and the working environment are understood; then working method and behaviour rules; then the project layer, which is the only layer the work itself writes into. Reading completes before scaffolding starts, and the project's own structure is read alongside the universal standard, never in place of it.
 - **Single ownership.** Every rule has exactly one canonical owner document. Everywhere else it appears as a pointer, never as a copy: a duplicated rule drifts from its source and then contradicts it. When the canonical text changes, the pointers are refreshed, not the copies that were never meant to hold it.
 - **One ignore pattern per hidden layer tree.** A single root `.gitignore` pattern covering the whole hidden-layer directory is preferred over one pattern per layer, because the per-layer list is a checklist that can silently forget a new layer; per-layer ignore files are therefore not created. The pattern is never deleted or commented out, and it is the first thing written when such a project is set up.
-- **New-repository checklist.** The bootstrap order is the rule, not a suggestion: the ignore file comes first so nothing private can be swept into the first commit, then the root documents, then the landing page, then the hidden layers, and only then version control. Concretely: `.gitignore` including the hidden layers; `README.md`; `SECURITY.md` (vulnerability reporting); `CHANGELOG.md`; the landing page; `.github/dependabot.yml`; `codeql.yml`; auto-approve workflow; workflows for recurring git operations; a log file the workflow itself keeps current. The hidden layers are created from the universal layer downward, never the reverse, and each one is covered by the single root ignore pattern. The repository is initialised last, with a first commit that names what the skeleton created.
+- **New-repository checklist.** The bootstrap order is the rule, not a suggestion: the ignore file comes first so nothing private can be swept into the first commit, then the root documents, then the landing page, then the hidden layers, and only then version control. Concretely:
+  - [ ] `.gitignore` written first, with the hidden layers already named in it?
+  - [ ] Root documents added: `README.md`, `SECURITY.md`, `CHANGELOG.md`, `LICENSE`, `NOTICE`, `CODE_OF_CONDUCT.md`, `SUPPORT.md`?
+  - [ ] Landing page added?
+  - [ ] Hidden layers created from the universal layer downward, never the reverse, each one covered by the single root ignore pattern?
+  - [ ] `.github/dependabot.yml` configured?
+  - [ ] `.github/workflows/codeql.yml` added?
+  - [ ] Auto-approve workflow added?
+  - [ ] Workflows for recurring git operations written?
+  - [ ] `.github/pull_request_template.md`, `RELEASE-NOTE-TEMPLATE.md` and `CODEOWNERS` added?
+  - [ ] Repository housekeeping added: `.editorconfig`, `.gitattributes`, and a second CI config when the origin is a dual pushurl?
+  - [ ] A log file the workflow itself keeps current created?
+  - [ ] Repository initialised last, with a first commit that names what the skeleton created?
 - **Standard workflow triggers.** Test on `push` / `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot on a weekly cadence.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API — never by hand; human intervention is not required.
 
@@ -304,6 +331,11 @@ Repository management and dependency conventions, with their current state in th
   tracking, managed by the AI assistant as it goes. The changelog is a single
   file in a single place: once a root `CHANGELOG.md` exists, the folder gains no
   changelog chapter and a second independent log is never created.
+- **A document nobody links to is a document that does not exist.** A root file
+  with no inbound link from the landing page is unreachable, whatever its
+  content quality, so the landing page links every root document: license,
+  notice, code of conduct, support, privacy, security, contributing, changelog
+  and the release-note template. Reachability is checked, not assumed.
 - **Derived documentation output.** Anything that republishes canonical content
   for a separate surface (a synced wiki page, a site page, a release body) is a
   published projection, not a second source. It is generated or workflow-synced
@@ -343,7 +375,10 @@ Repository management and dependency conventions, with their current state in th
   EN paragraph first, TR paragraph after, at equal scope, detail, and quality.
 - **Compatibility.** The script targets Windows PowerShell 5.1+; no `pwsh`-only syntax.
 - **Git.** `origin` pushes to both GitHub and GitLab (dual pushurl). Keep the two
-  remotes in parity — there is no PR/MR workflow for own commits.
+  remotes in parity — there is no PR/MR workflow for own commits. A dual remote
+  is also a dual gate: the second host carries its own CI enforcing the same
+  checks, because a rule enforced on one host only is enforced nowhere the
+  project actually lives.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git
   and a committed `.env.example` (placeholder values only) documents the expected
   schema; variable names use `UPPER_SNAKE_CASE`.
@@ -410,19 +445,28 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   blob alike, so the number never depends on how the file happened to be saved.
 - The verifier also compares structure, not only the marker: the same number of
   sections, the same heading depth sequence, the same number of top-level rules
-  under every section, the same number of code fences, and the same number of
-  table blocks.
+  under every section, the same number of code fences, the same number of
+  table blocks, and the same action-checklist order.
 - Heading detection skips fenced code, so a `#` comment or a list inside a
   sample is counted as neither a section nor a rule.
 - Nested sub-items are reported but not compared. A translation is allowed to
   expand one rule into sub-bullets, so a difference there is information to
   read, not drift to fix.
+- An ordered action checklist is the one nested list that tolerance does not
+  cover, because a checklist is a sequence of steps rather than prose: a lost
+  step is a lost instruction, not a rendering choice. Each item is reduced to
+  the first backticked token it carries, and that sequence is compared in
+  order. Both files therefore name a checklist item's target the same way — a
+  backticked path — and dropping the token on one side is a contract violation
+  the check reports rather than a translation it tolerates. Rewording, or
+  reordering tokens inside a single item, is still tolerated.
 - Tables are compared as blocks, not row by row. Splitting one English rule
   across two Turkish rows is a granularity difference, not a lost rule.
 - Structure cannot prove meaning. A passing run proves the two files are the
   same shape and declare the same value; the wording still needs a human read.
 - `Tests/MirrorSync.Tests.ps1` pins this behavior down with fixtures: a clean
-  pair, a CRLF mirror, each class of drift, the tolerated granularity, and a
+  pair, a CRLF mirror, each class of drift, the tolerated granularity, an
+  ordered checklist that keeps, loses, reorders and drops an anchor, and a
   mirror that is absent.
 - The verifier takes both paths as parameters and names neither, so nothing
   about this layer's location is recorded in committed output. Pass
@@ -431,4 +475,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=910b9c581a0af5e419c2f4ddac15058ba91fae9e -->
+<!-- mirror-sync: sync-sha=d5c6e4dd3697a7b60d90b0437cfd10560a91b402 -->
