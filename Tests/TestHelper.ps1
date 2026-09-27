@@ -58,6 +58,83 @@ function Get-OmegaLevelOrder {
     return @($config.levelOrder)
 }
 
+function Get-OmegaStringValue {
+    param([System.Management.Automation.Language.Ast]$Node)
+    if ($null -eq $Node) { return $null }
+    if ($Node -is [System.Management.Automation.Language.StringConstantExpressionAst]) { return $Node.Value }
+    if ($Node -is [System.Management.Automation.Language.ExpandableStringExpressionAst]) { return $Node.Value }
+    $literal = $Node.Find({
+            param($n)
+            $n -is [System.Management.Automation.Language.StringConstantExpressionAst] -or
+            $n -is [System.Management.Automation.Language.ExpandableStringExpressionAst]
+        }, $true)
+    if ($literal) { return $literal.Value }
+    return $Node.Extent.Text
+}
+
+function ConvertFrom-OmegaHashtableAst {
+    param([System.Management.Automation.Language.HashtableAst]$Table)
+    $pairs = [ordered]@{}
+    foreach ($pair in $Table.KeyValuePairs) {
+        $key = Get-OmegaStringValue $pair.Item1
+        if ($null -eq $key) { continue }
+        $nested = $pair.Item2.Find({
+                param($n) $n -is [System.Management.Automation.Language.HashtableAst]
+            }, $true)
+        if ($nested) {
+            $pairs[$key] = ConvertFrom-OmegaHashtableAst $nested
+        }
+        else {
+            $pairs[$key] = Get-OmegaStringValue $pair.Item2
+        }
+    }
+    return $pairs
+}
+
+function Get-OmegaScriptHashtable {
+    param(
+        [string]$VariableName,
+        [string]$ScriptPath = $ScriptMain
+    )
+    $content = Get-Content -Path $ScriptPath -Raw -Encoding UTF8
+    $tokens = $null; $errors = $null
+    $ast = [System.Management.Automation.Language.Parser]::ParseInput($content, [ref]$tokens, [ref]$errors)
+    $assignment = $ast.FindAll({
+            param($node)
+            $node -is [System.Management.Automation.Language.AssignmentStatementAst] -and
+            $node.Left -is [System.Management.Automation.Language.VariableExpressionAst]
+        }, $true) |
+        Where-Object { $_.Left.VariablePath.UserPath -eq $VariableName } |
+        Select-Object -First 1
+    if (-not $assignment) { return $null }
+    $table = $assignment.Right.Find({
+            param($node) $node -is [System.Management.Automation.Language.HashtableAst]
+        }, $true)
+    if (-not $table) { return $null }
+    return ConvertFrom-OmegaHashtableAst $table
+}
+
+function Get-OmegaLevelMenuMap {
+    param([string]$ScriptPath = $ScriptMain)
+    $content = Get-Content -Path $ScriptPath -Raw -Encoding UTF8
+    $tokens = $null; $errors = $null
+    $ast = [System.Management.Automation.Language.Parser]::ParseInput($content, [ref]$tokens, [ref]$errors)
+    $switches = $ast.FindAll({
+            param($node) $node -is [System.Management.Automation.Language.SwitchStatementAst]
+        }, $true)
+    foreach ($switchNode in $switches) {
+        if ((Get-OmegaStringValue $switchNode.Condition) -ne '$Choice') { continue }
+        $menu = [ordered]@{}
+        foreach ($clause in $switchNode.Clauses) {
+            $choice = Get-OmegaStringValue $clause.Item1
+            if ($null -eq $choice) { continue }
+            $menu[$choice] = Get-OmegaStringValue $clause.Item2
+        }
+        return $menu
+    }
+    return $null
+}
+
 function Get-OmegaProfilePolicies {
     param([string]$ScriptPath = $ScriptMain)
     $dataDir = Split-Path -Path $ScriptPath -Parent

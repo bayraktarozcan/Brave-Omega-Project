@@ -3,34 +3,77 @@
 }
 
 Describe "Level Selection" -Tag "Unit" {
-    It "should accept BraveOnly level" {
-        $ValidLevels = @("BraveOnly","Essential","Balanced","Advanced","Strict","Brave Yalnız","Temel","Dengeli","Gelişmiş","Katı")
-        $LevelMap = @{"Brave Yalnız"="BraveOnly";"Temel"="Essential";"Dengeli"="Balanced";"Gelişmiş"="Advanced";"Katı"="Strict"}
-        $level = "BraveOnly"
-        if ($LevelMap[$level]) { $level = $LevelMap[$level] }
-        ($level -in $ValidLevels) | Should -Be $true
+
+    Context "Level name resolution contract" {
+
+        It "resolves every Turkish level name onto a level the data layer defines" {
+            $order = Get-OmegaLevelOrder
+            $map = Get-OmegaScriptHashtable -VariableName "LevelMap"
+            $map | Should -Not -BeNullOrEmpty
+            foreach ($turkish in $map.Keys) {
+                $map[$turkish] | Should -BeIn $order
+            }
+        }
+
+        It "maps each Turkish level name to a distinct level" {
+            $map = Get-OmegaScriptHashtable -VariableName "LevelMap"
+            $map.Values.Count | Should -Be @($map.Values | Sort-Object -Unique).Count
+        }
+
+        It "accepts exactly the Turkish names the interface advertises" {
+            $map = Get-OmegaScriptHashtable -VariableName "LevelMap"
+            $display = Get-OmegaScriptHashtable -VariableName "LevelDisplayNames"
+            $advertised = @($display.Values | ForEach-Object { $_["TR"] })
+            (Compare-Object @($map.Keys | Sort-Object) @($advertised | Sort-Object)) | Should -BeNullOrEmpty
+        }
+
+        It "gives every level in the data layer a localized display name" {
+            $order = Get-OmegaLevelOrder
+            $display = Get-OmegaScriptHashtable -VariableName "LevelDisplayNames"
+            $display | Should -Not -BeNullOrEmpty
+            (Compare-Object @($display.Keys | Sort-Object) @($order | Sort-Object)) | Should -BeNullOrEmpty
+        }
+
+        It "provides both English and Turkish display text for every level" {
+            $display = Get-OmegaScriptHashtable -VariableName "LevelDisplayNames"
+            foreach ($level in $display.Keys) {
+                $display[$level]["EN"] | Should -Not -BeNullOrEmpty
+                $display[$level]["TR"] | Should -Not -BeNullOrEmpty
+            }
+        }
     }
 
-    It "should accept Turkish level names" {
-        $LevelMap = @{"Brave Yalnız"="BraveOnly";"Temel"="Essential";"Dengeli"="Balanced";"Gelişmiş"="Advanced";"Katı"="Strict"}
-        $LevelMap["Temel"] | Should -Be "Essential"
+    Context "Interactive menu coverage" {
+
+        It "offers every level in the data layer" {
+            $order = Get-OmegaLevelOrder
+            $menu = Get-OmegaLevelMenuMap
+            $menu | Should -Not -BeNullOrEmpty -Because "the level menu switch must stay parseable; update Get-OmegaLevelMenuMap if its shape changed"
+            (Compare-Object @($menu.Values | Sort-Object) @($order | Sort-Object)) | Should -BeNullOrEmpty
+        }
+
+        It "offers exactly one menu option per level in the data layer" {
+            $order = Get-OmegaLevelOrder
+            $menu = Get-OmegaLevelMenuMap
+            $menu.Keys.Count | Should -Be $order.Count
+        }
+
+        It "numbers the menu sequentially from one so no option is unreachable" {
+            $order = Get-OmegaLevelOrder
+            $menu = Get-OmegaLevelMenuMap
+            $expected = @(1..$order.Count | ForEach-Object { [string]$_ })
+            (Compare-Object @($menu.Keys) $expected) | Should -BeNullOrEmpty
+        }
     }
 
-    It "should reject invalid level names" {
-        $ValidLevels = @("BraveOnly","Essential","Balanced","Advanced","Strict","Brave Yalnız","Temel","Dengeli","Gelişmiş","Katı")
-        ("InvalidLevel" -in $ValidLevels) | Should -Be $false
-    }
+    Context "Level reachability" {
 
-    It "should accept Advanced level" {
-        $ValidLevels = @("BraveOnly","Essential","Balanced","Advanced","Strict","Brave Yalnız","Temel","Dengeli","Gelişmiş","Katı")
-        $LevelMap = @{"Brave Yalnız"="BraveOnly";"Temel"="Essential";"Dengeli"="Balanced";"Gelişmiş"="Advanced";"Katı"="Strict"}
-        $level = "Advanced"
-        if ($LevelMap[$level]) { $level = $LevelMap[$level] }
-        ($level -in $ValidLevels) | Should -Be $true
-    }
-
-    It "should accept Gelişmiş level and map to Advanced" {
-        $LevelMap = @{"Brave Yalnız"="BraveOnly";"Temel"="Essential";"Dengeli"="Balanced";"Gelişmiş"="Advanced";"Katı"="Strict"}
-        $LevelMap["Gelişmiş"] | Should -Be "Advanced"
+        It "ships a policy profile for every level in the data layer" {
+            $order = Get-OmegaLevelOrder
+            $profilesDir = Join-Path (Split-Path -Path $ScriptMain -Parent) "profiles"
+            foreach ($level in $order) {
+                Join-Path $profilesDir "$level.json" | Should -Exist
+            }
+        }
     }
 }
