@@ -25,9 +25,23 @@ $ShaPattern = 'sync-sha=([0-9a-f]{40})'
 # The whole marker line, including its terminator, is what gets removed
 $SyncLinePattern = '(?m)^[ \t]*<!--\s*mirror-sync:.*?-->[ \t]*\n?'
 
-# canonical marker present, canonical marker matches content, mirror present,
-# mirror marker matches canonical
-$TotalChecks = 4
+# Checks are counted as they run rather than declared up front. The structural
+# parity group is skipped when no mirror is present, and a hardcoded total would
+# then report coverage that never happened.
+$ChecksRun = 0
+$ChecksPassed = 0
+
+function Add-CheckResult {
+    param([bool]$Passed, [string]$Message)
+
+    $script:ChecksRun++
+    if ($Passed) {
+        $script:ChecksPassed++
+        Write-Result $Message -Level "Info"
+    } else {
+        Write-Result $Message -Level "Error"
+    }
+}
 
 function Write-Result {
     param([string]$Message, [string]$Level = "Info")
@@ -80,6 +94,75 @@ function Get-DeclaredSha {
     return $null
 }
 
+# ─── Structural profile ───
+# A translation cannot be compared textually, so the only mechanical signal
+# available is structural: the same section sequence, the same number of rules
+# under each section, the same code blocks, the same tables. Granularity that a
+# translation is allowed to add - a rule split across two table rows, a rule
+# expanded into nested sub-items - leaves every one of these numbers untouched,
+# which is why they are compared instead of line or word counts.
+#
+# Headings, bullets and tables inside a fenced block are not counted: a shell
+# comment that starts with '#' is not a section, and a list inside a code sample
+# is not a rule.
+function Get-StructureProfile {
+    param([string]$Text)
+
+    $structureProfile = [ordered]@{
+        # Slot 0 is the preamble before the first heading, so both files are
+        # compared over the same number of slots.
+        SectionLevels  = New-Object System.Collections.Generic.List[int]
+        SectionBullets = New-Object System.Collections.Generic.List[int]
+        CodeFences      = 0
+        TableBlocks     = 0
+        TopLevelBullets = 0
+        NestedBullets   = 0
+    }
+    $structureProfile.SectionLevels.Add(0)
+
+    $inFence = $false
+    $inTable = $false
+    $bulletsInSection = 0
+
+    foreach ($line in ($Text -split "`n")) {
+        if ($line.TrimStart().StartsWith('```')) {
+            $structureProfile.CodeFences++
+            $inFence = -not $inFence
+            $inTable = $false
+            continue
+        }
+        if ($inFence) { continue }
+
+        $heading = [regex]::Match($line, '^(#{1,6})\s')
+        if ($heading.Success) {
+            $structureProfile.SectionLevels.Add($heading.Groups[1].Value.Length)
+            $structureProfile.SectionBullets.Add($bulletsInSection)
+            $bulletsInSection = 0
+            $inTable = $false
+            continue
+        }
+
+        if ($line.TrimStart().StartsWith('|')) {
+            if (-not $inTable) {
+                $structureProfile.TableBlocks++
+                $inTable = $true
+            }
+            continue
+        }
+        $inTable = $false
+
+        if ($line -match '^- ') {
+            $structureProfile.TopLevelBullets++
+            $bulletsInSection++
+        } elseif ($line -match '^\s+- ') {
+            $structureProfile.NestedBullets++
+        }
+    }
+    $structureProfile.SectionBullets.Add($bulletsInSection)
+
+    return $structureProfile
+}
+
 # ─── Canonical file ───
 if (-not (Test-Path -LiteralPath $Canonical -PathType Leaf)) {
     Write-Host "Canonical file not found: $Canonical" -ForegroundColor Red
@@ -95,11 +178,11 @@ Write-Result "Declared sync-sha: $(if ($CanonicalDeclared) { $CanonicalDeclared 
 Write-Result "Computed sync-sha: $CanonicalComputed" -Level "Info"
 
 if (-not $CanonicalDeclared) {
-    Write-Result "Canonical file declares no well-formed sync-sha marker" -Level "Error"
+    Add-CheckResult -Passed $false -Message "Canonical file declares no well-formed sync-sha marker"
 } elseif ($CanonicalDeclared -ne $CanonicalComputed) {
-    Write-Result "Canonical sync-sha is stale: declared $CanonicalDeclared, content hashes to $CanonicalComputed" -Level "Error"
+    Add-CheckResult -Passed $false -Message "Canonical sync-sha is stale: declared $CanonicalDeclared, content hashes to $CanonicalComputed"
 } else {
-    Write-Result "Canonical sync-sha matches its own content" -Level "Info"
+    Add-CheckResult -Passed $true -Message "Canonical sync-sha matches its own content"
 }
 
 # ─── Mirror file ───
@@ -109,22 +192,80 @@ $MirrorDeclared = $null
 
 if (-not $MirrorPresent) {
     if ($AllowMissingMirror) {
+        # Intentionally absent, so it is left out of the count instead of being
+        # scored as a pass it never ran.
         Write-Result "Mirror not present at the supplied path; mirror checks skipped" -Level "Warning"
     } else {
-        Write-Result "Mirror file not found at the supplied path" -Level "Error"
+        Add-CheckResult -Passed $false -Message "Mirror file not found at the supplied path"
     }
 } else {
     $MirrorText = Get-NormalizedText -Path $Mirror
     $MirrorDeclared = Get-DeclaredSha -Text $MirrorText
 
     if (-not $MirrorDeclared) {
-        Write-Result "Mirror declares no well-formed sync-sha marker" -Level "Error"
+        Add-CheckResult -Passed $false -Message "Mirror declares no well-formed sync-sha marker"
     } elseif (-not $CanonicalDeclared) {
-        Write-Result "Cannot compare declared values: canonical marker is missing" -Level "Error"
+        Add-CheckResult -Passed $false -Message "Cannot compare declared values: canonical marker is missing"
     } elseif ($MirrorDeclared -ne $CanonicalDeclared) {
-        Write-Result "Mirror drift: mirror declares $MirrorDeclared, canonical declares $CanonicalDeclared" -Level "Error"
+        Add-CheckResult -Passed $false -Message "Mirror drift: mirror declares $MirrorDeclared, canonical declares $CanonicalDeclared"
     } else {
-        Write-Result "Mirror and canonical declare the same sync-sha" -Level "Info"
+        Add-CheckResult -Passed $true -Message "Mirror and canonical declare the same sync-sha"
+    }
+
+    # ─── Structural parity ───
+    # Only meaningful with a mirror in hand. Under -AllowMissingMirror there is
+    # nothing to compare, so no claim is made about structure either.
+    $CanonicalProfile = Get-StructureProfile -Text $CanonicalText
+    $MirrorProfile    = Get-StructureProfile -Text $MirrorText
+
+    Write-Result "Canonical structure: $($CanonicalProfile.SectionLevels.Count) sections, $($CanonicalProfile.TopLevelBullets) top-level rules, $($CanonicalProfile.CodeFences) code fences, $($CanonicalProfile.TableBlocks) tables" -Level "Info"
+    Write-Result "Mirror structure:    $($MirrorProfile.SectionLevels.Count) sections, $($MirrorProfile.TopLevelBullets) top-level rules, $($MirrorProfile.CodeFences) code fences, $($MirrorProfile.TableBlocks) tables" -Level "Info"
+    # A rule split across two table rows, or expanded into nested sub-items to
+    # stay readable in the mirror's own language, is legitimate translation work.
+    # It changes none of the counts below, which is exactly why they are the
+    # ones compared.
+    Write-Result "Nested sub-items: canonical $($CanonicalProfile.NestedBullets), mirror $($MirrorProfile.NestedBullets) (informational)" -Level "Info"
+
+    $SectionCountMatches = $CanonicalProfile.SectionLevels.Count -eq $MirrorProfile.SectionLevels.Count
+    if ($SectionCountMatches) {
+        Add-CheckResult -Passed $true -Message "Mirror has the same number of sections as the canonical file"
+    } else {
+        Add-CheckResult -Passed $false -Message "Mirror section count differs: canonical $($CanonicalProfile.SectionLevels.Count), mirror $($MirrorProfile.SectionLevels.Count)"
+    }
+
+    # The two remaining comparisons line the sections up by position, so they
+    # only carry meaning when the counts already agree.
+    if ($SectionCountMatches) {
+        if (($CanonicalProfile.SectionLevels -join ',') -eq ($MirrorProfile.SectionLevels -join ',')) {
+            Add-CheckResult -Passed $true -Message "Section depth sequence matches"
+        } else {
+            Add-CheckResult -Passed $false -Message "Section depth sequence differs; a heading was added, removed or re-levelled on one side"
+        }
+
+        $DriftedSections = @()
+        for ($i = 0; $i -lt $CanonicalProfile.SectionBullets.Count; $i++) {
+            if ($CanonicalProfile.SectionBullets[$i] -ne $MirrorProfile.SectionBullets[$i]) { $DriftedSections += $i }
+        }
+        if ($DriftedSections.Count -eq 0) {
+            Add-CheckResult -Passed $true -Message "Rule count matches under every section"
+        } else {
+            $detail = ($DriftedSections | Select-Object -First 5 | ForEach-Object {
+                "slot $_ (canonical $($CanonicalProfile.SectionBullets[$_]), mirror $($MirrorProfile.SectionBullets[$_]))"
+            }) -join '; '
+            Add-CheckResult -Passed $false -Message "Rule count differs under $($DriftedSections.Count) section(s): $detail"
+        }
+    }
+
+    if ($CanonicalProfile.CodeFences -eq $MirrorProfile.CodeFences) {
+        Add-CheckResult -Passed $true -Message "Code fence count matches"
+    } else {
+        Add-CheckResult -Passed $false -Message "Code fence count differs: canonical $($CanonicalProfile.CodeFences), mirror $($MirrorProfile.CodeFences)"
+    }
+
+    if ($CanonicalProfile.TableBlocks -eq $MirrorProfile.TableBlocks) {
+        Add-CheckResult -Passed $true -Message "Table block count matches"
+    } else {
+        Add-CheckResult -Passed $false -Message "Table block count differs: canonical $($CanonicalProfile.TableBlocks), mirror $($MirrorProfile.TableBlocks); a table was added or lost"
     }
 }
 
@@ -137,7 +278,7 @@ Write-Host "================================================" -ForegroundColor M
 Write-Host "  Canonical computed:   $CanonicalComputed" -ForegroundColor White
 Write-Host "  Canonical declared:   $(if ($CanonicalDeclared) { $CanonicalDeclared } else { '(none)' })" -ForegroundColor $(if ($CanonicalDeclared -eq $CanonicalComputed) { "Green" } else { "Red" })
 Write-Host "  Mirror declared:      $(if ($MirrorDeclared) { $MirrorDeclared } else { '(none)' })" -ForegroundColor $(if ($MirrorPresent -and $MirrorDeclared -and $MirrorDeclared -eq $CanonicalDeclared) { "Green" } else { "Yellow" })
-Write-Host "  Checks passed:        $($TotalChecks - $ErrorMessages.Count) of $TotalChecks" -ForegroundColor $(if ($ErrorMessages.Count -eq 0) { "Green" } else { "Red" })
+Write-Host "  Checks passed:        $ChecksPassed of $ChecksRun" -ForegroundColor $(if ($ErrorMessages.Count -eq 0) { "Green" } else { "Red" })
 Write-Host ""
 
 if ($ErrorMessages.Count -gt 0) {
@@ -149,6 +290,10 @@ if ($ErrorMessages.Count -gt 0) {
     Write-Host "        (no mirror at the supplied path), so no claim is made about it." -ForegroundColor Green
 } else {
     Write-Host "  PASS: Mirror is in sync with the canonical file." -ForegroundColor Green
+    Write-Host "        Marker values agree, and the structure matches section for section:" -ForegroundColor Green
+    Write-Host "        same sections, same rule count under each, same code fences, same tables." -ForegroundColor Green
+    Write-Host "        Rule wording still needs a human read - structure cannot prove" -ForegroundColor DarkGray
+    Write-Host "        that a translated sentence carries the same meaning." -ForegroundColor DarkGray
 }
 
 exit $ExitCode

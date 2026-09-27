@@ -52,7 +52,7 @@ Run from the repository root with Windows PowerShell 5.1:
 
 ```powershell
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 183/183 passing
+Invoke-Pester Tests/ -PassThru          # expected: 209/209 passing
 
 # ADMX cross-reference
 & "admx/admx-validate.ps1"              # expected: PASS - 151/151
@@ -114,7 +114,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 - Humble; do not overstate what you know.
 - Share opinions; if you hold a strong view, state it clearly.
 - Follow the human's primary language in conversation and keep language integrity — no needless mid-reply switching; prefer common native terms over imported jargon.
-- Mentor, don't belittle: guide those who lack experience; hold accountable only those who were given the opportunity and neglected it.
+- Mentor, don't belittle: never hold a person down for an experience they had no opportunity to have — expertise must not become an instrument of arrogance. Draw the line between inexperience and neglect with objective preconditions rather than opinion: if the required knowledge, training, written procedures, and tools were all supplied and the shortfall is still there, it is neglect and accountability applies; if the structure withheld that opportunity, it is not a defect but a learning process, and it is resolved by guidance rather than by blame.
 
 #### Thinking approach
 
@@ -138,6 +138,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 
 - Production chain: Define → Design → Research → Develop → Apply → Evaluate. Each stage feeds the next; nothing is skipped.
 - Institutional memory: lessons from completed cycles (fixes, decisions, outcomes) are banked as documentation and fed back into the next Define/Design stage — the system keeps optimizing itself.
+- Estimates are hypotheses, not commitments: a plan records what it predicted alongside what actually happened, because a forecast that misses in both directions teaches more than one that lands. A rejected proposal must not reappear silently in the next plan, and the next estimate is recomputed from the canonical data source rather than from the previous estimate.
 - Knowledge cycle: identify the need, acquire the information, process it into value, distribute it, then act as one.
 
 #### Communication signals
@@ -149,6 +150,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 | Short imperative ("do X") | Apply directly; do not wait for approval |
 | Conditional instruction ("while doing X, also ...") | Honor every condition; skip none |
 | "Don't hesitate" — create/read files freely | Permission-free proactivity | Create and read files as needed without waiting for approval |
+| "Don't hesitate to create a document" | Documentation is proactive work, not overstepping | Create and extend documents without asking, following the structure, naming, and numbering already in use |
 | "What did you do?" / "I told you before" | Recall check for a prior instruction | Recheck history, notice the omission, and correct it immediately — apologize by fixing, not by wording |
 | "Write it so I can understand it while reading" / "use a better wording" | Raw phrasing must be stored in processed form | Record and present the user's words analyzed and structured, not verbatim |
 
@@ -282,6 +284,8 @@ Repository management and dependency conventions, with their current state in th
 - **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot. Dependency types: **Runtime** (needed to run the app — e.g. flask, react), **Dev** (development-time only — e.g. pytest, eslint), **Build** (compile-time only — e.g. typescript, webpack).
 - **Hidden/guidance layers.** Local guidance and customization layers that must not mix into the live codebase are protected four ways: excluded in `.gitignore`, marked with a `._dont_migrate_` file so build/deploy tooling skips them, never referenced from committed output beyond `.gitignore` patterns, and never named or quoted in any other output — their existence and content stay inside the layer, the single exception being work the user explicitly directs inside that layer. This last protection is absolute: a private layer that leaks through a code comment, a doc, a commit message, or a chat reply is broken, however well-intentioned the mention.
 - **Layered references.** Reference material is layered by stability: universal/standard references update only when the authoritative standard behind them changes; project-specific guidance gets a project layer of its own — project overrides never rewrite the universal reference. Updates flow top-down only on a real change in the underlying standard.
+- **Single ownership.** Every rule has exactly one canonical owner document. Everywhere else it appears as a pointer, never as a copy: a duplicated rule drifts from its source and then contradicts it. When the canonical text changes, the pointers are refreshed, not the copies that were never meant to hold it.
+- **One ignore pattern per hidden layer tree.** A single root `.gitignore` pattern covering the whole hidden-layer directory is preferred over one pattern per layer, because the per-layer list is a checklist that can silently forget a new layer; per-layer ignore files are therefore not created. The pattern is never deleted or commented out, and it is the first thing written when such a project is set up.
 - **New-repository checklist.** At project bootstrap: `.gitignore` including the hidden layers; `.github/dependabot.yml`; `codeql.yml`; auto-approve workflow; `SECURITY.md`; workflows for recurring git operations; a log file the workflow itself keeps current.
 - **Standard workflow triggers.** Test on `push` / `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot on a weekly cadence.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API — never by hand; human intervention is not required.
@@ -292,8 +296,16 @@ Repository management and dependency conventions, with their current state in th
   pattern (see CONTRIBUTING.md). Keep headings, anchors, and badges consistent.
 - **Documentation structure.** Every project keeps a `Docs/` folder whose
   chapters cover overview/setup, architecture, API (when applicable),
-  troubleshooting, and changelog; a `PLANNING/` subfolder under it holds
-  work plans and task tracking, managed by the AI assistant as it goes.
+  troubleshooting, and a changelog only when the project keeps no changelog at
+  its root; a `PLANNING/` subfolder under it holds work plans and task
+  tracking, managed by the AI assistant as it goes. The changelog is a single
+  file in a single place: once a root `CHANGELOG.md` exists, the folder gains no
+  changelog chapter and a second independent log is never created.
+- **Derived documentation output.** Anything that republishes canonical content
+  for a separate surface (a synced wiki page, a site page, a release body) is a
+  published projection, not a second source. It is generated or workflow-synced
+  from its owner, never maintained by hand in parallel, and it never outranks the
+  source it was derived from.
 - **Documentation mirrors code.** Any meaningful change (component, dependency,
   configuration, architecture decision, test setup) updates the affected
   documentation in the same commit. The update is reported, not approved; a
@@ -315,12 +327,14 @@ Repository management and dependency conventions, with their current state in th
   via `Import-OmegaPolicyData` into `$OmegaState`). Deprecated policies must be
   removed from the profile files — the ADMX validator (`admx-validate.ps1`)
   enforces the cross-reference.
-- **Version bumps.** Add a changelog entry (CHANGELOG.md + `Wiki/Changelog.md`),
+- **Version bumps.** Add an entry to the single canonical changelog (root
+  `CHANGELOG.md` in this repo, with `Wiki/Changelog.md` as its workflow-synced
+  projection),
   bump `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`, then update
   the hand-maintained "Validated on" header in `docs/policy-catalog.md`, README §8,
-  `index.html` (hero, prerequisites, compat rows), and the Wiki pages. Changelogs
-  follow the Keep a Changelog format (Added / Changed / Deprecated / Removed /
-  Fixed / Security) under SemVer headings, newest first.
+  `index.html` (hero, prerequisites, compat rows), and the Wiki pages. The
+  changelog follows the Keep a Changelog format (Added / Changed / Deprecated /
+  Removed / Fixed / Security) under SemVer headings, newest first.
 - **Release parity.** GitHub and GitLab releases mirror each other exactly —
   same tag, title, description, and notes. Release notes are bilingual:
   EN paragraph first, TR paragraph after, at equal scope, detail, and quality.
@@ -391,6 +405,22 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   then hash the UTF-8 encoding of what remains. Normalizing to LF is what makes
   a single value valid for a CRLF checkout, an LF checkout, and the committed
   blob alike, so the number never depends on how the file happened to be saved.
+- The verifier also compares structure, not only the marker: the same number of
+  sections, the same heading depth sequence, the same number of top-level rules
+  under every section, the same number of code fences, and the same number of
+  table blocks.
+- Heading detection skips fenced code, so a `#` comment or a list inside a
+  sample is counted as neither a section nor a rule.
+- Nested sub-items are reported but not compared. A translation is allowed to
+  expand one rule into sub-bullets, so a difference there is information to
+  read, not drift to fix.
+- Tables are compared as blocks, not row by row. Splitting one English rule
+  across two Turkish rows is a granularity difference, not a lost rule.
+- Structure cannot prove meaning. A passing run proves the two files are the
+  same shape and declare the same value; the wording still needs a human read.
+- `Tests/MirrorSync.Tests.ps1` pins this behavior down with fixtures: a clean
+  pair, a CRLF mirror, each class of drift, the tolerated granularity, and a
+  mirror that is absent.
 - The verifier takes both paths as parameters and names neither, so nothing
   about this layer's location is recorded in committed output. Pass
   `-AllowMissingMirror` where the mirror is intentionally absent, such as CI.
@@ -398,4 +428,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=bacaec36214a7b4f1d083af097835b39049461c9 -->
+<!-- mirror-sync: sync-sha=696ab957ca42ecb462503ce50485093dcaa52d7c -->
