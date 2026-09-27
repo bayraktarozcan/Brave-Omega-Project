@@ -1,4 +1,4 @@
-param(
+﻿param(
     [switch]$VerboseOutput
 )
 
@@ -97,8 +97,8 @@ foreach ($tier in @($config.levelOrder)) {
         Write-Host "Profile file not found: $profilePath" -ForegroundColor Red
         exit 1
     }
-    $profile = Get-Content -LiteralPath $profilePath -Raw -Encoding UTF8 | ConvertFrom-Json
-    foreach ($p in @($profile.policies)) {
+    $tierProfile = Get-Content -LiteralPath $profilePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($p in @($tierProfile.policies)) {
         $name = $p.name
         $type = $p.type
         if ($scriptPolicyMap.ContainsKey($name)) {

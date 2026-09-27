@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
 }
 
