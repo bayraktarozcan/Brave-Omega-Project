@@ -135,6 +135,163 @@ function Get-OmegaLevelMenuMap {
     return $null
 }
 
+function ConvertTo-OmegaIgnoreRegex {
+    param([string]$Pattern)
+
+    $anchored = $false
+    $body = $Pattern
+    if ($body.StartsWith('/')) {
+        $anchored = $true
+        $body = $body.Substring(1)
+    }
+    if ($body.Contains('/')) { $anchored = $true }
+
+    $sb = New-Object System.Text.StringBuilder
+    [void]$sb.Append('^')
+    if (-not $anchored) { [void]$sb.Append('(?:.*/)?') }
+
+    $i = 0
+    while ($i -lt $body.Length) {
+        $c = $body[$i]
+        if ($c -eq '\' -and ($i + 1) -lt $body.Length) {
+            [void]$sb.Append([regex]::Escape([string]$body[$i + 1]))
+            $i += 2
+            continue
+        }
+        if ($c -eq '*') {
+            if (($i + 1) -lt $body.Length -and $body[$i + 1] -eq '*') {
+                if (($i + 2) -lt $body.Length -and $body[$i + 2] -eq '/') {
+                    [void]$sb.Append('(?:.*/)?')
+                    $i += 3
+                }
+                else {
+                    [void]$sb.Append('.*')
+                    $i += 2
+                }
+                continue
+            }
+            [void]$sb.Append('[^/]*')
+            $i++
+            continue
+        }
+        if ($c -eq '?') {
+            [void]$sb.Append('[^/]')
+            $i++
+            continue
+        }
+        if ($c -eq '[') {
+            $close = $i + 1
+            if ($close -lt $body.Length -and ($body[$close] -eq '!' -or $body[$close] -eq '^')) { $close++ }
+            if ($close -lt $body.Length -and $body[$close] -eq ']') { $close++ }
+            while ($close -lt $body.Length -and $body[$close] -ne ']') { $close++ }
+            if ($close -ge $body.Length) {
+                [void]$sb.Append('[')
+                $i++
+                continue
+            }
+            $class = $body.Substring($i + 1, $close - $i - 1)
+            if ($class.StartsWith('!')) { $class = '^' + $class.Substring(1) }
+            [void]$sb.Append('[' + $class + ']')
+            $i = $close + 1
+            continue
+        }
+        [void]$sb.Append([regex]::Escape([string]$c))
+        $i++
+    }
+    [void]$sb.Append('$')
+
+    return [pscustomobject]@{
+        Anchored = $anchored
+        Regex    = [regex]::new($sb.ToString())
+    }
+}
+
+function Get-OmegaIgnoreRule {
+    param([string]$IgnoreFilePath)
+
+    $rules = @()
+    foreach ($line in (Get-Content -Path $IgnoreFilePath)) {
+        $text = $line.TrimEnd()
+        if ($text.Length -eq 0) { continue }
+        if ($text.StartsWith('#')) { continue }
+
+        $negate = $false
+        $body = $text
+        if ($body.StartsWith('!')) {
+            $negate = $true
+            $body = $body.Substring(1)
+        }
+        $dirOnly = $false
+        if ($body.EndsWith('/')) {
+            $dirOnly = $true
+            $body = $body.Substring(0, $body.Length - 1)
+        }
+        if ($body.Length -eq 0) { continue }
+
+        $compiled = ConvertTo-OmegaIgnoreRegex $body
+        $rules += [pscustomobject]@{
+            Source   = $text
+            Pattern  = $body
+            Negate   = $negate
+            DirOnly  = $dirOnly
+            Anchored = $compiled.Anchored
+            Regex    = $compiled.Regex
+        }
+    }
+    return $rules
+}
+
+function Get-OmegaIgnoreDecision {
+    param(
+        [object[]]$Rules,
+        [string]$Path
+    )
+
+    $rel = ($Path -replace '\\', '/') -replace '^\./', ''
+    $rel = $rel.TrimStart('/')
+    if ($rel.Length -eq 0) { return [pscustomobject]@{ Ignored = $false; Rule = $null } }
+
+    $candidates = @($rel)
+    if ($rel.Contains('/')) {
+        $parts = $rel -split '/'
+        $acc = ''
+        for ($i = 0; $i -lt ($parts.Count - 1); $i++) {
+            if ($acc) { $acc = $acc + '/' + $parts[$i] } else { $acc = $parts[$i] }
+            $candidates += $acc
+        }
+    }
+
+    $ignored = $false
+    $winner = $null
+    foreach ($rule in $Rules) {
+        $matched = $false
+        foreach ($candidate in $candidates) {
+            if ($rule.Regex.IsMatch($candidate)) { $matched = $true; break }
+        }
+        if ($matched) {
+            $ignored = (-not $rule.Negate)
+            $winner = $rule
+        }
+    }
+    return [pscustomobject]@{ Ignored = $ignored; Rule = $winner }
+}
+
+function Test-OmegaIgnorePath {
+    param(
+        [object[]]$Rules,
+        [string]$Path
+    )
+    return (Get-OmegaIgnoreDecision -Rules $Rules -Path $Path).Ignored
+}
+
+function Get-OmegaIgnoreRuleFor {
+    param(
+        [object[]]$Rules,
+        [string]$Path
+    )
+    return (Get-OmegaIgnoreDecision -Rules $Rules -Path $Path).Rule
+}
+
 function Get-OmegaProfilePolicies {
     param([string]$ScriptPath = $ScriptMain)
     $dataDir = Split-Path -Path $ScriptPath -Parent
