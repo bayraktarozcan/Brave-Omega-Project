@@ -35,7 +35,7 @@
 .NOTES
     - Presence is evaluated per policy NAME (value name or sub-key name under the base
       key). MultiString policies (e.g. ExtensionInstallForcelist) are stored as sub-keys.
-    - The policy name sets below mirror the per-tier catalog in enterprise\levels.json and are
+    - The policy name sets below mirror the per-tier catalog in Enterprise\levels.json and are
       kept in sync by Tests\DeploymentScripts.Tests.ps1. Do not edit by hand.
 #>
 

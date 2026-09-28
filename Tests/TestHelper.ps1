@@ -296,7 +296,7 @@ function Get-OmegaProfilePolicies {
     param([string]$ScriptPath = $ScriptMain)
     $dataDir = Split-Path -Path $ScriptPath -Parent
     $config = Get-Content -Path (Join-Path $dataDir "config.json") -Raw | ConvertFrom-Json
-    $profilesDir = Join-Path $dataDir "profiles"
+    $profilesDir = Join-Path $dataDir "Profiles"
     $all = @()
     foreach ($tier in @($config.levelOrder)) {
         $profile = Get-Content -Path (Join-Path $profilesDir "$tier.json") -Raw | ConvertFrom-Json
@@ -314,7 +314,7 @@ function Get-OmegaTierPolicies {
     )
     $dataDir = Split-Path -Path $ScriptPath -Parent
     if ($Level -notin (Get-OmegaLevelOrder -ScriptPath $ScriptPath)) { throw "Unknown level: $Level" }
-    $profile = Get-Content -Path (Join-Path $dataDir "profiles\$Level.json") -Raw | ConvertFrom-Json
+    $profile = Get-Content -Path (Join-Path $dataDir "Profiles\$Level.json") -Raw | ConvertFrom-Json
     return @($profile.policies)
 }
 

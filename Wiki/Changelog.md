@@ -41,7 +41,7 @@ Complete version history for Brave Omega.
 
 - Startup summary and console report now count and display the fourth registry value type, `ExpandString`, used by `DownloadDirectory`; previously only DWord, String, and MultiString were reported
 - `docs/policy-catalog.md` documents `DownloadDirectory` as `ExpandString` in both the EN and TR tables; the per-type distribution line reports all four types (124 DWord / 7 String / 19 MultiString / 1 ExpandString); the stale TR source version, date, and validation header corrected to v2.8.1.1 / 2026-09-26
-- Version surfaces aligned to v2.8.1.1: README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `enterprise/levels.json`, and the `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test expectations
+- Version surfaces aligned to v2.8.1.1: README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `Enterprise/levels.json`, and the `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test expectations
 - New `Tests/TypeDistribution.Tests.ps1` derives the distribution from the data layer and asserts the 151-policy total, the four supported types, the runtime counters, and every catalog row
 - Validation triple unchanged: Brave 1.96.59 / Chromium 154.0.8037.58 / build 26200.9550; ADMX remains 154.1.98.28
 - No policy or registry value changes; `.reg` output byte-identical; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
@@ -836,7 +836,7 @@ Brave Omega için tam sürüm geçmişi.
 
 - Başlangıç özeti ve konsol raporu artık `DownloadDirectory` politikasının kullandığı dördüncü kayıt değer türü olan `ExpandString` türünü de sayıyor ve gösteriyor; önceden yalnız DWord, String ve MultiString raporlanıyordu
 - `docs/policy-catalog.md` içinde `DownloadDirectory` hem EN hem TR tabloda `ExpandString` olarak belgelendi; tür dağılımı satırı artık dört türün tamamını raporluyor (124 DWord / 7 String / 19 MultiString / 1 ExpandString); bayat TR kaynak sürüm, tarih ve doğrulama başlığı v2.8.1.1 / 2026-09-26 olarak düzeltildi
-- Sürüm yüzeyleri v2.8.1.1 ile hizalandı: README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `enterprise/levels.json` ve `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test beklentileri
+- Sürüm yüzeyleri v2.8.1.1 ile hizalandı: README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `Enterprise/levels.json` ve `ScriptVersion` / `FullPipeline-TR` / `StaleCleanup` test beklentileri
 - Yeni `Tests/TypeDistribution.Tests.ps1` tür dağılımını veri katmanından türetir ve 151 politika toplamını, dört desteklenen türü, çalışma zamanı sayaçlarını ve katalogdaki her satırı doğrular
 - Doğrulama üçlüsü değişmedi: Brave 1.96.59 / Chromium 154.0.8037.58 / derleme 26200.9550; ADMX 154.1.98.28 olarak kalıyor
 - Politika veya kayıt değeri değişikliği yok; `.reg` çıktısı bayt-bayt aynı; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151

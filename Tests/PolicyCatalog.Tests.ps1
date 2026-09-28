@@ -338,7 +338,7 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
         return $map
         }
 
-        $script:EnterpriseDir    = Join-Path $ProjectRoot 'enterprise'
+        $script:EnterpriseDir    = Join-Path $ProjectRoot 'Enterprise'
         $script:EnterpriseJson   = Join-Path $script:EnterpriseDir 'levels.json'
         $script:CheckedInJson    = Get-Content -LiteralPath $script:EnterpriseJson -Raw | ConvertFrom-Json
         $script:CheckedInReg     = @{}

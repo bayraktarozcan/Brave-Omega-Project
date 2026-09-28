@@ -55,7 +55,7 @@
 #
 #     [CHANGED]     Policy definitions moved out of the script body into a
 #                   validated data layer: `config.json` (registry targets +
-#                   level order) and `profiles/<Tier>.json` (one file per
+#                   level order) and `Profiles/<Tier>.json` (one file per
 #                   tier, 151 policies) ship next to the script. Runtime
 #                   loads them via Import-OmegaPolicyData into $OmegaState.
 #                   Byte-identical registry output; totals remain 151 across
@@ -711,13 +711,13 @@ if ($braveInfo) {
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# OMEGA DATA LAYER (config.json + profiles) — Issue #28
-# Policy data now lives in config.json + profiles/*.json; the loaders below
+# OMEGA DATA LAYER (config.json + Profiles) — Issue #28
+# Policy data now lives in config.json + Profiles/*.json; the loaders below
 # wire them into the same script variables used throughout (identical runtime
 # behavior, data-driven definitions).
 # ─────────────────────────────────────────────────────────────────────────────
 $OmegaConfigPath  = Join-Path -Path $PSScriptRoot -ChildPath "config.json"
-$OmegaProfilesDir = Join-Path -Path $PSScriptRoot -ChildPath "profiles"
+$OmegaProfilesDir = Join-Path -Path $PSScriptRoot -ChildPath "Profiles"
 
 # Convert a ConvertFrom-Json object (PSCustomObject / arrays) into equivalent
 # PowerShell hashtables/arrays so downstream JSON re-serialization behaves the

@@ -25,14 +25,14 @@ Operational notes for humans and AI agents working in this repository. English i
 |------|---------|
 | `Brave Omega/BraveOmega.ps1` | Unified EN/TR hardening script (single source of policy truth) |
 | `Brave Omega/docs/policy-catalog.md` | Full per-policy catalog with metadata |
-| `Brave Omega/config.json` + `Brave Omega/profiles/*.json` | Policy data layer - the only place policy definitions change |
-| `enterprise/` | Per-tier `.reg` templates + `levels.json` registry export |
+| `Brave Omega/config.json` + `Brave Omega/Profiles/*.json` | Policy data layer - the only place policy definitions change |
+| `Enterprise/` | Per-tier `.reg` templates + `levels.json` registry export |
 | `admx/` | ADMX templates + `admx-validate.ps1` cross-reference validator |
 | `scripts/` | Release, wiki sync, deploy/detect, catalog export, mojibake scan |
 | `Tests/` | Pester 5.7.1 test suite - one file per invariant |
 | `Tests/MirrorSync.Tests.ps1` | Fixtures pinning the bilingual mirror contract (clean pair, CRLF mirror, each drift class, ordered checklist, absent mirror) |
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
-| `docs/` | Project-level references: group policy reference, roadmap and opportunities |
+| `Brave Omega/docs/` | Project-level references: group policy reference, roadmap and opportunities |
 | `index.html` | Single-page landing page (true black, dark theme, no external JS, < 10 KB gzipped) |
 | Root governance set | `README.md`, `SECURITY.md`, `PRIVACY.md`, `SUPPORT.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `RELEASE-NOTE-TEMPLATE.md`, `CODEOWNERS`, `LICENSE`, `NOTICE` |
 | `.github/workflows/` | CI/CD: Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene |
@@ -278,10 +278,25 @@ Change done
 #### File naming
 
 All committed file and directory names are English:
-- Directories: English, lowercase, separated by `-`/`_`.
+- Directories: English, initial capital, separated by `-`/`_`; abbreviations in full capitals.
 - Source files: snake_case or PascalCase per language.
 - Documentation: English titles and filenames.
 - Exception: standard language codes (`tr.json`, `en.json`).
+
+A directory name stays lowercase only when a tool, platform, or ecosystem
+convention fixes it there, and the exemption is recorded here rather than left
+implicit: `.github/` and everything under it (`.github/workflows`,
+`.github/ISSUE_TEMPLATE`, `.github/linters`) because GitHub resolves those paths
+case-sensitively; `admx/` because the vendor's own Group Policy tooling and
+documentation use that spelling; `scripts/` and `docs/` because every mainstream
+toolchain - npm, Python, Rust, Go - ships a lowercase `scripts/` and `docs/`.
+A name that is merely *conventional* is not enough on its own to justify a
+lowercase directory, and a rename is a single logical change: the directory
+moves, every path that names it moves with it in the same commit, and a
+reference left behind is a defect rather than a follow-up. Historical records -
+the changelog, the version-compatibility tables, per-version release notes - are
+excluded: they describe the repository as it stood at that version, so rewriting
+a path inside them would falsify the record instead of updating it.
 
 #### Untracked file reference ban
 
@@ -358,7 +373,7 @@ Repository management and dependency conventions, with their current state in th
   in identifiers even in BOM files — while user-facing strings, comments, and
   string data keep full Turkish characters.
 - **Policy edits.** Change policy definitions only in the data layer
-  (`Brave Omega/config.json` + `Brave Omega/profiles/*.json`; loaded at runtime
+  (`Brave Omega/config.json` + `Brave Omega/Profiles/*.json`; loaded at runtime
   via `Import-OmegaPolicyData` into `$OmegaState`). Deprecated policies must be
   removed from the profile files — the ADMX validator (`admx-validate.ps1`)
   enforces the cross-reference.
@@ -366,7 +381,8 @@ Repository management and dependency conventions, with their current state in th
   `CHANGELOG.md` in this repo, with `Wiki/Changelog.md` as its workflow-synced
   projection),
   bump `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`, then update
-  the hand-maintained "Validated on" header in `docs/policy-catalog.md`, README §8,
+  the hand-maintained "Validated on" header in
+  `Brave Omega/docs/policy-catalog.md`, README §8,
   `index.html` (hero, prerequisites, compat rows), and the Wiki pages. The
   changelog follows the Keep a Changelog format (Added / Changed / Deprecated /
   Removed / Fixed / Security) under SemVer headings, newest first.
@@ -379,6 +395,17 @@ Repository management and dependency conventions, with their current state in th
   is also a dual gate: the second host carries its own CI enforcing the same
   checks, because a rule enforced on one host only is enforced nowhere the
   project actually lives.
+- **GitHub ruleset (`Protect main`).** The `main` branch ruleset nominally
+  requires a pull request, and that requirement is deliberately bypassed rather
+  than satisfied. A repository owner is listed as a bypass actor with
+  `bypass_mode: always`, so a direct push to `main` is admitted and the ruleset
+  is not enforced on it; the seven required status checks therefore run
+  *after* the push rather than gating it. This is the accepted cost of the
+  no-PR workflow above, not an oversight: the checks still run, and a failure is
+  detected and fixed forward on the same branch instead of being caught before
+  merge. The second host's CI is the independent gate, so a bypass on one remote
+  is not an unenforced rule on the project. Removing the bypass is a decision to
+  adopt a PR workflow, and it is deliberately not taken here.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git
   and a committed `.env.example` (placeholder values only) documents the expected
   schema; variable names use `UPPER_SNAKE_CASE`.
@@ -475,4 +502,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=d5c6e4dd3697a7b60d90b0437cfd10560a91b402 -->
+<!-- mirror-sync: sync-sha=f6ad5d03b56cde971a827f34df714a854ba2688c -->

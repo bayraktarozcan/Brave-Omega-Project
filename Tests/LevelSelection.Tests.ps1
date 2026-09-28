@@ -70,7 +70,7 @@ Describe "Level Selection" -Tag "Unit" {
 
         It "ships a policy profile for every level in the data layer" {
             $order = Get-OmegaLevelOrder
-            $profilesDir = Join-Path (Split-Path -Path $ScriptMain -Parent) "profiles"
+            $profilesDir = Join-Path (Split-Path -Path $ScriptMain -Parent) "Profiles"
             foreach ($level in $order) {
                 Join-Path $profilesDir "$level.json" | Should -Exist
             }

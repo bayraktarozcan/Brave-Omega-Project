@@ -19,7 +19,7 @@ function Get-ScriptPolicyNames {
     if (-not (Test-Path $scriptMain)) { throw "Script not found: $scriptMain" }
     $dataDir = Split-Path -Path $scriptMain -Parent
     $config = Get-Content -Path (Join-Path $dataDir "config.json") -Raw | ConvertFrom-Json
-    $profilesDir = Join-Path $dataDir "profiles"
+    $profilesDir = Join-Path $dataDir "Profiles"
     $names = @()
     foreach ($tier in @($config.levelOrder)) {
         if (-not (Test-Path (Join-Path $profilesDir "$tier.json"))) { continue }
@@ -50,7 +50,7 @@ function Test-PolicyTypeMatch {
     )
     $dataDir = Split-Path -Path $scriptMain -Parent
     $config = Get-Content -Path (Join-Path $dataDir "config.json") -Raw | ConvertFrom-Json
-    $profilesDir = Join-Path $dataDir "profiles"
+    $profilesDir = Join-Path $dataDir "Profiles"
     foreach ($tier in @($config.levelOrder)) {
         if (-not (Test-Path (Join-Path $profilesDir "$tier.json"))) { continue }
         $profile = Get-Content -Path (Join-Path $profilesDir "$tier.json") -Raw | ConvertFrom-Json

@@ -3,7 +3,7 @@ BeforeAll {
 
     $script:ScriptDeploy  = Join-Path $ProjectRoot 'scripts\deploy-brave-omega.ps1'
     $script:ScriptDetect  = Join-Path $ProjectRoot 'scripts\detect-brave-omega.ps1'
-    $script:LevelsJson    = Join-Path $ProjectRoot 'enterprise\levels.json'
+    $script:LevelsJson    = Join-Path $ProjectRoot 'Enterprise\levels.json'
     $script:Order         = @('BraveOnly', 'Essential', 'Balanced', 'Advanced', 'Strict')
 
     $script:Catalog = Get-Content -LiteralPath $script:LevelsJson -Raw | ConvertFrom-Json
@@ -45,7 +45,7 @@ Describe "Deploy Script" -Tag "Unit" {
 
     It "resolves a reg payload from the enterprise folder" {
         $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ('OmegaDeploy_' + [guid]::NewGuid().ToString('N'))
-        $enterprise = Join-Path $tempDir 'enterprise'
+        $enterprise = Join-Path $tempDir 'Enterprise'
         New-Item -ItemType Directory -Path $enterprise -Force | Out-Null
         New-Item -ItemType File -Path (Join-Path $enterprise 'Balanced.reg') -Force | Out-Null
         $script:expectedRegPath = Join-Path $enterprise 'Balanced.reg'

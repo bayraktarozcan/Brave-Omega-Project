@@ -7,9 +7,9 @@
 
 .DESCRIPTION
     Reads the tier policy data from Brave Omega\config.json and
-    Brave Omega\profiles\<Tier>.json, then produces:
-      - enterprise\levels.json                 (machine-readable catalog)
-      - enterprise\BraveOnly.reg / Essential / Balanced / Advanced / Strict
+    Brave Omega\Profiles\<Tier>.json, then produces:
+      - Enterprise\levels.json                 (machine-readable catalog)
+      - Enterprise\BraveOnly.reg / Essential / Balanced / Advanced / Strict
 
     The .reg files mirror exactly what the Brave Omega script writes to
     HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave for the given
@@ -21,11 +21,11 @@
 
 .PARAMETER ScriptPath
     Path to BraveOmega.ps1 (used to locate the adjacent config.json and
-    profiles\ directory). Defaults to the repository copy.
+    Profiles\ directory). Defaults to the repository copy.
 
 .PARAMETER OutputDir
     Directory for levels.json and the .reg files. Defaults to
-    <repo root>\enterprise.
+    <repo root>\Enterprise.
 
 .PARAMETER ExpectedCounts
     Hashtable of tier -> expected incremental policy count used as a sanity
@@ -132,7 +132,7 @@ function Get-OmegaPolicyDefinitions {
     <#
     .SYNOPSIS
         Loads the per-tier policy definitions from Brave Omega\config.json and
-        Brave Omega\profiles\<Tier>.json.
+        Brave Omega\Profiles\<Tier>.json.
 
     .PARAMETER ScriptPath
         Path to the .ps1 file used to locate the adjacent data directory.
@@ -159,7 +159,7 @@ function Get-OmegaPolicyDefinitions {
         throw "levelOrder is empty in '$configPath'."
     }
 
-    $profilesDir = Join-Path $dataDir 'profiles'
+    $profilesDir = Join-Path $dataDir 'Profiles'
     $definitions = @{}
     foreach ($tier in $knownTiers) {
         $profilePath = Join-Path $profilesDir "$tier.json"
@@ -606,7 +606,7 @@ if ($MyInvocation.InvocationName -ne '.') {
     $catalogOutputDir = if ($OutputDir) {
         $OutputDir
     } else {
-        Join-Path $repoRoot 'enterprise'
+        Join-Path $repoRoot 'Enterprise'
     }
 
     if ($null -eq $ExpectedCounts) {

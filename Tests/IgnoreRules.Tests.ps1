@@ -38,10 +38,10 @@ Describe "Ignore rule anchoring" -Tag "Unit" {
 
     Context "Negation ordering" {
 
-        It "ignores a registry backup at the root but keeps the tracked enterprise profiles" {
+        It "ignores a registry backup at the root but keeps the tracked Enterprise policy profiles" {
             $rules = Get-IgnoreRuleSet
             Test-OmegaIgnorePath -Rules $rules -Path "Backup/local.reg" | Should -BeTrue
-            Test-OmegaIgnorePath -Rules $rules -Path "enterprise/Balanced.reg" | Should -BeFalse -Because "enterprise/*.reg is a CI-consumed artifact and is re-included by a later rule"
+            Test-OmegaIgnorePath -Rules $rules -Path "Enterprise/Balanced.reg" | Should -BeFalse -Because "Enterprise/*.reg is a CI-consumed artifact and is re-included by a later rule"
         }
 
         It "keeps the editor settings that a later rule re-includes" {

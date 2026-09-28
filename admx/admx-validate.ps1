@@ -78,11 +78,11 @@ foreach ($p in $policies) {
 
 Write-Result "ADMX lookup built: $($admxPolicyMap.Count) unique policy names" -Level "Info"
 
-# ─── Policy definitions (auto-discovered from config.json + profiles\<Tier>.json) ───
+# ─── Policy definitions (auto-discovered from config.json + Profiles\<Tier>.json) ───
 # Parsed dynamically so every policy added to the data layer is validated — no manual sync.
 $dataDir = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave Omega"
 $configPath = Join-Path -Path $dataDir -ChildPath "config.json"
-$profilesDir = Join-Path -Path $dataDir -ChildPath "profiles"
+$profilesDir = Join-Path -Path $dataDir -ChildPath "Profiles"
 if (-not (Test-Path -LiteralPath $configPath)) {
     Write-Host "Config file not found: $configPath" -ForegroundColor Red
     exit 1
@@ -116,7 +116,7 @@ foreach ($dup in $duplicateTypes) {
 }
 if ($duplicateTypes.Count -gt 0) { $ExitCode = 1 }
 
-Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy names (auto-discovered from profiles)" -Level "Info"
+Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy names (auto-discovered from Profiles)" -Level "Info"
 
 # ─── Known exceptions: valid Chromium policies intentionally absent from Brave's ADMX ───
 # Brave's ADMX bundle is generated from Chromium's Windows GPO policy templates. A few
