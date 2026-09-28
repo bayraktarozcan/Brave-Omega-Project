@@ -36,18 +36,89 @@ jobs:
       - name: Check for Brave ADMX updates
         shell: pwsh
         run: |
-          $versionFile = "admx/VERSION_BRAVE_ADMX"
-          $oldVersion = ""
-          if (Test-Path -LiteralPath $versionFile) {
-            $oldVersion = (Get-Content -LiteralPath $versionFile -Raw).Trim()
+          # brave.admx carries the version in its own leading comment, so it is
+          # the single source of truth. A separate version file would be a second
+          # copy that drifts, and a multi-line one would not parse as a version.
+          $localAdmx = "admx/brave.admx"
+          $localVersion = ([regex]::Match(
+            (Get-Content -LiteralPath $localAdmx -Raw),
+            'brave version:\s*([\d.]+)')).Groups[1].Value
+
+          if ([string]::IsNullOrWhiteSpace($localVersion)) {
+            Write-Error "Could not read a version from $localAdmx"
+            exit 1
           }
+          Write-Host "Local ADMX version: $localVersion"
+
+          $remoteUri = "https://brave-browser-downloads.s3.brave.com/latest/policy_templates.zip"
+          $tempZip = Join-Path $env:RUNNER_TEMP "policy_templates.zip"
+          $tempDir = Join-Path $env:RUNNER_TEMP "policy_templates"
+
           try {
-            $result = Invoke-WebRequest -Uri "https://brave-browser-downloads.s3.brave.com/latest/policy_templates.zip" -Method Head -UseBasicParsing
-            $newEtag = $result.Headers["ETag"]
-            $newLastMod = $result.Headers["Last-Modified"]
-            Write-Host "Current ADMX version: $oldVersion"
-            Write-Host "Remote ADMX ETag: $newEtag"
-            Write-Host "Remote ADMX Last-Modified: $newLastMod"
+            Invoke-WebRequest -Uri $remoteUri -OutFile $tempZip -UseBasicParsing
+            if (Test-Path -LiteralPath $tempDir) {
+              Remove-Item -LiteralPath $tempDir -Recurse -Force
+            }
+            Expand-Archive -LiteralPath $tempZip -DestinationPath $tempDir -Force
+
+            $remoteAdmx = Get-ChildItem -LiteralPath $tempDir -Recurse -Filter "brave.admx" |
+              Select-Object -First 1
+            if (-not $remoteAdmx) {
+              Write-Warning "Remote package contains no brave.admx; cannot compare versions"
+              exit 0
+            }
+
+            $remoteVersion = ([regex]::Match(
+              (Get-Content -LiteralPath $remoteAdmx.FullName -Raw),
+              'brave version:\s*([\d.]+)')).Groups[1].Value
+
+            if ([string]::IsNullOrWhiteSpace($remoteVersion)) {
+              Write-Warning "Remote brave.admx carries no version comment; cannot compare versions"
+              exit 0
+            }
+
+            Write-Host "Remote ADMX version: $remoteVersion"
+
+            # Compare parsed versions, not the two strings. The strings can
+            # differ while naming the same version ("154.1.98.28" and
+            # "154.01.98.28"), and a string comparison would then fall through
+            # to a direction test that cannot be true for equal numbers.
+            [version]$localParsed = $null
+            [version]$remoteParsed = $null
+            $localOk = [version]::TryParse($localVersion, [ref]$localParsed)
+            $remoteOk = [version]::TryParse($remoteVersion, [ref]$remoteParsed)
+            $sameVersion = ($remoteVersion -eq $localVersion) -or
+              ($localOk -and $remoteOk -and $remoteParsed -eq $localParsed)
+
+            if ($sameVersion) {
+              Write-Host "ADMX templates are current."
+            } else {
+              # Upstream shipping a newer ADMX is normal and not a build break,
+              # so this warns rather than fails. It is no longer silent.
+              #
+              # The direction is tested, not assumed. A package that is *older*
+              # than the copy in the repository is a different problem - a
+              # rollback or a repackaged zip - and announcing that as an update
+              # would send a maintainer to refresh files that are already ahead.
+              # If either side will not parse as a version, the message stays
+              # neutral instead of guessing.
+              $direction = "differs from"
+              if ($localOk -and $remoteOk) {
+                $direction = if ($remoteParsed -gt $localParsed) { "is newer than" } else { "is older than" }
+              }
+
+              Write-Warning "Brave ADMX $direction the repository copy ($remoteVersion vs $localVersion)."
+              Write-Warning "Refresh admx/brave.admx and admx/brave.adml from $remoteUri"
+            }
           } catch {
-            Write-Host "Could not reach Brave S3 to check for updates — skipping"
+            # The update check is informational. A network failure must not mask
+            # the cross-reference validation that already ran above it.
+            Write-Warning "Could not reach Brave S3 to check for updates: $($_.Exception.Message)"
+          } finally {
+            if (Test-Path -LiteralPath $tempZip) {
+              Remove-Item -LiteralPath $tempZip -Force -ErrorAction SilentlyContinue
+            }
+            if (Test-Path -LiteralPath $tempDir) {
+              Remove-Item -LiteralPath $tempDir -Recurse -Force -ErrorAction SilentlyContinue
+            }
           }

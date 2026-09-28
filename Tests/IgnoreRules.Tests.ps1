@@ -14,7 +14,7 @@ Describe "Ignore rule anchoring" -Tag "Unit" {
         }
 
         It "does not ignore product documentation shipped inside the project" {
-            Test-OmegaIgnorePath -Rules (Get-IgnoreRuleSet) -Path "Brave Omega/docs/architecture.md" | Should -BeFalse
+            Test-OmegaIgnorePath -Rules (Get-IgnoreRuleSet) -Path "Brave Omega/Docs/architecture.md" | Should -BeFalse
         }
 
         It "does not ignore a documentation directory nested several levels deep" {
@@ -29,7 +29,7 @@ Describe "Ignore rule anchoring" -Tag "Unit" {
         }
 
         It "leaves nested product documentation with no ignore rule to override it" {
-            foreach ($path in @("Brave Omega/docs/architecture.md", "x/y/docs/probe.md")) {
+            foreach ($path in @("Brave Omega/Docs/architecture.md", "x/y/docs/probe.md")) {
                 $rule = Get-OmegaIgnoreRuleFor -Rules (Get-IgnoreRuleSet) -Path $path
                 $rule | Should -BeNullOrEmpty -Because "$path is tracked output, so no pattern in .gitignore may match it"
             }

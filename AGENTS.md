@@ -24,7 +24,7 @@ Operational notes for humans and AI agents working in this repository. English i
 | Path | Purpose |
 |------|---------|
 | `Brave Omega/BraveOmega.ps1` | Unified EN/TR hardening script (single source of policy truth) |
-| `Brave Omega/docs/policy-catalog.md` | Full per-policy catalog with metadata |
+| `Brave Omega/Docs/policy-catalog.md` | Full per-policy catalog with metadata |
 | `Brave Omega/config.json` + `Brave Omega/Profiles/*.json` | Policy data layer - the only place policy definitions change |
 | `Enterprise/` | Per-tier `.reg` templates + `levels.json` registry export |
 | `admx/` | ADMX templates + `admx-validate.ps1` cross-reference validator |
@@ -32,7 +32,7 @@ Operational notes for humans and AI agents working in this repository. English i
 | `Tests/` | Pester 5.7.1 test suite - one file per invariant |
 | `Tests/MirrorSync.Tests.ps1` | Fixtures pinning the bilingual mirror contract (clean pair, CRLF mirror, each drift class, ordered checklist, absent mirror) |
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
-| `Brave Omega/docs/` | Project-level references: group policy reference, roadmap and opportunities |
+| `Brave Omega/Docs/` | Project-level references: group policy reference, roadmap and opportunities |
 | `index.html` | Single-page landing page (true black, dark theme, no external JS, < 10 KB gzipped) |
 | Root governance set | `README.md`, `SECURITY.md`, `PRIVACY.md`, `SUPPORT.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `RELEASE-NOTE-TEMPLATE.md`, `CODEOWNERS`, `LICENSE`, `NOTICE` |
 | `.github/workflows/` | CI/CD: Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene |
@@ -290,6 +290,24 @@ implicit: `.github/` and everything under it (`.github/workflows`,
 case-sensitively; `admx/` because the vendor's own Group Policy tooling and
 documentation use that spelling; `scripts/` and `docs/` because every mainstream
 toolchain - npm, Python, Rust, Go - ships a lowercase `scripts/` and `docs/`.
+
+The lowercase `docs/` exemption is scoped to the *untracked* root reference
+folder, which `.gitignore` anchors to the repository root. It does not carry over
+to committed product documentation: the catalog ships as `Brave Omega/Docs/`
+with a capital D, because that document is tracked output and is held to the
+capitalised-directory rule like any other committed path. A lowercase exemption
+is granted to one named path, not to a spelling wherever it happens to appear.
+
+File names are the same principle. A directory carries one convention, and the
+exceptions are named rather than implied:
+
+| Directory | Convention | Named exceptions |
+|-----------|------------|------------------|
+| `scripts/` | PascalCase (`Release.ps1`) | `deploy-brave-omega.ps1`, `detect-brave-omega.ps1`, `mojibake-scan.py`, `verify-mirror-sync.ps1` - pre-existing kebab-case, kept so external references stay valid; each is a rename candidate, not a precedent |
+| `Tests/` | PascalCase (`MirrorSync.Tests.ps1`) | none |
+| `admx/` | vendor spelling (`admx-validate.ps1`) | the whole directory follows the vendor's own naming |
+| `.github/` | platform-fixed | file names are chosen by GitHub, not by this repository |
+
 A name that is merely *conventional* is not enough on its own to justify a
 lowercase directory, and a rename is a single logical change: the directory
 moves, every path that names it moves with it in the same commit, and a
@@ -297,6 +315,17 @@ reference left behind is a defect rather than a follow-up. Historical records -
 the changelog, the version-compatibility tables, per-version release notes - are
 excluded: they describe the repository as it stood at that version, so rewriting
 a path inside them would falsify the record instead of updating it.
+
+`Tests/FileNaming.Tests.ps1` enforces this section, so a new file that arrives
+in a second style fails by name instead of drifting quietly. It is written
+against a Turkish-locale Windows host, and that shapes how it tests: a case
+range such as `[A-Z]` is matched with `-cmatch`, never `-match`, because
+PowerShell folds the range through the current culture and a Turkish locale puts
+`I` outside `[A-Z]`. The same case-sensitivity applies to every path
+comparison in the test, and existence is checked against the name Git records
+rather than with `Test-Path`, which is case-insensitive on Windows and would
+report a lowercase spelling as present when only the capitalised directory
+exists.
 
 #### Untracked file reference ban
 
@@ -382,7 +411,7 @@ Repository management and dependency conventions, with their current state in th
   projection),
   bump `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`, then update
   the hand-maintained "Validated on" header in
-  `Brave Omega/docs/policy-catalog.md`, README §8,
+  `Brave Omega/Docs/policy-catalog.md`, README §8,
   `index.html` (hero, prerequisites, compat rows), and the Wiki pages. The
   changelog follows the Keep a Changelog format (Added / Changed / Deprecated /
   Removed / Fixed / Security) under SemVer headings, newest first.
@@ -502,4 +531,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=f6ad5d03b56cde971a827f34df714a854ba2688c -->
+<!-- mirror-sync: sync-sha=37c792270edb5c8cf93ed7aecb90c3b2aea06174 -->

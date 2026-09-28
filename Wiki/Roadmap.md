@@ -83,7 +83,7 @@ Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 | Component | Description | Status |
 |-----------|-------------|--------|
-| Policy catalog | `docs/policy-catalog.md` with full per-policy metadata | ✅ Complete |
+| Policy catalog | `Brave Omega/Docs/policy-catalog.md` with full per-policy metadata | ✅ Complete |
 | Wiki consistency | Fix typos, encoding, policy numbers across all Wiki pages | ✅ Complete |
 | Version reference standardization | Align CHANGELOG/Wiki, fix stale matrix | ✅ Complete |
 
@@ -332,7 +332,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
-| Politika kataloğu | `docs/policy-catalog.md` tam meta verili | ✅ Tamam |
+| Politika kataloğu | `Brave Omega/Docs/policy-catalog.md` tam meta verili | ✅ Tamam |
 | Wiki tutarlılığı | Tüm Wiki sayfalarında yazım/kodlama düzeltmesi | ✅ Tamam |
 | Sürüm referansı | CHANGELOG/Wiki uyumu, güncel matris | ✅ Tamam |
 
