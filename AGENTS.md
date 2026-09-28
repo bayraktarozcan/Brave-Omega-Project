@@ -115,7 +115,7 @@ Every task runs under one mandatory standard:
 | Define, assign, get results | Ambiguity never swallows responsibility | State the task, assign clear ownership, follow through to a result |
 | Process over trust | Trust-based arrangements can be limited or misleading | Secure important work with defined processes, verification, and audit — trust is a supplement, not a substitute |
 | A machine check proves only what it measures | Every automated check has a blind spot, and a green run is a statement about the measured axis alone | The bilingual mirror passed every structural gate while one side had silently lost two checklist items, so structure parity is never reported as semantic parity; each check names what it cannot see and that gap stays a human read |
-| A rule that can rot silently gets its own named test | Coverage of code is not coverage of rules; the invariant gets the test, and the test fails when the rule breaks rather than when the code moves | The test tree is one file per invariant — ignore rules, mirror sync, script version, policy integrity, stale cleanup, updater GUID, type distribution — so a rule that stops holding fails by name instead of passing unnoticed |
+| A rule that can rot silently gets its own named test | Coverage of code is not coverage of rules; the invariant gets the test, and the test fails when the rule breaks rather than when the code moves | The test tree is one file per invariant — ignore rules, mirror sync, script version, policy integrity, stale cleanup, updater GUID, type distribution, version parity — so a rule that stops holding fails by name instead of passing unnoticed |
 | Pin against the upstream artifact, not against your own copy | A check whose oracle was written by the same hand as the subject agrees with itself and detects nothing | Policy conformance is verified against the vendor's own schema, so a drift the project could not have anticipated still fails the build instead of passing on a hand-kept list |
 
 A quiet total is good news: a well-ordered system runs without complaints — but silence never justifies skipping scheduled maintenance; it only means the defined cadence is working.
@@ -531,4 +531,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=37c792270edb5c8cf93ed7aecb90c3b2aea06174 -->
+<!-- mirror-sync: sync-sha=60358c1e68219ab5b1faa0e334e4ac524f350293 -->

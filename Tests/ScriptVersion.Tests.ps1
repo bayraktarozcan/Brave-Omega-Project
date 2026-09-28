@@ -16,7 +16,7 @@ Describe "Script Version Consistency" -Tag "Integration" {
 
     It "unified script should have validated Brave version" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match '1\.94\.121' | Should -Be $true
+        $content -match '\$ValidatedBrave\s*=\s*"1\.96\.59"' | Should -Be $true
     }
 
     It "unified script should have validated Chromium version" {
