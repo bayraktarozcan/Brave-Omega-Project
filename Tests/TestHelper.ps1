@@ -1,5 +1,5 @@
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
-$ScriptMain = Join-Path $ProjectRoot "Brave Omega\BraveOmega.ps1"
+$ScriptMain = Join-Path $ProjectRoot "Brave-Omega\BraveOmega.ps1"
 
 $HKCU_Target = "HKCU:\Software\BraveSoftware\Brave-Browser"
 $HKLM_Target = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"

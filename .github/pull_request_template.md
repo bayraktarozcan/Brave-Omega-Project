@@ -23,7 +23,7 @@ _Describe the change and what problem it solves._
 ## Checklist
 
 - [ ] Script runs without errors (`-WhatIf -Level Essential`)
-- [ ] All version constants updated (`$ScriptVersion`, `$ValidatedBrave`, `$ValidatedChromium` in `Brave Omega/BraveOmega.ps1`)
+- [ ] All version constants updated (`$ScriptVersion`, `$ValidatedBrave`, `$ValidatedChromium` in `Brave-Omega/BraveOmega.ps1`)
 - [ ] CHANGELOG.md updated
 - [ ] index.html updated (if applicable — version table, i18n keys)
 - [ ] README.md updated (if applicable)
@@ -36,5 +36,5 @@ _Describe the change and what problem it solves._
 _Steps to verify:_
 
 ```powershell
-.\"Brave Omega\BraveOmega.ps1" -Language EN -WhatIf -Level Essential
+.\"Brave-Omega\BraveOmega.ps1" -Language EN -WhatIf -Level Essential
 ```

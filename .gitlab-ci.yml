@@ -113,11 +113,11 @@ version-check:
   image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
-      changes: ["Brave Omega/*.ps1"]
+      changes: ["Brave-Omega/*.ps1"]
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'
-      $mainContent = Get-Content -Path "Brave Omega/BraveOmega.ps1" -Raw
+      $mainContent = Get-Content -Path "Brave-Omega/BraveOmega.ps1" -Raw
       $verMatch = [regex]::Match($mainContent, '\$ScriptVersion\s*=\s*"([^"]+)"')
       if (-not $verMatch.Success) { Write-Error "Unified script version not found"; exit 1 }
       $ver = $verMatch.Groups[1].Value
@@ -165,7 +165,7 @@ admx-validate:
   image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
-      changes: ["admx/**", "Brave Omega/BraveOmega.ps1"]
+      changes: ["admx/**", "Brave-Omega/BraveOmega.ps1"]
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'
@@ -231,7 +231,7 @@ ps-script-analyzer:
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'
-      $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
+      $results = Invoke-ScriptAnalyzer -Path "Brave-Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
       if ($results) { $results | Format-Table; exit 1 }
       PWSH
 

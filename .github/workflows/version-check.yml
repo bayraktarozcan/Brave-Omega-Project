@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "Brave Omega/*.ps1"
+      - "Brave-Omega/*.ps1"
   workflow_dispatch:
 
 permissions:
@@ -25,7 +25,7 @@ jobs:
       - name: Extract version strings
         shell: pwsh
         run: |
-          $mainContent = Get-Content -Path "Brave Omega/BraveOmega.ps1" -Raw
+          $mainContent = Get-Content -Path "Brave-Omega/BraveOmega.ps1" -Raw
 
           $verMatch = [regex]::Match($mainContent, '\$ScriptVersion\s*=\s*"([^"]+)"')
           if (-not $verMatch.Success) { Write-Error "Unified script version not found"; exit 1 }

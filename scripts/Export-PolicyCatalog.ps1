@@ -6,8 +6,8 @@
     .reg files from the authoritative policy data in Brave Omega.
 
 .DESCRIPTION
-    Reads the tier policy data from Brave Omega\config.json and
-    Brave Omega\Profiles\<Tier>.json, then produces:
+    Reads the tier policy data from Brave-Omega\config.json and
+    Brave-Omega\Profiles\<Tier>.json, then produces:
       - Enterprise\levels.json                 (machine-readable catalog)
       - Enterprise\BraveOnly.reg / Essential / Balanced / Advanced / Strict
 
@@ -43,7 +43,7 @@ param(
 )
 
 function Get-OmegaDataDir {
-    return Join-Path (Split-Path -Parent $PSScriptRoot) 'Brave Omega'
+    return Join-Path (Split-Path -Parent $PSScriptRoot) 'Brave-Omega'
 }
 
 function Get-OmegaConfig {
@@ -131,8 +131,8 @@ function ConvertTo-OmegaPolicyValue {
 function Get-OmegaPolicyDefinitions {
     <#
     .SYNOPSIS
-        Loads the per-tier policy definitions from Brave Omega\config.json and
-        Brave Omega\Profiles\<Tier>.json.
+        Loads the per-tier policy definitions from Brave-Omega\config.json and
+        Brave-Omega\Profiles\<Tier>.json.
 
     .PARAMETER ScriptPath
         Path to the .ps1 file used to locate the adjacent data directory.
@@ -600,7 +600,7 @@ if ($MyInvocation.InvocationName -ne '.') {
     $resolvedScriptPath = if ($ScriptPath) {
         $ScriptPath
     } else {
-        Join-Path $repoRoot 'Brave Omega\BraveOmega.ps1'
+        Join-Path $repoRoot 'Brave-Omega\BraveOmega.ps1'
     }
 
     $catalogOutputDir = if ($OutputDir) {

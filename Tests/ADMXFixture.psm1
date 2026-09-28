@@ -1,7 +1,7 @@
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
 $admxPath = Join-Path $ProjectRoot "admx\brave.admx"
 $admxValidatePath = Join-Path $ProjectRoot "admx\admx-validate.ps1"
-$scriptMain = Join-Path $ProjectRoot "Brave Omega\BraveOmega.ps1"
+$scriptMain = Join-Path $ProjectRoot "Brave-Omega\BraveOmega.ps1"
 
 function Get-AdmxPolicyNames {
     if (-not (Test-Path $admxPath)) { throw "ADMX file not found: $admxPath" }

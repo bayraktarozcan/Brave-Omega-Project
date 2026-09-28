@@ -157,7 +157,7 @@ wiki-tmp/
 # ─────────────────────────────────────────────────────────────────────────────
 # [EN] General-purpose reference documents for the agent, not committed to Git.
 #      Root-anchored on purpose: product documentation in a nested docs/
-#      directory (for example "Brave Omega/Docs/") is tracked output and must
+#      directory (for example "Brave-Omega/Docs/") is tracked output and must
 #      stay addable. A bare "docs/" matches at every depth and silently swallows
 #      any new product file added under a nested docs/ directory.
 # [TR] Ajan için genel amaçlı referans belgeleri, Git'e eklenmez.

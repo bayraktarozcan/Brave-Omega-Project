@@ -119,7 +119,7 @@ jobs:
       - name: Run Invoke-ScriptAnalyzer on unified script
         shell: pwsh
         run: |
-          $results = Invoke-ScriptAnalyzer -Path "Brave Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
+          $results = Invoke-ScriptAnalyzer -Path "Brave-Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule PSAvoidUsingWriteHost,PSAvoidUsingEmptyCatchBlock,PSUseSupportsShouldProcess,PSUseShouldProcessForStateChangingFunctions
           if ($results) { $results | Format-Table; exit 1 }
 
   policy-integrity:

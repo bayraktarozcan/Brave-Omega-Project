@@ -193,7 +193,7 @@ BRAVE OMEGA PROJECT/
 │   └── workflows/
 │       ├── admx-validate.ps1         ADMX validation script
 │       └── admx-validate.yml         ADMX validation pipeline
-└── Brave Omega/
+└── Brave-Omega/
         BraveOmega.ps1             Unified bilingual script (EN/TR)
 └── Tests/                         Pester test suite (23 files)
             FullPipeline.Tests.ps1          Unit + integration tests
@@ -406,7 +406,7 @@ BRAVE OMEGA PROJECT/
 │   └── workflows/
 │       ├── admx-validate.ps1         ADMX doğrulama betiği
 │       └── admx-validate.yml         ADMX doğrulama hattı
-└── Brave Omega/
+└── Brave-Omega/
         BraveOmega.ps1             Birleşik iki dilli betik (EN/TR)
 └── Tests/                         Pester test paketi (23 dosya)
         FullPipeline.Tests.ps1          Birim + entegrasyon testleri

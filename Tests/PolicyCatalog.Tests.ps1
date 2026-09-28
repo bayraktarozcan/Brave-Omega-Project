@@ -161,7 +161,7 @@ Describe "Levels Json" -Tag "Unit" {
 
     It "exposes catalog metadata" {
         $script:Json.generatedBy        | Should -BeExactly 'scripts/Export-PolicyCatalog.ps1'
-        $script:Json.sourceScript       | Should -BeExactly 'Brave Omega\BraveOmega.ps1'
+        $script:Json.sourceScript       | Should -BeExactly 'Brave-Omega\BraveOmega.ps1'
         [System.IO.Path]::IsPathRooted($script:Json.sourceScript) | Should -Be $false
         $script:Json.scriptVersion      | Should -Match '^v\d+\.\d+\.\d+\.\d+$'
         $script:Json.registryTargetHklm | Should -BeExactly 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave'

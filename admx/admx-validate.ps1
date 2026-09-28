@@ -80,7 +80,7 @@ Write-Result "ADMX lookup built: $($admxPolicyMap.Count) unique policy names" -L
 
 # ─── Policy definitions (auto-discovered from config.json + Profiles\<Tier>.json) ───
 # Parsed dynamically so every policy added to the data layer is validated — no manual sync.
-$dataDir = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave Omega"
+$dataDir = Join-Path -Path $PSScriptRoot -ChildPath "..\Brave-Omega"
 $configPath = Join-Path -Path $dataDir -ChildPath "config.json"
 $profilesDir = Join-Path -Path $dataDir -ChildPath "Profiles"
 if (-not (Test-Path -LiteralPath $configPath)) {

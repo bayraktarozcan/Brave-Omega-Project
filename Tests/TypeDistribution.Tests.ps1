@@ -1,7 +1,7 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
 
-    $script:CatalogPath = Join-Path (Split-Path -Parent $ScriptMain) "docs\policy-catalog.md"
+    $script:CatalogPath = Join-Path (Split-Path -Parent $ScriptMain) "Docs\Policy-Catalog.md"
     $script:Catalog     = Get-Content -LiteralPath $script:CatalogPath -Raw -Encoding UTF8
     $script:ScriptText  = Get-Content -LiteralPath $ScriptMain -Raw -Encoding UTF8
 

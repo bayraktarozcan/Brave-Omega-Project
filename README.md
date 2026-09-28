@@ -584,7 +584,7 @@ BRAVE OMEGA PROJECT/
 │   └── workflows/
 │       ├── admx-validate.ps1           ADMX validation script
 │       └── admx-validate.yml           ADMX validation pipeline
-└── Brave Omega/
+└── Brave-Omega/
          BraveOmega.ps1                  The single bilingual script (EN/TR)
 ```
 
@@ -1243,7 +1243,7 @@ BRAVE OMEGA PROJECT/
 │   └── workflows/
 │       ├── admx-validate.ps1           ADMX doğrulama betiği
 │       └── admx-validate.yml           ADMX doğrulama hattı
-└── Brave Omega/
+└── Brave-Omega/
          BraveOmega.ps1                  Tek iki dilli betik (EN/TR)
 ```
 
