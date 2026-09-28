@@ -148,10 +148,10 @@ wiki-tmp/
 #     dizinlerden içerik barındırmaz veya bunlara bağımlı değildir. Her PR
 #     farkında ihlal olup olmadığı çapraz kontrol edilmelidir.
 **/Intelligence/
-**/Personal-Intelligence/
-**/Project-Intelligence/
-**/Business-Intelligence/
-**/Knowledge-Intelligence/
+**/Personal Intelligence/
+**/Project Intelligence/
+**/Business Intelligence/
+**/Knowledge Intelligence/
 
 # 10. PROJECT KNOWLEDGE BASE / PROJE BİLGİ TABANI
 # ─────────────────────────────────────────────────────────────────────────────
