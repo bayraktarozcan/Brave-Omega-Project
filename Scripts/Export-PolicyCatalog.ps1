@@ -33,7 +33,7 @@
     Set to @{} to skip the tier count check.
 
 .EXAMPLE
-    ./scripts/Export-PolicyCatalog.ps1
+    ./Scripts/Export-PolicyCatalog.ps1
 #>
 [CmdletBinding()]
 param(
@@ -301,7 +301,7 @@ function ConvertTo-OmegaRegContent {
     <#
     .SYNOPSIS
         Builds the .reg file content (CRLF, ASCII-safe) for one cumulative
-        policy set. Mirrors the layout brave.admx uses: scalar values under the
+        policy set. Mirrors the layout Brave.admx uses: scalar values under the
         base policy key, list (MultiString) policies as subkeys with numbered
         string values.
 
@@ -472,7 +472,7 @@ function New-OmegaLevelsJson {
     }
 
     return [pscustomobject]@{
-        generatedBy         = 'scripts/Export-PolicyCatalog.ps1'
+        generatedBy         = 'Scripts/Export-PolicyCatalog.ps1'
         generatedAtUtc      = $GeneratedAtUtc.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
         sourceScript        = $sourceScriptValue
         scriptVersion       = $ScriptVersion

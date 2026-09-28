@@ -1,5 +1,5 @@
 {
-    "generatedBy":  "scripts/Export-PolicyCatalog.ps1",
+    "generatedBy":  "Scripts/Export-PolicyCatalog.ps1",
     "generatedAtUtc":  "2026-09-25T13:01:08Z",
     "sourceScript":  "Brave-Omega\\BraveOmega.ps1",
     "scriptVersion":  "v2.8.1.1",

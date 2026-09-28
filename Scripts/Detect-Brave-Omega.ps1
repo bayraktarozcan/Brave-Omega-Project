@@ -28,7 +28,7 @@
     None. Communication happens via the process exit code.
 
 .EXAMPLE
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File detect-brave-omega.ps1 -Level Strict
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File Detect-Brave-Omega.ps1 -Level Strict
 
     Returns exit code 0 when the Strict level is fully present, 1 otherwise.
 

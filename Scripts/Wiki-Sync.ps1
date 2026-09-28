@@ -7,9 +7,9 @@
 .PARAMETER DryRun
     Show what would be done without making changes
 .EXAMPLE
-    .\scripts\Wiki-Sync.ps1
+    .\Scripts\Wiki-Sync.ps1
 .EXAMPLE
-    .\scripts\Wiki-Sync.ps1 -DryRun
+    .\Scripts\Wiki-Sync.ps1 -DryRun
 #>
 
 param(

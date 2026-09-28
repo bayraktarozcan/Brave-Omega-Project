@@ -1,6 +1,6 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
-    . (Join-Path $ProjectRoot 'scripts\Export-PolicyCatalog.ps1')
+    . (Join-Path $ProjectRoot 'Scripts\Export-PolicyCatalog.ps1')
 
     $script:Definitions = Get-OmegaPolicyDefinitions -ScriptPath $ScriptMain
     $script:Cumulative   = Get-OmegaCumulativePolicySets -Definitions $script:Definitions
@@ -160,7 +160,7 @@ Describe "Levels Json" -Tag "Unit" {
     }
 
     It "exposes catalog metadata" {
-        $script:Json.generatedBy        | Should -BeExactly 'scripts/Export-PolicyCatalog.ps1'
+        $script:Json.generatedBy        | Should -BeExactly 'Scripts/Export-PolicyCatalog.ps1'
         $script:Json.sourceScript       | Should -BeExactly 'Brave-Omega\BraveOmega.ps1'
         [System.IO.Path]::IsPathRooted($script:Json.sourceScript) | Should -Be $false
         $script:Json.scriptVersion      | Should -Match '^v\d+\.\d+\.\d+\.\d+$'
@@ -247,7 +247,7 @@ Describe "Full Export" -Tag "Integration" {
 
     It "produces a parseable, consistent levels.json" {
         $catalog = Get-Content -Path (Join-Path $script:OutDir 'levels.json') -Raw | ConvertFrom-Json
-        $catalog.generatedBy  | Should -BeExactly 'scripts/Export-PolicyCatalog.ps1'
+        $catalog.generatedBy  | Should -BeExactly 'Scripts/Export-PolicyCatalog.ps1'
         $catalog.scriptVersion | Should -Match '^v\d+\.\d+\.\d+\.\d+$'
         $catalog.cumulativeTotals.Strict | Should -BeExactly 151
         @($catalog.levels.Strict.policies).Count | Should -BeExactly 151

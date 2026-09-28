@@ -165,13 +165,13 @@ admx-validate:
   image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
-      changes: ["admx/**", "Brave-Omega/BraveOmega.ps1"]
+      changes: ["ADMX/**", "Brave-Omega/BraveOmega.ps1"]
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'
-      ./admx/admx-validate.ps1
+      ./ADMX/ADMX-Validate.ps1
       if ($LASTEXITCODE -ne 0) { exit 1 }
-      $versionFile = "admx/VERSION_BRAVE_ADMX"
+      $versionFile = "ADMX/VERSION_BRAVE_ADMX"
       $oldVersion = ""
       if (Test-Path -LiteralPath $versionFile) {
         $oldVersion = (Get-Content -LiteralPath $versionFile -Raw).Trim()
@@ -243,7 +243,7 @@ policy-integrity:
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'
-      & "admx/admx-validate.ps1"
+      & "ADMX/ADMX-Validate.ps1"
       if ($LASTEXITCODE -ne 0) { exit 1 }
       PWSH
 

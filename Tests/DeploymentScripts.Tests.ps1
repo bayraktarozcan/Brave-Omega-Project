@@ -1,8 +1,8 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
 
-    $script:ScriptDeploy  = Join-Path $ProjectRoot 'scripts\deploy-brave-omega.ps1'
-    $script:ScriptDetect  = Join-Path $ProjectRoot 'scripts\detect-brave-omega.ps1'
+    $script:ScriptDeploy  = Join-Path $ProjectRoot 'Scripts\Deploy-Brave-Omega.ps1'
+    $script:ScriptDetect  = Join-Path $ProjectRoot 'Scripts\Detect-Brave-Omega.ps1'
     $script:LevelsJson    = Join-Path $ProjectRoot 'Enterprise\levels.json'
     $script:Order         = @('BraveOnly', 'Essential', 'Balanced', 'Advanced', 'Strict')
 

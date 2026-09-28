@@ -12,7 +12,7 @@ Detects:
      (e.g. the escape for capital I-circumflex where a capital C-cedilla was
      meant; missed by byte-level scans)
 
-Usage: python scripts/mojibake-scan.py [root]
+Usage: python Scripts/Mojibake-Scan.py [root]
 Scans the given directory recursively (default: repo root).
 Exit code 0 = clean, 1 = findings.
 """

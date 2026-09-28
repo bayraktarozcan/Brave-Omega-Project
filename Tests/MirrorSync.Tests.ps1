@@ -1,5 +1,5 @@
 ﻿BeforeAll {
-    $VerifierPath = Join-Path (Split-Path -Parent $PSScriptRoot) "scripts/verify-mirror-sync.ps1"
+    $VerifierPath = Join-Path (Split-Path -Parent $PSScriptRoot) "Scripts/Verify-Mirror-Sync.ps1"
 
     # Same algorithm the verifier documents: drop the marker line, normalize
     # EOL to LF, hash what is left. Fixtures are built with it so a test never

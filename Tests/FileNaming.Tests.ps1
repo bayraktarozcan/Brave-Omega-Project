@@ -1,13 +1,14 @@
 BeforeAll {
     $ProjectRoot = Split-Path -Parent $PSScriptRoot
 
-    # Directories whose name a tool, platform, or vendor fixes in lowercase.
-    # The exemption is declared here so it is checked, not remembered.
+    # Directories whose name a tool or platform fixes in lowercase. One entry
+    # remains, and it is a platform path rather than a style choice: GitHub
+    # resolves .github case-sensitively. The three that used to sit here were
+    # removed with the rename, because an exemption outlives its reason and an
+    # allow list is the easiest way for a rule to stop being enforced without
+    # anybody deciding to stop enforcing it.
     $script:LowercaseDirAllowList = @(
         ".github"
-        "admx"
-        "docs"
-        "scripts"
     )
 
     # Directories whose name may contain whitespace, and so exempt from the rule
@@ -18,10 +19,10 @@ BeforeAll {
     $script:WhitespaceDirAllowList = @()
 
     # Trees a tool or platform names for us, so no convention of ours applies
-    # to anything inside them.
+    # to anything inside them. Checked for existence below: a list that names a
+    # tree which no longer exists is an exemption nobody can notice has rotted.
     $script:PlatformFixedTrees = @(
         ".github"
-        "admx"
     )
 
     # Root files whose name a tool, a platform, or a legal convention fixes.
@@ -37,28 +38,50 @@ BeforeAll {
     )
 
     # Directories we own, so their name must start with a capital.
+    #
+    # Docs is the one entry Git does not hold. It is the repository's local
+    # reference folder, ignored on purpose and never committed, so it cannot be
+    # reached through the tracked-path list above - but it is still a name this
+    # project decided on, and the two directory tests below read it off the
+    # filesystem, so it is policed rather than merely intended. A rule that only
+    # covers what Git can see is a rule with a hole exactly where the files are
+    # least likely to be reviewed.
     $script:OwnedDirectories = @(
+        "ADMX"
         "Brave-Omega"
         "Brave-Omega\Profiles"
-        "Enterprise"
         "Brave-Omega\Docs"
+        "Docs"
+        "Enterprise"
+        "Scripts"
         "Tests"
         "Wiki"
     )
 
-    # The convention in force for source files in a directory we own, and the
-    # files already in the directory that predate it. A new file that does not
-    # match is a defect; an existing exception is a known, named debt.
+    # The convention in force for files in a directory we own, and the files
+    # already in the directory that predate it. A new file that does not match
+    # is a defect; an existing exception is a known, named debt.
+    #
+    # Scripts carries no exception any more. Its four kebab-case files were the
+    # whole of the declared debt, they were renamed together with the directory
+    # they lived in, and leaving the list populated would have turned a paid debt
+    # back into a standing permission.
+    #
+    # Extensions is optional and defaults to SourceExtensions. ADMX has to
+    # declare its own because the two files Group Policy itself consumes are not
+    # source, and without this the convention would be declared over a directory
+    # it never actually looked at.
     $script:SourceFileConventions = @{
-        "scripts" = @{
-            Convention   = "PascalCase"
-            Exceptions   = @(
-                "deploy-brave-omega.ps1"
-                "detect-brave-omega.ps1"
-                "verify-mirror-sync.ps1"
-                "mojibake-scan.py"
-            )
-            ExceptionWhy = "kebab-case, kept so the existing references stay valid; rename is a separate change"
+        "ADMX" = @{
+            Convention   = "HyphenatedPascalCase"
+            Extensions   = @(".ps1", ".admx", ".adml")
+            Exceptions   = @()
+            ExceptionWhy = ""
+        }
+        "Scripts" = @{
+            Convention   = "HyphenatedPascalCase"
+            Exceptions   = @()
+            ExceptionWhy = ""
         }
         "Tests" = @{
             Convention   = "PascalCase"
@@ -73,6 +96,11 @@ BeforeAll {
     # so this convention is checked separately from the source convention.
     $script:DocumentFileConventions = @{
         "Brave-Omega/Docs" = @{
+            Convention   = "HyphenatedPascalCase"
+            Exceptions   = @()
+            ExceptionWhy = ""
+        }
+        "Docs" = @{
             Convention   = "HyphenatedPascalCase"
             Exceptions   = @()
             ExceptionWhy = ""
@@ -102,21 +130,7 @@ BeforeAll {
         }
     )
 
-    # Source files in a directory whose naming is fixed by a vendor or a tool.
-    $script:VendorFileConventions = @{
-        "admx" = @{
-            Convention = "kebab-case"
-            Why        = "the vendor's own Group Policy tooling spells it this way"
-        }
-    }
-
     $script:SourceExtensions = @(".ps1", ".psm1", ".py")
-
-    # The vendor tree also carries the two files Group Policy itself consumes.
-    # They are not source, so they fall outside the source extension set, and
-    # without this the vendor convention would be declared over a directory it
-    # never actually looked at.
-    $script:VendorExtensions = @(".ps1", ".psm1", ".py", ".admx", ".adml")
 
     # Extensions whose content is read as text by a check below. Anything else
     # is skipped rather than decoded, so a future binary asset cannot make a
@@ -227,11 +241,42 @@ BeforeAll {
             # nor reaches the escaped UTF-8 that the prefix tail has to look
             # past. Not a letter, and not an apostrophe followed by one, so the
             # Turkish possessive - where the suffix starts just past the mark -
-            # does not end the segment either.
-            Tail    = '(?![\\/])(?!\p{L})(?!''\p{L})'
+            # does not end the segment either. Not a dot or a dash either, which
+            # is what keeps a longer name from being cut in half: the retired
+            # "admx" is a prefix of "admx-validate" and the retired "brave" is
+            # the stem of "brave.admx", so a tail that stopped at the first dot
+            # or hyphen would report the current spelling's own filenames and
+            # the guard would be loosened until it meant nothing.
+            Tail    = '(?![\\/])(?![A-Za-z0-9._-])(?!''\p{L})'
             Label   = "the pre-rename directory name"
         }
+        @{
+            Retired = "admx"
+            Current = "ADMX"
+            Tail    = '(?![\\/])(?![A-Za-z0-9._-])(?!''\p{L})'
+            Label   = "the pre-rename policy-template directory name"
+        }
+        @{
+            Retired = "scripts"
+            Current = "Scripts"
+            Tail    = '(?![\\/])(?![A-Za-z0-9._-])(?!''\p{L})'
+            Label   = "the pre-rename automation directory name"
+        }
+        @{
+            Retired = "docs"
+            Current = "Docs"
+            Tail    = '(?![\\/])(?![A-Za-z0-9._-])(?!''\p{L})'
+            Label   = "the pre-rename local reference directory name"
+        }
     )
+
+    # A retired name has to begin a segment, not merely appear inside one.
+    # Without this left edge the "brave" filename rules match the "admx" and
+    # "adml" extensions of the current Brave.admx and Brave.adml, so the file
+    # that was renamed into place would be reported as still carrying the old
+    # name - and the honest response to that would have been to delete the
+    # rules, which is how a guard dies quietly.
+    $script:RetiredNameBoundary = '(?<![A-Za-z0-9._-])'
 
     # What counts as a line building a path. Cmdlet names and the script-root
     # variable, not the English word "path": prose that happens to mention a
@@ -250,6 +295,77 @@ BeforeAll {
             Current = "Policy-Catalog"
             Tail    = '\.md'
             Label   = "the pre-rename catalog filename"
+        }
+        @{
+            Retired = "admx"
+            Current = "ADMX"
+            Tail    = '[\\/]'
+            Label   = "the pre-rename policy-template directory name"
+        }
+        @{
+            Retired = "scripts"
+            Current = "Scripts"
+            Tail    = '[\\/]'
+            Label   = "the pre-rename automation directory name"
+        }
+        # The local reference folder has no prefix entry, and that is a decision
+        # rather than an oversight. docs/ is also a branch prefix - the branch
+        # table in AGENTS.md reads docs/<description>, next to feat/ and fix/,
+        # and a namespace this repository owns is not made to match a folder this
+        # repository happens to keep outside it. A rule here would either demand
+        # a branch namespace change that the conventions section did not ask for,
+        # or be widened until it stopped firing. The whole-segment form below
+        # still covers the directory wherever a path is actually built, and the
+        # directory-name tests cover the folder itself, so nothing about the
+        # rename goes unchecked; what is declined is a rule that could not be
+        # satisfied honestly.
+        #
+        # The tails below carry a right-hand boundary so a match ends with the
+        # filename rather than merely containing it. Two of the retired names are
+        # prefixes of others - the archive stem and the one the validator script
+        # was called - and a shorter stem with an open right edge would report
+        # the very files that carry the new spelling.
+        @{
+            Retired = "admx-validate"
+            Current = "ADMX-Validate.ps1"
+            Tail    = '\.ps1(?![A-Za-z0-9._-])'
+            Label   = "the pre-rename validator filename"
+        }
+        @{
+            Retired = "brave"
+            Current = "Brave.admx"
+            Tail    = '\.admx(?![A-Za-z0-9._-])'
+            Label   = "the pre-rename ADMX template filename"
+        }
+        @{
+            Retired = "brave"
+            Current = "Brave.adml"
+            Tail    = '\.adml(?![A-Za-z0-9._-])'
+            Label   = "the pre-rename ADML template filename"
+        }
+        @{
+            Retired = "deploy-brave-omega"
+            Current = "Deploy-Brave-Omega.ps1"
+            Tail    = '\.ps1(?![A-Za-z0-9._-])'
+            Label   = "the pre-rename deploy script filename"
+        }
+        @{
+            Retired = "detect-brave-omega"
+            Current = "Detect-Brave-Omega.ps1"
+            Tail    = '\.ps1(?![A-Za-z0-9._-])'
+            Label   = "the pre-rename detect script filename"
+        }
+        @{
+            Retired = "mojibake-scan"
+            Current = "Mojibake-Scan.py"
+            Tail    = '\.py(?![A-Za-z0-9._-])'
+            Label   = "the pre-rename mojibake scanner filename"
+        }
+        @{
+            Retired = "verify-mirror-sync"
+            Current = "Verify-Mirror-Sync.ps1"
+            Tail    = '\.ps1(?![A-Za-z0-9._-])'
+            Label   = "the pre-rename mirror verifier filename"
         }
     )
 
@@ -278,8 +394,177 @@ BeforeAll {
         }
     )
 
+    # Lines that keep a retired name because the name belongs to something this
+    # repository does not own. The published archive is named by the vendor, so
+    # its template keeps the vendor's spelling; rewriting it here would break
+    # the exact comparison the step exists to perform, which is the opposite of
+    # what a retired-spelling rule is for.
+    #
+    # This cannot be solved by pattern, and saying why is the point. The rule
+    # asks whether a file names a path in this repository that no longer exists,
+    # and nothing in the text of the line distinguishes `-Filter "brave.admx"`
+    # over an extracted remote directory from a filter over a local file of the
+    # same name. A context pattern wide enough to tell them apart - anything
+    # mentioning the archive - would go on exempting whatever is written on that
+    # line later, including a stale local path added by a later edit, and an
+    # exemption that grows is worse than no exemption at all.
+    #
+    # So the exemption is declared one line at a time, with the reason, and each
+    # declared line is asserted to still be present exactly once. A line that is
+    # deleted or rewritten fails the check rather than leaving the exemption
+    # silently covering a line that no longer means what it did.
+    $script:ExternalNameLines = @(
+        @{
+            File   = ".github/workflows/admx-validate.yml"
+            Anchor = '-Recurse -Filter "brave.admx"'
+            Why    = "the filter runs over the directory extracted from the vendor's published archive, where the file carries the vendor's own lowercase name"
+        }
+        @{
+            File   = ".github/workflows/admx-validate.yml"
+            Anchor = 'Remote package contains no brave.admx'
+            Why    = "a warning reporting the vendor's archive contents, which names the vendor's file so the reader can tell which file was not found"
+        }
+        @{
+            File   = ".github/workflows/admx-validate.yml"
+            Anchor = 'Remote brave.admx carries no version comment'
+            Why    = "the same vendor-side filename, reported because the version it should carry could not be read"
+        }
+    )
+
+    # Lines inside this file that have to name a retired spelling in order to
+    # exist. A rule that cannot name what it forbids cannot be written: the
+    # retired and current spellings are the rule's own data, the fixture that
+    # proves the rule still fires is a live path written the retired way, and
+    # the prose that explains why the rule is shaped this way quotes it.
+    #
+    # The scan above used to leave these unreported on the argument that the
+    # two matcher forms were gated so a declaration could not match - the
+    # prefix form needs a trailing separator, the bare form needs a path being
+    # built, and a declaration is neither. That argument held for a token set
+    # of bare words and stopped holding the moment a rule's Retired value is
+    # itself a path, because the data of a rename is a spelling. A file that
+    # cannot mention the old name also cannot state what it retired, so the
+    # gate was tightened until it reported the rule's own source.
+    #
+    # So the file is not exempt and nothing here is exempt by category. Each
+    # line is declared on its own, with the reason it has to carry the name, and
+    # a stale reference written anywhere else in this file is still reported, so
+    # what is exempt here is a list of known lines rather than a hole.
+    #
+    # The anchors are not required to occur once. Writing an anchor into this
+    # declaration is what puts a second copy of it in the file, so a count of
+    # one is not reachable and is not asserted. What is asserted instead is that
+    # the line the anchor names still carries a retired spelling - a rewording
+    # that quietly made a declaration unnecessary fails there - and that the
+    # guard's own report over the repository comes back empty.
+    $script:RuleDeclarationLines = @(
+        @{
+            File   = "Tests/FileNaming.Tests.ps1"
+            Anchor = 'the stem of "brave.admx"'
+            Why    = "prose explaining that the vendor extension is matched whole, which has to quote the extension it is describing"
+        }
+        @{
+            File   = "Tests/FileNaming.Tests.ps1"
+            Anchor = 'nothing in the text of the line distinguishes'
+            Why    = "prose explaining why the external-name exemption cannot be written as a pattern, which quotes the anchor it is arguing about"
+        }
+        @{
+            File   = "Tests/FileNaming.Tests.ps1"
+            Anchor = '-Recurse -Filter "brave.admx"'
+            Why    = "the declared text this file matches against the workflow, and the workflow spells the vendor's file in lower case on purpose"
+        }
+        @{
+            File   = "Tests/FileNaming.Tests.ps1"
+            Anchor = 'Remote package contains no brave.admx'
+            Why    = "the second vendor-side anchor, which is also a lower-case vendor filename in the workflow it is matched against"
+        }
+        @{
+            File   = "Tests/FileNaming.Tests.ps1"
+            Anchor = 'Remote brave.admx carries no version comment'
+            Why    = "the third vendor-side anchor, the same lower-case vendor filename in its third reported message"
+        }
+        @{
+            File   = "Tests/FileNaming.Tests.ps1"
+            Anchor = 'retired "brave" followed by an extension'
+            Why    = "prose listing the retired stems the new filenames are built from, which cannot name them without naming them"
+        }
+        @{
+            File   = "Tests/FileNaming.Tests.ps1"
+            Anchor = 'run: ./admx/admx-validate.ps1'
+            Why    = "a local path in this repository's own workflow, held as the counter-example proving the vendor exemption does not widen to cover it"
+        }
+    )
+
     $script:GetTrackedFiles = {
         & git -C $ProjectRoot ls-files | Sort-Object
+    }
+
+    # Which rules report this line. One definition, because the guard that
+    # reports a retired name and the tests that assert which lines the guard is
+    # allowed to skip have to agree on what "carries a retired name" means.
+    # Two copies of the matcher would drift, and the drift would stay invisible
+    # until the two disagreed about a real file - at which point the disagreement
+    # looks like either a false alarm or a missed reference, and neither is
+    # cheap to tell apart from the other.
+    $script:GetRetiredNameHit = {
+        param([string] $Line)
+
+        $hits = @()
+        foreach ($rule in $script:RetiredPathSpellings) {
+            $pattern = $script:RetiredNameBoundary + [regex]::Escape($rule.Retired) + $rule.Tail
+            if ($Line -cmatch $pattern) { $hits += @{ Rule = $rule; Form = "prefix" } }
+        }
+        if ($Line -cmatch $script:PathConstructionPattern) {
+            foreach ($rule in $script:RetiredBareSegments) {
+                $pattern = $script:RetiredNameBoundary + [regex]::Escape($rule.Retired) + $rule.Tail
+                if ($Line -cmatch $pattern) { $hits += @{ Rule = $rule; Form = "segment" } }
+            }
+        }
+        $hits
+    }
+
+    # The declaration list's own line range, located so the checks below can
+    # tell a declaration from a use. A declared anchor is always written into
+    # the entry that names it, so searching for the anchor finds that entry as
+    # well as the line it exempts - and a check that stops at "some line
+    # carrying this anchor carries a retired name" is satisfied by the entry
+    # alone, which is the shape of a test that cannot fail. Both ends are found
+    # by marker and the markers are asserted by a test below, so a block that
+    # moved or changed shape fails here rather than quietly narrowing the
+    # search until the check reports nothing and passes.
+    $script:GetRuleDeclarationBlock = {
+        $lines = [System.IO.File]::ReadAllLines((Join-Path $ProjectRoot "Tests/FileNaming.Tests.ps1"))
+        $start = -1
+        for ($i = 0; $i -lt $lines.Length; $i++) {
+            if ($lines[$i] -cmatch '^\s*\$script:RuleDeclarationLines\s*=\s*@\(\s*$') { $start = $i; break }
+        }
+        if ($start -lt 0) { return @() }
+        $end = -1
+        for ($i = $start + 1; $i -lt $lines.Length; $i++) {
+            if ($lines[$i] -cmatch '^\s{4}\)\s*$') { $end = $i; break }
+        }
+        if ($end -lt 0) { return @() }
+        return @(($start + 1), ($end + 1))
+    }
+
+    # Every line of a tracked file that carries a retired name, with its number
+    # and the rules that fire on it. Regions and exemptions are deliberately not
+    # applied here: the tests need to see the lines the guard skips in order to
+    # assert that each skip is declared, and that is the one thing the guard
+    # cannot report about itself. Pass an inclusive two-number range to leave a
+    # span out, which is how a use is told apart from the declaration naming it.
+    $script:GetLinesCarryingRetiredNames = {
+        param([string] $Path, [int[]] $Exclude)
+
+        $lines = [System.IO.File]::ReadAllLines((Join-Path $ProjectRoot $Path))
+        for ($i = 0; $i -lt $lines.Length; $i++) {
+            $number = $i + 1
+            if ($Exclude -and $Exclude.Count -eq 2 -and $number -ge $Exclude[0] -and $number -le $Exclude[1]) { continue }
+            $hits = @(& $script:GetRetiredNameHit $lines[$i])
+            if ($hits.Count -gt 0) {
+                [pscustomobject]@{ Line = $number; Text = $lines[$i]; Hits = $hits }
+            }
+        }
     }
 
     # Every retired spelling still present in a file that describes the present
@@ -326,38 +611,39 @@ BeforeAll {
                     }
                 }
 
-                # No exemption for the line that declares a rule. The two forms
-                # are kept apart on purpose: the prefix form needs a separator
-                # that a declaration does not have, and the bare form is gated
-                # on a path being built, which a declaration is not. An
-                # exemption here would have been an admission that the gate does
-                # not hold, and it would hide a real reference written as
-                # 'Current = ...' in the meantime.
-                foreach ($rule in $script:RetiredPathSpellings) {
-                    $pattern = [regex]::Escape($rule.Retired) + $rule.Tail
-                    if ($line -cmatch $pattern) {
-                        # The line itself, not the pattern. A report that shows
-                        # the matcher tells the reader what to fix by handing
-                        # them the matcher; showing the text is what they
-                        # actually have to edit. Trimmed inside the
-                        # subexpression, because "$line.Trim()" interpolates
-                        # the method name and points the reader at a line that
-                        # ends in a call to it.
-                        $offenders += "$path line $($i + 1): $($rule.Label) is retired, now '$($rule.Current)' -- $($line.Trim())"
-                    }
+                # The line declares a name this repository does not own. Skipped
+                # as a whole line rather than by rule, because the retired spelling
+                # on it belongs to the vendor's archive and is not ours to change.
+                $isExternal = $false
+                foreach ($entry in $script:ExternalNameLines) {
+                    if ($entry.File -ceq $path -and $line.Contains($entry.Anchor)) { $isExternal = $true }
                 }
+                if ($isExternal) { continue }
 
-                # The whole-segment form, admitted only where a path is being
-                # built. The report is the same either way, so a stale reference
+                # The same question, asked of this file's own rule text. A rule
+                # names what it retired, so its declarations, the fixture that
+                # proves it still fires, and the prose describing its shape all
+                # carry the old spelling by construction rather than by
+                # oversight. Declared per line above, and only per line: a stale
+                # reference written anywhere else in this file is still
+                # reported, so what is exempt here is a list of known lines and
+                # not this file.
+                $isRuleDeclaration = $false
+                foreach ($entry in $script:RuleDeclarationLines) {
+                    if ($entry.File -ceq $path -and $line.Contains($entry.Anchor)) { $isRuleDeclaration = $true }
+                }
+                if ($isRuleDeclaration) { continue }
+
+                # The report is the same for either form, so a stale reference
                 # reads the same whether it was written as a prefix or as a
-                # segment.
-                if ($line -cmatch $script:PathConstructionPattern) {
-                    foreach ($rule in $script:RetiredBareSegments) {
-                        $pattern = [regex]::Escape($rule.Retired) + $rule.Tail
-                        if ($line -cmatch $pattern) {
-                            $offenders += "$path line $($i + 1): $($rule.Label) is retired, now '$($rule.Current)' -- $($line.Trim())"
-                        }
-                    }
+                # segment, and the line itself is shown rather than the matcher:
+                # a report that hands the reader the pattern tells them what to
+                # fix by naming the matcher, and showing the text is what they
+                # actually have to edit. Trimmed inside the subexpression,
+                # because "$line.Trim()" interpolates the method name and points
+                # the reader at a line that ends in a call to it.
+                foreach ($hit in @(& $script:GetRetiredNameHit $line)) {
+                    $offenders += "$path line $($i + 1): $($hit.Rule.Label) is retired, now '$($hit.Rule.Current)' -- $($line.Trim())"
                 }
             }
         }
@@ -458,8 +744,14 @@ Describe "Repository file and directory naming" -Tag "Unit" {
                 $rule = $script:SourceFileConventions[$dir]
                 $full = Join-Path $ProjectRoot $dir
                 if (-not (Test-Path -LiteralPath $full)) { continue }
+                # A directory may widen or narrow the extension set, and the one
+                # it declares is the one that counts. Defaulting to the global set
+                # instead would make an override decorative: a convention that
+                # names files it never reads is a rule that reports green without
+                # having looked at anything.
+                $extensions = if ($rule.ContainsKey("Extensions")) { $rule.Extensions } else { $script:SourceExtensions }
                 $files = Get-ChildItem -LiteralPath $full -File |
-                    Where-Object { $_.Extension -in $script:SourceExtensions }
+                    Where-Object { $_.Extension -in $extensions }
                 $tester = $script:Testers[$rule.Convention]
                 foreach ($file in $files) {
                     if ($file.Name -in $rule.Exceptions) { continue }
@@ -488,20 +780,40 @@ Describe "Repository file and directory naming" -Tag "Unit" {
             }
         }
 
-        It "source files in a vendor directory follow the vendor's spelling" {
-            foreach ($dir in $script:VendorFileConventions.Keys) {
-                $rule = $script:VendorFileConventions[$dir]
-                $full = Join-Path $ProjectRoot $dir
-                if (-not (Test-Path -LiteralPath $full)) { continue }
-                $tester = $script:Testers[$rule.Convention]
-                $offenders = Get-ChildItem -LiteralPath $full -File |
-                    Where-Object { $_.Extension -in $script:VendorExtensions } |
-                    Where-Object {
-                        $stem = [System.IO.Path]::GetFileNameWithoutExtension($_.Name)
-                        -not (& $tester $stem)
-                    } |
-                    ForEach-Object { "$dir/$($_.Name)" }
-                $offenders | Should -BeNullOrEmpty -Because "($rule.Why)"
+        It "every owned directory Git holds is recorded under exactly one spelling" {
+            # Neither Test-Path nor a case-folding comparison can do this. A
+            # working tree that folds case resolves admx to ADMX without
+            # complaint, so a lookup through the filesystem cannot tell that only
+            # one of the two spellings was ever recorded - which is exactly the
+            # state a half-finished rename leaves behind, and exactly the state in
+            # which a second checkout on a case-sensitive filesystem would find
+            # two directories. Git is the record, so Git is what is asked.
+            $tracked = @(& $script:GetTrackedDirectories)
+            $untracked = @()
+
+            foreach ($dir in $script:OwnedDirectories) {
+                # Not $matches: that is the automatic variable -match fills in,
+                # and a name that reads like a match while holding directory
+                # paths is a name the next reader has to check before trusting.
+                $recorded = @($tracked | Where-Object { $_ -ieq $dir })
+                if ($recorded.Count -eq 0) { $untracked += $dir; continue }
+                $recorded.Count |
+                    Should -Be 1 -Because "Git must record exactly one spelling of $dir; two entries differing only in case are two directories to every filesystem that does not fold case"
+                $recorded[0] | Should -BeExactly $dir -Because "Git records this name, and it is the name every reference in this repository uses"
+            }
+
+            # The one owned directory Git cannot hold, named so that a change in
+            # which directory that is has to be a decision rather than a side
+            # effect. It is covered by the filesystem test above instead, and the
+            # two together are what make the folder policed rather than intended.
+            $untracked.Count | Should -Be 1 -Because "exactly one owned directory is expected to live outside Git; a second one means a directory is untracked by accident"
+            $untracked[0] | Should -BeExactly "Docs" -Because "the local reference folder is ignored deliberately, and it is the reason the exact-case check above has a hole to declare"
+        }
+
+        It "every platform-fixed tree still exists" {
+            foreach ($tree in $script:PlatformFixedTrees) {
+                Test-Path -LiteralPath (Join-Path $ProjectRoot $tree) |
+                    Should -BeTrue -Because "$tree is exempt from the naming convention, so its removal must be noticed - an exemption that names nothing is an exemption nobody can check"
             }
         }
     }
@@ -555,7 +867,7 @@ Describe "Repository file and directory naming" -Tag "Unit" {
                 $file.Name
             }
 
-            $offenders | Should -BeNullOrEmpty -Because "a root file outside the UPPER convention has to be named by the tool that reads it, and that exemption belongs in the list above"
+            ($offenders -join [Environment]::NewLine) | Should -BeNullOrEmpty -Because "a root file outside the UPPER convention has to be named by the tool that reads it, and that exemption belongs in the list above"
         }
 
         It "every named platform-fixed root file still exists" {
@@ -596,7 +908,7 @@ Describe "Repository file and directory naming" -Tag "Unit" {
     Context "A renamed path keeps one spelling" {
         It "no live file references a retired path spelling" {
             $offenders = & $script:GetRetiredSpellingOffenders
-            $offenders | Should -BeNullOrEmpty -Because "a reference to the old spelling still reads correctly and simply stops resolving, which is exactly how a rename rots; historical release records are exempt by name and marked with a reason"
+            ($offenders -join [Environment]::NewLine) | Should -BeNullOrEmpty -Because "a reference to the old spelling still reads correctly and simply stops resolving, which is exactly how a rename rots; historical release records are exempt by name and marked with a reason"
         }
 
         It "the retired-spelling pattern sees a whole path segment, not only a prefix" {
@@ -609,8 +921,12 @@ Describe "Repository file and directory naming" -Tag "Unit" {
             $rule = $script:RetiredPathSpellings | Where-Object { $_.Current -ceq "Brave-Omega" }
             $bare = $script:RetiredBareSegments | Where-Object { $_.Current -ceq "Brave-Omega" }
             $name = $rule.Retired
-            $prefixPattern = [regex]::Escape($rule.Retired) + $rule.Tail
-            $barePattern = [regex]::Escape($bare.Retired) + $bare.Tail
+            # Built from the stored spelling with the same boundary the scanner
+            # applies. Asserting a pattern looser than the one in use would pass
+            # for the wrong reason: it would prove the rule can fire while saying
+            # nothing about what the rule actually rejects.
+            $prefixPattern = $script:RetiredNameBoundary + [regex]::Escape($rule.Retired) + $rule.Tail
+            $barePattern = $script:RetiredNameBoundary + [regex]::Escape($bare.Retired) + $bare.Tail
 
             foreach ($reference in @("$name\config.json", "$name/config.json")) {
                 $reference -cmatch $prefixPattern |
@@ -652,6 +968,146 @@ Describe "Repository file and directory naming" -Tag "Unit" {
             }
         }
 
+        It "a retired name is not found inside the longer name that replaced it" {
+            # The left edge and the tightened tail exist for one reason: the new
+            # filenames are built out of the old stems. "Brave.admx" contains the
+            # retired "brave" followed by an extension, "admx-validate.ps1"
+            # contains the retired "admx" followed by a hyphen, and both are the
+            # current spelling. A rule that reports them is a rule that has to be
+            # silenced, and a silenced rule is gone. The fixtures are assembled
+            # from the stored values so this test cannot introduce the very
+            # reference it is checking for.
+            $dirRule = $script:RetiredBareSegments | Where-Object { $_.Current -ceq "ADMX" }
+            $fileRule = $script:RetiredPathSpellings | Where-Object { $_.Current -ceq "ADMX-Validate.ps1" }
+            $stemRule = $script:RetiredPathSpellings | Where-Object { $_.Current -ceq "Brave.admx" }
+
+            foreach ($rule in @($dirRule, $fileRule, $stemRule)) {
+                $pattern = $script:RetiredNameBoundary + [regex]::Escape($rule.Retired) + $rule.Tail
+                ($rule.Current -cmatch $pattern) |
+                    Should -BeFalse -Because "$($rule.Current) is the spelling that replaced $($rule.Retired), and a rule that matched it would report the rename's own result as a stale reference"
+            }
+
+            # And the same tokens still fire where they are a path of their own.
+            # The reference is assembled from the stored value rather than
+            # written out, so this test cannot introduce the very reference it
+            # is checking for: a hardcoded fixture would be a second copy of
+            # the retired spelling to keep in step with the rule, and the copy
+            # is the one that goes stale. The extension is read back off the
+            # current spelling, which is where the rule already records it, so
+            # there is nothing left here that has to be updated by hand.
+            foreach ($rule in @($dirRule, $fileRule, $stemRule)) {
+                $pattern = $script:RetiredNameBoundary + [regex]::Escape($rule.Retired) + $rule.Tail
+                $extension = if ($rule.Current -match '\.([A-Za-z0-9]+)$') { "." + $Matches[1] } else { "" }
+                $reference = "Join-Path `"`$root`" `"$($rule.Retired)$extension`""
+                $reference -cmatch $pattern |
+                    Should -BeTrue -Because "'$reference' is a live path carrying the retired name, and the tightened boundary must not have made the rule blind to it"
+            }
+        }
+
+        It "every declared rule-declaration line still carries a retired name" {
+            # This file is the only file allowed to name a retired spelling, and
+            # it earns that by declaring each such line individually, with the
+            # reason. Two things are checked, because a listed line that quietly
+            # stopped meaning anything is worse than no list: the file has to
+            # still be here, and the line the anchor names has to still be
+            # carrying a name that some rule would report. A rewording that made
+            # a declaration unnecessary fails there instead of leaving an entry
+            # that demonstrates nothing.
+            #
+            # What is deliberately not checked is that an anchor occurs once. It
+            # cannot: naming the anchor in this declaration is what puts a second
+            # copy of it into this file, so a count of one is unreachable rather
+            # than merely unmet. The count that carries meaning is the guard's
+            # own report over the repository, which is empty.
+            #
+            # The declaration block is excluded from the search, and that is not
+            # a convenience. The entry naming an anchor is itself a line carrying
+            # a retired spelling, so leaving it in would let every one of these
+            # checks be satisfied by the entry it is checking - a test that
+            # passes whether or not the line it declares still needs declaring.
+            $block = @(& $script:GetRuleDeclarationBlock)
+            $block.Count |
+                Should -Be 2 -Because "the declaration block has to be locatable before its own entries can be told apart from the lines they exempt, and an empty range means the search below would be satisfied by the entries themselves"
+
+            foreach ($entry in $script:RuleDeclarationLines) {
+                Test-Path -LiteralPath (Join-Path $ProjectRoot $entry.File) |
+                    Should -BeTrue -Because "$($entry.File) is where the retired-spelling rule is declared, and a missing file would leave every declaration unanchored"
+
+                $carrying = @(& $script:GetLinesCarryingRetiredNames $entry.File $block |
+                    Where-Object { $_.Text.Contains($entry.Anchor) })
+                $carrying.Count |
+                    Should -BeGreaterThan 0 -Because "'$($entry.Anchor)' is declared because the line it names has to carry a retired spelling; $($entry.Why). Only the declaration itself still mentions it, so the entry now exempts nothing and should be deleted rather than kept"
+            }
+        }
+
+        It "no line in this file carries a retired name without being declared" {
+            # The narrowness of a list is only real if something still judges the
+            # lines it does not name. This file holds a great many retired
+            # spellings - the rule tables, the report format, the anchors
+            # themselves - and the guard reads every line of it, so an entry here
+            # is a claim about a specific line rather than a waiver for the file.
+            # This walks the file and asks the rules directly, which is the
+            # check that fails when a later edit adds a retired path beside the
+            # rule tables: the new line fires, no declared anchor matches it,
+            # and the guard starts reporting a violation in the file that
+            # exists to hold the rules.
+            $undeclared = @(& $script:GetLinesCarryingRetiredNames "Tests/FileNaming.Tests.ps1" |
+                Where-Object {
+                    $line = $_.Text
+                    $covered = $false
+                    foreach ($entry in $script:RuleDeclarationLines) {
+                        if ($entry.File -ceq "Tests/FileNaming.Tests.ps1" -and $line.Contains($entry.Anchor)) { $covered = $true }
+                    }
+                    -not $covered
+                })
+
+            $undeclared.Count |
+                Should -Be 0 -Because "a retired spelling on a line the list does not name is a real reference and has to stay reportable; the exemptions are $(@($script:RuleDeclarationLines).Count) named lines, not a waiver for this file. Undeclared: $(@($undeclared | ForEach-Object { "line $($_.Line): $($_.Text.Trim())" }) -join '; ')"
+        }
+
+        It "every declared external name still exists, and names one line" {
+            # The exemption is the only place where a retired spelling is allowed
+            # to survive, so it is checked from both sides: the line it claims
+            # must still be there, and it must still be exactly one line. A
+            # deleted or rewritten line fails here instead of leaving an
+            # exemption that silently covers a line nobody has read since.
+            foreach ($entry in $script:ExternalNameLines) {
+                Test-Path -LiteralPath (Join-Path $ProjectRoot $entry.File) |
+                    Should -BeTrue -Because "$($entry.File) is exempt from the retired-spelling rule by line, and a missing file would leave that exemption unanchored"
+                $text = [System.IO.File]::ReadAllText((Join-Path $ProjectRoot $entry.File))
+                $hits = ([regex]::Matches($text, [regex]::Escape($entry.Anchor))).Count
+                $hits |
+                    Should -Be 1 -Because "'$($entry.Anchor)' is declared as the one line whose retired name belongs to the vendor; $($entry.Why). Found $hits, which means the line was moved, duplicated, or rewritten and the exemption no longer describes what it does"
+            }
+        }
+
+        It "the external-name exemption does not extend to this repository's own paths" {
+            # An exemption is a hole in a guard, and a hole that widens on its own
+            # is the failure this rule exists to prevent. The workflow holding the
+            # vendor's filename also holds this repository's own paths, so the
+            # narrowness is asserted directly: a local reference in the form that
+            # file actually uses is matched by no declared anchor, and is still
+            # reported by the rules. If a later edit ever widened an anchor to
+            # cover the local template, this fails instead of the guard quietly
+            # becoming partial.
+            $file = ".github/workflows/admx-validate.yml"
+            $anchors = @($script:ExternalNameLines | Where-Object { $_.File -ceq $file } | ForEach-Object { $_.Anchor })
+            $anchors.Count |
+                Should -BeGreaterThan 0 -Because "this file is expected to hold at least one vendor-side name, and an empty exemption list would mean the fixture no longer describes the file"
+
+            $localReference = '        run: ./admx/admx-validate.ps1'
+            $matched = @($anchors | Where-Object { $localReference.Contains($_) })
+            $matched | Should -BeNullOrEmpty -Because "a local path in this repository is not a vendor-owned name, so it must not be covered by an exemption granted for one"
+
+            $fired = $false
+            foreach ($rule in $script:RetiredPathSpellings) {
+                $pattern = $script:RetiredNameBoundary + [regex]::Escape($rule.Retired) + $rule.Tail
+                if ($localReference -cmatch $pattern) { $fired = $true }
+            }
+            $fired |
+                Should -BeTrue -Because "the same line must still be reported, which is what makes the exemption above a specific allowance rather than a silent opt-out for the file"
+        }
+
         It "every declared historical record still exists" {
             foreach ($path in $script:HistoricalRecordFiles) {
                 Test-Path -LiteralPath (Join-Path $ProjectRoot $path) |
@@ -689,8 +1145,10 @@ Describe "Repository file and directory naming" -Tag "Unit" {
     }
 
     Context "ADMX version has one source" {
-        It "brave.admx carries a parseable Brave version in its own leading comment" {
-            $path = Join-Path $ProjectRoot "admx\brave.admx"
+        It "Brave.admx carries a parseable Brave version in its own leading comment" {
+            $path = Join-Path $ProjectRoot "ADMX\Brave.admx"
+            Test-Path -LiteralPath $path |
+                Should -BeTrue -Because "the file was renamed, and a test that reads a path that no longer resolves would pass for the wrong reason"
             $match = [regex]::Match(
                 (Get-Content -LiteralPath $path -Raw),
                 'brave version:\s*([\d.]+)')
@@ -698,18 +1156,24 @@ Describe "Repository file and directory naming" -Tag "Unit" {
             $match.Groups[1].Value | Should -Match '^\d+(\.\d+)+$'
         }
 
-        It "no separate ADMX version file shadows the version in brave.admx" {
+        It "no separate ADMX version file shadows the version in Brave.admx" {
             # A second copy is a second thing to forget to update, and the
             # multi-line form the old copy used is not parseable as a version.
-            $strays = Get-ChildItem -LiteralPath (Join-Path $ProjectRoot "admx") -File |
+            $strays = Get-ChildItem -LiteralPath (Join-Path $ProjectRoot "ADMX") -File |
                 Where-Object { $_.Name -match 'VERSION' }
-            $strays | Should -BeNullOrEmpty -Because "brave.admx is the single source of truth for the ADMX version"
+            $strays | Should -BeNullOrEmpty -Because "Brave.admx is the single source of truth for the ADMX version"
         }
 
-        It "the update-check step reads the version from brave.admx" {
+        It "the update-check step reads the version from the renamed local file" {
             $workflow = Get-Content -LiteralPath (Join-Path $ProjectRoot ".github\workflows\admx-validate.yml") -Raw
             $workflow | Should -Not -Match 'VERSION_BRAVE_ADMX' -Because "that file is gone, and a stale reference would break the step"
-            $workflow | Should -Match 'brave\.admx' -Because "the step must read the version from the single source of truth"
+            # Case-sensitive, and that is the point of the line. The remote archive
+            # still names its own file in lowercase, so an ordinary -Match would be
+            # satisfied by the one reference that is *not* ours to rename and would
+            # pass even if every local path were left pointing at a directory that
+            # no longer exists. The inline flag turns case folding off for this one
+            # pattern, so the lowercase vendor name cannot stand in for ours.
+            $workflow | Should -Match '(?-i:Brave\.admx)' -Because "the step must read the version from the single source of truth, under its current name and nothing else on the page matches it"
         }
     }
 }

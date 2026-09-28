@@ -852,7 +852,7 @@
 | **Reason** | Inactive in Brave and non-functional (user-verified on Brave 1.96.59) |
 | **Category** | Unrecognized by Brave |
 | **Was in Production** | No — never managed by `BraveOmega.ps1`, `config.json` or any profile |
-| **Notes** | Privacy Settings Tuning Tool master switch (DWord: 1 = enabled). The policy reached users only as a definition inside `admx/brave.admx` and `admx/brave.adml`; the project never set it, so it produced no hardening while advertising a control that does not work. The cross-reference validator reported it every run as a Brave-only policy absent from the script. v2.8.1.1 deletes the `<policy>` block, its string resources and its presentation reference, matching the treatment of `BraveLocalAIEnabled`. No tier totals change — the project total stays at 151. |
+| **Notes** | Privacy Settings Tuning Tool master switch (DWord: 1 = enabled). The policy reached users only as a definition inside `ADMX/Brave.admx` and `ADMX/Brave.adml`; the project never set it, so it produced no hardening while advertising a control that does not work. The cross-reference validator reported it every run as a Brave-only policy absent from the script. v2.8.1.1 deletes the `<policy>` block, its string resources and its presentation reference, matching the treatment of `BraveLocalAIEnabled`. No tier totals change — the project total stays at 151. |
 
 > 🇹🇷 **Türkçe:**
 >
@@ -865,7 +865,7 @@
 > | **Neden** | Brave'de etkin değil ve işlevsel değil (Brave 1.96.59 üzerinde kullanıcı tarafından doğrulandı) |
 > | **Kategori** | Brave tarafından tanınmayan |
 > | **Üretimde Oldu mu** | Hayır — `BraveOmega.ps1`, `config.json` veya herhangi bir profil tarafından yönetilmedi |
-> | **Notlar** | Privacy Settings Tuning Tool ana anahtarı (DWord: 1 = etkin). Politika kullanıcılara yalnızca `admx/brave.admx` ve `admx/brave.adml` içindeki bir tanım olarak ulaştı; proje onu hiç ayarlamadı, dolayısıyla çalışmayan bir kontrolü tanıtırken hiçbir sıkılaştırma sağlamadı. Çapraz referans doğrulayıcısı onu her çalıştırmada betikte bulunmayan Brave'e özgü politika olarak raporluyordu. v2.8.1.1 `<policy>` bloğunu, string kaynaklarını ve presentation referansını siler; bu, `BraveLocalAIEnabled` ile aynı işlemdir. Katman toplamları değişmez — proje toplamı 151 olarak kalır. |
+> | **Notlar** | Privacy Settings Tuning Tool ana anahtarı (DWord: 1 = etkin). Politika kullanıcılara yalnızca `ADMX/Brave.admx` ve `ADMX/Brave.adml` içindeki bir tanım olarak ulaştı; proje onu hiç ayarlamadı, dolayısıyla çalışmayan bir kontrolü tanıtırken hiçbir sıkılaştırma sağlamadı. Çapraz referans doğrulayıcısı onu her çalıştırmada betikte bulunmayan Brave'e özgü politika olarak raporluyordu. v2.8.1.1 `<policy>` bloğunu, string kaynaklarını ve presentation referansını siler; bu, `BraveLocalAIEnabled` ile aynı işlemdir. Katman toplamları değişmez — proje toplamı 151 olarak kalır. |
 
 ---
 
@@ -1154,7 +1154,7 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 7. **Origin-only policies** — `BraveLocalAIEnabled` was an Origin-only policy that hadn't reached stable. Check policy promotion status; it was still absent from stable two versions later, when v2.8.1.1 finally removed it from the ADMX.
 8. **Document removals** — This file exists because removals were tracked. Future contributors can learn from past mistakes.
 9. **Always test on brave://policy/** — Two policies (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) existed in Chromium ADMX but showed "Bilinmeyen politika" in Brave 1.92. Always verify before shipping.
-10. **The ADMX is a separate artifact** — Removing a policy from `BraveOmega.ps1` does not remove it from `admx/brave.admx` and `admx/brave.adml`. `BraveLocalAIEnabled` and `PsstEnabled` both stayed in the shipped template after their script removal, silently advertising controls the project does not manage. Edit the template, then re-run `admx/admx-validate.ps1` and treat its "Brave policies not in script" count as a release gate.
+10. **The ADMX is a separate artifact** — Removing a policy from `BraveOmega.ps1` does not remove it from `ADMX/Brave.admx` and `ADMX/Brave.adml`. `BraveLocalAIEnabled` and `PsstEnabled` both stayed in the shipped template after their script removal, silently advertising controls the project does not manage. Edit the template, then re-run `ADMX/ADMX-Validate.ps1` and treat its "Brave policies not in script" count as a release gate.
 
 > 🇹🇷 **Türkçe:**
 >
@@ -1167,7 +1167,7 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 > 7. **Yalnızca origin politikaları** — `BraveLocalAIEnabled` stabilde ulaşmamış bir Yalnızca origin politikasıydı. Politika geçirme durumunu kontrol edin; v2.8.1.1 ADMX'den kaldırdığında hâlâ stabilde yoktu.
 > 8. **Kaldırmaları belgeleyin** — Bu dosya kaldırma kayıtları takip edildiği için mevcuttur. Gelecekteki katılımcılar geçmiş hatalardan öğrenebilir.
 > 9. **Her zaman brave://policy/'de test edin** — İki politika (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) Chromium ADMX'sinde mevcuttu ancak Brave 150'de "Bilinmeyen politika" olarak göründü. Üretime geçirmeden önce her zaman doğrulayın.
-> 10. **ADMX ayrı bir yapıttır** — Bir politikayı `BraveOmega.ps1`'den kaldırmak onu `admx/brave.admx` ve `admx/brave.adml`'den kaldırmaz. `BraveLocalAIEnabled` ve `PsstEnabled`, betikten kaldırıldıktan sonra da sevk edilen şablonda kalarak projenin yönetmediği kontrolleri sessizce tanıtmaya devam etti. Şablonu düzenleyin, ardından `admx/admx-validate.ps1`'i yeniden çalıştırın ve "Brave policies not in script" sayısını sürüm kapısı olarak değerlendirin.
+> 10. **ADMX ayrı bir yapıttır** — Bir politikayı `BraveOmega.ps1`'den kaldırmak onu `ADMX/Brave.admx` ve `ADMX/Brave.adml`'den kaldırmaz. `BraveLocalAIEnabled` ve `PsstEnabled`, betikten kaldırıldıktan sonra da sevk edilen şablonda kalarak projenin yönetmediği kontrolleri sessizce tanıtmaya devam etti. Şablonu düzenleyin, ardından `ADMX/ADMX-Validate.ps1`'i yeniden çalıştırın ve "Brave policies not in script" sayısını sürüm kapısı olarak değerlendirin.
 
 ---
 

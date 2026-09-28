@@ -191,8 +191,11 @@ BRAVE OMEGA PROJECT/
 │   │   ├── bug_report.yaml           Bug report template
 │   │   └── feature_request.yaml      Feature request template
 │   └── workflows/
-│       ├── admx-validate.ps1         ADMX validation script
-│       └── admx-validate.yml         ADMX validation pipeline
+│   └── admx-validate.yml             ADMX validation script
+├── ADMX/
+│   ├── ADMX-Validate.ps1             ADMX cross-reference validator
+│   ├── Brave.admx                    Brave ADMX policy template
+│   └── Brave.adml                    Brave ADML language resources
 └── Brave-Omega/
         BraveOmega.ps1             Unified bilingual script (EN/TR)
 └── Tests/                         Pester test suite (23 files)
@@ -404,8 +407,11 @@ BRAVE OMEGA PROJECT/
 │   │   ├── bug_report.yaml           Hata raporu şablonu
 │   │   └── feature_request.yaml      Özellik talebi şablonu
 │   └── workflows/
-│       ├── admx-validate.ps1         ADMX doğrulama betiği
-│       └── admx-validate.yml         ADMX doğrulama hattı
+│   └── admx-validate.yml             ADMX validation script
+├── ADMX/
+│   ├── ADMX-Validate.ps1             ADMX Ã§apraz referans doÄŸrulama betiÄŸi
+│   ├── Brave.admx                    Brave ADMX ÅŸablonu
+│   └── Brave.adml                    Brave ADML dil kaynaklarÄ±
 └── Brave-Omega/
         BraveOmega.ps1             Birleşik iki dilli betik (EN/TR)
 └── Tests/                         Pester test paketi (23 dosya)

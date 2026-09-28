@@ -22,9 +22,9 @@
 .PARAMETER DryRun
     Show what would be done without making changes
 .EXAMPLE
-    .\scripts\Release.ps1 -Version "v2.4.1.0" -Title "Brave 1.93.100 Compatibility" -NotesFile ".\RELEASE-NOTES.md"
+    .\Scripts\Release.ps1 -Version "v2.4.1.0" -Title "Brave 1.93.100 Compatibility" -NotesFile ".\RELEASE-NOTES.md"
 .EXAMPLE
-    .\scripts\Release.ps1 -Version "v2.4.1.0" -Title "Brave 1.93.100" -DryRun
+    .\Scripts\Release.ps1 -Version "v2.4.1.0" -Title "Brave 1.93.100" -DryRun
 #>
 
 param(

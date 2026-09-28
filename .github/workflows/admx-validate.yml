@@ -5,12 +5,12 @@ on:
     branches: [main]
     paths:
       - 'Brave-Omega/BraveOmega.ps1'
-      - 'admx/*'
+      - 'ADMX/*'
   pull_request:
     branches: [main]
     paths:
       - 'Brave-Omega/BraveOmega.ps1'
-      - 'admx/*'
+      - 'ADMX/*'
   schedule:
     - cron: '0 6 * * 1'
   workflow_dispatch:
@@ -31,15 +31,15 @@ jobs:
 
       - name: Validate ADMX policy cross-reference
         shell: pwsh
-        run: ./admx/admx-validate.ps1
+        run: ./ADMX/ADMX-Validate.ps1
 
       - name: Check for Brave ADMX updates
         shell: pwsh
         run: |
-          # brave.admx carries the version in its own leading comment, so it is
+          # Brave.admx carries the version in its own leading comment, so it is
           # the single source of truth. A separate version file would be a second
           # copy that drifts, and a multi-line one would not parse as a version.
-          $localAdmx = "admx/brave.admx"
+          $localAdmx = "ADMX/Brave.admx"
           $localVersion = ([regex]::Match(
             (Get-Content -LiteralPath $localAdmx -Raw),
             'brave version:\s*([\d.]+)')).Groups[1].Value
@@ -111,7 +111,7 @@ jobs:
               if ($localOk -and $remoteOk) {
                 if ($remoteParsed -gt $localParsed) {
                   $direction = "is newer than"
-                  $action = "Refresh admx/brave.admx and admx/brave.adml from $remoteUri"
+                  $action = "Refresh ADMX/Brave.admx and ADMX/Brave.adml from $remoteUri"
                 } else {
                   $direction = "is older than"
                   $action = "Do not refresh: the repository copy is already ahead. Investigate the upstream rollback or repackaged archive."

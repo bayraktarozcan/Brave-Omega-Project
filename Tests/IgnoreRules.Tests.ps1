@@ -10,26 +10,26 @@ Describe "Ignore rule anchoring" -Tag "Unit" {
     Context "Root-anchored directory patterns" {
 
         It "ignores scratch notes placed at the repository root" {
-            Test-OmegaIgnorePath -Rules (Get-IgnoreRuleSet) -Path "docs/agent-notes.md" | Should -BeTrue
+            Test-OmegaIgnorePath -Rules (Get-IgnoreRuleSet) -Path "Docs/agent-notes.md" | Should -BeTrue
         }
 
         It "does not ignore product documentation shipped inside the project" {
             Test-OmegaIgnorePath -Rules (Get-IgnoreRuleSet) -Path "Brave-Omega/Docs/architecture.md" | Should -BeFalse
         }
 
-        It "does not ignore a documentation directory nested several levels deep" {
+        It "does not ignore a documentation directory nested several levels deep, in either spelling" {
             Test-OmegaIgnorePath -Rules (Get-IgnoreRuleSet) -Path "x/y/docs/probe.md" | Should -BeFalse
         }
 
-        It "anchors the docs rule to the repository root" {
-            $rule = Get-OmegaIgnoreRuleFor -Rules (Get-IgnoreRuleSet) -Path "docs/agent-notes.md"
+        It "anchors the Docs rule to the repository root" {
+            $rule = Get-OmegaIgnoreRuleFor -Rules (Get-IgnoreRuleSet) -Path "Docs/agent-notes.md"
             $rule | Should -Not -BeNullOrEmpty
-            $rule.Source | Should -Be "/docs/" -Because "an unanchored docs/ pattern also swallows the product documentation directory"
+            $rule.Source | Should -Be "/Docs/" -Because "an unanchored Docs/ pattern also swallows the product documentation directory"
             $rule.Anchored | Should -BeTrue
         }
 
         It "leaves nested product documentation with no ignore rule to override it" {
-            foreach ($path in @("Brave-Omega/Docs/architecture.md", "x/y/docs/probe.md")) {
+            foreach ($path in @("Brave-Omega/Docs/architecture.md", "x/y/Docs/probe.md", "x/y/docs/probe.md")) {
                 $rule = Get-OmegaIgnoreRuleFor -Rules (Get-IgnoreRuleSet) -Path $path
                 $rule | Should -BeNullOrEmpty -Because "$path is tracked output, so no pattern in .gitignore may match it"
             }

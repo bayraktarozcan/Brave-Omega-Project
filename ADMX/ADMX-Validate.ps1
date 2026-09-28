@@ -17,7 +17,7 @@ function Write-Result {
 }
 
 # ─── ADMX File Check ───
-$admxPath = Join-Path -Path $PSScriptRoot -ChildPath "brave.admx"
+$admxPath = Join-Path -Path $PSScriptRoot -ChildPath "Brave.admx"
 if (-not (Test-Path -LiteralPath $admxPath)) {
     Write-Host "ADMX file not found: $admxPath" -ForegroundColor Red
     exit 1
@@ -122,7 +122,7 @@ Write-Result "Script policies loaded: $($scriptPolicyMap.Count) unique policy na
 # Brave's ADMX bundle is generated from Chromium's Windows GPO policy templates. A few
 # policies this script applies are real Chromium enterprise policies that are only shipped
 # for non-Windows surfaces (e.g. ChromeOS web-capability / IWA policies) and therefore never
-# appear in brave.admx. Each entry is verified against chromeenterprise.google/policies and
+# appear in Brave.admx. Each entry is verified against chromeenterprise.google/policies and
 # cross-referenced in CHANGELOG.md / README.md. Do not add entries here to silence typos.
 # NOTE: v2.6.1.0 removed the only entry (DeviceAttributesAllowedForOrigins, a ChromeOS-only
 # policy that Brave on Windows does not support); this map is intentionally empty.

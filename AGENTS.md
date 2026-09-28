@@ -27,8 +27,8 @@ Operational notes for humans and AI agents working in this repository. English i
 | `Brave-Omega/Docs/Policy-Catalog.md` | Full per-policy catalog with metadata |
 | `Brave-Omega/config.json` + `Brave-Omega/Profiles/*.json` | Policy data layer - the only place policy definitions change |
 | `Enterprise/` | Per-tier `.reg` templates + `levels.json` registry export |
-| `admx/` | ADMX templates + `admx-validate.ps1` cross-reference validator |
-| `scripts/` | Release, wiki sync, deploy/detect, catalog export, mojibake scan |
+| `ADMX/` | ADMX templates + `ADMX-Validate.ps1` cross-reference validator |
+| `Scripts/` | Release, wiki sync, deploy/detect, catalog export, mojibake scan |
 | `Tests/` | Pester 5.7.1 test suite - one file per invariant |
 | `Tests/MirrorSync.Tests.ps1` | Fixtures pinning the bilingual mirror contract (clean pair, CRLF mirror, each drift class, ordered checklist, absent mirror) |
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
@@ -57,10 +57,10 @@ Run from the repository root with Windows PowerShell 5.1:
 
 ```powershell
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 214/214 passing
+Invoke-Pester Tests/ -PassThru          # expected: 254/254 passing
 
 # ADMX cross-reference
-& "admx/admx-validate.ps1"              # expected: PASS - 151/151
+& "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
 
 # PSScriptAnalyzer
 # -ExcludeRule takes an array. A comma-joined string is silently accepted and
@@ -77,7 +77,7 @@ Invoke-ScriptAnalyzer "Brave-Omega/BraveOmega.ps1" -Severity Warning -ExcludeRul
 markdownlint -c .github/linters/.markdownlint.json "**/*.md"
 
 # Mirror sync (local only; the operator supplies the mirror path)
-& "scripts/verify-mirror-sync.ps1" -Canonical AGENTS.md -Mirror <mirror-path>
+& "Scripts/Verify-Mirror-Sync.ps1" -Canonical AGENTS.md -Mirror <mirror-path>
 
 # YAML
 yamllint .github/ --config-file .github/linters/.yamllint.yml
@@ -287,18 +287,23 @@ All committed file and directory names are English:
 
 A directory name stays lowercase only when a tool, platform, or ecosystem
 convention fixes it there, and the exemption is recorded here rather than left
-implicit: `.github/` and everything under it (`.github/workflows`,
-`.github/ISSUE_TEMPLATE`, `.github/linters`) because GitHub resolves those paths
-case-sensitively; `admx/` because the vendor's own Group Policy tooling and
-documentation use that spelling; `scripts/` and `docs/` because every mainstream
-toolchain - npm, Python, Rust, Go - ships a lowercase `scripts/` and `docs/`.
+implicit. There is exactly one: `.github/` and everything under it
+(`.github/workflows`, `.github/ISSUE_TEMPLATE`, `.github/linters`), because
+GitHub resolves those paths case-sensitively. The template and automation
+directories were lowercase for a while, on the argument that the vendor and the
+mainstream toolchains spell them that way, and both are now capitalised. A
+vendor's *format* name and an ecosystem's *habit* are not a platform
+constraint: GitHub does not resolve its template directory lowercase, npm
+does not put that directory in lowercase, and a capitalised `ADMX/` opens
+in exactly the same tools.
 
-The lowercase `docs/` exemption is scoped to the *untracked* root reference
-folder, which `.gitignore` anchors to the repository root. It does not carry over
-to committed product documentation: the catalog ships as `Brave-Omega/Docs/`
-with a capital D, because that document is tracked output and is held to the
-capitalised-directory rule like any other committed path. A lowercase exemption
-is granted to one named path, not to a spelling wherever it happens to appear.
+The untracked root reference folder is `Docs/`, which `.gitignore` anchors to
+the repository root as `/Docs/`. The anchor is scoped to that one path on
+purpose: a bare `Docs/` pattern matches at every depth and would swallow the
+committed product documentation that ships as `Brave-Omega/Docs/`. A tracking
+exemption is granted to one named path, not to a spelling wherever it happens
+to appear, and the committed documentation is held to the
+capitalised-directory rule like any other tracked path.
 
 File names are the same principle. A directory carries one convention, and the
 exceptions are named rather than implied:
@@ -307,9 +312,9 @@ exceptions are named rather than implied:
 |-----------|------------|------------------|
 | `Brave-Omega/Docs/` | HyphenatedPascalCase (`Policy-Catalog.md`) | none |
 | `Wiki/` | HyphenatedPascalCase (`Release-Notes.md`) | `_Footer.md`, `_Sidebar.md` - GitHub's wiki renderer looks for exactly these names |
-| `scripts/` | PascalCase (`Release.ps1`) | `deploy-brave-omega.ps1`, `detect-brave-omega.ps1`, `mojibake-scan.py`, `verify-mirror-sync.ps1` - pre-existing kebab-case, kept so external references stay valid; each is a rename candidate, not a precedent |
+| `Scripts/` | PascalCase (`Release.ps1`) | none - the four kebab-case files were renamed with the directory they lived in |
 | `Tests/` | PascalCase (`MirrorSync.Tests.ps1`) | none |
-| `admx/` | vendor spelling (`admx-validate.ps1`) | the whole directory follows the vendor's own naming |
+| `ADMX/` | tracks the vendor's file extension (`Brave.admx`, `Brave.adml`) | `ADMX-Validate.ps1` is this repository's own script, not a vendor file |
 | `.github/` | platform-fixed | file names are chosen by GitHub, not by this repository |
 
 Two kinds of name sit outside every convention above, because something outside
@@ -439,7 +444,7 @@ Repository management and dependency conventions, with their current state in th
 - **Policy edits.** Change policy definitions only in the data layer
   (`Brave-Omega/config.json` + `Brave-Omega/Profiles/*.json`; loaded at runtime
   via `Import-OmegaPolicyData` into `$OmegaState`). Deprecated policies must be
-  removed from the profile files — the ADMX validator (`admx-validate.ps1`)
+  removed from the profile files — the ADMX validator (`ADMX-Validate.ps1`)
   enforces the cross-reference.
 - **Version bumps.** Add an entry to the single canonical changelog (root
   `CHANGELOG.md` in this repo, with `Wiki/Changelog.md` as its workflow-synced
@@ -524,7 +529,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   auditing. It is never committed or pushed, and it is not named anywhere in
   committed output.
 - **Rule:** whenever this file changes, refresh the mirror content, then re-run
-  `scripts/verify-mirror-sync.ps1` and write the value it reports into the
+  `Scripts/Verify-Mirror-Sync.ps1` and write the value it reports into the
   `sync-sha` marker of both files. The check is mechanical on purpose — a
   hand-remembered hash drifts silently the moment this file is edited twice
   without the mirror being revisited.
@@ -566,4 +571,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=5ff1d96595dd0e0bd7695772f78c77cea0033b41 -->
+<!-- mirror-sync: sync-sha=19fa7abae88a1d2e042ea704720e1937f033a6f0 -->
