@@ -23,16 +23,16 @@ Operational notes for humans and AI agents working in this repository. English i
 
 | Path | Purpose |
 |------|---------|
-| `Brave Omega/BraveOmega.ps1` | Unified EN/TR hardening script (single source of policy truth) |
-| `Brave Omega/Docs/policy-catalog.md` | Full per-policy catalog with metadata |
-| `Brave Omega/config.json` + `Brave Omega/Profiles/*.json` | Policy data layer - the only place policy definitions change |
+| `Brave-Omega/BraveOmega.ps1` | Unified EN/TR hardening script (single source of policy truth) |
+| `Brave-Omega/Docs/Policy-Catalog.md` | Full per-policy catalog with metadata |
+| `Brave-Omega/config.json` + `Brave-Omega/Profiles/*.json` | Policy data layer - the only place policy definitions change |
 | `Enterprise/` | Per-tier `.reg` templates + `levels.json` registry export |
 | `admx/` | ADMX templates + `admx-validate.ps1` cross-reference validator |
 | `scripts/` | Release, wiki sync, deploy/detect, catalog export, mojibake scan |
 | `Tests/` | Pester 5.7.1 test suite - one file per invariant |
 | `Tests/MirrorSync.Tests.ps1` | Fixtures pinning the bilingual mirror contract (clean pair, CRLF mirror, each drift class, ordered checklist, absent mirror) |
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
-| `Brave Omega/Docs/` | Project-level references: group policy reference, roadmap and opportunities |
+| `Brave-Omega/Docs/` | Project-level references: group policy reference, roadmap and opportunities |
 | `index.html` | Single-page landing page (true black, dark theme, no external JS, < 10 KB gzipped) |
 | Root governance set | `README.md`, `SECURITY.md`, `PRIVACY.md`, `SUPPORT.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `RELEASE-NOTE-TEMPLATE.md`, `CODEOWNERS`, `LICENSE`, `NOTICE` |
 | `.github/workflows/` | CI/CD: Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene |
@@ -71,7 +71,7 @@ $excluded = @(
   'PSUseSupportsShouldProcess',
   'PSUseShouldProcessForStateChangingFunctions'
 )
-Invoke-ScriptAnalyzer "Brave Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule $excluded
+Invoke-ScriptAnalyzer "Brave-Omega/BraveOmega.ps1" -Severity Warning -ExcludeRule $excluded
 
 # Markdown (repo config)
 markdownlint -c .github/linters/.markdownlint.json "**/*.md"
@@ -280,7 +280,9 @@ Change done
 All committed file and directory names are English:
 - Directories: English, initial capital, separated by `-`/`_`; abbreviations in full capitals.
 - Source files: snake_case or PascalCase per language.
-- Documentation: English titles and filenames.
+- Documentation: file names are HyphenatedPascalCase (`Policy-Catalog.md`); titles are English sentences.
+- Root files: UPPER, with `_` or `-` joining compounds (`CODE_OF_CONDUCT.md`, `RELEASE-NOTE-TEMPLATE.md`). Both separators are allowed because the platform fixes these names and does not agree on one; the casing is the part this repository owns.
+- No committed path contains whitespace. A space has to be quoted in every reference, and a path that needs quoting is a path that will eventually be referenced unquoted. This is not a style preference: a space in a directory name has already broken a CI path in this repository, and the fix was recorded in the changelog as a bug.
 - Exception: standard language codes (`tr.json`, `en.json`).
 
 A directory name stays lowercase only when a tool, platform, or ecosystem
@@ -293,7 +295,7 @@ toolchain - npm, Python, Rust, Go - ships a lowercase `scripts/` and `docs/`.
 
 The lowercase `docs/` exemption is scoped to the *untracked* root reference
 folder, which `.gitignore` anchors to the repository root. It does not carry over
-to committed product documentation: the catalog ships as `Brave Omega/Docs/`
+to committed product documentation: the catalog ships as `Brave-Omega/Docs/`
 with a capital D, because that document is tracked output and is held to the
 capitalised-directory rule like any other committed path. A lowercase exemption
 is granted to one named path, not to a spelling wherever it happens to appear.
@@ -303,10 +305,34 @@ exceptions are named rather than implied:
 
 | Directory | Convention | Named exceptions |
 |-----------|------------|------------------|
+| `Brave-Omega/Docs/` | HyphenatedPascalCase (`Policy-Catalog.md`) | none |
+| `Wiki/` | HyphenatedPascalCase (`Release-Notes.md`) | `_Footer.md`, `_Sidebar.md` - GitHub's wiki renderer looks for exactly these names |
 | `scripts/` | PascalCase (`Release.ps1`) | `deploy-brave-omega.ps1`, `detect-brave-omega.ps1`, `mojibake-scan.py`, `verify-mirror-sync.ps1` - pre-existing kebab-case, kept so external references stay valid; each is a rename candidate, not a precedent |
 | `Tests/` | PascalCase (`MirrorSync.Tests.ps1`) | none |
 | `admx/` | vendor spelling (`admx-validate.ps1`) | the whole directory follows the vendor's own naming |
 | `.github/` | platform-fixed | file names are chosen by GitHub, not by this repository |
+
+Two kinds of name sit outside every convention above, because something outside
+this repository reads them. A data contract is a name its readers depend on, and
+a vendor or platform name is a name its tool looks up. Neither is free to follow
+a house style, so both are declared in the naming test together with the reason
+they are exempt. They are checked against the name Git records, not against the
+working tree: a case-folding filesystem will happily resolve `Config.json` when
+asked for `config.json`, so a lookup made through the filesystem cannot enforce
+this rule and a contract that a check cannot see is a contract that quietly rots.
+The check asserts the count of matching tracked paths before it asserts the
+spelling, because a case-only duplicate is a duplicate whether the disk is able
+to show it or not.
+
+A rename is finished when only one spelling is left. The retired spelling is
+recorded as a mapping from the old name to the new one, and a guard reports any
+live file that still names the old one: a stale reference keeps reading
+perfectly well and simply stops resolving, which is exactly why it survives
+review and breaks later. The mapping stores the old name without its separator
+and assembles the pattern from it, so the file that declares the rule does not
+report itself as its first offence. A guard that also passes when every
+reference has been deleted proves nothing, so the current spelling is asserted
+to be present too.
 
 A name that is merely *conventional* is not enough on its own to justify a
 lowercase directory, and a rename is a single logical change: the directory
@@ -314,10 +340,19 @@ moves, every path that names it moves with it in the same commit, and a
 reference left behind is a defect rather than a follow-up. Historical records -
 the changelog, the version-compatibility tables, per-version release notes - are
 excluded: they describe the repository as it stood at that version, so rewriting
-a path inside them would falsify the record instead of updating it.
+a path inside them would falsify the record instead of updating it. The
+exemption is scoped rather than blanket - granted per file, or per line region
+carrying a recognisable marker - because a file that mixes live content with a
+changelog is the normal case, not the awkward one, and a whole-file exemption
+would silence the live half along with the historical half. A guard checks that
+each declared marker is still present: an exemption nobody can check is an
+exemption nobody will notice has rotted.
 
 `Tests/FileNaming.Tests.ps1` enforces this section, so a new file that arrives
-in a second style fails by name instead of drifting quietly. It is written
+in a second style fails by name instead of drifting quietly. Every guard in it
+was checked by planting the violation it exists to catch and confirming that the
+named test fails, because a check which has never been seen to fail is not known
+to work - it is only known not to have been tried. It is written
 against a Turkish-locale Windows host, and that shapes how it tests: a case
 range such as `[A-Z]` is matched with `-cmatch`, never `-match`, because
 PowerShell folds the range through the current culture and a Turkish locale puts
@@ -402,7 +437,7 @@ Repository management and dependency conventions, with their current state in th
   in identifiers even in BOM files — while user-facing strings, comments, and
   string data keep full Turkish characters.
 - **Policy edits.** Change policy definitions only in the data layer
-  (`Brave Omega/config.json` + `Brave Omega/Profiles/*.json`; loaded at runtime
+  (`Brave-Omega/config.json` + `Brave-Omega/Profiles/*.json`; loaded at runtime
   via `Import-OmegaPolicyData` into `$OmegaState`). Deprecated policies must be
   removed from the profile files — the ADMX validator (`admx-validate.ps1`)
   enforces the cross-reference.
@@ -411,7 +446,7 @@ Repository management and dependency conventions, with their current state in th
   projection),
   bump `$ScriptVersion` / `$ValidatedBrave` / `$ValidatedChromium`, then update
   the hand-maintained "Validated on" header in
-  `Brave Omega/Docs/policy-catalog.md`, README §8,
+  `Brave-Omega/Docs/Policy-Catalog.md`, README §8,
   `index.html` (hero, prerequisites, compat rows), and the Wiki pages. The
   changelog follows the Keep a Changelog format (Added / Changed / Deprecated /
   Removed / Fixed / Security) under SemVer headings, newest first.
@@ -531,4 +566,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=60358c1e68219ab5b1faa0e334e4ac524f350293 -->
+<!-- mirror-sync: sync-sha=5ff1d96595dd0e0bd7695772f78c77cea0033b41 -->
