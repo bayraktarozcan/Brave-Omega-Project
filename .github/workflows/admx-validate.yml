@@ -102,13 +102,24 @@ jobs:
               # would send a maintainer to refresh files that are already ahead.
               # If either side will not parse as a version, the message stays
               # neutral instead of guessing.
+              # The action follows the direction. Telling a maintainer to
+              # refresh on an older package would be the defect the comment
+              # above warns about, so the instruction is chosen here rather
+              # than assumed to be the same in every branch.
               $direction = "differs from"
+              $action = "Review the upstream package before changing the repository copy."
               if ($localOk -and $remoteOk) {
-                $direction = if ($remoteParsed -gt $localParsed) { "is newer than" } else { "is older than" }
+                if ($remoteParsed -gt $localParsed) {
+                  $direction = "is newer than"
+                  $action = "Refresh admx/brave.admx and admx/brave.adml from $remoteUri"
+                } else {
+                  $direction = "is older than"
+                  $action = "Do not refresh: the repository copy is already ahead. Investigate the upstream rollback or repackaged archive."
+                }
               }
 
               Write-Warning "Brave ADMX $direction the repository copy ($remoteVersion vs $localVersion)."
-              Write-Warning "Refresh admx/brave.admx and admx/brave.adml from $remoteUri"
+              Write-Warning $action
             }
           } catch {
             # The update check is informational. A network failure must not mask
