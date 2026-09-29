@@ -42,15 +42,19 @@ BeforeAll {
     # Docs is the one entry Git does not hold. It is the repository's local
     # reference folder, ignored on purpose and never committed, so it cannot be
     # reached through the tracked-path list above - but it is still a name this
-    # project decided on, and the two directory tests below read it off the
-    # filesystem, so it is policed rather than merely intended. A rule that only
-    # covers what Git can see is a rule with a hole exactly where the files are
-    # least likely to be reviewed.
+    # project decided on, and the untracked-directory assertion below pins that
+    # name from the Git record, so the rule does not depend on a checkout that
+    # happens to contain the folder. A rule that only covers what Git can see is
+    # a rule with a hole exactly where the files are least likely to be
+    # reviewed.
+    #
+    # Paths here use forward slashes because git ls-files prints them that way
+    # on every host; a backslash spelling would match only on Windows.
     $script:OwnedDirectories = @(
         "ADMX"
         "Brave-Omega"
-        "Brave-Omega\Profiles"
-        "Brave-Omega\Docs"
+        "Brave-Omega/Profiles"
+        "Brave-Omega/Docs"
         "Docs"
         "Enterprise"
         "Scripts"
@@ -651,9 +655,18 @@ BeforeAll {
         $offenders
     }
 
+    # Tracked directories as git spells them. git ls-files prints forward
+    # slashes on every host, so the parent is taken from that spelling directly;
+    # Split-Path would fold it to the host separator, and a backslash-flavoured
+    # path on one host and a forward slash on another would make this a rule
+    # that compares different ground truth. Taking the parent from the slash
+    # also keeps the result comparable to the slash-spelled OwnedDirectories.
     $script:GetTrackedDirectories = {
         & git -C $ProjectRoot ls-files |
-            ForEach-Object { Split-Path -Parent $_ } |
+            ForEach-Object {
+                $i = $_.LastIndexOf('/')
+                if ($i -ge 0) { $_.Substring(0, $i) }
+            } |
             Where-Object { $_ } |
             Sort-Object -Unique
     }
@@ -671,7 +684,11 @@ Describe "Repository file and directory naming" -Tag "Unit" {
                     # locale folds I and i together under the default comparer,
                     # so a case-folding comparison here would quietly widen the
                     # exemption to directories it was never granted for.
-                    if ($dir -ceq $entry -or $dir.StartsWith("$entry\", [System.StringComparison]::Ordinal)) {
+                    #
+                    # The separator is the forward slash git prints, not the one
+                    # the host might prefer, because $dir here was built from the
+                    # git spelling and must be compared against the same ground.
+                    if ($dir -ceq $entry -or $dir.StartsWith("$entry/", [System.StringComparison]::Ordinal)) {
                         $allowed = $true
                         break
                     }
@@ -708,8 +725,14 @@ Describe "Repository file and directory naming" -Tag "Unit" {
             }
         }
 
-        It "owned directories exist under their capitalised name" {
+        It "owned directories Git holds exist under their capitalised name" {
+            $tracked = @(& $script:GetTrackedDirectories)
             foreach ($dir in $script:OwnedDirectories) {
+                # Docs is the entry Git does not hold. It is ignored on purpose
+                # and legitimately absent from a fresh checkout, so its name is
+                # pinned by the untracked-directory assertion below rather than
+                # by a filesystem that may not contain it.
+                if ($tracked -notcontains $dir) { continue }
                 Test-Path -LiteralPath (Join-Path $ProjectRoot $dir) |
                     Should -BeTrue -Because "$dir is the agreed name for this directory"
             }
@@ -804,8 +827,10 @@ Describe "Repository file and directory naming" -Tag "Unit" {
 
             # The one owned directory Git cannot hold, named so that a change in
             # which directory that is has to be a decision rather than a side
-            # effect. It is covered by the filesystem test above instead, and the
-            # two together are what make the folder policed rather than intended.
+            # effect. The existence test above skips it because a fresh checkout
+            # has no such folder to see; what sits inside the checkout is the
+            # Git record, so it is this assertion, not the filesystem, that pins
+            # the folder as intended rather than accidental.
             $untracked.Count | Should -Be 1 -Because "exactly one owned directory is expected to live outside Git; a second one means a directory is untracked by accident"
             $untracked[0] | Should -BeExactly "Docs" -Because "the local reference folder is ignored deliberately, and it is the reason the exact-case check above has a hole to declare"
         }
