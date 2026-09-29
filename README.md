@@ -1246,9 +1246,9 @@ BRAVE OMEGA PROJECT/
 │   └── workflows/
 │   └── admx-validate.yml               ADMX validation pipeline
 ├── ADMX/
-│   ├── ADMX-Validate.ps1               ADMX Ã§apraz referans doÄŸrulama betiÄŸi
-│   ├── Brave.admx                      Brave ADMX ÅŸablonu
-│   └── Brave.adml                      Brave ADML dil kaynaklarÄ±
+│   ├── ADMX-Validate.ps1               ADMX çapraz referans doğrulama betiği
+│   ├── Brave.admx                      Brave ADMX şablonu
+│   └── Brave.adml                      Brave ADML dil kaynakları
 └── Brave-Omega/
          BraveOmega.ps1                  Tek iki dilli betik (EN/TR)
 ```
