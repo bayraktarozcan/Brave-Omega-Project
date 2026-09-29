@@ -24,7 +24,7 @@
 # NOTES
 # * The runner does its git checkout with the image's git, so every image
 #   below includes git (node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32, python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970,
-#   mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a, alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d -> apk git).
+#   mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a -> git installed via apt in pester-tests, alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d -> apk git).
 # * The runner shell is bash/sh; PowerShell is piped to `pwsh -Command -`
 #   via a quoted heredoc (<<"'PWSH'">>), so the exact GitHub bodies run
 #   verbatim with no quoting mangling.
@@ -198,6 +198,7 @@ pester-tests:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
+    - apt-get update && apt-get install -y --no-install-recommends git ca-certificates
     - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name Pester -RequiredVersion ${PESTER_VERSION} -Force -SkipPublisherCheck"
   script:
     - |
