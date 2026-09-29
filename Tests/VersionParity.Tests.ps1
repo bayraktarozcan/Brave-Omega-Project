@@ -149,6 +149,32 @@ BeforeAll {
         return $found
     }
 
+    # The wiki changelog is the root changelog's published projection and holds
+    # the same release set. Both are read as version lists and normalized so the
+    # one naming variance in the tree - the root's three-part "v2.1.6" against
+    # the wiki's four-part "v2.1.6.0" - compares equal instead of reading as a
+    # release that went missing.
+    function ConvertTo-FourPartVersion {
+        param([string]$Version)
+
+        if ($Version -notmatch '^v\d+(\.\d+){2,3}$') { return $null }
+        if ($Version -match '^v\d+\.\d+\.\d+\.\d+$') { return $Version }
+        return "$Version.0"
+    }
+
+    function Get-ExtractedVersions {
+        param([string]$Path, [string]$HeadingPattern)
+
+        if (-not (Test-Path -LiteralPath $Path)) { return @() }
+        $found = @()
+        foreach ($line in [System.IO.File]::ReadAllLines($Path, [System.Text.Encoding]::UTF8)) {
+            if ($line -notmatch $HeadingPattern) { continue }
+            $normalized = ConvertTo-FourPartVersion $Matches[1]
+            if ($normalized -and $found -notcontains $normalized) { $found += $normalized }
+        }
+        return $found
+    }
+
     function Get-DocLines {
         param([string]$Doc)
 
@@ -231,6 +257,30 @@ Describe "Documentation version parity" -Tag "Unit" {
             $claims = Get-HeadingVersionClaims -Lines $lines -Expected $script:VersionOfRecord -Marker $script:CurrentMarker
 
             $claims | Should -BeNullOrEmpty -Because "a lifecycle slogan that happens to contain the marker word names no version, and reading it as one would fail every slogan heading in the tree"
+        }
+    }
+
+    Context "Changelog projection parity" {
+        It "the root changelog's release set is covered by the wiki changelog" {
+            $root = Get-ExtractedVersions -Path (Join-Path $ProjectRoot "CHANGELOG.md") -HeadingPattern '^##\s*\[(v\d+(\.\d+){2,3})\]'
+            $wiki = Get-ExtractedVersions -Path (Join-Path $ProjectRoot "Wiki\Changelog.md") -HeadingPattern '^###\s+(v\d+(\.\d+){2,3})'
+
+            $root | Should -Not -BeNullOrEmpty -Because "the root changelog is the release log and the wiki is its projection, so the source must be readable"
+            $missing = @($root | Where-Object { $_ -notin $wiki })
+            $missing | Should -BeNullOrEmpty -Because "a release the root names but the wiki omits is a published gap that reads exactly like a release that never happened"
+        }
+
+        It "the wiki changelog names no release the root changelog never held" {
+            $root = Get-ExtractedVersions -Path (Join-Path $ProjectRoot "CHANGELOG.md") -HeadingPattern '^##\s*\[(v\d+(\.\d+){2,3})\]'
+            $wiki = Get-ExtractedVersions -Path (Join-Path $ProjectRoot "Wiki\Changelog.md") -HeadingPattern '^###\s+(v\d+(\.\d+){2,3})'
+
+            $extra = @($wiki | Where-Object { $_ -notin $root })
+            $extra | Should -BeNullOrEmpty -Because "the wiki is a projection and never a second source, so an entry only the wiki holds is a phantom release no build ever shipped"
+        }
+
+        It "the three-part and four-part spellings of one release compare equal" {
+            (ConvertTo-FourPartVersion 'v2.1.6') | Should -BeExactly 'v2.1.6.0' -Because "the root spells this release in three parts and the wiki in four, and reading them as two would report a false gap"
+            (ConvertTo-FourPartVersion 'v2.1.6.0') | Should -BeExactly 'v2.1.6.0' -Because "the four-part spelling is canonical and must pass through unchanged"
         }
     }
 }

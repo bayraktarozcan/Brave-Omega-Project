@@ -12,7 +12,8 @@
 #   .github/workflows/secret-scan.yml      -> secret-scan
 #   .github/workflows/quality.yml          -> markdown-lint, yaml-validate,
 #                                             powershell-syntax, pester-tests,
-#                                             ps-script-analyzer, policy-integrity
+#                                             ps-script-analyzer, policy-integrity,
+#                                             utf8-integrity
 #   .github/workflows/admx-validate.yml    -> admx-validate
 #   .github/workflows/version-check.yml    -> version-check
 #   .github/workflows/hygiene.yml          -> hygiene (actionlint)
@@ -247,6 +248,17 @@ policy-integrity:
       & "ADMX/ADMX-Validate.ps1"
       if ($LASTEXITCODE -ne 0) { exit 1 }
       PWSH
+
+utf8-integrity:
+  stage: test
+  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  script:
+    # Mojibake-Scan.py imports only os/re/sys, so the pinned python image is the
+    # whole toolchain here. No install step, and the run line is identical to
+    # the GitHub one - a gate that differs by a pin is not the same gate.
+    - python3 Scripts/Mojibake-Scan.py .
 
 # ------------------------------------------------------------------ deploy
 # Mirror of .github/workflows/pages.yml via GitLab Pages.

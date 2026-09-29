@@ -57,7 +57,7 @@ Run from the repository root with Windows PowerShell 5.1:
 
 ```powershell
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 254/254 passing
+Invoke-Pester Tests/ -PassThru          # expected: 257/257 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -571,4 +571,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=19fa7abae88a1d2e042ea704720e1937f033a6f0 -->
+<!-- mirror-sync: sync-sha=3638a558ebf0222a4234d7d41f1e746beaadcd4c -->

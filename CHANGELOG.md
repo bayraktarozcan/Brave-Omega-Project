@@ -29,6 +29,7 @@
     * [Summary](#en-unreleased-summary)
     * [Changed](#en-unreleased-changed)
     * [Added](#en-unreleased-added)
+    * [Fixed](#en-unreleased-fixed)
 2. [v2.8.1.1 — 2026-09-26](#en-v2811)
     * [Summary](#en-v2811-summary)
     * [Removed](#en-v2811-removed)
@@ -225,6 +226,14 @@ Historical entries below and the version-compatibility tables keep the old spell
 ### Added
 
 **`Tests/FileNaming.Tests.ps1` enforces the naming rule, its declared exceptions, and the absence of stale references to every retired spelling.** The check reads tracked paths from git rather than from the filesystem, because a case-folding filesystem resolves `Config.json` when asked for `config.json` and would report a lowercase spelling as present when only the capitalised directory exists. It matches case ranges with `-cmatch`, never `-match`, because PowerShell folds `[A-Z]` through the current culture and a Turkish locale puts `I` outside that range. Retired-path detection is shared between the guard and its own test through a single helper, and the test's declaration block is excluded from the scan by a region derived from the declarations themselves, so a rule cannot satisfy the check meant to catch it. Every guard was verified by planting the violation it exists to catch and confirming that the named test fails, because a check which has never been seen to fail is not known to work - it is only known not to have been tried.
+
+**`Tests/VersionParity.Tests.ps1` also checks that the wiki changelog is a projection of the canonical one, and not a second source of truth.** A release body written by hand in `Wiki/Changelog.md` and then never released drifts silently: the canonical file gains a version, the projection does not, and no gate fails. The guard normalizes both sets of headings to four-part versions, so a heading written `2.5.2.1` and one written `2.5.2` count as the same release rather than as two. It was verified by planting three defects in turn - a release present only in the canonical file, one present only in the projection, and a version whose two bodies carried different dates - and confirming that the named test failed for each.
+
+<a id="en-unreleased-fixed"></a>
+
+### Fixed
+
+**The second CI host now runs the UTF-8 gate, and the landing page can reach every root document.** `.github/workflows/quality.yml` ran the mojibake scan while `.gitlab-ci.yml` did not, so a dual-push remote that fails a check the canonical host enforces is not a second gate. The GitLab pipeline gained the `utf8-integrity` job with the same pinned `python:3.12-bookworm` digest and the same `python3 Scripts/Mojibake-Scan.py .` command, and its header comment now names the job. Separately, `index.html` linked none of the nine root governance documents, which made a rule the repository states about reachability unenforceable in practice; the footer now carries all nine, as absolute `blob/main` URLs, because the Pages workflow publishes `index.html` alone into `_site` and a relative link would resolve to a page that is never deployed. The font stack also dropped its request to Google Fonts in favor of the system stack the landing page already specified, and set the base size to 16px explicitly.
 
 <a id="en-v2811"></a>
 

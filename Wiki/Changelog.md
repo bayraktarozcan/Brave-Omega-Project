@@ -289,6 +289,18 @@ Complete version history for Brave Omega.
 
 ---
 
+### v2.5.2.1 — 2026-07-31
+
+**Brave 1.93.129 (Chromium 151.0.7922.71) Compatibility Validation**
+
+- Compatibility validation release — no policy changes (150 total)
+- 5 new Chromium 151 policies evaluated (`AutomaticDownloadsAllowedForUrls`, `AutomaticDownloadsBlockedForUrls`, `DefaultAutomaticDownloadsSettings`, `Indigo`, `ThirdPartyAiChatSettings`) — none relevant for privacy hardening
+- `DefaultSensorsSetting` gained the "Ask" option (value 3) — no change needed
+- EN Reset mode fix: HKLM empty-key cleanup added (functional parity with TR)
+- Script version updated to v2.5.2.1
+
+---
+
 ### v2.5.2.0 — 2026-07-25
 
 **Brave 1.92.144 (Chromium 150.0.7871.186) Compatibility Validation**
@@ -308,6 +320,27 @@ Complete version history for Brave Omega.
 - Brave validated version updated to 1.92.143 (Chromium 150.0.7871.182)
 - All 150 enterprise policies verified working with the latest stable Brave release
 - Script version updated to v2.5.1.0
+
+---
+
+### v2.5.0.0 — 2026-07-21
+
+**Full Policy Expansion — 30 New Policies (133→150), AI Blocking & Local Network Controls**
+
+**Added:**
+
+- **Essential (+1):** `ScreenCaptureAllowed` (DWord: 0) — blocks web-based screen capture APIs (getDisplayMedia)
+- **Balanced (+2):** `GenAILocalFoundationalModelSettings` (DWord: 2), `LocalNetworkAccessPermissionsPolicyDefaultEnabled` (DWord: 0)
+- **Advanced (+17):** 13 AI feature policies (all DWord: 0) — `AIModeSettings`, `AutofillPredictionSettings`, `ChromeSuggestionsSettings`, `CreateThemesSettings`, `DevToolsGenAiSettings`, `HelpMeWriteSettings`, `HistorySearchSettings`, `SearchContentSharingSettings`, `SmartTabSharingSettings`, `TabCompareSettings`, `GeminiActOnWebSettings`, `GeminiSparkSettings`, `GenAILocalFoundationalModelSettings`; `RendererAppContainerEnabled` (DWord: 1), `LocalNetworkAccessAllowedForUrls` / `LocalNetworkAccessBlockedForUrls` (MultiString: empty)
+- **Strict:** `ScreenCaptureAllowedByOrigins`, `SameOriginTabCaptureAllowedByOrigins`, `TabCaptureAllowedByOrigins`, `WindowCaptureAllowedByOrigins`, `LocalNetworkAllowedForUrls`, `LocalNetworkBlockedForUrls` (all MultiString: empty)
+
+**Removed:**
+
+- 6 broken/unrecognized policies: `ContextualSearchEnabled`, `CrossOriginEmbedderPolicy`, `CrossOriginOpPolicyHeader`, `DanglingOriginCheckEnforcement`, `PasswordReuseDetectionEnabled`, `TabDiscardingEnabled`
+- 3 deprecated/cloud-only policies: `CacheEncryptionEnabled`, `CloudReportingEnabled`, `InsecureFormsWarningsEnabled`
+
+- Cumulative chain 24›52›83›104›133 → **24›53›86›124›150**; verified in Brave 1.92.141
+- Both scripts updated to v2.5.0.0
 
 ---
 
@@ -665,6 +698,17 @@ Fixes #50
 
 ---
 
+### v1.1.1 — 2026-06-12
+
+**Patch Release — Minor Fixes**
+
+**Fixed:**
+
+- Registry backup path handling on non-standard Windows installations
+- Minor output formatting corrections
+
+---
+
 ### v1.1 — 2026-06-05
 
 **Error Handling, Backups, Process Guards, BraveShieldsDefault Removal**
@@ -685,6 +729,17 @@ Fixes #50
 
 - Error handling and logging
 - Backup/rollback reliability
+
+---
+
+### v1.0.1 — 2026-06-11
+
+**Hotfix Release — Initial Post-Launch Corrections**
+
+**Fixed:**
+
+- Corrected HKCU policy path for Brave Rewards telemetry opt-out
+- Fixed Brave process detection on systems with multiple user profiles
 
 ---
 
@@ -1085,6 +1140,18 @@ Brave Omega için tam sürüm geçmişi.
 
 ---
 
+### v2.5.2.1 — 2026-07-31
+
+**Brave 1.93.129 (Chromium 151.0.7922.71) Uyumluluk Doğrulaması**
+
+- Uyumluluk doğrulama sürümü — politika değişikliği yok (toplam 150)
+- 5 yeni Chromium 151 politikası değerlendirildi (`AutomaticDownloadsAllowedForUrls`, `AutomaticDownloadsBlockedForUrls`, `DefaultAutomaticDownloadsSettings`, `Indigo`, `ThirdPartyAiChatSettings`) — hiçbiri gizlilik sıkılaştırması için uygun bulunmadı
+- `DefaultSensorsSetting` "Ask" seçeneği kazandı (değer 3) — değişiklik gerekmedi
+- EN Reset modu düzeltmesi: HKLM boş-anahtar temizliği eklendi (TR ile işlevsel eşitlik)
+- Betik sürümü v2.5.2.1 olarak güncellendi
+
+---
+
 ### v2.5.2.0 — 2026-07-25
 
 **Brave 1.92.144 (Chromium 150.0.7871.186) Uyumluluk Doğrulaması**
@@ -1102,6 +1169,27 @@ Brave Omega için tam sürüm geçmişi.
 - Dogrulanmis Brave surumu 1.92.143'e guncellendi (Chromium 150.0.7871.182)
 - 150 kurumsal politikanin tamami en son Brave kararli surumuyle sorunsuz calisiyor
 - Betik surumu v2.5.1.0 olarak guncellendi
+
+---
+
+### v2.5.0.0 — 2026-07-21
+
+**Tam Politika Genişletmesi — 30 Yeni Politika (133→150), Yapay Zekâ Engelleme ve Yerel Ağ Kontrolleri**
+
+**Eklenenler:**
+
+- **Temel (+1):** `ScreenCaptureAllowed` (DWord: 0) — web tabanlı ekran yakalama API'lerini (getDisplayMedia) engeller
+- **Dengeli (+2):** `GenAILocalFoundationalModelSettings` (DWord: 2), `LocalNetworkAccessPermissionsPolicyDefaultEnabled` (DWord: 0)
+- **Gelişmiş (+17):** 13 yapay zekâ özelliği politikası (tamamı DWord: 0) — `AIModeSettings`, `AutofillPredictionSettings`, `ChromeSuggestionsSettings`, `CreateThemesSettings`, `DevToolsGenAiSettings`, `HelpMeWriteSettings`, `HistorySearchSettings`, `SearchContentSharingSettings`, `SmartTabSharingSettings`, `TabCompareSettings`, `GeminiActOnWebSettings`, `GeminiSparkSettings`, `GenAILocalFoundationalModelSettings`; `RendererAppContainerEnabled` (DWord: 1), `LocalNetworkAccessAllowedForUrls` / `LocalNetworkAccessBlockedForUrls` (MultiString: boş)
+- **Katı:** `ScreenCaptureAllowedByOrigins`, `SameOriginTabCaptureAllowedByOrigins`, `TabCaptureAllowedByOrigins`, `WindowCaptureAllowedByOrigins`, `LocalNetworkAllowedForUrls`, `LocalNetworkBlockedForUrls` (tamamı MultiString: boş)
+
+**Kaldırılanlar:**
+
+- 6 bozuk/tanınmayan politika: `ContextualSearchEnabled`, `CrossOriginEmbedderPolicy`, `CrossOriginOpPolicyHeader`, `DanglingOriginCheckEnforcement`, `PasswordReuseDetectionEnabled`, `TabDiscardingEnabled`
+- 3 kullanımdan kaldırılmış/buluta özgü politika: `CacheEncryptionEnabled`, `CloudReportingEnabled`, `InsecureFormsWarningsEnabled`
+
+- Kümülatif zincir 24›52›83›104›133 → **24›53›86›124›150**; Brave 1.92.141 ile doğrulandı
+- Her iki betik v2.5.0.0'a güncellendi
 
 ---
 
@@ -1461,6 +1549,17 @@ Fixes #50
 
 ---
 
+### v1.1.1 — 2026-06-12
+
+**Düzeltme Sürümü — Küçük Düzeltmeler**
+
+**Düzeltilenler:**
+
+- Standart olmayan Windows kurulumlarında kayıt defteri yedekleme yolu işleme düzeltildi
+- Küçük çıktı biçimlendirme düzeltmeleri
+
+---
+
 ### v1.1 — 2026-06-05
 
 **Hata Yönetimi, Yedeklemeler, Süreç Koruyucuları, BraveShieldsDefault Kaldırma**
@@ -1481,6 +1580,17 @@ Fixes #50
 
 - Hata yönetimi ve günlükleme
 - Yedekleme/geri alma güvenilirliği
+
+---
+
+### v1.0.1 — 2026-06-11
+
+**Acil Düzeltme Sürümü — İlk Çıkış Sonrası Düzeltmeler**
+
+**Düzeltilenler:**
+
+- Brave Rewards telemetri devre dışı bırakma için HKCU politika yolu düzeltildi
+- Çoklu kullanıcı profiline sahip sistemlerde Brave süreci tespiti düzeltildi
 
 ---
 

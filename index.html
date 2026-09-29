@@ -17,10 +17,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@1.26.0/dist/umd/lucide.min.js" integrity="sha256-A+ufYDGQF/JRCqAXMcJMrTPQVuZxQGVtD+E17ENll6E=" crossorigin="anonymous"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Plus Jakarta Sans',sans-serif; background:#000; color:#e5e5e5; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; }
-        .font-mono { font-family:'JetBrains Mono',monospace; }
+        body { font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; background:#000; color:#e5e5e5; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; }
+        .font-mono { font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; }
         ::selection { background:#f59e0b33; color:#fbbf24; }
         ::-webkit-scrollbar { width:6px; }
         ::-webkit-scrollbar-track { background:#000; }
@@ -1231,6 +1230,18 @@ SOFTWARE.
                 </a>
             </div>
         </div>
+        <nav class="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500" aria-label="Project documents">
+            <span class="text-gray-600" data-i18n="docs_heading">Dokümanlar</span>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">LICENSE</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/NOTICE" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">NOTICE</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">SECURITY.md</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">PRIVACY.md</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/SUPPORT.md" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">SUPPORT.md</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">CONTRIBUTING.md</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">CODE_OF_CONDUCT.md</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/RELEASE-NOTE-TEMPLATE.md" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">RELEASE-NOTE-TEMPLATE.md</a>
+            <a href="https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">CHANGELOG.md</a>
+        </nav>
         <div class="mt-6 text-center text-xs text-gray-600">
             &copy; 2026 Brave Omega Project Contributors. MIT Licensed.
             <br class="sm:hidden">
@@ -1311,6 +1322,7 @@ term_menu_opt4: "    4. Geli\u015fmi\u015f (123 politika)",
 term_menu_opt5: "    5. Kat\u0131 (151 politika)",
             term_selection: "Se\u00e7iminiz (2):",
             nav_community: "Topluluk s\u00fcr\u00fcm\u00fc",
+            docs_heading: "Dok\u00fcmantar",
         },
         en: {
             nav_about: "About",
@@ -1561,6 +1573,7 @@ cl_v2730: "Compatibility validation - Brave 1.95.104 (Chromium 153.0.8010.53) va
             disclaimer_desc: "Brave Omega is an independent community project and is not affiliated with, endorsed by, or officially connected to Brave Software, Inc. in any way. The Brave name and logo are registered trademarks of Brave Software, Inc. All registry modifications are performed at the user\u2019s own risk.",
             footer_built: "Built with care. Maintained with purpose.",
             footer_independent: "Not affiliated with Brave Software, Inc.",
+            docs_heading: "Documents",
             quickstart_desc: "Protect your Brave Browser with enterprise-grade privacy hardening in 4 simple steps.",
             qs_step1_title: "Open PowerShell as Administrator",
             qs_step1_desc: "Right-click the PowerShell icon in the Start menu and select Run as Administrator.",
