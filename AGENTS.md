@@ -286,9 +286,14 @@ All committed file and directory names are English:
 - No committed path contains whitespace. A space has to be quoted in every reference, and a path that needs quoting is a path that will eventually be referenced unquoted. This is not a style preference: a space in a directory name has already broken a CI path in this repository, and the fix was recorded in the changelog as a bug.
 - Exception: standard language codes (`tr.json`, `en.json`).
 
-A directory name stays lowercase only when a tool, platform, or ecosystem
-convention fixes it there, and the exemption is recorded here rather than left
-implicit. There is exactly one: `.github/` and everything under it
+A directory name is PascalCase, and so is a file name. A name that departs
+from this is a defect until its exemption is recorded here, and it applies to
+everything the project creates - tracked or untracked, in a scratch directory
+as much as in a shipped one - because a name that is correct only where a
+human is watching is not a convention. A directory name stays lowercase only
+when a tool, platform, or ecosystem convention fixes it there, and the
+exemption is recorded here rather than left implicit. There is exactly one:
+`.github/` and everything under it
 (`.github/workflows`, `.github/ISSUE_TEMPLATE`, `.github/linters`), because
 GitHub resolves those paths case-sensitively. The template and automation
 directories were lowercase for a while, on the argument that the vendor and the
@@ -320,7 +325,10 @@ exceptions are named rather than implied:
 
 Two kinds of name sit outside every convention above, because something outside
 this repository reads them. A data contract is a name its readers depend on, and
-a vendor or platform name is a name its tool looks up. Neither is free to follow
+a vendor or platform name is a name its tool looks up. `index.html` is the
+first kind: the landing page's filename is read by the deployment that serves
+it, so a copy of that page inside a working directory keeps the same name
+instead of becoming a second spelling to rename. Neither is free to follow
 a house style, so both are declared in the naming test together with the reason
 they are exempt. They are checked against the name Git records, not against the
 working tree: a case-folding filesystem will happily resolve `Config.json` when
@@ -572,4 +580,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=7ec0c4df726a39d1ec8879f25f1b05e9f107cd1f -->
+<!-- mirror-sync: sync-sha=c02b87f93ca288f2f50e8247b2d62bf3d5485b23 -->
