@@ -204,6 +204,40 @@ BeforeAll {
         return $Name -cmatch '^[A-Z0-9]+([-_][A-Z0-9]+)*$'
     }
 
+    # Abbreviations are written in capitals, always, and a capitalised word
+    # that follows one is separated from it with a hyphen: JS-Check, not
+    # JsCheck or Js-Check. The list is the spelling this repository uses; a new
+    # abbreviation joins it when it first appears in a name.
+    #
+    # Only the stem is read. An extension is the vendor's or the platform's
+    # spelling, not this repository's to change, which is the same reason
+    # index.html keeps its name.
+    $script:AbbreviationSpellings = @(
+        "ADMX", "API", "BOM", "CI", "CLI", "CPU", "CRLF", "CSS", "DNS", "GUID",
+        "HTML", "HTTP", "HTTPS", "ID", "IP", "IPV4", "IPV6", "JS", "JSON",
+        "LF", "MD", "OS", "PDF", "PS1", "REG", "SHA1", "SHA256", "SSH", "TLS",
+        "TXT", "UI", "URI", "URL", "UTF8", "UUID", "XML", "YAML"
+    )
+
+    # A name is split into words on the separators it is allowed to use and on
+    # the camel-case boundary, so the abbreviation is found whether it opens the
+    # name (JsCheck) or closes it (MyJsFile). Ordinal throughout: a
+    # case-folding comparison would accept every one of these names and the
+    # check would pass for the wrong reason.
+    $script:GetMisCasedAbbreviations = {
+        param([string]$Name)
+        $stem = [System.IO.Path]::GetFileNameWithoutExtension($Name)
+        $words = ($stem -creplace '([a-z0-9])([A-Z])', '$1 $2') -split '[-_\s]'
+        foreach ($word in $words) {
+            if ($word -cnotmatch '^[A-Z][a-z]+$') { continue }
+            foreach ($spelling in $script:AbbreviationSpellings) {
+                $expected = $spelling.Substring(0, 1) + $spelling.Substring(1).ToLowerInvariant()
+                if ($word -ceq $expected) { return $word }
+            }
+        }
+        return $null
+    }
+
     $script:Testers = @{
         "PascalCase"           = $script:IsPascalCase
         "snake_case"           = $script:IsSnakeCase
@@ -869,6 +903,35 @@ Describe "Repository file and directory naming" -Tag "Unit" {
                         Should -BeTrue -Because "$dir/$name is a named exception; once it is renamed the exception must be deleted, not left behind"
                 }
             }
+        }
+    }
+
+    Context "Abbreviation spelling" {
+        It "no tracked path spells an abbreviation with a capital and lower-case letters" {
+            $offenders = foreach ($path in (& git -C $ProjectRoot ls-files)) {
+                foreach ($segment in ($path -split '/')) {
+                    $found = & $script:GetMisCasedAbbreviations $segment
+                    if ($found) { "$path -> $found" }
+                }
+            }
+
+            $offenders | Should -BeNullOrEmpty -Because "an abbreviation is written in capitals and a word after it is hyphenated off, so JS-Check is the spelling and JsCheck is the defect"
+        }
+
+        It "the abbreviation list is not empty, so the check above can fail" {
+            $script:AbbreviationSpellings | Should -Not -BeNullOrEmpty -Because "an empty list makes the check above pass for the wrong reason"
+        }
+
+        # A check that has never been seen to fail is only known not to have
+        # been tried. The names below are the exact spellings the rule rejects,
+        # asserted against the detector that has to catch them.
+        It "the detector reports a capitalised abbreviation and passes the hyphenated spelling" {
+            & $script:GetMisCasedAbbreviations "JsCheck"      | Should -Be "Js"  -Because "the abbreviation opens the name and is spelled with a capital and lower-case letters"
+            & $script:GetMisCasedAbbreviations "CheckJs.py"   | Should -Be "Js"  -Because "the abbreviation closes the name and the extension is the vendor's spelling, not this repository's"
+            & $script:GetMisCasedAbbreviations "Admx-Tool.ps1" | Should -Be "Admx" -Because "a separator does not excuse a mis-cased abbreviation"
+            & $script:GetMisCasedAbbreviations "JS-Check"     | Should -BeNullOrEmpty -Because "the hyphenated spelling is what the rule asks for"
+            & $script:GetMisCasedAbbreviations "CheckJS.py"   | Should -BeNullOrEmpty -Because "a trailing abbreviation needs no hyphen"
+            & $script:GetMisCasedAbbreviations "Baseline"     | Should -BeNullOrEmpty -Because "an ordinary word that happens to start with a capital is not a mis-cased abbreviation"
         }
     }
 

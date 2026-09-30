@@ -303,6 +303,15 @@ constraint: GitHub does not resolve its template directory lowercase, npm
 does not put that directory in lowercase, and a capitalised `ADMX/` opens
 in exactly the same tools.
 
+An abbreviation is written in capitals, and a capitalised word that follows
+one is separated from it with a hyphen: `JS-Check`, not `JsCheck` and not
+`Js-Check`. A trailing abbreviation takes no hyphen, so `CheckJS.py` is
+already right. The file extension is outside the rule, because an extension
+is the vendor's spelling rather than this repository's to change - the same
+reason `index.html` keeps its name - and `Tests/FileNaming.Tests.ps1`
+enforces the rule against a declared list of spellings, reading the stem
+only.
+
 The untracked root reference folder is `Docs/`, which `.gitignore` anchors to
 the repository root as `/Docs/`. The anchor is scoped to that one path on
 purpose: a bare `Docs/` pattern matches at every depth and would swallow the
@@ -580,4 +589,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=c02b87f93ca288f2f50e8247b2d62bf3d5485b23 -->
+<!-- mirror-sync: sync-sha=2e0b66b00edb3cc1cc940a43b2ba213bafda3baa -->
