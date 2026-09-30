@@ -178,3 +178,22 @@ policy-change-v2521-v2540.md
 # [EN] Turkish mirror of AGENTS.md for human review only - never committed/pushed.
 # [TR] AGENTS.md'nin yalnızca insan denetimi için Türkçe yansıması - asla commit/push edilmez.
 AGENTS-TR.md
+
+# 13. AGENT WORK DIRECTORY / AJAN ÇALIŞMA DİZİNİ
+# ─────────────────────────────────────────────────────────────────────────────
+# [EN] Scratch scripts, notes and restore points an agent produces while working
+#     live here rather than in the operating system's scratch area, which is
+#     cleaned periodically and takes an agent's uncommitted work with it.
+#     Root-anchored on purpose, for the same reason as /Docs/ above: a bare
+#     "Work/" would match at every depth and could swallow a tracked directory
+#     that happens to share the name. The name of this directory is never
+#     written into committed output, and nothing under version control may
+#     reference a file inside it.
+# [TR] Bir ajanın çalışırken ürettiği geçici betikler, notlar ve geri alma
+#     noktaları işletim sisteminin geçici alanı yerine burada tutulur; bu alan
+#     düzenli olarak temizlendiği için ajanın commit edilmemiş işini de siler.
+#     Bilinçli olarak kök dizine sabitlendi, /Docs/ ile aynı gerekçeyle: çıplak
+#     "Work/" her derinlikte eşleşir ve aynı ada sahip izlenen bir dizini
+#     sessizce yutar. Bu dizinin adı asla commit edilen çıktıya yazılmaz ve
+#     sürüm kontrolündeki hiçbir dosya içindeki bir dosyaya atıf yapamaz.
+/Work/

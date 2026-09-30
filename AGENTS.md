@@ -57,7 +57,7 @@ Run from the repository root with Windows PowerShell 5.1:
 
 ```powershell
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 257/257 passing
+Invoke-Pester Tests/ -PassThru          # expected: 273/273 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -117,6 +117,7 @@ Every task runs under one mandatory standard:
 | A machine check proves only what it measures | Every automated check has a blind spot, and a green run is a statement about the measured axis alone | The bilingual mirror passed every structural gate while one side had silently lost two checklist items, so structure parity is never reported as semantic parity; each check names what it cannot see and that gap stays a human read |
 | A rule that can rot silently gets its own named test | Coverage of code is not coverage of rules; the invariant gets the test, and the test fails when the rule breaks rather than when the code moves | The test tree is one file per invariant — ignore rules, mirror sync, script version, policy integrity, stale cleanup, updater GUID, type distribution, version parity — so a rule that stops holding fails by name instead of passing unnoticed |
 | Pin against the upstream artifact, not against your own copy | A check whose oracle was written by the same hand as the subject agrees with itself and detects nothing | Policy conformance is verified against the vendor's own schema, so a drift the project could not have anticipated still fails the build instead of passing on a hand-kept list |
+| Work inside the project, on a cadence you own | An assistant's scratch files belong to the project's own working tree, which version control does not track, and not to a system directory that something else empties on a timer | A file created for one task is removed when the task ends and the working tree as a whole is cleared on a defined cadence, because a scratch path emptied on a schedule you do not control can disappear between two steps of the same task, and because a scratch file left where a reviewer will find it has to be recognised as disposable before anyone can trust the tree |
 
 A quiet total is good news: a well-ordered system runs without complaints — but silence never justifies skipping scheduled maintenance; it only means the defined cadence is working.
 
@@ -571,4 +572,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=3638a558ebf0222a4234d7d41f1e746beaadcd4c -->
+<!-- mirror-sync: sync-sha=7ec0c4df726a39d1ec8879f25f1b05e9f107cd1f -->
