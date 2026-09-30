@@ -43,8 +43,6 @@ BeforeAll {
     # line-oriented read and both are defects this file is meant to catch.
     $script:Bytes = [System.IO.File]::ReadAllBytes($indexPath)
     $script:Text = [System.Text.Encoding]::UTF8.GetString($script:Bytes)
-    $script:Lf = ([regex]::Matches($script:Text, "`n")).Count
-    $script:Crlf = ([regex]::Matches($script:Text, "`r`n")).Count
 
     # Strip script blocks so a translation table is never mistaken for markup.
     $script:Markup = [regex]::Replace($script:Text, '(?is)<script\b.*?</script>', '')
@@ -195,12 +193,23 @@ Describe 'Landing page bilingual integrity' {
             $hasBom | Should -BeFalse
         }
 
-        It 'uses CRLF line endings on every line' {
-            # A stray lone LF survives every read and shows up as a broken line
-            # in a diff. The count equality is the whole assertion: LF minus CRLF
-            # is exactly the number of lines that would be wrong.
-            $script:Lf | Should -Be $script:Crlf
-            $script:Crlf | Should -BeGreaterThan 0
+        It 'uses one line ending style throughout' {
+            # Deliberately not "CRLF". The tracked blob is LF and a Windows
+            # checkout rewrites it to CRLF through core.autocrlf, so a style
+            # assertion measures the checkout rather than the content: it passes
+            # on the machine that wrote the file and fails on every other clone.
+            #
+            # A consistent file is all CRLF or all bare LF, so a bare LF is not
+            # a defect on its own - in a uniform LF file every terminator is
+            # one. The defect is both styles in one file, plus the bare CR that
+            # is never a terminator. The two styles are counted separately
+            # because deriving one from the other only works while CRLF is in
+            # the majority, which is the very assumption being removed.
+            $crlf = ([regex]::Matches($script:Text, "`r`n")).Count
+            $bareLf = ([regex]::Matches($script:Text, "(?<!`r)`n")).Count
+            $bareCr = ([regex]::Matches($script:Text, "`r(?!`n)")).Count
+            $mixed = ($crlf -gt 0 -and $bareLf -gt 0) -or $bareCr -gt 0
+            $mixed | Should -BeFalse
         }
     }
 
