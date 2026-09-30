@@ -327,6 +327,18 @@ function Get-OmegaAllPolicyNames {
     return $names
 }
 
+function Get-MergedPolicyNames {
+    param([string]$ScriptPath, [string]$Level)
+    $LevelOrder = Get-OmegaLevelOrder -ScriptPath $ScriptPath
+    $Merged = @{}
+    foreach ($tier in $LevelOrder[0..([array]::IndexOf($LevelOrder, $Level))]) {
+        foreach ($p in (Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptPath)) {
+            $Merged[$p.name] = $true
+        }
+    }
+    return $Merged
+}
+
 function New-FunctionScriptBlock {
     param([string]$ScriptPath)
     $content = Get-Content -Path $ScriptPath -Raw
@@ -335,6 +347,17 @@ function New-FunctionScriptBlock {
     $funcNodes = $ast.FindAll({ $args[0] -is [System.Management.Automation.Language.FunctionDefinitionAst] }, $true)
     if (-not $funcNodes -or $funcNodes.Count -eq 0) { return [ScriptBlock]::Create("") }
     return [ScriptBlock]::Create(($funcNodes | ForEach-Object { $_.Extent.Text }) -join "`n`n")
+}
+
+function Get-OmegaUnhandledSyntaxErrors {
+    param([string]$ScriptPath = $ScriptMain)
+    $content = Get-Content -Path $ScriptPath -Raw
+    $tokens = $null; $errors = $null
+    $null = [System.Management.Automation.Language.Parser]::ParseInput($content, [ref]$tokens, [ref]$errors)
+    return @($errors | Where-Object {
+            $_.Id -ne "ParserMissingEndCurlyBrace" -and
+            ($_.Id -ne "ParserError" -or $_.Message -notmatch "Missing closing '}'")
+        })
 }
 
 function Get-VariableRegex {

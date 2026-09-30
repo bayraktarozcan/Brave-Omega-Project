@@ -1,18 +1,10 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
-    $rawContent = Get-Content -Path $ScriptMain -Raw
-    $tokens = $null; $errors = $null
-    [System.Management.Automation.Language.Parser]::ParseInput($rawContent, [ref]$tokens, [ref]$errors)
-    $syntaxErrors = $errors
 }
 
 Describe "Full Pipeline (Unified)" -Tag "Integration" {
     It "should load without unhandled syntax errors" {
-        $unhandled = $syntaxErrors | Where-Object {
-            $_.Id -ne "ParserMissingEndCurlyBrace" -and
-            ($_.Id -ne "ParserError" -or $_.Message -notmatch "Missing closing '}'")
-        }
-        $unhandled | Should -BeNullOrEmpty
+        (Get-OmegaUnhandledSyntaxErrors -ScriptPath $ScriptMain) | Should -BeNullOrEmpty
     }
 
     It "should define Get-BraveVersion function" {

@@ -1,17 +1,5 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
-
-    function Get-MergedPolicyNames {
-        param([string]$ScriptPath, [string]$Level)
-        $LevelOrder = Get-OmegaLevelOrder -ScriptPath $ScriptPath
-        $Merged = @{}
-        foreach ($tier in $LevelOrder[0..([array]::IndexOf($LevelOrder, $Level))]) {
-            foreach ($p in (Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptPath)) {
-                $Merged[$p.name] = $true
-            }
-        }
-        return $Merged
-    }
 }
 
 Describe "AllowSync - Unified Script" -Tag "Unit" {

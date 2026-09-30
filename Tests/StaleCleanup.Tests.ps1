@@ -1,22 +1,5 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
-
-    function Get-MergedPolicyNames {
-        param([string]$ScriptPath, [string]$Level)
-        $LevelOrder = Get-OmegaLevelOrder -ScriptPath $ScriptPath
-        $Merged = @{}
-        foreach ($tier in $LevelOrder[0..([array]::IndexOf($LevelOrder, $Level))]) {
-            foreach ($p in (Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptPath)) {
-                $Merged[$p.name] = $true
-            }
-        }
-        return $Merged
-    }
-
-    function Get-AllPolicyNames {
-        param([string]$ScriptPath, [string]$ArrayVar)
-        return Get-OmegaAllPolicyNames -ScriptPath $ScriptPath
-    }
 }
 
 Describe "Stale Policy Cleanup - v2.8.1.1" -Tag "Unit" {
@@ -66,7 +49,7 @@ Describe "Stale Policy Cleanup - v2.8.1.1" -Tag "Unit" {
     }
 
     It "unified smart filter should flag stale Strict-only policies for Advanced but preserve foreign values" {
-        $known = Get-AllPolicyNames -ScriptPath $ScriptMain -ArrayVar "allPolicyNames"
+        $known = Get-OmegaAllPolicyNames -ScriptPath $ScriptMain
         $known.Count | Should -BeGreaterThan 100
         $known -contains "BrowsingDataLifetime" | Should -Be $true
 
