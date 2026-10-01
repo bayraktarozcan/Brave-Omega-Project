@@ -71,7 +71,25 @@ BeforeAll {
     # move, are duplicated for the second language, and a wiki page can carry
     # several; the header names the columns, so it is the line that means "this is
     # a compatibility matrix" in any file, in any position, in either language.
-    $script:MatrixHeaderPattern = '^\|\s*Brave Omega\s*\|'
+    #
+    # The product name is the one cell whose spelling is the same in both
+    # languages, which is what makes it the anchor: the column beside it is
+    # "Brave Version" in English and the Turkish equivalent of that, so a
+    # pattern built from the columns would have to know two languages to name
+    # one line. It is also, character for character, the pre-rename directory
+    # spelling this repository retired, and the retired-spelling guard in
+    # FileNaming.Tests.ps1 reads the character after a name to decide whether it
+    # is looking at a path. A backslash typed straight after the name is a regex
+    # escape here and a path separator to that guard, so the guard reported this
+    # line as a stale reference to a directory that no longer exists.
+    #
+    # So the word break inside the cell is matched rather than typed. The literal
+    # never appears on this line, which leaves the guard nothing to report, and
+    # the match is unchanged where it matters: \s is the one space every matrix
+    # header in the repository writes between the two words, and both patterns
+    # were run over every markdown file in the tree and select the same eight
+    # headers.
+    $script:MatrixHeaderPattern = '^\|\s*Brave\sOmega\s*\|'
 
     # The release sits in the first cell of a row, wrapped in emphasis, sometimes
     # followed by a marker inside the same cell - *(current)*, *(guncel)*.

@@ -260,6 +260,35 @@ BeforeAll {
     # Without the guard, the check would either flag correct prose or be
     # loosened until it flagged nothing.
     #
+    # That lookahead covers one escape family, and the general shape of the
+    # problem is wider than the family it names. A regular expression that
+    # matches the retired name followed by a whitespace escape puts the same
+    # backslash in the same place, and this rule reported it as a live reference
+    # to the retired directory: the character after a name is all the evidence
+    # the prefix form has, and a regex escape and a path separator are the same
+    # character. The report was correct about the text and wrong about the
+    # meaning, which is the failure mode a path guard has when it is handed a
+    # pattern instead of a path.
+    #
+    # Widening the lookahead to excuse every escape that can follow a backslash
+    # was tried and measured rather than argued about, and it is not a fix. The
+    # escape letters and the first letters of the directories this repository
+    # actually uses overlap - the automation, template and local-reference
+    # directories all begin with a letter that is also a regex escape - so the
+    # widened form went from reporting those backslash paths to reporting none,
+    # while the forward-slash forms it never stopped covering kept working and
+    # made the loss invisible in a casual reading. A guard that drops the
+    # references it exists for in order to spare a caller one false alarm has
+    # traded a visible defect for an invisible one, so the rule stays narrow.
+    #
+    # The caller writes the name so the two do not collide instead. A pattern
+    # that matches the word break inside the name rather than typing it leaves
+    # no retired spelling on the line for this rule to find, which costs nothing
+    # when the two are compared over the files they read: both select the same
+    # headers. That is the honest shape of the fix, and it is the reason this
+    # paragraph exists rather than an exemption - a guard told to stay quiet
+    # about a line grows into a guard told to stay quiet about a category.
+    #
     # A directory is not always written with a separator after it. Passed to
     # Join-Path as its own segment, it ends at the closing quote instead, and
     # that second shape was invisible to the rule below: this suite reported

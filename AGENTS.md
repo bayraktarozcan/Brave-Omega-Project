@@ -384,6 +384,12 @@ comparison in the test, and existence is checked against the name Git records
 rather than with `Test-Path`, which is case-insensitive on Windows and would
 report a lowercase spelling as present when only the capitalised directory
 exists.
+A rule that reads tracked names has the mirror-image limit: it cannot see a file
+the working tree holds but version control has not been told about, so a suite
+run over a newly written file passes on that file by default and the same file
+can fail once it is committed. The rule is blind to a file in precisely the state
+where its content is still being changed, so a pass is read as evidence about
+that file only after it has been staged and the suite re-run.
 
 #### Untracked file reference ban
 
@@ -589,4 +595,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=c68a2ace66163e28fe6af43f5d500c6f852b4845 -->
+<!-- mirror-sync: sync-sha=ee33e289d9a2399ee437f6b3dd4803eb207e02b4 -->
