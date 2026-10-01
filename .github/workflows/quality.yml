@@ -66,6 +66,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # The regression suite reads its oracle out of git history rather than
+          # out of a hand-kept copy of the damage it is meant to catch, so the
+          # checkout has to carry that history. Depth 1 leaves the blobs
+          # unreachable and the suite reports a false failure that a local run
+          # with a full clone cannot reproduce.
+          fetch-depth: 0
       - name: Install Pester
         shell: pwsh
         run: |

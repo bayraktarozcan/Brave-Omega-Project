@@ -56,8 +56,15 @@ Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = 
 Run from the repository root with Windows PowerShell 5.1:
 
 ```powershell
+# CI conformance gate - runs every check the Quality workflow declares.
+# This is the gate that runs before every commit and every push.
+& "Scripts/Invoke-CI.ps1"
+
+# Install the pre-push hook that runs the gate for you
+& "Scripts/Invoke-CI.ps1" -InstallHook
+
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 288/288 passing
+Invoke-Pester Tests/ -PassThru          # expected: 312/312 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -118,6 +125,7 @@ Every task runs under one mandatory standard:
 | A rule that can rot silently gets its own named test | Coverage of code is not coverage of rules; the invariant gets the test, and the test fails when the rule breaks rather than when the code moves | The test tree is one file per invariant — ignore rules, mirror sync, script version, policy integrity, stale cleanup, updater GUID, type distribution, version parity, version matrix — so a rule that stops holding fails by name instead of passing unnoticed |
 | A gate that reads the whole tree reads its own fixtures | An integrity check over every file will also read the test that proves it works, so a fixture spelled out in full becomes a finding in the file whose job is to find findings | `Tests/MojibakeScan.Tests.ps1` assembles its damage samples from the code point at run time rather than writing them out, so the sample reaching the scanner is real while the file on disk stays clean; the rule caught that file flagging itself before the samples were assembled, and the declaration was fixed rather than exempted |
 | Pin against the upstream artifact, not against your own copy | A check whose oracle was written by the same hand as the subject agrees with itself and detects nothing | Policy conformance is verified against the vendor's own schema, so a drift the project could not have anticipated still fails the build instead of passing on a hand-kept list |
+| The gate that runs before CI runs the checks CI runs | A local approximation of a workflow is a run that can disagree with it, and the disagreement is only discovered after the push | `Scripts/Invoke-CI.ps1` executes the seven checks `.github/workflows/quality.yml` declares and `Tests/CI-Parity.Tests.ps1` fails when the two lists diverge in either direction, so a job added to the workflow and a check dropped from the gate both fail the build by name rather than one of them quietly disappearing |
 | Work inside the project, on a cadence you own | An assistant's scratch files belong to the project's own working tree, which version control does not track, and not to a system directory that something else empties on a timer | A file created for one task is removed when the task ends and the working tree as a whole is cleared on a defined cadence, because a scratch path emptied on a schedule you do not control can disappear between two steps of the same task, and because a scratch file left where a reviewer will find it has to be recognised as disposable before anyone can trust the tree |
 
 A quiet total is good news: a well-ordered system runs without complaints — but silence never justifies skipping scheduled maintenance; it only means the defined cadence is working.
@@ -596,4 +604,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=164b72a154c85fb444f6a63b3a1f07e5c4208f72 -->
+<!-- mirror-sync: sync-sha=ed8cd187213b1c75c2307e63c749de28673983ad -->

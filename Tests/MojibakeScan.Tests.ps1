@@ -68,7 +68,10 @@ print(json.dumps(out, ensure_ascii=False))
         [System.IO.File]::WriteAllText(
             $reqPath, $json, (New-Object System.Text.UTF8Encoding($false)))
         try {
-            $raw = & $script:PythonCmd $script:ProbePath $script:ScannerPath $reqPath 2>&1 | Out-String
+            # -B: loading the scanner through importlib writes a __pycache__
+            # beside it, and a test run must not leave a build artifact in the
+            # working tree for the next run to trip over.
+            $raw = & $script:PythonCmd -B $script:ProbePath $script:ScannerPath $reqPath 2>&1 | Out-String
             if ($LASTEXITCODE -ne 0) { throw "scan probe failed: $raw" }
             return ($raw | ConvertFrom-Json)
         } finally {
@@ -184,7 +187,7 @@ Describe "Mojibake scanner - lossy '?' damage" -Tag "Unit" {
         }
 
         It "passes the repository-wide scan both CI hosts run" {
-            $out = & $script:PythonCmd $script:ScannerPath $script:RepoRoot 2>&1 | Out-String
+            $out = & $script:PythonCmd -B $script:ScannerPath $script:RepoRoot 2>&1 | Out-String
             $LASTEXITCODE | Should -Be 0 -Because "quality.yml and .gitlab-ci.yml both gate on this exit code, so a finding here fails the build on either host"
             $out | Should -Match "CLEAN"
         }
