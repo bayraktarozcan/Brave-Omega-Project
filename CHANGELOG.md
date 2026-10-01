@@ -7,7 +7,7 @@
 
 <br>
 
-# ?? Brave Omega — Changelog
+# 🦁 Brave Omega — Changelog
 
 <br>
 
@@ -233,6 +233,8 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 **`Tests/VersionMatrix.Tests.ps1` pins the compatibility matrix to the changelog and to the build the script declares.** The matrix is the one record in the tree that states, per release, which Brave and Chromium builds were actually validated. Four copies of it were live at once - in `README.md`, `Wiki/Overview.md`, `Wiki/Home.md`, and `Wiki/Version-Compatibility-Matrix.md` - and nothing held them to each other or to anything else, so a version bump could update the script and the changelog and leave a table naming a build that never shipped. The test takes the changelog as its oracle rather than a hand-kept list, because a check whose oracle was written by the same hand as the subject agrees with itself and detects nothing: a row naming a release the changelog never recorded is a release no build ever shipped, and a reader has no way to tell that page from a current one. Four releases the changelog holds - `v1.0.1.0`, `v1.1.1.0`, `v2.5.5.0`, and `v2.8.1.0` - are missing from `Wiki/Version-Compatibility-Matrix.md`, and their validated builds are recorded nowhere in the tree. A matrix is a validation record, so writing those rows to close the count would assert a validation that never took place. Only the matrix-into-changelog direction is therefore enforced; a page is allowed to be a subset. Chromium is compared on its leading component rather than as a whole string, because the script declares the major while the wiki page records the full build (`154.0.8037.58`) and both name the same Chromium. Version spelling is normalized to four parts through one helper shared with `VersionParity`, so `v2.1.6` and `v2.1.6.0` count as the release they are rather than as two. Every guard was verified by planting the defect it exists to catch - a phantom release, a stale Chromium, a Turkish-only row, a matrix reappearing on the front page - and confirming that the named test fails, and all four plants were reverted.
 
+**`Tests/MojibakeScan.Tests.ps1` holds the lossy-substitution damage down, and reads what it expects from the damage rather than from a list of its own.** The fourteen checks are split three ways: the damage the scanner used to walk past, read from the damaged blobs in git history, so the oracle is the damage itself; question marks that are legitimate, so the rules are also held to not report content the tree is supposed to accept; and the two repaired files, so the repair is checked rather than assumed. Damage samples are assembled from the `?` code point at run time instead of being written out, because the repository-wide check reads this file too - a fixture spelled out in full is a finding in the file that exists to prove the scanner finds things, and the rule caught it doing exactly that before the samples were assembled. Turkish letters are asserted by code point rather than by literal, so the check does not depend on its own encoding surviving and does not inherit this host's culture folding `-match` through. Every rule was verified by planting the defect it exists to catch and confirming that the named test fails: re-damaging the code of conduct drops both the file check and the repository-wide check by name, and both pass again once it is restored.
+
 <a id="en-unreleased-fixed"></a>
 
 ### Fixed
@@ -246,6 +248,10 @@ Historical entries below and the version-compatibility tables keep the old spell
 **`index.html` now has one tr source of truth, and 144 static blocks were corrected to match it.** 260 `Object.assign(translations.tr, ...)` calls were applied after the tr table had been built, which made the page's Turkish text an editable copy plus a second set of overrides: an edit to the table appeared to do nothing, and the static markup disagreed with both. Those overrides are now a literal `tr: {}` block, so the table is the only place a Turkish string is written. Four keys that existed only inside the overrides had no table entry at all, and the `policies_desc` opening tag was missing from the markup, so those elements were never translated. Fourteen static blocks carried the English sentence where the table declares the Turkish one; a visitor with JavaScript could not have seen the difference, because `setLang` overwrote them on load, and the file keeps its UTF-8 encoding without a BOM and a single consistent line-ending style, both of which are now asserted rather than assumed - the tracked content is LF and a Windows checkout rewrites that to CRLF, so what the test checks is that the file never mixes the two.
 
 **A retired-path false positive stopped CI, and the fix left the guard alone.** The compatibility-matrix header pattern spelled the product name and then a regex escape, so the character after the name was a backslash - the same character the retired-spelling guard reads to decide whether a name sits in path position. The guard reported the pattern as a live reference to a directory renamed in v2.8.0.0, and the Quality run failed on it. Widening the guard's `\uXXXX` lookahead to excuse other escapes was measured rather than argued about: the escape letters and the first letters of the directories this repository uses overlap - the automation, template, and local-reference directories all begin with a letter that is also a regex escape - so the widened form stopped reporting every backslash-spelled reference to a retired path, while the forward-slash spellings it had never covered kept working, which makes that loss easy to miss. The guard therefore stays as it is and the pattern now matches the word break inside the name instead of typing it; both spellings were run over every markdown file in the tree and select the same eight headers. `AGENTS.md` now records the limit that let this reach CI in the first place: a rule that reads tracked names cannot see a file the working tree holds but version control has not been told about, so a suite run over a newly written file passes by default, and a pass is evidence about that file only after the file has been staged and the suite re-run.
+
+**`CHANGELOG.md` and `CODE_OF_CONDUCT.md` had been committed with their Turkish text destroyed, and the UTF-8 gate reported both files clean.** A lossy encoding pass had replaced characters with a literal question mark - 226 changelog lines and 38 code-of-conduct lines - and the two files were damaged by different mechanisms: the changelog lost whole UTF-16 code units, the code of conduct lost individual UTF-8 bytes. That difference is why neither damage is a recognisable shape in the other, and why a rule written against the changelog alone would have passed the code of conduct entirely. The changelog was repaired against the last undamaged revision, so 226 lines changed while 226 stayed byte-identical, with no line pair differing in anything other than the glyph run that was lost. The code of conduct has no undamaged revision to compare against, so it was restored to the re-mangling proof instead: re-applying the damage to the repaired file reproduces the committed blob byte for byte, which is the stronger claim because it does not need a second copy to have survived. 358 question marks are gone from the changelog and 328 from the code of conduct; the six left in the changelog sit inside backticks and are real.
+
+**The UTF-8 gate had no rule for lossy `?` substitution, which is how a committed encoding pass reached two files and the history behind them without a single gate objecting.** The scanner looked for five classic mojibake shapes, and every one of them requires the bytes to have survived their trip through the wrong codec. Replacing a character with `?` destroys the bytes instead of scrambling them, so there is nothing left to recognise - the damage is not a shape, it is an absence. Two rules now cover it: a run of two or more question marks, and a single question mark welded between two word characters. The second is the one that carried this damage, because the single-pass encoding that produced the code of conduct left one mark per lost byte and the UTF-16 passes behind the changelog left one per lost code unit, and both of those are single marks inside a word rather than runs. Runs alone would have caught the changelog and passed the code of conduct. Both rules skip fenced blocks, inline code, URLs and schemeless query strings, because the tree legitimately holds a literal placeholder key inside a code span and a policy-template URL carrying a query string; masking those is what stops the gate reporting content it is supposed to accept, and their absence is why the first version of the rule reported ten false positives against a clean tree. The rules were calibrated against the damaged blobs themselves rather than against samples written for the purpose, so the oracle is the damage: `3e46658` reports 124 runs, `3beb414` reports 140, and the undamaged `2d3f632` revision of the changelog reports none.
 
 <a id="en-v2811"></a>
 
@@ -477,7 +483,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2620-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Brave 1.94.121 compatibility validation.** v2.6.2.0 validates the configuration against Brave 1.94.121 (Chromium 152.0.7977.83), released September 4, 2026. Brave 1.94.117 (Chromium 152.0.7977.64) remains supported. No policies changed: totals remain **151** across 5 tiers; cumulative chain remains 24 › 51 › 83 › 123 › 151.
 
@@ -506,7 +512,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2611-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **S/MIME documentation correction & release-notes cleanup.** v2.6.1.1 corrects the documentation of the Microsoft S/MIME allow-list entry introduced in v2.6.0.0. The entry is an allow-list entry that uses `brave-extension://` (chrome://policy correctly reflects the value) — it is **not** a force-install. Brave silently blocks force-installed CRX files from outside the Chrome Web Store and requires a one-time manual acceptance per profile (the OWA install prompt or `chrome://extensions`). The manual-acceptance guidance is now documented as allow-list behavior. No policies changed: totals remain **151** across 5 tiers; cumulative chain remains 24 › 51 › 83 › 123 › 151. The `release-notes/` directory was removed (documentation consolidated in CHANGELOG and the Wiki).
 
@@ -536,7 +542,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2610-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Policy cleanup — removed the unsupported `DeviceAttributesAllowedForOrigins` policy.** v2.6.1.0 removes `DeviceAttributesAllowedForOrigins` from the Essential tier. This ChromeOS-only Device Attributes API policy is not supported by Brave on Windows: registry enforcement produced an unknown-policy error at runtime. Removing it reduces the Essential tier from 28 to 27 policies and the total from 152 to 151. Consequently the cumulative chain drops to 24 › 51 › 83 › 123 › 151. No functional hardening is lost on Windows.
 
@@ -573,7 +579,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2600-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Feature release — Microsoft S/MIME for Outlook Web Access.** v2.6.0.0 enables Microsoft S/MIME signing & encryption in Outlook Web Access (OWA) by adding 2 new Advanced-tier policies and upgrading the S/MIME extension handling. The extension `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) is allow-listed from the Balanced tier upward via `ExtensionInstallForcelist` and, from the Advanced tier, is also added to `ExtensionInstallAllowlist` and `ExtensionSettings` with `override_update_url` enabled so the OWA S/MIME update URL (`https://outlook.office.com/owa/SmimeCrxUpdate.ashx`) is honored. Brave blocks silent force-install of CRX files from outside the Chrome Web Store, so the extension is not auto-installed — one-time manual acceptance (OWA install prompt or `chrome://extensions`) is required and the script prints a note at runtime. Validated against **Brave 1.94.117** (Chromium **152.0.7977.64**); Brave 1.93.* (Chromium 151) remains supported.
 
@@ -611,7 +617,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2554-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Patch release — Brave 1.94.117 compatibility validation.** v2.5.5.4 validates full compatibility with **Brave 1.94.117** (Chromium **152.0.7977.64**, Stable, released August 26, 2026). No policy definitions changed and no regressions were observed; all tier counts remain identical (BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 — total 150). Brave 1.93.138 (Chromium 151.0.7922.173), Brave 1.93.136 (Chromium 151.0.7922.137) and Brave 1.93.129 (Chromium 151.0.7922.71) remain supported.
 
@@ -640,7 +646,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2553-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Patch release — Brave 1.93.138 compatibility validation.** v2.5.5.3 validates full compatibility with **Brave 1.93.138** (Chromium **151.0.7922.173**, Stable, released August 21, 2026). No policy definitions changed and no regressions were observed; all tier counts remain identical (BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 — total 150). Brave 1.93.136 (Chromium 151.0.7922.137) and Brave 1.93.129 (Chromium 151.0.7922.71) remain supported.
 
@@ -669,7 +675,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2552-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Patch release — Brave 1.93.136 validation & ADMX CI fixes.** v2.5.5.2 fixes a critical Reset-mode regression (path constants were defined after the `-Reset`/`-Sifirla` block, so Reset crashed under PowerShell 5.1 with `Test-Path $null`), and reworks the ADMX cross-reference validator to auto-discover all 150 script policies instead of a hardcoded partial map. The validator now supports a documented-exception mechanism for Chromium policies intentionally absent from Brave's ADMX (e.g. `DeviceAttributesAllowedForOrigins`, a ChromeOS-only Device Attributes API policy kept for future-proofing). Validated against **Brave 1.93.136** (Chromium **151.0.7922.137**). No policy definitions changed — tier counts remain BraveOnly 24, Essential 28, Balanced 32, Advanced 38, Strict 28 (total 150).
 
@@ -706,7 +712,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2551-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Patch release — CI/Release fixes & documentation consistency.** v2.5.5.1 fixes `Release.ps1` to run under Windows PowerShell 5.1 and corrects the wiki-sync workflow authentication (Basic `x-access-token` scheme). It also corrects stale documentation — policy counts and cumulative chains across README, Wiki, index.html, and SECURITY.md now consistently reflect the true **24›52›84›122›150** chain (some docs previously showed 51/82/120 or 85/123). No policy changes.
 
@@ -735,7 +741,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2550-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Smart download control:** v2.5.4.0 loosened downloads below Strict too far — the real culprit was `DownloadRestrictions=1` in Balanced (blocks any download whose signature is not widely known, e.g. driver installers), not the Safe Browsing policies. v2.5.5.0 restores precise protection: `DownloadRestrictions` moves to **Essential** with **Value=4** (only downloads verified as malicious are blocked; legitimate installers always proceed), `DisableSafeBrowsingProceedAnyway` moves back to **Balanced** (it never blocked downloads — it only enforced malware/phishing warnings), and `SafeBrowsingDeepScanningEnabled` stays Strict-only as a privacy trade-off. `SafeBrowsingProtectionLevel=2` (Enhanced) remains active at every tier.
 
@@ -763,7 +769,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2540-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Deterministic registry state on every run:** Brave Omega now performs a **stale policy cleanup** before writing. On each run, any Omega-managed value present under `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` that is **not part of the selected tier's merged policy set** is automatically removed. Foreign/non-Omega values are preserved, so nothing managed by other tools or administrators is touched.
 
@@ -800,7 +806,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2530-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Brave Sync available except Strict:** `BrowserSignin` and `SyncDisabled` were relocated to the Strict tier, so Brave Sync is **enabled by default** at BraveOnly, Essential, Balanced, and Advanced. The `-AllowSync` / `-SenkronizasyonaIzinVer` switch is now a **Strict-only opt-in**: when passed at Strict, both policies are stripped from the merged policy set and any previously applied registry values are cleaned, keeping Brave Sync usable even at the highest tier.
 
@@ -835,7 +841,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2521-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Compatibility validation:** Brave **1.93.129** (Chromium **151.0.7922.71**) compatibility confirmed. 5 new Chromium policies evaluated (AutomaticDownloadsAllowedForUrls, AutomaticDownloadsBlockedForUrls, DefaultAutomaticDownloadsSettings, Indigo, ThirdPartyAiChatSettings) — none found relevant for privacy hardening. DefaultSensorsSetting gained "Ask" option (value 3). HKLM empty-key cleanup added to Reset mode for EN script (functional parity with TR).
 
@@ -865,7 +871,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2520-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Compatibility validation:** Brave **1.92.144** (Chromium **150.0.7871.186**) compatibility confirmed. No policy changes — all 150 enterprise policies verified working with the latest stable Brave release.
 
@@ -896,7 +902,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2510-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Compatibility validation:** Brave **1.92.143** (Chromium **150.0.7871.182**) compatibility confirmed. No policy changes — all 150 enterprise policies verified working with the latest stable Brave release.
 
@@ -928,7 +934,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2500-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Full policy expansion — 30 new policies (133›163›150), 6 broken/unrecognized + 3 deprecated/cloud-only policies removed.** Major hardening update: AI policy blocking (13 policies), local network access control, screen capture fine-grained control, renderer sandbox hardening, and Brave-specific policy additions. Verified in Brave 1.92.141.
 
@@ -1003,7 +1009,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2420-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Brave 1.92.141 (Chromium 150.0.7871.128) compatibility validation.** No policy changes. Confirmed full compatibility of the v2.4.1.0 policy set (133 policies, 5 tiers) with the latest Brave stable release.
 
@@ -1028,7 +1034,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 <a id="en-v2410-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Phase 9 fix — remove 8 broken/deprecated/blocked policies (141›133), clean up extension policy configuration, and simplify to Dark Reader only.** Cleanup of policies that failed runtime verification on Brave 150 (Chromium 150.0.7871.114). AutoFillEnabled, SigninAllowed, and DefaultMediaStreamSetting were deprecated in recent Chrome releases. TabFreezingEnabled was unrecognized by Brave. HomepageLocation, NewTabPageLocation, and RestoreOnStartup are blocked by Brave's policy enforcement. GenAiDefaultSettings requires a cloud source and was ignored at runtime. ExtensionInstallForcelist simplified to Dark Reader only (removed AdBlock Plus, unknown extension, and Google Docs Offline). ExtensionInstallAllowlist simplified to Dark Reader only (removed Google Docs Offline and Kaspersky Protection). ExtensionSettings JSON updated to single Dark Reader entry. Net reduction of 8 policies.
 
@@ -1086,7 +1092,7 @@ Fixes #50
 
 <a id="en-v2400-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Phase 9 — 30 new enterprise policies added; cumulative chain expands to 141 policies.** Comprehensive policy expansion across all 5 tiers. Essential gains browser sign-in and extension source controls. Balanced adds auto-fill disable and forced relaunch notifications. Advanced receives homepage/startup configuration, web store hiding, media stream blocking, and AI integration disable. Strict adds Spectre mitigations (COOP/COEP), password leak detection, online spellcheck disable, tab discarding, touch-to-search disable, cloud reporting disable, and Chrome Sync disable. SpellcheckEnabled changed from 0›1 (local Hunspell is offline-only). ExtensionManifestV2Availability and DefaultThirdPartyStoragePartitioningSetting removed (deprecated in Chrome 139/145).
 
@@ -1164,7 +1170,7 @@ Fixes #50
 
 <a id="en-v2310-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Brave 1.92.139 validation; ProxySettings added to Essential tier.** Lightweight validation release confirming full compatibility with Brave 1.92.139 (Chromium 150.0.7871.114). Adds ProxySettings to Essential tier for proxy configuration placeholder support.
 
@@ -1203,7 +1209,7 @@ Fixes #50
 
 <a id="en-v2300-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **19 new enterprise policies added; cumulative chain expands to 110 policies.** Phase 8 adds Safe Browsing protection level controls, password protection warning trigger, online revocation checking, forced extension installation with Dark Reader + Google Docs Offline, download restrictions, proxy configuration, extension lockdown (block all extensions), Incognito mode disable, developer tools disable, task manager disable, printing disable, and more. Every hardening level grows, with Advanced gaining 18 new policies and Strict overriding critical settings.
 
@@ -1292,7 +1298,7 @@ Fixes #50
 
 <a id="en-v2210-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **12 new hardware API & security policies added; duplicate WebRtcIPHandling removed from Strict.** Blocks WebUSB, Web Bluetooth, WebHID, Direct Sockets, and Device Attributes APIs; forces Encrypted ClientHello (ECH); disables Payment Request API queries; suppresses cross-origin subframe dialogs. Adds window management isolation, site-per-process, aggressive wake-up throttling, and disables in-browser user feedback prompts.
 
@@ -1346,7 +1352,7 @@ Fixes #50
 
 <a id="en-v2202-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **WebRTC policy alignment release:** Balanced tier upgraded to maximum WebRTC protection (`disable_non_proxied_udp`), matching the value used by Strict. The override in Strict is now a runtime no-op. All GitHub Projects/Issues references removed from public documentation.
 
@@ -1376,7 +1382,7 @@ Fixes #50
 
 <a id="en-v2201-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Policy refinement release:** One duplicate policy removed per level; total policy count reduced from 81 to 80. Brave Only: 23›22, Essential: 40›39, Balanced: 61›60, Advanced: 72›71, Strict: 81›80.
 
@@ -1397,7 +1403,7 @@ Fixes #50
 
 <a id="en-v220-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Tier expansion release:** New **Advanced** hardening level (L4, 72 policies) inserted between Balanced (61) and Strict (81). Strict renumbered L4›L5; 11 policies migrated from Strict to the new Advanced level; 8 core Strict policies retained.
 
@@ -1441,7 +1447,7 @@ Fixes #50
 
 <a id="en-v216-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Policy expansion release:** 15 new Brave-specific enterprise policies added across all four hardening tiers (v2.1.6 uses 4-tier model) following a comprehensive policy gap analysis. One deprecated Chromium policy removed.
 
@@ -1477,7 +1483,7 @@ Fixes #50
 
 <a id="en-v216-phase3"></a>
 
-### ?? Phase 3 — Quality & Test Infrastructure (2026-07-05)
+### 🧪 Phase 3 — Quality & Test Infrastructure (2026-07-05)
 
 #### Added
 
@@ -1497,7 +1503,7 @@ Fixes #50
 
 <a id="en-v215-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Version bump:** Brave **1.92.134** / Chromium **150.0.7871.63** compatibility confirmed. Chromium 149›150 upgrade — no policy changes from v2.1.4.
 
@@ -1516,7 +1522,7 @@ Fixes #50
 
 <a id="en-v214-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Validation release:** Brave **1.91.180** / Chromium **149.0.7827.201** compatibility confirmed. No policy changes — structural version bump only.
 
@@ -1546,7 +1552,7 @@ Fixes #50
 
 <a id="en-v213-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Validation release:** Brave **1.91.178** / Chromium **149.0.7827.196** compatibility confirmed. No policy changes — structural version bump only.
 
@@ -1564,7 +1570,7 @@ Fixes #50
 
 <a id="en-v212-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Validation release:** Brave **1.91.175** / Chromium **149.0.7827.155** compatibility confirmed. Structural, HTML/CSS, and documentation fixes from v2.1.1 — no new policies, no policy count changes.
 
@@ -1582,13 +1588,13 @@ Fixes #50
 
 <a id="en-v211-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Bugfix and policy rebalance:** Fixed dual Brave/Chromium version detection false-positive warning. Moved `TranslateEnabled` from Essential to Strict, removed deprecated `DefaultMediaStreamSetting` from Balanced. Policy counts adjusted to 67 total.
 
 <a id="en-v211-fixed"></a>
 
-### ?? Fixed
+### 🐛 Fixed
 
 - **Brave version check parsing both Brave and Chromium versions** — The `FileVersion`
   property of `brave.exe` returns the Chromium version string (e.g., `149.1.91.172`),
@@ -1601,7 +1607,7 @@ Fixes #50
 - **Removed `Compare-BraveVersion` function** — No longer needed after replacing with
   direct parsed comparison.
 
-### ?? Changed
+### 🔧 Changed
 
 - **BraveOmega-EN.ps1** — v2.1.1: fixed dual-version detection, `$ScriptVersion = "v2.1.1"`
 - **BraveOmega-TR.ps1** — v2.1.1: same fix in Turkish, `$BetikSurum = "v2.1.1"`
@@ -1610,16 +1616,16 @@ Fixes #50
 - **Policy counts updated** — Essential: +16, Balanced: +18, Strict: +21. Cumulative: Brave Only 13, Essential 29, Balanced 47, Strict 67.
 - **CHANGELOG.md** — Added v2.1.1 policy changes
 
-### ?? Statistics
+### 📊 Statistics
 
 ```
 Files Modified:
-  ? BraveOmega-EN.ps1 (v2.1.1: dual-version check + policy changes)
-  ? BraveOmega-TR.ps1 (v2.1.1: same fixes in Turkish)
-  ? index.html (policy table/cards/i18n updated)
-  ? README.md (policy counts updated)
-  ? SECURITY.md (policy counts updated)
-  ? CHANGELOG.md (v2.1.1 policy changes entry)
+  ✓ BraveOmega-EN.ps1 (v2.1.1: dual-version check + policy changes)
+  ✓ BraveOmega-TR.ps1 (v2.1.1: same fixes in Turkish)
+  ✓ index.html (policy table/cards/i18n updated)
+  ✓ README.md (policy counts updated)
+  ✓ SECURITY.md (policy counts updated)
+  ✓ CHANGELOG.md (v2.1.1 policy changes entry)
 ```
 
 ---
@@ -1630,7 +1636,7 @@ Files Modified:
 
 <a id="en-v21-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Feature expansion:** Automated Brave version detection, dry-run preview (`-WhatIf`),
 clean uninstall (`-Reset`), structured `CONTRIBUTING.md` with GitHub issue templates,
@@ -1638,7 +1644,7 @@ and a GitHub Actions ADMX validation pipeline that runs weekly and on demand.
 
 <a id="en-v21-added"></a>
 
-### ? Added
+### ✨ Added
 
 #### Version Detection
 - **Automated Brave binary discovery** — Searches `%ProgramFiles%`, `%ProgramFiles(x86)%`,
@@ -1684,7 +1690,7 @@ and a GitHub Actions ADMX validation pipeline that runs weekly and on demand.
 
 <a id="en-v21-changed"></a>
 
-### ?? Changed
+### 🔧 Changed
 
 - **BraveOmega-EN.ps1** — v2.1 features: version check, -WhatIf, -Reset, `$ScriptVersion = "v2.1"`
 - **BraveOmega-TR.ps1** — v2.1 features mirrored in Turkish
@@ -1692,20 +1698,20 @@ and a GitHub Actions ADMX validation pipeline that runs weekly and on demand.
 
 <a id="en-v21-statistics"></a>
 
-### ?? Statistics
+### 📊 Statistics
 
 ```
 Files Modified/Added:
-  ? BraveOmega-EN.ps1 (v2.1: version check, -WhatIf, -Reset)
-  ? BraveOmega-TR.ps1 (v2.1: mirrored changes)
-  ? CONTRIBUTING.md (new — comprehensive contributing guide, EN + TR)
-  ? .github/ISSUE_TEMPLATE/bug_report.yaml (new)
-  ? .github/ISSUE_TEMPLATE/feature_request.yaml (new)
-  ? .github/workflows/admx-validate.yml (new — weekly + manual dispatch)
-  ? .github/workflows/admx-validate.ps1 (new — standalone validation script)
-  ? CHANGELOG.md (v2.1 entry)
-  ? README.md (updated roadmap, contributing reference)
-  ? index.html (updated changelog, quick-start, badges)
+  ✓ BraveOmega-EN.ps1 (v2.1: version check, -WhatIf, -Reset)
+  ✓ BraveOmega-TR.ps1 (v2.1: mirrored changes)
+  ✓ CONTRIBUTING.md (new — comprehensive contributing guide, EN + TR)
+  ✓ .github/ISSUE_TEMPLATE/bug_report.yaml (new)
+  ✓ .github/ISSUE_TEMPLATE/feature_request.yaml (new)
+  ✓ .github/workflows/admx-validate.yml (new — weekly + manual dispatch)
+  ✓ .github/workflows/admx-validate.ps1 (new — standalone validation script)
+  ✓ CHANGELOG.md (v2.1 entry)
+  ✓ README.md (updated roadmap, contributing reference)
+  ✓ index.html (updated changelog, quick-start, badges)
 ```
 
 ---
@@ -1716,7 +1722,7 @@ Files Modified/Added:
 
 <a id="en-v20-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Major architectural overhaul:** Introduction of the **Multi-Tier Hardening System** — four progressive levels (Brave Only, Essential, Balanced, Strict) that give users granular control over their privacy posture. Total enterprise policies expanded from **17 to 68 across all tiers**.
 
@@ -1724,10 +1730,10 @@ Files Modified/Added:
 
 <a id="en-v20-added"></a>
 
-### ? Added
+### ✨ Added
 
 #### Multi-Tier Architecture
-- **4-Tier Hardening Model** — Brave Only › Essential ? › Balanced › Strict
+- **4-Tier Hardening Model** — Brave Only › Essential ⭐ › Balanced › Strict
 - **Cumulative inheritance** — each level includes all policies from previous levels
 - **Interactive level selection** when run without parameters
 - **`-Level` parameter** for automated/silent deployment (`-Level Essential`)
@@ -1817,7 +1823,7 @@ Files Modified/Added:
 
 <a id="en-v20-changed"></a>
 
-### ?? Changed
+### 🔧 Changed
 
 - **BraveOmega-EN.ps1** — Complete rewrite: multi-tier system, -Level parameter, type-aware registry engine (565 › 520 lines)
 - **BraveOmega-TR.ps1** — Complete rewrite: same architecture in Turkish (567 › 522 lines)
@@ -1827,42 +1833,42 @@ Files Modified/Added:
 
 <a id="en-v20-statistics"></a>
 
-### ?? Statistics
+### 📊 Statistics
 
 ```
 Files Modified:
-  ? BraveOmega-EN.ps1 (565 › 520 lines, full rewrite)
-  ? BraveOmega-TR.ps1 (567 › 522 lines, full rewrite)
-  ? README.md (multi-tier documentation)
-  ? CHANGELOG.md (v2.0 entry)
-  ? index.html (4-tier system, version references)
-  ? SECURITY.md (new file, 500+ lines)
-  ? Knowledge source updates
+  ✓ BraveOmega-EN.ps1 (565 › 520 lines, full rewrite)
+  ✓ BraveOmega-TR.ps1 (567 › 522 lines, full rewrite)
+  ✓ README.md (multi-tier documentation)
+  ✓ CHANGELOG.md (v2.0 entry)
+  ✓ index.html (4-tier system, version references)
+  ✓ SECURITY.md (new file, 500+ lines)
+  ✓ Knowledge source updates
 
 Policies:
-  ? Brave Only:  13 Brave-specific policies
-  ? Essential:   +17 = 30 total policies (Recommended)
-  ? Balanced:    +19 = 49 total policies
-  ? Strict:      +20 = 68 total policies
-  ? Total:      17 › 68 policies across all tiers (+300%)
+  ✓ Brave Only:  13 Brave-specific policies
+  ✓ Essential:   +17 = 30 total policies (Recommended)
+  ✓ Balanced:    +19 = 49 total policies
+  ✓ Strict:      +20 = 68 total policies
+  ✓ Total:      17 › 68 policies across all tiers (+300%)
 
 Registry Types:
-  ? DWord:      61 policies
-  ? String:     4 policies
-  ? MultiString: 3 policies
+  ✓ DWord:      61 policies
+  ✓ String:     4 policies
+  ✓ MultiString: 3 policies
 
 Documentation:
-  ? SECURITY.md (new — comprehensive security policy, EN + TR)
-  ? README.md (multi-tier system documented)
-  ? CHANGELOG.md (this file)
-  ? index.html (4-tier architecture, updated badges)
+  ✓ SECURITY.md (new — comprehensive security policy, EN + TR)
+  ✓ README.md (multi-tier system documented)
+  ✓ CHANGELOG.md (this file)
+  ✓ index.html (4-tier architecture, updated badges)
 ```
 
 ## [v1.2.2] — 2026-06-13
 
 <a id="en-v122-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Patch release:** Execution policy fix — replaced `RemoteSigned -Scope CurrentUser` with session-scoped `Bypass -Scope Process`. No policy changes from v1.2.1.
 
@@ -1870,7 +1876,7 @@ Documentation:
 
 <a id="en-v122-changed"></a>
 
-### ?? Changed
+### 🔧 Changed
 
 - **index.html**: Updated `prereq_pol_desc` (EN + TR) to use session-scoped `-Scope Process Bypass` instead of permanent `RemoteSigned -Scope CurrentUser`
 - **index.html**: Fixed Turkish characters in `rm_item3` fallback text
@@ -1887,7 +1893,7 @@ Documentation:
 
 <a id="en-v121-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Patch release:** Brave version upgrade to 1.91.172 (Chromium 149.0.7827.115). No policy changes from v1.2.
 
@@ -1895,7 +1901,7 @@ Documentation:
 
 <a id="en-v121-changed"></a>
 
-### ?? Changed
+### 🔧 Changed
 
 - **index.html**: Added 23 missing translation keys for EN and TR (pol_effect1–17, policies_badge/heading/desc, policy_col_key/effect, sources_badge)
 - **index.html**: Added missing `<h2>` heading and badge to sources section with data-i18n support
@@ -1910,7 +1916,7 @@ Documentation:
 
 <a id="en-v12-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 **Major expansion:** 10 new enterprise policies added, bringing total from **7 to 17 policies**. This represents a **143% expansion** in privacy hardening coverage. All new policies are ADMX-verified and Chromium 149 compatible.
 
@@ -1918,7 +1924,7 @@ Documentation:
 
 <a id="en-v12-added"></a>
 
-### ? Added
+### ✨ Added
 
 #### Telemetry & Analytics (2 policies)
 - `BraveP3AEnabled = 0` — Disables Privacy-Preserving Product Analytics (P3A)
@@ -1944,28 +1950,28 @@ Documentation:
 
 <a id="en-v12-statistics"></a>
 
-### ?? Statistics
+### 📊 Statistics
 
 ```
 Files Modified:
-  ? BraveOmega-TR.ps1 (497 › 567 lines)
-  ? BraveOmega-EN.ps1 (496 › 565 lines)
-  ? README.md (version compatibility, policy table)
+  ✓ BraveOmega-TR.ps1 (497 › 567 lines)
+  ✓ BraveOmega-EN.ps1 (496 › 565 lines)
+  ✓ README.md (version compatibility, policy table)
 
 Policies:
-  ? Total: 7 › 17 (+143%)
-  ? HKLM Enterprise Policies: 7 › 15 (+114%)
-  ? Categories: 3 › 5 (+67%)
+  ✓ Total: 7 › 17 (+143%)
+  ✓ HKLM Enterprise Policies: 7 › 15 (+114%)
+  ✓ Categories: 3 › 5 (+67%)
 
 Documentation:
-  ? UPDATE_REPORT_v1.2.md (bilingual update summary)
-  ? POLICY_UPDATE_v1.2.md (detailed policy reference)
-  ? CHANGELOG.md (this file)
+  ✓ UPDATE_REPORT_v1.2.md (bilingual update summary)
+  ✓ POLICY_UPDATE_v1.2.md (detailed policy reference)
+  ✓ CHANGELOG.md (this file)
 ```
 
 <a id="en-v12-changed"></a>
 
-### ?? Changed
+### 🔧 Changed
 
 - Script header versions updated with v1.2 changelog
 - Version Compatibility Matrix reorganized (v1.0/v1.1/v1.2)
@@ -1974,7 +1980,7 @@ Documentation:
 
 <a id="en-v12-security"></a>
 
-### ??? Security
+### 🛡️ Security
 
 - All new policies verified against Brave's official ADMX templates
 - All new policies cross-referenced with Chromium 149 enterprise documentation
@@ -1988,13 +1994,13 @@ Documentation:
 
 <a id="en-v111-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 Patch release — minor fixes following v1.1.
 
 <a id="en-v111-fixed"></a>
 
-### ?? Fixed
+### 🐛 Fixed
 
 - Registry backup path handling on non-standard Windows installations
 - Minor output formatting corrections
@@ -2007,13 +2013,13 @@ Patch release — minor fixes following v1.1.
 
 <a id="en-v11-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 Comprehensive debugging and enhancement release with 7 major improvements. Introduced Brave process guards, registry backups, and try-catch error handling.
 
 <a id="en-v11-added"></a>
 
-### ? Added
+### ✨ Added
 
 - **Brave Process Guard** — Detects active Brave instances before execution
 - **Registry Backup** — Automatic .reg file backup with timestamp before HKLM modifications
@@ -2022,7 +2028,7 @@ Comprehensive debugging and enhancement release with 7 major improvements. Intro
 
 <a id="en-v11-changed"></a>
 
-### ?? Changed
+### 🔧 Changed
 
 - Fixed exit codes: `exit 1` on failure (previously returned 0)
 - Simplified directory preparation: Single-line `-Force` parameter instead of redundant Test-Path
@@ -2030,13 +2036,13 @@ Comprehensive debugging and enhancement release with 7 major improvements. Intro
 
 <a id="en-v11-removed"></a>
 
-### ? Removed
+### ❌ Removed
 
 - **BraveShieldsDefault = 2** — This policy does not exist in Brave's official ADMX. Removed to prevent creating non-functional registry entries.
 
 <a id="en-v11-details"></a>
 
-### ?? Details
+### 📋 Details
 
 | Change # | Type | Description |
 |----------|------|-------------|
@@ -2056,13 +2062,13 @@ Comprehensive debugging and enhancement release with 7 major improvements. Intro
 
 <a id="en-v101-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 Hotfix release — initial post-launch corrections.
 
 <a id="en-v101-fixed"></a>
 
-### ?? Fixed
+### 🐛 Fixed
 
 - Corrected HKCU policy path for Brave Rewards telemetry opt-out
 - Fixed Brave process detection on systems with multiple user profiles
@@ -2075,13 +2081,13 @@ Hotfix release — initial post-launch corrections.
 
 <a id="en-v10-summary"></a>
 
-### ?? Summary
+### 🎯 Summary
 
 Initial community release. Stable, tested hardening automation for Brave Browser with enterprise policy hardening across three registry layers (HKCU, HKLM, Omaha).
 
 <a id="en-v10-features"></a>
 
-### ? Features
+### ✨ Features
 
 - **7 Enterprise Policies** — All ADMX-verified policies for core telemetry and service disabling
 - **3-Tier Architecture** — HKCU user preference + HKLM enterprise policy + Omaha updater GUID
@@ -2093,7 +2099,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 <a id="en-v10-initial-policies"></a>
 
-### ?? Initial Policies
+### 📋 Initial Policies
 
 ```
 1. UsageStatsInSample = 0 (HKCU)         — Disable usage stats sampling
@@ -2109,7 +2115,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 <a id="en-v10-documentation"></a>
 
-### ?? Documentation
+### 📚 Documentation
 
 - Comprehensive README.md in English and Turkish
 - Policy reference tables with descriptions
@@ -2168,7 +2174,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 <a id="en-related-documentation"></a>
 
-## ?? Related Documentation
+## 🔗 Related Documentation
 
 - **README.md** — Complete user documentation (EN + TR)
 - **CONTRIBUTING.md** — Contributor guidelines (EN + TR)
@@ -2179,7 +2185,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 <a id="en-notes"></a>
 
-## ?? Notes
+## 📌 Notes
 
 - All releases maintain backward compatibility
 - No breaking changes between versions
@@ -2190,7 +2196,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 <div align="center">
 
-**?? Brave Omega Project** — Community Edition
+**🦁 Brave Omega Project** — Community Edition
 
 *Building privacy-first browser hardening, one policy at a time.*
 
@@ -2428,6 +2434,8 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 **`Tests/IndexI18n.Tests.ps1` giriş sayfasının aynı cümlenin üç kopyasını korur.** Sayfa her çevrilebilir dizeyi üç kez yayımlar: tr tablosunda, en tablosunda ve işaretlemede statik metin olarak. `setLang` işaretlemeyi `textContent` ile yeniden yazar, dolayısıyla statik kopya JavaScript'siz okuyucunun gördüğü ve her okuyucunun betik çalışmadan önce gördüğü metindir - ve üç kopya birbirinden kopmuş durumdaydı, on dört statik blok hâlâ İngilizce cümleyi taşıyordu. Hiçbir şey bunu yakalamadı: geçen bir test paketi, temiz bir derleme ve yeşil bir dağıtım, okuyucunun gerçekten göreceği cümleler hakkında hiçbir şey söylemiyordu. Dosya, değişmez başına birer adlandırılmış denetimden oluşan on altı kontrolü barındırır ve her biri beklentisini diskteki baytlardan yeniden türetir; böylece kendi ödevini kendi notlayan bir yazıcı ölçülen şey olmaz. Karakter karşılaştırmaları baştan sona sıradandır: bu konak Türkçe bir yerel ayarda çalışır ve PowerShell'in `-match` ile `-ne` karşılaştırmaları büyük/küçük harfi kültür üzerinden katlar; bu yüzden `-match`, İngilizce "Policies" kelimesini Türkçe bir karakter içeriyor diye bildirir ve `-ne`, yalnızca `i`/`ı` bakımından farklı iki metni eşit sayar. İkisi de tam olarak bu dosyanın var olma nedeni olan bozuk karakterleri gizler. Her denetim, var olma nedeni olan kusuru dikerek adı geçen testin düştüğü doğrulanarak sınandı; tek bilinçli istisna şudur: yalnızca ASCII içeren bir İngilizce değer, katlamanın *gerçekleşmediğini* doğrulamak için dikilir ve orada beklenen sonuç sessizliktir.
 
+**`Tests/MojibakeScan.Tests.ps1` kayıp değişimi hasarın üzerinde tutuyor ve beklediğini kendi listesinden değil, hasarın kendisinden okuyor.** On dört kontrol üçe ayrılıyor: tarayıcının geçmişte sessizce geçtiği hasar, git geçmişindeki hasarlı bloblardan okunduğu için kâhinin hasarın kendisi olduğu bölüm; meşru soru işaretleri, böylece kurallar ağacın kabul etmesi gereken içeriği bildirmemekle de sınanıyor; ve onarılmış iki dosya, yani onarımın varsayılmak yerine denetlenmesi. Hasar numuneleri çalışma anında `?` kod noktasından kuruluyor, açıkça yazılmıyor; çünkü depo genelindeki denetim bu dosyayı da okuyor - tam olarak yazılmış bir fixture, tarayıcının bulgu bildirdiğini kanıtlamak için var olan dosyanın kendisinde bir bulgu olur, ve kural onu tam da bunu yaparken yakaladı. Türkçe harfler de literal yerine kod noktasıyla doğrulanıyor; böylece denetim kendi kodlamasının hayatta kalmasına bağlı olmuyor ve bu konaktaki `-match` kültür katlamasını miras almıyor. Her kural, var olma nedeni olan kusuru dikerek ve adı geçen testin düştüğünü doğrulayarak sınandı: davranış kurallarını yeniden bozmak hem dosya denetimini hem de depo genelindeki denetimi adıyla düşürüyor ve ikisi de geri yüklendiğinde yeniden geçiyor.
+
 <a id="tr-yayimlanmamis-duzeltildi"></a>
 
 ### Düzeltildi
@@ -2439,6 +2447,10 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 **`index.html` artık tek bir tr kaynağına sahip ve 144 statik blok ona göre düzeltildi.** tr tablosu kurulduktan sonra uygulanan 260 `Object.assign(translations.tr, ...)` çağrısı, sayfanın Türkçe metnini düzenlenebilir bir kopyaya ve ikinci bir geçersiz kılma kümesine dönüştürüyordu: tabloya yapılan bir düzenleme hiçbir şey yapmıyormuş gibi görünüyor ve statik işaretleme ikisiyle de uyuşmuyordu. Bu geçersiz kılmalar artık değişmez bir `tr: {}` bloğudur, böylece tablo bir Türkçe dizenin yazıldığı tek yerdir. Yalnızca bu geçersiz kılmaların içinde bulunan dört anahtarın tabloda hiç karşılığı yoktu ve `policies_desc` açılış etiketi işaretlemede bulunmuyordu; bu yüzden o ögeler hiç çevrilmiyordu. On dört statik blok, tablonun Türkçe olarak bildirdiği yerde İngilizce cümleyi taşıyordu; JavaScript'li bir ziyaretçi farkı göremezdi, çünkü `setLang` bunları yükleme sırasında üzerine yazıyordu. Dosya BOM'suz UTF-8 kodlamasını ve tek bir tutarlı satır sonu stilini koruyor ve ikisi de varsayılmak yerine doğrulanıyor: izlenen içerik LF'dir ve bir Windows checkout bunu CRLF'e yeniden yazar, bu yüzden testin denetlediği şey dosyanın bu ikisini asla karıştırmamasıdır.
 
 **Emekli yol yazımına ilişkin bir yanlış pozitif CI'ı durdurdu ve düzeltme korumayı olduğu gibi bıraktı.** Uyumluluk matrisi başlık kalıbı ürün adını ve ardından bir regex kaçışını yazıyordu; yani addan sonraki karakter bir ters bölüydü - emekli yazım korumasının bir adın yol konumunda olup olmadığına karar vermek için okuduğu karakterin ta kendisi. Koruma bu kalıbı, v2.8.0.0'de yeniden adlandırılmış bir dizine yaşayan bir referans olarak bildirdi ve Quality koşusu bunun üzerine başarısız oldu. Korumanın `\uXXXX` ileri bakışını diğer kaçışları da bağışlamak için genişletmek, tartışmak yerine ölçüldü: kaçış harfleriyle bu deponun kullandığı dizinlerin ilk harfleri örtüşüyor - otomasyon, şablon ve yerel referans dizinlerinin hepsi bir regex kaçışı olan bir harfle başlıyor - bu yüzden genişletilmiş biçim, emekli bir yola ters bölüyle yazılmış her referansı bildirmeyi bıraktı, oysa hiç kapsamadığı ileri bölü yazımları çalışmaya devam etti ve bu kayıp kolayca fark edilmediğinden sessizce kalıyor. Bu yüzden koruma olduğu gibi bırakıldı ve kalıp artık adı yazmak yerine adın içindeki sözcük ayrımını eşleştiriyor; her iki yazım da depodaki her markdown dosyası üzerinde koşturuldu ve aynı sekiz başlığı seçiyor. `AGENTS.md` artık bunun ilk başta CI'a ulaşmasına izin veren sınırı da kaydediyor: izlenen adları okuyan bir kural, çalışma ağacında tutulan ama sürüm kontrolüne henüz bildirilmemiş bir dosyayı göremez; dolayısıyla yeni yazılmış bir dosya üzerinde koşan paket o dosya için zaten geçer sayılır ve bir geçiş, dosya sürüm kontrolüne eklendikten ve paket yeniden koşturulduktan sonra kanıt sayılır.
+
+**`CHANGELOG.md` ve `CODE_OF_CONDUCT.md` Türkçe metinleri yok edilmiş hâliyle işlenmişti ve UTF-8 kapısı her ikisini de temiz bildiriyordu.** Kayıp bir kodlama geçişi karakterleri literal soru işaretiyle değiştirmişti - günlükte 226 satır, davranış kurallarında 38 satır - ve iki dosya farklı mekanizmalarla hasar görmüştü: günlük tam UTF-16 kod birimlerini, davranış kuralları ise tek tek UTF-8 baytlarını kaybetmişti. Bu fark, birinin hasarı diğerinde tanınabilir bir biçim olmadığı ve bu yüzden yalnızca günlüğe karşı yazılmış bir kuralın davranış kurallarının tamamını geçireceği anlamına gelir. Günlük, son hasarsız revizyonuna göre onarıldı; böylece 226 satır değişirken 226 satır bayt bayt aynı kaldı ve kaybedilen glif dizisi dışında hiçbir satır çifti farklılaşmadı. Davranış kurallarının karşılaştırılacak hasarsız bir revizyonu olmadığı için onarım yeniden bozma kanıtına göre yapıldı: onarılmış dosyaya hasarı yeniden uygulamak işlenmiş blobu bayt bayt yeniden üretir; bu, ikinci bir kopyanın hayatta kalmasını gerektirmediği için daha güçlü bir iddiadır. Günlükteki 358 soru işareti ve davranış kurallarındaki 328 soru işareti gitti; günlükte kalan altısı ters tırnak içinde ve gerçek.
+
+**UTF-8 kapısının kayıp `?` değişimi için bir kuralı yoktu; işlenmiş bir kodlama geçişinin iki dosyaya ve arkalarındaki geçmişe hiçbir kapının itiraz etmeden ulaşmasının sebebi buydu.** Tarayıcı beş klasik mojibake biçimine bakıyordu ve beşi de baytların yanlış kodekten geçişini hayatta kaldırmasını gerektirir. Bir karakteri `?` ile değiştirmek baytları çevirmez, yok eder; geriye tanınacak bir şey kalmaz - hasar bir biçim değil, bir yokluktur. Bunu iki kural kapsıyor: iki veya daha fazla soru işaretinden oluşan diziler ve iki sözcük karakteri arasına kaynatılmış tek soru işareti. Bu hasarı taşıyan ikincisidir, çünkü davranış kurallarını üreten tekil kodlama geçişi kaybedilen her bayt için bir işaret bıraktı ve günlüğün arkasındaki UTF-16 geçişleri kaybedilen her kod birimi için bir işaret bıraktı; ikisi de bir sözcüğün içinde dizi değil tekil işarettir. Yalnızca diziler günlüğü yakalar ve davranış kurallarından geçerdi. Her iki kural da çitli blokları, satır içi kodu, URL'leri ve şemasız sorgu dizelerini atlar; çünkü ağaç meşru olarak kod aralığı içinde literal bir yer tutucu anahtar ve sorgu dizisi taşıyan bir politika şablonu URL'si barındırıyor; bunları maskelemek kapının kabul etmesi gereken içeriği bildirmemesinin sebebidir ve kuralın ilk sürümünün temiz bir ağaca karşı on yanlış pozitif bildirmesinin de sebebi buydu. Kurallar örnek için yazılmış numunelere değil, hasarlı blobların kendisine karşı kalibre edildi; böylece kâhin hasarın kendisi oluyor: `3e46658` 124 dizi bildiriyor, `3beb414` 140 bildiriyor ve günlüğün hasarsız `2d3f632` revizyonu hiçbir şey bildirmiyor.
 
 <a id="tr-v2811"></a>
 
@@ -2670,7 +2682,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2620-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Brave 1.94.121 uyumluluk doğrulaması.** v2.6.2.0, yapılandırmayı 4 Eylül 2026'da yayımlanan Brave 1.94.121 (Chromium 152.0.7977.83) sürümüne karşı doğrular. Brave 1.94.117 (Chromium 152.0.7977.64) desteklenmeye devam ediyor. Politika değişikliği yoktur: 5 seviyede toplam **151**; kümülatif zincir 24 › 51 › 83 › 123 › 151 olarak kalır.
 
@@ -2699,7 +2711,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2611-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **S/MIME belgeleme düzeltmesi ve release-notes temizliği.** v2.6.1.1, v2.6.0.0'da eklenen Microsoft S/MIME izin listesi girdisinin belgelenmesini düzeltir. Girdi, `brave-extension://` kullanan bir izin listesi girdisidir (chrome://policy değeri doğru yansıtır) — bir zorla kurulum (force-install) **değildir**. Brave, Chrome Web Mağazası dışındaki zorla kurulan CRX dosyalarını sessizce engeller ve profil başına tek seferlik manuel onay gerektirir (OWA kurulum isteği veya `chrome://extensions`). Manuel onay yönergesi artık bir izin listesi davranışı olarak belgelenmektedir; zorla kurulum davranışı olarak değil. Politika değişikliği yoktur: 5 seviyede toplam **151**; kümülatif zincir 24 › 51 › 83 › 123 › 151 olarak kalır. `release-notes/` dizini kaldırıldı (dokümantasyon CHANGELOG ve Wiki'de birleştirildi).
 
@@ -2729,7 +2741,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2610-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Politika temizliği — desteklenmeyen `DeviceAttributesAllowedForOrigins` politikası kaldırıldı.** v2.6.1.0, `DeviceAttributesAllowedForOrigins` politikasını Temel (Essential) seviyesinden kaldırır. Bu yalnızca ChromeOS'a özgü Device Attributes API politikası, Brave'in Windows sürümünde desteklenmemektedir: kayıt defteri uygulaması çalışma zamanında bilinmeyen politika hatası üretir. Kaldırma, Temel seviyesini 28'den 27 politikaya ve toplamı 152'den 151'e düşürür. Buna bağlı olarak kümülatif zincir 24 › 51 › 83 › 123 › 151'e iner. Windows'ta işlevsel bir sıkılaştırma kaybı yoktur.
 
@@ -2766,7 +2778,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2600-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Özellik sürümü — Outlook Web Access için Microsoft S/MIME.** v2.6.0.0, Outlook Web Access'te (OWA) Microsoft S/MIME imzalama ve şifrelemeyi etkinleştirmek için 2 yeni Gelişmiş seviye politikası ekler ve S/MIME uzantısı işleyişini yükseltir. `maafgiompdekodanheihhgilkjchcakm` (Microsoft S/MIME) uzantısı Dengeli seviyeden itibaren `ExtensionInstallForcelist` ile izin listesine alınır; Gelişmiş seviyeden itibaren ayrıca `ExtensionInstallAllowlist` ve `ExtensionSettings` listelerine `override_update_url` etkin olarak eklenir; böylece OWA S/MIME güncelleme adresi (`https://outlook.office.com/owa/SmimeCrxUpdate.ashx`) kullanılır. Brave, Chrome Web Mağazası dışındaki CRX dosyalarının sessizce zorla yüklenmesini engellediğinden uzantı otomatik kurulmaz — tek seferlik manuel onay gerekir (OWA kurulum isteği veya `chrome://extensions`) ve süreç çalışma anında nota basar. **Brave 1.94.117** (Chromium **152.0.7977.64**) ile doğrulandı; Brave 1.93.* (Chromium 151) desteklenmeye devam eder.
 
@@ -2804,7 +2816,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2554-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Yama sürümü — Brave 1.94.117 uyumluluk doğrulaması.** v2.5.5.4, **Brave 1.94.117** (Chromium **152.0.7977.64**, Stable, 26 Ağustos 2026 tarihinde yayınlandı) ile tam uyumluluğu doğrular. Politika tanımlarında değişiklik yoktur ve gerileme gözlenmemiştir; seviye sayıları aynı kalır (Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 — toplam 150). Brave 1.93.138 (Chromium 151.0.7922.173), Brave 1.93.136 (Chromium 151.0.7922.137) ve Brave 1.93.129 (Chromium 151.0.7922.71) desteklenmeye devam eder.
 
@@ -2833,7 +2845,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2553-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Yama sürümü — Brave 1.93.138 uyumluluk doğrulaması.** v2.5.5.3, **Brave 1.93.138** (Chromium **151.0.7922.173**, Stable, 21 Ağustos 2026 tarihinde yayınlandı) ile tam uyumluluğu doğrular. Politika tanımlarında değişiklik yoktur ve gerileme gözlenmemiştir; seviye sayıları aynı kalır (Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 — toplam 150). Brave 1.93.136 (Chromium 151.0.7922.137) ve Brave 1.93.129 (Chromium 151.0.7922.71) desteklenmeye devam eder.
 
@@ -2862,7 +2874,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2552-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Yama sürümü — Brave 1.93.136 doğrulaması ve ADMX CI düzeltmeleri.** v2.5.5.2, kritik bir Sıfırla modu gerilemesini düzeltir (yol sabitleri `-Sıfırla`/`-Reset` bloğundan **sonra** tanımlanıyordu; Sıfırla bu nedenle Windows PowerShell 5.1 altında `Test-Path $null` ile çöküyordu) ve ADMX çapraz referans doğrulayıcısını, sabit kodlanmış kısmi eşleme yerine 150 politikanın tamamını otomatik keşfedecek şekilde yeniden düzenler. Doğrulayıcı artık Brave'in ADMX'inde kasıtlı olarak bulunmayan Chromium politikaları için belgelenmiş-istisna mekanizması destekler (ör. `DeviceAttributesAllowedForOrigins`, geleceğe hazırlık için korunan, yalnızca ChromeOS'a özgü bir Device Attributes API politikası). **Brave 1.93.136** (Chromium **151.0.7922.137**) ile doğrulandı. Politika tanımı değişmedi — seviye sayıları Brave Yalnız 24, Temel 28, Dengeli 32, Gelişmiş 38, Katı 28 (toplam 150) olarak korunur.
 
@@ -2899,7 +2911,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2551-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Yama sürümü — CI/Release düzeltmeleri ve dokümantasyon tutarlılığı.** v2.5.5.1, `Release.ps1`'i Windows PowerShell 5.1 altında çalışacak şekilde düzeltir ve wiki-sync iş akışı kimlik doğrulamasını (Basic `x-access-token` düzeni) düzeltir. Ayrıca bayat dokümantasyonu düzeltir — README, Wiki, index.html ve SECURITY.md genelinde politika sayıları ve kümülatif zincirler artık gerçek **24›52›84›122›150** zincirini tutarlı şekilde yansıtır (bazı dokümanlarda önceki 51/82/120 veya 85/123). Politika değişikliği yok.
 
@@ -2928,7 +2940,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2550-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Akıllı indirme kontrolü:** v2.5.4.0 indirmeleri Katı altında fazla gevşetti — asıl suçlu Safe Browsing politikaları değil, Dengeli'deki `DownloadRestrictions=1` değeriydi (imzası iyi tanınmayan tüm indirmeleri engelliyordu, ör. sürücü kurulumları). v2.5.5.0 kesin bir koruma geri getirir: `DownloadRestrictions` **Temel** seviyesine **Value=4** ile taşındı (yalnızca kötü amaçlı olduğu doğrulanan indirmeler engellenir; meşru kurulumlar her zaman devam eder), `DisableSafeBrowsingProceedAnyway` **Dengeli**'ye geri taşındı (hiçbir zaman indirme engellemedi — yalnızca kötü amaçlı/kimlik avı uyarılarını zorunlu kıldı) ve `SafeBrowsingDeepScanningEnabled` gizlilik ödünü olduğu için yalnızca Katı'da kaldı. `SafeBrowsingProtectionLevel=2` (Gelişmiş) her katmanda etkindir.
 
@@ -2956,7 +2968,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2540-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Her çalıştırmada deterministik kayıt defteri durumu:** Brave Omega artık yazmadan önce **bayat politika temizliği** yapar. Her çalıştırmada, `HKLM\SOFTWARE\Policies\BraveSoftware\Brave` altındaki **seçili seviyenin birleştirilmiş politika kümesinde olmayan** Omega yönetimli değerler otomatik kaldırılır. Yabancı/Omega dışı değerler korunur; başka araçların veya yöneticilerin yönettiği hiçbir şeye dokunulmaz.
 
@@ -2993,7 +3005,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2530-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Brave Sync, Katı dışında açık:** `BrowserSignin` ve `SyncDisabled` politikaları Katı katmanına taşındı; böylece Brave Sync **Yalnızca Brave, Temel, Dengeli ve Gelişmiş katmanlarında varsayılan olarak açık.** `-AllowSync` / `-SenkronizasyonaIzinVer` anahtarı artık **yalnızca Katı'da açma seçeneği**: Katı'da verildiğinde iki politika birleştirilmiş kümeden çıkarılır, önceden uygulanmış kayıt defteri değerleri temizlenir; en üst kademede bile Brave Sync kullanılabilir kalır.
 
@@ -3028,7 +3040,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2521-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Uyumluluk doğrulaması:** Brave **1.93.129** (Chromium **151.0.7922.71**) uyumluluğu doğrulandı. 5 yeni Chromium 151 politikası değerlendirildi (AutomaticDownloadsAllowedForUrls, AutomaticDownloadsBlockedForUrls, DefaultAutomaticDownloadsSettings, Indigo, ThirdPartyAiChatSettings) — hiçbiri gizlilik sıkılaştırması için uygun bulunmadı. DefaultSensorsSetting "Ask" seçeneği (değer 3) kazandı. Sıfırlama modunda EN betiğine HKLM boş-anahtar temizliği eklendi (TR ile işlevsel eşitlik).
 
@@ -3058,7 +3070,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2520-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Uyumluluk doğrulaması:** Brave **1.92.144** (Chromium **150.0.7871.186**) uyumluluğu doğrulandı. Politika değişikliği yok — 150 kurumsal politikanın tamamı en son Brave kararlı sürümüyle sorunsuz çalışıyor.
 
@@ -3089,7 +3101,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2510-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Uyumluluk doğrulaması:** Brave **1.92.143** (Chromium **150.0.7871.182**) uyumluluğu doğrulandı. Politika değişikliği yok — 150 kurumsal politikanın tamamı en son Brave kararlı sürümüyle sorunsuz çalışıyor.
 
@@ -3121,7 +3133,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2500-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Tam politika genişletmesi — 30 yeni politika (133›163›150), 6 bozuk/tanınmayan + 3 kullanımdan kaldırılmış/bulut politikası kaldırıldı.** Büyük güvenlikleştirme güncellemesi: Yapay zekâ politika engelleme (13 politika), yerel ağ erişim kontrolü, ekran yakalama ince ayar kontrolü, işleyici kum havuzu sertleştirme ve Brave'e özgü politika eklemeleri. Brave 1.92.141 ile doğrulandı.
 
@@ -3198,7 +3210,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2420-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Brave 1.92.141 (Chromium 150.0.7871.128) uyumluluk doğrulaması.** Politika değişikliği yok. v2.4.1.0 politika setinin (133 politika, 5 kademe) en Brave kararlı sürümüyle tam uyumluluğu doğrulandı.
 
@@ -3223,7 +3235,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 <a id="tr-v2410-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Faz 9 düzeltmesi — 8 hatalı/kullanımdan kaldırılmış/engellenmiş politika kaldırıldı (141›133), uzantı politikası yapılandırması temizlendi ve yalnızca Dark Reader'a basitleştirildi.** Brave 150 (Chromium 150.0.7871.114) üzerinde çalışma zamanı doğrulamasında başarısız olan politikaların temizlenmesi. AutoFillEnabled, SigninAllowed ve DefaultMediaStreamSetting son Chrome sürümlerinde kullanımdan kaldırıldı. TabFreezingEnabled Brave tarafından tanınmadı. HomepageLocation, NewTabPageLocation ve RestoreOnStartup Brave politika uygulaması tarafından engelleniyor. GenAiDefaultSettings bulut kaynağı gerektirir ve çalışma zamanında yoksayıldı. ExtensionInstallForcelist yalnızca Dark Reader'a basitleştirildi (AdBlock Plus, bilinmeyen uzantı ve Google Dokümanlar Çevrimdışı kaldırıldı). ExtensionInstallAllowlist yalnızca Dark Reader'a basitleştirildi (Google Dokümanlar Çevrimdışı ve Kaspersky Protection kaldırıldı). ExtensionSettings JSON tek Dark Reader girişi olarak güncellendi. Net 8 politika azalması.
 
@@ -3281,7 +3293,7 @@ Fixes #50
 
 <a id="tr-v2400-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Faz 9 — 30 yeni kurum politikası eklendi; kümülatif zincir 141 politikaya genişledi.** Beş kademenin tamamında kapsamlı politika genişletmesi. Temel kademesi tarayıcı oturum açma ve eklenti kaynak kontrollerini kazanır. Dengeli kademesi otomatik doldurma devre dışı bırakma ve zorunlu yeniden başlatma bildirimleri ekler. Gelişmiş kademesi ana sayfa/başlangıç yapılandırması, mağaza gizleme, medya akışı engelleme ve yapay zeka entegrasyonu devre dışı bırakma alır. Katı kademesi Spectre azaltmaları (COOP/COEP), şifre sızıntı algılama, çevrimiçi yazım denetimi devre dışı bırakma, sekme diskalifiye etme, dokunma ile arama devre dışı bırakma, bulut raporlama devre dışı bırakma ve Chrome Senkronizasyonu devre dışı bırakma ekler. SpellcheckEnabled 0›1 olarak değiştirildi (Yerel Hunspell çevrimdışıdır). ExtensionManifestV2Availability ve DefaultThirdPartyStoragePartitioningSetting kaldırıldı (Chrome 139/145'te kullanımdan kaldırıldı).
 
@@ -3327,7 +3339,7 @@ Fixes #50
 
 #### Katı (14 politika)
 
-- **`CloudReportingEnabled`** — Bulut?? raporlamasını devre dışı bırakır (DWord: 0). Kullanım verilerinin bulut hizmetlerine gönderilmesini engeller.
+- **`CloudReportingEnabled`** — Bulut☁️ raporlamasını devre dışı bırakır (DWord: 0). Kullanım verilerinin bulut hizmetlerine gönderilmesini engeller.
 - **`BrowsingDataLifetime`** — Tarama geçmişini, indirme geçmişini ve önbelleğe alınmış dosyaları 24 saat sonra otomatik olarak temizler (String: JSON).
 - **`CrossOriginOpPolicyHeader`** — Cross-Origin-Op-Policy: `require-corp`'u zorlar (String). Spectre azaltması — çapraz kaynak okumalarını engeller.
 - **`CrossOriginEmbedderPolicy`** — Cross-Origin-Embedder-Policy: `require-corp`'u zorlar (String). Spectre azaltması — açık çapraz kaynak izni gerektirir.
@@ -3359,7 +3371,7 @@ Fixes #50
 
 <a id="tr-v2310-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Brave 1.92.139 doğrulaması; Temel kademesine ProxySettings eklendi.** Brave 1.92.139 (Chromium 150.0.7871.114) ile tam uyumluluk doğrulaması. Temel kademesine proxy yapılandırma yer tutucu desteği için ProxySettings eklendi.
 
@@ -3398,7 +3410,7 @@ Fixes #50
 
 <a id="tr-v2300-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **19 yeni kurumsal politika eklendi; kümülatif zincir 110 politikaya genişletildi.** Aşama 8, Güvenli Gezinti koruma seviyesi kontrollerini, parola koruma uyarı tetikleyicisini, çevrimiçi iptal denetimini, zorunlu uzantı yüklemesini (Dark Reader + Google Docs Offline), indirme kısıtlamalarını, proxy yapılandırmasını, uzantı kilitlemeyi (tüm uzantıları engelle), gizli mod devre dışı bırakmayı, geliştirici araçlarını kapatmayı, görev yöneticisini devre dışı bırakmayı, yazdırmayı kapatmayı ve daha fazlasını ekler. Her sıkılaştırma seviyesi büyür, Gelişmiş 18 yeni politika kazanır ve Katı kritik ayarları yeniden zorlar.
 
@@ -3487,7 +3499,7 @@ Fixes #50
 
 <a id="tr-v2210-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **12 yeni donanım API & güvenlik politikası eklendi; yinelenen WebRtcIPHandling Katı'dan kaldırıldı.** WebUSB, Web Bluetooth, WebHID, Direct Sockets ve Cihaz Özellikleri API'leri engellenir; Şifreli İstemci Selamı (ECH) zorlanır; Payment Request API sorguları devre dışı bırakılır; farklı kaynaklı alt çerçevelerin iletişim kutuları bastırılır. Pencere yönetimi yalıtımı, site başına süreç, agresif uyandırma zamanlayıcı kısıtlaması ve tarayıcı içi geri bildirim istemlerinin devre dışı bırakılması eklendi.
 
@@ -3541,7 +3553,7 @@ Fixes #50
 
 <a id="tr-v2202-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **WebRTC politika hizalaması sürümü:** Dengeli seviye azami WebRTC korumasına yükseltildi (`disable_non_proxied_udp`), Katı ile aynı değer. Katı'daki ezme artık çalışma zamanında etkisiz. GitHub Projects/Issues ile ilgili tüm atıflar kamuya açık dokümantasyondan kaldırıldı.
 
@@ -3571,7 +3583,7 @@ Fixes #50
 
 <a id="tr-v2201-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Politika iyileştirme sürümü:** Seviye başına bir yinelenen politika kaldırıldı; toplam politika sayısı 81'den 80'e düşürüldü. Brave Yalnız: 23›22, Temel: 40›39, Dengeli: 61›60, Gelişmiş: 72›71, Katı: 81›80.
 
@@ -3592,7 +3604,7 @@ Fixes #50
 
 <a id="tr-v220-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Kademe genişletme sürümü:** Dengeli (61) ile Katı (81) arasına yeni **Gelişmiş** sıkılaştırma seviyesi (L4, 72 politika) eklendi. Katı L4›L5 olarak yeniden numaralandırıldı; 11 politika Katı'dan yeni Gelişmiş seviyesine taşındı; 8 temel Katı politikası korundu.
 
@@ -3635,7 +3647,7 @@ Fixes #50
 
 <a id="tr-v216-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Politika genişletme sürümü:** Kapsamlı politika boşluk analizi sonucu 15 yeni Brave'e özgü kurumsal politika dört sıkılaştırma katmanına (v2.1.6 4 katmanlı modeldir) eklendi. Kullanımdan kaldırılan bir Chromium politikası kaldırıldı.
 
@@ -3671,7 +3683,7 @@ Fixes #50
 
 <a id="tr-v216-phase3"></a>
 
-### ?? Aşama 3 — Kalite ve Test Altyapısı (2026-07-05)
+### 🧪 Aşama 3 — Kalite ve Test Altyapısı (2026-07-05)
 
 #### Eklendi
 
@@ -3691,7 +3703,7 @@ Fixes #50
 
 <a id="tr-v215-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Sürüm yükseltmesi:** Brave **1.92.134** / Chromium **150.0.7871.63** uyumluluğu onaylandı. Chromium 149›150 yükseltmesi — v2.1.4'ten itibaren politika değişikliği yok.
 
@@ -3710,7 +3722,7 @@ Fixes #50
 
 <a id="tr-v214-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Doğrulama sürümü:** Brave **1.91.180** / Chromium **149.0.7827.201** uyumluluğu onaylandı. Politika değişikliği yok — yalnızca yapısal sürüm yükseltmesi.
 
@@ -3740,7 +3752,7 @@ Fixes #50
 
 <a id="tr-v213-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Doğrulama sürümü:** Brave **1.91.178** / Chromium **149.0.7827.196** uyumluluğu onaylandı. Politika değişikliği yok — yalnızca yapısal sürüm yükseltmesi.
 
@@ -3758,7 +3770,7 @@ Fixes #50
 
 <a id="tr-v212-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Doğrulama sürümü:** Brave **1.91.175** / Chromium **149.0.7827.155** uyumluluğu onaylandı. v2.1.1'den yapısal, HTML/CSS ve belge düzeltmeleri — yeni politika yok, politika sayılarında değişiklik yok.
 
@@ -3776,13 +3788,13 @@ Fixes #50
 
 <a id="tr-v211-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Hata düzeltmesi ve politika yeniden dengesi:** Çift Brave/Chromium sürüm algılamasındaki hatalı pozitif uyarı düzeltildi. `TranslateEnabled` Temel'den Katı'ya taşındı, kullanımdan kaldırılmış `DefaultMediaStreamSetting` Dengeli'den kaldırıldı. Politika sayıları toplam 67'ye ayarlandı.
 
 <a id="tr-v211-fixed"></a>
 
-### ?? Düzeltildi
+### 🐛 Düzeltildi
 
 - **Brave ve Chromium sürümlerini ayrıştıran sürüm denetimi düzeltmesi** —
   `brave.exe` dosyasının `FileVersion` özelliği Chromium sürüm dizesini döndürür
@@ -3795,7 +3807,7 @@ Fixes #50
 - **`Compare-BraveVersion` fonksiyonu kaldırıldı** — Doğrudan ayrıştırılmış
   karşılaştırma ile değiştirildiği için artık gerekmiyor.
 
-### ?? Değiştirildi
+### 🔧 Değiştirildi
 
 - **BraveOmega-EN.ps1** — v2.1.1: çift sürüm algılama düzeltmesi, `$ScriptVersion = "v2.1.1"`
 - **BraveOmega-TR.ps1** — v2.1.1: aynı düzeltme Türkçe, `$BetikSurum = "v2.1.1"`
@@ -3804,16 +3816,16 @@ Fixes #50
 - **Politika sayıları güncellendi** — Temel: +16, Dengeli: +18, Katı: +21. Kümülatif: Brave Yalnız 13, Temel 29, Dengeli 47, Katı 67.
 - **CHANGELOG.md** — v2.1.1 politika değişiklikleri eklendi
 
-### ?? İstatistikler
+### 📊 İstatistikler
 
 ```
 Değiştirilen Dosyalar:
-  ? BraveOmega-EN.ps1 (v2.1.1: çift sürüm denetimi + politika değişiklikleri)
-  ? BraveOmega-TR.ps1 (v2.1.1: aynı düzeltmeler Türkçe)
-  ? index.html (politika tablosu/kartlar/i18n güncellendi)
-  ? README.md (politika sayıları güncellendi)
-  ? SECURITY.md (politika sayıları güncellendi)
-  ? CHANGELOG.md (v2.1.1 politika değişiklikleri girdisi)
+  ✓ BraveOmega-EN.ps1 (v2.1.1: çift sürüm denetimi + politika değişiklikleri)
+  ✓ BraveOmega-TR.ps1 (v2.1.1: aynı düzeltmeler Türkçe)
+  ✓ index.html (politika tablosu/kartlar/i18n güncellendi)
+  ✓ README.md (politika sayıları güncellendi)
+  ✓ SECURITY.md (politika sayıları güncellendi)
+  ✓ CHANGELOG.md (v2.1.1 politika değişiklikleri girdisi)
 ```
 
 ---
@@ -3824,7 +3836,7 @@ Değiştirilen Dosyalar:
 
 <a id="tr-v21-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Özellik genişletmesi:** Otomatik Brave sürüm tespiti, kuru çalıştırma önizlemesi
 (`-WhatIf`), temiz kaldırma (`-Sıfırla`), yapılandırılmış `CONTRIBUTING.md` ve GitHub
@@ -3833,7 +3845,7 @@ boru hattı.
 
 <a id="tr-v21-added"></a>
 
-### ? Eklendi
+### ✨ Eklendi
 
 #### Sürüm Tespiti
 - **Otomatik Brave ikili dosya keşfi** — `%ProgramFiles%`, `%ProgramFiles(x86)%` ve
@@ -3881,27 +3893,27 @@ boru hattı.
   - Uyuşmazlık bulunduğunda otomatik olarak bir GitHub sorunu oluşturur.
   - Yardımcı betik (`admx-validate.ps1`) bağımsız olarak da kullanılabilir.
 
-### ?? Değiştirildi
+### 🔧 Değiştirildi
 
 - **BraveOmega-EN.ps1** — v2.1 özellikleri: sürüm denetimi, -WhatIf, -Sıfırla,
   `$ScriptVersion = "v2.1"`
 - **BraveOmega-TR.ps1** — v2.1 özellikleri Türkçe olarak yansıtıldı
 - **CHANGELOG.md** — v2.1 değişiklik günlüğü eklendi (bu bölüm)
 
-### ?? İstatistikler
+### 📊 İstatistikler
 
 ```
 Eklenen/Değiştirilen Dosyalar:
-  ? BraveOmega-EN.ps1 (v2.1: sürüm denetimi, -WhatIf, -Sıfırla)
-  ? BraveOmega-TR.ps1 (v2.1: yansıtılan değişiklikler)
-  ? CONTRIBUTING.md (yeni — kapsamlı katkı rehberi, EN + TR)
-  ? .github/ISSUE_TEMPLATE/bug_report.yaml (yeni)
-  ? .github/ISSUE_TEMPLATE/feature_request.yaml (yeni)
-  ? .github/workflows/admx-validate.yml (yeni — haftalık + manuel)
-  ? .github/workflows/admx-validate.ps1 (yeni — bağımsız doğrulama betiği)
-  ? CHANGELOG.md (v2.1 girdisi)
-  ? README.md (güncel yol haritası, katkı referansı)
-  ? index.html (güncel değişiklik günlüğü, hızlı başlangıç, rozetler)
+  ✓ BraveOmega-EN.ps1 (v2.1: sürüm denetimi, -WhatIf, -Sıfırla)
+  ✓ BraveOmega-TR.ps1 (v2.1: yansıtılan değişiklikler)
+  ✓ CONTRIBUTING.md (yeni — kapsamlı katkı rehberi, EN + TR)
+  ✓ .github/ISSUE_TEMPLATE/bug_report.yaml (yeni)
+  ✓ .github/ISSUE_TEMPLATE/feature_request.yaml (yeni)
+  ✓ .github/workflows/admx-validate.yml (yeni — haftalık + manuel)
+  ✓ .github/workflows/admx-validate.ps1 (yeni — bağımsız doğrulama betiği)
+  ✓ CHANGELOG.md (v2.1 girdisi)
+  ✓ README.md (güncel yol haritası, katkı referansı)
+  ✓ index.html (güncel değişiklik günlüğü, hızlı başlangıç, rozetler)
 ```
 
 ---
@@ -3912,7 +3924,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 <a id="tr-v20-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Köklü mimarî yenileme:** **Çok Katmanlı Sıkılaştırma Sistemi** — kullanıcılara gizlilik duruşları üzerinde hassas kontrol sağlayan dört kademeli seviye (Brave Yalnız, Temel, Dengeli, Katı). Toplam kurumsal politika sayısı **17'den 68'e** çıkarıldı.
 
@@ -3920,10 +3932,10 @@ Eklenen/Değiştirilen Dosyalar:
 
 <a id="tr-v20-added"></a>
 
-### ? Eklendi
+### ✨ Eklendi
 
 #### Çok Katmanlı Mimari
-- **4 Kademeli Sıkılaştırma Modeli** — Brave Yalnız › Temel ? › Dengeli › Katı
+- **4 Kademeli Sıkılaştırma Modeli** — Brave Yalnız › Temel ⭐ › Dengeli › Katı
 - **Kümülatif miras** — her seviye önceki seviyelerin tüm politikalarını içerir
 - **Etkileşimli seviye seçimi** parametresiz çalıştırmada
 - **`-Level` parametresi** otomatik/sessiz dağıtım için (`-Level Temel`)
@@ -4013,7 +4025,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 <a id="tr-v20-changed"></a>
 
-### ?? Değiştirildi
+### 🔧 Değiştirildi
 
 - **BraveOmega-EN.ps1** — Tam yeniden yazım: çok katmanlı sistem, -Level parametresi, tür bilinçli kayıt defteri motoru (565 › 520 satır)
 - **BraveOmega-TR.ps1** — Tam yeniden yazım: aynı mimari Türkçe (567 › 522 satır)
@@ -4023,42 +4035,42 @@ Eklenen/Değiştirilen Dosyalar:
 
 <a id="tr-v20-statistics"></a>
 
-### ?? İstatistikler
+### 📊 İstatistikler
 
 ```
 Değiştirilen Dosyalar:
-  ? BraveOmega-EN.ps1 (565 › 520 satır, tam yeniden yazım)
-  ? BraveOmega-TR.ps1 (567 › 522 satır, tam yeniden yazım)
-  ? README.md (çok katmanlı belgelendirme)
-  ? CHANGELOG.md (v2.0 girdisi)
-  ? index.html (4 kademeli sistem, sürüm referansları)
-  ? SECURITY.md (yeni dosya, 500+ satır)
-  ? Kaynak güncellemeleri
+  ✓ BraveOmega-EN.ps1 (565 › 520 satır, tam yeniden yazım)
+  ✓ BraveOmega-TR.ps1 (567 › 522 satır, tam yeniden yazım)
+  ✓ README.md (çok katmanlı belgelendirme)
+  ✓ CHANGELOG.md (v2.0 girdisi)
+  ✓ index.html (4 kademeli sistem, sürüm referansları)
+  ✓ SECURITY.md (yeni dosya, 500+ satır)
+  ✓ Kaynak güncellemeleri
 
 Politikalar:
-  ? Brave Yalnız:  13 Brave'e özgü politika
-  ? Temel:         +17 = 30 toplam politika (Önerilen)
-  ? Dengeli:       +19 = 49 toplam politika
-  ? Katı:          +20 = 68 toplam politika
-  ? Toplam:        17 › 68 politika (+300%)
+  ✓ Brave Yalnız:  13 Brave'e özgü politika
+  ✓ Temel:         +17 = 30 toplam politika (Önerilen)
+  ✓ Dengeli:       +19 = 49 toplam politika
+  ✓ Katı:          +20 = 68 toplam politika
+  ✓ Toplam:        17 › 68 politika (+300%)
 
 Kayıt Defteri Türleri:
-  ? DWord:      61 politika
-  ? String:     4 politika
-  ? MultiString: 3 politika
+  ✓ DWord:      61 politika
+  ✓ String:     4 politika
+  ✓ MultiString: 3 politika
 
 Belgelendirme:
-  ? SECURITY.md (yeni — kapsamlı güvenlik politikası, EN + TR)
-  ? README.md (çok katmanlı sistem belgelendi)
-  ? CHANGELOG.md (bu dosya)
-  ? index.html (4 kademeli mimari, güncel rozetler)
+  ✓ SECURITY.md (yeni — kapsamlı güvenlik politikası, EN + TR)
+  ✓ README.md (çok katmanlı sistem belgelendi)
+  ✓ CHANGELOG.md (bu dosya)
+  ✓ index.html (4 kademeli mimari, güncel rozetler)
 ```
 
 ## [v1.2.2] — 2026-06-13
 
 <a id="tr-v122-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Yama sürümü:** Çalıştırma ilkesi düzeltmesi — kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `Bypass -Scope Process` kullanıldı. v1.2.1'den itibaren politika değişikliği yok.
 
@@ -4066,7 +4078,7 @@ Belgelendirme:
 
 <a id="tr-v122-changed"></a>
 
-### ?? Değiştirildi
+### 🔧 Değiştirildi
 
 - **index.html**: `prereq_pol_desc` (EN + TR) kalıcı `RemoteSigned -Scope CurrentUser` yerine oturum bazlı `-Scope Process Bypass` kullanacak şekilde güncellendi
 - **index.html**: `rm_item3` geri dönüş metnindeki Türkçe karakterler düzeltildi
@@ -4083,7 +4095,7 @@ Belgelendirme:
 
 <a id="tr-v121-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Yama sürümü:** Brave sürüm yükseltmesi 1.91.172 (Chromium 149.0.7827.115). v1.2'den itibaren politika değişikliği yok.
 
@@ -4091,7 +4103,7 @@ Belgelendirme:
 
 <a id="tr-v121-changed"></a>
 
-### ?? Değiştirildi
+### 🔧 Değiştirildi
 
 - **index.html**: EN ve TR için 23 eksik çeviri anahtarı eklendi (pol_effect1–17, policies_badge/heading/desc, policy_col_key/effect, sources_badge)
 - **index.html**: Kaynaklar bölümüne eksik `<h2>` başlık ve rozet eklendi, data-i18n desteği ile
@@ -4106,7 +4118,7 @@ Belgelendirme:
 
 <a id="tr-v12-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 **Büyük genişleme:** Toplam **7'den 17'ye** çıkarılan 10 yeni kurumsal politika eklendi. Bu, gizlilik sıkılaştırma kapsamının **%143 genişlemesi** anlamına geliyor. Tüm yeni politikalar ADMX doğrulamalı ve Chromium 149 ile uyumludur.
 
@@ -4114,7 +4126,7 @@ Belgelendirme:
 
 <a id="tr-v12-added"></a>
 
-### ? Eklendi
+### ✨ Eklendi
 
 #### Telemetri ve Analiz (2 politika)
 - `BraveP3AEnabled = 0` — Gizliliği Koruyan Ürün Analizlerini (P3A) devre dışı bırakır
@@ -4140,28 +4152,28 @@ Belgelendirme:
 
 <a id="tr-v12-statistics"></a>
 
-### ?? İstatistikler
+### 📊 İstatistikler
 
 ```
 Değiştirilen Dosyalar:
-  ? BraveOmega-TR.ps1 (497 › 567 satır)
-  ? BraveOmega-EN.ps1 (496 › 565 satır)
-  ? README.md (sürüm uyumluluğu, politika tablosu)
+  ✓ BraveOmega-TR.ps1 (497 › 567 satır)
+  ✓ BraveOmega-EN.ps1 (496 › 565 satır)
+  ✓ README.md (sürüm uyumluluğu, politika tablosu)
 
 Politikalar:
-  ? Toplam: 7 › 17 (+143%)
-  ? HKLM Kurumsal Politikalar: 7 › 15 (+114%)
-  ? Kategoriler: 3 › 5 (+67%)
+  ✓ Toplam: 7 › 17 (+143%)
+  ✓ HKLM Kurumsal Politikalar: 7 › 15 (+114%)
+  ✓ Kategoriler: 3 › 5 (+67%)
 
 Belgelendirme:
-  ? UPDATE_REPORT_v1.2.md (iki dilli güncelleme özeti)
-  ? POLICY_UPDATE_v1.2.md (detaylı politika referansı)
-  ? CHANGELOG.md (bu dosya)
+  ✓ UPDATE_REPORT_v1.2.md (iki dilli güncelleme özeti)
+  ✓ POLICY_UPDATE_v1.2.md (detaylı politika referansı)
+  ✓ CHANGELOG.md (bu dosya)
 ```
 
 <a id="tr-v12-changed"></a>
 
-### ?? Değiştirildi
+### 🔧 Değiştirildi
 
 - Betik başlık sürümleri v1.2 değişiklik günlüğü ile güncellendi
 - Sürüm Uyumluluk Matrisi yeniden düzenlendi (v1.0/v1.1/v1.2)
@@ -4170,7 +4182,7 @@ Belgelendirme:
 
 <a id="tr-v12-security"></a>
 
-### ??? Güvenlik
+### 🛡️ Güvenlik
 
 - Tüm yeni politikalar Brave'in resmi ADMX şablonlarına göre doğrulandı
 - Tüm yeni politikalar Chromium 149 kurumsal belgelendirmesi ile çapraz referanslandı
@@ -4184,13 +4196,13 @@ Belgelendirme:
 
 <a id="tr-v111-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 Düzeltme sürümü — v1.1 sonrası küçük düzeltmeler.
 
 <a id="tr-v111-duzeltildi"></a>
 
-### ?? Düzeltildi
+### 🐛 Düzeltildi
 
 - Standart olmayan Windows kurulumlarında kayıt defteri yedekleme yolu işleme düzeltildi
 - Küçük çıktı biçimlendirme düzeltmeleri
@@ -4203,13 +4215,13 @@ Düzeltme sürümü — v1.1 sonrası küçük düzeltmeler.
 
 <a id="tr-v11-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 7 ana iyileştirme içeren kapsamlı hata ayıklama ve geliştirme sürümü. Brave süreç koruyucuları, kayıt defteri yedeklemeleri ve try-catch hata yönetimi tanıtıldı.
 
 <a id="tr-v11-added"></a>
 
-### ? Eklendi
+### ✨ Eklendi
 
 - **Brave Süreç Koruyucusu** — Çalıştırmadan önce etkin Brave örneklerini algılar
 - **Kayıt Defteri Yedeklemesi** — HKLM değişikliklerinden önce zaman damgalı otomatik .reg dosya yedeklemesi
@@ -4218,7 +4230,7 @@ Düzeltme sürümü — v1.1 sonrası küçük düzeltmeler.
 
 <a id="tr-v11-changed"></a>
 
-### ?? Değiştirildi
+### 🔧 Değiştirildi
 
 - Çıkış kodları düzeltildi: Başarısızlık durumunda `exit 1` (önceden 0 döndürüyordu)
 - Dizin hazırlığı basitleştirildi: Gereksiz Test-Path yerine tek satırlık `-Force` parametresi
@@ -4226,13 +4238,13 @@ Düzeltme sürümü — v1.1 sonrası küçük düzeltmeler.
 
 <a id="tr-v11-removed"></a>
 
-### ? Kaldırıldı
+### ❌ Kaldırıldı
 
 - **BraveShieldsDefault = 2** — Bu politika Brave'in resmi ADMX'inde mevcut değildir. İşlevsel olmayan kayıt defteri girdileri oluşturmayı önlemek için kaldırıldı.
 
 <a id="tr-v11-details"></a>
 
-### ?? Detaylar
+### 📋 Detaylar
 
 | Değişiklik # | Tür | Açıklama |
 |--------------|-----|----------|
@@ -4252,13 +4264,13 @@ Düzeltme sürümü — v1.1 sonrası küçük düzeltmeler.
 
 <a id="tr-v101-ozet"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 <a id="tr-v101-duzeltildi"></a>
 
-### ?? Düzeltildi
+### 🐛 Düzeltildi
 
 - Brave Rewards telemetri devre dışı bırakma için HKCU politika yolu düzeltildi
 - Çoklu kullanıcı profiline sahip sistemlerde Brave süreci tespiti düzeltildi
@@ -4271,13 +4283,13 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 <a id="tr-v10-summary"></a>
 
-### ?? Özet
+### 🎯 Özet
 
 İlk topluluk sürümü. Brave Tarayıcı için üç kayıt defteri katmanında (HKCU, HKLM, Omaha) kurumsal politika sıkılaştırması ile kararlı, test edilmiş sıkılaştırma otomasyonu.
 
 <a id="tr-v10-features"></a>
 
-### ? Özellikler
+### ✨ Özellikler
 
 - **7 Kurumsal Politika** — Temel telemetri ve hizmet devre dışı bırakma için tüm ADMX doğrulamalı politikalar
 - **3 Katmanlı Mimari** — HKCU kullanıcı tercihi + HKLM kurumsal politika + Omaha güncelleyici GUID
@@ -4289,7 +4301,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 <a id="tr-v10-initial-policies"></a>
 
-### ?? Başlangıç Politikaları
+### 📋 Başlangıç Politikaları
 
 ```
 1. UsageStatsInSample = 0 (HKCU)         — Kullanım istatistikleri örneklemesini devre dışı bırak
@@ -4305,7 +4317,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 <a id="tr-v10-documentation"></a>
 
-### ?? Belgelendirme
+### 📚 Belgelendirme
 
 - İngilizce ve Türkçe kapsamlı README.md
 - Açıklamalı politika referans tabloları
@@ -4364,7 +4376,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 <a id="tr-related-documentation"></a>
 
-## ?? İlgili Belgelendirme
+## 🔗 İlgili Belgelendirme
 
 - **README.md** — Tam kullanıcı belgelendirmesi (EN + TR)
 - **CONTRIBUTING.md** — Katkıda bulunan rehberi (EN + TR)
@@ -4375,7 +4387,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 <a id="tr-notes"></a>
 
-## ?? Notlar
+## 📌 Notlar
 
 - Tüm sürümler geriye dönük uyumluluğu korur
 - Sürümler arasında kırıcı değişiklik yoktur
@@ -4386,7 +4398,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 <div align="center">
 
-**?? Brave Omega Project** — Topluluk Sürümü
+**🦁 Brave Omega Project** — Topluluk Sürümü
 
 *Gizlilik odaklı tarayıcı sıkılaştırması inşa ediliyor, her seferinde bir politika.*
 

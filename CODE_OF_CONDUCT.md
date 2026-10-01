@@ -1,17 +1,17 @@
 <!-- ================================================================== -->
-<!--        BRAVE OMEGA PROJECT ??? CODE OF CONDUCT (EN + TR)           -->
+<!--        BRAVE OMEGA PROJECT — CODE OF CONDUCT (EN + TR)           -->
 <!-- ================================================================== -->
 
 <div align="center">
 
 <br>
 
-# ???? Brave Omega ??? Code of Conduct / Davran???? Kurallar??
+# 🦁 Brave Omega — Code of Conduct / Davranış Kuralları
 
 <br>
 
 > **Language / Dil**
-> [EN English](#-english) &nbsp;??&nbsp; [TR T??rk??e](#-t??rk??e)
+> [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <br>
 
@@ -78,58 +78,58 @@ https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.
 
 ---
 
-<a id="-t??rk??e"></a>
+<a id="-türkçe"></a>
 
-## TR T??rk??e
+## TR Türkçe
 
-### Taahh??d??m??z
+### Taahhüdümüz
 
-??yeler, katk??da bulunanlar ve liderler olarak; ya??, beden ??l????s??, g??r??n??r veya
-g??r??nmez engel, etnik k??ken, cinsiyet kimli??i ve ifadesi, deneyim seviyesi,
-e??itim, sosyo-ekonomik durum, milliyet, ki??isel g??r??n??m, ??rk, din veya cinsel
-kimlik ve y??nelimden ba????ms??z olarak herkes i??in tacizden uzak bir topluluk
-deneyimi sa??lamay?? taahh??t ediyoruz.
+üyeler, katkıda bulunanlar ve liderler olarak; yaş, beden ölçüsü, görünür veya
+görünmez engel, etnik köken, cinsiyet kimliği ve ifadesi, deneyim seviyesi,
+eğitim, sosyo-ekonomik durum, milliyet, kişisel görünüm, ırk, din veya cinsel
+kimlik ve yönelimden bağımsız olarak herkes için tacizden uzak bir topluluk
+deneyimi sağlamayı taahhüt ediyoruz.
 
-A????k, misafirperver, ??e??itlilik i??eren, kapsay??c?? ve sa??l??kl?? bir toplulu??a
-katk??da bulunacak ??ekilde etkile??imde bulunmay?? taahh??t ediyoruz.
+Açık, misafirperver, çeşitlilik içeren, kapsayıcı ve sağlıklı bir topluluğa
+katkıda bulunacak şekilde etkileşimde bulunmayı taahhüt ediyoruz.
 
-### Standartlar??m??z
+### Standartlarımız
 
-Olumlu bir ortam i??in davran????lar:
+Olumlu bir ortam için davranışlar:
 
-- Ba??kalar??na kar???? empati ve nezaket g??stermek
-- Farkl?? g??r????, bak???? a????s?? ve deneyimlere sayg??l?? olmak
-- Yap??c?? geri bildirim vermek ve zarif??e kabul etmek
-- Hatalar??m??zdan etkilenenlere kar???? sorumluluk almak ve ??z??r dilemek
-- Topluluk i??in en iyi olana odaklanmak
+- Başkalarına karşı empati ve nezaket göstermek
+- Farklı görüş, bakış açısı ve deneyimlere saygılı olmak
+- Yapıcı geri bildirim vermek ve zarifçe kabul etmek
+- Hatalarımızdan etkilenenlere karşı sorumluluk almak ve özür dilemek
+- Topluluk için en iyi olana odaklanmak
 
-Kabul edilemez davran????lar:
+Kabul edilemez davranışlar:
 
-- Cinsellik i??eren dil veya imgeler, istenmeyen cinsel ilgi veya yakla????mlar
-- Troll??k, hakaret i??eren yorumlar, ki??isel veya siyasi sald??r??lar
-- Genel veya ??zel taciz
-- Ba??kalar??n??n ??zel bilgilerini izinsiz yay??nlamak
-- Makul ??l????de uygunsuz say??labilecek di??er davran????lar
+- Cinsellik içeren dil veya imgeler, istenmeyen cinsel ilgi veya yaklaşımlar
+- Trollük, hakaret içeren yorumlar, kişisel veya siyasi saldırılar
+- Genel veya özel taciz
+- Başkalarının özel bilgilerini izinsiz yayınlamak
+- Makul ölçüde uygunsuz sayılabilecek diğer davranışlar
 
-### Uygulama Sorumluluklar??
+### Uygulama Sorumlulukları
 
-Proje bak??mc??lar??, standartlar??m??z?? netle??tirmek ve uygulamaktan sorumludur;
-uygunsuz, tehdit edici, sald??rgan veya zararl?? bulduklar?? davran????lara kar????
-uygun ve adil d??zeltici ??nlemler alacaklard??r.
+Proje bakımcıları, standartlarımızı netleştirmek ve uygulamaktan sorumludur;
+uygunsuz, tehdit edici, saldırgan veya zararlı buldukları davranışlara karşı
+uygun ve adil düzeltici önlemler alacaklardır.
 
 ### Kapsam
 
-Bu Davran???? Kurallar?? t??m topluluk alanlar??nda ge??erlidir ve bir birey toplulu??u
-resmi olarak kamusal alanlarda temsil ederken de uygulan??r.
+Bu Davranış Kuralları tüm topluluk alanlarında geçerlidir ve bir birey topluluğu
+resmi olarak kamusal alanlarda temsil ederken de uygulanır.
 
 ### Uygulama
 
-Taciz edici veya kabul edilemez davran???? ??rnekleri [ozcan@braveomega.com](mailto:ozcan@braveomega.com)
-adresinden proje bak??mc??s??na bildirilebilir. T??m ??ikayetler adil bir ??ekilde
-incelenecek ve soru??turulacakt??r.
+Taciz edici veya kabul edilemez davranış örnekleri [ozcan@braveomega.com](mailto:ozcan@braveomega.com)
+adresinden proje bakımcısına bildirilebilir. Tüm şikayetler adil bir şekilde
+incelenecek ve soruşturulacaktır.
 
-### At??f
+### Atıf
 
-Bu Davran???? Kurallar?? [Contributor Covenant](https://www.contributor-covenant.org)
-s??r??m 2.1'den uyarlanm????t??r. https://www.contributor-covenant.org/version/2/1/code_of_conduct.html
+Bu Davranış Kuralları [Contributor Covenant](https://www.contributor-covenant.org)
+sürüm 2.1'den uyarlanmıştır. https://www.contributor-covenant.org/version/2/1/code_of_conduct.html
 adresinde mevcuttur.

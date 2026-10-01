@@ -11,6 +11,14 @@ Detects:
   4. \uXXXX escape sequences inside HTML/JS that decode to mojibake characters
      (e.g. the escape for capital I-circumflex where a capital C-cedilla was
      meant; missed by byte-level scans)
+  5. Lossy non-ASCII flattening: a non-ASCII character replaced by literal '?'
+     characters, one per code unit (UTF-16 pass) or one per byte (UTF-8 pass).
+     This damage is invisible to checks 1-4 - the result is still valid UTF-8
+     with no U+FFFD and no mojibake signature - so it needs its own signature.
+     Two shapes are detectable without a hand-kept glyph list: a run of two or
+     more '?', and a single '?' welded between two word characters. Both are
+     suppressed inside fenced blocks, inline code spans and URLs, where '?' is
+     legitimately frequent (regex, ternary, query strings, C# nullable types).
 
 Usage: python Scripts/Mojibake-Scan.py [root]
 Scans the given directory recursively (default: repo root).
@@ -52,6 +60,28 @@ PATTERNS = [
 SUSPICIOUS_ESCAPES = {0x00C2, 0x00C3, 0x00C4, 0x00C5, 0x00CE}
 ESCAPE_RX = re.compile(r"\\u([0-9a-fA-F]{4})")
 
+# --- lossy non-ASCII flattening -------------------------------------------
+# A non-ASCII character turned into literal '?'. The count is the code unit
+# count under a UTF-16 pass (1 for BMP, 2 for astral, 3 with a variation
+# selector) or the byte count under a UTF-8 pass (2 for Turkish letters, 3 for
+# an em dash, 4 for an emoji). Neither count is ever a natural number of
+# question marks in prose, so the run itself is the signature.
+QUESTION_RUN_RX = re.compile(r"\?{2,}")
+
+# The single-'?' variant: a BMP character damaged by a UTF-16 pass leaves one
+# '?' standing where no question mark belongs - welded between two word
+# characters, the way the Turkish word below reads with its diacritics gone.
+# Written with escaped question marks so this file does not flag itself.
+QUESTION_GLUE_RX = re.compile(r"(?<=[^\W_])\?(?=[^\W_])", re.UNICODE)
+
+FENCE_RX = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
+CODE_SPAN_RX = re.compile(r"`+[^`\n]*`+")
+URL_RX = re.compile(r"(?:https?|ftp|mailto):[^\s)\]>'\"`]+|\]\([^)\s]*\)")
+# Query-string start: '?q=', '?output=chrome'. Policy templates carry URL
+# placeholders with no scheme ('{google:baseURL}search?q={searchTerms}'), so a
+# URL-only mask leaves every one of them flagged as glued '?'.
+QUERY_RX = re.compile(r"\?[A-Za-z_][A-Za-z0-9_]*=")
+
 
 def is_probably_text(b):
     if not b:
@@ -83,6 +113,59 @@ def scan_escapes(text):
             end = min(len(text), m.end() + 20)
             ctx = text[start:end].replace("\n", " ")
             hits.append((m.group(0), ctx))
+    return hits
+
+
+def code_mask(text):
+    """True where a '?' is legitimate: fenced blocks, code spans, URLs.
+
+    Fenced blocks are matched per line so an unterminated fence still masks to
+    end of file rather than swallowing the rest of the document.
+    """
+    mask = [False] * len(text)
+
+    def paint(a, b):
+        for i in range(max(0, a), min(len(text), b)):
+            mask[i] = True
+
+    for rx in (CODE_SPAN_RX, URL_RX, QUERY_RX):
+        for m in rx.finditer(text):
+            paint(*m.span())
+
+    fence = None
+    offset = 0
+    for line in text.split("\n"):
+        m = FENCE_RX.match(line)
+        if fence is None:
+            if m:
+                fence = m.group(1)
+                paint(offset, offset + len(line))
+        else:
+            paint(offset, offset + len(line))
+            if m and m.group(1)[0] == fence[0] and len(m.group(1)) >= len(fence):
+                fence = None
+        offset += len(line) + 1
+    return mask
+
+
+def scan_questions(text):
+    r"""Flags '?' runs and glued '?' - the lossy non-ASCII flattening signature.
+
+    Returns (category, run, line_number, column, context) tuples.
+    """
+    mask = code_mask(text)
+    hits = []
+    for category, rx in (("question-run", QUESTION_RUN_RX),
+                         ("question-glue", QUESTION_GLUE_RX)):
+        for m in rx.finditer(text):
+            if mask[m.start()]:
+                continue
+            line = text.count("\n", 0, m.start()) + 1
+            col = m.start() - (text.rfind("\n", 0, m.start()) + 1) + 1
+            start = max(0, m.start() - 40)
+            end = min(len(text), m.end() + 40)
+            ctx = text[start:end].replace("\n", " ").replace("\r", " ")
+            hits.append((category, m.group(0), line, col, ctx))
     return hits
 
 
@@ -122,6 +205,9 @@ def main():
                 for esc, ctx in scan_escapes(text):
                     findings.append((rel, "suspicious-escape",
                                      f"{esc} decodes to mojibake ctx=[...{ctx}...]"))
+            for cat, run, line, col, ctx in scan_questions(text):
+                findings.append((rel, cat,
+                                 f"L{line}:{col} {run!r} ctx=[...{ctx}...]"))
 
     print(f"scanned {nfiles} text files under {root}")
     if findings:
