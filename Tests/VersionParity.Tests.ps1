@@ -153,14 +153,10 @@ BeforeAll {
     # the same release set. Both are read as version lists and normalized so the
     # one naming variance in the tree - the root's three-part "v2.1.6" against
     # the wiki's four-part "v2.1.6.0" - compares equal instead of reading as a
-    # release that went missing.
-    function ConvertTo-FourPartVersion {
-        param([string]$Version)
-
-        if ($Version -notmatch '^v\d+(\.\d+){2,3}$') { return $null }
-        if ($Version -match '^v\d+\.\d+\.\d+\.\d+$') { return $Version }
-        return "$Version.0"
-    }
+    # release that went missing. The rule now lives in TestHelper.ps1, which the
+    # compatibility matrix check in VersionMatrix.Tests.ps1 uses for the same
+    # comparison; one definition, so the two cannot disagree about which spelling
+    # is canonical.
 
     function Get-ExtractedVersions {
         param([string]$Path, [string]$HeadingPattern)

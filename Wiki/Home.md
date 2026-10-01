@@ -28,104 +28,7 @@
 
 ---
 
-## 🦁 What is Brave Omega?
-
-**Brave Omega** is an open-source PowerShell automation project that hardens **Brave Browser** through **official enterprise policy channels**.
-
-Using **Windows Registry Group Policy architecture** and **Brave's official ADMX policy framework**, it systematically disables:
-
-- Telemetry & analytics services
-- Background pings & network calls
-- Integrated monetization features (Rewards, Wallet, VPN)
-- AI chat engines (Leo)
-- Web discovery & data contribution services
-- Attack surface components (Tor, Speedreader, Wayback Machine)
-
-**All without touching browser internals or requiring third-party tools.**
-
-> **Two scripts. One goal. Zero cost.**
->
-> - `BraveOmega.ps1` — Unified bilingual script (asks language on first launch)
-
----
-
-## ✨ Key Features
-
-| Feature | Description |
-| --------- | ------------- |
-| 🔒 **Multi-Layer Enforcement** | HKCU + HKLM + Omaha GUID — independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 151 policies (5 tiers, 24→51→83→123→151 chain), every entry sourced from Brave's official `policy_templates.zip` |
-| 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
-| 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
-| 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
-| 🛡️ **Brave Process Guard** | Detects running Brave instances, prompts continue/cancel |
-| 📊 **Execution Summary** | Per-category success/failure counters with transparent reporting |
-| 🌍 **Bilingual** | Full Turkish & English with identical functionality and parity |
-
----
-
-## 🎯 Current Version
-
-| Brave Omega | Brave Version | Chromium | Windows | Status |
-| ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.8.1.1** *(current)* | 1.96.59 | 154 | 11 25H2 | ✅ Current |
-| v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
-| v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
-| v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Previous |
-| v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Previous |
-| v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
-| v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Previous |
-| v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
-| v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
-| v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
-| v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | 📦 Previous |
-| v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | 📦 Previous |
-| v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | 📦 Previous |
-| v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
-| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
-| v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
-| v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | 📦 Previous |
-| v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | 📦 Previous |
-| v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | 📦 Previous |
-| v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
-| v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | 📦 Previous |
-| **v2.4.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
-| **v2.4.0.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
-| **v2.3.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Previous |
-| **v2.3.0.0** | 1.92.138 | 150 | 11 25H2 | 📦 Previous |
-| **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
-| **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
-| **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
-| **v2.2.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
-| **v2.1.6.0** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
-| **v2.1.5** | 1.92.134 | 150 | 11 25H2 | 📦 Previous |
-| **v2.1.4** | 1.91.180 | 149 | 11 25H2 | 📦 Previous |
-| **v2.1.3** | 1.91.178 | 149 | 11 25H2 | 📦 Previous |
-| v2.1.2 | 1.91.175 | 149 | 11 25H2 | 📦 Previous |
-| v2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
-| v2.0 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
-| v1.2.2 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
-| v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
-| v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Previous |
-| v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
-| v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
-
 > **Latest Release:** [v2.8.1.1 - ExpandString registry type reporting fix](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
-
-> 🧪 **Pester test suite** (169 It blocks across 21 files), PSScriptAnalyzer + policy integrity CI, and quality badges live since v2.1.6.0. See [Changelog](Changelog#v2160) for details.
-
----
-
-## 🚀 Quick Links
-
-- [📥 Download Latest Release](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
-- [📖 Full Documentation (README)](https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/README.md)
-- [📋 Policy Reference Table](Policy-Reference)
-- [🔧 Installation Guide](Installation)
-- [🔍 Troubleshooting](Troubleshooting)
-- [🗺️ Roadmap](Roadmap)
-- [🤝 Contributing](Contributing)
-- [📜 Changelog](Changelog)
 
 ---
 
@@ -137,11 +40,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 >
 > All registry modifications are performed at the user's own risk. Always verify backups, test in a non-production environment first, and review the source code before executing in any managed or enterprise setting.
 
----
-
 *Built with care. Maintained with purpose.* 🦁
-
----
 
 ---
 
@@ -172,102 +71,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 ---
 
-## 🦁 Brave Omega Nedir?
-
-**Brave Omega**, **Brave Browser**'ı **resmî kurumsal politika kanalları** aracılığıyla sıkılaştıran açık kaynaklı bir PowerShell özdevim projesidir.
-
-**Windows Kayıt Defteri Grup İlkesi mimarisi** ve **Brave'in resmî ADMX politika çerçevesi** kullanılarak sistematik biçimde devre dışı bırakılanlar:
-
-- Veri aktarımı (telemetri) ve analiz hizmetleri
-- Arka plan pingleri ve ağ çağrıları
-- Tümleşik para kazanma özellikleri (Rewards, Cüzdan, VPN)
-- Yapay zekâ sohbet motorları (Leo)
-- Web keşfi ve veri katkı hizmetleri
-- Saldırı yüzeyi bileşenleri (Tor, Speedreader, Wayback Machine)
-
-**Tümü, tarayıcının iç yapısına dokunmadan veya üçüncü taraf araç gerektirmeden.**
-
-> **İki betik. Tek hedef. Sıfır maliyet.**
->
-> - `BraveOmega.ps1` — Birleşik iki dilli betik (dili ilk açılışta sorar)
-
----
-
-## ✨ Temel Özellikler
-
-| Özellik | Açıklama |
-| --------- | ---------- |
-| 🔒 **Çok Katmanlı Uygulama** | HKCU + HKLM + Omaha GUID — bağımsız uygulama katmanları |
-| 📋 **ADMX Doğrulamalı Politikalar** | 151 politika (5 kademe, 24→51→83→123→151 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
-| 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
-| 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
-| 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
-| 🛡️ **Brave Süreç Koruyucusu** | Çalışan Brave örneklerini tespit eder, devam/iptal istemi gösterir |
-| 📊 **Yürütme Özeti** | Kategori bazında başarı/hata sayaçları ile şeffaf raporlama |
-| 🌍 **İki Dilli** | Birebir işlevselliğe sahip tam Türkçe ve İngilizce sürümler |
-
----
-
-## 🎯 Güncel Sürüm
-
-| Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
-| ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.8.1.1** *(güncel)* | 1.96.59 | 154 | 11 25H2 | ✅ Etkin |
-| v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
-| v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
-| v2.7.2.0 | 1.95.102 | 153 | 11 25H2 | 📦 Önceki |
-| v2.7.1.0 | 1.95.101 | 153 | 11 25H2 | 📦 Önceki |
-| v2.7.0.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |
-| v2.6.2.0 | 1.94.121 | 152 | 11 25H2 | 📦 Önceki |
-| v2.6.1.1 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
-| v2.6.1.0 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
-| v2.6.0.0 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
-| v2.5.5.4 | 1.94.117 | 152 | 11 25H2 | 📦 Önceki |
-| v2.5.5.3 | 1.93.138 | 151 | 11 25H2 | 📦 Önceki |
-| v2.5.5.2 | 1.93.136 | 151 | 11 25H2 | 📦 Önceki |
-| v2.5.5.1 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
-| v2.5.4.0 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
-| v2.5.3.0 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
-| v2.5.2.1 | 1.93.129 | 151 | 11 25H2 | 📦 Önceki |
-| v2.5.2.0 | 1.92.144 | 150 | 11 25H2 | 📦 Önceki |
-| v2.5.1.0 | 1.92.143 | 150 | 11 25H2 | 📦 Önceki |
-| v2.5.0.0 | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
-| v2.4.2.0 | 1.92.141 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.4.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.4.0.0** | 1.92.139 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.3.1.0** | 1.92.139 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.3.0.0** | 1.92.138 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.2.1.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.2.0.2** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.2.0.1** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.2.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.1.6.0** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.1.5** | 1.92.134 | 150 | 11 25H2 | 📦 Önceki |
-| **v2.1.4** | 1.91.180 | 149 | 11 25H2 | 📦 Önceki |
-| **v2.1.3** | 1.91.178 | 149 | 11 25H2 | 📦 Önceki |
-| v2.1.2 | 1.91.175 | 149 | 11 25H2 | 📦 Önceki |
-| v2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
-| v2.0 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
-| v1.2.2 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
-| v1.2.1 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
-| v1.2 | 1.91.172 | 149 | 11 25H2 | 📦 Önceki |
-| v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
-| v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
-
 > **Son Sürüm:** [v2.8.1.1 - ExpandString kayıt türü raporlama düzeltmesi](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
-
----
-
-## 🚀 Hızlı Bağlantılar
-
-- [📥 Son Sürümü İndir](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
-- [📖 Tam Belgeler (README)](https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/README.md)
-- [📋 Politika Başvuru Tablosu](Policy-Reference#-türkçe)
-- [🔧 Kurulum Kılavuzu](Installation#-türkçe)
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe)
-- [🗺️ Yol Haritası](Roadmap#-türkçe)
-- [🤝 Katkıda Bulunma](Contributing#-türkçe)
-- [📜 Değişiklik Günlüğü](Changelog#-türkçe)
 
 ---
 
@@ -278,7 +82,5 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 > Brave adı ve logosu, Brave Software, Inc.'in tescilli markalarıdır.
 >
 > Tüm kayıt defteri değişiklikleri kullanıcının kendi sorumluluğundadır. Yönetilen ya da kurumsal bir ortamda çalıştırmadan önce her zaman yedekleri doğrulayın, üretim dışı bir ortamda sınayın ve kaynak kodu inceleyin.
-
----
 
 *Özenle inşa edildi. Amaçla sürdürülüyor.* 🦁

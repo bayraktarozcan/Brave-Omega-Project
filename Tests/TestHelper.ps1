@@ -375,6 +375,24 @@ function Get-VariableRegex {
     return $null
 }
 
+# One release, two spellings. The root changelog writes v2.1.6 in three parts and
+# the wiki writes v2.1.6.0 in four, and the tree treats both as the same release
+# - the wiki changelog carries that four-part spelling in its own compatibility
+# table, so it is the wiki's spelling and not a second release.
+#
+# The rule lives here because two files now need it: VersionParity compares the
+# changelog pair, and VersionMatrix compares every compatibility table against the
+# changelog. A private copy in each would be free to disagree about which
+# spelling is canonical, and that disagreement is invisible - both copies would
+# keep passing while reporting a release that never went missing as one that did.
+function ConvertTo-FourPartVersion {
+    param([string]$Version)
+
+    if ($Version -notmatch '^v\d+(\.\d+){2,3}$') { return $null }
+    if ($Version -match '^v\d+\.\d+\.\d+\.\d+$') { return $Version }
+    return "$Version.0"
+}
+
 function New-MockBraveVersion {
     param(
         [string]$Version = "1.96.59",

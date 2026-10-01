@@ -20,7 +20,7 @@ Using **Windows Registry Group Policy architecture** and **Brave's official ADMX
 
 **All without touching browser internals or requiring third-party tools.**
 
-> **Two scripts. One goal. Zero cost.**
+> **One script. One goal. Zero cost.**
 >
 > - `BraveOmega.ps1` — Unified bilingual script (asks language on first launch)
 
@@ -107,6 +107,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 > **Latest Release:** [v2.8.1.1 - ExpandString registry type reporting fix](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
+> This matrix lists the Brave and Chromium version validated for each release. The [Changelog](Changelog) is the complete release history.
+
 ---
 
 ## Quick Links
@@ -157,7 +159,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 **Tümü, tarayıcının iç yapısına dokunmadan veya üçüncü taraf araç gerektirmeden.**
 
-> **İki betik. Tek hedef. Sıfır maliyet.**
+> **Tek betik. Tek hedef. Sıfır maliyet.**
 >
 > - `BraveOmega.ps1` — Birleşik iki dilli betik (dili ilk açılışta sorar)
 
@@ -243,6 +245,8 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
 > **Son Sürüm:** [v2.8.1.1 - ExpandString kayıt türü raporlama düzeltmesi](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+
+> Bu matris her sürüm için doğrulanan Brave ve Chromium sürümünü listeler. [Değişiklik Günlüğü](Changelog#-türkçe) eksiksiz sürüm geçmişidir.
 
 ---
 

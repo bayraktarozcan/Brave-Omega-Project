@@ -198,10 +198,10 @@ BRAVE OMEGA PROJECT/
 │   └── Brave.adml                    Brave ADML language resources
 └── Brave-Omega/
         BraveOmega.ps1             Unified bilingual script (EN/TR)
-└── Tests/                         Pester test suite (23 files)
+└── Tests/                         Pester test suite (28 files)
             FullPipeline.Tests.ps1          Unit + integration tests
             FullPipeline-TR.Tests.ps1       Unit + integration tests (TR)
-            └── *.Tests.ps1                  Phased policy tests (21 files)
+            └── *.Tests.ps1                  Phased policy tests (26 files)
 ```
 
 ---
