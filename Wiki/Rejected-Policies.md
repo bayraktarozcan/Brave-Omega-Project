@@ -1,3 +1,4 @@
+<a id="-english"></a>
 # Rejected & Removed Policies Database
 
 > **Brave Omega Project** — Community Edition
@@ -42,6 +43,7 @@
 ---
 
 ## Policies Removed from Production Code
+<a id="-turkce"></a>
 ## Üretim Kodundan Kaldırılan Politikalar
 
 ### 1. BraveShieldsDefault
