@@ -605,3 +605,215 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   other.
 
 <!-- mirror-sync: sync-sha=ed8cd187213b1c75c2307e63c749de28673983ad -->
+### Project Root Files and Dotfiles Reference
+
+**Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
+
+#### Terms
+
+| Term | Definition |
+|------|------------|
+| Dotfile | A file whose name begins with `.` |
+| Config file | A project/tool configuration file |
+| Metadata file | A file carrying information about the project or a tool |
+| Marker file | A file whose presence signals a specific behavior |
+| Sentinel file | A marker file that indicates a special state/operation |
+| Lock file | A file that pins dependencies or the resolution of versions |
+
+#### Git
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.git/` | The internal structure of the Git repository |
+| `.gitignore` | Specifies files/directories that Git must not track |
+| `.gitattributes` | Defines how Git treats specific files (line endings, diff, merge) |
+| `.gitmodules` | Defines Git submodules |
+| `.gitmailmap` | Maps author/contributor names/emails |
+| `.gitkeep` | Convention used to keep an otherwise empty directory tracked |
+| `.git/info/exclude` | Local-only (non-committed) exclusion rules |
+
+#### GitHub / Project Governance
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.github/` | GitHub configuration |
+| `.github/workflows/` | GitHub Actions workflows |
+| `CODEOWNERS` | Defines code owners |
+| `README.md` | Introduces the project |
+| `LICENSE`, `LICENCE` | License terms |
+| `CONTRIBUTING.md` | Contribution guidelines |
+| `CODE_OF_CONDUCT.md` | Code of conduct |
+| `SECURITY.md` | Security reporting process |
+| `CHANGELOG.md` | Version history / changes |
+
+#### General Configuration / Development
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.editorconfig` | Editor formatting/behavior rules |
+| `.vscode/` | VS Code project settings |
+| `.idea/` | JetBrains IDE settings |
+| `.devcontainer/` | Dev Container configuration |
+| `.env` | Environment variables (never committed) |
+| `.env.example` | Example environment configuration (placeholders only) |
+
+#### Containers
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `Dockerfile` | Docker image definition |
+| `.dockerignore` | Exclusions for Docker build context |
+| `compose.yml` | Docker Compose definition |
+
+#### CI/CD
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.gitlab-ci.yml` | GitLab CI/CD |
+| `Jenkinsfile` | Jenkins pipeline |
+| `azure-pipelines.yml` | Azure DevOps pipelines |
+| `.circleci/config.yml` | CircleCI configuration |
+| `.buildkite/` | Buildkite configuration |
+
+#### Node.js / JavaScript
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `package.json` | Project metadata and dependencies |
+| `package-lock.json` | Pins npm dependencies |
+| `.npmrc` | npm configuration |
+| `.npmignore` | Exclusions for npm publishing |
+| `yarn.lock` | Yarn dependency lock |
+| `pnpm-lock.yaml` | pnpm dependency lock |
+| `bun.lock` | Bun dependency lock |
+| `.nvmrc` | Node.js version pin |
+| `.eslintrc*` | ESLint configuration |
+| `.prettierrc*` | Prettier configuration |
+
+#### Python
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `pyproject.toml` | Project/tool configuration (PEP 621 and tooling) |
+| `requirements.txt` | Dependency list |
+| `requirements-dev.txt` | Development dependencies |
+| `Pipfile`, `Pipfile.lock` | Pipenv configuration/lock |
+| `poetry.lock` | Poetry lock |
+| `uv.lock` | uv lock |
+| `.python-version` | Python version pin |
+| `.flake8` | Flake8 configuration |
+| `.mypy.ini` | mypy configuration |
+| `pytest.ini` | pytest configuration |
+
+#### Java / JVM
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `pom.xml` | Maven project configuration |
+| `build.gradle` | Gradle build script |
+| `build.gradle.kts` | Gradle Kotlin DSL build script |
+| `settings.gradle*` | Gradle project settings |
+| `gradlew`, `gradlew.bat` | Gradle Wrapper |
+| `.mvn/` | Maven configuration |
+| `.gradle/` | Gradle local/cache data |
+
+#### .NET
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `*.sln` | Visual Studio solution |
+| `*.csproj` | C# project |
+| `*.fsproj` | F# project |
+| `*.vbproj` | VB.NET project |
+| `global.json` | .NET SDK version pin |
+| `NuGet.config` | NuGet configuration |
+| `Directory.Build.props` | Shared MSBuild properties |
+| `Directory.Build.targets` | Shared MSBuild targets |
+
+#### Rust
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `Cargo.toml` | Project and dependency definition |
+| `Cargo.lock` | Dependency lock |
+| `rust-toolchain*` | Rust toolchain specification |
+| `.rustfmt.toml` | rustfmt configuration |
+| `.cargo/` | Cargo configuration |
+
+#### Go
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `go.mod` | Go module definition |
+| `go.sum` | Dependency checksums/lock |
+| `go.work` | Go workspace (multi-module) |
+| `.golangci.yml` | golangci-lint configuration |
+| `.go-version` | Go version pin |
+
+#### Version / Tool Version Managers
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.nvmrc`, `.node-version` | Node.js version |
+| `.python-version` | Python version |
+| `.ruby-version` | Ruby version |
+| `.go-version` | Go version |
+| `.java-version` | Java version |
+| `.tool-versions` | Multi-tool version specification (asdf) |
+
+#### Code Quality / Formatting
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.prettierrc*` | Prettier configuration |
+| `.eslintrc*` | ESLint configuration |
+| `.stylelintrc*` | Stylelint configuration |
+| `.clang-format` | C/C++ formatting |
+| `.clang-tidy` | C/C++ static analysis |
+| `.editorconfig` | Shared editor rules |
+
+#### Build / Cache / Local Output
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `build/` | Build outputs |
+| `dist/` | Distribution outputs |
+| `target/` | Build outputs (Rust/Maven/other) |
+| `out/` | Build outputs |
+| `node_modules/` | Node.js dependencies |
+| `__pycache__/` | Python bytecode cache |
+| `.pytest_cache/` | pytest cache |
+| `.mypy_cache/` | mypy cache |
+| `coverage/` | Test coverage output |
+
+#### OS / Temporary Files
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.DS_Store` | macOS Finder metadata |
+| `Thumbs.db` | Windows thumbnail cache |
+| `desktop.ini` | Windows folder customization |
+| `*.swp`, `*.swo` | Vim swap files |
+| `*~` | Common editor backup files |
+
+#### Marker / Sentinel Files
+
+| File/Directory | Purpose |
+|---------------|---------|
+| `.gitkeep` | Convention to keep an empty directory tracked (not a Git standard) |
+| `.keep` | Directory/object preservation marker |
+| `.nomigrate`, `.no-migrate` | Prevent migration/tool processing |
+| `__dont.migrate__` | Tool-specific "do not migrate" marker (only meaningful to tools that read it) |
+| `.skip` | Tool-specific skip marker |
+| `.disabled` | Tool-specific disable marker |
+| `.lock` | Tool-specific lock/process marker |
+
+#### Key Distinctions
+
+- `.gitignore` — tells Git **what to ignore** (tracking).
+- `.gitattributes` — tells Git **how to treat files** (line endings, diff, merge).
+- `.gitkeep` — **not a Git standard**; it is a **convention** to keep empty directories tracked.
+- `__dont.migrate__` — **not a Git standard**; it carries meaning **only if the tool reading it interprets it**.
+- `.git/` — the **internal Git repository structure**, not a project config file.
+
+**Guiding rule:** "It looks special" ≠ "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
