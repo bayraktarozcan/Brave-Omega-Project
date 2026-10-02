@@ -77,6 +77,11 @@ $RECYCLE.BIN/
 .LSOverride
 ._*
 
+# The layer marker matches ._* at every depth, so it is re-included here: inside
+# a layer the directory rule keeps it ignored anyway, and outside one a copy has
+# to reach `git status` to be noticed at all.
+!._dont_migrate_
+
 # 6. CACHE, TEMP & NODE FILES / ÖNBELLEK, GEÇİCİ VE NODE DOSYALARI
 # ─────────────────────────────────────────────────────────────────────────────
 # [EN] Exclude npm/node dependency directories from the repository.

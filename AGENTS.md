@@ -64,7 +64,7 @@ Run from the repository root with Windows PowerShell 5.1:
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 312/312 passing
+Invoke-Pester Tests/ -PassThru          # expected: 317/317 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -127,6 +127,7 @@ Every task runs under one mandatory standard:
 | Pin against the upstream artifact, not against your own copy | A check whose oracle was written by the same hand as the subject agrees with itself and detects nothing | Policy conformance is verified against the vendor's own schema, so a drift the project could not have anticipated still fails the build instead of passing on a hand-kept list |
 | The gate that runs before CI runs the checks CI runs | A local approximation of a workflow is a run that can disagree with it, and the disagreement is only discovered after the push | `Scripts/Invoke-CI.ps1` executes the seven checks `.github/workflows/quality.yml` declares and `Tests/CI-Parity.Tests.ps1` fails when the two lists diverge in either direction, so a job added to the workflow and a check dropped from the gate both fail the build by name rather than one of them quietly disappearing |
 | Work inside the project, on a cadence you own | An assistant's scratch files belong to the project's own working tree, which version control does not track, and not to a system directory that something else empties on a timer | A file created for one task is removed when the task ends and the working tree as a whole is cleared on a defined cadence, because a scratch path emptied on a schedule you do not control can disappear between two steps of the same task, and because a scratch file left where a reviewer will find it has to be recognised as disposable before anyone can trust the tree |
+| A local-only layer announces itself to tooling, not only to Git | An ignore rule is read by exactly one program; a migration, sync, backup or publish tool walks the filesystem instead, so an ignore rule alone leaves the layer visible to every tool that has never heard of this repository's rules | The root of every directory Git ignores as a whole carries a `._dont_migrate_` file, so a tool that walks the tree skips the layer without having to understand the ignore rules; the marker is placed only in ignored directories, because a tracked directory carrying one would tell the same tooling to skip the product, and the check reads both directions so a misplaced marker cannot pass as either present or absent |
 
 A quiet total is good news: a well-ordered system runs without complaints — but silence never justifies skipping scheduled maintenance; it only means the defined cadence is working.
 
@@ -416,6 +417,7 @@ Repository management and dependency conventions, with their current state in th
 - **Auto-approve.** Only trusted usernames may be auto-approved: after passing status checks, logged, with minimal permissions (`contents: write`, `pull-requests: write`).
 - **Dependency pinning.** Runtime/build dependencies are locked to an exact version; dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot. Dependency types: **Runtime** (needed to run the app — e.g. flask, react), **Dev** (development-time only — e.g. pytest, eslint), **Build** (compile-time only — e.g. typescript, webpack).
 - **Hidden/guidance layers.** Local guidance and customization layers that must not mix into the live codebase are protected four ways: excluded in `.gitignore`, marked with a `._dont_migrate_` file so build/deploy tooling skips them, never referenced from committed output beyond `.gitignore` patterns, and never named or quoted in any other output — their existence and content stay inside the layer, the single exception being work the user explicitly directs inside that layer. This last protection is absolute: a private layer that leaks through a code comment, a doc, a commit message, or a chat reply is broken, however well-intentioned the mention.
+- **Layer marker placement.** The marker is mandatory at the root of every directory Git ignores as a whole, and forbidden everywhere else. A layer root is the ignored directory whose parent is not ignored, because that is the point at which a tool walking the tree decides to stop; a directory nested inside one is already covered by the marker above it, and a marker at every depth would only repeat what its parent already says. A layer is recognised mechanically rather than by a hand-kept list: `.gitignore` states it by anchoring the pattern to the repository root (`/Docs/`) or by prefixing it with `**/` (`**/Intelligence/`), so those two shapes name the layers the project deliberately created and the generic build-output patterns beside them — `node_modules/`, `coverage/`, `Backup/` — do not carry the obligation. `.idea/` is excluded by reason rather than by shape: it holds editor state the IDE rewrites on its own, not content this project routes there. The marker is deliberately re-included by a `!._dont_migrate_` rule rather than ignored, because `._*` already matches the name at every depth and would otherwise make a misplaced copy invisible to `git status` — the one place where the rule forbidding it has to be noticed. Inside a layer the directory rule keeps it ignored regardless, so the re-inclusion costs nothing there. `Tests/LayerMarkers.Tests.ps1` reads the filesystem in both directions to keep the placement honest.
 - **Layered references.** Reference material is layered by stability: universal/standard references update only when the authoritative standard behind them changes; project-specific guidance gets a project layer of its own — project overrides never rewrite the universal reference. Updates flow top-down only on a real change in the underlying standard.
 - **Layer dependency direction.** Hidden guidance layers are not a flat folder: dependencies run one way, from the most personal and least stable layer toward the most universal and most stable one. A universal reference never depends on personal context, and content is never copied back down. Content abstracted out of a personal layer is generalised into the universal layer and the original is then removed rather than kept in step, so the universal layer stays publishable while the personal layer stays private. That universal layer is `AGENTS.md` itself, so a separate general-reference layer is not kept alongside it.
 - **Layer onboarding order.** An assistant entering a project reads the hidden layers in a fixed order before it changes anything: personal context first, so the person and the working environment are understood; then working method and behaviour rules; then the project layer, which is the only layer the work itself writes into. Reading completes before scaffolding starts, and the project's own structure is read alongside the universal standard, never in place of it.
@@ -604,7 +606,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=48fe26efe886b3b41be7b243662edfde9ce31ee0 -->
+<!-- mirror-sync: sync-sha=bf553cf4c92bc757b43411f0bf7079e0e04425ff -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
@@ -814,6 +816,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 | `.gitkeep` | Convention to keep an empty directory tracked (not a Git standard) |
 | `.keep` | Directory/object preservation marker |
 | `.nomigrate`, `.no-migrate` | Prevent migration/tool processing |
+| `._dont_migrate_` | This repository's marker for a local-only layer; tooling that reads it skips the directory |
 | `.skip` | Tool-specific skip marker |
 | `.disabled` | Tool-specific disable marker |
 | `.lock` | Tool-specific lock/process marker |
@@ -823,6 +826,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.gitignore` — tells Git **what to ignore** (tracking).
 - `.gitattributes` — tells Git **how to treat files** (line endings, diff, merge).
 - `.gitkeep` — **not a Git standard**; it is a **convention** to keep empty directories tracked.
+- `._dont_migrate_` — **not a Git standard and not read by Git at all**; it is the signal a tool receives from walking the tree, and it carries meaning **only if the reader interprets it**.
 - `.git/` — the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" ≠ "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
