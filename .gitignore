@@ -197,3 +197,5 @@ AGENTS-TR.md
 #     sessizce yutar. Bu dizinin adı asla commit edilen çıktıya yazılmaz ve
 #     sürüm kontrolündeki hiçbir dosya içindeki bir dosyaya atıf yapamaz.
 /Work/
+# Windows system files
+desktop.ini

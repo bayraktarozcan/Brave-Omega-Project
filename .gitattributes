@@ -1,3 +1,28 @@
-# Force LF on YAML for deterministic CI on both mirror instances.
-*.yml text eol=lf
+# EditorConfig-aligned text handling (LF by default)
+* text=auto eol=lf
+
+# PowerShell (UTF-8 BOM intentionally preserved by Git in some cases; files are UTF-8 BOM)
+*.ps1  text eol=lf
+*.psm1 text eol=lf
+*.psd1 text eol=lf
+
+# Markup, data
+*.md   text eol=lf
+*.json text eol=lf
+*.xml  text eol=lf
+
+# Windows registry/templates
+*.reg  text eol=crlf
+
+# ADMX/ADML
+*.admx text eol=lf
+*.adml text eol=lf
+
+# YAML (deterministic for CI)
+*.yml  text eol=lf
 *.yaml text eol=lf
+
+# Shell/CLI
+*.sh   text eol=lf
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
