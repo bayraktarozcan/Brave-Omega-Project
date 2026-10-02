@@ -199,7 +199,13 @@ pester-tests:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
-    - apt-get update && apt-get install -y --no-install-recommends git ca-certificates
+    # git: the regression suite reads its oracle out of history, and GIT_DEPTH 0
+    #      is not enough on its own - the runner has to have a git to run.
+    # python3: Tests/MojibakeScan.Tests.ps1 exercises Scripts/Mojibake-Scan.py
+    #      through a real interpreter and throws rather than skipping when none
+    #      is found. The PowerShell image carries no python, so the suite is
+    #      installed here instead of being made to pass by going quiet.
+    - apt-get update && apt-get install -y --no-install-recommends git ca-certificates python3
     - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name Pester -RequiredVersion ${PESTER_VERSION} -Force -SkipPublisherCheck"
   script:
     - |
