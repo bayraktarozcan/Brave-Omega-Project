@@ -27,8 +27,16 @@ jobs:
           # file:// = author-machine absolute paths, never valid in CI
           # support.brave.app = Zendesk blocks bots with 403, human browsers work
           # chrome-policies = vendored Chromium reference full of example URLs
+          # --host-concurrency / --host-request-interval = lychee defaults to 10
+          #   simultaneous requests per host. This side is unaffected because the
+          #   action passes github.token, the GitLab runner is not, and an
+          #   anonymous burst at github.com is answered with 503. Both hosts run
+          #   the same lychee version with the same values so they cannot drift
+          #   into checking different things.
           args: >-
-            --no-progress --verbose --max-retries 2 --exclude '^file://'
+            --no-progress --verbose --max-retries 2 --retry-wait-time 5
+            --host-concurrency 2 --host-request-interval 500ms
+            --exclude '^file://'
             --exclude 'support\.brave\.app' --exclude-path 'chrome-policies'
             './**/*.md'
           fail: true

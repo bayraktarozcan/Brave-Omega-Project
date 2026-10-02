@@ -45,6 +45,7 @@ stages:
   - scan
   - validate
   - test
+  - links
   - deploy
 
 # ------------------------------------------------------------------ scan
@@ -64,8 +65,8 @@ secret-scan:
     - cd "$CI_PROJECT_DIR" && /tmp/gitleaks git --redact --exit-code 1
 
 # -------------------------------------------------------------- validate
-# Mirrors of .github/workflows/quality.yml, admx-validate.yml,
-# version-check.yml and link-check.yml.
+# Mirrors of .github/workflows/quality.yml, admx-validate.yml and
+# version-check.yml.
 
 markdown-lint:
   stage: validate
@@ -145,21 +146,6 @@ hygiene:
     - cd /tmp && grep "actionlint_${ACTIONLINT_VERSION#v}_linux_amd64.tar.gz" "actionlint_${ACTIONLINT_VERSION#v}_checksums.txt" | sha256sum --check --strict && tar -xzf "actionlint_${ACTIONLINT_VERSION#v}_linux_amd64.tar.gz"
   script:
     - cd "$CI_PROJECT_DIR" && /tmp/actionlint
-
-link-check:
-  stage: validate
-  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "push"'
-      changes: ["**/*.md"]
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-  before_script:
-    - apk add --no-cache git curl tar coreutils
-    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-musl.tar.gz "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-musl.tar.gz"
-    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-musl.tar.gz.sha256 "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-musl.tar.gz.sha256"
-    - cd /tmp && sha256sum --check --strict lychee-x86_64-unknown-linux-musl.tar.gz.sha256 && tar -xzf lychee-x86_64-unknown-linux-musl.tar.gz && mv /tmp/lychee-x86_64-unknown-linux-musl/lychee /tmp/lychee
-  script:
-    - cd "$CI_PROJECT_DIR" && /tmp/lychee --no-progress --verbose --max-retries 2 --exclude '^file://' --exclude 'support\.brave\.app' --exclude-path 'chrome-policies' './**/*.md'
 
 admx-validate:
   stage: validate
@@ -265,6 +251,49 @@ utf8-integrity:
     # whole toolchain here. No install step, and the run line is identical to
     # the GitHub one - a gate that differs by a pin is not the same gate.
     - python3 Scripts/Mojibake-Scan.py .
+
+# ------------------------------------------------------------------- links
+# Mirror of .github/workflows/link-check.yml.
+#
+# This stage sits after `test` on purpose. Every link in the check is fetched
+# from a third party, so a rate limit or an outage on someone else's host is a
+# fact about the network, not about this repository. While the job ran in
+# `validate` it was the last one in that stage, and a 503 from github.com was
+# therefore enough to skip pester-tests, policy-integrity, utf8-integrity and
+# ps-script-analyzer: the gates that answer "is the code correct" never ran and
+# the pipeline reported only "a link did not answer". The gate itself is
+# unchanged - a broken link still fails the pipeline and still stops `deploy`.
+
+link-check:
+  stage: links
+  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      changes: ["**/*.md"]
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - apk add --no-cache git curl tar coreutils
+    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-musl.tar.gz "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-musl.tar.gz"
+    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-musl.tar.gz.sha256 "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-musl.tar.gz.sha256"
+    - cd /tmp && sha256sum --check --strict lychee-x86_64-unknown-linux-musl.tar.gz.sha256 && tar -xzf lychee-x86_64-unknown-linux-musl.tar.gz && mv /tmp/lychee-x86_64-unknown-linux-musl/lychee /tmp/lychee
+  script:
+    # lychee sends 10 simultaneous requests to one host by default. GitHub
+    # Actions never sees that on github.com because lychee-action hands lychee
+    # github.token, and a GitLab runner has no token to hand over; a burst of
+    # anonymous requests from a shared runner is what github.com answers with
+    # 503. The rate is lowered to what an anonymous client is expected to send,
+    # and a throttled answer is retried after a real pause rather than the 1s
+    # default. Identical lychee version and identical arguments to the GitHub
+    # workflow, so the two hosts cannot drift into checking different things.
+    - |
+      cd "$CI_PROJECT_DIR"
+      /tmp/lychee \
+        --no-progress --verbose \
+        --max-retries 2 --retry-wait-time 5 \
+        --host-concurrency 2 --host-request-interval 500ms \
+        --exclude '^file://' --exclude 'support\.brave\.app' \
+        --exclude-path 'chrome-policies' \
+        './**/*.md'
 
 # ------------------------------------------------------------------ deploy
 # Mirror of .github/workflows/pages.yml via GitLab Pages.
