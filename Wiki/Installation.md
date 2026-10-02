@@ -26,7 +26,7 @@ Complete installation guide for Brave Omega v2.8.1.1 (Brave 1.96.59 / Chromium 1
 - [ ] Windows 11 installed and updated
 - [ ] Brave Browser **latest stable** installed ([brave.com/download](https://brave.com/download))
 - [ ] Brave version verified at [brave.com/latest](https://brave.com/latest)
-- [ ] Version matches [Compatibility Matrix](Version-Compatibility-Matrix)
+- [ ] Version matches [Compatibility Matrix](Version-Compatibility-Matrix.md)
 - [ ] Administrator account available
 
 > ⚠️ **Critical:** Always run against the **latest stable Brave release**. Beta/Nightly builds may have unstable ADMX behavior.
@@ -168,7 +168,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 | "CRITICAL ERROR" on launch | Not running as Admin | Right-click PowerShell → **Run as Administrator** |
 | Script fails with `[ERROR]` | HKLM permission issue | Confirm Administrator mode; re-run |
 | `brave://policy` shows no policies | Brave not restarted | Close **all** Brave windows and reopen |
-| "Unknown" policy in `brave://policy` | Version mismatch | Verify Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix) |
+| "Unknown" policy in `brave://policy` | Version mismatch | Verify Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix.md) |
 | `reg export` fails | Restricted HKLM ACL | Run `regedit` → inspect path → check ACL entries |
 
 ---
@@ -208,11 +208,11 @@ BRAVE OMEGA PROJECT/
 
 ## Related Pages
 
-- [🚀 Quick Start](Quick-Start) — One-line execution
-- [🏗️ Architecture](Architecture) — Three-tier model
-- [📋 Policy Reference](Policy-Reference) — Complete policy table
-- [🛡️ Security](Security) — Safety model
-- [🔍 Troubleshooting](Troubleshooting) — Common issues
+- [🚀 Quick Start](Quick-Start.md) — One-line execution
+- [🏗️ Architecture](Architecture.md) — Three-tier model
+- [📋 Policy Reference](Policy-Reference.md) — Complete policy table
+- [🛡️ Security](Security.md) — Safety model
+- [🔍 Troubleshooting](Troubleshooting.md) — Common issues
 
 ---
 
@@ -243,7 +243,7 @@ Brave Omega v2.8.1.1 için tam kurulum kılavuzu (Brave 1.96.59 / Chromium 154.0
 - [ ] Windows 11 yüklü ve güncel
 - [ ] Brave Browser **en güncel kararlı** sürümü yüklü ([brave.com/download](https://brave.com/download))
 - [ ] Brave sürümü [brave.com/latest](https://brave.com/latest) adresinde doğrulandı
-- [ ] Sürüm, [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile eşleşiyor
+- [ ] Sürüm, [Uyumluluk Matrisi](Version-Compatibility-Matrix.md#-türkçe) ile eşleşiyor
 - [ ] Yönetici hesabı mevcut
 
 > ⚠️ **Kritik:** Her zaman **en güncel kararlı Brave sürümüne** karşı çalıştırın. Beta/Nightly derlemeleri kararsız ADMX davranışına sahip olabilir.
@@ -384,7 +384,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 | Başlatmada "KRİTİK HATA" | Yönetici olarak çalışmıyor | PowerShell'e sağ tıkla → **Yönetici olarak çalıştır** |
 | Betik `[HATA]` ile başarısız | HKLM izin sorunu | Yönetici modunu doğrula; yeniden çalıştır |
 | `brave://policy` politika göstermiyor | Brave yeniden başlatılmadı | **Tüm** Brave pencerelerini kapat ve yeniden aç |
-| `brave://policy`'de "Bilinmiyor" politikası | Sürüm uyuşmazlığı | Brave sürümünün [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile eşleştiğini doğrula |
+| `brave://policy`'de "Bilinmiyor" politikası | Sürüm uyuşmazlığı | Brave sürümünün [Uyumluluk Matrisi](Version-Compatibility-Matrix.md#-türkçe) ile eşleştiğini doğrula |
 | `reg export` başarısız | Kısıtlı HKLM ACL | `regedit` çalıştır → yolu incele → ACL girdilerini kontrol et |
 
 ---
@@ -424,8 +424,8 @@ BRAVE OMEGA PROJECT/
 
 ## İlgili Sayfalar
 
-- [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) — Tek satırda çalıştırma
-- [🏗️ Mimari](Architecture#-türkçe) — Üç katmanlı model
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Tam politika tablosu
-- [🛡️ Güvenlik](Security#-türkçe) — Güvenlik modeli
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe) — Sık karşılaşılan sorunlar
+- [🚀 Hızlı Başlangıç](Quick-Start.md#-türkçe) — Tek satırda çalıştırma
+- [🏗️ Mimari](Architecture.md#-türkçe) — Üç katmanlı model
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe) — Tam politika tablosu
+- [🛡️ Güvenlik](Security.md#-türkçe) — Güvenlik modeli
+- [🔍 Sorun Giderme](Troubleshooting.md#-türkçe) — Sık karşılaşılan sorunlar

@@ -243,10 +243,10 @@ Tier counts (v2.4.1.0): BraveOnly 24 / Essential 28 / Balanced 31 / Advanced 21 
 
 ## Related Pages
 
-- [🤝 Contributing](Contributing) — How to contribute
-- [📜 Changelog](Changelog) — Full version history
-- [📋 Policy Reference](Policy-Reference) — Current policy set
-- [🔧 Installation](Installation) — Current version install
+- [🤝 Contributing](Contributing.md) — How to contribute
+- [📜 Changelog](Changelog.md) — Full version history
+- [📋 Policy Reference](Policy-Reference.md) — Current policy set
+- [🔧 Installation](Installation.md) — Current version install
 
 ---
 
@@ -457,7 +457,7 @@ Katman sayıları (v2.4.1.0): Brave Yalnız 24 / Temel 28 / Dengeli 31 / Gelişm
 
 ## İlgili Sayfalar
 
-- [🤝 Katkıda Bulunma](Contributing#-türkçe) — Nasıl katkıda bulunulur
-- [📜 Değişiklik Günlüğü](Changelog#-türkçe) — Tam sürüm geçmişi
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Güncel politika seti
-- [🔧 Kurulum](Installation#-türkçe) — Güncel sürüm kurulumu
+- [🤝 Katkıda Bulunma](Contributing.md#-türkçe) — Nasıl katkıda bulunulur
+- [📜 Değişiklik Günlüğü](Changelog.md#-türkçe) — Tam sürüm geçmişi
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe) — Güncel politika seti
+- [🔧 Kurulum](Installation.md#-türkçe) — Güncel sürüm kurulumu

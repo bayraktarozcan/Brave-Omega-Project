@@ -15,16 +15,16 @@
 
 | Section | Description |
 | --------- | ------------- |
-| [🏠 Overview](Overview) | What is Brave Omega, why it exists, key concepts |
-| [🚀 Quick Start](Quick-Start) | Get running in 3 minutes |
-| [🏗️ Architecture](Architecture) | Multi-layer enforcement model, policy sources |
-| [📋 Policy Reference](Policy-Reference) | Complete 151-policy registry reference |
-| [🔧 Installation](Installation) | Prerequisites, execution policy, step-by-step |
-| [🛡️ Security](Security) | Safety model, backup/rollback, process guard |
-| [🔍 Troubleshooting](Troubleshooting) | Common issues and solutions |
-| [🗺️ Roadmap](Roadmap) | Planned features and milestones |
-| [🤝 Contributing](Contributing) | How to contribute, PR guidelines |
-| [📜 Changelog](Changelog) | Version history and migration notes |
+| [🏠 Overview](Overview.md) | What is Brave Omega, why it exists, key concepts |
+| [🚀 Quick Start](Quick-Start.md) | Get running in 3 minutes |
+| [🏗️ Architecture](Architecture.md) | Multi-layer enforcement model, policy sources |
+| [📋 Policy Reference](Policy-Reference.md) | Complete 151-policy registry reference |
+| [🔧 Installation](Installation.md) | Prerequisites, execution policy, step-by-step |
+| [🛡️ Security](Security.md) | Safety model, backup/rollback, process guard |
+| [🔍 Troubleshooting](Troubleshooting.md) | Common issues and solutions |
+| [🗺️ Roadmap](Roadmap.md) | Planned features and milestones |
+| [🤝 Contributing](Contributing.md) | How to contribute, PR guidelines |
+| [📜 Changelog](Changelog.md) | Version history and migration notes |
 
 ---
 
@@ -58,16 +58,16 @@
 
 | Bölüm | Açıklama |
 | ------- | ---------- |
-| [🏠 Genel Bakış](Overview#-türkçe) | Brave Omega nedir, neden var, temel kavramlar |
-| [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) | 3 dakikada çalıştırma |
-| [🏗️ Mimari](Architecture#-türkçe) | Çok katmanlı uygulama modeli, politika kaynakları |
-| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 151 politikalık kayıt defteri başvuru tablosu |
-| [🔧 Kurulum](Installation#-türkçe) | Ön gereksinimler, çalıştırma ilkesi, adım adım |
-| [🛡️ Güvenlik](Security#-türkçe) | Güvenlik modeli, yedekleme/geri alma, süreç koruyucu |
-| [🔍 Sorun Giderme](Troubleshooting#-türkçe) | Sık karşılaşılan sorunlar ve çözümleri |
-| [🗺️ Yol Haritası](Roadmap#-türkçe) | Planlanan özellikler ve kilometre taşları |
-| [🤝 Katkıda Bulunma](Contributing#-türkçe) | Nasıl katkıda bulunulur, PR yönergeleri |
-| [📜 Değişiklik Günlüğü](Changelog#-türkçe) | Sürüm geçmişi ve geçiş notları |
+| [🏠 Genel Bakış](Overview.md#-türkçe) | Brave Omega nedir, neden var, temel kavramlar |
+| [🚀 Hızlı Başlangıç](Quick-Start.md#-türkçe) | 3 dakikada çalıştırma |
+| [🏗️ Mimari](Architecture.md#-türkçe) | Çok katmanlı uygulama modeli, politika kaynakları |
+| [📋 Politika Başvurusu](Policy-Reference.md#-türkçe) | 151 politikalık kayıt defteri başvuru tablosu |
+| [🔧 Kurulum](Installation.md#-türkçe) | Ön gereksinimler, çalıştırma ilkesi, adım adım |
+| [🛡️ Güvenlik](Security.md#-türkçe) | Güvenlik modeli, yedekleme/geri alma, süreç koruyucu |
+| [🔍 Sorun Giderme](Troubleshooting.md#-türkçe) | Sık karşılaşılan sorunlar ve çözümleri |
+| [🗺️ Yol Haritası](Roadmap.md#-türkçe) | Planlanan özellikler ve kilometre taşları |
+| [🤝 Katkıda Bulunma](Contributing.md#-türkçe) | Nasıl katkıda bulunulur, PR yönergeleri |
+| [📜 Değişiklik Günlüğü](Changelog.md#-türkçe) | Sürüm geçmişi ve geçiş notları |
 
 ---
 

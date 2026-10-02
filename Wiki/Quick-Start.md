@@ -141,16 +141,16 @@ The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.
 | "CRITICAL ERROR" on launch | Right-click PowerShell → **Run as Administrator** |
 | No policies in `brave://policy` | Close **all** Brave windows and reopen |
 | `[ERROR]` in output | Confirm Administrator mode; re-run |
-| "Unknown" policy in `brave://policy` | Verify Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix) |
+| "Unknown" policy in `brave://policy` | Verify Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix.md) |
 
 ---
 
 ## Next Steps
 
-- [📖 Full Installation Guide](Installation)
-- [🏗️ Architecture Overview](Architecture)
-- [📋 Policy Reference](Policy-Reference)
-- [🛡️ Security Model](Security)
+- [📖 Full Installation Guide](Installation.md)
+- [🏗️ Architecture Overview](Architecture.md)
+- [📋 Policy Reference](Policy-Reference.md)
+- [🛡️ Security Model](Security.md)
 
 ---
 
@@ -296,13 +296,13 @@ Yedek dosyası zaman damgasıyla adlandırılır (ör. `BraveOmega_HKLM_20260613
 | Başlatmada "KRİTİK HATA" | PowerShell'e sağ tıkla → **Yönetici olarak çalıştır** |
 | `brave://policy`'de politika yok | **Tüm** Brave pencerelerini kapat ve yeniden aç |
 | Çıktıda `[HATA]` satırları | Yönetici modunu doğrula; yeniden çalıştır |
-| `brave://policy`'de "Bilinmiyor" politikası | Brave sürümünün [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile eşleştiğini doğrula |
+| `brave://policy`'de "Bilinmiyor" politikası | Brave sürümünün [Uyumluluk Matrisi](Version-Compatibility-Matrix.md#-türkçe) ile eşleştiğini doğrula |
 
 ---
 
 ## Sonraki Adımlar
 
-- [📖 Tam Kurulum Kılavuzu](Installation#-türkçe)
-- [🏗️ Mimari Genel Bakış](Architecture#-türkçe)
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe)
-- [🛡️ Güvenlik Modeli](Security#-türkçe)
+- [📖 Tam Kurulum Kılavuzu](Installation.md#-türkçe)
+- [🏗️ Mimari Genel Bakış](Architecture.md#-türkçe)
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe)
+- [🛡️ Güvenlik Modeli](Security.md#-türkçe)

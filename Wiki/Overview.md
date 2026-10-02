@@ -107,7 +107,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 > **Latest Release:** [v2.8.1.1 - ExpandString registry type reporting fix](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
-> This matrix lists the Brave and Chromium version validated for each release. The [Changelog](Changelog) is the complete release history.
+> This matrix lists the Brave and Chromium version validated for each release. The [Changelog](Changelog.md) is the complete release history.
 
 ---
 
@@ -115,12 +115,12 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 - [📥 Latest Release](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 - [📖 Main README](https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/README.md)
-- [📋 Policy Reference](Policy-Reference)
-- [🔧 Installation](Installation)
-- [🔍 Troubleshooting](Troubleshooting)
-- [🗺️ Roadmap](Roadmap)
-- [🤝 Contributing](Contributing)
-- [📜 Changelog](Changelog)
+- [📋 Policy Reference](Policy-Reference.md)
+- [🔧 Installation](Installation.md)
+- [🔍 Troubleshooting](Troubleshooting.md)
+- [🗺️ Roadmap](Roadmap.md)
+- [🤝 Contributing](Contributing.md)
+- [📜 Changelog](Changelog.md)
 
 ---
 
@@ -246,7 +246,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 > **Son Sürüm:** [v2.8.1.1 - ExpandString kayıt türü raporlama düzeltmesi](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
-> Bu matris her sürüm için doğrulanan Brave ve Chromium sürümünü listeler. [Değişiklik Günlüğü](Changelog#-türkçe) eksiksiz sürüm geçmişidir.
+> Bu matris her sürüm için doğrulanan Brave ve Chromium sürümünü listeler. [Değişiklik Günlüğü](Changelog.md#-türkçe) eksiksiz sürüm geçmişidir.
 
 ---
 
@@ -254,12 +254,12 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 - [📥 Son Sürüm](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 - [📖 Ana README](https://github.com/bayraktarozcan/Brave-Omega-Project/blob/main/README.md)
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe)
-- [🔧 Kurulum](Installation#-türkçe)
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe)
-- [🗺️ Yol Haritası](Roadmap#-türkçe)
-- [🤝 Katkıda Bulunma](Contributing#-türkçe)
-- [📜 Değişiklik Günlüğü](Changelog#-türkçe)
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe)
+- [🔧 Kurulum](Installation.md#-türkçe)
+- [🔍 Sorun Giderme](Troubleshooting.md#-türkçe)
+- [🗺️ Yol Haritası](Roadmap.md#-türkçe)
+- [🤝 Katkıda Bulunma](Contributing.md#-türkçe)
+- [📜 Değişiklik Günlüğü](Changelog.md#-türkçe)
 
 ---
 

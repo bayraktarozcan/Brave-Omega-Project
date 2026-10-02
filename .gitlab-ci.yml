@@ -285,14 +285,26 @@ link-check:
     # and a throttled answer is retried after a real pause rather than the 1s
     # default. Identical lychee version and identical arguments to the GitHub
     # workflow, so the two hosts cannot drift into checking different things.
+    #
+    # One exclusion is left, and it is the one still justified by evidence:
+    # support.brave.app = Zendesk blocks bots with 403, a human browser works.
+    # '^file://' and --exclude-path 'chrome-policies' were removed after being
+    # measured rather than trusted: lychee rewrites every relative Markdown link
+    # into a file:// URL, so '^file://' was excluding every internal link in the
+    # repository - 643 of 807 links in one run - not author-machine paths, and
+    # 'chrome-policies' matched no tracked path at all. Removing it exposed 142
+    # broken internal links, all of them fixed in the same commit.
+    #
+    # What this check cannot see: link fragments. lychee 0.24.2 resolves the
+    # target file and stops there, so an anchor matching no heading passes as OK.
+    # Fragments stay a human read.
     - |
       cd "$CI_PROJECT_DIR"
       /tmp/lychee \
         --no-progress --verbose \
         --max-retries 2 --retry-wait-time 5 \
         --host-concurrency 2 --host-request-interval 500ms \
-        --exclude '^file://' --exclude 'support\.brave\.app' \
-        --exclude-path 'chrome-policies' \
+        --exclude 'support\.brave\.app' \
         './**/*.md'
 
 # ------------------------------------------------------------------ deploy

@@ -24,9 +24,21 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          # file:// = author-machine absolute paths, never valid in CI
-          # support.brave.app = Zendesk blocks bots with 403, human browsers work
-          # chrome-policies = vendored Chromium reference full of example URLs
+          # One exclusion is left, and it is the one still justified by evidence:
+          # support.brave.app = Zendesk blocks bots with 403, a human browser works.
+          #
+          # '^file://' and --exclude-path 'chrome-policies' were removed after
+          # being measured rather than trusted. lychee rewrites every relative
+          # Markdown link into a file:// URL, so '^file://' was not excluding
+          # author-machine paths - it was excluding every internal link in the
+          # repository, 643 of 807 links in one run, behind a reason that no
+          # tracked file matches. 'chrome-policies' matched no tracked path at all.
+          #
+          # What this check cannot see: link fragments. lychee 0.24.2 resolves the
+          # target file and stops there, so an anchor matching no heading passes
+          # as OK (verified by planting a bogus anchor and watching it pass).
+          # Fragments stay a human read.
+          #
           # --host-concurrency / --host-request-interval = lychee defaults to 10
           #   simultaneous requests per host. This side is unaffected because the
           #   action passes github.token, the GitLab runner is not, and an
@@ -36,7 +48,6 @@ jobs:
           args: >-
             --no-progress --verbose --max-retries 2 --retry-wait-time 5
             --host-concurrency 2 --host-request-interval 500ms
-            --exclude '^file://'
-            --exclude 'support\.brave\.app' --exclude-path 'chrome-policies'
+            --exclude 'support\.brave\.app'
             './**/*.md'
           fail: true

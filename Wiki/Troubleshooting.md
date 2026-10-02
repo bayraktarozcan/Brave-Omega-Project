@@ -17,7 +17,7 @@ Quick-reference guide for common Brave Omega issues.
 | `brave://policy` shows **no policies** | Brave not restarted | Close **all** Brave windows and reopen |
 | `[ERROR]` lines in output | HKLM permission issue | Confirm Admin mode; re-run |
 | Brave overwrites HKCU prefs | Brave was open during run | Close Brave first; re-run |
-| Policy shows "Unknown" in `brave://policy` | Version mismatch | Verify Brave version vs [Compatibility Matrix](Version-Compatibility-Matrix) |
+| Policy shows "Unknown" in `brave://policy` | Version mismatch | Verify Brave version vs [Compatibility Matrix](Version-Compatibility-Matrix.md) |
 | `reg export` fails at backup | Restricted HKLM ACL | Run `regedit` → inspect path → check ACL |
 | Script hangs / no output | Brave process detection | Close Brave manually, re-run |
 | `-Reset` doesn't remove all policies | Brave was running | Close Brave completely, re-run `-Reset` |
@@ -96,7 +96,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 **Resolution:**
 
 1. Check Brave version: `brave://version`
-2. Check [Compatibility Matrix](Version-Compatibility-Matrix) for your Brave Omega version
+2. Check [Compatibility Matrix](Version-Compatibility-Matrix.md) for your Brave Omega version
 3. If Brave newer than matrix: Check [Releases](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) for updated Brave Omega
 4. If Brave older: Update Brave to latest stable
 
@@ -246,11 +246,11 @@ If issue persists:
 
 ## Related Pages
 
-- [🔧 Installation](Installation) — Step-by-step guide
-- [🏗️ Architecture](Architecture) — Understanding the tiers
-- [📋 Policy Reference](Policy-Reference) — What each policy does
-- [🛡️ Security](Security) — Safety model
-- [🗺️ Roadmap](Roadmap) — Planned improvements
+- [🔧 Installation](Installation.md) — Step-by-step guide
+- [🏗️ Architecture](Architecture.md) — Understanding the tiers
+- [📋 Policy Reference](Policy-Reference.md) — What each policy does
+- [🛡️ Security](Security.md) — Safety model
+- [🗺️ Roadmap](Roadmap.md) — Planned improvements
 
 ---
 
@@ -272,7 +272,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 | `brave://policy` **politika göstermiyor** | Brave yeniden başlatılmadı | **Tüm** Brave pencerelerini kapat ve yeniden aç |
 | Çıktıda `[HATA]` satırları | HKLM izin sorunu | Yönetici modunu doğrula; yeniden çalıştır |
 | Brave HKCU tercihlerini üzerine yazıyor | Çalışma sırasında Brave açıktı | Önce Brave'i kapat; yeniden çalıştır |
-| `brave://policy`'de "Bilinmiyor" politikası | Sürüm uyuşmazlığı | Brave sürümünü [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile karşılaştır |
+| `brave://policy`'de "Bilinmiyor" politikası | Sürüm uyuşmazlığı | Brave sürümünü [Uyumluluk Matrisi](Version-Compatibility-Matrix.md#-türkçe) ile karşılaştır |
 | Yedeklemede `reg export` başarısız | Kısıtlı HKLM ACL | `regedit` çalıştır → yolu incele → ACL'i kontrol et |
 | Betik takılıyor / çıktı yok | Brave süreç tespiti | Brave'i manuel kapat, `-Force` ile yeniden çalıştır |
 | `-Reset` tüm politikaları kaldırmıyor | Brave çalışıyordu | Brave'i tamamen kapatın, `-Reset`'i yeniden çalıştırın |
@@ -349,7 +349,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
 **Çözüm:**
 
 1. Brave sürümünü kontrol edin: `brave://version`
-2. Brave Omega sürümünüz için [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe)'ni kontrol edin
+2. Brave Omega sürümünüz için [Uyumluluk Matrisi](Version-Compatibility-Matrix.md#-türkçe)'ni kontrol edin
 3. Brave matristen yeniyse: Güncellenmiş Brave Omega için [Sürümlere](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) bakın
 4. Brave eskiyse: Brave'i en güncel kararlı sürüme güncelleyin
 
@@ -499,8 +499,8 @@ Sorun devam ederse:
 
 ## İlgili Sayfalar
 
-- [🔧 Kurulum](Installation#-türkçe) — Adım adım kılavuz
-- [🏗️ Mimari](Architecture#-türkçe) — Katmanları anlama
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Her politikanın ne yaptığı
-- [🛡️ Güvenlik](Security#-türkçe) — Güvenlik modeli
-- [🗺️ Yol Haritası](Roadmap#-türkçe) — Planlanan iyileştirmeler
+- [🔧 Kurulum](Installation.md#-türkçe) — Adım adım kılavuz
+- [🏗️ Mimari](Architecture.md#-türkçe) — Katmanları anlama
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe) — Her politikanın ne yaptığı
+- [🛡️ Güvenlik](Security.md#-türkçe) — Güvenlik modeli
+- [🗺️ Yol Haritası](Roadmap.md#-türkçe) — Planlanan iyileştirmeler

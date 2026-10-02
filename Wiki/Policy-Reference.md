@@ -251,10 +251,10 @@ All 151 policies should show as **Active** (green checkmark).
 
 ## Related Pages
 
-- [🏗️ Architecture](Architecture) — Three-tier enforcement model
-- [🔧 Installation](Installation) — How to apply policies
-- [🛡️ Security](Security) — Safety model
-- [🔍 Troubleshooting](Troubleshooting) — Policy verification issues
+- [🏗️ Architecture](Architecture.md) — Three-tier enforcement model
+- [🔧 Installation](Installation.md) — How to apply policies
+- [🛡️ Security](Security.md) — Safety model
+- [🔍 Troubleshooting](Troubleshooting.md) — Policy verification issues
 
 ---
 
@@ -510,7 +510,7 @@ brave://policy
 
 ## İlgili Sayfalar
 
-- [🏗️ Mimari](Architecture#-türkçe) — Üç katmanlı zorunlu kılma modeli
-- [🔧 Kurulum](Installation#-türkçe) — Politikalar nasıl uygulanır
-- [🛡️ Güvenlik](Security#-türkçe) — Güvenlik modeli
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe) — Politika doğrulama sorunları
+- [🏗️ Mimari](Architecture.md#-türkçe) — Üç katmanlı zorunlu kılma modeli
+- [🔧 Kurulum](Installation.md#-türkçe) — Politikalar nasıl uygulanır
+- [🛡️ Güvenlik](Security.md#-türkçe) — Güvenlik modeli
+- [🔍 Sorun Giderme](Troubleshooting.md#-türkçe) — Politika doğrulama sorunları

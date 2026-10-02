@@ -214,10 +214,10 @@ Before running, verify:
 
 ## Related Pages
 
-- [🚀 Quick Start](Quick-Start) — Get running
-- [🔧 Installation](Installation) — Full setup guide
-- [📜 Changelog](Changelog) — Full version history
-- [📋 Policy Reference](Policy-Reference) — What policies each version includes
+- [🚀 Quick Start](Quick-Start.md) — Get running
+- [🔧 Installation](Installation.md) — Full setup guide
+- [📜 Changelog](Changelog.md) — Full version history
+- [📋 Policy Reference](Policy-Reference.md) — What policies each version includes
 
 ---
 
@@ -436,7 +436,7 @@ if (Test-Path $bravePath) {
 
 ## İlgili Sayfalar
 
-- [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) — Çalıştırmaya başlayın
-- [🔧 Kurulum](Installation#-türkçe) — Tam kurulum kılavuzu
-- [📜 Değişiklik Günlüğü](Changelog#-türkçe) — Tam sürüm geçmişi
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Her sürümün hangi politikaları içerdiği
+- [🚀 Hızlı Başlangıç](Quick-Start.md#-türkçe) — Çalıştırmaya başlayın
+- [🔧 Kurulum](Installation.md#-türkçe) — Tam kurulum kılavuzu
+- [📜 Değişiklik Günlüğü](Changelog.md#-türkçe) — Tam sürüm geçmişi
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe) — Her sürümün hangi politikaları içerdiği

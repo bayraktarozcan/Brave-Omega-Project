@@ -150,10 +150,10 @@ Every policy is traceable to one authoritative source:
 
 ## Related Pages
 
-- [📋 Policy Reference](Policy-Reference) — Complete policy registry table
-- [🔧 Installation](Installation) — Prerequisites & step-by-step
-- [🛡️ Security](Security) — Safety model & threat model
-- [🔍 Troubleshooting](Troubleshooting) — Common issues
+- [📋 Policy Reference](Policy-Reference.md) — Complete policy registry table
+- [🔧 Installation](Installation.md) — Prerequisites & step-by-step
+- [🛡️ Security](Security.md) — Safety model & threat model
+- [🔍 Troubleshooting](Troubleshooting.md) — Common issues
 
 ---
 
@@ -308,7 +308,7 @@ Her politika tek bir yetkili kaynağa izlenebilir:
 
 ## İlgili Sayfalar
 
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Politika kayıt defteri tablosu
-- [🔧 Kurulum](Installation#-türkçe) — Ön gereksinimler ve adım adım
-- [🛡️ Güvenlik](Security#-türkçe) — Güvenlik modeli ve tehdit modeli
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe) — Sık karşılaşılan sorunlar
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe) — Politika kayıt defteri tablosu
+- [🔧 Kurulum](Installation.md#-türkçe) — Ön gereksinimler ve adım adım
+- [🛡️ Güvenlik](Security.md#-türkçe) — Güvenlik modeli ve tehdit modeli
+- [🔍 Sorun Giderme](Troubleshooting.md#-türkçe) — Sık karşılaşılan sorunlar

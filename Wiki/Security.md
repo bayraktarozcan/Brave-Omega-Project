@@ -160,7 +160,7 @@ Before running, verify:
 - [ ] SHA256 checksum matches release notes (if provided)
 - [ ] Running on Windows 11 with latest updates
 - [ ] Brave Browser **latest stable** installed
-- [ ] Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix)
+- [ ] Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix.md)
 - [ ] Running PowerShell as Administrator
 - [ ] No critical applications running that might conflict
 
@@ -194,11 +194,11 @@ If unexpected behavior occurs:
 
 ## Related Pages
 
-- [🔧 Installation](Installation) — Safe execution procedure
-- [🏗️ Architecture](Architecture) — Three-tier model
-- [📋 Policy Reference](Policy-Reference) — What policies are applied
-- [🔍 Troubleshooting](Troubleshooting) — Common issues
-- [🗺️ Roadmap](Roadmap) — Planned security enhancements
+- [🔧 Installation](Installation.md) — Safe execution procedure
+- [🏗️ Architecture](Architecture.md) — Three-tier model
+- [📋 Policy Reference](Policy-Reference.md) — What policies are applied
+- [🔍 Troubleshooting](Troubleshooting.md) — Common issues
+- [🗺️ Roadmap](Roadmap.md) — Planned security enhancements
 
 ---
 
@@ -379,7 +379,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 - [ ] SHA256 sağlama toplamı sürüm notlarıyla eşleşiyor (varsa)
 - [ ] Windows 11'de en güncel güncellemelerle çalışıyor
 - [ ] Brave Browser **en güncel kararlı** sürümü yüklü
-- [ ] Brave sürümü [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile eşleşiyor
+- [ ] Brave sürümü [Uyumluluk Matrisi](Version-Compatibility-Matrix.md#-türkçe) ile eşleşiyor
 - [ ] PowerShell Yönetici olarak çalışıyor
 - [ ] Çakışabilecek kritik uygulamalar çalışmıyor
 
@@ -413,11 +413,11 @@ Beklenmeyen davranış oluşursa:
 
 ## İlgili Sayfalar
 
-- [🔧 Kurulum](Installation#-türkçe) — Güvenli çalıştırma prosedürü
-- [🏗️ Mimari](Architecture#-türkçe) — Üç katmanlı model
-- [📋 Politika Başvurusu](Policy-Reference#-türkçe) — Hangi politikalar uygulanır
-- [🔍 Sorun Giderme](Troubleshooting#-türkçe) — Sık karşılaşılan sorunlar
-- [🗺️ Yol Haritası](Roadmap#-türkçe) — Planlanan güvenlik iyileştirmeleri
+- [🔧 Kurulum](Installation.md#-türkçe) — Güvenli çalıştırma prosedürü
+- [🏗️ Mimari](Architecture.md#-türkçe) — Üç katmanlı model
+- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe) — Hangi politikalar uygulanır
+- [🔍 Sorun Giderme](Troubleshooting.md#-türkçe) — Sık karşılaşılan sorunlar
+- [🗺️ Yol Haritası](Roadmap.md#-türkçe) — Planlanan güvenlik iyileştirmeleri
 
 ---
 
