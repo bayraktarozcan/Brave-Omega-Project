@@ -604,7 +604,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=ed8cd187213b1c75c2307e63c749de28673983ad -->
+<!-- mirror-sync: sync-sha=48fe26efe886b3b41be7b243662edfde9ce31ee0 -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
@@ -638,19 +638,30 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 |---------------|---------|
 | `.github/` | GitHub configuration |
 | `.github/workflows/` | GitHub Actions workflows |
+| `.github/ISSUE_TEMPLATE/` | Issue and feature forms presented when a user opens a new issue |
+| `.github/dependabot.yml` | Automated dependency update schedule |
+| `.github/pull_request_template.md` | Checklist rendered when a contributor opens a pull request |
+| `.github/linters/` | Shared linter configuration consumed by CI jobs |
+| `.github/FUNDING.yml` | Sponsors/funding links shown by GitHub |
 | `CODEOWNERS` | Defines code owners |
+| `AGENTS.md` | Operating rules and conventions for humans and coding agents |
 | `README.md` | Introduces the project |
 | `LICENSE`, `LICENCE` | License terms |
+| `NOTICE` | Third-party attribution and trademark notices |
 | `CONTRIBUTING.md` | Contribution guidelines |
 | `CODE_OF_CONDUCT.md` | Code of conduct |
 | `SECURITY.md` | Security reporting process |
+| `SUPPORT.md` | Where to ask questions and how to report an issue |
+| `PRIVACY.md` | What the project collects, stores, and transmits |
 | `CHANGELOG.md` | Version history / changes |
+| `RELEASE-NOTE-TEMPLATE.md` | Skeleton that release notes follow |
 
 #### General Configuration / Development
 
 | File/Directory | Purpose |
 |---------------|---------|
 | `.editorconfig` | Editor formatting/behavior rules |
+| `index.html` | Single-page landing page (project site root, deployed by GitHub Pages) |
 | `.vscode/` | VS Code project settings |
 | `.idea/` | JetBrains IDE settings |
 | `.devcontainer/` | Dev Container configuration |
@@ -803,7 +814,6 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 | `.gitkeep` | Convention to keep an empty directory tracked (not a Git standard) |
 | `.keep` | Directory/object preservation marker |
 | `.nomigrate`, `.no-migrate` | Prevent migration/tool processing |
-| `__dont.migrate__` | Tool-specific "do not migrate" marker (only meaningful to tools that read it) |
 | `.skip` | Tool-specific skip marker |
 | `.disabled` | Tool-specific disable marker |
 | `.lock` | Tool-specific lock/process marker |
@@ -813,7 +823,6 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.gitignore` — tells Git **what to ignore** (tracking).
 - `.gitattributes` — tells Git **how to treat files** (line endings, diff, merge).
 - `.gitkeep` — **not a Git standard**; it is a **convention** to keep empty directories tracked.
-- `__dont.migrate__` — **not a Git standard**; it carries meaning **only if the tool reading it interprets it**.
 - `.git/` — the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" ≠ "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
