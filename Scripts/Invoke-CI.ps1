@@ -215,7 +215,13 @@ function Invoke-YamlCheck {
 
 function Invoke-PowerShellSyntaxCheck {
     Write-Stage 'Check PowerShell syntax'
-    $files = @(Get-ChildItem -Path $script:RepoRoot -Recurse -Filter '*.ps1' -File)
+    # Vendor trees are skipped. OpenCode installs its own plugin dependency under
+    # .opencode/node_modules the first time it opens this repository, and a
+    # third-party script the Windows PowerShell parser dislikes would then fail a
+    # gate on a file this project never wrote. Vendor content is not this
+    # project's source, and it is not tracked either.
+    $files = @(Get-ChildItem -Path $script:RepoRoot -Recurse -Filter '*.ps1' -File |
+        Where-Object { $_.FullName -notmatch '[\\/]node_modules[\\/]' })
     $broken = @()
     foreach ($file in $files) {
         $parseErrors = $null

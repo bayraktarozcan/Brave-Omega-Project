@@ -31,6 +31,8 @@ Operational notes for humans and AI agents working in this repository. English i
 | `Scripts/` | Release, wiki sync, deploy/detect, catalog export, mojibake scan |
 | `Tests/` | Pester 5.7.1 test suite - one file per invariant |
 | `Tests/MirrorSync.Tests.ps1` | Fixtures pinning the bilingual mirror contract (clean pair, CRLF mirror, each drift class, ordered checklist, absent mirror) |
+| `Tests/OpenCodeConfig.Tests.ps1` | Contract of the runtime control surface: parseable, vendor-schema-pinned, catch-all ordering, no blanket deny, no duplicated procedure |
+| `.opencode/opencode.json` | Runtime permissions, `/verify`, and the read-only audit agent - the machine half of the rules in this file |
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
 | `Brave-Omega/Docs/` | Project-level references: group policy reference, roadmap and opportunities |
 | `index.html` | Single-page landing page (true black, dark theme, no external JS, < 10 KB gzipped) |
@@ -89,6 +91,31 @@ markdownlint -c .github/linters/.markdownlint.json "**/*.md"
 # YAML
 yamllint .github/ --config-file .github/linters/.yamllint.yml
 ```
+
+#### Runtime Control Surface (`.opencode/opencode.json`)
+
+Prose can state a rule; only a machine can hold it. `.opencode/opencode.json`
+carries the three controls this repository cannot enforce by asking, and holds
+nothing else:
+
+| Control | What it enforces that this file cannot |
+|---------|---------------------------------------|
+| `permission.bash` | `git clean -f*` asks, because a force-clean deletes the untracked local-only layers this repository refuses to track and would miss; `git push -f*` / `--force*` ask, which is the report this file requires; `reg add*` / `reg delete*` ask, because a hand-written registry edit bypasses the policy data layer that the ADMX validator reads |
+| `permission.external_directory` | Credential and config stores under the home directory are denied. The default is `ask`, and an approval made once holds for the rest of the session - which is the wrong default for a private key |
+| `command.verify` + `agent.policy-auditor` | `/verify` runs the gate above and the audit agent cannot edit, so the Evaluate stage cannot quietly turn into a rewrite |
+
+Three rules govern the file, and `Tests/OpenCodeConfig.Tests.ps1` holds each of
+them: this file states **no rule that belongs here** - it names the gate and
+points at this file rather than restating the procedure; every exception is
+specific, ordered after its catch-all because the last matching rule wins, and
+never a blanket deny; and the `$schema` is the vendor URL, so the vendor's
+schema is the oracle rather than a list kept beside it.
+
+`.opencode/` also holds state OpenCode owns: on first open it writes its own
+`.gitignore` and installs `@opencode-ai/plugin` into `.opencode/node_modules`,
+ignoring both. That is why the PowerShell syntax check skips `node_modules` -
+a third-party script the Windows PowerShell parser dislikes would otherwise
+fail a gate on a file this project never wrote.
 
 `pwsh` is not installed locally — use `powershell` / Windows PowerShell 5.1.
 
@@ -302,10 +329,13 @@ everything the project creates - tracked or untracked, in a scratch directory
 as much as in a shipped one - because a name that is correct only where a
 human is watching is not a convention. A directory name stays lowercase only
 when a tool, platform, or ecosystem convention fixes it there, and the
-exemption is recorded here rather than left implicit. There is exactly one:
+exemption is recorded here rather than left implicit. There are two:
 `.github/` and everything under it
 (`.github/workflows`, `.github/ISSUE_TEMPLATE`, `.github/linters`), because
-GitHub resolves those paths case-sensitively. The template and automation
+GitHub resolves those paths case-sensitively, and `.opencode/`, because OpenCode
+reads its project configuration from that exact path and nowhere else. Both are
+paths a tool looks up, so neither is a style choice available to this
+repository. The template and automation
 directories were lowercase for a while, on the argument that the vendor and the
 mainstream toolchains spell them that way, and both are now capitalised. A
 vendor's *format* name and an ecosystem's *habit* are not a platform
@@ -606,7 +636,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=bf553cf4c92bc757b43411f0bf7079e0e04425ff -->
+<!-- mirror-sync: sync-sha=c743c3c3535b4922dcdd079fc6b4119a15c9f5ad -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
@@ -645,6 +675,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 | `.github/pull_request_template.md` | Checklist rendered when a contributor opens a pull request |
 | `.github/linters/` | Shared linter configuration consumed by CI jobs |
 | `.github/FUNDING.yml` | Sponsors/funding links shown by GitHub |
+| `.opencode/` | Project configuration OpenCode reads at startup; the runtime half of this repository's rules |
 | `CODEOWNERS` | Defines code owners |
 | `AGENTS.md` | Operating rules and conventions for humans and coding agents |
 | `README.md` | Introduces the project |
