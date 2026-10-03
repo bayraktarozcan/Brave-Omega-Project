@@ -153,6 +153,30 @@ function Get-NativeCommand {
     return $null
 }
 
+function Get-TrackedMarkdownFiles {
+    <#
+        The Markdown files this repository owns, as Git records them.
+
+        Git is the oracle rather than a directory walk because the question is
+        ownership, not existence: a file that is present but untracked is not
+        this project's to lint, and a directory walk cannot tell the two apart.
+        Reading the record instead of the disk also means the answer does not
+        depend on which tree the gate happens to run against.
+    #>
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        $files = @(git -C $script:RepoRoot ls-files '*.md' 2>$null)
+    } catch {
+        $files = @()
+    } finally {
+        $ErrorActionPreference = $previous
+    }
+    # ls-files prints one path per line; a path may hold a space, so the record
+    # is taken whole rather than split.
+    @($files | Where-Object { $_ -and $_.Trim() })
+}
+
 function Invoke-ToolCheck {
     <#
         Runs an external linter. Reports MISSING rather than failing obscurely
@@ -201,9 +225,26 @@ function Invoke-MarkdownCheck {
     # then lints with its own defaults instead of the repository configuration,
     # which reports the whole tree as broken on a clean checkout; classic
     # markdownlint accepts the long form as well, so one spelling serves both.
+    #
+    # The file list comes from Git rather than from a "**/*.md" glob. A glob
+    # walks the working tree, and this working tree holds content that is not
+    # this project's source: OpenCode installs its own plugin dependency under
+    # .opencode/node_modules the first time it opens this repository, carrying
+    # thousands of third-party Markdown files whose style this repository does
+    # not own and cannot fix. Two tools disagree about which file ends the lint,
+    # so an ignore file cannot express it: markdownlint-cli2 does not read
+    # .markdownlintignore at all. Git is the oracle that already answers the
+    # question the gate is asking - "is this file ours?" - and it answers it the
+    # same way in CI, where the vendor tree simply is not present.
+    $files = @(Get-TrackedMarkdownFiles)
+    if (-not $files) {
+        Add-GateResult -Name 'markdown-lint' -State 'FAIL' `
+            -Detail 'no tracked Markdown file to lint; the file list is empty'
+        return
+    }
     Invoke-ToolCheck -Name 'markdown-lint' `
         -Candidate @('markdownlint-cli2', 'markdownlint') `
-        -ArgumentList @('--config', '.github/linters/.markdownlint.json', '**/*.md')
+        -ArgumentList (@('--config', '.github/linters/.markdownlint.json') + $files)
 }
 
 function Invoke-YamlCheck {
