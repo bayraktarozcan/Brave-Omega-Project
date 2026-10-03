@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "git clean -*f*": "ask",
+      "git push -f*": "ask",
+      "git push --force*": "ask",
+      "reg add*": "ask",
+      "reg delete*": "ask"
+    },
+    "external_directory": {
+      "~/.aws/**": "deny",
+      "~/.azure/**": "deny",
+      "~/.config/gcloud/**": "deny",
+      "~/.gnupg/**": "deny",
+      "~/.kube/**": "deny",
+      "~/.ssh/**": "deny"
+    }
+  },
+  "command": {
+    "verify": {
+      "description": "Run the repository conformance gate and report every check.",
+      "template": "Run Scripts/Invoke-CI.ps1 from the repository root with Windows PowerShell 5.1. The validation procedure lives in AGENTS.md, so follow it there instead of restating it here: run the gate, then report each check by name, state, and detail. If a check fails, stop at that check, diagnose the cause from its output, and fix it forward on the current branch. Do not report the work as done while any check is failing."
+    }
+  },
+  "agent": {
+    "policy-auditor": {
+      "description": "Read-only audit of the policy data layer, the gates, and the documentation against each other. Use for the Evaluate stage and for cross-checking a change against every layer it touches. Cannot modify files.",
+      "mode": "all",
+      "permission": {
+        "edit": {
+          "*": "deny"
+        },
+        "bash": {
+          "*": "ask",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git status*": "allow"
+        }
+      }
+    }
+  }
+}
