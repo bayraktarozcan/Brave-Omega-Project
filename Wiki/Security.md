@@ -50,8 +50,9 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 ### 2. Backup Before Write
 
 - **Automatic** timestamped `.reg` export of `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
-- Filename: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg`
-- Stored in script directory for easy rollback
+- Filename: `HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg`
+- Stored in `%TEMP%\BravePolicyBackup` for easy rollback
+- `-Reset` produces this backup itself: if either hive cannot be exported, no policy is removed
 
 ### 3. Idempotent Application
 
@@ -63,7 +64,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 
 ```powershell
 # One-command restoration
-reg import "BraveOmega_HKLM_20260613_120000.reg"
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 ```
 
 - Backup includes full HKLM policy hive state
@@ -120,8 +121,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
 ### Backup File Format
 
 ```
-Filename: BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg
-Location: Script execution directory
+Filename: HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg
+Location: %TEMP%\BravePolicyBackup
 Format: Standard Windows REGEDIT4 format
 Content: Full HKLM:\SOFTWARE\Policies\BraveSoftware\Brave hive
 ```
@@ -131,7 +132,7 @@ Content: Full HKLM:\SOFTWARE\Policies\BraveSoftware\Brave hive
 ```powershell
 # 1. Close Brave
 # 2. Import backup
-reg import "BraveOmega_HKLM_20260613_120000.reg"
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 # 3. Restart Brave
 ```
 
@@ -172,7 +173,7 @@ Before running, verify:
 | ------- | -------- |
 | All policies active | `brave://policy` → policies show **Active** (51 for Essential level) |
 | Registry written | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
-| Backup created | `BraveOmega_HKLM_*.reg` exists in script directory |
+| Backup created | `HKLM_BravePolicy_*.reg` and `HKCU_BraveSoftware_*.reg` exist in `%TEMP%\BravePolicyBackup` |
 | No errors in output | Script exits with code 0, no `[ERROR]` lines |
 
 ---
@@ -269,8 +270,9 @@ Brave Omega **güvenlik öncelikli** bir yaklaşımla tasarlanmıştır. Her tas
 ### 2. Yazmadan Önce Yedekleme
 
 - **Otomatik** zaman damgalı `.reg` dışa aktarımı: `HKLM:\SOFTWARE\Policies\BraveSoftware\Brave`
-- Dosya adı: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg`
-- Kolay geri alma için betik dizininde saklanır
+- Dosya adı: `HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg`
+- Kolay geri alma için `%TEMP%\BravePolicyBackup` altında saklanır
+- `-Reset` bu yedeği kendisi üretir: iki kovanın da yedeği alınamazsa hiçbir politika kaldırılmaz
 
 ### 3. Kararsız Olmayan Uygulama
 
@@ -282,7 +284,7 @@ Brave Omega **güvenlik öncelikli** bir yaklaşımla tasarlanmıştır. Her tas
 
 ```powershell
 # Tek komutla eski duruma dönüş
-reg import "BraveOmega_HKLM_20260613_120000.reg"
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 ```
 
 - Yedek, tam HKLM politika kovası durumunu içerir
@@ -339,8 +341,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
 ### Yedek Dosyası Biçimi
 
 ```
-Dosya adı: BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg
-Konum: Betik çalıştırma dizini
+Dosya adı: HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg
+Konum: %TEMP%\BravePolicyBackup
 Biçim: Standart Windows REGEDIT4 biçimi
 İçerik: Tam HKLM:\SOFTWARE\Policies\BraveSoftware\Brave kovası
 ```
@@ -350,7 +352,7 @@ Biçim: Standart Windows REGEDIT4 biçimi
 ```powershell
 # 1. Brave'i kapat
 # 2. Yedeği içe aktar
-reg import "BraveOmega_HKLM_20260613_120000.reg"
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 # 3. Brave'i yeniden başlat
 ```
 
@@ -391,7 +393,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 | --------- | -------- |
 | Tüm politikalar etkin | `brave://policy` → 151 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 51, Dengeli'de 83) |
 | Kayıt defteri yazıldı | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
-| Yedek oluşturuldu | `BraveOmega_HKLM_*.reg` betik dizininde mevcut |
+| Yedek oluşturuldu | `HKLM_BravePolicy_*.reg` ve `HKCU_BraveSoftware_*.reg` `%TEMP%\BravePolicyBackup` içinde mevcut |
 | Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[ERROR]` satırı yok |
 
 ---

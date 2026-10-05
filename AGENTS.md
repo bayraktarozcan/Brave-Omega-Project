@@ -66,7 +66,7 @@ Run from the repository root with Windows PowerShell 5.1:
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 317/317 passing
+Invoke-Pester Tests/ -PassThru          # expected: 340/340 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -636,7 +636,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=c743c3c3535b4922dcdd079fc6b4119a15c9f5ad -->
+<!-- mirror-sync: sync-sha=d2894b761acdfffa554ee41959b09c21db538a0f -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.

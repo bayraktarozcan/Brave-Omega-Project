@@ -25,3 +25,27 @@ Describe "WhatIf Mode - Write-PolicyValue Behavior" -Tag "Unit" {
         $funcMatch.Success | Should -Be $true
     }
 }
+
+Describe "WhatIf Mode - Reset Backup Skipped" -Tag "Unit" {
+    BeforeAll {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $resetIdx = $content.IndexOf('if ($Reset) {')
+        $resetBody = $content.Substring($resetIdx)
+        $whatIfIdx = $resetBody.IndexOf('if ($WhatIf) {')
+        $elseIdx = $resetBody.IndexOf('} else {', $whatIfIdx)
+        $backupIdx = $resetBody.IndexOf('Export-OmegaRegistryBackup')
+    }
+
+    It "unified script should carry a message for a reset backup skipped by WhatIf" {
+        $content -match 'ResetBackupWhatIf\s*=' | Should -Be $true
+    }
+
+    It "unified reset should take the export only on the branch that is not WhatIf" {
+        # WhatIf promises it changes nothing, and a .reg file on disk is a change.
+        # The export therefore belongs to the else branch: a call inside the WhatIf
+        # branch would pass the ordering check below while still writing a file.
+        $whatIfIdx | Should -BeGreaterThan 0
+        $elseIdx | Should -BeGreaterThan $whatIfIdx
+        $backupIdx | Should -BeGreaterThan $elseIdx
+    }
+}

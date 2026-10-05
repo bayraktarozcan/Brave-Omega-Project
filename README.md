@@ -114,7 +114,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | 🌐 **Multi-Type Registry Engine** | Supports DWord, String, MultiString, and ExpandString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets, and ExpandString is written as `REG_EXPAND_SZ` so environment variables such as `%USERPROFILE%` resolve |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
-| 💾 **Automatic Backup** | Time-stamped `.reg` backup of the HKLM policy hive before any modifications (stored at `$env:TEMP\BravePolicyBackup\`) |
+| 💾 **Automatic Backup** | Time-stamped `.reg` backups of the HKLM policy hive and the HKCU Brave root before any modifications (stored at `$env:TEMP\BravePolicyBackup\`) |
 | 🔁 **One-Command Rollback** | Full restoration with a single command: `reg import "<backup_file.reg>"` |
 | 🛡️ **Brave Process Guard** | Detects running Brave instances and presents a continue/cancel decision before applying changes |
 | 🔍 **Version Check** | Automatically detects installed Brave version and warns on mismatch with validated target |
@@ -566,29 +566,64 @@ no longer have any effect.
 
 ### 10. Project Structure
 
-```
+Paths marked **required at runtime** are read by `BraveOmega.ps1` on every run;
+copy the whole folder, not the single script.
+
+```text
 BRAVE OMEGA PROJECT/
 │
-├── .gitignore                          Git exclusion rules
-├── .gitattributes
-├── LICENSE                             MIT
-├── README.md                           Documentation (EN + TR)
-├── CHANGELOG.md                        Changelog
-├── CONTRIBUTING.md                     Contributing guide (EN + TR)
-├── SECURITY.md                         Security policy (EN + TR)
-├── index.html                          Landing page (GitHub Pages)
+├── .editorconfig                          Editor rules
+├── .gitattributes                         Line-ending rules
+├── .gitignore                             Git exclusion rules
+├── .gitlab-ci.yml                         Second CI gate (GitLab)
+├── .opencode/                             Agent runtime configuration
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug_report.yaml             Bug report template
-│   │   └── feature_request.yaml        Feature request template
-│   └── workflows/
-│   └── admx-validate.yml               ADMX validation pipeline
+│   ├── ISSUE_TEMPLATE/                    Bug and feature request forms
+│   ├── dependabot.yml                     Dependency update schedule
+│   ├── linters/                           Shared markdownlint / yamllint config
+│   └── workflows/                         CI/CD workflows (10 files)
 ├── ADMX/
-│   ├── ADMX-Validate.ps1               ADMX cross-reference validator
-│   ├── Brave.admx                      Brave ADMX policy template
-│   └── Brave.adml                      Brave ADML language resources
-└── Brave-Omega/
-         BraveOmega.ps1                  The single bilingual script (EN/TR)
+│   ├── ADMX-Validate.ps1                  Policy cross-reference validator
+│   ├── Brave.admx                         Brave ADMX policy template
+│   └── Brave.adml                         ADML language resources
+├── Brave-Omega/
+│   ├── BraveOmega.ps1                     The single bilingual script (EN/TR)
+│   ├── config.json                        ** required at runtime ** level order + registry targets
+│   ├── Profiles/                          ** required at runtime ** policy data layer
+│   │   ├── BraveOnly.json                 Tier 1 policies
+│   │   ├── Essential.json                 Tier 2 delta
+│   │   ├── Balanced.json                  Tier 3 delta
+│   │   ├── Advanced.json                  Tier 4 delta
+│   │   └── Strict.json                    Tier 5 delta
+│   └── Docs/
+│       └── Policy-Catalog.md              Generated policy catalog (EN + TR)
+├── Enterprise/
+│   ├── levels.json                        Tier metadata for deployment
+│   ├── BraveOnly.reg … Strict.reg         Per-tier registry packages
+├── Scripts/
+│   ├── Invoke-CI.ps1                      Local conformance gate (7 checks)
+│   ├── Deploy-Brave-Omega.ps1             Deployment entry point
+│   ├── Detect-Brave-Omega.ps1             Installed-state detection
+│   ├── Export-PolicyCatalog.ps1           Regenerates the policy catalog
+│   ├── Verify-Mirror-Sync.ps1             Bilingual mirror structure check
+│   ├── Wiki-Sync.ps1                      Wiki projection sync
+│   ├── Release.ps1                        Release automation
+│   └── Mojibake-Scan.py                   Character-integrity scanner
+├── Tests/                                 Pester 5.7.1 suite (32 test files + 2 helpers)
+├── Wiki/                                  Wiki source of truth (15 pages)
+├── index.html                             Landing page (GitHub Pages)
+├── AGENTS.md                              Agent and contributor rules
+├── README.md                              Documentation (EN + TR)
+├── CHANGELOG.md                           Changelog (EN + TR)
+├── CONTRIBUTING.md                        Contributing guide (EN + TR)
+├── CODE_OF_CONDUCT.md                     Code of conduct
+├── SECURITY.md                            Security policy (EN + TR)
+├── PRIVACY.md                             Privacy statement
+├── SUPPORT.md                             Support channels
+├── RELEASE-NOTE-TEMPLATE.md               Release note skeleton
+├── CODEOWNERS                             Code ownership
+├── LICENSE                                MIT
+└── NOTICE                                 Third-party attribution
 ```
 
 ---
@@ -775,7 +810,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String, MultiString ve ExpandString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır (PowerShell'de `REG_MULTI_SZ` cmdlet'i yoktur), ExpandString ise `REG_EXPAND_SZ` olarak yazılır; böylece `%USERPROFILE%` gibi ortam değişkenleri genişletilir |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
-| 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği (`$env:TEMP\BravePolicyBackup\` konumunda saklanır) |
+| 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası ve HKCU Brave kökü için zaman damgalı `.reg` yedekleri (`$env:TEMP\BravePolicyBackup\` konumunda saklanır) |
 | 🔁 **Tek Komutla Geri Alma** | Tek komutla tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
 | 🛡️ **Brave Süreç Koruyucusu** | Değişiklik uygulanmadan önce çalışan Brave örnekleri tespit edilip kullanıcıya karar sunulur |
 | 🔍 **Sürüm Denetimi** | Yüklü Brave sürümünü otomatik algılar ve doğrulanmış hedefle uyuşmazlıkta uyarır |
@@ -1228,29 +1263,65 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 10. Proje Yapısı
 
+`** çalışma anında zorunlu **` ile işaretli yollar, her çalıştırmada
+`BraveOmega.ps1` tarafından okunur; klasörün tamamını kopyalayın, tek betiği
+değil.
+
 ```
 BRAVE OMEGA PROJECT/
 │
-├── .gitignore                          Git dışlama kuralları
-├── .gitattributes
-├── LICENSE                             MIT
-├── README.md                           Belgelendirme (EN + TR)
-├── CHANGELOG.md                        Değişiklik günlüğü
-├── CONTRIBUTING.md                     Katkı rehberi (EN + TR)
-├── SECURITY.md                         Güvenlik politikası (EN + TR)
-├── index.html                          Açılış sayfası (GitHub Pages)
+├── .editorconfig                          Düzenleyici kuralları
+├── .gitattributes                         Satır sonu kuralları
+├── .gitignore                             Git dışlama kuralları
+├── .gitlab-ci.yml                         İkinci kapı (GitLab)
+├── .opencode/                             Ajan çalışma zamanı yapılandırması
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug_report.yaml             Hata raporu şablonu
-│   │   └── feature_request.yaml        Özellik talebi şablonu
-│   └── workflows/
-│   └── admx-validate.yml               ADMX validation pipeline
+│   ├── ISSUE_TEMPLATE/                    Hata ve özellik talebi formları
+│   ├── dependabot.yml                     Bağımlılık güncelleme takvimi
+│   ├── linters/                           Paylaşılan markdownlint / yamllint yapılandırması
+│   └── workflows/                         CI/CD iş akışları (10 dosya)
 ├── ADMX/
-│   ├── ADMX-Validate.ps1               ADMX çapraz referans doğrulama betiği
-│   ├── Brave.admx                      Brave ADMX şablonu
-│   └── Brave.adml                      Brave ADML dil kaynakları
-└── Brave-Omega/
-         BraveOmega.ps1                  Tek iki dilli betik (EN/TR)
+│   ├── ADMX-Validate.ps1                  Politika çapraz referans doğrulayıcı
+│   ├── Brave.admx                         Brave ADMX politika şablonu
+│   └── Brave.adml                         ADML dil kaynakları
+├── Brave-Omega/
+│   ├── BraveOmega.ps1                     Tek iki dilli betik (EN/TR)
+│   ├── config.json                        ** çalışma anında zorunlu ** kademe sırası + kayıt defteri hedefleri
+│   ├── Profiles/                          ** çalışma anında zorunlu ** politika veri katmanı
+│   │   ├── BraveOnly.json                 1. kademe politikaları
+│   │   ├── Essential.json                 2. kademe farkı
+│   │   ├── Balanced.json                  3. kademe farkı
+│   │   ├── Advanced.json                  4. kademe farkı
+│   │   └── Strict.json                    5. kademe farkı
+│   └── Docs/
+│       └── Policy-Catalog.md              Üretilen politika kataloğu (EN + TR)
+├── Enterprise/
+│   ├── levels.json                        Dağıtım için kademe üstverisi
+│   ├── BraveOnly.reg … Strict.reg         Kademe başına kayıt defteri paketleri
+├── Scripts/
+│   ├── Invoke-CI.ps1                      Yerel uyumluluk kapısı (7 kontrol)
+│   ├── Deploy-Brave-Omega.ps1             Dağıtım giriş noktası
+│   ├── Detect-Brave-Omega.ps1             Kurulu durum algılama
+│   ├── Export-PolicyCatalog.ps1           Politika kataloğunu yeniden üretir
+│   ├── Verify-Mirror-Sync.ps1             İki dilli yansıma yapı denetimi
+│   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
+│   ├── Release.ps1                        Sürüm otomasyonu
+│   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
+├── Tests/                                 Pester 5.7.1 paketi (32 test dosyası + 2 yardımcı)
+├── Wiki/                                  Wiki kaynağı (15 sayfa)
+├── index.html                             Açılış sayfası (GitHub Pages)
+├── AGENTS.md                              Ajan ve katkıcı kuralları
+├── README.md                              Belgelendirme (EN + TR)
+├── CHANGELOG.md                           Değişiklik günlüğü (EN + TR)
+├── CONTRIBUTING.md                        Katkı rehberi (EN + TR)
+├── CODE_OF_CONDUCT.md                     Davranış kodu
+├── SECURITY.md                            Güvenlik politikası (EN + TR)
+├── PRIVACY.md                             Gizlilik beyanı
+├── SUPPORT.md                             Destek kanalları
+├── RELEASE-NOTE-TEMPLATE.md               Sürüm notu iskeleti
+├── CODEOWNERS                             Kod sahipliği
+├── LICENSE                                MIT
+└── NOTICE                                 Üçüncü taraf atıfları
 ```
 
 ---

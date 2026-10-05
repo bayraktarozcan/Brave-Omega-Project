@@ -61,6 +61,29 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 > Adjust path to your extraction location.
 
+> [!IMPORTANT]
+> **Run the script from inside the `Brave-Omega` folder, with its data files
+> next to it.** `BraveOmega.ps1` is the entry point, but the 151 policies are
+> not written inside the script — they are read at startup from
+> `BraveOmega.ps1`'s own folder:
+>
+> ```text
+> Brave-Omega/
+> ├── BraveOmega.ps1     ← the script you run
+> ├── config.json        ← level order + registry targets
+> └── Profiles/          ← the policy definitions, one JSON per tier
+>     ├── BraveOnly.json
+>     ├── Essential.json
+>     ├── Balanced.json
+>     ├── Advanced.json
+>     └── Strict.json
+> ```
+>
+> The script resolves all three paths relative to itself, so you may run it
+> from any working directory as long as these files sit beside it. A copy of
+> `BraveOmega.ps1` on its own stops with a "config.json not found" error before
+> any policy is applied. Copy the whole folder, not the single file.
+
 ### 3. Run the Script
 
 ```powershell
@@ -126,7 +149,9 @@ Get-ItemProperty "HKCU:\Software\BraveSoftware\Update\ClientState\*"
 
 ### 3. Check Backup File
 
-Backup file created: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg` in script directory.
+Backup file created: `HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg` in
+`%TEMP%\BravePolicyBackup`. A `-Reset` run also leaves
+`HKCU_BraveSoftware_YYYYMMDD_HHMMSS.reg` beside it.
 
 ---
 
@@ -135,8 +160,11 @@ Backup file created: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg` in script directory.
 ### Via Backup File
 
 ```powershell
-reg import "BraveOmega_HKLM_20260613_120000.reg"
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 ```
+
+`-Reset` is the other direction: it backs both hives up first, then removes
+every policy — and refuses to remove anything if that backup fails.
 
 ### Manual Removal
 
@@ -175,33 +203,63 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 ## File Structure After Extraction
 
-```
+Paths marked **required at runtime** are read by `BraveOmega.ps1` on every run.
+
+```text
 BRAVE OMEGA PROJECT/
 │
-├── .gitignore                        # Git exclusion rules
-├── .gitattributes
-├── LICENSE                           MIT
-├── README.md                         Documentation (EN + TR)
-├── CHANGELOG.md                      Changelog
-├── CONTRIBUTING.md                   Contributing guide (EN + TR)
-├── SECURITY.md                       Security policy (EN + TR)
-├── index.html                        Landing page (GitHub Pages)
+├── .editorconfig                          Editor rules
+├── .gitattributes                         Line-ending rules
+├── .gitignore                             Git exclusion rules
+├── .gitlab-ci.yml                         Second CI gate (GitLab)
+├── .opencode/                             Agent runtime configuration
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug_report.yaml           Bug report template
-│   │   └── feature_request.yaml      Feature request template
-│   └── workflows/
-│   └── admx-validate.yml             ADMX validation script
+│   ├── ISSUE_TEMPLATE/                    Bug and feature request forms
+│   ├── dependabot.yml                     Dependency update schedule
+│   ├── linters/                           Shared markdownlint / yamllint config
+│   └── workflows/                         CI/CD workflows (10 files)
 ├── ADMX/
-│   ├── ADMX-Validate.ps1             ADMX cross-reference validator
-│   ├── Brave.admx                    Brave ADMX policy template
-│   └── Brave.adml                    Brave ADML language resources
-└── Brave-Omega/
-        BraveOmega.ps1             Unified bilingual script (EN/TR)
-└── Tests/                         Pester test suite (28 files)
-            FullPipeline.Tests.ps1          Unit + integration tests
-            FullPipeline-TR.Tests.ps1       Unit + integration tests (TR)
-            └── *.Tests.ps1                  Phased policy tests (26 files)
+│   ├── ADMX-Validate.ps1                  Policy cross-reference validator
+│   ├── Brave.admx                         Brave ADMX policy template
+│   └── Brave.adml                         ADML language resources
+├── Brave-Omega/
+│   ├── BraveOmega.ps1                     Unified bilingual script (EN/TR)
+│   ├── config.json                        ** required at runtime ** level order + registry targets
+│   ├── Profiles/                          ** required at runtime ** policy data layer
+│   │   ├── BraveOnly.json                 Tier 1 policies
+│   │   ├── Essential.json                 Tier 2 delta
+│   │   ├── Balanced.json                  Tier 3 delta
+│   │   ├── Advanced.json                  Tier 4 delta
+│   │   └── Strict.json                    Tier 5 delta
+│   └── Docs/
+│       └── Policy-Catalog.md              Generated policy catalog (EN + TR)
+├── Enterprise/
+│   ├── levels.json                        Tier metadata for deployment
+│   ├── BraveOnly.reg … Strict.reg         Per-tier registry packages
+├── Scripts/
+│   ├── Invoke-CI.ps1                      Local conformance gate (7 checks)
+│   ├── Deploy-Brave-Omega.ps1             Deployment entry point
+│   ├── Detect-Brave-Omega.ps1             Installed-state detection
+│   ├── Export-PolicyCatalog.ps1           Regenerates the policy catalog
+│   ├── Verify-Mirror-Sync.ps1             Bilingual mirror structure check
+│   ├── Wiki-Sync.ps1                      Wiki projection sync
+│   ├── Release.ps1                        Release automation
+│   └── Mojibake-Scan.py                   Character-integrity scanner
+├── Tests/                                 Pester 5.7.1 suite (32 test files + 2 helpers)
+├── Wiki/                                  Wiki source of truth (15 pages)
+├── index.html                             Landing page (GitHub Pages)
+├── AGENTS.md                              Agent and contributor rules
+├── README.md                              Documentation (EN + TR)
+├── CHANGELOG.md                           Changelog (EN + TR)
+├── CONTRIBUTING.md                        Contributing guide (EN + TR)
+├── CODE_OF_CONDUCT.md                     Code of conduct
+├── SECURITY.md                            Security policy (EN + TR)
+├── PRIVACY.md                             Privacy statement
+├── SUPPORT.md                             Support channels
+├── RELEASE-NOTE-TEMPLATE.md               Release note skeleton
+├── CODEOWNERS                             Code ownership
+├── LICENSE                                MIT
+└── NOTICE                                 Third-party attribution
 ```
 
 ---
@@ -278,6 +336,30 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 > Çıkarma konumunuza göre yolu ayarlayın.
 
+> [!IMPORTANT]
+> **Betigi, veri dosyaları yanında olacak şekilde `Brave-Omega` klasörünün
+> içinden çalıştırın.** `BraveOmega.ps1` giriş noktasıdır, ancak 151 politika
+> betiğin içine gömülü değildir — çalışma anında betiğin kendi klasöründeki
+> dosyalardan okunur:
+>
+> ```text
+> Brave-Omega/
+> ├── BraveOmega.ps1     ← çalıştırdığınız betik
+> ├── config.json        ← kademe sırası + kayıt defteri hedefleri
+> └── Profiles/          ← politika tanımları, her kademe için bir JSON
+>     ├── BraveOnly.json
+>     ├── Essential.json
+>     ├── Balanced.json
+>     ├── Advanced.json
+>     └── Strict.json
+> ```
+>
+> Betik bu üç yolu da kendine göre çözer; bu yüzden çalışma dizininden
+> bağımsız olarak, dosyalar yanında durduğu sürece betiği her yerden
+> çalıştırabilirsiniz. Tek başına kopyalanmış bir `BraveOmega.ps1`, hiçbir
+> politika uygulanmadan önce "config.json bulunamadı" hatasıyla durur.
+> Klasörün tamamını kopyalayın, tek dosyayı değil.
+
 ### 3. Betiği Çalıştır
 
 ```powershell
@@ -342,7 +424,9 @@ Get-ItemProperty "HKCU:\Software\BraveSoftware\Update\ClientState\*"
 
 ### 3. Yedek Dosyasını Kontrol Et
 
-Yedek dosyası oluşturuldu: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg` betik dizininde.
+Yedek dosyası oluşturuldu: `HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg`,
+`%TEMP%\BravePolicyBackup` altında. `-Reset` çalıştırması bunun yanına
+`HKCU_BraveSoftware_YYYYMMDD_HHMMSS.reg` dosyasını da bırakır.
 
 ---
 
@@ -351,8 +435,11 @@ Yedek dosyası oluşturuldu: `BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg` betik dizinin
 ### Yedek Dosyası ile
 
 ```powershell
-reg import "BraveOmega_HKLM_20260613_120000.reg"
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 ```
+
+`-Reset` bunun ters yönüdür: önce iki kovanın da yedeğini alır, sonra tüm
+politikaları kaldırır — yedekleme başarısız olursa hiçbir şeyi kaldırmaz.
 
 ### Manuel Kaldırma
 
@@ -391,33 +478,64 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 ## Çıkarma Sonrası Dosya Yapısı
 
-```
+`** çalışma anında zorunlu **` ile işaretli yollar, her çalıştırmada
+`BraveOmega.ps1` tarafından okunur.
+
+```text
 BRAVE OMEGA PROJECT/
 │
-├── .gitignore                        # Git dışlama kuralları
-├── .gitattributes
-├── LICENSE                           MIT
-├── README.md                         Belgelendirme (EN + TR)
-├── CHANGELOG.md                      Değişiklik günlüğü
-├── CONTRIBUTING.md                   Katkı rehberi (EN + TR)
-├── SECURITY.md                       Güvenlik politikası (EN + TR)
-├── index.html                        Açılış sayfası (GitHub Pages)
+├── .editorconfig                          Düzenleyici kuralları
+├── .gitattributes                         Satır sonu kuralları
+├── .gitignore                             Git dışlama kuralları
+├── .gitlab-ci.yml                         İkinci kapı (GitLab)
+├── .opencode/                             Ajan çalışma zamanı yapılandırması
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug_report.yaml           Hata raporu şablonu
-│   │   └── feature_request.yaml      Özellik talebi şablonu
-│   └── workflows/
-│   └── admx-validate.yml             ADMX validation script
+│   ├── ISSUE_TEMPLATE/                    Hata ve özellik talebi formları
+│   ├── dependabot.yml                     Bağımlılık güncelleme takvimi
+│   ├── linters/                           Paylaşılan markdownlint / yamllint yapılandırması
+│   └── workflows/                         CI/CD iş akışları (10 dosya)
 ├── ADMX/
-│   ├── ADMX-Validate.ps1             ADMX çapraz referans doğrulama betiği
-│   ├── Brave.admx                    Brave ADMX şablonu
-│   └── Brave.adml                    Brave ADML dil kaynakları
-└── Brave-Omega/
-        BraveOmega.ps1             Birleşik iki dilli betik (EN/TR)
-└── Tests/                         Pester test paketi (23 dosya)
-        FullPipeline.Tests.ps1          Birim + entegrasyon testleri
-        FullPipeline-TR.Tests.ps1       Birim + entegrasyon testleri (TR)
-        └── *.Tests.ps1                  Aşamalı politika testleri (21 dosya)
+│   ├── ADMX-Validate.ps1                  Politika çapraz referans doğrulayıcı
+│   ├── Brave.admx                         Brave ADMX politika şablonu
+│   └── Brave.adml                         ADML dil kaynakları
+├── Brave-Omega/
+│   ├── BraveOmega.ps1                     Birleşik iki dilli betik (EN/TR)
+│   ├── config.json                        ** çalışma anında zorunlu ** kademe sırası + kayıt defteri hedefleri
+│   ├── Profiles/                          ** çalışma anında zorunlu ** politika veri katmanı
+│   │   ├── BraveOnly.json                 1. kademe politikaları
+│   │   ├── Essential.json                 2. kademe farkı
+│   │   ├── Balanced.json                  3. kademe farkı
+│   │   ├── Advanced.json                  4. kademe farkı
+│   │   └── Strict.json                    5. kademe farkı
+│   └── Docs/
+│       └── Policy-Catalog.md              Üretilen politika kataloğu (EN + TR)
+├── Enterprise/
+│   ├── levels.json                        Dağıtım için kademe üstverisi
+│   ├── BraveOnly.reg … Strict.reg         Kademe başına kayıt defteri paketleri
+├── Scripts/
+│   ├── Invoke-CI.ps1                      Yerel uyumluluk kapısı (7 kontrol)
+│   ├── Deploy-Brave-Omega.ps1             Dağıtım giriş noktası
+│   ├── Detect-Brave-Omega.ps1             Kurulu durum algılama
+│   ├── Export-PolicyCatalog.ps1           Politika kataloğunu yeniden üretir
+│   ├── Verify-Mirror-Sync.ps1             İki dilli yansıma yapı denetimi
+│   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
+│   ├── Release.ps1                        Sürüm otomasyonu
+│   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
+├── Tests/                                 Pester 5.7.1 paketi (32 test dosyası + 2 yardımcı)
+├── Wiki/                                  Wiki kaynağı (15 sayfa)
+├── index.html                             Açılış sayfası (GitHub Pages)
+├── AGENTS.md                              Ajan ve katkıcı kuralları
+├── README.md                              Belgelendirme (EN + TR)
+├── CHANGELOG.md                           Değişiklik günlüğü (EN + TR)
+├── CONTRIBUTING.md                        Katkı rehberi (EN + TR)
+├── CODE_OF_CONDUCT.md                     Davranış kodu
+├── SECURITY.md                            Güvenlik politikası (EN + TR)
+├── PRIVACY.md                             Gizlilik beyanı
+├── SUPPORT.md                             Destek kanalları
+├── RELEASE-NOTE-TEMPLATE.md               Sürüm notu iskeleti
+├── CODEOWNERS                             Kod sahipliği
+├── LICENSE                                MIT
+└── NOTICE                                 Üçüncü taraf atıfları
 ```
 
 ---

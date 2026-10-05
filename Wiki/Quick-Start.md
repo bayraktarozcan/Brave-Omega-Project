@@ -53,6 +53,11 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
 
 Removes all Brave Omega policies from HKLM, HKCU, and Omaha GUIDs.
 
+> [!NOTE]
+> The reset backs up both hives first (`%TEMP%\BravePolicyBackup`) and aborts
+> without removing anything if that backup fails. A reset you cannot undo is
+> not a reset.
+
 ---
 
 ## Selecting a Hardening Level
@@ -94,6 +99,12 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 > Adjust path if you extracted elsewhere.
 
+> [!IMPORTANT]
+> Keep `config.json` and the `Profiles/` folder next to `BraveOmega.ps1`.
+> The 151 policies live in those files, not in the script — see
+> [Installation §2](Installation.md#2-navigate-to-project-folder). Running a
+> lone copy of the `.ps1` fails before applying anything.
+
 ### 3. Run the Script
 
 ```powershell
@@ -126,11 +137,18 @@ Navigate to `brave://policy` in Brave — all policies (51 for Essential level) 
 
 ## Rollback (If Needed)
 
+Backups are written to `%TEMP%\BravePolicyBackup` before the script touches the
+registry. Import the one you need:
+
 ```powershell
-reg import "BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg"
+# Machine-wide policies
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg"
+
+# Per-user policies and Omaha GUID
+reg import "$env:TEMP\BravePolicyBackup\HKCU_BraveSoftware_YYYYMMDD_HHMMSS.reg"
 ```
 
-The backup file is named with timestamp (e.g., `BraveOmega_HKLM_20260613_120000.reg`).
+Each file carries a timestamp (e.g. `HKLM_BravePolicy_20260613_120000.reg`).
 
 ---
 
@@ -208,6 +226,11 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Reset
 
 Tüm Brave Omega politikalarını HKLM, HKCU ve Omaha GUID'lerinden kaldırır.
 
+> [!NOTE]
+> Sıfırlama önce her iki kovanın da yedeğini alır
+> (`%TEMP%\BravePolicyBackup`); yedekleme başarısız olursa hiçbir şeyi
+> kaldırmadan vazgeçer. Geri alınamayan bir sıfırlama, sıfırlama değildir.
+
 ---
 
 ## Sıkılaştırma Seviyesi Seçme
@@ -249,6 +272,12 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 > Farklı bir yere çıkardıysanız yolu buna göre ayarlayın.
 
+> [!IMPORTANT]
+> `config.json` dosyasını ve `Profiles/` klasörünü `BraveOmega.ps1`'in yanında
+> tutun. 151 politika bu dosyalarda durur, betiğin içinde değil — bkz.
+> [Kurulum §2](Installation.md#2-proje-klasörüne-git). Betiğin yalnız başına
+> kopyalanmış hâli hiçbir şey uygulamadan hata verip durur.
+
 ### 3. Betiği Çalıştır
 
 ```powershell
@@ -281,11 +310,18 @@ Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 51) 
 
 ## Geri Alma (Gerekirse)
 
+Yedekler, betik kayıt defterine dokunmadan önce `%TEMP%\BravePolicyBackup`
+klasörüne yazılır. İhtiyacınız olanı içe aktarın:
+
 ```powershell
-reg import "BraveOmega_HKLM_YYYYMMDD_HHMMSS.reg"
+# Makine geneli politikalar
+reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_YYYYMMDD_HHMMSS.reg"
+
+# Kullanıcı başına politikalar ve Omaha GUID
+reg import "$env:TEMP\BravePolicyBackup\HKCU_BraveSoftware_YYYYMMDD_HHMMSS.reg"
 ```
 
-Yedek dosyası zaman damgasıyla adlandırılır (ör. `BraveOmega_HKLM_20260613_120000.reg`).
+Her dosya zaman damgası taşır (ör. `HKLM_BravePolicy_20260613_120000.reg`).
 
 ---
 

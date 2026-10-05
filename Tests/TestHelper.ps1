@@ -404,3 +404,23 @@ function New-MockBraveVersion {
         ChromiumMajor = $ChromiumMajor
     }
 }
+
+# reg export refuses the PowerShell provider form, so the backup step converts
+# the path before handing it over. That conversion is a single expression in the
+# script; this reads that expression back out of the shipped file and applies it
+# to a supplied path, so a test proves the line that ships rather than a copy of
+# it that can drift away from it unnoticed.
+function ConvertTo-OmegaFlatRegistryPath {
+    param(
+        [string]$ScriptPath,
+        [string]$Path
+    )
+
+    $content = Get-Content -Path $ScriptPath -Raw
+    $matched = [regex]::Match($content, '(?m)^\s*\$flatPath\s*=\s*(.+?)\s*$')
+    if (-not $matched.Success) {
+        throw "No flatPath conversion expression found in $ScriptPath"
+    }
+    $converter = [ScriptBlock]::Create('param($Path) ' + $matched.Groups[1].Value)
+    return & $converter $Path
+}
