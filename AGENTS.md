@@ -343,7 +343,7 @@ paths a tool looks up, so neither is a style choice available to this
 repository. The template and automation
 directories were lowercase for a while, on the argument that the vendor and the
 mainstream toolchains spell them that way, and both are now capitalised. A
-vendor's *format* name and an ecosystem's *habit* are not a platform
+vendor's _format_ name and an ecosystem's _habit_ are not a platform
 constraint: GitHub does not resolve its template directory lowercase, npm
 does not put that directory in lowercase, and a capitalised `ADMX/` opens
 in exactly the same tools.
@@ -402,7 +402,7 @@ report itself as its first offence. A guard that also passes when every
 reference has been deleted proves nothing, so the current spelling is asserted
 to be present too.
 
-A name that is merely *conventional* is not enough on its own to justify a
+A name that is merely _conventional_ is not enough on its own to justify a
 lowercase directory, and a rename is a single logical change: the directory
 moves, every path that names it moves with it in the same commit, and a
 reference left behind is a defect rather than a follow-up. Historical records -
@@ -539,7 +539,7 @@ Repository management and dependency conventions, with their current state in th
   than satisfied. A repository owner is listed as a bypass actor with
   `bypass_mode: always`, so a direct push to `main` is admitted and the ruleset
   is not enforced on it; the seven required status checks therefore run
-  *after* the push rather than gating it. This is the accepted cost of the
+  _after_ the push rather than gating it. This is the accepted cost of the
   no-PR workflow above, not an oversight: the checks still run, and a failure is
   detected and fixed forward on the same branch instead of being caught before
   merge. The second host's CI is the independent gate, so a bypass on one remote
@@ -641,7 +641,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=271c1cb22e0dd9909b164d327007211c744ff5c7 -->
+<!-- mirror-sync: sync-sha=0290f7c012f69d93474c72371ba4078cfeaef99e -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
