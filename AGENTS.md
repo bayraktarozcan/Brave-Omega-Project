@@ -1,7 +1,12 @@
-<!-- ================================================================== -->
+﻿<!-- ================================================================== -->
 <!--          BRAVE OMEGA PROJECT — AGENTS.md                           -->
 <!--        Community Edition · Open Source · Privacy First             -->
 <!-- ================================================================== -->
+
+> ## ⛔ The One Rule Above All
+> **Every change is applied directly and immediately to the live project files in this repository — the production working tree. Never do work "in the cloud", in a temp/scratch directory, in a hidden layer, or inside a detached script. If the user cannot see the change live in this tree right now, it does not exist.**
+> **No atomic operations. Work piece by piece, brick by brick — one change, one file, visible at every second.**
+> **The user watches the live working tree the whole time. Stop after each piece and report; never run silent marathon sessions, and never build verification before touching the tree — touch the tree first, then verify.**
 
 <div align="center">
 
@@ -636,7 +641,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=d2894b761acdfffa554ee41959b09c21db538a0f -->
+<!-- mirror-sync: sync-sha=2a8e2236169dbab2208df9403d4627a5c61c5cf8 -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
