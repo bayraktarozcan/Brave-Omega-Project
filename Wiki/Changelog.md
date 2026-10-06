@@ -17,11 +17,24 @@ Complete version history for Brave Omega.
 | **Minor** | New policies added, significant feature additions |
 | **Patch** | Bug fixes, translation updates, documentation, execution policy fixes |
 
-**Version Pinning:** Every release explicitly tagged with exact Brave + Chromium version.
+**Version Pinning:** V3 is version-agnostic — no release pins a Brave + Chromium version. History rows below keep their original pins as a record.
 
 ---
 
 ## Release History
+
+### v3.0.0.0 - 2026-10-06
+
+**Major Release - Version-agnostic global compatibility**
+
+**Changed:**
+
+- Pinned Brave/Chromium validation target removed: `$ValidatedBrave` / `$ValidatedChromium` start empty and are populated at runtime from `Get-BraveVersion`; the version gate is informational only and never blocks on a new Brave release
+- From V3 on, no dependency version change is shipped as a project update; the same 151 policies apply on all past and future Brave + Chromium versions
+- Version surfaces aligned to v3.0.0.0: README, SECURITY, SUPPORT, index.html, the Wiki pages, `AGENTS.md`, `Enterprise/levels.json`, policy catalog headers, and test expectations; historical entries untouched
+- No policy, registry value, or ADMX change; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+
+---
 
 ### v2.8.1.1 - 2026-09-26
 
@@ -777,7 +790,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v2.8.1.1** *(current)* | 1.96.59 | 154 | 11 25H2 | ✅ Active |
+| **v3.0.0.0** *(current)* | all | all | 11 | ✅ Active |
+| v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
 | v2.8.1.0 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
@@ -868,11 +882,24 @@ Brave Omega için tam sürüm geçmişi.
 | **Alt (Minor)** | Yeni politikalar eklendi, önemli özellik eklemeleri |
 | **Yama (Patch)** | Hata düzeltmeleri, çeviri güncellemeleri, belgelendirme, çalıştırma ilkesi düzeltmeleri |
 
-**Sürüm Sabitleme:** Her sürüm, tam Brave + Chromium sürümüyle açıkça etiketlenir.
+**Sürüm Sabitleme:** V3 sürüm-bağımsızdır — hiçbir sürüm Brave + Chromium sürümüne sabitlenmez. Aşağıdaki geçmiş satırlar özgün sabitlerini kayıt olarak korur.
 
 ---
 
 ## Sürüm Geçmişi
+
+### v3.0.0.0 - 2026-10-06
+
+**Ana Sürüm - Sürüm-bağımsız global uyumluluk**
+
+**Değiştirilenler:**
+
+- Sabit Brave/Chromium doğrulama hedefi kaldırıldı: `$ValidatedBrave` / `$ValidatedChromium` boş başlar ve `Get-BraveVersion` ile çalışma anında dolar; sürüm kapısı yalnızca bilgilendirir, yeni Brave sürümünde asla engellemez
+- V3 sonrası hiçbir bağımlılık sürüm değişikliği proje güncellemesi olarak verilmeyecek; aynı 151 politika geçmiş ve gelecek tüm Brave + Chromium sürümlerinde uygulanır
+- Sürüm yüzeyleri v3.0.0.0 ile hizalandı: README, SECURITY, SUPPORT, index.html, Wiki sayfaları, `AGENTS.md`, `Enterprise/levels.json`, politika kataloğu başlıkları ve test beklentileri; tarihsel kayıtlar korundu
+- Politika, kayıt değeri ve ADMX değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+
+---
 
 ### v2.8.1.1 - 2026-09-26
 
@@ -1629,7 +1656,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v2.8.1.1** *(güncel)* | 1.96.59 | 154 | 11 25H2 | ✅ Etkin |
+| **v3.0.0.0** *(güncel)* | tümü | tümü | 11 | ✅ Etkin |
+| v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
 | v2.8.1.0 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |

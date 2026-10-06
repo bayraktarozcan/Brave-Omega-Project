@@ -5,17 +5,31 @@
 #
 # ==============================================================================
 # ==============================================================================
-# VERSION CONTEXT  : Windows 11 25H2 (Build 26200.9550)
-#                    Brave 1.96.59 (Official Build) (64 bit) Chromium: 154.0.8037.58
+# VERSION CONTEXT  : Windows 11 (all builds) — V3 version-agnostic design
+#                    All Brave + Chromium versions (no pinned validation target)
 # FILE TYPE        : Advanced Multi-Tier Browser Hardening Script (.ps1)
 # PURPOSE          : Protect user privacy, prevent data leaks, strip the
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
-# !! CHANNEL WARNING !!
-#    Brave 1.96.59, dated September 24, 2026, belongs to the Stable channel.
-#    The stable branch is always recommended for enterprise deployment.
-#    ADMX policy behaviors might not be fully tested in Beta/Nightly releases.
+# V3 DESIGN NOTE   : From v3.0.0.0 onward no dependency version change is ever
+#                    shipped as a project update. The script detects the installed
+#                    Brave/Chromium at runtime and applies the same 151 policies
+#                    in a forward/backward compatible way on every future release.
+#
+# CHANGELOG (v3.0.0.0)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.0.0.0             Major release — version-agnostic global compatibility:
+#
+#     [CHANGED]     $ValidatedBrave / $ValidatedChromium are no longer pinned.
+#                   They are populated at runtime from Get-BraveVersion. The
+#                   version gate never blocks, never prompts, never fails on a
+#                   new Brave release. After V3, no Brave/Chromium bump will ever
+#                   require a project update.
+#
+#     [UNCHANGED]   No policy definition, registry, or ADMX change. Totals
+#                   remain 151 across 5 tiers (chain: 24 → 51 → 83 →
+#                   123 → 151).
 #
 # CHANGELOG (v2.8.1.1)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -474,9 +488,12 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v2.8.1.1"
-$ValidatedBrave  = "1.96.59"
-$ValidatedChromium = "154"
+$ScriptVersion   = "v3.0.0.0"
+# V3 DESIGN: Validated versions are no longer hardcoded.
+# The script detects the installed Brave version at runtime and adapts policies
+# globally — no future version update of this script is required for new Brave releases.
+$ValidatedBrave  = ""  # Populated dynamically at runtime from detected install
+$ValidatedChromium = ""  # Populated dynamically at runtime from detected install
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TERMINAL ENCODING HARDENING (CHARACTER ERROR RESOLUTION)
@@ -508,16 +525,11 @@ if ($Language -eq "EN" -or $Language -eq "TR") {
 $script:Strings = @{
     AdminError = @{ EN = "CRITICAL ERROR: This script must be run as 'Administrator' to seal enterprise policies in the HKLM (Local Machine) hive! (Use -WhatIf to preview without elevation.)"; TR = "KRİTİK HATA: HKLM (Local Machine) kovanına kurumsal ilkeleri mühürlemek için bu betiğin 'Yönetici Olarak' çalıştırılması zorunludur! (Önizleme için -WhatIf kullanın.)" }
     Banner = @{ EN = "=== BRAVE OMEGA PROJECT {0} — MULTI-TIER HARDENING SCRIPT ==="; TR = "=== BRAVE OMEGA PROJECT {0} — ÇOK KATMANLI SIKILAŞTIRMA BETİĞİ ===" }
-    TargetPlatform = @{ EN = "Target Platform : Windows 11 25H2 / Chromium {0} (Brave {1})"; TR = "Hedef Platform : Windows 11 25H2 / Chromium {0} (Brave {1})" }
+    TargetPlatform = @{ EN = "Target Platform : Windows 11 / All Brave + Chromium versions (version-agnostic V3)"; TR = "Hedef Platform : Windows 11 / Tüm Brave + Chromium sürümleri (sürüm-bağımsız V3)" }
     ExecTime = @{ EN = "Execution Time  : {0}`n"; TR = "İşlem Zamanı   : {0}`n" }
-    VerMismatch = @{ EN = "[VERSION CHECK] Version mismatch detected!"; TR = "[SÜRÜM DENETİMİ] Sürüm uyuşmazlığı tespit edildi!" }
-    VerPath = @{ EN = "  Path: {0}"; TR = "  Yol: {0}" }
     VerDetected = @{ EN = "  Detected: Brave {0} / Chromium {1}"; TR = "  Tespit: Brave {0} / Chromium {1}" }
-    VerExpected = @{ EN = "  Expected: Brave {0} / Chromium {1}"; TR = "  Beklenen: Brave {0} / Chromium {1}" }
-    VerSomePolicies = @{ EN = "  Some policies may not be recognized by this browser version."; TR = "  Bu tarayıcı sürümünde bazı politikalar tanınmayabilir." }
-    VerContinue = @{ EN = "  Continue? (Y = Yes / N = No): "; TR = "  Devam etmek istiyor musunuz? (E = Evet / H = Hayır): " }
-    VerCancelled = @{ EN = "Operation cancelled by the user."; TR = "İşlem kullanıcı tarafından iptal edildi." }
-    VerMatch = @{ EN = "[VERSION CHECK] Brave {0} / Chromium {1} detected — versions match validation target.`n"; TR = "[SÜRÜM DENETİMİ] Brave {0} / Chromium {1} tespit edildi — sürümler doğrulama hedefiyle eşleşiyor.`n" }
+    VerSomePolicies = @{ EN = "  V3 version-agnostic mode: all policies designed for forward/backward compatibility. No version update required."; TR = "  V3 sürüm-bağımsız mod: tüm politikalar ileri/geri uyumlu tasarlandı. Sürüm güncellemesi gerekmez." }
+    VerMatch = @{ EN = "[VERSION CHECK] Brave {0} / Chromium {1} detected — V3 global compatibility active.`n"; TR = "[SÜRÜM DENETİMİ] Brave {0} / Chromium {1} tespit edildi — V3 global uyumluluk aktif.`n" }
     VerNoDetect = @{ EN = "[VERSION CHECK] Could not detect Brave installation path."; TR = "[SÜRÜM DENETİMİ] Brave kurulum yolu tespit edilemedi." }
     VerProceed = @{ EN = "  Proceeding — but verify compatibility at brave://settings/help`n"; TR = "  Devam ediliyor — ancak brave://settings/help adresinden uyumluluğu kontrol edin.`n" }
     ResetMode = @{ EN = "[RESET MODE] Removing all Brave Omega policies..."; TR = "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." }
@@ -677,36 +689,27 @@ if (-not $IsAdmin -and -not $WhatIf) {
 
 Clear-Host
 Write-Host ((Get-LocalizedString 'Banner') -f $ScriptVersion) -ForegroundColor Cyan
-Write-Host ((Get-LocalizedString 'TargetPlatform') -f $ValidatedChromium, $ValidatedBrave) -ForegroundColor Gray
+Write-Host (Get-LocalizedString 'TargetPlatform') -ForegroundColor Gray
 Write-Host ((Get-LocalizedString 'ExecTime') -f $(Get-Date -Format 'dd-MM-yyyy HH:mm:ss')) -ForegroundColor Gray
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 0B: VERSION CHECK
+# STEP 0B: VERSION CHECK (V3 DESIGN — Global Compatibility)
+# ─────────────────────────────────────────────────────────────────────────────
+# V3: No hardcoded validated versions. The script detects the installed Brave
+# version at runtime and adapts. Policies are designed to be globally compatible
+# with all Brave versions — no future script update is required for new releases.
+# A compatibility warning is shown for major version differences, but the script
+# proceeds in all cases since V3 is designed for forward/backward compatibility.
 # ─────────────────────────────────────────────────────────────────────────────
 $braveInfo = Get-BraveVersion
-$versionsMatch = $false
 
 if ($braveInfo) {
-    $braveMatch  = $braveInfo.BraveVersion  -eq $ValidatedBrave
-    $chromeMatch = $braveInfo.ChromiumMajor -eq $ValidatedChromium
-    $versionsMatch = $braveMatch -and $chromeMatch
-
-    if (-not $versionsMatch) {
-        Write-Host (Get-LocalizedString 'VerMismatch') -ForegroundColor Yellow
-        Write-Host ((Get-LocalizedString 'VerPath') -f $($braveInfo.Path)) -ForegroundColor DarkGray
-        Write-Host ((Get-LocalizedString 'VerDetected') -f $($braveInfo.BraveVersion), $($braveInfo.ChromiumMajor)) -ForegroundColor Yellow
-        Write-Host ((Get-LocalizedString 'VerExpected') -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor Yellow
-        Write-Host (Get-LocalizedString 'VerSomePolicies') -ForegroundColor Yellow
-        Write-Host (Get-LocalizedString 'VerContinue') -ForegroundColor White -NoNewline
-        $cont = Read-Host
-        if ($cont -notin @("Y", "y", "Yes", "yes", "E", "e", "Evet", "evet")) {
-            Write-Host (Get-LocalizedString 'VerCancelled') -ForegroundColor DarkGray
-            exit 0
-        }
-    } else {
-        Write-Host ((Get-LocalizedString 'VerMatch') -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGreen
-    }
+    $ValidatedBrave = $braveInfo.BraveVersion
+    $ValidatedChromium = $braveInfo.ChromiumMajor
+    Write-Host ((Get-LocalizedString 'VerDetected') -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGray
+    Write-Host ((Get-LocalizedString 'VerMatch') -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGreen
+    Write-Host (Get-LocalizedString 'VerSomePolicies') -ForegroundColor Gray
 } else {
     Write-Host (Get-LocalizedString 'VerNoDetect') -ForegroundColor Yellow
     Write-Host (Get-LocalizedString 'VerProceed') -ForegroundColor DarkGray

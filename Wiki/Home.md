@@ -28,7 +28,7 @@
 
 ---
 
-> **Latest Release:** [v2.8.1.1 - ExpandString registry type reporting fix](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v3.0.0.0 - Version-agnostic global compatibility](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
@@ -71,7 +71,7 @@
 
 ---
 
-> **Son Sürüm:** [v2.8.1.1 - ExpandString kayıt türü raporlama düzeltmesi](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v3.0.0.0 - Sürüm-bağımsız global uyumluluk](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 

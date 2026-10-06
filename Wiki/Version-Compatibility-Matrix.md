@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v2.8.1.1** ✅ | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | ✅ Active | 2026-09-26 |
+| **v3.0.0.0** ✅ | all | all | Windows 11 | ✅ Active | 2026-10-06 |
+| v2.8.1.1 📦 | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | 📦 Previous | 2026-09-26 |
 | v2.8.0.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Previous | 2026-09-22 |
 | v2.7.3.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Previous | 2026-09-19 |
 | **v2.7.2.0** 📦 | 1.95.102 | 153.0.8010.48 | Windows 11 25H2 | 📦 Previous | 2026-09-18 |
@@ -82,15 +83,15 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v2.8.1.1) If
+### Use Current (v3.0.0.0) If
 
-- Running Brave 1.96.59 (latest stable)
+- Running any Brave release (V3 version-agnostic — no pinned version)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 151 total policies
 
-### Use Previous (v2.8.0.0) If
+### Use Previous (v2.8.1.1) If
 
-- Cannot update to v2.8.1.1 immediately
+- Cannot update to v3.0.0.0 immediately
 - Running Brave 1.95.104
 
 ### Use Legacy (v2.2.1.0) If
@@ -131,16 +132,17 @@ if (Test-Path $bravePath) {
 
 | Scenario | Recommendation |
 | ---------- | ---------------- |
-| Brave newer than matrix | Check [Releases](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) for updated Brave Omega |
-| Brave older than matrix | Update Brave to latest stable first |
-| Brave matches matrix | Use corresponding Brave Omega version |
-| Windows build differs | Windows 11 25H2 recommended; other 25H2 builds likely compatible |
+| Any Brave release (V3) | Use v3.0.0.0 — version-agnostic, no matrix lookup needed |
+| Staying on v2.8.1.1 | Update to v3.0.0.0 to drop the pinned validation target |
+| Windows build differs | Windows 11 recommended; other builds likely compatible |
 
 ---
 
 ## Policy Coverage by Version
 
 | Version | Policies | Coverage | New Policies |
+| v3.0.0.0 | 151 | 100% | Major release — version-agnostic global compatibility (2026-10-06). Pinned Brave/Chromium validation target removed; version gate informational only. No policy changes, no regressions across all 5 tiers |
+| v2.8.1.1 | 151 | 100% | Patch release — ExpandString registry type reporting fix (2026-09-26). No policy changes, no regressions across all 5 tiers |
 | v2.8.1.0 | 151 | 100% | Patch release — Brave 1.96.59 compatibility validation (Chromium 154.0.8037.58; 2026-09-25). ADMX artifacts refreshed to official 154.1.98.28 policy templates. No policy changes, no regressions across all 5 tiers |
 | v2.8.0.0 | 151 | 100% | Feature release — data-layer refactor (2026-09-22). All policy definitions moved into config.json + profiles/*.json; script loads them at runtime via Import-OmegaPolicyData into $OmegaState. Byte-identical registry output, no policy changes, no regressions across all 5 tiers |
 | v2.7.3.0 | 151 | 100% | Patch release — Brave 1.95.104 compatibility validation (Chromium 153.0.8010.53; 2026-09-19). No policy changes, no regressions across all 5 tiers |
@@ -235,7 +237,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v2.8.1.1** ✅ | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | ✅ Etkin | 2026-09-26 |
+| **v3.0.0.0** ✅ | tümü | tümü | Windows 11 | ✅ Etkin | 2026-10-06 |
+| v2.8.1.1 📦 | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | 📦 Önceki | 2026-09-26 |
 | v2.8.0.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Önceki | 2026-09-22 |
 | v2.7.3.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Önceki | 2026-09-19 |
 | **v2.7.2.0** 📦 | 1.95.102 | 153.0.8010.48 | Windows 11 25H2 | 📦 Önceki | 2026-09-18 |
@@ -304,15 +307,15 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v2.8.1.1) Kullan Eğer
+### Güncel (v3.0.0.0) Kullan Eğer
 
-- Brave 1.96.59 (en güncel kararlı) çalışıyorsa
+- Herhangi bir Brave sürümü çalışıyorsa (V3 sürüm-bağımsız — sabit sürüm yok)
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 151 toplam politika
 
-### Önceki (v2.8.0.0) Kullan Eğer
+### Önceki (v2.8.1.1) Kullan Eğer
 
-- Hemen v2.8.1.1'a güncelleyemiyorsanız
+- Hemen v3.0.0.0'a güncelleyemiyorsanız
 - Brave 1.95.104 çalışıyorsa
 
 ### Eski (v2.2.1.0) Kullan Eğer
@@ -353,16 +356,17 @@ if (Test-Path $bravePath) {
 
 | Senaryo | Öneri |
 | --------- | ------- |
-| Brave matristen daha yeni | Güncellenmiş Brave Omega için [Sürümlere](https://github.com/bayraktarozcan/Brave-Omega-Project/releases) bakın |
-| Brave matristen daha eski | Önce Brave'i en güncel kararlı sürüme güncelleyin |
-| Brave matrisle eşleşiyor | İlgili Brave Omega sürümünü kullanın |
-| Windows derlemesi farklı | Windows 11 25H2 önerilir; diğer 25H2 derlemeleri muhtemelen uyumludur |
+| Herhangi bir Brave sürümü (V3) | v3.0.0.0 kullanın — sürüm-bağımsız, matris araması gerekmez |
+| v2.8.1.1'de kalınıyorsa | Sabit doğrulama hedefinden kurtulmak için v3.0.0.0'a geçin |
+| Windows derlemesi farklı | Windows 11 önerilir; diğer derlemeler muhtemelen uyumludur |
 
 ---
 
 ## Sürüme Göre Politika Kapsamı
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
+| v3.0.0.0 | 151 | 100% | Ana sürüm — sürüm-bağımsız global uyumluluk (2026-10-06). Sabit Brave/Chromium doğrulama hedefi kaldırıldı; sürüm kapısı yalnızca bilgilendirir. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
+| v2.8.1.1 | 151 | 100% | Yama sürümü — ExpandString kayıt türü raporlama düzeltmesi (2026-09-26). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v2.8.1.0 | 151 | 100% | Yama sürümü — Brave 1.96.59 uyumluluk doğrulaması (Chromium 154.0.8037.58; 2026-09-25). ADMX yapıtları resmî 154.1.98.28 politika şablonlarıyla tazelendi. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v2.8.0.0 | 151 | 100% | Özellik sürümü — veri katmanı yeniden düzenlemesi (2026-09-22). Tüm politika tanımları config.json + profiles/*.json içine taşındı; betik bunları çalışma zamanında Import-OmegaPolicyData ile $OmegaState içine yükler. Bayt-bayt aynı kayıt defteri çıktısı, politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v2.7.3.0 | 151 | 100% | Yama sürümü — Brave 1.95.104 uyumluluk doğrulaması (Chromium 153.0.8010.53; 2026-09-19). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |

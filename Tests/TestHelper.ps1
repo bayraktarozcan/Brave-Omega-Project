@@ -395,8 +395,8 @@ function ConvertTo-FourPartVersion {
 
 function New-MockBraveVersion {
     param(
-        [string]$Version = "1.96.59",
-        [string]$ChromiumMajor = "154"
+        [string]$Version = "",
+        [string]$ChromiumMajor = ""
     )
     return @{
         Path = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"

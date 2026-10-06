@@ -5,23 +5,13 @@ BeforeAll {
 Describe "Script Version Consistency" -Tag "Integration" {
     It "unified script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion"
-        $v | Should -BeExactly "v2.8.1.1"
+        $v | Should -BeExactly "v3.0.0.0"
     }
 
     It "unified script should have a single version variable (no per-language fork)" {
         $content = Get-Content -Path $ScriptMain -Raw
         $content -match '\$BetikSurum' | Should -Be $false
         ([regex]::Matches($content, '\$ScriptVersion\s*=\s*"')).Count | Should -BeExactly 1
-    }
-
-    It "unified script should have validated Brave version" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $content -match '\$ValidatedBrave\s*=\s*"1\.96\.59"' | Should -Be $true
-    }
-
-    It "unified script should have validated Chromium version" {
-        $content = Get-Content -Path $ScriptMain -Raw
-        $content -match '\$ValidatedChromium\s*=\s*"154"' | Should -Be $true
     }
 
     It "unified script should carry all 151 policy definitions in one place" {

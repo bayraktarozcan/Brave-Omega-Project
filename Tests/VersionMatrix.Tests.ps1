@@ -57,8 +57,9 @@ BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
 
     $script:VersionOfRecord   = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion"
-    $script:ValidatedBrave    = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ValidatedBrave"
-    $script:ValidatedChromium = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ValidatedChromium"
+    # V3: validated builds are no longer hardcoded; the script is version-agnostic.
+    $script:ValidatedBrave    = ""
+    $script:ValidatedChromium = ""
 
     # The surfaces that carry a compatibility matrix, and the one that must not.
     # Home is named rather than discovered, so a table appearing there is
@@ -194,9 +195,10 @@ Describe "Version compatibility matrix" -Tag "Unit" {
             $script:VersionOfRecord | Should -Match '^v\d+\.\d+\.\d+\.\d+$' -Because "the expected value is read from the script, and a version the comparison cannot parse would let every current row pass unchecked"
         }
 
-        It "the script declares a full Brave build and a Chromium major" {
-            $script:ValidatedBrave | Should -Match '^\d+\.\d+\.\d+$' -Because "the matrix column carries a full Brave build, and comparing it against a different shape would report a difference that is only a format"
-            $script:ValidatedChromium | Should -Match '^\d+$' -Because "the matrix records the Chromium major only, so comparing it against a full build string would fail on a correct table"
+        It "V3 is version-agnostic: no hardcoded validated build" {
+            $content = Get-Content -Path $ScriptMain -Raw
+            $content -match '\$ValidatedBrave\s*=\s*"1\.' | Should -Be $false
+            $content -match '\$ValidatedChromium\s*=\s*"154"' | Should -Be $false
         }
 
         It "the changelog yields a release set" {
@@ -251,6 +253,7 @@ Describe "Version compatibility matrix" -Tag "Unit" {
                         continue
                     }
                     $checked++
+                    if ([string]::IsNullOrEmpty($script:ValidatedBrave)) { continue }
                     if ($row.Brave -ne $script:ValidatedBrave) {
                         $offenders += ("{0} table {1}: Brave {2}, script declares {3}" -f $doc, $index, $row.Brave, $script:ValidatedBrave)
                     }
@@ -325,7 +328,7 @@ Describe "Version compatibility matrix" -Tag "Unit" {
             $table = @(
                 '| Brave Omega | Brave Version | Chromium | Windows | Status |',
                 '| ------------- | --------------- | ---------- | --------- | -------- |',
-                '| **v2.8.1.1** *(current)* | 1.96.59 | 154 | 11 25H2 | Current |'
+                '| **v3.0.0.0** *(current)* | all | all | 11 | Current |'
             )
             $versions = Get-MatrixRowVersions -Table $table
 

@@ -3,14 +3,14 @@ BeforeAll {
 }
 
 Describe "Version Check" -Tag "Unit" {
-    It "unified script should have expected Brave version constant" {
+    It "unified script should not have hardcoded validated Brave version (V3 global compatibility)" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'ValidatedBrave.*=.*"1\.96\.59"' | Should -Be $true
+        $content -match '\$ValidatedBrave\s*=\s*"1\.96\.59"' | Should -Be $false
     }
 
-    It "unified script should have expected Chromium version constant" {
+    It "unified script should not have hardcoded validated Chromium version (V3 global compatibility)" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $content -match 'ValidatedChromium.*=.*"154"' | Should -Be $true
+        $content -match '\$ValidatedChromium\s*=\s*"154"' | Should -Be $false
     }
 
     It "unified script should have no per-language version fork" {
@@ -31,9 +31,11 @@ Describe "Version Check" -Tag "Unit" {
         ($braveVersion -eq $ValidatedBrave) | Should -Be $true
     }
 
-    It "version constants should be defined exactly once" {
+    It "version variables are declared empty once and populated once at runtime" {
         $content = Get-Content -Path $ScriptMain -Raw
-        ([regex]::Matches($content, '\$ValidatedBrave\s*=').Count) | Should -BeExactly 1
-        ([regex]::Matches($content, '\$ValidatedChromium\s*=').Count) | Should -BeExactly 1
+        ([regex]::Matches($content, '\$ValidatedBrave\s*=').Count) | Should -BeExactly 2
+        ([regex]::Matches($content, '\$ValidatedChromium\s*=').Count) | Should -BeExactly 2
+        $content -match '\$ValidatedBrave\s*=\s*""' | Should -Be $true
+        $content -match '\$ValidatedBrave\s*=\s*\$braveInfo\.BraveVersion' | Should -Be $true
     }
 }

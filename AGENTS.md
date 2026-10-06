@@ -50,9 +50,9 @@ Operational notes for humans and AI agents working in this repository. English i
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v2.8.1.1` | `BraveOmega.ps1` header + `$ScriptVersion` |
-| Brave | `1.96.59` | `$ValidatedBrave` |
-| Chromium | `154` | `$ValidatedChromium` (major only) |
+| Script | `v3.0.0.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Brave | _(unpinned — detected at runtime)_ | `$ValidatedBrave` (populated from install; V3 never blocks) |
+| Chromium | _(unpinned — detected at runtime)_ | `$ValidatedChromium` (populated from install; V3 never blocks) |
 
 Policy totals: 151 across 5 tiers; cumulative chain `24 → 51 → 83 → 123 → 151`.
 
@@ -641,7 +641,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=2a8e2236169dbab2208df9403d4627a5c61c5cf8 -->
+<!-- mirror-sync: sync-sha=271c1cb22e0dd9909b164d327007211c744ff5c7 -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
