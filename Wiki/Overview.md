@@ -66,7 +66,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.0.0.0** *(current)* | all | all | 11 | ✅ Current |
+| **v3.0.0.0** *(current)* | all | all | 11 26H2 | ✅ Current |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
@@ -206,7 +206,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.0.0.0** *(güncel)* | tümü | tümü | 11 | ✅ Etkin |
+| **v3.0.0.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
 | v2.7.3.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
