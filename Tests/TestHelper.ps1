@@ -27,11 +27,6 @@ $TestPolicies = @{
     )
 }
 
-function Get-ScriptContent {
-    param([string]$ScriptPath)
-    return Get-Content -Path $ScriptPath -Raw
-}
-
 function Get-ScriptFunctions {
     param([string]$ScriptPath)
     $content = Get-Content -Path $ScriptPath -Raw
@@ -391,18 +386,6 @@ function ConvertTo-FourPartVersion {
     if ($Version -notmatch '^v\d+(\.\d+){2,3}$') { return $null }
     if ($Version -match '^v\d+\.\d+\.\d+\.\d+$') { return $Version }
     return "$Version.0"
-}
-
-function New-MockBraveVersion {
-    param(
-        [string]$Version = "",
-        [string]$ChromiumMajor = ""
-    )
-    return @{
-        Path = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
-        BraveVersion = $Version
-        ChromiumMajor = $ChromiumMajor
-    }
 }
 
 # reg export refuses the PowerShell provider form, so the backup step converts
