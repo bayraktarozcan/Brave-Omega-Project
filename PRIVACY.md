@@ -11,7 +11,7 @@
 
 <br>
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2011%2026H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 

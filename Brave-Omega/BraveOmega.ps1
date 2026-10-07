@@ -608,7 +608,7 @@ $script:Strings = @{
     SummaryTypes = @{ EN = "  Types Applied      : DWord={0} / String={1} / MultiString={2} / ExpandString={3}"; TR = "  Tür Dağılımı       : DWord={0} / String={1} / MultiString={2} / ExpandString={3}" }
     FinalWarn1 = @{ EN = "`n  [WARNING] {0} policy/policies could not be written. Please"; TR = "`n  [UYARI] {0} politika yazılamadı. Lütfen" }
     FinalSuccess1 = @{ EN = "`n  [SUCCESS] {0} enterprise privacy policies were successfully"; TR = "`n  [BAŞARILI] {0} kurumsal gizlilik politikaları" }
-    FinalSuccess2 = @{ EN = "            applied to Brave on Windows 11 25H2."; TR = "            Windows 11 25H2 üzerinde Brave'e başarıyla uygulandı." }
+    FinalSuccess2 = @{ EN = "            applied to Brave on Windows 11 26H2."; TR = "            Windows 11 26H2 üzerinde Brave'e başarıyla uygulandı." }
     FinalSuccess3 = @{ EN = "            Simply close Brave completely and reopen it for"; TR = "            Brave'i tamamen kapatıp yeniden açtığınızda" }
     FinalSuccess4 = @{ EN = "            the changes to take effect.`n"; TR = "            değişiklikler etkili olacaktır.`n" }
     FinalWhatIfNote = @{ EN = "  [WhatIf] No registry changes were made. Run without -WhatIf to apply.`n"; TR = "  [WhatIf] Hiçbir kayıt defteri değişikliği yapılmadı. Uygulamak için -WhatIf kullanmadan çalıştırın.`n" }

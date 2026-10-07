@@ -13,7 +13,7 @@
 
 <br>
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2011%2026H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
 [![Brave](https://img.shields.io/badge/Brave-All%20versions%20%7C%20V3%20agnostic-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
@@ -132,7 +132,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Requirement | Detail |
 |-------------|--------|
-| **Operating System** | Windows 11 25H2 (recommended: build 26200.9550) |
+| **Operating System** | Windows 11 26H2 (required: build 26300.9550) |
 | **Browser** | **Brave Browser — latest stable release** (see [brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (included with Windows 11 — no additional installation needed) |
 | **Privileges** | Run as Administrator (required for HKLM registry writes) |
@@ -829,7 +829,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Gereksinim | Ayrıntı |
 |------------|---------|
-| **İşletim Sistemi** | Windows 11 25H2 (önerilen derleme: 26200.9550) |
+| **İşletim Sistemi** | Windows 11 26H2 (gerekli derleme: 26300.9550) |
 | **Tarayıcı** | **Brave Browser — en güncel kararlı sürüm** (bkz. [brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir — ek kurulum gerekmez) |
 | **Ayrıcalık** | Yönetici olarak çalıştır (HKLM kayıt defteri yazma işlemi için zorunlu) |

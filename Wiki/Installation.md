@@ -13,7 +13,7 @@ Complete installation guide for Brave Omega v3.0.0.0 (V3 version-agnostic — al
 
 | Requirement | Minimum | Recommended |
 | ------------- | --------- | ------------- |
-| **Operating System** | Windows 11 | Windows 11 25H2 (latest stable) |
+| **Operating System** | Windows 11 26H2 (build 26300.9550) | Windows 11 26H2 (latest stable) |
 | **Brave Browser** | 1.91.x | Latest stable ([brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1 | 5.1+ (built into Windows 11) |
 | **Privileges** | Administrator | Administrator |
@@ -288,7 +288,7 @@ Brave Omega v3.0.0.0 için tam kurulum kılavuzu (V3 sürüm-bağımsız — tü
 
 | Gereksinim | Minimum | Önerilen |
 | ------------ | --------- | ---------- |
-| **İşletim Sistemi** | Windows 11 | Windows 11 25H2 (en güncel kararlı) |
+| **İşletim Sistemi** | Windows 11 26H2 (derleme 26300.9550) | Windows 11 26H2 (en güncel kararlı) |
 | **Brave Browser** | 1.91.x | En güncel kararlı ([brave.com/download](https://brave.com/download)) |
 | **PowerShell** | 5.1 | 5.1+ (Windows 11 ile birlikte gelir) |
 | **Ayrıcalık** | Yönetici | Yönetici |
