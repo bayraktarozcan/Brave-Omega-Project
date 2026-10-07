@@ -7,8 +7,9 @@
     2. Creates git tag if needed
     3. Syncs Wiki to GitHub Wiki
     4. Deprecates previous latest release
-    5. Creates GitHub release
-    6. Creates GitLab release
+    5. Builds the runnable release package under Work/
+    6. Creates GitHub release and uploads the package
+    7. Creates GitLab release and uploads the package
 .PARAMETER Version
     Version string (e.g., "v2.3.2.0")
 .PARAMETER Title
@@ -44,7 +45,10 @@ param(
     [switch]$SkipDeprecate,
 
     [Parameter(Mandatory=$false)]
-    [switch]$DryRun
+    [switch]$DryRun,
+
+    [Parameter(Mandatory=$false)]
+    [switch]$SkipPackage
 )
 
 $ErrorActionPreference = "Continue"
@@ -86,6 +90,32 @@ function Invoke-OrDie {
     return $result
 }
 
+function New-OmegaReleasePackage {
+    param([string]$Version, [string]$RepoRoot)
+    $workDir = Join-Path $RepoRoot "Work"
+    if (-not (Test-Path -LiteralPath $workDir)) {
+        New-Item -ItemType Directory -Path $workDir | Out-Null
+    }
+    $stageDir = Join-Path $workDir "pkg-stage"
+    if (Test-Path -LiteralPath $stageDir) {
+        Remove-Item -LiteralPath $stageDir -Recurse -Force
+    }
+    New-Item -ItemType Directory -Path (Join-Path $stageDir "Brave-Omega/Profiles") | Out-Null
+    New-Item -ItemType Directory -Path (Join-Path $stageDir "Brave-Omega/Docs") | Out-Null
+    Copy-Item (Join-Path $RepoRoot "Brave-Omega/BraveOmega.ps1") (Join-Path $stageDir "Brave-Omega/")
+    Copy-Item (Join-Path $RepoRoot "Brave-Omega/config.json") (Join-Path $stageDir "Brave-Omega/")
+    Copy-Item (Join-Path $RepoRoot "Brave-Omega/Profiles/*.json") (Join-Path $stageDir "Brave-Omega/Profiles/")
+    Copy-Item (Join-Path $RepoRoot "Brave-Omega/Docs/Policy-Catalog.md") (Join-Path $stageDir "Brave-Omega/Docs/")
+    Copy-Item (Join-Path $RepoRoot "index.html"), (Join-Path $RepoRoot "README.md"), (Join-Path $RepoRoot "LICENSE"), (Join-Path $RepoRoot "NOTICE"), (Join-Path $RepoRoot "CHANGELOG.md") $stageDir
+    $zipName = "Brave-Omega-$Version.zip"
+    $zipPath = Join-Path $workDir $zipName
+    if (Test-Path -LiteralPath $zipPath) {
+        Remove-Item -LiteralPath $zipPath -Force
+    }
+    Compress-Archive -Path (Join-Path $stageDir "*") -DestinationPath $zipPath
+    return @{ Name = $zipName; Path = $zipPath }
+}
+
 # --- Banner ---
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
@@ -98,7 +128,7 @@ Write-Host ""
 # ----------------------------------------
 # Step 1: Validate
 # ----------------------------------------
-Write-Step "1/6" "Validating..."
+Write-Step "1/7" "Validating..."
 
 # Check version format
 if ($Version -notmatch "^v\d+\.\d+\.\d+\.\d+$") {
@@ -125,7 +155,7 @@ Write-OK "Validation passed"
 # ----------------------------------------
 # Step 2: Create Tag (if needed)
 # ----------------------------------------
-Write-Step "2/6" "Checking git tag..."
+Write-Step "2/7" "Checking git tag..."
 
 $existingTag = git tag -l $Version 2>$null
 if ($existingTag) {
@@ -144,9 +174,9 @@ if ($existingTag) {
 # Step 3: Sync Wiki
 # ----------------------------------------
 if ($SkipWiki) {
-    Write-Step "3/6" "Wiki sync skipped"
+    Write-Step "3/7" "Wiki sync skipped"
 } else {
-    Write-Step "3/6" "Syncing Wiki..."
+    Write-Step "3/7" "Syncing Wiki..."
 
     $wikiTemp = Join-Path $env:TEMP "wiki-sync-$([guid]::NewGuid().ToString('N').Substring(0,8))"
     $originalLocation = Get-Location
@@ -193,9 +223,9 @@ if ($SkipWiki) {
 # Step 4: Deprecate Previous Release
 # ----------------------------------------
 if ($SkipDeprecate) {
-    Write-Step "4/6" "Deprecation skipped"
+    Write-Step "4/7" "Deprecation skipped"
 } else {
-    Write-Step "4/6" "Deprecating previous release..."
+    Write-Step "4/7" "Deprecating previous release..."
 
     # Find current latest release
     $latestJson = gh release list --repo $repo --limit 10 --json tagName,name,isLatest,isDraft 2>&1
@@ -233,9 +263,26 @@ if ($SkipDeprecate) {
 }
 
 # ----------------------------------------
-# Step 5: Create GitHub Release
+# Step 5: Build Release Package
 # ----------------------------------------
-Write-Step "5/6" "Creating GitHub release..."
+$package = $null
+if ($SkipPackage) {
+    Write-Step "5/7" "Package build skipped"
+} else {
+    Write-Step "5/7" "Building release package..."
+    if (-not $DryRun) {
+        $package = New-OmegaReleasePackage -Version $Version -RepoRoot $scriptDir
+        $pkgSize = (Get-Item -LiteralPath $package.Path).Length
+        Write-OK "Package built: $($package.Name) ($pkgSize bytes)"
+    } else {
+        Write-Host "  DRY-RUN: Build Brave-Omega-$Version.zip under Work/" -ForegroundColor DarkYellow
+    }
+}
+
+# ----------------------------------------
+# Step 6: Create GitHub Release
+# ----------------------------------------
+Write-Step "6/7" "Creating GitHub release..."
 
 $ghArgs = @("release", "create", $Version, "--repo", $repo, "--title", "$Version - $Title", "--latest")
 if ($NotesFile -and (Test-Path $NotesFile)) {
@@ -249,13 +296,18 @@ if ($NotesFile -and (Test-Path $NotesFile)) {
 if (-not $DryRun) {
     $createOutput = & gh @ghArgs 2>&1
     if ($LASTEXITCODE -ne 0) { throw "Failed to create GitHub release: $createOutput" }
+    if ($package) {
+        $uploadOutput = & gh release upload $Version $package.Path --repo $repo --clobber 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "Failed to upload package to GitHub release: $uploadOutput" }
+        Write-OK "Package uploaded to GitHub release: $($package.Name)"
+    }
 }
 Write-OK "GitHub release created: https://github.com/$repo/releases/tag/$Version"
 
 # ----------------------------------------
-# Step 6: Create GitLab Release
+# Step 7: Create GitLab Release
 # ----------------------------------------
-Write-Step "6/6" "Creating GitLab release..."
+Write-Step "7/7" "Creating GitLab release..."
 
 $glabArgs = @("release", "create", $Version, "--repo", $repo, "--name", "$Version - $Title")
 if ($NotesFile -and (Test-Path $NotesFile)) {
@@ -267,6 +319,12 @@ if ($NotesFile -and (Test-Path $NotesFile)) {
 if (-not $DryRun) {
     $glabOutput = & glab @glabArgs 2>&1
     if ($LASTEXITCODE -ne 0) { throw "Failed to create GitLab release: $glabOutput" }
+    if ($package) {
+        $assetSpec = "$($package.Path)#$($package.Name)#package"
+        $glUploadOutput = & glab release upload $Version $assetSpec 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "Failed to upload package to GitLab release: $glUploadOutput" }
+        Write-OK "Package uploaded to GitLab release: $($package.Name)"
+    }
 }
 Write-OK "GitLab release created: https://gitlab.com/$repo/-/releases/$Version"
 
