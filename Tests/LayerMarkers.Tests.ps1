@@ -91,7 +91,7 @@ Describe "Local-only layer markers" -Tag "Unit" {
         }
 
         It "still keeps the marker out of Git inside a layer" {
-            foreach ($layer in @('Docs', 'Work', 'Intelligence')) {
+            foreach ($layer in @('Docs', 'Agent-Scratch', 'Intelligence')) {
                 Test-OmegaIgnorePath -Rules $script:IgnoreRules -Path "$layer/$($script:Marker)" |
                     Should -BeTrue -Because "the layer rule, not the marker rule, is what keeps a local layer out of the repository"
             }

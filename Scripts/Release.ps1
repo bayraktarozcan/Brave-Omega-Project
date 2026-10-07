@@ -7,7 +7,7 @@
     2. Creates git tag if needed
     3. Syncs Wiki to GitHub Wiki
     4. Deprecates previous latest release
-    5. Builds the runnable release package under Work/
+    5. Builds the runnable release package under Agent-Scratch/
     6. Creates GitHub release and uploads the package
     7. Creates GitLab release and uploads the package
 .PARAMETER Version
@@ -92,7 +92,7 @@ function Invoke-OrDie {
 
 function New-OmegaReleasePackage {
     param([string]$Version, [string]$RepoRoot)
-    $workDir = Join-Path $RepoRoot "Work"
+    $workDir = Join-Path $RepoRoot "Agent-Scratch"
     if (-not (Test-Path -LiteralPath $workDir)) {
         New-Item -ItemType Directory -Path $workDir | Out-Null
     }
@@ -275,7 +275,7 @@ if ($SkipPackage) {
         $pkgSize = (Get-Item -LiteralPath $package.Path).Length
         Write-OK "Package built: $($package.Name) ($pkgSize bytes)"
     } else {
-        Write-Host "  DRY-RUN: Build Brave-Omega-$Version.zip under Work/" -ForegroundColor DarkYellow
+        Write-Host "  DRY-RUN: Build Brave-Omega-$Version.zip under Agent-Scratch/" -ForegroundColor DarkYellow
     }
 }
 

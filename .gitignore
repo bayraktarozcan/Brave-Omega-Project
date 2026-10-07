@@ -190,17 +190,22 @@ AGENTS-TR.md
 #     live here rather than in the operating system's scratch area, which is
 #     cleaned periodically and takes an agent's uncommitted work with it.
 #     Root-anchored on purpose, for the same reason as /Docs/ above: a bare
-#     "Work/" would match at every depth and could swallow a tracked directory
-#     that happens to share the name. The name of this directory is never
-#     written into committed output, and nothing under version control may
-#     reference a file inside it.
+#     "Agent-Scratch/" would match at every depth and could swallow a tracked
+#     directory that happens to share the name. The name of this directory is
+#     never written into committed output, and nothing under version control
+#     may reference a file inside it. The single mechanical exception is
+#     Scripts/Release.ps1, which stages the release package it uploads inside
+#     this directory; it names the directory only, never a file within it.
 # [TR] Bir ajanın çalışırken ürettiği geçici betikler, notlar ve geri alma
 #     noktaları işletim sisteminin geçici alanı yerine burada tutulur; bu alan
 #     düzenli olarak temizlendiği için ajanın commit edilmemiş işini de siler.
 #     Bilinçli olarak kök dizine sabitlendi, /Docs/ ile aynı gerekçeyle: çıplak
-#     "Work/" her derinlikte eşleşir ve aynı ada sahip izlenen bir dizini
-#     sessizce yutar. Bu dizinin adı asla commit edilen çıktıya yazılmaz ve
-#     sürüm kontrolündeki hiçbir dosya içindeki bir dosyaya atıf yapamaz.
-/Work/
+#     "Agent-Scratch/" her derinlikte eşleşir ve aynı ada sahip izlenen bir
+#     dizini sessizce yutar. Bu dizinin adı asla commit edilen çıktıya yazılmaz
+#     ve sürüm kontrolündeki hiçbir dosya içindeki bir dosyaya atıf yapamaz.
+#     Tek mekanik istisna, yüklediği sürüm paketini bu dizinde hazırlayan
+#     Scripts/Release.ps1'dir; yalnızca dizini adlandırır, içindeki bir
+#     dosyayı asla değil.
+/Agent-Scratch/
 # Windows system files
 desktop.ini
