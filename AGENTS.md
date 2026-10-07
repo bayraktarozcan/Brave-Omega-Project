@@ -122,7 +122,7 @@ ignoring both. That is why the PowerShell syntax check skips `node_modules` -
 a third-party script the Windows PowerShell parser dislikes would otherwise
 fail a gate on a file this project never wrote.
 
-`pwsh` is not installed locally — use `powershell` / Windows PowerShell 5.1.
+`pwsh` (PowerShell 7.6.6) is the shell whenever the system has it — every shell invocation uses it. When the system does not have it, the agent never installs it and uses `powershell` / Windows PowerShell 5.1 instead.
 
 ### Work Standards
 
@@ -641,7 +641,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=62d9ec229867898393b63673445415ef6430eb3d -->
+<!-- mirror-sync: sync-sha=1c7d13d909a5481e05cde9c7cd05922ad2075916 -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
