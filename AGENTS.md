@@ -208,10 +208,10 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 | "Stop and ask for clarification" | Ask when unsure; never guess |
 | Short imperative ("do X") | Apply directly; do not wait for approval |
 | Conditional instruction ("while doing X, also ...") | Honor every condition; skip none |
-| "Don't hesitate" — create/read files freely | Permission-free proactivity | Create and read files as needed without waiting for approval |
-| "Don't hesitate to create a document" | Documentation is proactive work, not overstepping | Create and extend documents without asking, following the structure, naming, and numbering already in use |
-| "What did you do?" / "I told you before" | Recall check for a prior instruction | Recheck history, notice the omission, and correct it immediately — apologize by fixing, not by wording |
-| "Write it so I can understand it while reading" / "use a better wording" | Raw phrasing must be stored in processed form | Record and present the user's words analyzed and structured, not verbatim |
+| "Don't hesitate" — create/read files freely | Permission-free proactivity — Create and read files as needed without waiting for approval |
+| "Don't hesitate to create a document" | Documentation is proactive work, not overstepping — Create and extend documents without asking, following the structure, naming, and numbering already in use |
+| "What did you do?" / "I told you before" | Recall check for a prior instruction — Recheck history, notice the omission, and correct it immediately — apologize by fixing, not by wording |
+| "Write it so I can understand it while reading" / "use a better wording" | Raw phrasing must be stored in processed form — Record and present the user's words analyzed and structured, not verbatim |
 
 ### Git & Commit
 
@@ -230,7 +230,7 @@ Universal Git rules and commit standards.
 
 English messages, Conventional Commits:
 
-```
+```text
 <type>: short title (max 50 chars, hard cap 120)
 
 Long description — scope, rationale, affected areas, references.
@@ -293,7 +293,7 @@ One purpose per branch; merge into `main` on completion, then delete.
 
 #### Default autonomous loop
 
-```
+```text
 Change done
   → check git status
   → evaluate untracked files (.gitignore compliance)
@@ -641,7 +641,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=628d762f4d5ce3dd96f90e06e841b181af0b413f -->
+<!-- mirror-sync: sync-sha=62d9ec229867898393b63673445415ef6430eb3d -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.

@@ -46,6 +46,8 @@
 
 ---
 
+<a id="en-overview"></a>
+
 ### 1. Overview
 
 Brave Omega is a registry-hardening tool designed to **enhance** browser privacy, not to introduce new attack surfaces. This document outlines the project's security stance, vulnerability handling procedures, and how to verify the integrity of the changes the script makes.
@@ -54,6 +56,8 @@ Brave Omega is a registry-hardening tool designed to **enhance** browser privacy
 > Brave Omega makes **no network calls** during execution, downloads **no external payloads**, and writes **no browser extensions or binaries**. It operates exclusively through Windows Registry Group Policy mechanisms using Brave's official ADMX template definitions.
 
 ---
+
+<a id="en-supported-versions"></a>
 
 ### 2. Supported Versions
 
@@ -66,6 +70,8 @@ Brave Omega is a registry-hardening tool designed to **enhance** browser privacy
 > Only the latest stable release receives security patches and policy updates. Older versions are no longer supported and may contain unpatched policy gaps as Chromium's enterprise policy landscape evolves — always upgrade to the newest release.
 
 ---
+
+<a id="en-vulnerability-disclosure"></a>
 
 ### 3. Vulnerability Disclosure
 
@@ -101,13 +107,15 @@ If you discover a security-related issue in Brave Omega — whether a policy tha
 
 ---
 
+<a id="en-security-posture"></a>
+
 ### 4. Security Posture
 
 #### 4.1 Defense-in-Depth Architecture
 
 Brave Omega implements browser hardening through **three independent enforcement layers**:
 
-```
+```text
 ┌──────────────────────────────────────────────────────────┐
 │  TIER 1 — HKCU User Preference                           │
 │  ↳ UsageStatsInSample = 0                                 │
@@ -151,6 +159,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 This affects only the current PowerShell window. No permanent execution policy change is made. No attack surface is introduced.
 
 ---
+
+<a id="en-policy-verification"></a>
 
 ### 5. Policy Verification
 
@@ -197,6 +207,8 @@ Every policy in Brave Omega can be traced to its authoritative source:
 
 ---
 
+<a id="en-trust--supply-chain"></a>
+
 ### 6. Trust & Supply Chain
 
 #### 6.1 Code Integrity
@@ -222,6 +234,8 @@ For enterprise deployments:
 4. Verify SHA256 checksums of downloaded release artifacts
 
 ---
+
+<a id="en-registry-safety"></a>
 
 ### 7. Registry Safety
 
@@ -266,6 +280,8 @@ The script handles three registry value types:
 
 ---
 
+<a id="en-hardening-levels"></a>
+
 ### 8. Hardening Levels
 
 Brave Omega offers five progressive hardening tiers:
@@ -281,6 +297,8 @@ Brave Omega offers five progressive hardening tiers:
 Each level cumulatively includes all policies from previous levels. See [README.md](README.md) for the complete policy reference.
 
 ---
+
+<a id="en-security-faq"></a>
 
 ### 9. Security FAQ
 
@@ -322,6 +340,8 @@ A: The policies registry path differs. Brave uses `HKLM\SOFTWARE\Policies\BraveS
 
 ---
 
+<a id="tr-genel-bakış"></a>
+
 ### 1. Genel Bakış
 
 Brave Omega, tarayıcı gizliliğini artırmak için tasarlanmış bir kayıt defteri sıkılaştırma aracıdır. Yeni saldırı yüzeyleri oluşturmaz, mevcut güvenlik açıklarını kapatır. Bu belge, projenin güvenlik duruşunu, güvenlik açığı bildirim süreçlerini ve betiğin yaptığı değişikliklerin bütünlüğünü doğrulama yöntemlerini açıklar.
@@ -330,6 +350,8 @@ Brave Omega, tarayıcı gizliliğini artırmak için tasarlanmış bir kayıt de
 > Brave Omega, çalışma sırasında **hiçbir ağ çağrısı yapmaz**, **harici yük indirmez** ve **tarayıcı uzantısı veya ikili dosya yazmaz**. Yalnızca Windows Kayıt Defteri Grup İlkesi mekanizmaları ve Brave'in resmî ADMX şablon tanımları aracılığıyla çalışır.
 
 ---
+
+<a id="tr-desteklenen-sürümler"></a>
 
 ### 2. Desteklenen Sürümler
 
@@ -342,6 +364,8 @@ Brave Omega, tarayıcı gizliliğini artırmak için tasarlanmış bir kayıt de
 > Yalnızca en son kararlı sürüm güvenlik yamaları ve politika güncellemeleri alır. Eski sürümler artık desteklenmez ve Chromium'un kurumsal politika yapısı geliştikçe güncelliğini yitirmiş politika boşlukları içerebilir — her zaman en yeni sürüme yükseltin.
 
 ---
+
+<a id="tr-güvenlik-açığı-bildirimi"></a>
 
 ### 3. Güvenlik Açığı Bildirimi
 
@@ -377,13 +401,15 @@ Brave Omega ile ilgili bir güvenlik sorunu keşfederseniz — istenmeyen yan et
 
 ---
 
+<a id="tr-güvenlik-duruşu"></a>
+
 ### 4. Güvenlik Duruşu
 
 #### 4.1 Derinlemesine Savunma Mimarisi
 
 Brave Omega, tarayıcı sıkılaştırmasını **üç bağımsız zorunlu kılma katmanı** aracılığıyla uygular:
 
-```
+```text
 ┌──────────────────────────────────────────────────────────┐
 │  KATMAN 1 — HKCU Kullanıcı Tercihi                       │
 │  ↳ UsageStatsInSample = 0                                 │
@@ -427,6 +453,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR
 Bu ayar yalnızca geçerli PowerShell penceresini etkiler. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz. Hiçbir saldırı yüzeyi oluşturulmaz.
 
 ---
+
+<a id="tr-politika-doğrulama"></a>
 
 ### 5. Politika Doğrulama
 
@@ -474,6 +502,8 @@ Brave Omega'daki her politika yetkili kaynağına kadar izlenebilir:
 
 ---
 
+<a id="tr-güven-ve-tedarik-zinciri"></a>
+
 ### 6. Güven ve Tedarik Zinciri
 
 #### 6.1 Kod Bütünlüğü
@@ -500,6 +530,8 @@ Kurumsal dağıtımlar için:
 4. İndirilen sürüm yapıtlarının SHA256 sağlama toplamlarını doğrulayın
 
 ---
+
+<a id="tr-kayıt-defteri-güvenliği"></a>
 
 ### 7. Kayıt Defteri Güvenliği
 
@@ -544,6 +576,8 @@ Betik üç kayıt defteri değer türünü işler:
 
 ---
 
+<a id="tr-sıkılaştırma-seviyeleri"></a>
+
 ### 8. Sıkılaştırma Seviyeleri
 
 Brave Omega beş kademeli sıkılaştırma seviyesi sunar:
@@ -559,6 +593,8 @@ Brave Omega beş kademeli sıkılaştırma seviyesi sunar:
 Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 
 ---
+
+<a id="tr-güvenlik-sss"></a>
 
 ### 9. Güvenlik SSS
 

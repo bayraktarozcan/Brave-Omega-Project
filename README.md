@@ -229,7 +229,7 @@ and offers **five hardening levels** that determine how many policies are applie
 
 ##### Infrastructure Layers
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │  TIER 1 — HKCU (User Preference Layer)                     │
 │  HKCU:\Software\BraveSoftware\Brave-Browser                 │
@@ -287,6 +287,8 @@ excluded — along with a documented explanation of why.
 > not only what was included.
 
 ---
+
+<a id="7-lifecycle-commitment-throughout-lifecycle-always-up-to-date"></a>
 
 ### 7. ♻️ Lifecycle Commitment: Throughout Lifecycle Always Up-to-Date
 
@@ -925,7 +927,7 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 
 ##### Altyapı Katmanları
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │  KATMAN 1 — HKCU (Kullanıcı Tercihi Katmanı)              │
 │  HKCU:\Software\BraveSoftware\Brave-Browser                 │
@@ -984,6 +986,8 @@ açıklamasıyla birlikte.
 > aynı zamanda nelerin ve neden dışarıda bırakıldığını da belgeler.
 
 ---
+
+<a id="7-yaşam-döngüsü-taahhüdü-yaşam-döngüsü-boyunca-her-daim-güncel"></a>
 
 ### 7. ♻️ Yaşam Döngüsü Taahhüdü: Yaşam Döngüsü Boyunca Her Daim Güncel
 
@@ -1269,7 +1273,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 `BraveOmega.ps1` tarafından okunur; klasörün tamamını kopyalayın, tek betiği
 değil.
 
-```
+```text
 BRAVE OMEGA PROJECT/
 │
 ├── .editorconfig                          Düzenleyici kuralları
@@ -1361,6 +1365,8 @@ BRAVE OMEGA PROJECT/
 | Yedekleme adımında `reg export` başarısız oluyor | Mevcut HKLM yolunda kısıtlı izin | `regedit` ile yolu incele; ACL girdilerini kontrol et |
 
 ---
+
+<a id="13-yol-haritası"></a>
 
 ### 13. Yol Haritası — 6 Aşamalı Uygulama Planı
 

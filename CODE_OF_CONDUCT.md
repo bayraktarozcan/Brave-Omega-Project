@@ -74,7 +74,7 @@ All complaints will be reviewed and investigated promptly and fairly.
 
 This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org),
 version 2.1, available at
-https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.
+<https://www.contributor-covenant.org/version/2/1/code_of_conduct.html>.
 
 ---
 
@@ -131,5 +131,5 @@ incelenecek ve soruşturulacaktır.
 ### Atıf
 
 Bu Davranış Kuralları [Contributor Covenant](https://www.contributor-covenant.org)
-sürüm 2.1'den uyarlanmıştır. https://www.contributor-covenant.org/version/2/1/code_of_conduct.html
+sürüm 2.1'den uyarlanmıştır. <https://www.contributor-covenant.org/version/2/1/code_of_conduct.html>
 adresinde mevcuttur.

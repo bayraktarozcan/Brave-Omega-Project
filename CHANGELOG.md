@@ -209,6 +209,8 @@ All notable changes to this project are documented below, following the [Keep a 
 
 **Breaking:** any path that referenced `admx/` or `scripts/` in lowercase has to be updated. The `.admx` and `.adml` extensions keep their lowercase spelling, because those are names the product looks up rather than a choice this repository owns.
 
+<a id="en-unreleased-changed"></a>
+
 ### Changed
 
 | Old path | New path |
@@ -225,6 +227,8 @@ All notable changes to this project are documented below, following the [Keep a 
 | `scripts/Wiki-Sync.ps1` | `Scripts/Wiki-Sync.ps1` (directory case only) |
 
 Historical entries below and the version-compatibility tables keep the old spellings on purpose: they describe the repository as it stood at that release, and rewriting a path inside them would falsify the record instead of updating it.
+
+<a id="en-unreleased-added"></a>
 
 ### Added
 
@@ -1401,6 +1405,8 @@ Fixes #50
 - **Documentation:** README, Wiki/Policy-Reference, index.html, policy-catalog.md updated for consistency with the new value.
 - **Script version** — `$ScriptVersion = "v2.2.0.2"` in both EN and TR scripts.
 
+<a id="en-v2202-removed"></a>
+
 ### Removed
 
 - **All references to GitHub Projects/Issues** removed from public-facing documentation.
@@ -1649,7 +1655,7 @@ Fixes #50
 
 ### 📊 Statistics
 
-```
+```text
 Files Modified:
   ✓ BraveOmega-EN.ps1 (v2.1.1: dual-version check + policy changes)
   ✓ BraveOmega-TR.ps1 (v2.1.1: same fixes in Turkish)
@@ -1731,7 +1737,7 @@ and a GitHub Actions ADMX validation pipeline that runs weekly and on demand.
 
 ### 📊 Statistics
 
-```
+```text
 Files Modified/Added:
   ✓ BraveOmega-EN.ps1 (v2.1: version check, -WhatIf, -Reset)
   ✓ BraveOmega-TR.ps1 (v2.1: mirrored changes)
@@ -1866,7 +1872,7 @@ Files Modified/Added:
 
 ### 📊 Statistics
 
-```
+```text
 Files Modified:
   ✓ BraveOmega-EN.ps1 (565 › 520 lines, full rewrite)
   ✓ BraveOmega-TR.ps1 (567 › 522 lines, full rewrite)
@@ -1894,6 +1900,8 @@ Documentation:
   ✓ CHANGELOG.md (this file)
   ✓ index.html (4-tier architecture, updated badges)
 ```
+
+<a id="en-v122"></a>
 
 ## [v1.2.2] — 2026-06-13
 
@@ -1983,7 +1991,7 @@ Documentation:
 
 ### 📊 Statistics
 
-```
+```text
 Files Modified:
   ✓ BraveOmega-TR.ps1 (497 › 567 lines)
   ✓ BraveOmega-EN.ps1 (496 › 565 lines)
@@ -2132,7 +2140,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 
 ### 📋 Initial Policies
 
-```
+```text
 1. UsageStatsInSample = 0 (HKCU)         — Disable usage stats sampling
 2. BraveRewardsDisabled = 1 (HKLM)       — Disable Rewards
 3. BraveWalletDisabled = 1 (HKLM)        — Disable Wallet
@@ -2329,7 +2337,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
     * [Özet](#tr-v2420-ozet)
 27. [v2.4.1.0 — 2026-07-12](#tr-v2410)
     * [Özet](#tr-v2410-ozet)
-    * [Eklendi](#tr-v2410-eklendi)
+    * [Kaldırıldı](#tr-v2410-kaldirildi)
     * [Değiştirildi](#tr-v2410-degistirildi)
 28. [v2.4.0.0 — 2026-07-11](#tr-v2400)
     * [Özet](#tr-v2400-ozet)
@@ -2441,6 +2449,8 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 **Kırıcı:** `admx/` veya `scripts/` yollarını küçük harfle referans alan her yolun güncellenmesi gerekir. `.admx` ve `.adml` uzantıları küçük harf kalır, çünkü bunlar bu deponun seçmediği, ürünün aradığı adlardır.
 
+<a id="tr-yayimlanmamis-degistirildi"></a>
+
 ### Değiştirildi
 
 | Eski yol | Yeni yol |
@@ -2457,6 +2467,8 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 | `scripts/Wiki-Sync.ps1` | `Scripts/Wiki-Sync.ps1` (yalnızca dizin harfi) |
 
 Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları bilinçli olarak korur: o sürümdeki depoyu tanımlarlar ve içlerindeki bir yolu yeniden yazmak kaydı yanlışlaştırırdı, güncellemezdi.
+
+<a id="tr-yayimlanmamis-eklendi"></a>
 
 ### Eklendi
 
@@ -3880,7 +3892,7 @@ Fixes #50
 
 ### 📊 İstatistikler
 
-```
+```text
 Değiştirilen Dosyalar:
   ✓ BraveOmega-EN.ps1 (v2.1.1: çift sürüm denetimi + politika değişiklikleri)
   ✓ BraveOmega-TR.ps1 (v2.1.1: aynı düzeltmeler Türkçe)
@@ -3955,6 +3967,8 @@ boru hattı.
   - Uyuşmazlık bulunduğunda otomatik olarak bir GitHub sorunu oluşturur.
   - Yardımcı betik (`admx-validate.ps1`) bağımsız olarak da kullanılabilir.
 
+<a id="tr-v21-changed"></a>
+
 ### 🔧 Değiştirildi
 
 - **BraveOmega-EN.ps1** — v2.1 özellikleri: sürüm denetimi, -WhatIf, -Sıfırla,
@@ -3962,9 +3976,11 @@ boru hattı.
 - **BraveOmega-TR.ps1** — v2.1 özellikleri Türkçe olarak yansıtıldı
 - **CHANGELOG.md** — v2.1 değişiklik günlüğü eklendi (bu bölüm)
 
+<a id="tr-v21-statistics"></a>
+
 ### 📊 İstatistikler
 
-```
+```text
 Eklenen/Değiştirilen Dosyalar:
   ✓ BraveOmega-EN.ps1 (v2.1: sürüm denetimi, -WhatIf, -Sıfırla)
   ✓ BraveOmega-TR.ps1 (v2.1: yansıtılan değişiklikler)
@@ -4099,7 +4115,7 @@ Eklenen/Değiştirilen Dosyalar:
 
 ### 📊 İstatistikler
 
-```
+```text
 Değiştirilen Dosyalar:
   ✓ BraveOmega-EN.ps1 (565 › 520 satır, tam yeniden yazım)
   ✓ BraveOmega-TR.ps1 (567 › 522 satır, tam yeniden yazım)
@@ -4127,6 +4143,8 @@ Belgelendirme:
   ✓ CHANGELOG.md (bu dosya)
   ✓ index.html (4 kademeli mimari, güncel rozetler)
 ```
+
+<a id="tr-v122"></a>
 
 ## [v1.2.2] — 2026-06-13
 
@@ -4216,7 +4234,7 @@ Belgelendirme:
 
 ### 📊 İstatistikler
 
-```
+```text
 Değiştirilen Dosyalar:
   ✓ BraveOmega-TR.ps1 (497 › 567 satır)
   ✓ BraveOmega-EN.ps1 (496 › 565 satır)
@@ -4365,7 +4383,7 @@ Acil düzeltme sürümü — ilk çıkış sonrası düzeltmeler.
 
 ### 📋 Başlangıç Politikaları
 
-```
+```text
 1. UsageStatsInSample = 0 (HKCU)         — Kullanım istatistikleri örneklemesini devre dışı bırak
 2. BraveRewardsDisabled = 1 (HKLM)       — Ödülleri devre dışı bırak
 3. BraveWalletDisabled = 1 (HKLM)        — Cüzdanı devre dışı bırak
