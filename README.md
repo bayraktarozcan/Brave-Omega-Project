@@ -65,6 +65,7 @@
 15. [License](#15-license)
 16. [Disclaimer](#16-disclaimer)
 17. [Project Governance](#17-project-governance)
+18. [Linux Support](#18-linux-support)
 
 ---
 
@@ -326,7 +327,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v3.0.1.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.2.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.0.0** | all | all | 11 26H2 | 📦 Previous |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
@@ -743,6 +745,25 @@ Every root document is reachable from here; a document nobody links to does not 
 
 ---
 
+### 18. Linux Support
+
+The same hardening on Linux, for Brave and Chromium. Policies are rendered
+from the tagged data layer (`Brave-Omega/Profiles/*.json` +
+`Brave-Omega/Browsers/*.json`) into managed JSON and installed by
+`Scripts/Install-OmegaLinux.sh`, which requires root and `python3`:
+
+```sh
+sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced --dry-run
+sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced
+```
+
+The installer writes `/etc/<browser>/policies/managed/brave-omega.json`
+(`root:root`, `0644`) and never touches user profiles. Only `managed/`
+mandatory policies are covered; verify at `brave://policy` (or
+`chrome://policy`) and reload policies if the browser is open.
+
+---
+
 <a id="-türkçe-belgelendirme"></a>
 
 ## TR Türkçe Belgelendirme
@@ -766,6 +787,7 @@ Every root document is reachable from here; a document nobody links to does not 
 15. [Lisans](#15-lisans)
 16. [Sorumluluk Reddi](#16-sorumluluk-reddi)
 17. [Proje Yönetişimi](#17-proje-yönetişimi)
+18. [Linux Desteği](#18-linux-desteği)
 
 ---
 
@@ -1027,7 +1049,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v3.0.1.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.2.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |
@@ -1473,6 +1496,26 @@ Buraya bağlanmayan belge var olmayan belgedir; her kök belge buradan erişileb
 | [NOTICE](NOTICE) | Üçüncü taraf atıfları |
 | [RELEASE-NOTE-TEMPLATE.md](RELEASE-NOTE-TEMPLATE.md) | Her sürüm notunun izlediği yapı |
 | [CODEOWNERS](CODEOWNERS) | Hangi yolu kim inceler |
+
+---
+
+### 18. Linux Desteği
+
+Linux'ta Brave ve Chromium için aynı sertleştirme. Politikalar etiketli
+veri katmanından (`Brave-Omega/Profiles/*.json` +
+`Brave-Omega/Browsers/*.json`) yönetilen JSON'a dönüştürülüp
+`Scripts/Install-OmegaLinux.sh` ile kurulur; root ve `python3` gerekir:
+
+```sh
+sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced --dry-run
+sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced
+```
+
+Kurucu `/etc/<browser>/policies/managed/brave-omega.json` dosyasını yazar
+(`root:root`, `0644`) ve kullanıcı profillerine dokunmaz. Yalnızca
+`managed/` zorunlu politikaları kapsanır; `brave://policy` (veya
+`chrome://policy`) adresinden doğrulayın, tarayıcı açıksa politikaları
+yeniden yükleyin.
 
 ---
 

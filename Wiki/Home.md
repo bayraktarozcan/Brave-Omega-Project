@@ -28,7 +28,7 @@
 
 ---
 
-> **Latest Release:** [v3.0.1.0 - Administrator protection compatibility](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v3.0.2.0 - Linux support and generic Chromium profiles](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
@@ -71,7 +71,7 @@
 
 ---
 
-> **Son Sürüm:** [v3.0.1.0 - Yönetici koruması uyumluluğu](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v3.0.2.0 - Linux desteği ve genel Chromium profilleri](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 

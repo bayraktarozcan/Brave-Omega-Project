@@ -23,6 +23,17 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v3.0.2.0 - 2026-10-08
+
+**Compatibility Release - Linux support and generic Chromium profiles**
+
+**Changed:**
+
+- Origin (`chromium`/`brave`, 27 Brave) and platform (`windows`/`linux`) tags on all 151 policies, classified against the upstream template; `Brave-Omega/Browsers/{brave,chrome}.json` profiles; `Scripts/Render-PolicyJSON.py` managed-JSON renderer; POSIX installer `Scripts/Install-OmegaLinux.sh` writing `/etc/<browser>/policies/managed/brave-omega.json` with root-only permissions
+- No policy, registry value, or ADMX change; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+
+---
+
 ### v3.0.1.0 - 2026-10-08
 
 **Compatibility Release - Administrator protection support**
@@ -802,7 +813,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.0.1.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.2.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.0.0** | all | all | 11 26H2 | 📦 Previous |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
 | v2.8.1.0 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
@@ -900,6 +912,17 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v3.0.2.0 - 2026-10-08
+
+**Uyumluluk Sürümü - Linux desteği ve genel Chromium profilleri**
+
+**Değiştirilenler:**
+
+- 151 politikanın tamamında origin (`chromium`/`brave`, 27 Brave) ve platform (`windows`/`linux`) etiketleri; `Brave-Omega/Browsers/{brave,chrome}.json` profilleri; `Scripts/Render-PolicyJSON.py` yönetilen-JSON üreteci; `/etc/<browser>/policies/managed/brave-omega.json` dosyasını yalnızca root izniyle yazan POSIX kurucu `Scripts/Install-OmegaLinux.sh`
+- Politika, kayıt değeri ve ADMX değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+
+---
 
 ### v3.0.1.0 - 2026-10-08
 
@@ -1681,7 +1704,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.0.1.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.2.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
 | v2.8.1.0 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |

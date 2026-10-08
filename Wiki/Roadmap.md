@@ -11,17 +11,17 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v3.0.1.0** — *Administrator protection compatibility* (2026-10-08)
+**v3.0.2.0** — *Linux support and generic Chromium profiles* (2026-10-08)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases; per-user operations target every local profile by SID. Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases; per-policy origin/platform tags, brave+chrome browser profiles, managed JSON renderer and POSIX installer. Cumulative chain: 24→51→83→123→151.
 
 ---
 
 ## Previous Version
 
-**v3.0.0.0** — *Version-agnostic global compatibility* (2026-10-06)
+**v3.0.1.0** — *Administrator protection compatibility* (2026-10-08)
 
-Previous release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases — no pinned validation target, no dependency version bump ever ships as a project update. Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases; per-user operations target every local profile by SID. Cumulative chain: 24→51→83→123→151.
 
 ---
 
@@ -262,17 +262,17 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v3.0.1.0** — *Yönetici koruması uyumluluğu* (2026-10-08)
+**v3.0.2.0** — *Linux desteği ve genel Chromium profilleri* (2026-10-08)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız; kullanıcı işlemleri SID ile her yerel profili hedefler. Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız; politika başına origin/platform etiketi, brave+chrome tarayıcı profilleri, yönetilen JSON üreteci ve POSIX kurucu. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 
 ## Önceki Sürüm
 
-**v3.0.0.0** — *Sürüm-bağımsız global uyumluluk* (2026-10-06)
+**v3.0.1.0** — *Yönetici koruması uyumluluğu* (2026-10-08)
 
-Önceki sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız — sabit doğrulama hedefi yok, hiçbir bağımlılık sürüm değişikliği proje güncellemesi olarak verilmez. Kümülatif zincir: 24→51→83→123→151.
+Önceki sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız; kullanıcı işlemleri SID ile her yerel profili hedefler. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 

@@ -50,7 +50,7 @@ Operational notes for humans and AI agents working in this repository. English i
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v3.0.1.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v3.0.2.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | _(unpinned — detected at runtime)_ | `$ValidatedBrave` (populated from install; V3 never blocks) |
 | Chromium | _(unpinned — detected at runtime)_ | `$ValidatedChromium` (populated from install; V3 never blocks) |
 
@@ -642,7 +642,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=96e62774b266b84d1fbb44cf3c6c0eba3bac2bc4 -->
+<!-- mirror-sync: sync-sha=ba033f3dbcaf880f2ba2e8a91291ba2ef1f5c727 -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.

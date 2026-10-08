@@ -17,6 +17,22 @@
 #                    Brave/Chromium at runtime and applies the same 151 policies
 #                    in a forward/backward compatible way on every future release.
 #
+# CHANGELOG (v3.0.2.0)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.0.2.0             Compatibility release — Linux support + generic Chromium:
+#
+#     [CHANGED]     Policy data carries origin (chromium/brave, 27 brave) and
+#                   platform (windows/linux) tags; new Browsers/brave.json +
+#                   chrome.json profiles; Scripts/Render-PolicyJSON.py renders
+#                   managed JSON per profile and tier; new POSIX installer
+#                   Scripts/Install-OmegaLinux.sh writes managed policies with
+#                   root-only permissions; gate gains json-validity and
+#                   shellcheck jobs on both CI hosts.
+#
+#     [UNCHANGED]   Windows behavior byte-identical. No policy definition,
+#                   registry, or ADMX change. Totals remain 151 across 5 tiers
+#                   (chain: 24 → 51 → 83 → 123 → 151).
+#
 # CHANGELOG (v3.0.1.0)
 # ─────────────────────────────────────────────────────────────────────────────
 # v3.0.1.0             Compatibility release — Administrator protection support:
@@ -506,7 +522,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.0.1.0"
+$ScriptVersion   = "v3.0.2.0"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.

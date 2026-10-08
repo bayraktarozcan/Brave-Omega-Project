@@ -7,7 +7,7 @@
     2. Creates git tag if needed
     3. Syncs Wiki to GitHub Wiki
     4. Deprecates previous latest release
-    5. Builds the runnable release package under Agent-Scratch/
+    5. Builds the runnable release packages under Agent-Scratch/
     6. Creates GitHub release and uploads the package
     7. Creates GitLab release and uploads the package
 .PARAMETER Version
@@ -114,6 +114,40 @@ function New-OmegaReleasePackage {
     }
     Compress-Archive -Path (Join-Path $stageDir "*") -DestinationPath $zipPath
     return @{ Name = $zipName; Path = $zipPath }
+}
+
+function New-OmegaLinuxPackage {
+    param([string]$Version, [string]$RepoRoot)
+    $workDir = Join-Path $RepoRoot "Agent-Scratch"
+    if (-not (Test-Path -LiteralPath $workDir)) {
+        New-Item -ItemType Directory -Path $workDir | Out-Null
+    }
+    $stageDir = Join-Path $workDir "pkg-stage-linux"
+    if (Test-Path -LiteralPath $stageDir) {
+        Remove-Item -LiteralPath $stageDir -Recurse -Force
+    }
+    $pkgRoot = Join-Path $stageDir "Brave-Omega-$Version-linux"
+    New-Item -ItemType Directory -Path (Join-Path $pkgRoot "Scripts") | Out-Null
+    New-Item -ItemType Directory -Path (Join-Path $pkgRoot "Brave-Omega/Browsers") | Out-Null
+    New-Item -ItemType Directory -Path (Join-Path $pkgRoot "Brave-Omega/Profiles") | Out-Null
+    Copy-Item (Join-Path $RepoRoot "Scripts/Install-OmegaLinux.sh") (Join-Path $pkgRoot "Scripts/")
+    Copy-Item (Join-Path $RepoRoot "Scripts/Render-PolicyJSON.py") (Join-Path $pkgRoot "Scripts/")
+    Copy-Item (Join-Path $RepoRoot "Brave-Omega/Browsers/*.json") (Join-Path $pkgRoot "Brave-Omega/Browsers/")
+    Copy-Item (Join-Path $RepoRoot "Brave-Omega/Profiles/*.json") (Join-Path $pkgRoot "Brave-Omega/Profiles/")
+    Copy-Item (Join-Path $RepoRoot "README.md"), (Join-Path $RepoRoot "LICENSE"), (Join-Path $RepoRoot "CHANGELOG.md") $pkgRoot
+    $tarName = "Brave-Omega-$Version-linux.tar.gz"
+    $tarPath = Join-Path $workDir $tarName
+    if (Test-Path -LiteralPath $tarPath) {
+        Remove-Item -LiteralPath $tarPath -Force
+    }
+    Push-Location $stageDir
+    try {
+        & tar.exe -czf $tarPath "Brave-Omega-$Version-linux" 2>&1 | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw "tar.exe failed with exit code $LASTEXITCODE" }
+    } finally {
+        Pop-Location
+    }
+    return @{ Name = $tarName; Path = $tarPath }
 }
 
 # --- Banner ---
@@ -266,16 +300,20 @@ if ($SkipDeprecate) {
 # Step 5: Build Release Package
 # ----------------------------------------
 $package = $null
+$linuxPackage = $null
 if ($SkipPackage) {
     Write-Step "5/7" "Package build skipped"
 } else {
-    Write-Step "5/7" "Building release package..."
+    Write-Step "5/7" "Building release packages..."
     if (-not $DryRun) {
         $package = New-OmegaReleasePackage -Version $Version -RepoRoot $scriptDir
         $pkgSize = (Get-Item -LiteralPath $package.Path).Length
         Write-OK "Package built: $($package.Name) ($pkgSize bytes)"
+        $linuxPackage = New-OmegaLinuxPackage -Version $Version -RepoRoot $scriptDir
+        $linuxSize = (Get-Item -LiteralPath $linuxPackage.Path).Length
+        Write-OK "Linux package built: $($linuxPackage.Name) ($linuxSize bytes)"
     } else {
-        Write-Host "  DRY-RUN: Build Brave-Omega-$Version.zip under Agent-Scratch/" -ForegroundColor DarkYellow
+        Write-Host "  DRY-RUN: Build Brave-Omega-$Version.zip + Brave-Omega-$Version-linux.tar.gz under Agent-Scratch/" -ForegroundColor DarkYellow
     }
 }
 
@@ -301,6 +339,11 @@ if (-not $DryRun) {
         if ($LASTEXITCODE -ne 0) { throw "Failed to upload package to GitHub release: $uploadOutput" }
         Write-OK "Package uploaded to GitHub release: $($package.Name)"
     }
+    if ($linuxPackage) {
+        $linuxUploadOutput = & gh release upload $Version $linuxPackage.Path --repo $repo --clobber 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "Failed to upload Linux package to GitHub release: $linuxUploadOutput" }
+        Write-OK "Linux package uploaded to GitHub release: $($linuxPackage.Name)"
+    }
 }
 Write-OK "GitHub release created: https://github.com/$repo/releases/tag/$Version"
 
@@ -324,6 +367,12 @@ if (-not $DryRun) {
         $glUploadOutput = & glab release upload $Version $assetSpec 2>&1
         if ($LASTEXITCODE -ne 0) { throw "Failed to upload package to GitLab release: $glUploadOutput" }
         Write-OK "Package uploaded to GitLab release: $($package.Name)"
+    }
+    if ($linuxPackage) {
+        $linuxAssetSpec = "$($linuxPackage.Path)#$($linuxPackage.Name)#package"
+        $glLinuxUploadOutput = & glab release upload $Version $linuxAssetSpec 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "Failed to upload Linux package to GitLab release: $glLinuxUploadOutput" }
+        Write-OK "Linux package uploaded to GitLab release: $($linuxPackage.Name)"
     }
 }
 Write-OK "GitLab release created: https://gitlab.com/$repo/-/releases/$Version"

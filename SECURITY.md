@@ -63,7 +63,7 @@ Brave Omega is a registry-hardening tool designed to **enhance** browser privacy
 
 | Branch | Status | Supported |
 |--------|--------|-----------|
-| **Latest stable release (currently v3.0.1.0)** | Active | ✅ Fully supported — security patches, policy updates, feature improvements |
+| **Latest stable release (currently v3.0.2.0)** | Active | ✅ Fully supported — security patches, policy updates, feature improvements |
 | All previous releases | End of life | ❌ No longer supported |
 
 > [!NOTE]
@@ -357,7 +357,7 @@ Brave Omega, tarayıcı gizliliğini artırmak için tasarlanmış bir kayıt de
 
 | Dal | Durum | Destek |
 |-----|-------|--------|
-| **En son kararlı sürüm (şu an v3.0.1.0)** | Aktif | ✅ Tam destek — güvenlik yamaları, politika güncellemeleri, yeni özellikler |
+| **En son kararlı sürüm (şu an v3.0.2.0)** | Aktif | ✅ Tam destek — güvenlik yamaları, politika güncellemeleri, yeni özellikler |
 | Önceki tüm sürümler | Kullanım ömrü sonu | ❌ Artık desteklenmiyor |
 
 > [!NOTE]
