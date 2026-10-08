@@ -57,6 +57,7 @@ Quick-reference guide for common Brave Omega issues.
 5. Refresh page (F5)
 
 > **Why:** Brave reads policies at startup. Changes apply on next launch.
+> Chrome runs verify at `chrome://policy` instead.
 
 ---
 
@@ -310,6 +311,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 5. Sayfayı yenile (F5)
 
 > **Neden:** Brave politikaları başlangıçta okur. Değişiklikler bir sonraki açılışta devreye girer.
+> Chrome koşuları `chrome://policy` adresinden doğrulanır.
 
 ---
 

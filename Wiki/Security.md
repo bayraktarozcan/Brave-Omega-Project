@@ -171,7 +171,7 @@ Before running, verify:
 
 | Check | Method |
 | ------- | -------- |
-| All policies active | `brave://policy` → policies show **Active** (51 for Essential level) |
+| All policies active | `brave://policy` → policies show **Active** (51 for Essential level; Chrome runs use `chrome://policy`) |
 | Registry written | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Backup created | `HKLM_BravePolicy_*.reg` and `HKCU_BraveSoftware_*.reg` exist in `%TEMP%\BravePolicyBackup` |
 | No errors in output | Script exits with code 0, no `[ERROR]` lines |
@@ -391,7 +391,7 @@ Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
 
 | Kontrol | Yöntem |
 | --------- | -------- |
-| Tüm politikalar etkin | `brave://policy` → 151 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 51, Dengeli'de 83) |
+| Tüm politikalar etkin | `brave://policy` → 151 politikanın tümü **Etkin** gösteriyor (Katı seviye; Temel'de 51, Dengeli'de 83; Chrome koşuları `chrome://policy` kullanır) |
 | Kayıt defteri yazıldı | `Get-ItemProperty HKLM:\SOFTWARE\Policies\BraveSoftware\Brave` |
 | Yedek oluşturuldu | `HKLM_BravePolicy_*.reg` ve `HKCU_BraveSoftware_*.reg` `%TEMP%\BravePolicyBackup` içinde mevcut |
 | Çıktıda hata yok | Betik kod 0 ile çıkıyor, `[ERROR]` satırı yok |

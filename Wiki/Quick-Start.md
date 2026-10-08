@@ -82,6 +82,20 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Essential
 
 Available levels: `BraveOnly`, `Essential`, `Balanced`, `Advanced`, `Strict` (EN) or `BraveYalniz`, `Temel`, `Dengeli`, `Gelismis`, `Kati` (TR).
 
+## Selecting a Browser
+
+Before the level menu, the script asks for the target browser (Brave default):
+
+```text
+1. Brave
+2. Chrome
+Enter choice (1-2):
+```
+
+Skip it with `-Browser Brave|Chrome` (alias `-Tarayici`). Chrome runs target
+`HKLM\SOFTWARE\Policies\Google\Chrome` and skip Brave-only policies; verify
+at `chrome://policy` instead of `brave://policy`.
+
 ---
 
 ## Step-by-Step (Expanded)
@@ -254,6 +268,21 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Level Temel
 ```
 
 Kullanılabilir seviyeler: `BraveOnly`/`BraveYalniz`, `Essential`/`Temel`, `Balanced`/`Dengeli`, `Advanced`/`Gelismis`, `Strict`/`Kati`.
+
+## Tarayıcı Seçme
+
+Seviye menüsünden önce betik hedef tarayıcıyı sorar (varsayılan Brave):
+
+```text
+1. Brave
+2. Chrome
+Seçiminiz (1-2):
+```
+
+`-Browser Brave|Chrome` (`-Tarayici` takma adlı) ile atlayın. Chrome koşuları
+`HKLM\SOFTWARE\Policies\Google\Chrome` yolunu hedefler ve Brave'e özgü
+politikaları atlar; doğrulamayı `brave://policy` yerine `chrome://policy`
+adresinden yapın.
 
 ---
 
