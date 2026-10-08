@@ -724,18 +724,14 @@ function Get-BraveVersion {
     }
     $paths = @()
     foreach ($programFiles in @($env:ProgramFiles, ${env:ProgramFiles(x86)})) {
+        if ([string]::IsNullOrEmpty($programFiles)) { continue }
         foreach ($vendor in $vendors) {
             foreach ($exe in $exes) {
                 $paths += Join-Path $programFiles "$vendor\Application\$exe"
             }
         }
     }
-    try {
-        $profiles = Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
-            Where-Object { -not $_.Special -and $_.LocalPath }
-    } catch {
-        $profiles = @()
-    }
+    $profiles = Get-OmegaUserProfileList
     foreach ($userProfile in $profiles) {
         foreach ($vendor in $vendors) {
             foreach ($exe in $exes) {
@@ -950,6 +946,18 @@ function Get-OmegaUserHivePath {
     return "Registry::HKEY_USERS\$Sid"
 }
 
+function Get-OmegaUserProfileList {
+    # Read-only local-profile enumeration behind a seam the tests can mock:
+    # Get-CimInstance itself does not exist on every platform PowerShell
+    # runs on, and Pester cannot mock a command that is not there.
+    try {
+        return @(Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
+            Where-Object { -not $_.Special -and $_.LocalPath })
+    } catch {
+        return @()
+    }
+}
+
 function Get-OmegaLocalUserHive {
     # Read-only enumeration: no hive is mounted here. Each entry carries the
     # SID, a display label, the registry paths derived from the SID and the
@@ -957,12 +965,7 @@ function Get-OmegaLocalUserHive {
     # on demand.
     param([string]$HkcuTarget, [string]$HkcuRoot)
     $hives = @()
-    try {
-        $profiles = Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
-            Where-Object { -not $_.Special -and $_.LocalPath }
-    } catch {
-        return $hives
-    }
+    $profiles = Get-OmegaUserProfileList
     foreach ($userProfile in $profiles) {
         $sid = [string]$userProfile.SID
         if ([string]::IsNullOrEmpty($sid)) { continue }

@@ -23,7 +23,7 @@ Describe "Administrator protection compatibility" -Tag "Unit" {
         $end = $content.IndexOf('STEP 0A', $start)
         $body = $content.Substring($start, $end - $start)
         ([regex]::Matches($body, '\$env:LOCALAPPDATA')).Count | Should -BeLessOrEqual 1
-        $body -match 'Win32_UserProfile' | Should -Be $true
+        $body -match 'Get-OmegaUserProfileList' | Should -Be $true
     }
 
     It "should write HKCU preferences per profile, not to a single path" {

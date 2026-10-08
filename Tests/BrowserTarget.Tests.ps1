@@ -20,7 +20,7 @@ Describe 'Browser target selection' -Tag 'Unit' {
     }
 
     It 'should build per-profile paths from the given browser roots' {
-        Mock Get-CimInstance {
+        Mock Get-OmegaUserProfileList {
             return @([pscustomobject]@{ SID = 'S-1-5-21-9'; LocalPath = 'C:\Users\t'; Special = $false })
         }
         $hives = @(Get-OmegaLocalUserHive -HkcuTarget 'HKCU:\Software\Google\Chrome' -HkcuRoot 'HKCU:\Software\Google')
@@ -40,6 +40,19 @@ Describe 'Browser target selection' -Tag 'Unit' {
         $version = Get-BraveVersion -Browser Chrome
         $version | Should -Not -BeNullOrEmpty
         $version.BraveVersion | Should -Be '1.97.56'
+    }
+
+    It 'should resolve profiles through a mockable helper' {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $start = $content.IndexOf('function Get-BraveVersion')
+        $end = $content.IndexOf('STEP 0A', $start)
+        $body = $content.Substring($start, $end - $start)
+        $body -match 'Get-OmegaUserProfileList' | Should -Be $true
+    }
+
+    It 'should skip empty program-files roots' {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match 'IsNullOrEmpty\(\$programFiles\)' | Should -Be $true
     }
 
     It 'should announce the selected browser' {
