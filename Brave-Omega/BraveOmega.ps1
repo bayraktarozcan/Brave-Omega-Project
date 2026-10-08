@@ -711,6 +711,20 @@ function Get-LocalizedString {
 # ─────────────────────────────────────────────────────────────────────────────
 # BROWSER VERSION DETECTION (Brave or Chrome)
 # ─────────────────────────────────────────────────────────────────────────────
+function Get-OmegaUserProfileList {
+    # Read-only local-profile enumeration behind a seam the tests can mock:
+    # Get-CimInstance itself does not exist on every platform PowerShell
+    # runs on, and Pester cannot mock a command that is not there.
+    # Defined before Get-BraveVersion because the script executes top to
+    # bottom and the version check runs before the helper section below.
+    try {
+        return @(Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
+            Where-Object { -not $_.Special -and $_.LocalPath })
+    } catch {
+        return @()
+    }
+}
+
 function Get-BraveVersion {
     param([string]$Browser = "Brave")
     # Filesystem scan, not environment lookup: under Administrator protection
@@ -944,18 +958,6 @@ Write-Host ""
 function Get-OmegaUserHivePath {
     param([string]$Sid)
     return "Registry::HKEY_USERS\$Sid"
-}
-
-function Get-OmegaUserProfileList {
-    # Read-only local-profile enumeration behind a seam the tests can mock:
-    # Get-CimInstance itself does not exist on every platform PowerShell
-    # runs on, and Pester cannot mock a command that is not there.
-    try {
-        return @(Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
-            Where-Object { -not $_.Special -and $_.LocalPath })
-    } catch {
-        return @()
-    }
 }
 
 function Get-OmegaLocalUserHive {
