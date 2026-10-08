@@ -71,7 +71,7 @@ Run from the repository root (`pwsh` 7.6.6 when present, otherwise Windows Power
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 362/362 passing
+Invoke-Pester Tests/ -PassThru          # expected: 367/367 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -157,7 +157,7 @@ Every task runs under one mandatory standard:
 | A rule that can rot silently gets its own named test | Coverage of code is not coverage of rules; the invariant gets the test, and the test fails when the rule breaks rather than when the code moves | The test tree is one file per invariant — ignore rules, mirror sync, script version, policy integrity, stale cleanup, updater GUID, type distribution, version parity, version matrix — so a rule that stops holding fails by name instead of passing unnoticed |
 | A gate that reads the whole tree reads its own fixtures | An integrity check over every file will also read the test that proves it works, so a fixture spelled out in full becomes a finding in the file whose job is to find findings | `Tests/MojibakeScan.Tests.ps1` assembles its damage samples from the code point at run time rather than writing them out, so the sample reaching the scanner is real while the file on disk stays clean; the rule caught that file flagging itself before the samples were assembled, and the declaration was fixed rather than exempted |
 | Pin against the upstream artifact, not against your own copy | A check whose oracle was written by the same hand as the subject agrees with itself and detects nothing | Policy conformance is verified against the vendor's own schema, so a drift the project could not have anticipated still fails the build instead of passing on a hand-kept list |
-| The gate that runs before CI runs the checks CI runs | A local approximation of a workflow is a run that can disagree with it, and the disagreement is only discovered after the push | `Scripts/Invoke-CI.ps1` executes the seven checks `.github/workflows/quality.yml` declares and `Tests/CI-Parity.Tests.ps1` fails when the two lists diverge in either direction, so a job added to the workflow and a check dropped from the gate both fail the build by name rather than one of them quietly disappearing |
+| The gate that runs before CI runs the checks CI runs | A local approximation of a workflow is a run that can disagree with it, and the disagreement is only discovered after the push | `Scripts/Invoke-CI.ps1` executes the checks `.github/workflows/quality.yml` declares and `Tests/CI-Parity.Tests.ps1` fails when the two lists diverge in either direction, so a job added to the workflow and a check dropped from the gate both fail the build by name rather than one of them quietly disappearing |
 | Work inside the project, on a cadence you own | An assistant's scratch files belong to the project's own working tree, which version control does not track, and not to a system directory that something else empties on a timer | A file created for one task is removed when the task ends and the working tree as a whole is cleared on a defined cadence, because a scratch path emptied on a schedule you do not control can disappear between two steps of the same task, and because a scratch file left where a reviewer will find it has to be recognised as disposable before anyone can trust the tree |
 | A local-only layer announces itself to tooling, not only to Git | An ignore rule is read by exactly one program; a migration, sync, backup or publish tool walks the filesystem instead, so an ignore rule alone leaves the layer visible to every tool that has never heard of this repository's rules | The root of every directory Git ignores as a whole carries a `._dont_migrate_` file, so a tool that walks the tree skips the layer without having to understand the ignore rules; the marker is placed only in ignored directories, because a tracked directory carrying one would tell the same tooling to skip the product, and the check reads both directions so a misplaced marker cannot pass as either present or absent |
 
@@ -539,7 +539,7 @@ Repository management and dependency conventions, with their current state in th
   requires a pull request, and that requirement is deliberately bypassed rather
   than satisfied. A repository owner is listed as a bypass actor with
   `bypass_mode: always`, so a direct push to `main` is admitted and the ruleset
-  is not enforced on it; the seven required status checks therefore run
+  is not enforced on it; the nine required status checks therefore run
   _after_ the push rather than gating it. This is the accepted cost of the
   no-PR workflow above, not an oversight: the checks still run, and a failure is
   detected and fixed forward on the same branch instead of being caught before
@@ -642,7 +642,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=dacaeb0a983911501fec4289a7b704891b8b76d2 -->
+<!-- mirror-sync: sync-sha=96e62774b266b84d1fbb44cf3c6c0eba3bac2bc4 -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.

@@ -13,7 +13,8 @@
 #   .github/workflows/quality.yml          -> markdown-lint, yaml-validate,
 #                                             powershell-syntax, pester-tests,
 #                                             ps-script-analyzer, policy-integrity,
-#                                             utf8-integrity
+#                                             utf8-integrity, json-validity,
+#                                             shellcheck
 #   .github/workflows/admx-validate.yml    -> admx-validate
 #   .github/workflows/version-check.yml    -> version-check
 #   .github/workflows/hygiene.yml          -> hygiene (actionlint)
@@ -251,6 +252,28 @@ utf8-integrity:
     # whole toolchain here. No install step, and the run line is identical to
     # the GitHub one - a gate that differs by a pin is not the same gate.
     - python3 Scripts/Mojibake-Scan.py .
+
+json-validity:
+  stage: test
+  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  script:
+    - |
+      for browser in brave chrome; do
+        for tier in BraveOnly Essential Balanced Advanced Strict; do
+          python3 Scripts/Render-PolicyJSON.py --browser "$browser" --tier "$tier" --platform linux > /dev/null || exit 1
+        done
+      done
+
+shellcheck:
+  stage: test
+  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
+  script:
+    - apt-get update && apt-get install -y shellcheck
+    - shellcheck -S error Scripts/Install-OmegaLinux.sh
 
 # ------------------------------------------------------------------- links
 # Mirror of .github/workflows/link-check.yml.

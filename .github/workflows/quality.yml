@@ -148,3 +148,27 @@ jobs:
       - name: Scan repo for mojibake and invalid UTF-8
         run: |
           python3 Scripts/Mojibake-Scan.py .
+
+  json-validity:
+    name: Linux Policy JSON Validity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Render every browser and tier combination
+        run: |
+          for browser in brave chrome; do
+            for tier in BraveOnly Essential Balanced Advanced Strict; do
+              python3 Scripts/Render-PolicyJSON.py --browser "$browser" --tier "$tier" --platform linux > /dev/null || exit 1
+            done
+          done
+
+  shellcheck:
+    name: Shell Script Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Run shellcheck
+        run: |
+          shellcheck -S error Scripts/Install-OmegaLinux.sh

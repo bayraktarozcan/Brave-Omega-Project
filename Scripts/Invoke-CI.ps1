@@ -58,7 +58,9 @@ $script:JobIds = @(
     'pester-tests',
     'ps-script-analyzer',
     'policy-integrity',
-    'utf8-integrity'
+    'utf8-integrity',
+    'json-validity',
+    'shellcheck'
 )
 
 function Write-Stage {
@@ -379,8 +381,71 @@ function Invoke-Utf8Check {
     }
 }
 
-function Install-PrePushHook {
-    $hooks = Join-Path (git rev-parse --git-dir) 'hooks'
+function Invoke-JsonValidityCheck {
+    Write-Stage 'Linux policy JSON validity'
+    $python = Get-NativeCommand -Name @('python3', 'python')
+    if (-not $python) {
+        $state = if ($AllowMissingTools) { 'WARN' } else { 'FAIL' }
+        Add-GateResult -Name 'json-validity' -State $state -Detail 'not installed: python3, python'
+        return
+    }
+    Push-Location $script:RepoRoot
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    $global:LASTEXITCODE = 0
+    $failures = @()
+    try {
+        $browsers = @('brave', 'chrome')
+        $tiers = @('BraveOnly', 'Essential', 'Balanced', 'Advanced', 'Strict')
+        foreach ($browser in $browsers) {
+            foreach ($tier in $tiers) {
+                $output = & $python -B 'Scripts/Render-PolicyJSON.py' --browser $browser --tier $tier --platform linux 2>&1
+                if ($global:LASTEXITCODE -ne 0) {
+                    $failures += "$browser/$tier exit $($global:LASTEXITCODE)"
+                    continue
+                }
+                $parsed = $output | ConvertFrom-Json
+                if (-not $parsed) { $failures += "$browser/$tier empty" }
+            }
+        }
+    } finally {
+        $ErrorActionPreference = $previous
+        Pop-Location
+    }
+    if ($failures) {
+        Add-GateResult -Name 'json-validity' -State 'FAIL' -Detail ($failures -join ' / ')
+    } else {
+        Add-GateResult -Name 'json-validity' -State 'PASS' -Detail '10 renders parse'
+    }
+}
+
+function Invoke-ShellcheckCheck {
+    Write-Stage 'Shell script analysis'
+    $shellcheck = Get-NativeCommand -Name @('shellcheck')
+    if (-not $shellcheck) {
+        $state = if ($AllowMissingTools) { 'WARN' } else { 'FAIL' }
+        Add-GateResult -Name 'shellcheck' -State $state -Detail 'not installed: shellcheck'
+        return
+    }
+    Push-Location $script:RepoRoot
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    $global:LASTEXITCODE = 0
+    try {
+        $output = & $shellcheck -S error Scripts/Install-OmegaLinux.sh 2>&1
+        $code = $global:LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previous
+        Pop-Location
+    }
+    if ($code -ne 0) {
+        Add-GateResult -Name 'shellcheck' -State 'FAIL' -Detail (@($output | Select-Object -First 2) -join ' / ')
+    } else {
+        Add-GateResult -Name 'shellcheck' -State 'PASS'
+    }
+}
+
+function Install-PrePushHook {    $hooks = Join-Path (git rev-parse --git-dir) 'hooks'
     $hooks = if ([System.IO.Path]::IsPathRooted($hooks)) { $hooks } else { Join-Path $script:RepoRoot $hooks }
     if (-not (Test-Path -LiteralPath $hooks)) { New-Item -ItemType Directory -Path $hooks | Out-Null }
 
@@ -421,6 +486,8 @@ Invoke-PesterCheck
 Invoke-AnalyzerCheck
 Invoke-PolicyIntegrityCheck
 Invoke-Utf8Check
+Invoke-JsonValidityCheck
+Invoke-ShellcheckCheck
 
 $failed = @($script:Results | Where-Object { $_.State -eq 'FAIL' })
 $warned = @($script:Results | Where-Object { $_.State -eq 'WARN' })
