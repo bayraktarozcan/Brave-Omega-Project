@@ -52,6 +52,9 @@ Describe 'AGENTS.md document counts' -Tag 'Unit' {
         }
 
         It 'the Turkish mirror states the same total' {
+            if (-not (Test-Path -LiteralPath $script:MirrorPath)) {
+                Set-ItResult -Skipped -Because 'the mirror is a local-only layer intentionally absent from CI checkouts'
+            }
             $declared = Get-AgentsCount -Path $script:AgentsPath -Pattern 'expected:\s*(\d+)/(\d+)\s+passing'
             $mirror = Get-AgentsCount -Path $script:MirrorPath -Pattern 'beklenen:\s*(\d+)/(\d+)\s+geçti'
             $mirror.First | Should -Be $declared.First -Because 'the mirror is read by a human auditing the canonical file, and a translated count that drifted is a second number to trust instead of one'
