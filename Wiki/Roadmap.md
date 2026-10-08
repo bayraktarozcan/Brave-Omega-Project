@@ -11,17 +11,17 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v3.0.0.0** — *Version-agnostic global compatibility* (2026-10-06)
+**v3.0.1.0** — *Administrator protection compatibility* (2026-10-08)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases — no pinned validation target, no dependency version bump ever ships as a project update. Cumulative chain: 24→51→83→123→151.
+Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases; per-user operations target every local profile by SID. Cumulative chain: 24→51→83→123→151.
 
 ---
 
 ## Previous Version
 
-**v2.8.1.1** — *ExpandString registry type reporting fix* (2026-09-26)
+**v3.0.0.0** — *Version-agnostic global compatibility* (2026-10-06)
 
-Previous release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), single bilingual script with `-Language EN|TR|Auto`, validated against Brave 1.96.59 (Chromium 154.0.8037.58). Registry types reported in full (124 DWord / 7 String / 19 MultiString / 1 ExpandString); ADMX artifacts at official 154.1.98.28 policy templates. Cumulative chain: 24→51→83→123→151.
+Previous release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases — no pinned validation target, no dependency version bump ever ships as a project update. Cumulative chain: 24→51→83→123→151.
 
 ---
 
@@ -262,17 +262,17 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v3.0.0.0** — *Sürüm-bağımsız global uyumluluk* (2026-10-06)
+**v3.0.1.0** — *Yönetici koruması uyumluluğu* (2026-10-08)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız — sabit doğrulama hedefi yok, hiçbir bağımlılık sürüm değişikliği proje güncellemesi olarak verilmez. Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız; kullanıcı işlemleri SID ile her yerel profili hedefler. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 
 ## Önceki Sürüm
 
-**v2.8.1.1** — *ExpandString kayıt türü raporlama düzeltmesi* (2026-09-26)
+**v3.0.0.0** — *Sürüm-bağımsız global uyumluluk* (2026-10-06)
 
-Önceki sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), `-Language EN|TR|Auto` seçenekli tek iki dilli betik, Brave 1.96.59 (Chromium 154.0.8037.58) ile doğrulandı. Kayıt türleri eksiksiz raporlanıyor (124 DWord / 7 String / 19 MultiString / 1 ExpandString); ADMX yapıtları resmî 154.1.98.28 politika şablonlarında. Kümülatif zincir: 24→51→83→123→151.
+Önceki sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız — sabit doğrulama hedefi yok, hiçbir bağımlılık sürüm değişikliği proje güncellemesi olarak verilmez. Kümülatif zincir: 24→51→83→123→151.
 
 ---
 

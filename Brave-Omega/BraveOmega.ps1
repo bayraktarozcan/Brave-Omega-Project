@@ -17,6 +17,24 @@
 #                    Brave/Chromium at runtime and applies the same 151 policies
 #                    in a forward/backward compatible way on every future release.
 #
+# CHANGELOG (v3.0.1.0)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.0.1.0             Compatibility release — Administrator protection support:
+#
+#     [CHANGED]     Per-user operations now target every local profile by SID
+#                   under HKEY_USERS instead of the process HKCU: drive. Under
+#                   Administrator protection an elevated process runs in an
+#                   isolated admin profile, so HKCU: no longer points at the
+#                   real user; all HKCU preferences, Omaha telemetry flags,
+#                   backups, and reset removals now resolve each local profile
+#                   (loaded hives directly, offline hives via reg load/unload),
+#                   and Brave detection scans every profile's AppData instead
+#                   of the isolated LOCALAPPDATA.
+#
+#     [UNCHANGED]   No policy definition, registry, or ADMX change. Totals
+#                   remain 151 across 5 tiers (chain: 24 → 51 → 83 →
+#                   123 → 151).
+#
 # CHANGELOG (v3.0.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
 # v3.0.0.0             Major release — version-agnostic global compatibility:
@@ -488,7 +506,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.0.0.0"
+$ScriptVersion   = "v3.0.1.0"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.
@@ -628,6 +646,12 @@ $script:Strings = @{
     SmimeDone = @{ EN = "  After installation, OWA signing/encryption features become active."; TR = "  Kurulum sonrası OWA'da imzalama/şifreleme özellikleri aktif olur." }
     Step3WhatIfHkcu = @{ EN = "  [WhatIf] HKCU: {0}"; TR = "  [WhatIf] HKCU: {0}" }
     Step3WhatIfHklm = @{ EN = "  [WhatIf] HKLM: {0}`n"; TR = "  [WhatIf] HKLM: {0}`n" }
+    UserHiveTargets = @{ EN = "  User profiles targeted : {0}"; TR = "  Hedeflenen kullanıcı profilleri : {0}" }
+    ProfileTarget = @{ EN = "  -> Profile '{0}' : {1}"; TR = "  -> '{0}' profili : {1}" }
+    UserHiveMounted = @{ EN = "  [OK] Offline hive mounted for '{0}'"; TR = "  [OK] '{0}' için çevrimdışı kovan bağlandı" }
+    UserHiveMountFailed = @{ EN = "  [WARN] Hive for '{0}' unavailable: {1} — profile skipped"; TR = "  [UYARI] '{0}' kovanı kullanılamıyor: {1} — profil atlandı" }
+    UserHiveUnmounted = @{ EN = "  [OK] Unmounted hive for '{0}'"; TR = "  [OK] '{0}' kovanı ayrıldı" }
+    ProfileSummary = @{ EN = "  User profiles      : {0} applied / {1} skipped"; TR = "  Kullanıcı profilleri : {0} uygulandı / {1} atlandı" }
     FinalWarn2 = @{ EN = "            review the ERROR lines above and check required permissions."; TR = "            yukarıdaki HATA satırlarını inceleyin ve gerekli izinleri kontrol edin." }
 }
 
@@ -650,11 +674,25 @@ function Get-LocalizedString {
 # BRAVE VERSION DETECTION
 # ─────────────────────────────────────────────────────────────────────────────
 function Get-BraveVersion {
+    # Filesystem scan, not environment lookup: under Administrator protection
+    # an elevated process carries the isolated profile's LOCALAPPDATA, so the
+    # real user's per-user install is found by walking every local profile.
     $paths = @(
         "${env:ProgramFiles}\BraveSoftware\Brave-Browser\Application\brave.exe",
-        "${env:ProgramFiles(x86)}\BraveSoftware\Brave-Browser\Application\brave.exe",
-        "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\Application\brave.exe"
+        "${env:ProgramFiles(x86)}\BraveSoftware\Brave-Browser\Application\brave.exe"
     )
+    try {
+        $profiles = Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
+            Where-Object { -not $_.Special -and $_.LocalPath }
+    } catch {
+        $profiles = @()
+    }
+    foreach ($userProfile in $profiles) {
+        $paths += Join-Path -Path $userProfile.LocalPath -ChildPath "AppData\Local\BraveSoftware\Brave-Browser\Application\brave.exe"
+    }
+    if ($profiles.Count -eq 0) {
+        $paths += "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\Application\brave.exe"
+    }
     foreach ($path in $paths) {
         if (Test-Path $path) {
             try {
@@ -807,6 +845,88 @@ function Import-OmegaPolicyData {
 
 $OmegaState = Import-OmegaPolicyData
 
+
+# -----------------------------------------------------------------------------
+# Per-user hive resolution (Administrator protection compatibility).
+# Under Administrator protection an elevated process runs in an isolated
+# admin profile, so HKCU: no longer points at the real user. Every per-user
+# operation therefore targets each local profile by SID under HKEY_USERS.
+# -----------------------------------------------------------------------------
+
+function Get-OmegaUserHivePath {
+    param([string]$Sid)
+    return "Registry::HKEY_USERS\$Sid"
+}
+
+function Get-OmegaLocalUserHive {
+    # Read-only enumeration: no hive is mounted here. Each entry carries the
+    # SID, a display label, the registry paths derived from the SID, and the
+    # NTUSER.DAT path used to mount offline hives on demand.
+    $hives = @()
+    try {
+        $profiles = Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
+            Where-Object { -not $_.Special -and $_.LocalPath }
+    } catch {
+        return $hives
+    }
+    foreach ($userProfile in $profiles) {
+        $sid = [string]$userProfile.SID
+        if ([string]::IsNullOrEmpty($sid)) { continue }
+        $hives += @{
+            Sid        = $sid
+            Label      = Split-Path -Leaf $userProfile.LocalPath
+            HivePath   = "Registry::HKEY_USERS\$sid"
+            HkcuTarget = "Registry::HKEY_USERS\$sid\Software\BraveSoftware\Brave-Browser"
+            HkcuRoot   = "Registry::HKEY_USERS\$sid\Software\BraveSoftware"
+            NtUserDat  = Join-Path -Path $userProfile.LocalPath -ChildPath "NTUSER.DAT"
+            Mounted    = $false
+        }
+    }
+    return $hives
+}
+
+function Mount-OmegaUserHive {
+    # Makes one profile hive addressable. Already-loaded hives need nothing.
+    # In -WhatIf mode nothing is mounted: an offline hive with NTUSER.DAT on
+    # disk still counts as a would-process target for preview purposes.
+    param($UserHive, [switch]$WhatIf)
+    if (Test-Path -LiteralPath $UserHive.HivePath) { return $true }
+    if ($WhatIf) { return (Test-Path -LiteralPath $UserHive.NtUserDat) }
+    if (-not (Test-Path -LiteralPath $UserHive.NtUserDat)) { return $false }
+    $priorErrorPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        & reg load ("HKU\" + $UserHive.Sid) $UserHive.NtUserDat 2>&1 | Out-Null
+        $regExitCode = $LASTEXITCODE
+    } catch {
+        $ErrorActionPreference = $priorErrorPreference
+        return $false
+    }
+    $ErrorActionPreference = $priorErrorPreference
+    if ($regExitCode -ne 0 -or -not (Test-Path -LiteralPath $UserHive.HivePath)) { return $false }
+    $UserHive.Mounted = $true
+    return $true
+}
+
+function Dismount-OmegaUserHive {
+    # Unloads only hives this run mounted itself; never touches the rest.
+    param($UserHive)
+    if (-not $UserHive.Mounted) { return $true }
+    $priorErrorPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        & reg unload ("HKU\" + $UserHive.Sid) 2>&1 | Out-Null
+        $regExitCode = $LASTEXITCODE
+    } catch {
+        $ErrorActionPreference = $priorErrorPreference
+        return $false
+    }
+    $ErrorActionPreference = $priorErrorPreference
+    if ($regExitCode -ne 0) { return $false }
+    $UserHive.Mounted = $false
+    return $true
+}
+
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0C: RESET MODE
 # ─────────────────────────────────────────────────────────────────────────────
@@ -821,6 +941,23 @@ $allPolicyNames = $OmegaState.AllPolicyNames
 # ─────────────────────────────────────────────────────────────────────────────
 $HKCU_Target = $OmegaState.Registry.hkcuTarget
 $HKLM_Target = $OmegaState.Registry.hklmTarget
+
+# Per-user targets for every local profile. When enumeration finds nothing
+# (no CIM, no profiles), fall back to the single current-user context so the
+# script keeps working exactly as before instead of skipping silent work.
+$OmegaUserHives = Get-OmegaLocalUserHive
+if (-not $OmegaUserHives -or $OmegaUserHives.Count -eq 0) {
+    $OmegaUserHives = @(@{
+        Sid        = ''
+        Label      = 'current user'
+        HivePath   = 'HKCU:'
+        HkcuTarget = $HKCU_Target
+        HkcuRoot   = $OmegaState.Registry.hkcuRoot
+        NtUserDat  = ''
+        Mounted    = $false
+    })
+}
+Write-Host ((Get-LocalizedString 'UserHiveTargets') -f (($OmegaUserHives | ForEach-Object { $_.Label }) -join ', ')) -ForegroundColor DarkGray
 
 
 # -----------------------------------------------------------------------------
@@ -864,7 +1001,7 @@ function Export-OmegaRegistryBackup {
         [string]$FileNamePrefix
     )
 
-    $flatPath = $Path -replace '^HKLM:\\', 'HKLM\' -replace '^HKCU:\\', 'HKCU\'
+    $flatPath = $Path -replace '^HKLM:\\', 'HKLM\' -replace '^HKCU:\\', 'HKCU\' -replace '^Registry::', ''
 
     $backupFolder = Join-Path -Path $env:TEMP -ChildPath "BravePolicyBackup"
     $backupFile = Join-Path -Path $backupFolder -ChildPath ("{0}_{1}.reg" -f $FileNamePrefix, (Get-Date -Format 'yyyyMMdd_HHmmss'))
@@ -916,9 +1053,13 @@ if ($Reset) {
     } else {
         Write-Host (Get-LocalizedString 'ResetBackup') -ForegroundColor Gray
         $ResetBackupTargets = @(
-            @{ Path = $HKLM_Target;                  Prefix = "HKLM_BravePolicy";  Label = "HKLM policy hive" }
-            @{ Path = $OmegaState.Registry.hkcuRoot; Prefix = "HKCU_BraveSoftware"; Label = "HKCU Brave data" }
+            @{ Path = $HKLM_Target; Prefix = "HKLM_BravePolicy"; Label = "HKLM policy hive" }
         )
+        foreach ($UserHive in $OmegaUserHives) {
+            if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) { continue }
+            $safeLabel = $UserHive.Label -replace '[^A-Za-z0-9]', '_'
+            $ResetBackupTargets += @{ Path = $UserHive.HkcuRoot; Prefix = ("HKCU_BraveSoftware_" + $safeLabel); Label = ("HKCU Brave data [" + $UserHive.Label + "]") }
+        }
         foreach ($BackupTarget in $ResetBackupTargets) {
             if (-not (Test-Path $BackupTarget.Path)) {
                 continue
@@ -926,6 +1067,7 @@ if ($Reset) {
             $ResetBackupFile = Export-OmegaRegistryBackup -Path $BackupTarget.Path -FileNamePrefix $BackupTarget.Prefix
             if (-not $ResetBackupFile) {
                 Write-Host ((Get-LocalizedString 'ResetBackupFailed') -f $BackupTarget.Label) -ForegroundColor Red
+                foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
                 exit 1
             }
         }
@@ -950,17 +1092,19 @@ if ($Reset) {
         }
     }
 
-    # Remove from HKCU
+    # Remove from HKCU (every local profile)
     $hcCount = 0
     $hcFail = 0
-    if (Test-Path $HKCU_Target) {
+    foreach ($UserHive in $OmegaUserHives) {
+        if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) { continue }
+        if (-not (Test-Path $UserHive.HkcuTarget)) { continue }
         foreach ($name in @("UsageStatsInSample", "ChromeVariations")) {
             try {
                 if (-not $WhatIf) {
-                    Remove-ItemProperty -Path $HKCU_Target -Name $name
+                    Remove-ItemProperty -Path $UserHive.HkcuTarget -Name $name
                 }
                 $hcCount++
-                Write-Host ((Get-LocalizedString 'ResetOkHkcu') -f $name) -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
+                Write-Host ((Get-LocalizedString 'ResetOkHkcu') -f ($name + " [" + $UserHive.Label + "]")) -ForegroundColor $(if ($WhatIf) { "Magenta" } else { "DarkGreen" })
             } catch {
                 $hcFail++
                 Write-Host ((Get-LocalizedString 'ResetWarnHkcu') -f $name, $($_.Exception.Message)) -ForegroundColor DarkYellow
@@ -968,14 +1112,16 @@ if ($Reset) {
         }
     }
 
-    # Remove Omaha usagestats from GUIDs
+    # Remove Omaha usagestats from GUIDs (every local profile)
     $omahaCount = 0
     $omahaFail = 0
-    $rootPath = "HKCU:\Software\BraveSoftware"
-    if (Test-Path "$rootPath\Update\ClientState") {
+    foreach ($UserHive in $OmegaUserHives) {
+        if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) { continue }
+        $rootPath = $UserHive.HkcuRoot
+        if (-not (Test-Path "$rootPath\Update\ClientState")) { continue }
         $guids = Get-ChildItem -Path "$rootPath\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty Name |
-            ForEach-Object { $_ -replace "HKEY_CURRENT_USER", "HKCU:" } |
+            ForEach-Object { $_ -replace "^HKEY_USERS", "Registry::HKEY_USERS" } |
             Where-Object { $_ -match "\\\{[a-fA-F0-9-]+\}$" }
         foreach ($guidPath in $guids) {
             try {
@@ -1010,6 +1156,7 @@ if ($Reset) {
         Write-Host ((Get-LocalizedString 'ResetFails') -f $hkFail, $hcFail, $omahaFail) -ForegroundColor DarkYellow
     }
     Write-Host (Get-LocalizedString 'ResetReopen') -ForegroundColor White
+    foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
     exit 0
 }
 
@@ -1091,6 +1238,7 @@ if ($BraveProcesses) {
 
     if ($DecisionInput -notin @("Y", "y", "Yes", "yes", "E", "e", "Evet", "evet", "Devam", "devam")) {
         Write-Host (Get-LocalizedString 'ProcCancelled') -ForegroundColor DarkGray
+        foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
         exit 0
     }
     Write-Host ""
@@ -1118,6 +1266,7 @@ $SelectedIndex = [array]::IndexOf($LevelOrder, $Level)
 
 if ($SelectedIndex -eq -1) {
     Write-Host ((Get-LocalizedString 'InternalErrorLevel') -f $Level) -ForegroundColor Red
+    foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
     exit 1
 }
 
@@ -1267,15 +1416,22 @@ function Write-PolicyValue {
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host (Get-LocalizedString 'StepGuidScan') -ForegroundColor Gray
 
-$RootPath          = $OmegaState.Registry.hkcuRoot
 $OmahaSuccessCount = 0
-$OmahaErrorCount   = 0
+$OmahaErrorCount = 0
+
+foreach ($UserHive in $OmegaUserHives) {
+    $RootPath = $UserHive.HkcuRoot
+    if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) {
+        Write-Host ((Get-LocalizedString 'UserHiveMountFailed') -f $UserHive.Label, $RootPath) -ForegroundColor Yellow
+        continue
+    }
+    Write-Host ((Get-LocalizedString 'ProfileTarget') -f $UserHive.Label, $RootPath) -ForegroundColor DarkGray
 
 $DynamicPaths = if (Test-Path "$RootPath\Update\ClientState") {
     Get-ChildItem -Path "$RootPath\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
         Select-Object -ExpandProperty Name |
         ForEach-Object {
-            $FormattedPath = $_ -replace "HKEY_CURRENT_USER", "HKCU:"
+            $FormattedPath = $_ -replace "HKEY_CURRENT_USER", "HKCU:" -replace "^HKEY_USERS", "Registry::HKEY_USERS"
             if ($FormattedPath -match "\\\{[a-fA-F0-9-]+\}$") {
                 Write-Host ((Get-LocalizedString 'GuidDetected') -f $FormattedPath) -ForegroundColor Yellow
                 $FormattedPath
@@ -1302,6 +1458,7 @@ if ($DynamicPaths) {
 } else {
     Write-Host (Get-LocalizedString 'OmahaNone') -ForegroundColor DarkGray
 }
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1313,6 +1470,13 @@ if ($WhatIf) {
     Write-Host (Get-LocalizedString 'Step2WhatIf') -ForegroundColor Magenta
 } elseif (Test-Path $HKLM_Target) {
     $null = Export-OmegaRegistryBackup -Path $HKLM_Target -FileNamePrefix "HKLM_BravePolicy"
+    foreach ($UserHive in $OmegaUserHives) {
+        if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) { continue }
+        if (Test-Path $UserHive.HkcuRoot) {
+            $safeLabel = $UserHive.Label -replace '[^A-Za-z0-9]', '_'
+            $null = Export-OmegaRegistryBackup -Path $UserHive.HkcuRoot -FileNamePrefix ("HKCU_BraveSoftware_" + $safeLabel)
+        }
+    }
 } else {
     Write-Host (Get-LocalizedString 'Step2NoHive') -ForegroundColor DarkGray
 }
@@ -1323,12 +1487,17 @@ if ($WhatIf) {
 # ─────────────────────────────────────────────────────────────────────────────
 if (-not $WhatIf) {
     Write-Host (Get-LocalizedString 'Step3Header') -ForegroundColor Gray
-    New-Item -Path $HKCU_Target -Force -ErrorAction SilentlyContinue | Out-Null
-    Write-Host ((Get-LocalizedString 'Step3Hkcu') -f $HKCU_Target) -ForegroundColor DarkGray
+    foreach ($UserHive in $OmegaUserHives) {
+        if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) { continue }
+        New-Item -Path $UserHive.HkcuTarget -Force -ErrorAction SilentlyContinue | Out-Null
+        Write-Host ((Get-LocalizedString 'Step3Hkcu') -f $UserHive.HkcuTarget) -ForegroundColor DarkGray
+    }
     New-Item -Path $HKLM_Target -Force -ErrorAction SilentlyContinue | Out-Null
     Write-Host ((Get-LocalizedString 'Step3Hklm') -f $HKLM_Target) -ForegroundColor DarkGray
 } else {
-    Write-Host ((Get-LocalizedString 'Step3WhatIfHkcu') -f $HKCU_Target) -ForegroundColor Magenta
+    foreach ($UserHive in $OmegaUserHives) {
+        Write-Host ((Get-LocalizedString 'Step3WhatIfHkcu') -f $UserHive.HkcuTarget) -ForegroundColor Magenta
+    }
     Write-Host ((Get-LocalizedString 'Step3WhatIfHklm') -f $HKLM_Target) -ForegroundColor Magenta
 }
 
@@ -1339,18 +1508,27 @@ if (-not $WhatIf) {
 Write-Host (Get-LocalizedString 'StepHkcuTelemetry') -ForegroundColor Gray
 
 $HKCUSuccess = $false
+$HKCUAppliedCount = 0
+$HKCUSkippedCount = 0
 
-try {
-    if (-not $WhatIf) {
-        New-ItemProperty -Path $HKCU_Target -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
+foreach ($UserHive in $OmegaUserHives) {
+    try {
+        if (-not $WhatIf) {
+            if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) {
+                throw "hive unavailable"
+            }
+            New-ItemProperty -Path $UserHive.HkcuTarget -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
+        }
+        $HKCUAppliedCount++
+        $tag = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
+        $fg  = if ($WhatIf) { "Magenta" } else { "White" }
+        Write-Host ((Get-LocalizedString 'HkcuTelemetryResult') -f ($tag + " [" + $UserHive.Label + "]")) -ForegroundColor $fg
+    } catch {
+        $HKCUSkippedCount++
+        Write-Host ((Get-LocalizedString 'HkcuTelemetryError') -f $($_.Exception.Message)) -ForegroundColor Red
     }
-    $HKCUSuccess = $true
-    $tag = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
-    $fg  = if ($WhatIf) { "Magenta" } else { "White" }
-    Write-Host ((Get-LocalizedString 'HkcuTelemetryResult') -f $tag) -ForegroundColor $fg
-} catch {
-    Write-Host ((Get-LocalizedString 'HkcuTelemetryError') -f $($_.Exception.Message)) -ForegroundColor Red
 }
+if ($HKCUAppliedCount -gt 0) { $HKCUSuccess = $true }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1441,16 +1619,22 @@ foreach ($Rule in $MergedPolicies.Values) {
 # ─────────────────────────────────────────────────────────────────────────────
 Write-Host (Get-LocalizedString 'StepHkcuExtra') -ForegroundColor Gray
 
-# Chromium Variations (User-level preference)
-try {
-    if (-not $WhatIf) {
-        New-ItemProperty -Path $HKCU_Target -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
+# Chromium Variations (User-level preference, every local profile)
+foreach ($UserHive in $OmegaUserHives) {
+    try {
+        if (-not $WhatIf) {
+            if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) {
+                throw "hive unavailable"
+            }
+            New-ItemProperty -Path $UserHive.HkcuTarget -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
+        }
+        $tag = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
+        $fg  = if ($WhatIf) { "Magenta" } else { "DarkGreen" }
+        Write-Host ((Get-LocalizedString 'ChromeVariationsResult') -f ($tag + " [" + $UserHive.Label + "]")) -ForegroundColor $fg
+    } catch {
+        $HKCUSkippedCount++
+        Write-Host ((Get-LocalizedString 'ChromeVariationsWarn') -f $($_.Exception.Message)) -ForegroundColor Yellow
     }
-    $tag = if ($WhatIf) { "[WhatIf]" } else { "[OK]" }
-    $fg  = if ($WhatIf) { "Magenta" } else { "DarkGreen" }
-    Write-Host ((Get-LocalizedString 'ChromeVariationsResult') -f $tag) -ForegroundColor $fg
-} catch {
-    Write-Host ((Get-LocalizedString 'ChromeVariationsWarn') -f $($_.Exception.Message)) -ForegroundColor Yellow
 }
 
 Write-Host ""
@@ -1474,6 +1658,7 @@ Write-Host $SeparatorLine -ForegroundColor DarkGray
 $HKCUStatus = if ($HKCUSuccess) { "Applied" } else { "Failed" }
 Write-Host ((Get-LocalizedString 'SummaryOmaha') -f $OmahaSuccessCount, $OmahaErrorCount) -ForegroundColor Gray
 Write-Host ((Get-LocalizedString 'SummaryHkcu') -f $HKCUStatus) -ForegroundColor Gray
+Write-Host ((Get-LocalizedString 'ProfileSummary') -f $HKCUAppliedCount, $HKCUSkippedCount) -ForegroundColor Gray
 Write-Host ((Get-LocalizedString 'SummaryHklm') -f $SuccessCount, $ErrorCount) -ForegroundColor Gray
 if ($StaleRemovedCount -gt 0 -or $StaleFailCount -gt 0) {
     Write-Host ((Get-LocalizedString 'SummaryStale') -f $StaleRemovedCount, $StaleFailCount) -ForegroundColor Gray
@@ -1529,4 +1714,5 @@ if ($Level -in @("Advanced", "Strict")) {
 }
 
 # Exit code
+foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
 if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0) { exit 1 } else { exit 0 }

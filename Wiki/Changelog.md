@@ -23,6 +23,18 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v3.0.1.0 - 2026-10-08
+
+**Compatibility Release - Administrator protection support**
+
+**Changed:**
+
+- Per-user operations target every local profile by SID under `HKEY_USERS` instead of the process `HKCU:` drive; Brave detection scans every profile's `AppData\Local`; new `Get-OmegaUserHivePath` / `Get-OmegaLocalUserHives` / `Mount-OmegaUserHive` / `Dismount-OmegaUserHive` helpers with per-profile mount, error isolation, and unload before every exit
+- Version surfaces aligned to v3.0.1.0: README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `Enterprise/levels.json`, policy catalog headers, and test expectations; historical entries untouched
+- No policy, registry value, or ADMX change; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+
+---
+
 ### v3.0.0.0 - 2026-10-06
 
 **Major Release - Version-agnostic global compatibility**
@@ -790,7 +802,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.0.0.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.1.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.0.0** | all | all | 11 26H2 | 📦 Previous |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
 | v2.8.1.0 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Previous |
@@ -887,6 +900,18 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v3.0.1.0 - 2026-10-08
+
+**Uyumluluk Sürümü - Yönetici koruması desteği**
+
+**Değiştirilenler:**
+
+- Kullanıcı işlemleri işlem `HKCU:` sürücüsü yerine `HKEY_USERS` altında SID ile her yerel profili hedefler; Brave tespiti her profilin `AppData\Local` dizinini tarar; profil başına bağlama, hata yalıtımı ve her çıkış öncesi ayırma ile yeni `Get-OmegaUserHivePath` / `Get-OmegaLocalUserHives` / `Mount-OmegaUserHive` / `Dismount-OmegaUserHive` yardımcıları
+- Sürüm yüzeyleri v3.0.1.0 ile hizalandı: README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `Enterprise/levels.json`, politika kataloğu başlıkları ve test beklentileri; tarihsel kayıtlar korundu
+- Politika, kayıt değeri ve ADMX değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+
+---
 
 ### v3.0.0.0 - 2026-10-06
 
@@ -1656,7 +1681,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.0.0.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.1.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
 | v2.8.1.0 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
 | v2.8.0.0 | 1.95.104 | 153 | 11 25H2 | 📦 Önceki |

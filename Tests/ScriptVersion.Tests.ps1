@@ -5,7 +5,7 @@ BeforeAll {
 Describe "Script Version Consistency" -Tag "Integration" {
     It "unified script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion"
-        $v | Should -BeExactly "v3.0.0.0"
+        $v | Should -BeExactly "v3.0.1.0"
     }
 
     It "unified script should have a single version variable (no per-language fork)" {

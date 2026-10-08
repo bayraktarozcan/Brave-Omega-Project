@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v3.0.0.0** ✅ | all | all | Windows 11 26H2 | ✅ Active | 2026-10-06 |
+| **v3.0.1.0** ✅ | all | all | Windows 11 26H2 | ✅ Active | 2026-10-08 |
+| **v3.0.0.0** 📦 | all | all | Windows 11 26H2 | 📦 Previous | 2026-10-06 |
 | v2.8.1.1 📦 | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | 📦 Previous | 2026-09-26 |
 | v2.8.0.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Previous | 2026-09-22 |
 | v2.7.3.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Previous | 2026-09-19 |
@@ -83,16 +84,16 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v3.0.0.0) If
+### Use Current (v3.0.1.0) If
 
 - Running any Brave release (V3 version-agnostic — no pinned version)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 151 total policies
 
-### Use Previous (v2.8.1.1) If
+### Use Previous (v3.0.0.0) If
 
-- Cannot update to v3.0.0.0 immediately
-- Running Brave 1.95.104
+- Cannot update to v3.0.1.0 immediately
+- Do not need per-profile Administrator protection compatibility
 
 ### Use Legacy (v2.2.1.0) If
 
@@ -132,8 +133,8 @@ if (Test-Path $bravePath) {
 
 | Scenario | Recommendation |
 | ---------- | ---------------- |
-| Any Brave release (V3) | Use v3.0.0.0 — version-agnostic, no matrix lookup needed |
-| Staying on v2.8.1.1 | Update to v3.0.0.0 to drop the pinned validation target |
+| Any Brave release (V3) | Use v3.0.1.0 — version-agnostic, no matrix lookup needed |
+| Staying on v3.0.0.0 | Update to v3.0.1.0 for per-profile Administrator protection compatibility |
 | Windows build differs | Windows 11 recommended; other builds likely compatible |
 
 ---
@@ -141,6 +142,7 @@ if (Test-Path $bravePath) {
 ## Policy Coverage by Version
 
 | Version | Policies | Coverage | New Policies |
+| v3.0.1.0 | 151 | 100% | Compatibility release — Administrator protection support (2026-10-08). Per-user operations target every local profile by SID; Brave detection scans all profiles' AppData. No policy changes, no regressions across all 5 tiers |
 | v3.0.0.0 | 151 | 100% | Major release — version-agnostic global compatibility (2026-10-06). Pinned Brave/Chromium validation target removed; version gate informational only. No policy changes, no regressions across all 5 tiers |
 | v2.8.1.1 | 151 | 100% | Patch release — ExpandString registry type reporting fix (2026-09-26). No policy changes, no regressions across all 5 tiers |
 | v2.8.1.0 | 151 | 100% | Patch release — Brave 1.96.59 compatibility validation (Chromium 154.0.8037.58; 2026-09-25). ADMX artifacts refreshed to official 154.1.98.28 policy templates. No policy changes, no regressions across all 5 tiers |
@@ -237,7 +239,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v3.0.0.0** ✅ | tümü | tümü | Windows 11 26H2 | ✅ Etkin | 2026-10-06 |
+| **v3.0.1.0** ✅ | tümü | tümü | Windows 11 26H2 | ✅ Etkin | 2026-10-08 |
+| **v3.0.0.0** 📦 | tümü | tümü | Windows 11 26H2 | 📦 Önceki | 2026-10-06 |
 | v2.8.1.1 📦 | 1.96.59 | 154.0.8037.58 | Windows 11 25H2 | 📦 Önceki | 2026-09-26 |
 | v2.8.0.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Önceki | 2026-09-22 |
 | v2.7.3.0 📦 | 1.95.104 | 153.0.8010.53 | Windows 11 25H2 | 📦 Önceki | 2026-09-19 |
@@ -307,16 +310,16 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v3.0.0.0) Kullan Eğer
+### Güncel (v3.0.1.0) Kullan Eğer
 
 - Herhangi bir Brave sürümü çalışıyorsa (V3 sürüm-bağımsız — sabit sürüm yok)
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 151 toplam politika
 
-### Önceki (v2.8.1.1) Kullan Eğer
+### Önceki (v3.0.0.0) Kullan Eğer
 
-- Hemen v3.0.0.0'a güncelleyemiyorsanız
-- Brave 1.95.104 çalışıyorsa
+- Hemen v3.0.1.0'a güncelleyemiyorsanız
+- Profil başına Yönetici koruması uyumluluğuna ihtiyacınız yoksa
 
 ### Eski (v2.2.1.0) Kullan Eğer
 
@@ -356,8 +359,8 @@ if (Test-Path $bravePath) {
 
 | Senaryo | Öneri |
 | --------- | ------- |
-| Herhangi bir Brave sürümü (V3) | v3.0.0.0 kullanın — sürüm-bağımsız, matris araması gerekmez |
-| v2.8.1.1'de kalınıyorsa | Sabit doğrulama hedefinden kurtulmak için v3.0.0.0'a geçin |
+| Herhangi bir Brave sürümü (V3) | v3.0.1.0 kullanın — sürüm-bağımsız, matris araması gerekmez |
+| v3.0.0.0'da kalınıyorsa | Profil başına Yönetici koruması uyumluluğu için v3.0.1.0'a geçin |
 | Windows derlemesi farklı | Windows 11 önerilir; diğer derlemeler muhtemelen uyumludur |
 
 ---
@@ -365,6 +368,7 @@ if (Test-Path $bravePath) {
 ## Sürüme Göre Politika Kapsamı
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
+| v3.0.1.0 | 151 | 100% | Uyumluluk sürümü — Yönetici koruması desteği (2026-10-08). Kullanıcı işlemleri SID ile her yerel profili hedefler; Brave tespiti tüm profillerin AppData dizinini tarar. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v3.0.0.0 | 151 | 100% | Ana sürüm — sürüm-bağımsız global uyumluluk (2026-10-06). Sabit Brave/Chromium doğrulama hedefi kaldırıldı; sürüm kapısı yalnızca bilgilendirir. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v2.8.1.1 | 151 | 100% | Yama sürümü — ExpandString kayıt türü raporlama düzeltmesi (2026-09-26). Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v2.8.1.0 | 151 | 100% | Yama sürümü — Brave 1.96.59 uyumluluk doğrulaması (Chromium 154.0.8037.58; 2026-09-25). ADMX yapıtları resmî 154.1.98.28 politika şablonlarıyla tazelendi. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |

@@ -28,7 +28,7 @@ Describe "Reset Mode - Reset Policy Count" -Tag "Unit" {
 
     It "unified reset should also target HKCU policies" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $removals = [regex]::Matches($content, 'Remove-ItemProperty\s+-Path\s+\$HKCU_Target')
+        $removals = [regex]::Matches($content, 'Remove-ItemProperty\s+-Path\s+\$UserHive\.HkcuTarget')
         $removals.Count | Should -BeGreaterOrEqual 1
     }
 }
@@ -94,7 +94,7 @@ Describe "Reset Mode - Backup Before Removal" -Tag "Unit" {
 
     It "unified reset should back up the machine-wide hive and the per-user root" {
         $resetBody | Should -Match 'Prefix\s*=\s*"HKLM_BravePolicy"'
-        $resetBody | Should -Match 'Prefix\s*=\s*"HKCU_BraveSoftware"'
+        $resetBody | Should -Match 'HKCU_BraveSoftware_" \+ \$safeLabel'
     }
 
     It "unified reset should stop before removing when a backup fails" {
