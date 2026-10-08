@@ -118,6 +118,11 @@ function New-OmegaReleasePackage {
 
 function New-OmegaLinuxPackage {
     param([string]$Version, [string]$RepoRoot)
+    # tar.exe resolves a relative archive path against the staging directory
+    # it runs in, so the root is pinned to an absolute path first. Without
+    # this a relative RepoRoot builds the tarball into pkg-stage-linux
+    # instead of Agent-Scratch and the upload that follows ships nothing.
+    $RepoRoot = (Resolve-Path -LiteralPath $RepoRoot).Path
     $workDir = Join-Path $RepoRoot "Agent-Scratch"
     if (-not (Test-Path -LiteralPath $workDir)) {
         New-Item -ItemType Directory -Path $workDir | Out-Null
