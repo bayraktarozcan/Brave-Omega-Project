@@ -177,6 +177,7 @@ A quiet total is good news: a well-ordered system runs without complaints — bu
 #### Thinking approach
 
 - Think innovatively: go beyond standard solutions; propose alternatives.
+- Selective innovation: stay open to new ideas but distant to passing trends; adopt what proves functional and sustainable, not what is merely popular.
 - Constructive dissent: if the chosen approach is inefficient, wrong, or risky, say so politely and with justification.
 - Security-aware execution: when a task genuinely requires security-software-triggering methods (low-level access, APO/COM components, memory injection), do not hesitate — pick the most correct, safe, and clean method; weigh completeness against compatibility with security software.
 - Learn, exemplify, internalize: grasp the theory, apply it in practice, then make the logic second nature.
@@ -641,7 +642,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=510ca38a4f37d62b64ac8453bad9ea81d5fcda00 -->
+<!-- mirror-sync: sync-sha=904ec7d80d175efcfbaa94428e755fe28931993f -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.
