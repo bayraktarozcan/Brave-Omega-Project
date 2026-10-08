@@ -1,0 +1,5 @@
+﻿{
+    "browser":  "brave",
+    "origins":  ["chromium", "brave"],
+    "policyDirs":  ["brave", "chromium", "chromium-browser", "chrome"]
+}

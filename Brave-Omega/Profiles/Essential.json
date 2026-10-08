@@ -4,139 +4,193 @@
                      {
                          "name":  "MetricsReportingEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SafeBrowsingExtendedReportingEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "UrlKeyedAnonymizedDataCollectionEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SearchSuggestEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "NetworkPredictionOptions",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SpellcheckEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "AlternateErrorPagesEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "BrowserNetworkTimeQueriesEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DomainReliabilityAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "BackgroundModeEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SafeBrowsingSurveysEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "WebRtcEventLogCollectionAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "WebRtcTextLogCollectionAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "AudioCaptureAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "VideoCaptureAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "BraveGlobalPrivacyControlEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "brave",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultWebUsbGuardSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultWebBluetoothGuardSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultWebHidGuardSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "EncryptedClientHelloEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "PaymentMethodQueryEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SuppressDifferentOriginSubframeDialogs",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "EnableOnlineRevocationChecks",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ProxySettings",
                          "type":  "String",
-                         "value":  "{\"ProxyMode\":\"system\"}"
+                         "value":  "{\"ProxyMode\":\"system\"}",
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ExtensionInstallSources",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ScreenCaptureAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DownloadRestrictions",
                          "type":  "DWord",
-                         "value":  4
+                         "value":  4,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      }
                  ]
 }

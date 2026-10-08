@@ -4,124 +4,172 @@
                      {
                          "name":  "WebRtcIPHandling",
                          "type":  "String",
-                         "value":  "disable_non_proxied_udp"
+                         "value":  "disable_non_proxied_udp",
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "WebRtcLocalIpsAllowedUrls",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "HttpsOnlyMode",
                          "type":  "String",
-                         "value":  "force_enabled"
+                         "value":  "force_enabled",
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DnsOverHttpsMode",
                          "type":  "String",
-                         "value":  "automatic"
+                         "value":  "automatic",
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "BlockThirdPartyCookies",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "PasswordManagerEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "PasswordManagerPasskeysEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "AutofillAddressEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "AutofillCreditCardEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ShowFullUrlsInAddressBar",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "QuicAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ChromeVariations",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "NetworkServiceSandboxEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "AudioSandboxEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultGeolocationSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultNotificationsSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultPopupsSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultBraveHttpsUpgradeSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "brave",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultBraveReferrersSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "brave",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "BraveSyncUrl",
                          "type":  "String",
-                         "value":  "https://sync-v2.brave.com/v2"
+                         "value":  "https://sync-v2.brave.com/v2",
+                         "origin":  "brave",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultWindowManagementSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SitePerProcess",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "IntensiveWakeUpThrottlingEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "UserFeedbackAllowed",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ExtensionInstallForcelist",
@@ -129,42 +177,62 @@
                          "value":  [
                                        "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx",
                                        "maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DownloadDirectory",
                          "type":  "ExpandString",
-                         "value":  "%USERPROFILE%\\Downloads\\"
+                         "value":  "%USERPROFILE%\\Downloads\\",
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"],
+                         "platformValues":  {
+                             "windows":  "%USERPROFILE%\\Downloads\\",
+                             "linux":  "${HOME}/Downloads"
+                         }
                      },
                      {
                          "name":  "PromptForDownloadLocation",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "RelaunchNotification",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "RelaunchNotificationPeriod",
                          "type":  "DWord",
-                         "value":  3600000
+                         "value":  3600000,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "LocalNetworkAccessPermissionsPolicyDefaultEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "GenAILocalFoundationalModelSettings",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DisableSafeBrowsingProceedAnyway",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      }
                  ]
 }

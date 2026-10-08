@@ -4,77 +4,107 @@
                      {
                          "name":  "TranslateEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultClipboardSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultFileSystemReadGuardSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultFileSystemWriteGuardSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultInsecureContentSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultJavaScriptJitSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultCookiesSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ImportBookmarks",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DefaultBraveRemember1PStorageSetting",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "brave",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "IncognitoModeAvailability",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "TaskManagerEndProcessEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "PrintingEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DisablePrintPreview",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SafeBrowsingDeepScanningEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "DeveloperToolsAvailability",
                          "type":  "DWord",
-                         "value":  2
+                         "value":  2,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "BrowsingDataLifetime",
@@ -86,81 +116,107 @@
                                                           "cached_images_and_files"
                                                       ],
                                        "time_to_live_in_hours":  24
-                                   }
+                                   },
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "AlwaysOpenPdfExternally",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "CertificateTransparencyEnforcementDisabledForUrls",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "PasswordLeakDetectionEnabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SpellCheckServiceEnabled",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "BrowserSignin",
                          "type":  "DWord",
-                         "value":  0
+                         "value":  0,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SyncDisabled",
                          "type":  "DWord",
-                         "value":  1
+                         "value":  1,
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "ScreenCaptureAllowedByOrigins",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "SameOriginTabCaptureAllowedByOrigins",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "TabCaptureAllowedByOrigins",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "WindowCaptureAllowedByOrigins",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "LocalNetworkAllowedForUrls",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      },
                      {
                          "name":  "LocalNetworkBlockedForUrls",
                          "type":  "MultiString",
                          "value":  [
 
-                                   ]
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      }
                  ]
 }
