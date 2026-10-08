@@ -8,6 +8,11 @@ Describe "Parameter Binding - Unified Script" -Tag "Unit" {
         $content -match '\[string\]\$Level\s*=\s*""' | Should -Be $true
     }
 
+    It "should declare Browser as string parameter" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match '\[ValidateSet\("Brave", "Chrome"\)\]\[string\]\$Browser' | Should -Be $true
+    }
+
     It "should declare WhatIf as switch parameter" {
         $content = Get-Content -Path $ScriptMain -Raw
         $content -match '\[switch\]\$WhatIf' | Should -Be $true
@@ -28,17 +33,22 @@ Describe "Parameter Binding - Unified Script" -Tag "Unit" {
         $content -match '\[ValidateSet\("EN", "TR", "Auto"\)\]\[string\]\$Language' | Should -Be $true
     }
 
-    It "should have exactly 5 parameters in param block" {
+    It "should have exactly 6 parameters in param block" {
         $content = Get-Content -Path $ScriptMain -Raw
-        $paramMatch = [regex]::Match($content, 'param\(\s*\[Alias\("Seviye"\)\]\[string\]\$Level.*?\[string\]\$Language\s*=\s*"Auto"\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $paramMatch = [regex]::Match($content, 'param\(\s*\[Alias\("Seviye"\)\]\[string\]\$Level.*?\[string\]\$Browser\s*=\s*""\s*\)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
         $paramMatch.Success | Should -Be $true
         $paramBlock = $paramMatch.Value
-        $paramCount = ([regex]::Matches($paramBlock, '\$(Level|WhatIf|Reset|AllowSync|Language)\b')).Count
-        $paramCount | Should -Be 5
+        $paramCount = ([regex]::Matches($paramBlock, '\$(Level|WhatIf|Reset|AllowSync|Language|Browser)\b')).Count
+        $paramCount | Should -Be 6
     }
 }
 
 Describe "Parameter Binding - TR Aliases" -Tag "Unit" {
+    It "should alias Tarayici to Browser" {
+        $content = Get-Content -Path $ScriptMain -Raw
+        $content -match '\[Alias\("Tarayici"\)\].*\$Browser' | Should -Be $true
+    }
+
     It "should alias Seviye to Level" {
         $content = Get-Content -Path $ScriptMain -Raw
         $content -match '\[Alias\("Seviye"\)\]\[string\]\$Level' | Should -Be $true
@@ -54,7 +64,7 @@ Describe "Parameter Binding - TR Aliases" -Tag "Unit" {
         $content -match '\[Alias\("SenkronizasyonaIzinVer"\)\]\[switch\]\$AllowSync' | Should -Be $true
     }
 
-    It "unified script should declare all five canonical parameters" {
+    It "unified script should declare all six canonical parameters" {
         function Get-ParamAstNames {
             param([string]$Path)
             $tokens = $null; $errs = $null
@@ -63,7 +73,7 @@ Describe "Parameter Binding - TR Aliases" -Tag "Unit" {
             return @($paramBlock.Parameters | ForEach-Object { $_.Name.VariablePath.UserPath })
         }
         $mainNames = Get-ParamAstNames -Path $ScriptMain
-        foreach ($name in @('Level', 'WhatIf', 'Reset', 'AllowSync', 'Language')) {
+        foreach ($name in @('Level', 'WhatIf', 'Reset', 'AllowSync', 'Language', 'Browser')) {
             $mainNames -contains $name | Should -Be $true -Because "unified script should declare $name"
         }
     }

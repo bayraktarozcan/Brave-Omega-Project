@@ -17,8 +17,8 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega.ps1` v3.0.2.0 (bilingual EN/TR)  
-> **Date:** 2026-10-08  
+> **Generated from:** `BraveOmega.ps1` v3.1.0.0 (bilingual EN/TR)  
+> **Date:** 2026-10-09  
 > **Total unique policies:** 151 (no overlaps)  
 > **Type distribution:** 124 DWord · 7 String · 19 MultiString · 1 ExpandString  
 > **Validated on:** V3 version-agnostic — all Brave + Chromium versions (no pinned validation target)
@@ -256,8 +256,8 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega.ps1` v3.0.2.0 (iki dilli EN/TR)  
-> **Tarih:** 2026-10-08  
+> **Kaynak:** `BraveOmega.ps1` v3.1.0.0 (iki dilli EN/TR)  
+> **Tarih:** 2026-10-09  
 > **Toplam benzersiz politika:** 151 (çakışma yok)  
 > **Tür dağılımı:** 124 DWord · 7 String · 19 MultiString · 1 ExpandString  
 > **Doğrulandı:** V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri (sabit doğrulama hedefi yok)

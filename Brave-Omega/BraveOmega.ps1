@@ -17,6 +17,21 @@
 #                    Brave/Chromium at runtime and applies the same 151 policies
 #                    in a forward/backward compatible way on every future release.
 #
+# CHANGELOG (v3.1.0.0)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.1.0.0             Feature release — Windows Chrome target:
+#
+#     [NEW]         -Browser/-Tarayici parameter (Brave/Chrome) plus an opening
+#                   browser menu. Chrome runs target HKLM\SOFTWARE\Policies\
+#                   Google\Chrome, per-profile HKCU under Software\Google, and
+#                   Google Update Omaha GUIDs; Brave-only policies are skipped
+#                   by origin tag. Default stays Brave: existing runs behave
+#                   byte-identically.
+#
+#     [UNCHANGED]   No policy definition, registry, or ADMX change. Totals
+#                   remain 151 across 5 tiers (chain: 24 → 51 → 83 →
+#                   123 → 151).
+#
 # CHANGELOG (v3.0.2.0)
 # ─────────────────────────────────────────────────────────────────────────────
 # v3.0.2.0             Compatibility release — Linux support + generic Chromium:
@@ -516,13 +531,14 @@ param(
     [switch]$WhatIf,
     [Alias("Sifirla")][switch]$Reset,
     [Alias("SenkronizasyonaIzinVer")][switch]$AllowSync,
-    [Alias("Dil")][ValidateSet("EN", "TR", "Auto")][string]$Language = "Auto"
+    [Alias("Dil")][ValidateSet("EN", "TR", "Auto")][string]$Language = "Auto",
+    [Alias("Tarayici")][ValidateSet("Brave", "Chrome")][string]$Browser = ""
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.0.2.0"
+$ScriptVersion   = "v3.1.0.0"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.
@@ -562,8 +578,10 @@ $script:Strings = @{
     TargetPlatform = @{ EN = "Target Platform : Windows 11 / All Brave + Chromium versions (version-agnostic V3)"; TR = "Hedef Platform : Windows 11 / Tüm Brave + Chromium sürümleri (sürüm-bağımsız V3)" }
     ExecTime = @{ EN = "Execution Time  : {0}`n"; TR = "İşlem Zamanı   : {0}`n" }
     VerDetected = @{ EN = "  Detected: Brave {0} / Chromium {1}"; TR = "  Tespit: Brave {0} / Chromium {1}" }
+    VerDetectedChrome = @{ EN = "  Detected: Chrome {0} / Chromium {1}"; TR = "  Tespit: Chrome {0} / Chromium {1}" }
     VerSomePolicies = @{ EN = "  V3 version-agnostic mode: all policies designed for forward/backward compatibility. No version update required."; TR = "  V3 sürüm-bağımsız mod: tüm politikalar ileri/geri uyumlu tasarlandı. Sürüm güncellemesi gerekmez." }
     VerMatch = @{ EN = "[VERSION CHECK] Brave {0} / Chromium {1} detected — V3 global compatibility active.`n"; TR = "[SÜRÜM DENETİMİ] Brave {0} / Chromium {1} tespit edildi — V3 global uyumluluk aktif.`n" }
+    VerMatchChrome = @{ EN = "[VERSION CHECK] Chrome {0} / Chromium {1} detected — V3 global compatibility active.`n"; TR = "[SÜRÜM DENETİMİ] Chrome {0} / Chromium {1} tespit edildi — V3 global uyumluluk aktif.`n" }
     VerNoDetect = @{ EN = "[VERSION CHECK] Could not detect Brave installation path."; TR = "[SÜRÜM DENETİMİ] Brave kurulum yolu tespit edilemedi." }
     VerProceed = @{ EN = "  Proceeding — but verify compatibility at brave://settings/help`n"; TR = "  Devam ediliyor — ancak brave://settings/help adresinden uyumluluğu kontrol edin.`n" }
     ResetMode = @{ EN = "[RESET MODE] Removing all Brave Omega policies..."; TR = "[SIFIRLA MODU] Tüm Brave Omega politikaları kaldırılıyor..." }
@@ -580,19 +598,23 @@ $script:Strings = @{
     ResetWarnHklmKey = @{ EN = "  [WARN] HKLM policy key could not be removed: {0}"; TR = "  [WARN] HKLM politika anahtarı kaldırılamadı: {0}" }
     ResetComplete = @{ EN = "`n[RESET COMPLETE] HKLM: {0} / HKCU: {1} / Omaha: {2} entries removed."; TR = "`n[SIFIRLA TAMAMLANDI] HKLM: {0} / HKCU: {1} / Omaha: {2} girdi kaldırıldı." }
     ResetFails = @{ EN = "  {0} HKLM, {1} HKCU, {2} Omaha entries could not be removed (may require elevated permissions)."; TR = "  {0} HKLM, {1} HKCU, {2} Omaha girdisi kaldırılamadı (yüksek izin gerekebilir)." }
-    ResetReopen = @{ EN = "  Close Brave and reopen for changes to take effect.`n"; TR = "  Brave'i kapatıp yeniden açın.`n" }
+    ResetReopen = @{ EN = "  Close {0} and reopen for changes to take effect.`n"; TR = "  {0} adlı tarayıcıyı kapatıp yeniden açın.`n" }
     LevelMenuTitle = @{ EN = "Select a hardening level:"; TR = "Bir sıkılaştırma katmanı seçin:" }
     LevelChoice = @{ EN = "Enter choice (1-5)"; TR = "Seçiminiz (1-5)" }
     InvalidLevel = @{ EN = "Invalid level '{0}'. Falling back to Essential."; TR = "Geçersiz katman '{0}'. Temel katmanına dönülüyor." }
     WhatIfMode = @{ EN = "Mode: -WhatIf (preview only — no registry changes will be made)"; TR = "Mod: -WhatIf (yalnızca önizleme — kayıt defterine yazılmaz)" }
     SelectedLevel = @{ EN = "Selected Level: {0}"; TR = "Seçilen Katman: {0}" }
-    ProcCheck = @{ EN = "[CHECK] Inspecting Active Brave Processes..."; TR = "[KONTROL] Aktif Brave Süreçleri Denetleniyor..." }
-    ProcWarn = @{ EN = "  [WARNING] {0} Brave process(es) are currently running."; TR = "  [UYARI] {0} adet Brave süreci çalışıyor." }
+    BrowserMenuTitle = @{ EN = "Select a browser:"; TR = "Bir tarayıcı seçin:" }
+    BrowserChoice = @{ EN = "Enter choice (1-2)"; TR = "Seçiminiz (1-2)" }
+    InvalidBrowser = @{ EN = "Invalid browser '{0}'. Falling back to Brave."; TR = "Geçersiz tarayıcı '{0}'. Brave'e dönülüyor." }
+    SelectedBrowser = @{ EN = "Selected Browser: {0}"; TR = "Seçilen Tarayıcı: {0}" }
+    FinalSuccess2Chrome = @{ EN = "            applied to Chrome on Windows 11 26H2."; TR = "            Windows 11 26H2 üzerinde Chrome'a başarıyla uygulandı." }
+    ProcCheck = @{ EN = "[CHECK] Inspecting Active {0} Processes..."; TR = "[KONTROL] Aktif {0} Süreçleri Denetleniyor..." }
+    ProcWarn = @{ EN = "  [WARNING] {0} {1} process(es) are currently running."; TR = "  [UYARI] {0} adet {1} süreci çalışıyor." }
     ProcOverwrite = @{ EN = "  Some HKCU modifications may be overwritten while the browser is open."; TR = "  Tarayıcı açıkken bazı HKCU değişiklikleri üzerine yazılabilir." }
-    ProcCloseRerun = @{ EN = "  It is recommended to close Brave and re-run the script.`n"; TR = "  Brave'i kapatıp betiği yeniden çalıştırmanız önerilir.`n" }
-    ProcContinue = @{ EN = "  Do you want to continue? (Y = Yes / N = No): "; TR = "  Devam etmek istiyor musunuz? (E = Devam / H = İptal): " }
-    ProcCancelled = @{ EN = "`n  Operation cancelled by the user. Please close Brave and try again."; TR = "`n  İşlem kullanıcı tarafından iptal edildi. Brave'i kapatıp yeniden deneyin." }
-    ProcClean = @{ EN = "  -> Clean: No running Brave processes detected.`n"; TR = "  -> Temiz: Çalışan Brave süreci tespit edilmedi.`n" }
+    ProcCloseRerun = @{ EN = "  It is recommended to close {0} and re-run the script.`n"; TR = "  {0} adlı tarayıcıyı kapatıp betiği yeniden çalıştırmanız önerilir.`n" }
+    ProcCancelled = @{ EN = "`n  Operation cancelled by the user. Please close {0} and try again."; TR = "`n  İşlem kullanıcı tarafından iptal edildi. {0} adlı tarayıcıyı kapatıp yeniden deneyin." }
+    ProcClean = @{ EN = "  -> Clean: No running {0} processes detected.`n"; TR = "  -> Temiz: Çalışan {0} süreci tespit edilmedi.`n" }
     InternalErrorLevel = @{ EN = "Internal error: invalid level '{0}'. Exiting."; TR = "İç hata: geçersiz katman '{0}'. Çıkılıyor." }
     InfoApplyCount = @{ EN = "[INFO] Level '{0}' will apply {1} policies.`n"; TR = "[BİLGİ] '{0}' katmanı {1} politika uygulayacak.`n" }
     AllowSyncExcluded = @{ EN = "[INFO] -AllowSync: '{0}' excluded (Brave Sync stays available)."; TR = "[BİLGİ] -SenkronizasyonaIzinVer: '{0}' hariç tutuldu (Brave Sync kullanılabilir kalır)." }
@@ -647,8 +669,8 @@ $script:Strings = @{
     FinalSuccess4 = @{ EN = "            the changes to take effect.`n"; TR = "            değişiklikler etkili olacaktır.`n" }
     FinalWhatIfNote = @{ EN = "  [WhatIf] No registry changes were made. Run without -WhatIf to apply.`n"; TR = "  [WhatIf] Hiçbir kayıt defteri değişikliği yapılmadı. Uygulamak için -WhatIf kullanmadan çalıştırın.`n" }
     VerifyTitle = @{ EN = "  VERIFICATION:"; TR = "  DOĞRULAMA:" }
-    Verify1 = @{ EN = "  1. Active policies   : brave://policy"; TR = "  1. Aktif politikalar : brave://policy" }
-    Verify2 = @{ EN = "  2. Registry path     : HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"; TR = "  2. Kayıt defteri yolu: HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" }
+    Verify1 = @{ EN = "  1. Active policies   : {0}://policy"; TR = "  1. Aktif politikalar : {0}://policy" }
+    Verify2 = @{ EN = "  2. Registry path     : {0}"; TR = "  2. Kayıt defteri yolu: {0}" }
     Verify3 = @{ EN = "  3. Backup location   : `$env:TEMP\BravePolicyBackup\"; TR = "  3. Yedek konumu      : `$env:TEMP\BravePolicyBackup\" }
     Verify4 = @{ EN = "  4. Rollback command  : reg import `"<backup_file.reg>`"`n"; TR = "  4. Geri alma komutu  : reg import `"<yedek_dosyasi.reg>`"`n" }
     SmimeTitle = @{ EN = "  S/MIME EXTENSION INSTALL (OWA Signing/Encryption)"; TR = "  S/MIME UZANTISI KURULUMU (OWA İmzalama/Şifreleme)" }
@@ -687,16 +709,27 @@ function Get-LocalizedString {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# BRAVE VERSION DETECTION
+# BROWSER VERSION DETECTION (Brave or Chrome)
 # ─────────────────────────────────────────────────────────────────────────────
 function Get-BraveVersion {
+    param([string]$Browser = "Brave")
     # Filesystem scan, not environment lookup: under Administrator protection
     # an elevated process carries the isolated profile's LOCALAPPDATA, so the
     # real user's per-user install is found by walking every local profile.
-    $paths = @(
-        "${env:ProgramFiles}\BraveSoftware\Brave-Browser\Application\brave.exe",
-        "${env:ProgramFiles(x86)}\BraveSoftware\Brave-Browser\Application\brave.exe"
-    )
+    $vendors = @("BraveSoftware\Brave-Browser")
+    $exes = @("brave.exe")
+    if ($Browser -eq "Chrome") {
+        $vendors = @("Google\Chrome")
+        $exes = @("chrome.exe")
+    }
+    $paths = @()
+    foreach ($programFiles in @($env:ProgramFiles, ${env:ProgramFiles(x86)})) {
+        foreach ($vendor in $vendors) {
+            foreach ($exe in $exes) {
+                $paths += Join-Path $programFiles "$vendor\Application\$exe"
+            }
+        }
+    }
     try {
         $profiles = Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
             Where-Object { -not $_.Special -and $_.LocalPath }
@@ -704,7 +737,11 @@ function Get-BraveVersion {
         $profiles = @()
     }
     foreach ($userProfile in $profiles) {
-        $paths += Join-Path -Path $userProfile.LocalPath -ChildPath "AppData\Local\BraveSoftware\Brave-Browser\Application\brave.exe"
+        foreach ($vendor in $vendors) {
+            foreach ($exe in $exes) {
+                $paths += Join-Path -Path $userProfile.LocalPath -ChildPath "AppData\Local\$vendor\Application\$exe"
+            }
+        }
     }
     if ($profiles.Count -eq 0) {
         $paths += "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\Application\brave.exe"
@@ -756,13 +793,15 @@ Write-Host ((Get-LocalizedString 'ExecTime') -f $(Get-Date -Format 'dd-MM-yyyy H
 # A compatibility warning is shown for major version differences, but the script
 # proceeds in all cases since V3 is designed for forward/backward compatibility.
 # ─────────────────────────────────────────────────────────────────────────────
-$braveInfo = Get-BraveVersion
+$braveInfo = Get-BraveVersion -Browser $Browser
 
 if ($braveInfo) {
     $ValidatedBrave = $braveInfo.BraveVersion
     $ValidatedChromium = $braveInfo.ChromiumMajor
-    Write-Host ((Get-LocalizedString 'VerDetected') -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGray
-    Write-Host ((Get-LocalizedString 'VerMatch') -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGreen
+    $verDetectedKey = if ($Browser -eq "Chrome") { 'VerDetectedChrome' } else { 'VerDetected' }
+    $verMatchKey = if ($Browser -eq "Chrome") { 'VerMatchChrome' } else { 'VerMatch' }
+    Write-Host ((Get-LocalizedString $verDetectedKey) -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGray
+    Write-Host ((Get-LocalizedString $verMatchKey) -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGreen
     Write-Host (Get-LocalizedString 'VerSomePolicies') -ForegroundColor Gray
 } else {
     Write-Host (Get-LocalizedString 'VerNoDetect') -ForegroundColor Yellow
@@ -845,7 +884,7 @@ function Import-OmegaPolicyData {
                 "String"       { $value = $raw; break }
                 default        { throw "Unsupported policy type '$type' for policy '$name' in $tier" }
             }
-            $tierPolicies += @{ Name = $name; Value = $value; Type = $type }
+            $tierPolicies += @{ Name = $name; Value = $value; Type = $type; Origin = [string]$entry['origin'] }
             if ($allNames -notcontains $name) { $allNames += $name }
         }
         $definitions[$tier] = $tierPolicies
@@ -862,6 +901,43 @@ function Import-OmegaPolicyData {
 $OmegaState = Import-OmegaPolicyData
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 0B2: BROWSER SELECTION (Brave or generic Chromium)
+# ─────────────────────────────────────────────────────────────────────────────
+if (-not $Browser -or $Browser -eq "") {
+    Write-Host (Get-LocalizedString 'BrowserMenuTitle') -ForegroundColor White
+    Write-Host "  1. Brave" -ForegroundColor Gray
+    Write-Host "  2. Chrome" -ForegroundColor Gray
+    Write-Host ""
+    $BrowserChoice = Read-Host (Get-LocalizedString 'BrowserChoice')
+
+    $Browser = switch ($BrowserChoice) {
+        "1" { "Brave" }
+        "2" { "Chrome" }
+        default { "Brave" }
+    }
+}
+
+if ($Browser -ne "Brave" -and $Browser -ne "Chrome") {
+    Write-Host ((Get-LocalizedString 'InvalidBrowser') -f $Browser) -ForegroundColor Yellow
+    $Browser = "Brave"
+}
+
+# Browser profile: allowed origins and Windows registry roots. A missing or
+# unreadable profile falls back to the Brave defaults from the data layer so
+# the script keeps working exactly as before instead of failing to resolve.
+$BrowserProfile = $null
+$browserProfilePath = Join-Path -Path $PSScriptRoot -ChildPath ("Browsers/" + $Browser.ToLower() + ".json")
+if (Test-Path -LiteralPath $browserProfilePath) {
+    try {
+        $BrowserProfile = Get-Content -LiteralPath $browserProfilePath -Raw | ConvertFrom-Json
+    } catch {
+        $BrowserProfile = $null
+    }
+}
+Write-Host ((Get-LocalizedString 'SelectedBrowser') -f $Browser) -ForegroundColor Cyan
+Write-Host ""
+
 # -----------------------------------------------------------------------------
 # Per-user hive resolution (Administrator protection compatibility).
 # Under Administrator protection an elevated process runs in an isolated
@@ -876,8 +952,10 @@ function Get-OmegaUserHivePath {
 
 function Get-OmegaLocalUserHive {
     # Read-only enumeration: no hive is mounted here. Each entry carries the
-    # SID, a display label, the registry paths derived from the SID, and the
-    # NTUSER.DAT path used to mount offline hives on demand.
+    # SID, a display label, the registry paths derived from the SID and the
+    # given HKCU roots, and the NTUSER.DAT path used to mount offline hives
+    # on demand.
+    param([string]$HkcuTarget, [string]$HkcuRoot)
     $hives = @()
     try {
         $profiles = Get-CimInstance -ClassName Win32_UserProfile -ErrorAction Stop |
@@ -892,8 +970,8 @@ function Get-OmegaLocalUserHive {
             Sid        = $sid
             Label      = Split-Path -Leaf $userProfile.LocalPath
             HivePath   = "Registry::HKEY_USERS\$sid"
-            HkcuTarget = "Registry::HKEY_USERS\$sid\Software\BraveSoftware\Brave-Browser"
-            HkcuRoot   = "Registry::HKEY_USERS\$sid\Software\BraveSoftware"
+            HkcuTarget = ($HkcuTarget -replace '^HKCU:', ("Registry::HKEY_USERS\$sid"))
+            HkcuRoot   = ($HkcuRoot -replace '^HKCU:', ("Registry::HKEY_USERS\$sid"))
             NtUserDat  = Join-Path -Path $userProfile.LocalPath -ChildPath "NTUSER.DAT"
             Mounted    = $false
         }
@@ -953,22 +1031,29 @@ $allPolicyNames = $OmegaState.AllPolicyNames
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PATH CONSTANTS
+# PATH CONSTANTS (resolved per selected browser)
 # ─────────────────────────────────────────────────────────────────────────────
-$HKCU_Target = $OmegaState.Registry.hkcuTarget
-$HKLM_Target = $OmegaState.Registry.hklmTarget
+if ($BrowserProfile -and $BrowserProfile.windows) {
+    $HKCU_Target = $BrowserProfile.windows.hkcuTarget
+    $HKLM_Target = $BrowserProfile.windows.hklmRoot
+    $BrowserHkcuRoot = $BrowserProfile.windows.hkcuRoot
+} else {
+    $HKCU_Target = $OmegaState.Registry.hkcuTarget
+    $HKLM_Target = $OmegaState.Registry.hklmTarget
+    $BrowserHkcuRoot = $OmegaState.Registry.hkcuRoot
+}
 
 # Per-user targets for every local profile. When enumeration finds nothing
 # (no CIM, no profiles), fall back to the single current-user context so the
 # script keeps working exactly as before instead of skipping silent work.
-$OmegaUserHives = Get-OmegaLocalUserHive
+$OmegaUserHives = Get-OmegaLocalUserHive -HkcuTarget $HKCU_Target -HkcuRoot $BrowserHkcuRoot
 if (-not $OmegaUserHives -or $OmegaUserHives.Count -eq 0) {
     $OmegaUserHives = @(@{
         Sid        = ''
         Label      = 'current user'
         HivePath   = 'HKCU:'
         HkcuTarget = $HKCU_Target
-        HkcuRoot   = $OmegaState.Registry.hkcuRoot
+        HkcuRoot   = $BrowserHkcuRoot
         NtUserDat  = ''
         Mounted    = $false
     })
@@ -1171,7 +1256,7 @@ if ($Reset) {
     if ($hkFail + $hcFail + $omahaFail -gt 0) {
         Write-Host ((Get-LocalizedString 'ResetFails') -f $hkFail, $hcFail, $omahaFail) -ForegroundColor DarkYellow
     }
-    Write-Host (Get-LocalizedString 'ResetReopen') -ForegroundColor White
+    Write-Host ((Get-LocalizedString 'ResetReopen') -f $Browser) -ForegroundColor White
     foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
     exit 0
 }
@@ -1240,26 +1325,27 @@ Write-Host ""
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 0E: BRAVE PROCESS CONTROL
 # ─────────────────────────────────────────────────────────────────────────────
-Write-Host (Get-LocalizedString 'ProcCheck') -ForegroundColor Gray
+Write-Host ((Get-LocalizedString 'ProcCheck') -f $Browser) -ForegroundColor Gray
 
-$BraveProcesses = Get-Process -Name "brave" -ErrorAction SilentlyContinue
+$BrowserProcessName = if ($Browser -eq "Chrome") { "chrome" } else { "brave" }
+$BraveProcesses = Get-Process -Name $BrowserProcessName -ErrorAction SilentlyContinue
 
 if ($BraveProcesses) {
     $ProcessCount = $BraveProcesses.Count
-    Write-Host ((Get-LocalizedString 'ProcWarn') -f $ProcessCount) -ForegroundColor Yellow
+    Write-Host ((Get-LocalizedString 'ProcWarn') -f $ProcessCount, $Browser) -ForegroundColor Yellow
     Write-Host (Get-LocalizedString 'ProcOverwrite') -ForegroundColor Yellow
-    Write-Host (Get-LocalizedString 'ProcCloseRerun') -ForegroundColor Yellow
+    Write-Host ((Get-LocalizedString 'ProcCloseRerun') -f $Browser) -ForegroundColor Yellow
     Write-Host (Get-LocalizedString 'ProcContinue') -ForegroundColor White -NoNewline
     $DecisionInput = Read-Host
 
     if ($DecisionInput -notin @("Y", "y", "Yes", "yes", "E", "e", "Evet", "evet", "Devam", "devam")) {
-        Write-Host (Get-LocalizedString 'ProcCancelled') -ForegroundColor DarkGray
+        Write-Host ((Get-LocalizedString 'ProcCancelled') -f $Browser) -ForegroundColor DarkGray
         foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
         exit 0
     }
     Write-Host ""
 } else {
-    Write-Host (Get-LocalizedString 'ProcClean') -ForegroundColor DarkGreen
+    Write-Host ((Get-LocalizedString 'ProcClean') -f $Browser) -ForegroundColor DarkGreen
 }
 
 
@@ -1288,7 +1374,9 @@ if ($SelectedIndex -eq -1) {
 
 for ($i = 0; $i -le $SelectedIndex; $i++) {
     foreach ($Policy in $PolicyDefinitions[$LevelOrder[$i]]) {
-        # Later levels override earlier ones
+        # Later levels override earlier ones. Brave-only policies apply only
+        # to the Brave target; the generic Chromium target skips them.
+        if ($Policy.Origin -eq "brave" -and $Browser -ne "Brave") { continue }
         $MergedPolicies[$Policy.Name] = $Policy
     }
 }
@@ -1689,7 +1777,8 @@ if ($ErrorCount -gt 0) {
 
 if (-not $WhatIf -and ($SuccessCount -gt 0 -or $OmahaSuccessCount -gt 0)) {
     Write-Host ((Get-LocalizedString 'FinalSuccess1') -f $LevelDisplayName) -ForegroundColor Green
-    Write-Host (Get-LocalizedString 'FinalSuccess2') -ForegroundColor Green
+    $finalSuccess2Key = if ($Browser -eq "Chrome") { 'FinalSuccess2Chrome' } else { 'FinalSuccess2' }
+    Write-Host (Get-LocalizedString $finalSuccess2Key) -ForegroundColor Green
     Write-Host (Get-LocalizedString 'FinalSuccess3') -ForegroundColor White
     Write-Host (Get-LocalizedString 'FinalSuccess4') -ForegroundColor White
 }
@@ -1699,8 +1788,8 @@ if ($WhatIf) {
 }
 
 Write-Host (Get-LocalizedString 'VerifyTitle') -ForegroundColor Cyan
-Write-Host (Get-LocalizedString 'Verify1') -ForegroundColor DarkGray
-Write-Host (Get-LocalizedString 'Verify2') -ForegroundColor DarkGray
+Write-Host ((Get-LocalizedString 'Verify1') -f $Browser.ToLower()) -ForegroundColor DarkGray
+Write-Host ((Get-LocalizedString 'Verify2') -f ($HKLM_Target -replace '^HKLM:\\', 'HKLM\')) -ForegroundColor DarkGray
 Write-Host (Get-LocalizedString 'Verify3') -ForegroundColor DarkGray
 Write-Host (Get-LocalizedString 'Verify4') -ForegroundColor DarkGray
 

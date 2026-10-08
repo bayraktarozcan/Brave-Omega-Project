@@ -1,5 +1,12 @@
 ﻿{
     "browser":  "brave",
     "origins":  ["chromium", "brave"],
-    "policyDirs":  ["brave", "chromium", "chromium-browser", "chrome"]
+    "policyDirs":  ["brave", "chromium", "chromium-browser", "chrome"],
+    "windows":  {
+        "hklmRoot":  "HKLM:\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
+        "hkcuRoot":  "HKCU:\\Software\\BraveSoftware",
+        "hkcuTarget":  "HKCU:\\Software\\BraveSoftware\\Brave-Browser",
+        "exeVendors":  ["BraveSoftware\\Brave-Browser"],
+        "exeNames":  ["brave.exe"]
+    }
 }

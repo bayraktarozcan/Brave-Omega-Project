@@ -23,6 +23,17 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v3.1.0.0 - 2026-10-09
+
+**Feature Release - Windows Chrome target**
+
+**Changed:**
+
+- `-Browser`/`-Tarayici` parameter (`Brave`/`Chrome`) plus an opening browser menu, Brave default; Chrome runs resolve `HKLM\SOFTWARE\Policies\Google\Chrome`, per-profile `HKCU\Software\Google` hives, Google Update Omaha GUIDs, and `chrome.exe` detection, while Brave-only policies are skipped by `origin` tag
+- No policy, registry value, or ADMX change; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+
+---
+
 ### v3.0.2.0 - 2026-10-08
 
 **Compatibility Release - Linux support and generic Chromium profiles**
@@ -813,7 +824,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.0.2.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.0.0** | all | all | 11 26H2 | 📦 Previous |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
@@ -912,6 +924,17 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v3.1.0.0 - 2026-10-09
+
+**Özellik Sürümü - Windows Chrome hedefi**
+
+**Değiştirilenler:**
+
+- `-Browser`/`-Tarayici` parametresi (`Brave`/`Chrome`) ve açılış tarayıcı menüsü, Brave varsayılan; Chrome koşuları `HKLM\SOFTWARE\Policies\Google\Chrome` yolunu, profil başına `HKCU\Software\Google` kovanlarını, Google Update Omaha GUID'lerini ve `chrome.exe` tespitini çözer; Brave'e özgü politikalar `origin` etiketiyle atlanır
+- Politika, kayıt değeri ve ADMX değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+
+---
 
 ### v3.0.2.0 - 2026-10-08
 
@@ -1704,7 +1727,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.0.2.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |

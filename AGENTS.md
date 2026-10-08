@@ -50,7 +50,7 @@ Operational notes for humans and AI agents working in this repository. English i
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v3.0.2.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v3.1.0.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | _(unpinned — detected at runtime)_ | `$ValidatedBrave` (populated from install; V3 never blocks) |
 | Chromium | _(unpinned — detected at runtime)_ | `$ValidatedChromium` (populated from install; V3 never blocks) |
 
@@ -71,7 +71,7 @@ Run from the repository root (`pwsh` 7.6.6 when present, otherwise Windows Power
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 367/367 passing
+Invoke-Pester Tests/ -PassThru          # expected: 376/376 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -642,7 +642,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=ba033f3dbcaf880f2ba2e8a91291ba2ef1f5c727 -->
+<!-- mirror-sync: sync-sha=9022f3556b674875a9e68696dee61d946adef0e3 -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.

@@ -5,7 +5,7 @@
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v3.0.2.0 (V3 version-agnostic — all Brave + Chromium versions supported).
+Complete installation guide for Brave Omega v3.1.0.0 (V3 version-agnostic — all Brave + Chromium versions supported).
 
 ---
 
@@ -99,9 +99,10 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 
 ### 4. Follow On-Screen Prompts
 
-- Script detects running Brave → prompts continue/cancel
+- Script asks for the target browser first (1 = Brave, 2 = Chrome; `-Browser Brave|Chrome` skips the question)
+- Script detects running browser processes → prompts continue/cancel
 - Creates timestamped `.reg` backup of HKLM policy hive
-- Displays level selection menu (1-5) and applies policies based on selected level (24/51/83/123/151)
+- Displays level selection menu (1-5) and applies policies based on selected level (24/51/83/123/151 for Brave; Brave-only policies are skipped for Chrome)
 - Shows per-category success/failure summary
 
 ### 5. Restart Brave
@@ -123,7 +124,7 @@ Navigate to `brave://policy` — all Essential level policies (51) should show *
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Session only | Current process | ✅ Better |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(used)* | **Single command** | **Child process only** | ✅ **Best — no persistence** |
 
-> **Brave Omega v3.0.2.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
+> **Brave Omega v3.1.0.0 uses the safest method:** `-ExecutionPolicy Bypass` as a launch flag — applies only to the child process, no registry changes, no attack surface.
 
 ---
 
@@ -280,7 +281,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v3.0.2.0 için tam kurulum kılavuzu (V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri desteklenir).
+Brave Omega v3.1.0.0 için tam kurulum kılavuzu (V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri desteklenir).
 
 ---
 
@@ -374,9 +375,10 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 
 ### 4. Ekran İstemlerini Takip Et
 
-- Betik çalışan Brave'i tespit eder → devam/iptal istemi gösterir
+- Betik önce hedef tarayıcıyı sorar (1 = Brave, 2 = Chrome; `-Browser Brave|Chrome` soruyu atlar)
+- Betik çalışan tarayıcı süreçlerini tespit eder → devam/iptal istemi gösterir
 - HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur
-- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (24/51/83/123/151)
+- Seviye seçim menüsünü gösterir (1-5) ve seçilen seviyeye göre politikaları uygular (Brave için 24/51/83/123/151; Chrome'da Brave'e özgü politikalar atlanır)
 - Kategori bazında başarı/hata özetini gösterir
 
 ### 5. Brave'i Yeniden Başlat
@@ -398,7 +400,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` | Yalnızca oturum | Geçerli işlem | ✅ Daha iyi |
 | **`PowerShell -ExecutionPolicy Bypass -File ...`** *(kullanılan)* | **Tek komut** | **Yalnızca alt işlem** | ✅ **En iyi — kalıcılık yok** |
 
-> **Brave Omega v3.0.2.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
+> **Brave Omega v3.1.0.0 en güvenli yöntemi kullanır:** `-ExecutionPolicy Bypass` başlatma bayrağı olarak — yalnızca alt işlem için geçerlidir, kayıt defteri değişikliği yok, saldırı yüzeyi yok.
 
 ---
 

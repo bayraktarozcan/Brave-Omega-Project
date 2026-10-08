@@ -1,5 +1,12 @@
 ﻿{
     "browser":  "chrome",
     "origins":  ["chromium"],
-    "policyDirs":  ["chrome", "chromium", "chromium-browser"]
+    "policyDirs":  ["chrome", "chromium", "chromium-browser"],
+    "windows":  {
+        "hklmRoot":  "HKLM:\\SOFTWARE\\Policies\\Google\\Chrome",
+        "hkcuRoot":  "HKCU:\\Software\\Google",
+        "hkcuTarget":  "HKCU:\\Software\\Google\\Chrome",
+        "exeVendors":  ["Google\\Chrome"],
+        "exeNames":  ["chrome.exe"]
+    }
 }

@@ -161,7 +161,7 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 **Step 3 — Run the script with temporary bypass**
 
-*Interactive mode (you choose the language, then the hardening level, when prompted):*
+*Interactive mode (you choose the language, then the browser, then the hardening level, when prompted):*
 ```powershell
 # Single bilingual script — asks: Press 1 for English / Türkçe için 2'ye basın
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
@@ -175,6 +175,9 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR
 ```powershell
 # Apply Essential (Recommended):
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Level Essential
+
+# Target Chrome instead of Brave (skips Brave-only policies):
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Browser Chrome -Level Essential
 
 # Turkish: apply minimal Brave-only policies:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Level "Brave Yalnız"
@@ -327,7 +330,8 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v3.0.2.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.0.0** | all | all | 11 26H2 | 📦 Previous |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Previous |
@@ -882,7 +886,7 @@ cd "C:\Users\Downloads\Brave-Omega"
 
 **Adım 3 — Geçici bypass ile betiği çalıştır**
 
-*Etkileşimli mod (önce dili, sonra seviyeyi seçersiniz):*
+*Etkileşimli mod (önce dili, sonra tarayıcıyı, sonra seviyeyi seçersiniz):*
 ```powershell
 # Tek iki dilli betik — sorar: Press 1 for English / Türkçe için 2'ye basın
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1"
@@ -896,6 +900,9 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN
 ```powershell
 # Temel (Önerilen) seviyeyi uygula:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Level Temel
+
+# Brave yerine Chrome'u hedefle (Brave'e özgü politikalar atlanır):
+PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Browser Chrome -Level Temel
 
 # İngilizce: en katı seviye:
 PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Level Strict
@@ -1049,7 +1056,8 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v3.0.2.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | v2.8.1.1 | 1.96.59 | 154 | 11 25H2 | 📦 Önceki |
