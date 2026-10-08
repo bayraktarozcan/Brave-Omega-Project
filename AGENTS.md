@@ -60,7 +60,7 @@ Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = 
 
 ### Validation Commands
 
-Run from the repository root with Windows PowerShell 5.1:
+Run from the repository root (`pwsh` 7.6.6 when present, otherwise Windows PowerShell 5.1):
 
 ```powershell
 # CI conformance gate - runs every check the Quality workflow declares.
@@ -71,7 +71,7 @@ Run from the repository root with Windows PowerShell 5.1:
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 338/338 passing
+Invoke-Pester Tests/ -PassThru          # expected: 346/346 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -642,7 +642,7 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
   reported value in both markers; never by editing one marker to match the
   other.
 
-<!-- mirror-sync: sync-sha=904ec7d80d175efcfbaa94428e755fe28931993f -->
+<!-- mirror-sync: sync-sha=b8932530807a565ffc4564e8235f5dadf9b87bcb -->
 ### Project Root Files and Dotfiles Reference
 
 **Core principle:** A file starting with `.` is not automatically "private"; some are recognized by tools, others are only conventions. The meaning of a "special" file is determined by the software that reads it.

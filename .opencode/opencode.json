@@ -21,7 +21,7 @@
   "command": {
     "verify": {
       "description": "Run the repository conformance gate and report every check.",
-      "template": "Run Scripts/Invoke-CI.ps1 from the repository root with Windows PowerShell 5.1. The validation procedure lives in AGENTS.md, so follow it there instead of restating it here: run the gate, then report each check by name, state, and detail. If a check fails, stop at that check, diagnose the cause from its output, and fix it forward on the current branch. Do not report the work as done while any check is failing."
+      "template": "Run Scripts/Invoke-CI.ps1 from the repository root with pwsh 7.6.6 when present, otherwise Windows PowerShell 5.1. The validation procedure lives in AGENTS.md, so follow it there instead of restating it here: run the gate, then report each check by name, state, and detail. If a check fails, stop at that check, diagnose the cause from its output, and fix it forward on the current branch. Do not report the work as done while any check is failing."
     }
   },
   "agent": {
