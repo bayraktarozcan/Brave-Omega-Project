@@ -21,7 +21,7 @@ Describe 'Browser target selection' -Tag 'Unit' {
 
     It 'should build per-profile paths from the given browser roots' {
         Mock Get-OmegaUserProfileList {
-            return @([pscustomobject]@{ SID = 'S-1-5-21-9'; LocalPath = 'C:/Users/t'; Special = $false })
+            return @([pscustomobject]@{ SID = 'S-1-5-21-9'; LocalPath = '/home/t'; Special = $false })
         }
         $hives = @(Get-OmegaLocalUserHive -HkcuTarget 'HKCU:\Software\Google\Chrome' -HkcuRoot 'HKCU:\Software\Google')
         $hives.Count | Should -BeExactly 1
