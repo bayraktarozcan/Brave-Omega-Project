@@ -432,7 +432,7 @@ function Invoke-ShellcheckCheck {
     $ErrorActionPreference = 'Continue'
     $global:LASTEXITCODE = 0
     try {
-        $output = & $shellcheck -S error Scripts/Install-OmegaLinux.sh 2>&1
+        $output = & $shellcheck -S error Brave-Omega/Install-OmegaLinux.sh 2>&1
         $code = $global:LASTEXITCODE
     } finally {
         $ErrorActionPreference = $previous

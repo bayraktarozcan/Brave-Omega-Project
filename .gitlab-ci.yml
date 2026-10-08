@@ -273,7 +273,7 @@ shellcheck:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
     - apt-get update && apt-get install -y shellcheck
-    - shellcheck -S error Scripts/Install-OmegaLinux.sh
+    - shellcheck -S error Brave-Omega/Install-OmegaLinux.sh
 
 # ------------------------------------------------------------------- links
 # Mirror of .github/workflows/link-check.yml.

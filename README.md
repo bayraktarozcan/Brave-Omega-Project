@@ -750,11 +750,11 @@ Every root document is reachable from here; a document nobody links to does not 
 The same hardening on Linux, for Brave and Chromium. Policies are rendered
 from the tagged data layer (`Brave-Omega/Profiles/*.json` +
 `Brave-Omega/Browsers/*.json`) into managed JSON and installed by
-`Scripts/Install-OmegaLinux.sh`, which requires root and `python3`:
+`Brave-Omega/Install-OmegaLinux.sh`, which requires root and `python3`:
 
 ```sh
-sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced --dry-run
-sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced
+sudo Brave-Omega/Install-OmegaLinux.sh --browser brave --tier Balanced --dry-run
+sudo Brave-Omega/Install-OmegaLinux.sh --browser brave --tier Balanced
 ```
 
 The installer writes `/etc/<browser>/policies/managed/brave-omega.json`
@@ -1504,11 +1504,11 @@ Buraya bağlanmayan belge var olmayan belgedir; her kök belge buradan erişileb
 Linux'ta Brave ve Chromium için aynı sertleştirme. Politikalar etiketli
 veri katmanından (`Brave-Omega/Profiles/*.json` +
 `Brave-Omega/Browsers/*.json`) yönetilen JSON'a dönüştürülüp
-`Scripts/Install-OmegaLinux.sh` ile kurulur; root ve `python3` gerekir:
+`Brave-Omega/Install-OmegaLinux.sh` ile kurulur; root ve `python3` gerekir:
 
 ```sh
-sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced --dry-run
-sudo Scripts/Install-OmegaLinux.sh --browser brave --tier Balanced
+sudo Brave-Omega/Install-OmegaLinux.sh --browser brave --tier Balanced --dry-run
+sudo Brave-Omega/Install-OmegaLinux.sh --browser brave --tier Balanced
 ```
 
 Kurucu `/etc/<browser>/policies/managed/brave-omega.json` dosyasını yazar

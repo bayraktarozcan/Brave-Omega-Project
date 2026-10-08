@@ -50,13 +50,13 @@ case "$SCRIPT_DIR" in
     /*) ;;
     *) SCRIPT_DIR="$PWD/$SCRIPT_DIR" ;;
 esac
-RENDER="$SCRIPT_DIR/Render-PolicyJSON.py"
+RENDER="$SCRIPT_DIR/../Scripts/Render-PolicyJSON.py"
 if [ ! -f "$RENDER" ]; then
     echo "error: renderer not found at $RENDER" >&2
     exit 1
 fi
 
-DIRS=$(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1] + "/../Brave-Omega/Browsers/" + sys.argv[2] + ".json"))["policyDirs"]))' "$SCRIPT_DIR" "$BROWSER")
+DIRS=$(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1] + "/Browsers/" + sys.argv[2] + ".json"))["policyDirs"]))' "$SCRIPT_DIR" "$BROWSER")
 
 TARGET=""
 FIRST=""

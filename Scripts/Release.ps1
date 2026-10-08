@@ -130,7 +130,7 @@ function New-OmegaLinuxPackage {
     New-Item -ItemType Directory -Path (Join-Path $pkgRoot "Scripts") | Out-Null
     New-Item -ItemType Directory -Path (Join-Path $pkgRoot "Brave-Omega/Browsers") | Out-Null
     New-Item -ItemType Directory -Path (Join-Path $pkgRoot "Brave-Omega/Profiles") | Out-Null
-    Copy-Item (Join-Path $RepoRoot "Scripts/Install-OmegaLinux.sh") (Join-Path $pkgRoot "Scripts/")
+    Copy-Item (Join-Path $RepoRoot "Brave-Omega/Install-OmegaLinux.sh") (Join-Path $pkgRoot "Brave-Omega/")
     Copy-Item (Join-Path $RepoRoot "Scripts/Render-PolicyJSON.py") (Join-Path $pkgRoot "Scripts/")
     Copy-Item (Join-Path $RepoRoot "Brave-Omega/Browsers/*.json") (Join-Path $pkgRoot "Brave-Omega/Browsers/")
     Copy-Item (Join-Path $RepoRoot "Brave-Omega/Profiles/*.json") (Join-Path $pkgRoot "Brave-Omega/Profiles/")

@@ -1,6 +1,6 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
-    $script:InstallerPath = Join-Path $ProjectRoot 'Scripts/Install-OmegaLinux.sh'
+    $script:InstallerPath = Join-Path $ProjectRoot 'Brave-Omega/Install-OmegaLinux.sh'
 }
 
 Describe 'Linux installer static contract' -Tag 'Unit' {
