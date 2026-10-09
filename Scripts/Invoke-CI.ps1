@@ -155,6 +155,31 @@ function Get-NativeCommand {
     return $null
 }
 
+function Get-PythonCommand {
+    <#
+        Resolves a runnable Python 3 as an argv array, because the Windows
+        `py` launcher needs a `-3` prefix the bare binaries do not take.
+        Every candidate is RUN, not merely found: a broken App-alias stub
+        resolves through Get-Command and then fails to start, which would
+        report a tool as present and fail every check that uses it.
+        Callers split exe from prefix (`$exe = $p[0]`) because splatting
+        never supplies the command itself, only its arguments.
+    #>
+    $direct = Get-NativeCommand -Name @('python3', 'python')
+    if ($direct) { return @($direct) }
+    $launcher = Get-Command py -ErrorAction SilentlyContinue
+    if ($launcher) {
+        $strict = $ErrorActionPreference
+        $ErrorActionPreference = 'Continue'
+        try {
+            & $launcher.Source -3 --version 2>$null | Out-Null
+            if ($LASTEXITCODE -eq 0) { return @($launcher.Source, '-3') }
+        } catch { }
+        finally { $ErrorActionPreference = $strict }
+    }
+    return $null
+}
+
 function Get-TrackedMarkdownFiles {
     <#
         The Markdown files this repository owns, as Git records them.
@@ -352,10 +377,10 @@ $previous = $ErrorActionPreference
 
 function Invoke-Utf8Check {
     Write-Stage 'UTF-8 / Mojibake Integrity'
-    $python = Get-NativeCommand -Name @('python3', 'python')
+    $python = Get-PythonCommand
     if (-not $python) {
         $state = if ($AllowMissingTools) { 'WARN' } else { 'FAIL' }
-        Add-GateResult -Name 'utf8-integrity' -State $state -Detail 'not installed: python3, python'
+        Add-GateResult -Name 'utf8-integrity' -State $state -Detail 'not installed: python3, python, py'
         return
     }
     Push-Location $script:RepoRoot
@@ -368,7 +393,9 @@ function Invoke-Utf8Check {
     try {
         # -B: the scanner imports nothing of its own, but a bytecode cache
         # written beside it would be a build artifact the gate leaves behind.
-        $output = & $python -B 'Scripts/Mojibake-Scan.py' '.' 2>&1
+        $exe = $python[0]
+        $pre = @($python | Select-Object -Skip 1)
+        $output = & $exe @pre -B 'Scripts/Mojibake-Scan.py' '.' 2>&1
         $code = $global:LASTEXITCODE
     } finally {
         $ErrorActionPreference = $previous
@@ -383,10 +410,10 @@ function Invoke-Utf8Check {
 
 function Invoke-JsonValidityCheck {
     Write-Stage 'Linux policy JSON validity'
-    $python = Get-NativeCommand -Name @('python3', 'python')
+    $python = Get-PythonCommand
     if (-not $python) {
         $state = if ($AllowMissingTools) { 'WARN' } else { 'FAIL' }
-        Add-GateResult -Name 'json-validity' -State $state -Detail 'not installed: python3, python'
+        Add-GateResult -Name 'json-validity' -State $state -Detail 'not installed: python3, python, py'
         return
     }
     Push-Location $script:RepoRoot
@@ -395,11 +422,13 @@ function Invoke-JsonValidityCheck {
     $global:LASTEXITCODE = 0
     $failures = @()
     try {
+        $exe = $python[0]
+        $pre = @($python | Select-Object -Skip 1)
         $browsers = @('brave', 'chrome')
         $tiers = @('BraveOnly', 'Essential', 'Balanced', 'Advanced', 'Strict')
         foreach ($browser in $browsers) {
             foreach ($tier in $tiers) {
-                $output = & $python -B 'Scripts/Render-PolicyJSON.py' --browser $browser --tier $tier --platform linux 2>&1
+                $output = & $exe @pre -B 'Scripts/Render-PolicyJSON.py' --browser $browser --tier $tier --platform linux 2>&1
                 if ($global:LASTEXITCODE -ne 0) {
                     $failures += "$browser/$tier exit $($global:LASTEXITCODE)"
                     continue

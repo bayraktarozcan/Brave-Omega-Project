@@ -1,4 +1,5 @@
 ﻿BeforeAll {
+    . $PSScriptRoot\TestHelper.ps1
     $script:RepoRoot = Split-Path -Parent $PSScriptRoot
     $script:ScannerPath = Join-Path $script:RepoRoot "Scripts/Mojibake-Scan.py"
     # Damage samples are assembled from the code point rather than written out,
@@ -9,12 +10,9 @@
     # Resolve by running the interpreter, not by finding it: on Windows a Store
     # stub named python3.exe resolves through Get-Command and then exits 9009
     # with "Python was not found", which would fail every check in this file.
-    $script:PythonCmd = @("python3", "python") | Where-Object {
-        $cmd = Get-Command $_ -ErrorAction SilentlyContinue
-        if (-not $cmd) { return $false }
-        & $cmd.Source --version 2>$null | Out-Null
-        $LASTEXITCODE -eq 0
-    } | Select-Object -First 1
+    # The shared helper also survives stubs that fail to start at all and falls
+    # back to the `py` launcher before giving up.
+    $script:PythonCmd = Get-OmegaPythonCommand
     if (-not $script:PythonCmd) {
         throw "a working python interpreter is required to exercise Scripts/Mojibake-Scan.py"
     }
@@ -71,7 +69,9 @@ print(json.dumps(out, ensure_ascii=False))
             # -B: loading the scanner through importlib writes a __pycache__
             # beside it, and a test run must not leave a build artifact in the
             # working tree for the next run to trip over.
-            $raw = & $script:PythonCmd -B $script:ProbePath $script:ScannerPath $reqPath 2>&1 | Out-String
+            $exe = $script:PythonCmd[0]
+            $pre = @($script:PythonCmd | Select-Object -Skip 1)
+            $raw = & $exe @pre -B $script:ProbePath $script:ScannerPath $reqPath 2>&1 | Out-String
             if ($LASTEXITCODE -ne 0) { throw "scan probe failed: $raw" }
             return ($raw | ConvertFrom-Json)
         } finally {
@@ -187,7 +187,9 @@ Describe "Mojibake scanner - lossy '?' damage" -Tag "Unit" {
         }
 
         It "passes the repository-wide scan both CI hosts run" {
-            $out = & $script:PythonCmd -B $script:ScannerPath $script:RepoRoot 2>&1 | Out-String
+            $exe = $script:PythonCmd[0]
+            $pre = @($script:PythonCmd | Select-Object -Skip 1)
+            $out = & $exe @pre -B $script:ScannerPath $script:RepoRoot 2>&1 | Out-String
             $LASTEXITCODE | Should -Be 0 -Because "quality.yml and .gitlab-ci.yml both gate on this exit code, so a finding here fails the build on either host"
             $out | Should -Match "CLEAN"
         }

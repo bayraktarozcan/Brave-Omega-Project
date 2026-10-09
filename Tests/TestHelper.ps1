@@ -407,3 +407,29 @@ function ConvertTo-OmegaFlatRegistryPath {
     $converter = [ScriptBlock]::Create('param($Path) ' + $matched.Groups[1].Value)
     return & $converter $Path
 }
+
+# Resolves a runnable Python 3 as an argv array shared by every suite that
+# shells out to a Python script. Plain interpreters take no prefix; the
+# Windows `py` launcher needs `-3`. Each candidate is RUN, not merely found:
+# a broken App-alias stub resolves through Get-Command and then fails to
+# start, which the try/catch turns back into absence instead of a container
+# failure. Callers split exe from prefix (`$exe = $p[0]`) because splatting
+# never supplies the command itself, only its arguments.
+function Get-OmegaPythonCommand {
+    foreach ($name in @('python3', 'python')) {
+        $cmd = Get-Command $name -ErrorAction SilentlyContinue
+        if (-not $cmd) { continue }
+        try {
+            & $cmd.Source --version 2>$null | Out-Null
+            if ($LASTEXITCODE -eq 0) { return @($cmd.Source) }
+        } catch { continue }
+    }
+    $launcher = Get-Command py -ErrorAction SilentlyContinue
+    if ($launcher) {
+        try {
+            & $launcher.Source -3 --version 2>$null | Out-Null
+            if ($LASTEXITCODE -eq 0) { return @($launcher.Source, '-3') }
+        } catch { }
+    }
+    return $null
+}

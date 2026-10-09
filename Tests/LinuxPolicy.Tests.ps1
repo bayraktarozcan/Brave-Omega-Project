@@ -1,19 +1,16 @@
 BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
     $script:RendererPath = Join-Path $ProjectRoot 'Scripts/Render-PolicyJSON.py'
-    $script:PythonCmd = @('python3', 'python') | Where-Object {
-        $cmd = Get-Command $_ -ErrorAction SilentlyContinue
-        if (-not $cmd) { return $false }
-        & $cmd.Source --version 2>$null | Out-Null
-        $LASTEXITCODE -eq 0
-    } | Select-Object -First 1
+    $script:PythonCmd = Get-OmegaPythonCommand
     if (-not $script:PythonCmd) {
         throw 'a working python interpreter is required to exercise Scripts/Render-PolicyJSON.py'
     }
 
     function Invoke-OmegaRenderer {
         param([string[]]$Arguments)
-        $out = & $script:PythonCmd $script:RendererPath @Arguments 2>&1
+        $exe = $script:PythonCmd[0]
+        $pre = @($script:PythonCmd | Select-Object -Skip 1)
+        $out = & $exe @pre $script:RendererPath @Arguments 2>&1
         return @{ Output = ($out -join "`n"); ExitCode = $LASTEXITCODE }
     }
 }
@@ -65,5 +62,22 @@ Describe 'Linux managed-JSON renderer' -Tag 'Unit' {
         $r = Invoke-OmegaRenderer @('--browser', 'brave', '--tier', 'Balanced')
         $r.ExitCode | Should -Be 0
         ($r.Output | ConvertFrom-Json).DownloadDirectory | Should -BeExactly '${HOME}/Downloads'
+    }
+
+    It 'never splats the interpreter array as the command' {
+        # `& @array` expands arguments, never the command: the exe must be
+        # split out first or the joined string fails as one command name.
+        # This exact mistake shipped once and broke every suite that shells
+        # out to Python, so the shape is pinned, not just the behavior.
+        $files = @(
+            (Join-Path $ProjectRoot 'Tests/LinuxPolicy.Tests.ps1'),
+            (Join-Path $ProjectRoot 'Tests/MojibakeScan.Tests.ps1'),
+            (Join-Path $ProjectRoot 'Scripts/Invoke-CI.ps1')
+        )
+        $bad = $(foreach ($file in $files) {
+            $text = Get-Content -LiteralPath $file -Raw
+            if ($text -match '&\s+@(script:)?Python(Cmd)?\b') { $file }
+        })
+        $bad | Should -BeNullOrEmpty -Because 'splatting supplies arguments, never the command itself'
     }
 }
