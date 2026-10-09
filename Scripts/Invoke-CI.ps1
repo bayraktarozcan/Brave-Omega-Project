@@ -166,7 +166,7 @@ function Get-PythonCommand {
         never supplies the command itself, only its arguments.
     #>
     $direct = Get-NativeCommand -Name @('python3', 'python')
-    if ($direct) { return @($direct) }
+    if ($direct) { return ,@($direct) }
     $launcher = Get-Command py -ErrorAction SilentlyContinue
     if ($launcher) {
         $strict = $ErrorActionPreference

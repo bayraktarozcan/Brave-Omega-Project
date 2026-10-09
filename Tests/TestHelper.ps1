@@ -421,7 +421,7 @@ function Get-OmegaPythonCommand {
         if (-not $cmd) { continue }
         try {
             & $cmd.Source --version 2>$null | Out-Null
-            if ($LASTEXITCODE -eq 0) { return @($cmd.Source) }
+            if ($LASTEXITCODE -eq 0) { return ,@($cmd.Source) }
         } catch { continue }
     }
     $launcher = Get-Command py -ErrorAction SilentlyContinue
