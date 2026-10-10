@@ -272,3 +272,39 @@ Describe "Deployed-Level Verification" -Tag "Unit" {
         Test-OmegaLevelPresent -RegistryPath $HKLM_Target -ExpectedNames @('A', 'Z') | Should -Be $false
     }
 }
+
+Describe "Detect Script - Browser Target" -Tag "Unit" {
+    It "declares a Browser parameter defaulting to Brave" {
+        $content = Get-Content -Path $script:ScriptDetect -Raw
+        $content -match '\[ValidateSet\("Brave", "Chrome"\)\][\s\S]*?\[string\]\$Browser' | Should -Be $true
+        $content -match '\[Alias\("Tarayici"\)\]' | Should -Be $true
+    }
+
+    It "embedded Brave roster matches the data-layer brave set" {
+        $roster = @(Get-OmegaBraveOriginNames)
+        $roster.Count | Should -BeExactly 27
+        $tagged = @()
+        foreach ($tier in @('BraveOnly', 'Essential', 'Balanced', 'Advanced', 'Strict')) {
+            $prof = Get-Content -LiteralPath (Join-Path $ProjectRoot "Brave-Omega/Profiles/$tier.json") -Raw |
+                ConvertFrom-Json
+            foreach ($p in $prof.policies) {
+                if ($p.origin -ceq 'brave') { $tagged += $p.name }
+            }
+        }
+        $tagged = @($tagged | Sort-Object -Unique)
+        Compare-Object $tagged ($roster | Sort-Object -Unique) | Should -BeNullOrEmpty -Because 'the embedded copy and the data layer stating different Brave sets means one of them rotted'
+    }
+
+    It "Chrome cumulative names exclude every Brave-origin policy" {
+        $names = @(Get-OmegaLevelNames -Level 'Strict' -Browser 'Chrome')
+        $names.Count | Should -BeExactly 124
+        foreach ($excluded in @('BraveRewardsDisabled', 'TorDisabled', 'EmailAliasesEnabled', 'DefaultBraveAdblockSetting')) {
+            $names | Should -Not -Contain $excluded
+        }
+    }
+
+    It "Brave cumulative names keep the full set" {
+        @(Get-OmegaLevelNames -Level 'Strict' -Browser 'Brave').Count | Should -BeExactly 151
+        @(Get-OmegaLevelNames -Level 'Strict').Count | Should -BeExactly 151
+    }
+}

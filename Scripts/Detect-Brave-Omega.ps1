@@ -5,10 +5,13 @@
 
 .DESCRIPTION
     Detects whether a Brave Omega policy level is deployed under
-    HKLM:\SOFTWARE\Policies\BraveSoftware\Brave.
+    HKLM:\SOFTWARE\Policies\BraveSoftware\Brave (Brave) or
+    HKLM:\SOFTWARE\Policies\Google\Chrome (Chrome, -Browser Chrome).
 
     Fully self-contained: the expected per-level policy names are embedded in this
     file, so it can be uploaded as a standalone Intune "Run script" detection rule.
+    The Brave-origin roster below mirrors the data-layer `origin` tags; a
+    dedicated test pins the two together.
 
     Exit codes (Intune semantics):
         0  - Target level is present (detected / installed).
@@ -18,8 +21,16 @@
     Policy level to detect (BraveOnly, Essential, Balanced, Advanced, Strict).
     Default: Balanced.
 
+.PARAMETER Browser
+    Browser target: Brave or Chrome. Selects the default registry path and,
+    for Chrome, excludes Brave-origin policies from the expected set.
+    Default: Brave.
+
 .PARAMETER RegistryPath
-    Registry base path to check. Default: HKLM:\SOFTWARE\Policies\BraveSoftware\Brave
+    Registry base path to check. Default: the selected browser's policy key
+    (Brave: HKLM:\SOFTWARE\Policies\BraveSoftware\Brave,
+    Chrome: HKLM:\SOFTWARE\Policies\Google\Chrome). An explicitly passed
+    path always wins.
 
 .INPUTS
     None. You cannot pipe objects to this script.
@@ -43,8 +54,20 @@ param(
     [ValidateSet("BraveOnly", "Essential", "Balanced", "Advanced", "Strict")]
     [string]$Level = "Balanced",
 
-    [string]$RegistryPath = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
+    [Alias("Tarayici")]
+    [ValidateSet("Brave", "Chrome")]
+    [string]$Browser = "Brave",
+
+    [string]$RegistryPath = ""
 )
+
+if (-not $RegistryPath) {
+    if ($Browser -eq "Chrome") {
+        $RegistryPath = "HKLM:\SOFTWARE\Policies\Google\Chrome"
+    } else {
+        $RegistryPath = "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave"
+    }
+}
 
 $ErrorActionPreference = "Stop"
 
@@ -54,6 +77,28 @@ $ErrorActionPreference = "Stop"
 
 function Get-OmegaLevelOrder {
     return @("BraveOnly", "Essential", "Balanced", "Advanced", "Strict")
+}
+
+# Brave-origin policy names. Mirrors the data-layer `origin` tags; the
+# generic Chromium target never expects these, so Chrome detection filters
+# them out. Tests/DeploymentScripts.Tests.ps1 pins this roster against the
+# profiles - edit both together, never one alone.
+function Get-OmegaBraveOriginNames {
+    return @(
+        "BraveAIChatEnabled", "BraveDeAmpEnabled", "BraveDebouncingEnabled",
+        "BraveGlobalPrivacyControlEnabled", "BraveNewsDisabled",
+        "BraveP3AEnabled", "BravePlaylistEnabled",
+        "BraveReduceLanguageEnabled", "BraveRewardsDisabled",
+        "BraveShieldsDisabledForUrls", "BraveShieldsEnabledForUrls",
+        "BraveSpeedreaderEnabled", "BraveStatsPingEnabled", "BraveSyncUrl",
+        "BraveTalkDisabled", "BraveTrackingQueryParametersFilteringEnabled",
+        "BraveVPNDisabled", "BraveWalletDisabled",
+        "BraveWaybackMachineEnabled", "BraveWebDiscoveryEnabled",
+        "DefaultBraveAdblockSetting", "DefaultBraveFingerprintingV2Setting",
+        "DefaultBraveHttpsUpgradeSetting", "DefaultBraveReferrersSetting",
+        "DefaultBraveRemember1PStorageSetting", "EmailAliasesEnabled",
+        "TorDisabled"
+    )
 }
 
 function Get-OmegaTierPolicyNames {
@@ -223,7 +268,7 @@ function Get-OmegaTierPolicyNames {
 }
 
 function Get-OmegaLevelNames {
-    param([string]$Level)
+    param([string]$Level, [string]$Browser = "Brave")
 
     $tiers = Get-OmegaTierPolicyNames
     $cumulative = New-Object System.Collections.Generic.HashSet[string] ([System.StringComparer]::Ordinal)
@@ -231,8 +276,12 @@ function Get-OmegaLevelNames {
     $tierIndex = [array]::IndexOf($order, $Level)
     if ($tierIndex -lt 0) { return @() }
 
+    $excluded = @()
+    if ($Browser -eq "Chrome") { $excluded = @(Get-OmegaBraveOriginNames) }
+
     for ($i = 0; $i -le $tierIndex; $i++) {
         foreach ($name in @($tiers[$order[$i]])) {
+            if ($excluded -contains $name) { continue }
             [void]$cumulative.Add([string]$name)
         }
     }
@@ -268,9 +317,9 @@ function Get-OmegaPolicyRegistryView {
 }
 
 function Test-OmegaLevelDeployed {
-    param([string]$Level, [string]$RegistryPath)
+    param([string]$Level, [string]$RegistryPath, [string]$Browser = "Brave")
 
-    $expectedNames = Get-OmegaLevelNames -Level $Level
+    $expectedNames = Get-OmegaLevelNames -Level $Level -Browser $Browser
     if (@($expectedNames).Count -eq 0) { return $false }
 
     $view = Get-OmegaPolicyRegistryView -RegistryPath $RegistryPath
@@ -293,7 +342,7 @@ function Test-OmegaLevelDeployed {
 
 if ($MyInvocation.InvocationName -ne ".") {
     try {
-        if (Test-OmegaLevelDeployed -Level $Level -RegistryPath $RegistryPath) {
+        if (Test-OmegaLevelDeployed -Level $Level -RegistryPath $RegistryPath -Browser $Browser) {
             exit 0
         }
         exit 1
