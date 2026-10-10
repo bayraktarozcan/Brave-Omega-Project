@@ -339,7 +339,7 @@ Repository management and dependency conventions.
 - **CodeQL.** There is no `.github/workflows/codeql.yml` in this project; secrets are scanned via gitleaks in `secret-scan.yml` and static analysis runs in the gate instead. A `codeql.yml` on push plus weekly remains the standing target.
 - **Auto-approve.** No auto-approve workflow exists in this project; nothing is auto-approved.
 - **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions are pinned to a full commit SHA (with the tag in a comment) and kept current by Dependabot.
-- **Dependency pinning.** Runtime and build dependencies are locked to an exact version (here: Pester 5.7.1, PSScriptAnalyzer 1.23.0); dev dependencies may use flexible ranges (`>=`, `^`); lockfiles are committed; updates go through Dependabot. Types: **Runtime** (needed to run the app), **Dev** (development-time only), **Build** (compile-time only).
+- **Dependency pinning.** Runtime and build dependencies are locked to an exact version (here: Pester 5.7.1, PSScriptAnalyzer 1.25.0); dev dependencies may use flexible ranges (`>=`, `^`); lockfiles are committed; updates go through Dependabot. Types: **Runtime** (needed to run the app), **Dev** (development-time only), **Build** (compile-time only).
 - **Standard workflow triggers.** Test on `push` and `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot weekly.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API, never by hand; human intervention is not required.
 - **New-repository checklist.** The bootstrap order is the rule, not a suggestion: the ignore file comes first so nothing private is swept into the first commit, then the root documents, then the landing page, then the hidden layers, and only then version control.
@@ -422,7 +422,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=9c0e921f6e7b6acfba466a94ab856ceec05bb216 -->
+<!-- mirror-sync: sync-sha=93f198f68581407cc499026a02bc8ec231559bb2 -->
 
 ---
 
@@ -522,7 +522,7 @@ spelling by explicit exemption. Retired-spelling mappings live there too.
 ### Toolchain
 
 - Compatibility floor: Windows PowerShell 5.1+; no `pwsh`-only syntax in shipped scripts.
-- Suite runner: Pester 5.7.1 (pinned in CI); static analysis PSScriptAnalyzer 1.23.0; Python 3 stdlib for the scanners and renderers; shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
+- Suite runner: Pester 5.7.1 (pinned in CI); static analysis PSScriptAnalyzer 1.25.0; Python 3 stdlib for the scanners and renderers; shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
 
 ### Releases
 
