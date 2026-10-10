@@ -408,7 +408,7 @@ All committed file and directory names are English.
 
 - **Policy and data edits.** Policy definitions live only in `Brave-Omega/config.json` plus `Brave-Omega/Profiles/*.json` (with `origin`/`platforms` tags and `Brave-Omega/Browsers/*.json` for browser targets), loaded at runtime via `Import-OmegaPolicyData` into `$OmegaState`. Deprecated policies are removed from the profile files; `ADMX/ADMX-Validate.ps1` enforces the cross-reference.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git, and there is no `.env.example` in this project because the script reads no environment configuration (all behavior comes from parameters and the data layer); variable names use `UPPER_SNAKE_CASE` where they appear.
-- **Testing quality bar.** The Pester 5.7.1 suite (currently 378 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 383/383 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
+- **Testing quality bar.** The Pester 5.7.1 suite (currently 383 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 383/383 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
 - **Setup & deployment.** Provisioning is one step: `Scripts/Deploy-Brave-Omega.ps1` applies the Enterprise `.reg` artifacts; runtime state is verified with `Scripts/Detect-Brave-Omega.ps1`. Production deployment runs through the CI/CD pipeline on both hosts.
 
 ### Local human-language mirror
@@ -422,7 +422,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=82bce85c5455070f05046de5f8d4219f5c184718 -->
+<!-- mirror-sync: sync-sha=9c0e921f6e7b6acfba466a94ab856ceec05bb216 -->
 
 ---
 
