@@ -135,7 +135,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 |-------------|--------|
 | **Operating System** | Windows 11 26H2 (required: build 26300.9550) |
 | **Browser** | **Brave Browser — latest stable release** (see [brave.com/download](https://brave.com/download)) |
-| **PowerShell** | 5.1+ (included with Windows 11 — no additional installation needed) |
+| **PowerShell** | 5.1+ (included with Windows 11 — no additional installation needed; PowerShell 7.6.6 recommended) |
 | **Privileges** | Run as Administrator (required for HKLM registry writes) |
 | **Execution Policy** | `Bypass` (session-scoped only — see Quick Start) |
 
@@ -860,7 +860,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 |------------|---------|
 | **İşletim Sistemi** | Windows 11 26H2 (gerekli derleme: 26300.9550) |
 | **Tarayıcı** | **Brave Browser — en güncel kararlı sürüm** (bkz. [brave.com/download](https://brave.com/download)) |
-| **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir — ek kurulum gerekmez) |
+| **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir — ek kurulum gerekmez; PowerShell 7.6.6 önerilir) |
 | **Ayrıcalık** | Yönetici olarak çalıştır (HKLM kayıt defteri yazma işlemi için zorunlu) |
 | **Çalıştırma İlkesi** | `Bypass` (yalnızca oturum bazında — bkz. Hızlı Başlangıç) |
 
