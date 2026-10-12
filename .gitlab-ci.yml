@@ -321,6 +321,15 @@ link-check:
     # What this check cannot see: link fragments. lychee 0.24.2 resolves the
     # target file and stops there, so an anchor matching no heading passes as OK.
     # Fragments stay a human read.
+    #
+    # Wiki page-form links are excluded below by exact shape, not by host:
+    # GitHub Wiki serves `Page.md` as the raw file and `Page` as the rendered
+    # page, so Wiki-internal links drop the suffix and lychee reads them as
+    # missing files. The exclusion matches only that shape inside Wiki/ - a
+    # `Page.md` link or a page-form link anywhere else is still checked. What
+    # the exclusion hides is covered by name in Tests/WikiLinks.Tests.ps1,
+    # which resolves every such link against the Wiki tree and pins this exact
+    # exclusion text on both hosts.
     - |
       cd "$CI_PROJECT_DIR"
       /tmp/lychee \
@@ -328,6 +337,7 @@ link-check:
         --max-retries 2 --retry-wait-time 5 \
         --host-concurrency 2 --host-request-interval 500ms \
         --exclude 'support\.brave\.app' \
+        --exclude 'file://.*/Wiki/[A-Za-z-]+(#[^/]*)?$' \
         './**/*.md'
 
 # ------------------------------------------------------------------ deploy

@@ -43,7 +43,7 @@
 ---
 
 ## Policies Removed from Production Code
-<a id="-turkce"></a>
+<a id="-türkçe"></a>
 ## Üretim Kodundan Kaldırılan Politikalar
 
 ### 1. BraveShieldsDefault
