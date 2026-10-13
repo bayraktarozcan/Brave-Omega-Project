@@ -234,7 +234,7 @@ Global is the default, at the narrowest scope needing no elevation (per-user: `w
 
 ### Elevation
 
-Elevation is scarce and deliberate, never a convenience. Prefer the unelevated route and treat only an unavoidable machine-wide state change as needing it; announce what, why, the exact command, the scope, and the undo before the prompt appears. Never surprise the person with a prompt, never retry a denial in a loop, and never circumvent or weaken the mechanism. An elevated step never touches per-user state (profiles, user registry, user environment, credential stores, keys, user-scope tools) and its effect is verified afterwards from the unelevated side. This project's own script runs require Administrator (see the README prerequisites); the host's elevation mode is not recorded here, so assume the strictest mode.
+Elevation is scarce and deliberate, never a convenience. Prefer the unelevated route and treat only an unavoidable machine-wide state change as needing it; announce what, why, the exact command, the scope, and the undo before the prompt appears, then wait. Never surprise the person with a prompt; report a denial or timeout and offer the alternative instead of retrying in a loop; never circumvent or weaken the mechanism (no wrappers, tricks, policy edits, or running the whole agent elevated). Keep it to one minimal command with absolute paths, run once, with nothing batched behind one approval. An elevated step never touches or relies on per-user state (profiles, user registry, user environment, credential stores, keys, user-scope tools) and its effect is verified afterwards from the unelevated side. This project's own script runs require Administrator (see the README prerequisites); assume the strictest mode — the script already handles Administrator-protection isolation (see CHANGELOG).
 
 ---
 
@@ -445,7 +445,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=bf2b11d33a1cc28e6d35922f836d33200cd66fc6 -->
+<!-- mirror-sync: sync-sha=9ca11754a76d887c745d278efaf684b7d57dcca4 -->
 
 ---
 
