@@ -11,7 +11,7 @@
 
 <br>
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%2011%2025H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2011%2026H2-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11)
 [![Brave](https://img.shields.io/badge/Brave-All%20versions%20%7C%20V3%20agnostic-FF6000?style=flat-square&logo=brave&logoColor=white)](https://brave.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=flat-square&logo=powershell&logoColor=white)](https://learn.microsoft.com/en-us/powershell/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
@@ -42,7 +42,7 @@
 
 | Component | Requirement |
 |-----------|-------------|
-| Windows | 11 25H2 (validated build) |
+| Windows | 11 26H2 (validated build) |
 | PowerShell | 5.1 or newer (Windows PowerShell; `pwsh` is not required) |
 | Brave | All stable releases (V3 version-agnostic — no pinned version) |
 | Privileges | Elevated (Administrator) session required for policy writes |
@@ -80,7 +80,7 @@ See the [Version Compatibility Matrix](Wiki/Version-Compatibility-Matrix.md) for
 
 | Bileşen | Gereksinim |
 |---------|------------|
-| Windows | 11 25H2 (doğrulanmış derleme) |
+| Windows | 11 26H2 (doğrulanmış derleme) |
 | PowerShell | 5.1 veya üzeri (Windows PowerShell; `pwsh` gerekmez) |
 | Brave | Tüm kararlı sürümler (V3 sürüm-bağımsız — sabit sürüm yok) |
 | Ayrıcalıklar | Politika yazımı için yükseltilmiş (Yönetici) oturum gerekir |
