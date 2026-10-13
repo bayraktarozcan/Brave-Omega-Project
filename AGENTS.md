@@ -392,7 +392,7 @@ Repository management and dependency conventions.
 
 - **Scheme.** This project declares four-part versions `v{Version}.{Major}.{Minor}.{Revision}` (Revision = bug fixes, Minor = security patches and improvements, Major = features, Version = major additions); tags, changelog headings, and version constants all use it. The default elsewhere is SemVer 2.0.0 with a `v` prefix.
 - **Changelog.** One canonical file (`CHANGELOG.md` at the root, with `Wiki/Changelog.md` as its workflow-synced projection), Keep a Changelog format (Unreleased, Added, Changed, Deprecated, Removed, Fixed, Security), newest first, with a bilingual table of contents and per-section anchors.
-- **Version bumps.** A bump adds the changelog entry (both languages, table of contents, anchors), updates `$ScriptVersion` plus the script header block, then every hand-maintained place that states the version: README matrices, SECURITY, index.html (badges, terminal text, compat and changelog rows, i18n tables), the Wiki pages, `AGENTS.md` (§13), `Enterprise/levels.json` (regenerated), policy catalog headers, and test expectations. `Tests/VersionParity.Tests.ps1` pins parity across those places.
+- **Version bumps.** A bump adds the changelog entry (both languages, table of contents, anchors), updates `$ScriptVersion` plus the script header block, then every hand-maintained place that states the version: README matrices, SECURITY, index.html (badges, terminal text, compat and changelog rows, i18n tables), the Wiki pages (including the Quick-Start prerequisite OS), `AGENTS.md` (§13), `Enterprise/levels.json` (regenerated), policy catalog headers, and test expectations. `Tests/VersionParity.Tests.ps1` pins parity across those places.
 - **Release parity.** Releases on both hosts mirror each other exactly: same tag, title, description, and notes, verified byte-for-byte after upload. Release notes are bilingual (EN paragraph first, TR paragraph after, at equal scope). The runnable package ships on both releases.
 - **Historical records** (changelog, compatibility tables, per-version release notes) describe the repository as it stood at that version. Rename and cleanup guards exempt them by a scoped marker, per file or per line region, never by a whole-file exemption, and a guard checks that each declared marker is still present.
 
@@ -426,7 +426,7 @@ All committed file and directory names are English.
 
 - **Policy and data edits.** Policy definitions live only in `Brave-Omega/config.json` plus `Brave-Omega/Profiles/*.json` (with `origin`/`platforms` tags and `Brave-Omega/Browsers/*.json` for browser targets), loaded at runtime via `Import-OmegaPolicyData` into `$OmegaState`. Deprecated policies are removed from the profile files; `ADMX/ADMX-Validate.ps1` enforces the cross-reference.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git, and there is no `.env.example` in this project because the script reads no environment configuration (all behavior comes from parameters and the data layer); variable names use `UPPER_SNAKE_CASE` where they appear.
-- **Testing quality bar.** The Pester 5.7.1 suite (currently 386 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 386/386 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
+- **Testing quality bar.** The Pester 5.7.1 suite (currently 388 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 388/388 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
 - **Setup & deployment.** Provisioning is one step: `Scripts/Deploy-Brave-Omega.ps1` applies the Enterprise `.reg` artifacts; runtime state is verified with `Scripts/Detect-Brave-Omega.ps1`. Production deployment runs through the CI/CD pipeline on both hosts.
 
 ### Local human-language mirror
@@ -440,7 +440,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=8ceff89622326ff69b257379bf79c4b10be26971 -->
+<!-- mirror-sync: sync-sha=7d4aeb506e41a067cd81f3ef14cd00fcb1d6c2be -->
 
 ---
 
@@ -491,7 +491,7 @@ Run from the repository root (`pwsh` 7.6.6 when present, otherwise Windows Power
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 386/386 passing
+Invoke-Pester Tests/ -PassThru          # expected: 388/388 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
@@ -570,7 +570,7 @@ spelling by explicit exemption. Retired-spelling mappings live there too.
 ### Policy edits and version bumps
 
 - Change policy definitions only in the data layer (`Brave-Omega/config.json` + `Brave-Omega/Profiles/*.json`, browser targets in `Brave-Omega/Browsers/*.json`; loaded at runtime via `Import-OmegaPolicyData` into `$OmegaState`). Deprecated policies are removed from the profile files.
-- A bump adds the bilingual changelog entry (table of contents, anchors), bumps `$ScriptVersion` plus the script header block, then updates README matrices, SECURITY, index.html (badges, terminal text, compat and changelog rows, i18n tables), the Wiki pages, this file (§13), `Enterprise/levels.json` (regenerated — `.reg` byte-identical), policy catalog headers, and test expectations. `Tests/VersionParity.Tests.ps1` pins parity across those places.
+- A bump adds the bilingual changelog entry (table of contents, anchors), bumps `$ScriptVersion` plus the script header block, then updates README matrices, SECURITY, index.html (badges, terminal text, compat and changelog rows, i18n tables), the Wiki pages (including the Quick-Start prerequisite OS), this file (§13), `Enterprise/levels.json` (regenerated — `.reg` byte-identical), policy catalog headers, and test expectations. `Tests/VersionParity.Tests.ps1` pins parity across those places.
 
 ---
 
