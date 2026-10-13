@@ -116,7 +116,7 @@ cd "C:\Users\Downloads\Brave-Omega"
 > [!IMPORTANT]
 > Keep `config.json` and the `Profiles/` folder next to `BraveOmega.ps1`.
 > The 151 policies live in those files, not in the script — see
-> [Installation §2](Installation.md#2-navigate-to-project-folder). Running a
+> [Installation §2](Installation#2-navigate-to-project-folder). Running a
 > lone copy of the `.ps1` fails before applying anything.
 
 ### 3. Run the Script
@@ -173,16 +173,16 @@ Each file carries a timestamp (e.g. `HKLM_BravePolicy_20260613_120000.reg`).
 | "CRITICAL ERROR" on launch | Right-click PowerShell → **Run as Administrator** |
 | No policies in `brave://policy` | Close **all** Brave windows and reopen |
 | `[ERROR]` in output | Confirm Administrator mode; re-run |
-| "Unknown" policy in `brave://policy` | Verify Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix.md) |
+| "Unknown" policy in `brave://policy` | Verify Brave version matches [Compatibility Matrix](Version-Compatibility-Matrix) |
 
 ---
 
 ## Next Steps
 
-- [📖 Full Installation Guide](Installation.md)
-- [🏗️ Architecture Overview](Architecture.md)
-- [📋 Policy Reference](Policy-Reference.md)
-- [🛡️ Security Model](Security.md)
+- [📖 Full Installation Guide](Installation)
+- [🏗️ Architecture Overview](Architecture)
+- [📋 Policy Reference](Policy-Reference)
+- [🛡️ Security Model](Security)
 
 ---
 
@@ -304,7 +304,7 @@ cd "C:\Users\Downloads\Brave-Omega"
 > [!IMPORTANT]
 > `config.json` dosyasını ve `Profiles/` klasörünü `BraveOmega.ps1`'in yanında
 > tutun. 151 politika bu dosyalarda durur, betiğin içinde değil — bkz.
-> [Kurulum §2](Installation.md#2-proje-klasörüne-git). Betiğin yalnız başına
+> [Kurulum §2](Installation#2-proje-klasörüne-git). Betiğin yalnız başına
 > kopyalanmış hâli hiçbir şey uygulamadan hata verip durur.
 
 ### 3. Betiği Çalıştır
@@ -361,13 +361,13 @@ Her dosya zaman damgası taşır (ör. `HKLM_BravePolicy_20260613_120000.reg`).
 | Başlatmada "KRİTİK HATA" | PowerShell'e sağ tıkla → **Yönetici olarak çalıştır** |
 | `brave://policy`'de politika yok | **Tüm** Brave pencerelerini kapat ve yeniden aç |
 | Çıktıda `[HATA]` satırları | Yönetici modunu doğrula; yeniden çalıştır |
-| `brave://policy`'de "Bilinmiyor" politikası | Brave sürümünün [Uyumluluk Matrisi](Version-Compatibility-Matrix.md#-türkçe) ile eşleştiğini doğrula |
+| `brave://policy`'de "Bilinmiyor" politikası | Brave sürümünün [Uyumluluk Matrisi](Version-Compatibility-Matrix#-türkçe) ile eşleştiğini doğrula |
 
 ---
 
 ## Sonraki Adımlar
 
-- [📖 Tam Kurulum Kılavuzu](Installation.md#-türkçe)
-- [🏗️ Mimari Genel Bakış](Architecture.md#-türkçe)
-- [📋 Politika Başvurusu](Policy-Reference.md#-türkçe)
-- [🛡️ Güvenlik Modeli](Security.md#-türkçe)
+- [📖 Tam Kurulum Kılavuzu](Installation#-türkçe)
+- [🏗️ Mimari Genel Bakış](Architecture#-türkçe)
+- [📋 Politika Başvurusu](Policy-Reference#-türkçe)
+- [🛡️ Güvenlik Modeli](Security#-türkçe)

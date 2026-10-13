@@ -111,5 +111,27 @@ Describe 'Wiki page-form links' -Tag 'Unit' {
             $inGitLab = (Get-Content -LiteralPath $gitlab -Raw).Contains($script:WikiExclusion)
             ($inGithub -and $inGitLab) | Should -BeTrue -Because 'the two hosts run the same lychee version with the same arguments, so an exclusion present on one and missing on the other fails one gate while the other stays green'
         }
+
+        It 'has nothing left to hide: no Wiki page links to a sibling with the .md suffix' {
+            # The exclusion above exists for the page form. A surviving
+            # Page.md link is checked by lychee but opens the raw blob on the
+            # wiki, so either side going green proves nothing about the reader.
+            # This pins the migration: the suffix form must not creep back.
+            $suffixed = @()
+            foreach ($file in (Get-ChildItem -Path $script:WikiDir -Filter '*.md' -File)) {
+                $lineNo = 0
+                $inFence = $false
+                foreach ($line in (Get-Content -LiteralPath $file.FullName)) {
+                    $lineNo++
+                    if ($line -match '^\s*```') { $inFence = -not $inFence; continue }
+                    if ($inFence) { continue }
+                    $prose = [regex]::Replace($line, '`[^`]*`', '')
+                    foreach ($m in [regex]::Matches($prose, '(?<!\!)\[[^\]]*\]\(([A-Za-z0-9_-]+)\.md([)#])')) {
+                        $suffixed += "$($file.Name):$lineNo -> $($m.Groups[1].Value).md"
+                    }
+                }
+            }
+            $suffixed | Should -BeNullOrEmpty -Because 'a .md-suffixed Wiki link renders as the raw file on the wiki while passing every automated check'
+        }
     }
 }
