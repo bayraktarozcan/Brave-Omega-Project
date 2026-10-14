@@ -369,13 +369,13 @@ if (-not $DryRun) {
     if ($LASTEXITCODE -ne 0) { throw "Failed to create GitLab release: $glabOutput" }
     if ($package) {
         $assetSpec = "$($package.Path)#$($package.Name)#package"
-        $glUploadOutput = & glab release upload $Version $assetSpec 2>&1
+        $glUploadOutput = & glab release upload $Version $assetSpec --repo $repo 2>&1
         if ($LASTEXITCODE -ne 0) { throw "Failed to upload package to GitLab release: $glUploadOutput" }
         Write-OK "Package uploaded to GitLab release: $($package.Name)"
     }
     if ($linuxPackage) {
         $linuxAssetSpec = "$($linuxPackage.Path)#$($linuxPackage.Name)#package"
-        $glLinuxUploadOutput = & glab release upload $Version $linuxAssetSpec 2>&1
+        $glLinuxUploadOutput = & glab release upload $Version $linuxAssetSpec --repo $repo 2>&1
         if ($LASTEXITCODE -ne 0) { throw "Failed to upload Linux package to GitLab release: $glLinuxUploadOutput" }
         Write-OK "Linux package uploaded to GitLab release: $($linuxPackage.Name)"
     }
