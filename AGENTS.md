@@ -92,6 +92,7 @@ Brevity governs replies; thoroughness governs work. The two never trade places.
 - Never fabricate URLs; only cite real sources.
 - Earlier conclusions are corrected openly when new evidence contradicts them. An answer that has been given is not reopened without a reason, and a reason is any new data.
 - Evidence before synthesis. Inspect relevant files directly before producing output. If findings contradict a previous claim, state the discrepancy and trust evidence-backed claims over unverified speculation.
+- Report verdict first, then evidence. Tag each fact by origin (measured locally, read from a named source, inferred) and list any assumption that proved wrong. A "do nothing" verdict is a recommendation for the person to decide, never an outcome.
 
 ---
 
@@ -230,6 +231,10 @@ Before directing the person to a web interface, check the programmatic path: `<t
 ### Local dependencies
 
 Global is the default, at the narrowest scope needing no elevation (per-user: `winget --scope user`, `Install-Module -Scope CurrentUser`); machine-wide installation is the person's decision. A project-scope install needs per-project approval and is recorded in §13. Host dependencies this project declares live in §13 Toolchain. The shell is never installed on the agent's own initiative. Official source only, exact version, checksum or signature verified where one exists (see "Security & privacy").
+- **Probe before changing.** Learn what an install would do with a read-only probe first (`-WhatIf`, `--dry-run`, `--simulate`) and record the installed set before upgrading a global environment, so the change stays reversible. (The gate installs nothing; CI jobs own their tools.)
+- **Name the interpreter.** Never call a bare `pip` or a bare interpreter where more than one runtime exists; invoke through the owning runtime with its version (`py -3 -m pip`).
+- **A missing prebuilt binary is a signal, not a task.** Do not install a compiler toolchain to force it; prefer a runtime with prebuilt packages, or stop and ask (a toolchain is machine-wide: "Ask first").
+- **Stay inside the support window.** Prefer versions still receiving fixes; a version kept past its window is a retained exception recorded in §13 Dependencies with reason, exposure, exit trigger, and review cadence. None is currently recorded here.
 - **Elevation.** Governed by "Elevation" below.
 
 ### Elevation
@@ -445,7 +450,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=18075b91375f68b1de0948ca5123407c6e56f485 -->
+<!-- mirror-sync: sync-sha=9f9839df28a8158e8b31b949445431b70fd00fcb -->
 
 ---
 
@@ -570,6 +575,7 @@ spelling by explicit exemption. Retired-spelling mappings live there too.
 
 - Host tool dependencies are declared in §13 Toolchain (exact versions: Pester 5.7.1, PSScriptAnalyzer 1.25.0; Python 3 stdlib, shellcheck, markdownlint, yamllint installed in CI). Per "Local dependencies", global scope is the default and machine-wide installation is the person's decision.
 - No project-scope install is approved in this project; none is recorded here.
+- Retained exceptions: none recorded. (A version kept past its support window would be listed here with reason, exposure, exit trigger, and review cadence.)
 - The gate itself (`Scripts/Invoke-CI.ps1`) installs nothing; CI jobs install their own tools.
 
 ### Policy edits and version bumps
