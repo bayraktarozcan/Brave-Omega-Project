@@ -1,4 +1,4 @@
-﻿<!-- ================================================================== -->
+<!-- ================================================================== -->
 <!--          BRAVE OMEGA PROJECT — AGENTS.md                           -->
 <!--        Community Edition · Open Source · Privacy First             -->
 <!-- ================================================================== -->
@@ -450,7 +450,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=7ac5fd2050b246a73400be63ab5170164dc724ab -->
+<!-- mirror-sync: sync-sha=1c4cc7c09b751167835993970718e0d9ce6568fb -->
 
 ---
 
@@ -491,7 +491,7 @@ Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = 
 
 ### Commands
 
-Run from the repository root (`pwsh` 7.6.6 when present, otherwise Windows PowerShell 5.1):
+Run from the repository root (`pwsh` 7.6.7 when present, otherwise Windows PowerShell 5.1):
 
 ```powershell
 # CI conformance gate - runs every check the Quality workflow declares.

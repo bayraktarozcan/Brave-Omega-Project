@@ -15,7 +15,7 @@ Complete installation guide for Brave Omega v3.1.0.0 (V3 version-agnostic — al
 | ------------- | --------- | ------------- |
 | **Operating System** | Windows 11 26H2 (build 26300.9550) | Windows 11 26H2 (latest stable) |
 | **Brave Browser** | 1.91.x | Latest stable ([brave.com/download](https://brave.com/download)) |
-| **PowerShell** | 5.1 | PowerShell 7.6.6 (5.1+ built into Windows 11 also supported) |
+| **PowerShell** | 5.1 | PowerShell 7.6.7 (5.1+ built into Windows 11 also supported) |
 | **Privileges** | Administrator | Administrator |
 | **Disk Space** | 1 MB | 5 MB (for backups) |
 
@@ -291,7 +291,7 @@ Brave Omega v3.1.0.0 için tam kurulum kılavuzu (V3 sürüm-bağımsız — tü
 | ------------ | --------- | ---------- |
 | **İşletim Sistemi** | Windows 11 26H2 (derleme 26300.9550) | Windows 11 26H2 (en güncel kararlı) |
 | **Brave Browser** | 1.91.x | En güncel kararlı ([brave.com/download](https://brave.com/download)) |
-| **PowerShell** | 5.1 | PowerShell 7.6.6 (Windows 11 ile gelen 5.1+ da desteklenir) |
+| **PowerShell** | 5.1 | PowerShell 7.6.7 (Windows 11 ile gelen 5.1+ da desteklenir) |
 | **Ayrıcalık** | Yönetici | Yönetici |
 | **Disk Alanı** | 1 MB | 5 MB (yedekler için) |
 
