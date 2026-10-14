@@ -233,8 +233,8 @@ Before directing the person to a web interface, check the programmatic path: `<t
 Global is the default, at the narrowest scope needing no elevation (per-user: `winget --scope user`, `Install-Module -Scope CurrentUser`); machine-wide installation is the person's decision. A project-scope install needs per-project approval and is recorded in §13. Host dependencies this project declares live in §13 Toolchain. The shell is never installed on the agent's own initiative. Official source only, exact version, checksum or signature verified where one exists (see "Security & privacy").
 - **Probe before changing.** Learn what an install would do with a read-only probe first (`-WhatIf`, `--dry-run`, `--simulate`) and record the installed set before upgrading a global environment, so the change stays reversible. (The gate installs nothing; CI jobs own their tools.)
 - **Name the interpreter.** Never call a bare `pip` or a bare interpreter where more than one runtime exists; invoke through the owning runtime with its version (`py -3 -m pip`).
-- **A missing prebuilt binary is a signal, not a task.** Do not install a compiler toolchain to force it; prefer a runtime with prebuilt packages, or stop and ask (a toolchain is machine-wide: "Ask first").
-- **Stay inside the support window.** Prefer versions still receiving fixes; a version kept past its window is a retained exception recorded in §13 Dependencies with reason, exposure, exit trigger, and review cadence. None is currently recorded here.
+- **A missing prebuilt binary is a signal, not a task.** Do not install a compiler toolchain to force it; separate the causes first (version constraint, missing binary, missing source dependency), then prefer a runtime with prebuilt packages, or stop and ask (a toolchain is machine-wide: "Ask first").
+- **Stay inside the support window.** Prefer versions still receiving fixes; a version kept past its window is a retained exception recorded in §13 Dependencies with reason, exposure, exit trigger, and review cadence; the person accepts the exposure, never the agent. None is currently recorded here.
 - **Elevation.** Governed by "Elevation" below.
 
 ### Elevation
@@ -450,7 +450,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=9f9839df28a8158e8b31b949445431b70fd00fcb -->
+<!-- mirror-sync: sync-sha=7ac5fd2050b246a73400be63ab5170164dc724ab -->
 
 ---
 
