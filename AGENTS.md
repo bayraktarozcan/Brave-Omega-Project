@@ -431,6 +431,10 @@ All committed file and directory names are English.
 - The nispa suffix, the derivation that turns nouns into adjectives, is written with circumflex `î` (ahlâkî, medenî, askerî); avoid the mark where accepted usage does not call for it.
 - Turkish prose prefers established native terms over imported ones, with the foreign term in parentheses on first use where clarity needs it. Code, commands, identifiers, and quoted output are never translated.
 - The bilingual mirror keeps full Turkish characters in both files; the verifier normalizes line endings but never touches characters.
+- Line endings follow the project's declared rules (`.gitattributes`,
+`.editorconfig`); a file never mixes styles. Verify with a byte-level
+scan before committing, because normalization can hide the mixture
+from `git status` and `git diff`.
 
 ### Data layer, testing, and services
 
@@ -450,7 +454,7 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=1c4cc7c09b751167835993970718e0d9ce6568fb -->
+<!-- mirror-sync: sync-sha=4e5c00ae5a732dc664440fd24d659482cda4ea41 -->
 
 ---
 
