@@ -435,6 +435,11 @@ All committed file and directory names are English.
 `.editorconfig`); a file never mixes styles. Verify with a byte-level
 scan before committing, because normalization can hide the mixture
 from `git status` and `git diff`.
+- Machine time: every clock read — automation, scripts, tests, CI — determines
+  time as `TZ=Europe/Istanbul date ...`; the project is pinned to Türkiye time
+  (fixed UTC+03:00 since 2016, no DST) and accepts no other offset; any
+  timestamp exposed in commit messages or release notes is Türkiye time and
+  labels the zone in parentheses as `(UTC+03:00)`.
 
 ### Data layer, testing, and services
 
@@ -454,7 +459,7 @@ from `git status` and `git diff`.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=4e5c00ae5a732dc664440fd24d659482cda4ea41 -->
+<!-- mirror-sync: sync-sha=d2d5bd1dfad6301d08f549d6c8a055a3caa8ed5a -->
 
 ---
 
