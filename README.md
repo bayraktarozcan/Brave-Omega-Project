@@ -591,7 +591,7 @@ BRAVE OMEGA PROJECT/
 │   ├── ISSUE_TEMPLATE/                    Bug and feature request forms
 │   ├── dependabot.yml                     Dependency update schedule
 │   ├── linters/                           Shared markdownlint / yamllint config
-│   └── workflows/                         CI/CD workflows (10 files)
+│   └── workflows/                         CI/CD workflows (11 files)
 ├── ADMX/
 │   ├── ADMX-Validate.ps1                  Policy cross-reference validator
 │   ├── Brave.admx                         Brave ADMX policy template
@@ -1318,7 +1318,7 @@ BRAVE OMEGA PROJECT/
 │   ├── ISSUE_TEMPLATE/                    Hata ve özellik talebi formları
 │   ├── dependabot.yml                     Bağımlılık güncelleme takvimi
 │   ├── linters/                           Paylaşılan markdownlint / yamllint yapılandırması
-│   └── workflows/                         CI/CD iş akışları (10 dosya)
+│   └── workflows/                         CI/CD iş akışları (11 dosya)
 ├── ADMX/
 │   ├── ADMX-Validate.ps1                  Politika çapraz referans doğrulayıcı
 │   ├── Brave.admx                         Brave ADMX politika şablonu
