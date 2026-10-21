@@ -18,7 +18,7 @@ permissions:
   statuses: read
 
 concurrency:
-  group: dependabot-auto-merge
+  group: gitlab-main-mirror
   cancel-in-progress: false
 
 jobs:
@@ -43,6 +43,12 @@ jobs:
           author=$(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '.user.login')
           if [ "$author" != "dependabot[bot]" ]; then
             echo "Not a Dependabot pull request; skipping."
+            exit 0
+          fi
+
+          state=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json state --jq '.state')
+          if [ "$state" != "OPEN" ]; then
+            echo "The pull request is $state; skipping."
             exit 0
           fi
 

@@ -1,0 +1,46 @@
+# Brave Omega Project — Mirror Main to GitLab
+# Mirrors every push to main to the GitLab remote. The auto-merge workflow
+# keeps its own mirror step because merges made with GITHUB_TOKEN do not emit
+# a push event.
+
+name: "Mirror Main to GitLab"
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitlab-main-mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    name: Push main to GitLab
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Push main to GitLab
+        env:
+          GITLAB_PUSH_TOKEN: ${{ secrets.GITLAB_PUSH_TOKEN }}
+          GITLAB_REPOSITORY: bayraktarozcan/Brave-Omega-Project
+          GIT_TERMINAL_PROMPT: "0"
+        run: |
+          helper="$RUNNER_TEMP/git-credential-gitlab"
+          cat > "$helper" <<'EOF'
+          #!/bin/sh
+          [ "$1" = "get" ] || exit 0
+          echo username=oauth2
+          echo "password=$GITLAB_PUSH_TOKEN"
+          EOF
+          chmod +x "$helper"
+          git -c credential.helper= -c "credential.helper=$helper" \
+            push "https://gitlab.com/${GITLAB_REPOSITORY}.git" HEAD:refs/heads/main
