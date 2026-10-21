@@ -17,6 +17,10 @@ permissions:
   pull-requests: write
   statuses: read
 
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
+
 jobs:
   auto-merge:
     name: Merge Dependabot Pull Request
