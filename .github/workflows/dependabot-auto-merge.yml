@@ -1,7 +1,8 @@
 # Brave Omega Project — Dependabot Auto-Merge
-# Merges a Dependabot pull request once every CI check succeeds, then deletes
-# the branch. The workflow runs after Quality completes, waits for the remaining
-# checks, and refuses to merge a stale head commit.
+# Merges a Dependabot pull request once every CI check succeeds, deletes the
+# branch, and mirrors the resulting main branch to GitLab. The workflow runs
+# after Quality completes, waits for the remaining checks, and refuses to merge
+# a stale head commit.
 
 name: "Dependabot Auto-Merge"
 
@@ -23,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Merge after all checks pass
+        id: merge
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -48,3 +50,30 @@ jobs:
 
           gh pr checks "$PR_NUMBER" --repo "$REPO" --watch --fail-fast
           gh pr merge "$PR_NUMBER" --repo "$REPO" --squash --delete-branch
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+      - name: Check out main after the merge
+        if: steps.merge.outputs.merged == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Mirror main to GitLab
+        if: steps.merge.outputs.merged == 'true'
+        env:
+          GITLAB_PUSH_TOKEN: ${{ secrets.GITLAB_PUSH_TOKEN }}
+          GITLAB_REPOSITORY: bayraktarozcan/Brave-Omega-Project
+          GIT_TERMINAL_PROMPT: "0"
+        run: |
+          helper="$RUNNER_TEMP/git-credential-gitlab"
+          cat > "$helper" <<'EOF'
+          #!/bin/sh
+          [ "$1" = "get" ] || exit 0
+          echo username=oauth2
+          echo "password=$GITLAB_PUSH_TOKEN"
+          EOF
+          chmod +x "$helper"
+          git -c credential.helper= -c "credential.helper=$helper" \
+            push "https://gitlab.com/${GITLAB_REPOSITORY}.git" HEAD:refs/heads/main
