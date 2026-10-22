@@ -82,6 +82,18 @@ Complete version history for Brave Omega.
 - From V3 on, no dependency version change is shipped as a project update; the same 151 policies apply on all past and future Brave + Chromium versions
 - Version surfaces aligned to v3.0.0.0: README, SECURITY, SUPPORT, index.html, the Wiki pages, `AGENTS.md`, `Enterprise/levels.json`, policy catalog headers, and test expectations; historical entries untouched
 - No policy, registry value, or ADMX change; cumulative chain unchanged: BraveOnly 24 / Essential 51 / Balanced 83 / Advanced 123 / Strict 151
+- Repository layout migrated to PascalCase: `admx/` → `ADMX/` and `scripts/` → `Scripts/`, with every path reference updated; external paths that still use the lowercase spellings are a breaking change, while historical entries and compatibility tables keep the old spellings on purpose
+
+**Added:**
+
+- Naming, changelog, landing-page, compatibility-matrix, and mojibake guards: `Tests/FileNaming.Tests.ps1`, `Tests/VersionParity.Tests.ps1` (the wiki changelog is a projection, never a second source), `Tests/IndexI18n.Tests.ps1`, `Tests/VersionMatrix.Tests.ps1`, and `Tests/MojibakeScan.Tests.ps1`
+- `Scripts/Invoke-CI.ps1` runs the Quality workflow locally, and `Tests/CI-Parity.Tests.ps1` keeps the local gate and the CI definition from drifting apart
+
+**Fixed:**
+
+- Bilingual parity and reachability: the compatibility matrix listed v2.6.0.0 only in Turkish, the wiki front page duplicated the matrix and claimed two scripts, the landing page linked none of the nine root governance documents, and `index.html` now uses a single `tr` source for its 144 static blocks and a 16px system font stack instead of Google Fonts
+- Encoding and CI integrity: repaired the destroyed Turkish text in `CHANGELOG.md` and `CODE_OF_CONDUCT.md`, added the lossy `?` rule to the UTF-8 gate, fetched full history in both workflows, and pinned the second host's interpreter
+- Link-check and guard hygiene: moved the link check to owned links only with retries, and removed the retired-path false positive
 
 ---
 
@@ -999,6 +1011,18 @@ Brave Omega için tam sürüm geçmişi.
 - V3 sonrası hiçbir bağımlılık sürüm değişikliği proje güncellemesi olarak verilmeyecek; aynı 151 politika geçmiş ve gelecek tüm Brave + Chromium sürümlerinde uygulanır
 - Sürüm yüzeyleri v3.0.0.0 ile hizalandı: README, SECURITY, SUPPORT, index.html, Wiki sayfaları, `AGENTS.md`, `Enterprise/levels.json`, politika kataloğu başlıkları ve test beklentileri; tarihsel kayıtlar korundu
 - Politika, kayıt değeri ve ADMX değişikliği yok; kümülatif zincir değişmedi: Brave Yalnız 24 / Temel 51 / Dengeli 83 / Gelişmiş 123 / Katı 151
+- Depo düzeni PascalCase'e taşındı: `admx/` → `ADMX/` ve `scripts/` → `Scripts/`, tüm yol referansları güncellendi; küçük harfli yazımları hâlâ kullanan dış yollar kırıcı bir değişikliktir, tarihsel kayıtlar ve uyumluluk tabloları ise eski yazımları bilinçli olarak korur
+
+**Eklenenler:**
+
+- Adlandırma, changelog, açılış sayfası, uyumluluk matrisi ve mojibake korumaları: `Tests/FileNaming.Tests.ps1`, `Tests/VersionParity.Tests.ps1` (wiki changelog bir projeksiyondur, ikinci bir kaynak değildir), `Tests/IndexI18n.Tests.ps1`, `Tests/VersionMatrix.Tests.ps1` ve `Tests/MojibakeScan.Tests.ps1`
+- `Scripts/Invoke-CI.ps1` Quality iş akışını yerelde çalıştırır; `Tests/CI-Parity.Tests.ps1` yerel kapı ile CI tanımının birbirinden kaymasını engeller
+
+**Düzeltilenler:**
+
+- İki dilli eşlik ve ulaşılabilirlik: uyumluluk matrisi v2.6.0.0'ı yalnızca Türkçede listeliyordu, wiki ön sayfası matrisin bir kopyasını taşıyor ve iki betik olduğunu iddia ediyordu, açılış sayfası kök düzeyindeki dokuz yönetişim belgesinin hiçbirine bağlantı vermiyordu ve `index.html` artık 144 statik bloğu için tek bir `tr` kaynağı ile Google Fonts yerine 16px sistem yazı tipi yığını kullanıyor
+- Kodlama ve CI bütünlüğü: `CHANGELOG.md` ve `CODE_OF_CONDUCT.md` içindeki yok edilmiş Türkçe metin onarıldı, UTF-8 kapısına kayıp `?` kuralı eklendi, her iki iş akışında tam geçmiş çekildi ve ikinci konağın yorumlayıcısı sabitlendi
+- Bağlantı denetimi ve koruma hijyeni: bağlantı denetimi yalnızca projenin sahip olduğu bağlantılara ve yeniden denemelere taşındı, emekli yol yazımına ilişkin yanlış pozitif kaldırıldı
 
 ---
 

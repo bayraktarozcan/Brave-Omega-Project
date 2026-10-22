@@ -468,7 +468,7 @@ no longer have any effect.
 | `BlockThirdPartyCookies` | `1` | DWord | Blocks cross-site tracking cookies |
 | `PasswordManagerEnabled` | `0` | DWord | Disables built-in password saving |
 | `PasswordManagerPasskeysEnabled` | `0` | DWord | Disables passkey saving |
-| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | String | Blocks address, payment, identity-document, and travel autofill data |
+| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["all"]}]` | String | Blocks all autofill data types |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Shows full URLs (anti-phishing) |
 | `QuicAllowed` | `0` | DWord | Disables QUIC, falls back to TCP/TLS |
 | `ChromeVariations` | `1` | DWord | Critical field trials only |
@@ -605,7 +605,7 @@ BRAVE OMEGA PROJECT/
 │   │   ├── Advanced.json                  Tier 4 delta
 │   │   └── Strict.json                    Tier 5 delta
 │   └── Docs/
-│       └── Policy-Catalog.md              Generated policy catalog (EN + TR)
+│       └── Policy-Catalog.md              Policy catalog (EN + TR)
 ├── Enterprise/
 │   ├── levels.json                        Tier metadata for deployment
 │   ├── BraveOnly.reg … Strict.reg         Per-tier registry packages
@@ -1193,7 +1193,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `BlockThirdPartyCookies` | `1` | DWord | Siteler arası izleme çerezlerini engeller |
 | `PasswordManagerEnabled` | `0` | DWord | Yerleşik parola kaydetmeyi devre dışı bırakır |
 | `PasswordManagerPasskeysEnabled` | `0` | DWord | Passkey kaydetmeyi devre dışı bırakır |
-| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | String | Adres, ödeme, kimlik belgesi ve seyahat otomatik doldurma verilerini engeller |
+| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["all"]}]` | String | Tüm otomatik doldurma veri türlerini engeller |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Tam URL'leri gösterir (oltalamaya karşı) |
 | `QuicAllowed` | `0` | DWord | QUIC'i devre dışı bırakır, TCP/TLS'ye döner |
 | `ChromeVariations` | `1` | DWord | Yalnızca kritik alan denemeleri |
@@ -1331,7 +1331,7 @@ BRAVE OMEGA PROJECT/
 │   │   ├── Advanced.json                  4. kademe farkı
 │   │   └── Strict.json                    5. kademe farkı
 │   └── Docs/
-│       └── Policy-Catalog.md              Üretilen politika kataloğu (EN + TR)
+│       └── Policy-Catalog.md              Politika kataloğu (EN + TR)
 ├── Enterprise/
 │   ├── levels.json                        Dağıtım için kademe üstverisi
 │   ├── BraveOnly.reg … Strict.reg         Kademe başına kayıt defteri paketleri

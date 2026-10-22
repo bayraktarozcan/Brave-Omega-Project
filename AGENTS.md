@@ -459,7 +459,7 @@ from `git status` and `git diff`.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=bdff68d5e48d332d46bb3919a5938e31c1ba63cc -->
+<!-- mirror-sync: sync-sha=6fb3ae5b0e49fd2a3bd9e4db0fda581d050ccdf4 -->
 
 ---
 
@@ -474,7 +474,7 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 | `Brave-Omega/BraveOmega.ps1` | Unified EN/TR hardening script (single runtime entry point) |
 | `Brave-Omega/config.json` + `Brave-Omega/Profiles/*.json` | Policy data layer — the only place policy definitions change |
 | `Brave-Omega/Browsers/*.json` | Browser targets (Brave, Chrome): allowed origins, policy dirs, Windows registry roots |
-| `Brave-Omega/Docs/Policy-Catalog.md` | Per-policy catalog, generated from the script |
+| `Brave-Omega/Docs/Policy-Catalog.md` | Per-policy catalog, maintained against the script (not machine-generated) |
 | `Brave-Omega/Install-OmegaLinux.sh` | POSIX Linux installer (managed JSON policies) |
 | `Enterprise/` | Per-tier `.reg` packages + `levels.json` registry export |
 | `ADMX/` | Vendor-based ADMX templates + `ADMX-Validate.ps1` cross-reference validator |

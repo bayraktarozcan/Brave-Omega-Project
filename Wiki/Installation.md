@@ -233,7 +233,7 @@ BRAVE OMEGA PROJECT/
 │   │   ├── Advanced.json                  Tier 4 delta
 │   │   └── Strict.json                    Tier 5 delta
 │   └── Docs/
-│       └── Policy-Catalog.md              Generated policy catalog (EN + TR)
+│       └── Policy-Catalog.md              Policy catalog (EN + TR)
 ├── Enterprise/
 │   ├── levels.json                        Tier metadata for deployment
 │   ├── BraveOnly.reg … Strict.reg         Per-tier registry packages
@@ -510,7 +510,7 @@ BRAVE OMEGA PROJECT/
 │   │   ├── Advanced.json                  4. kademe farkı
 │   │   └── Strict.json                    5. kademe farkı
 │   └── Docs/
-│       └── Policy-Catalog.md              Üretilen politika kataloğu (EN + TR)
+│       └── Policy-Catalog.md              Politika kataloğu (EN + TR)
 ├── Enterprise/
 │   ├── levels.json                        Dağıtım için kademe üstverisi
 │   ├── BraveOnly.reg … Strict.reg         Kademe başına kayıt defteri paketleri

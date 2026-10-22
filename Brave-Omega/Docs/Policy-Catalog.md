@@ -17,10 +17,10 @@
 
 # Brave Omega — Policy Catalog
 
-> **Generated from:** `BraveOmega.ps1` v3.1.0.1 (bilingual EN/TR)  
-> **Date:** 2026-10-22  
-> **Total unique policies:** 149 (no overlaps)  
-> **Type distribution:** 121 DWord · 8 String · 19 MultiString · 1 ExpandString  
+> **Source:** `BraveOmega.ps1` v3.1.0.1 (bilingual EN/TR)\
+> **Date:** 2026-10-22\
+> **Total unique policies:** 149 (no overlaps)\
+> **Type distribution:** 121 DWord · 8 String · 19 MultiString · 1 ExpandString\
 > **Validated on:** V3 version-agnostic — all Brave + Chromium versions (no pinned validation target)
 
 ---
@@ -100,7 +100,7 @@
 | 55 | `BlockThirdPartyCookies` | DWord | `1` | Balanced | Windows | Cross-site tracking |
 | 56 | `PasswordManagerEnabled` | DWord | `0` | Balanced | Windows | Built-in password storage |
 | 57 | `PasswordManagerPasskeysEnabled` | DWord | `0` | Balanced | Windows | Passkey storage |
-| 58 | `AutofillSettings` | String | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | Balanced | Windows | Blocks address, payment, identity, and travel autofill data |
+| 58 | `AutofillSettings` | String | `[{"url_pattern":"*","blocked_types":["all"]}]` | Balanced | Windows | Blocks all autofill data types |
 | 59 | `ShowFullUrlsInAddressBar` | DWord | `1` | Balanced | Windows | Anti-phishing URL display |
 | 60 | `QuicAllowed` | DWord | `0` | Balanced | Windows | QUIC protocol |
 | 61 | `ChromeVariations` | DWord | `1` | Balanced | Windows | Critical field trials only |
@@ -254,10 +254,10 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega.ps1` v3.1.0.1 (iki dilli EN/TR)  
-> **Tarih:** 2026-10-22  
-> **Toplam benzersiz politika:** 149 (çakışma yok)  
-> **Tür dağılımı:** 121 DWord · 8 String · 19 MultiString · 1 ExpandString  
+> **Kaynak:** `BraveOmega.ps1` v3.1.0.1 (iki dilli EN/TR)\
+> **Tarih:** 2026-10-22\
+> **Toplam benzersiz politika:** 149 (çakışma yok)\
+> **Tür dağılımı:** 121 DWord · 8 String · 19 MultiString · 1 ExpandString\
 > **Doğrulandı:** V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri (sabit doğrulama hedefi yok)
 
 ---
@@ -337,7 +337,7 @@ All 24 BraveOnly policies are also applied on macOS and Linux, though the mechan
 | 55 | `BlockThirdPartyCookies` | DWord | `1` | Dengeli | Windows | Siteler arası izleme |
 | 56 | `PasswordManagerEnabled` | DWord | `0` | Dengeli | Windows | Yerleşik parola depolama |
 | 57 | `PasswordManagerPasskeysEnabled` | DWord | `0` | Dengeli | Windows | Passkey depolama |
-| 58 | `AutofillSettings` | String | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | Dengeli | Windows | Adres, ödeme, kimlik ve seyahat otomatik doldurma verilerini engeller |
+| 58 | `AutofillSettings` | String | `[{"url_pattern":"*","blocked_types":["all"]}]` | Dengeli | Windows | Tüm otomatik doldurma veri türlerini engeller |
 | 59 | `ShowFullUrlsInAddressBar` | DWord | `1` | Dengeli | Windows | Oltalama önleme URL gösterimi |
 | 60 | `QuicAllowed` | DWord | `0` | Dengeli | Windows | QUIC protokolü |
 | 61 | `ChromeVariations` | DWord | `1` | Dengeli | Windows | Yalnızca kritik alan denemeleri |
