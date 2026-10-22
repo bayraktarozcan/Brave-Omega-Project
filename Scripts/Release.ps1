@@ -394,9 +394,8 @@ Write-Step "7/7" "Creating GitLab release..."
 
 $glabArgs = @("release", "create", $Version, "--repo", $repo, "--name", "$Version - $Title")
 if ($NotesFile -and (Test-Path $NotesFile)) {
-    $notes = Get-Content $NotesFile -Raw
-    $glabArgs += "--notes"
-    $glabArgs += $notes
+    $glabArgs += "--notes-file"
+    $glabArgs += (Resolve-Path -LiteralPath $NotesFile).Path
 }
 
 if (-not $DryRun) {
