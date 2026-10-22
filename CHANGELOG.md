@@ -251,7 +251,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Changed
 
-- **`AutofillSettings`** — added to Balanced as a `String` policy: `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]`. The JSON value structures the Linux managed-policy render; Windows keeps it verbatim.
+- **`AutofillSettings`** — added to Balanced as a `String` policy: `[{"url_pattern":"*","blocked_types":["all"]}]`. Every autofill category is blocked, including `shopping`. The JSON value structures the Linux managed-policy render; Windows keeps it verbatim.
 - **`AutofillPredictionSettings`** — retained in Advanced as a documented exception: deprecated in M157, but its replacement `AutofillGenAiSettings` is absent from Brave's ADMX 154. The data-only ADMX scope is recorded in `Wiki/Rejected-Policies.md`.
 - **ADMX templates** — `SafeBrowsingExtendedReportingEnabled` removed from `Brave.admx`/`Brave.adml` (764→763 entries). The two deprecated Autofill definitions remain in the vendor snapshot and in the templates because they still function in Brave 154; the data layer no longer applies them.
 - **Counts** — profiles 24 / 26 / 31 / 40 / 28; cumulative chain 24 / 50 / 81 / 121 / 149; Brave total 149, Chrome 122; types 121 DWord / 8 String / 19 MultiString / 1 ExpandString.
@@ -2623,7 +2623,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Değişiklik
 
-- **`AutofillSettings`** — Dengeli'ye `String` politika olarak eklendi: `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]`. JSON değeri Linux yönetilen politika render'ını yapılandırır; Windows değeri olduğu gibi korur.
+- **`AutofillSettings`** — Dengeli'ye `String` politika olarak eklendi: `[{"url_pattern":"*","blocked_types":["all"]}]`. `shopping` dahil her otomatik doldurma kategorisi engellenir. JSON değeri Linux yönetilen politika render'ını yapılandırır; Windows değeri olduğu gibi korur.
 - **`AutofillPredictionSettings`** — Gelişmiş'te belgelenmiş istisna olarak korundu: M157'de kullanımdan kaldırıldı, ancak ikamesi `AutofillGenAiSettings` Brave'in ADMX 154 sürümünde yok. Veri katmanıyla sınırlı ADMX kapsamı `Wiki/Rejected-Policies.md` içinde kayıtlı.
 - **ADMX şablonları** — `SafeBrowsingExtendedReportingEnabled` `Brave.admx`/`Brave.adml` içinden çıkarıldı (764→763 girdi). İki kullanımdan kaldırılmış Autofill tanımı, Brave 154'te hâlâ çalıştıkları için satıcı anlık görüntüsünde ve şablonlarda kalıyor; veri katmanı artık onları uygulamıyor.
 - **Sayımlar** — profiller 24 / 26 / 31 / 40 / 28; kümülatif zincir 24 / 50 / 81 / 121 / 149; Brave toplamı 149, Chrome 122; türler 121 DWord / 8 String / 19 MultiString / 1 ExpandString.
