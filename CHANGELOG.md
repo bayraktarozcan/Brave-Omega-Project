@@ -217,8 +217,6 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Fixed
 
-**The Balanced tier's `AutofillSettings` policy now blocks every autofill data type.** The string previously blocked only `contact_info`, `identity_docs`, `travel`, and `payments`, leaving `shopping` enabled; it now uses `blocked_types: ["all"]` for every URL pattern, so no autofill category is filled or offered. Advanced and Strict inherit the value. Tier counts and the cumulative chain are unchanged at 31 and 24 → 50 → 81 → 121 → 149.
-
 **`Scripts/Release.ps1` deprecated the previous release only on GitHub, leaving the GitLab release title untouched.** The two hosts are a mirror, so deprecating one and not the other publishes two different release histories; the script now finds the previous release on GitLab through the API and applies the same `[DEPRECATED]` title, skipping the write on `-DryRun` and warning rather than aborting the release when the GitLab call fails. The already-published v3.1.0.0 GitLab release was corrected to match GitHub by hand.
 
 <a id="en-v3101"></a>
@@ -2588,8 +2586,6 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 <a id="tr-yayimlanmamis-duzeltildi"></a>
 
 ### Düzeltildi
-
-**Dengeli katmanındaki `AutofillSettings` politikası artık her otomatik doldurma veri türünü engelliyor.** Metin daha önce yalnızca `contact_info`, `identity_docs`, `travel` ve `payments` türlerini engelliyor, `shopping` türünü açık bırakıyordu; artık her URL kalıbı için `blocked_types: ["all"]` kullanıyor, böylece hiçbir otomatik doldurma kategorisi doldurulmuyor veya önerilmiyor. Gelişmiş ve Katı katmanları bu değeri devralır. Katman sayıları ve kümülatif zincir 31 ve 24 → 50 → 81 → 121 → 149 olarak değişmedi.
 
 **`Scripts/Release.ps1` önceki sürümü yalnızca GitHub'da deprecate ediyor, GitLab release başlığını olduğu gibi bırakıyordu.** İki konak bir aynadır, dolayısıyla birini deprecate edip diğerini etmemek iki farklı sürüm geçmişi yayınlar; betik artık GitLab'daki önceki sürümü API üzerinden bulup aynı `[DEPRECATED]` başlığını uyguluyor, `-DryRun` altında yazmayı atlıyor ve GitLab çağrısı başarısız olduğunda release'i durdurmak yerine uyarı veriyor. Yayınlanmış v3.1.0.0 GitLab release'i GitHub ile eşleşecek şekilde elle düzeltildi.
 

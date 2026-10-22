@@ -34,7 +34,7 @@ Complete version history for Brave Omega.
 
 **Changed:**
 
-- `AutofillSettings` added to Balanced as a `String` policy with the JSON value `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]`
+- `AutofillSettings` added to Balanced as a `String` policy with the JSON value `[{"url_pattern":"*","blocked_types":["all"]}]`; every autofill category is blocked, including `shopping`
 - `AutofillPredictionSettings` retained in Advanced as a documented exception: deprecated in M157, but its replacement `AutofillGenAiSettings` is absent from Brave's ADMX 154
 - Essential 51 → 50, Balanced 32 → 31, cumulative chain 24 / 50 / 81 / 121 / 149; Chrome Strict 124 → 122; ADMX policy entries 764 → 763
 - Version surfaces aligned to v3.1.0.1: README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `Enterprise/levels.json`, and test expectations; historical entries untouched
@@ -963,7 +963,7 @@ Brave Omega için tam sürüm geçmişi.
 
 **Değiştirilenler:**
 
-- `AutofillSettings` Dengeli'ye `String` politika olarak `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` JSON değeriyle eklendi
+- `AutofillSettings` Dengeli'ye `String` politika olarak `[{"url_pattern":"*","blocked_types":["all"]}]` JSON değeriyle eklendi; `shopping` dahil her otomatik doldurma kategorisi engellenir
 - `AutofillPredictionSettings` Gelişmiş'te belgelenmiş istisna olarak korundu: M157'de kullanımdan kaldırıldı, ancak ikamesi `AutofillGenAiSettings` Brave'in ADMX 154 sürümünde yok
 - Temel 51 → 50, Dengeli 32 → 31, kümülatif zincir 24 / 50 / 81 / 121 / 149; Chrome Katı 124 → 122; ADMX politika girdileri 764 → 763
 - Sürüm yüzeyleri v3.1.0.1 ile hizalandı: README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `Enterprise/levels.json` ve test beklentileri; tarihsel kayıtlar korundu
