@@ -4,8 +4,7 @@ Windows Registry Editor Version 5.00
 "AlternateErrorPagesEnabled"=dword:00000000
 "AudioCaptureAllowed"=dword:00000000
 "AudioSandboxEnabled"=dword:00000001
-"AutofillAddressEnabled"=dword:00000000
-"AutofillCreditCardEnabled"=dword:00000000
+"AutofillSettings"="[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
 "BackgroundModeEnabled"=dword:00000000
 "BlockThirdPartyCookies"=dword:00000001
 "BraveAIChatEnabled"=dword:00000000
@@ -63,7 +62,6 @@ Windows Registry Editor Version 5.00
 "QuicAllowed"=dword:00000000
 "RelaunchNotification"=dword:00000002
 "RelaunchNotificationPeriod"=dword:0036ee80
-"SafeBrowsingExtendedReportingEnabled"=dword:00000000
 "SafeBrowsingProtectionLevel"=dword:00000002
 "SafeBrowsingSurveysEnabled"=dword:00000000
 "ScreenCaptureAllowed"=dword:00000000

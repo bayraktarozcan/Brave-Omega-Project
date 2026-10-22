@@ -15,8 +15,8 @@ Describe "Policy Definitions Loading" -Tag "Unit" {
     It "has the expected incremental policy counts" {
         $expected = @{
             'BraveOnly' = 24
-            'Essential' = 27
-            'Balanced'  = 32
+            'Essential' = 26
+            'Balanced'  = 31
             'Advanced'  = 40
             'Strict'    = 28
         }
@@ -35,16 +35,40 @@ Describe "Policy Definitions Loading" -Tag "Unit" {
 }
 
 Describe "Cumulative Merge" -Tag "Unit" {
-    It "grows cumulative totals to 151 unique policies" {
+    It "grows cumulative totals to 149 unique policies and documents the tier chain" {
         $expected = @{
             'BraveOnly' = 24
-            'Essential' = 51
-            'Balanced'  = 83
-            'Advanced'  = 123
-            'Strict'    = 151
+            'Essential' = 50
+            'Balanced'  = 81
+            'Advanced'  = 121
+            'Strict'    = 149
         }
         foreach ($tier in $script:Order) {
             $script:Cumulative[$tier].Count | Should -BeExactly $expected[$tier]
+        }
+
+        $catalogPath = Join-Path (Split-Path -Parent $ScriptMain) 'Docs\Policy-Catalog.md'
+        $pattern = '^### .+ — (\d+) (?:policies|politika)(?: \(\+(\d+) = (\d+) (?:cumulative|kümülatif)\))?$'
+        $headings = @(
+            Get-Content -LiteralPath $catalogPath -Encoding UTF8 | Where-Object { $_ -match $pattern }
+        )
+        $headings.Count | Should -BeExactly (2 * $script:Order.Count)
+
+        for ($half = 0; $half -lt 2; $half++) {
+            for ($index = 0; $index -lt $script:Order.Count; $index++) {
+                $tier = $script:Order[$index]
+                $heading = [regex]::Match($headings[$half * $script:Order.Count + $index], $pattern)
+                $heading.Success | Should -Be $true
+                [int]$heading.Groups[1].Value | Should -BeExactly @($script:Definitions[$tier]).Count
+                if ($tier -eq 'BraveOnly') {
+                    $heading.Groups[3].Success | Should -Be $false
+                    continue
+                }
+                $heading.Groups[2].Success | Should -Be $true
+                $heading.Groups[3].Success | Should -Be $true
+                [int]$heading.Groups[2].Value | Should -BeExactly @($script:Definitions[$tier]).Count
+                [int]$heading.Groups[3].Value | Should -BeExactly $script:Cumulative[$tier].Count
+            }
         }
     }
 
@@ -173,8 +197,8 @@ Describe "Levels Json" -Tag "Unit" {
     }
 
     It "reports matching incremental and cumulative totals" {
-        $incremental = @{ 'BraveOnly'=24; 'Essential'=27; 'Balanced'=32; 'Advanced'=40; 'Strict'=28 }
-        $cumulative  = @{ 'BraveOnly'=24; 'Essential'=51; 'Balanced'=83; 'Advanced'=123; 'Strict'=151 }
+        $incremental = @{ 'BraveOnly'=24; 'Essential'=26; 'Balanced'=31; 'Advanced'=40; 'Strict'=28 }
+        $cumulative  = @{ 'BraveOnly'=24; 'Essential'=50; 'Balanced'=81; 'Advanced'=121; 'Strict'=149 }
         foreach ($tier in $script:Order) {
             $script:Json.perLevelIncremental.$tier | Should -BeExactly $incremental[$tier]
             $script:Json.cumulativeTotals.$tier    | Should -BeExactly $cumulative[$tier]
@@ -249,8 +273,8 @@ Describe "Full Export" -Tag "Integration" {
         $catalog = Get-Content -Path (Join-Path $script:OutDir 'levels.json') -Raw | ConvertFrom-Json
         $catalog.generatedBy  | Should -BeExactly 'Scripts/Export-PolicyCatalog.ps1'
         $catalog.scriptVersion | Should -Match '^v\d+\.\d+\.\d+\.\d+$'
-        $catalog.cumulativeTotals.Strict | Should -BeExactly 151
-        @($catalog.levels.Strict.policies).Count | Should -BeExactly 151
+        $catalog.cumulativeTotals.Strict | Should -BeExactly 149
+        @($catalog.levels.Strict.policies).Count | Should -BeExactly 149
     }
 
     It "fails loudly when expected counts are out of date" {

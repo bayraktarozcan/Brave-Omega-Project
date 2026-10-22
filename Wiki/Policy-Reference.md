@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v2.8.1.1 — **151 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v3.1.0.1 — **149 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
@@ -14,14 +14,14 @@ Complete policy reference for Brave Omega v2.8.1.1 — **151 enterprise policies
 | Level | Own Policies | HKCU | HKLM | Cumulative Total |
 | ------- | ---------- | ------ | ------ | ------------ |
 | **1. Brave Only** | 24 | — | 24 | Base |
-| **2. Essential** ⭐ | 27 | UsageStatsInSample | 51 | Includes Level 1 |
-| **3. Balanced** | 32 | UsageStatsInSample | 83 | Includes Levels 1-2 |
-| **4. Advanced** | 40 | UsageStatsInSample | 123 | Includes Levels 1-3 |
-| **5. Strict** | 28 | UsageStatsInSample | 151 | Includes Levels 1-4 |
+| **2. Essential** ⭐ | 26 | UsageStatsInSample | 50 | Includes Level 1 |
+| **3. Balanced** | 31 | UsageStatsInSample | 81 | Includes Levels 1-2 |
+| **4. Advanced** | 40 | UsageStatsInSample | 121 | Includes Levels 1-3 |
+| **5. Strict** | 28 | UsageStatsInSample | 149 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 151 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 149 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -60,12 +60,11 @@ Complete policy reference for Brave Omega v2.8.1.1 — **151 enterprise policies
 | `BraveShieldsEnabledForUrls` | `@()` | MultiString | No URLs force-enabled for Shields |
 | `EmailAliasesEnabled` | `0` | DWord | Disables Brave email aliases |
 
-### Essential Level — Brave Only + Data Leak Prevention (27 total)
+### Essential Level — Brave Only + Data Leak Prevention (26 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
 | `MetricsReportingEnabled` | `0` | DWord | Disables Chromium core metrics collection |
-| `SafeBrowsingExtendedReportingEnabled` | `0` | DWord | Stops extended site data to Google |
 | `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Stops URL data collection to Google |
 | `SearchSuggestEnabled` | `0` | DWord | Stops search suggestions data leakage |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Enables online OCSP/CRL revocation checks |
@@ -92,7 +91,7 @@ Complete policy reference for Brave Omega v2.8.1.1 — **151 enterprise policies
 | `ScreenCaptureAllowed` | `0` | DWord | Blocks web capture APIs (getDisplayMedia, etc.); Windows native tools still work |
 | `DownloadRestrictions` | `4` | DWord | Blocks only downloads verified as malicious; all other downloads proceed |
 
-### Balanced Level — Essential + Security Baseline (32 total)
+### Balanced Level — Essential + Security Baseline (31 total)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -103,8 +102,7 @@ Complete policy reference for Brave Omega v2.8.1.1 — **151 enterprise policies
 | `BlockThirdPartyCookies` | `1` | DWord | Blocks cross-site tracking cookies |
 | `PasswordManagerEnabled` | `0` | DWord | Disables built-in password saving |
 | `PasswordManagerPasskeysEnabled` | `0` | DWord | Disables passkey saving |
-| `AutofillAddressEnabled` | `0` | DWord | Disables address autofill |
-| `AutofillCreditCardEnabled` | `0` | DWord | Disables credit card autofill |
+| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | String | Blocks address, payment, identity and travel autofill |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Shows full URLs (anti-phishing) |
 | `QuicAllowed` | `0` | DWord | Disables QUIC, falls back to TCP/TLS |
 | `ChromeVariations` | `1` | DWord | Critical field trials only |
@@ -227,7 +225,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 151 policies should show as **Active** (green checkmark).
+All 149 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -264,7 +262,7 @@ All 151 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v2.8.1.1 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **151 kurumsal politika**.
+Brave Omega v3.1.0.1 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **149 kurumsal politika**.
 
 ---
 
@@ -273,14 +271,14 @@ Brave Omega v2.8.1.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | Seviye | Kendi Politikaları | HKCU | HKLM | Kümülatif Toplam |
 | -------- | ---------- | ------ | ------ | ----------- |
 | **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
-| **2. Temel** ⭐ | 27 | UsageStatsInSample | 51 | 1. Seviyeyi kapsar |
-| **3. Dengeli** | 32 | UsageStatsInSample | 83 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 40 | UsageStatsInSample | 123 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 28 | UsageStatsInSample | 151 | 1-4. Seviyeleri kapsar |
+| **2. Temel** ⭐ | 26 | UsageStatsInSample | 50 | 1. Seviyeyi kapsar |
+| **3. Dengeli** | 31 | UsageStatsInSample | 81 | 1-2. Seviyeleri kapsar |
+| **4. Gelişmiş** | 40 | UsageStatsInSample | 121 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 28 | UsageStatsInSample | 149 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 151 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 149 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -319,12 +317,11 @@ Brave Omega v2.8.1.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `BraveShieldsEnabledForUrls` | `@()` | MultiString | Kalkanları zorla etkinleştirilen URL yok |
 | `EmailAliasesEnabled` | `0` | DWord | Brave e-posta takma adlarını devre dışı bırakır |
 
-### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (27 toplam)
+### Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (26 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
 | `MetricsReportingEnabled` | `0` | DWord | Chromium temel ölçüm toplamayı devre dışı bırakır |
-| `SafeBrowsingExtendedReportingEnabled` | `0` | DWord | Google'a genişletilmiş site verisi raporlamasını durdurur |
 | `UrlKeyedAnonymizedDataCollectionEnabled` | `0` | DWord | Google'a URL verisi toplamayı durdurur |
 | `SearchSuggestEnabled` | `0` | DWord | Arama önerileri veri sızıntısını durdurur |
 | `EnableOnlineRevocationChecks` | `1` | DWord | Çevrimiçi OCSP/CRL iptal kontrollerini etkinleştirir |
@@ -351,7 +348,7 @@ Brave Omega v2.8.1.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `ScreenCaptureAllowed` | `0` | DWord | Web yakalama API'lerini engeller (getDisplayMedia vb.); Windows yerel araçları hâlâ çalışır |
 | `DownloadRestrictions` | `4` | DWord | Yalnızca kötü amaçlı olduğu doğrulanan indirmeleri engeller; diğer tüm indirmeler ilerler |
 
-### Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (32 toplam)
+### Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (31 toplam)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -362,8 +359,7 @@ Brave Omega v2.8.1.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `BlockThirdPartyCookies` | `1` | DWord | Siteler arası izleme çerezlerini engeller |
 | `PasswordManagerEnabled` | `0` | DWord | Yerleşik parola kaydetmeyi devre dışı bırakır |
 | `PasswordManagerPasskeysEnabled` | `0` | DWord | Passkey kaydetmeyi devre dışı bırakır |
-| `AutofillAddressEnabled` | `0` | DWord | Adres otomatik doldurmayı devre dışı bırakır |
-| `AutofillCreditCardEnabled` | `0` | DWord | Kredi kartı otomatik doldurmayı devre dışı bırakır |
+| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | String | Adres, ödeme, kimlik ve seyahat otomatik doldurmayı engeller |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Tam URL'leri gösterir (oltalamaya karşı) |
 | `QuicAllowed` | `0` | DWord | QUIC'i devre dışı bırakır, TCP/TLS'ye döner |
 | `ChromeVariations` | `1` | DWord | Yalnızca kritik alan denemeleri |
@@ -486,7 +482,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-151 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+149 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

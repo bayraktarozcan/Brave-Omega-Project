@@ -1,4 +1,4 @@
-# Invariant: a compatibility matrix never names a release the changelog does
+﻿# Invariant: a compatibility matrix never names a release the changelog does
 # not hold, and the row it calls current is the row the script describes.
 #
 # Measured across the tree before this file existed: one table, four copies -
@@ -328,7 +328,7 @@ Describe "Version compatibility matrix" -Tag "Unit" {
             $table = @(
                 '| Brave Omega | Brave Version | Chromium | Windows | Status |',
                 '| ------------- | --------------- | ---------- | --------- | -------- |',
-                '| **v3.1.0.0** *(current)* | all | all | 11 | Current |'
+                '| **v3.1.0.1** *(current)* | all | all | 11 | Current |'
             )
             $versions = Get-MatrixRowVersions -Table $table
 

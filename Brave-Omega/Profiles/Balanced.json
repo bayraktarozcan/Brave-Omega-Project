@@ -53,16 +53,9 @@
                          "platforms":  ["windows", "linux"]
                      },
                      {
-                         "name":  "AutofillAddressEnabled",
-                         "type":  "DWord",
-                         "value":  0,
-                         "origin":  "chromium",
-                         "platforms":  ["windows", "linux"]
-                     },
-                     {
-                         "name":  "AutofillCreditCardEnabled",
-                         "type":  "DWord",
-                         "value":  0,
+                         "name":  "AutofillSettings",
+                         "type":  "String",
+                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]",
                          "origin":  "chromium",
                          "platforms":  ["windows", "linux"]
                      },

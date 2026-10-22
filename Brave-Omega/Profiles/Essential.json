@@ -9,13 +9,6 @@
                          "platforms":  ["windows", "linux"]
                      },
                      {
-                         "name":  "SafeBrowsingExtendedReportingEnabled",
-                         "type":  "DWord",
-                         "value":  0,
-                         "origin":  "chromium",
-                         "platforms":  ["windows", "linux"]
-                     },
-                     {
                          "name":  "UrlKeyedAnonymizedDataCollectionEnabled",
                          "type":  "DWord",
                          "value":  0,

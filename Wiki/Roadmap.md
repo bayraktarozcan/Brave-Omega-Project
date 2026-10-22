@@ -11,17 +11,17 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v3.1.0.0** — *Windows Chrome target* (2026-10-09)
+**v3.1.0.1** — *Deprecated Chromium policies replaced* (2026-10-22)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28); `-Browser`/`-Tarayici` selection with Brave default; Chrome runs resolve Google hives, Omaha GUIDs, and `chrome.exe` detection with Brave-only policies skipped by origin. Cumulative chain: 24→51→83→123→151.
+Current release: 149 policies across 5 hardening tiers (Brave Only 24 / Essential 26 / Balanced 31 / Advanced 40 / Strict 28); deprecated Safe Browsing and Autofill policies replaced by supported equivalents; Chrome Strict 124 → 122. Cumulative chain: 24→50→81→121→149.
 
 ---
 
 ## Previous Version
 
-**v3.0.2.0** — *Linux support and generic Chromium profiles* (2026-10-08)
+**v3.1.0.0** — *Windows Chrome target* (2026-10-09)
 
-Current release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases; per-policy origin/platform tags, brave+chrome browser profiles, managed JSON renderer and POSIX installer. Cumulative chain: 24→51→83→123→151.
+Previous release: 151 policies across 5 hardening tiers (Brave Only 24 / Essential 27 / Balanced 32 / Advanced 40 / Strict 28), version-agnostic across all Brave + Chromium releases; per-policy origin/platform tags, brave+chrome browser profiles, managed JSON renderer and POSIX installer. Cumulative chain: 24→51→83→123→151.
 
 ---
 
@@ -262,15 +262,15 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v3.1.0.0** — *Windows Chrome hedefi* (2026-10-09)
+**v3.1.0.1** — *Kullanımdan kaldırılmış Chromium politikaları değiştirildi* (2026-10-22)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28); `-Browser`/`-Tarayici` seçimi Brave varsayılanlı; Chrome koşuları Google kovanlarını, Omaha GUID'lerini ve `chrome.exe` tespitini çözer, Brave'e özgü politikalar origin etiketiyle atlanır. Kümülatif zincir: 24→51→83→123→151.
+Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 24 / Temel 26 / Dengeli 31 / Gelişmiş 40 / Katı 28); kullanımdan kaldırılmış Safe Browsing ve Autofill politikaları desteklenen eşdeğerleriyle değiştirildi; Chrome Strict 124 → 122. Kümülatif zincir: 24→50→81→121→149.
 
 ---
 
 ## Önceki Sürüm
 
-**v3.0.2.0** — *Linux desteği ve genel Chromium profilleri* (2026-10-08)
+**v3.1.0.0** — *Windows Chrome hedefi* (2026-10-09)
 
 Önceki sürüm: 5 sıkılaştırma katmanında 151 politika (Brave Yalnız 24 / Temel 27 / Dengeli 32 / Gelişmiş 40 / Katı 28), tüm Brave + Chromium sürümlerinde sürüm-bağımsız; politika başına origin/platform etiketi, brave+chrome tarayıcı profilleri, yönetilen JSON üreteci ve POSIX kurucu. Kümülatif zincir: 24→51→83→123→151.
 

@@ -147,7 +147,6 @@ function Get-OmegaTierPolicyNames {
             "NetworkPredictionOptions"
             "PaymentMethodQueryEnabled"
             "ProxySettings"
-            "SafeBrowsingExtendedReportingEnabled"
             "SafeBrowsingSurveysEnabled"
             "ScreenCaptureAllowed"
             "SearchSuggestEnabled"
@@ -160,8 +159,7 @@ function Get-OmegaTierPolicyNames {
         )
         "Balanced" = @(
             "AudioSandboxEnabled"
-            "AutofillAddressEnabled"
-            "AutofillCreditCardEnabled"
+            "AutofillSettings"
             "BlockThirdPartyCookies"
             "BraveSyncUrl"
             "ChromeVariations"

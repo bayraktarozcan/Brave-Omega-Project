@@ -37,8 +37,8 @@ BeforeAll {
 }
 
 Describe "Registry Type Distribution" -Tag "Integration" {
-    It "resolves 151 unique policies from the data layer" {
-        $script:Effective.Count | Should -BeExactly 151
+    It "resolves 149 unique policies from the data layer" {
+        $script:Effective.Count | Should -BeExactly 149
     }
 
     It "uses only registry types the writer supports" {
@@ -100,12 +100,12 @@ Describe "Registry Type Reporting" -Tag "Integration" {
 
 Describe "Catalog Type Distribution Documentation" -Tag "Integration" {
     It "states the real distribution in the EN header" {
-        $expected = '124 DWord ' + [char]0x00B7 + ' 7 String ' + [char]0x00B7 + ' 19 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
+        $expected = '121 DWord ' + [char]0x00B7 + ' 8 String ' + [char]0x00B7 + ' 19 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
         $script:Catalog -match [regex]::Escape('**Type distribution:** ' + $expected) | Should -Be $true
     }
 
     It "states the real distribution in the TR header" {
-        $expected = '124 DWord ' + [char]0x00B7 + ' 7 String ' + [char]0x00B7 + ' 19 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
+        $expected = '121 DWord ' + [char]0x00B7 + ' 8 String ' + [char]0x00B7 + ' 19 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
         $label = '**T' + [char]0x00FC + 'r da' + [char]0x011F + [char]0x0131 + 'l' + [char]0x0131 + 'm' + [char]0x0131 + ':** '
         $script:Catalog -match [regex]::Escape($label + $expected) | Should -Be $true
     }
@@ -118,8 +118,10 @@ Describe "Catalog Type Distribution Documentation" -Tag "Integration" {
         }
     }
 
-    It "no longer folds ExpandString into the String count" {
-        $script:Catalog -match '124 DWord ' + [regex]::Escape([string][char]0x00B7) + ' 8 String' | Should -Be $false
+    It "does not fold ExpandString into the String count" {
+        $script:Actual['String'] | Should -BeExactly 8
+        $script:Actual['ExpandString'] | Should -BeExactly 1
+        $script:Catalog -match '121 DWord ' + [regex]::Escape([string][char]0x00B7) + ' 7 String' | Should -Be $false
     }
 
     It "types every catalog policy row the way the data layer does" {

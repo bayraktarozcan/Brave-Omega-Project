@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <policyDefinitions revision="1.0" schemaVersion="1.0">
   <!--brave version: 154.1.98.28-->
-  <!--Brave Omega: BraveLocalAIEnabled and PsstEnabled removed from the upstream
-  154.1.98.28 template. Both are inactive in Brave and do not function;
-  shipping them produced unknown-policy entries in brave://policy/.
+  <!--Brave Omega: BraveLocalAIEnabled, PsstEnabled, and
+  SafeBrowsingExtendedReportingEnabled are removed from this copy of the
+  upstream 154.1.98.28 template. The first two are inactive in Brave; the
+  third was removed from Chromium in M145, so Brave ignores it. Shipping
+  them produced unknown-policy entries in brave://policy/.
   Rationale: Wiki/Rejected-Policies.md. Re-verify before restoring.-->
   <policyNamespaces>
     <target namespace="BraveSoftware.Policies.Brave" prefix="brave"/>
@@ -7861,16 +7863,6 @@
       </elements>
     </policy>
     <policy class="Both" displayName="$(string.SafeBrowsingDeepScanningEnabled)" explainText="$(string.SafeBrowsingDeepScanningEnabled_Explain)" key="Software\Policies\BraveSoftware\Brave" name="SafeBrowsingDeepScanningEnabled" presentation="$(presentation.SafeBrowsingDeepScanningEnabled)" valueName="SafeBrowsingDeepScanningEnabled">
-      <parentCategory ref="SafeBrowsing"/>
-      <supportedOn ref="SUPPORTED_WIN7"/>
-      <enabledValue>
-        <decimal value="1"/>
-      </enabledValue>
-      <disabledValue>
-        <decimal value="0"/>
-      </disabledValue>
-    </policy>
-    <policy class="Both" displayName="$(string.SafeBrowsingExtendedReportingEnabled)" explainText="$(string.SafeBrowsingExtendedReportingEnabled_Explain)" key="Software\Policies\BraveSoftware\Brave" name="SafeBrowsingExtendedReportingEnabled" presentation="$(presentation.SafeBrowsingExtendedReportingEnabled)" valueName="SafeBrowsingExtendedReportingEnabled">
       <parentCategory ref="SafeBrowsing"/>
       <supportedOn ref="SUPPORTED_WIN7"/>
       <enabledValue>

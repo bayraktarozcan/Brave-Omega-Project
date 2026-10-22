@@ -459,7 +459,7 @@ from `git status` and `git diff`.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=d2d5bd1dfad6301d08f549d6c8a055a3caa8ed5a -->
+<!-- mirror-sync: sync-sha=bdff68d5e48d332d46bb3919a5938e31c1ba63cc -->
 
 ---
 
@@ -490,11 +490,11 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v3.1.0.0` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v3.1.0.1` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | _(unpinned — detected at runtime)_ | `$ValidatedBrave` (populated from install; V3 never blocks) |
 | Chromium | _(unpinned — detected at runtime)_ | `$ValidatedChromium` (populated from install; V3 never blocks) |
 
-Policy totals: 151 across 5 tiers; cumulative chain `24 → 51 → 83 → 123 → 151` (Brave; Chrome keeps the 124 chromium-origin policies).
+Policy totals: 149 across 5 tiers; cumulative chain `24 → 50 → 81 → 121 → 149` (Brave; Chrome keeps the 122 chromium-origin policies).
 
 Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = bug fixes, Minor = security patches and improvements, Major = features, Version = major additions. Runtime and build dependencies are pinned (`Pester 5.7.1`); dev tooling may use flexible ranges.
 
@@ -513,7 +513,7 @@ Run from the repository root (`pwsh` 7.6.7 when present, otherwise Windows Power
 Invoke-Pester Tests/ -PassThru          # expected: 392/392 passing
 
 # ADMX cross-reference
-& "ADMX/ADMX-Validate.ps1"              # expected: PASS - 151/151
+& "ADMX/ADMX-Validate.ps1"              # expected: PASS - 149/149
 
 # PSScriptAnalyzer (exclude list is an array; a comma-joined string is silently
 # accepted and then ignored, so pass a real array)

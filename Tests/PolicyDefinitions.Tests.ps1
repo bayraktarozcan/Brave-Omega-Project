@@ -37,8 +37,8 @@ Describe "Policy Definitions" -Tag "Unit" {
     It "should have correct policy counts per tier from data layer" {
         $expectedCounts = @{
             "BraveOnly" = 24
-            "Essential" = 27
-            "Balanced"  = 32
+            "Essential" = 26
+            "Balanced"  = 31
             "Advanced"  = 40
             "Strict"    = 28
         }
@@ -48,8 +48,8 @@ Describe "Policy Definitions" -Tag "Unit" {
         }
     }
 
-    It "should have 151 total policy definitions (data layer)" {
+    It "should have 149 total policy definitions (data layer)" {
         $lines = Get-PolicyLines -ScriptPath $ScriptMain
-        $lines.Count | Should -BeExactly 151
+        $lines.Count | Should -BeExactly 149
     }
 }

@@ -6,9 +6,8 @@ Windows Registry Editor Version 5.00
 "AlwaysOpenPdfExternally"=dword:00000001
 "AudioCaptureAllowed"=dword:00000000
 "AudioSandboxEnabled"=dword:00000001
-"AutofillAddressEnabled"=dword:00000000
-"AutofillCreditCardEnabled"=dword:00000000
 "AutofillPredictionSettings"=dword:00000002
+"AutofillSettings"="[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
 "BackgroundModeEnabled"=dword:00000000
 "BlockExternalExtensions"=dword:00000001
 "BlockThirdPartyCookies"=dword:00000001
@@ -109,7 +108,6 @@ Windows Registry Editor Version 5.00
 "RelaunchNotificationPeriod"=dword:0036ee80
 "RendererAppContainerEnabled"=dword:00000001
 "SafeBrowsingDeepScanningEnabled"=dword:00000001
-"SafeBrowsingExtendedReportingEnabled"=dword:00000000
 "SafeBrowsingProtectionLevel"=dword:00000002
 "SafeBrowsingSurveysEnabled"=dword:00000000
 "ScreenCaptureAllowed"=dword:00000000

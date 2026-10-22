@@ -22,12 +22,12 @@ Describe 'Linux managed-JSON renderer' -Tag 'Unit' {
         $r.ExitCode | Should -Not -Be 0 -Because 'an unknown browser has no profile and no policy directory'
     }
 
-    It 'renders 151 keys for brave Strict on linux' {
+    It 'renders 149 keys for brave Strict on linux' {
         $r = Invoke-OmegaRenderer @('--browser', 'brave', '--tier', 'Strict', '--platform', 'linux')
         $r.ExitCode | Should -Be 0
         ($r.Output | ConvertFrom-Json).PSObject.Properties |
             Measure-Object | Select-Object -ExpandProperty Count |
-            Should -Be 151
+            Should -Be 149
     }
 
     It 'renders exactly the chromium-origin set for chrome' {
@@ -36,7 +36,7 @@ Describe 'Linux managed-JSON renderer' -Tag 'Unit' {
         $keys = @((($r.Output | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $_.Name }))
         $brave = @('BraveAIChatEnabled', 'TorDisabled', 'EmailAliasesEnabled', 'DefaultBraveAdblockSetting')
         foreach ($name in $brave) { $keys | Should -Not -Contain $name }
-        $keys.Count | Should -Be 124
+        $keys.Count | Should -Be 122
     }
 
     It 'prefers platform values per platform' {

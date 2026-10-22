@@ -37,7 +37,6 @@ Windows Registry Editor Version 5.00
 "PasswordProtectionWarningTrigger"=dword:00000003
 "PaymentMethodQueryEnabled"=dword:00000000
 "ProxySettings"="{\"ProxyMode\":\"system\"}"
-"SafeBrowsingExtendedReportingEnabled"=dword:00000000
 "SafeBrowsingProtectionLevel"=dword:00000002
 "SafeBrowsingSurveysEnabled"=dword:00000000
 "ScreenCaptureAllowed"=dword:00000000

@@ -12,8 +12,8 @@
 
 | Metric | Count |
 |--------|-------|
-| Total policies ever removed/rejected | 35 |
-| Deprecated by Chromium/Chrome | 9 |
+| Total policies ever removed/rejected | 38 |
+| Deprecated by Chromium/Chrome | 12 |
 | Blocked by Brave | 3 |
 | Unrecognized by Brave | 12 |
 | Redundant (superseded) | 2 |
@@ -28,8 +28,8 @@
 >
 > | Metrik | Sayı |
 > |--------|------|
-> | Toplam kaldırılan/reddedilen politika | 35 |
-> | Chromium/Chrome tarafından kademeli olarak kaldırılan | 9 |
+> | Toplam kaldırılan/reddedilen politika | 38 |
+> | Chromium/Chrome tarafından kademeli olarak kaldırılan | 12 |
 > | Brave tarafından engellenen | 3 |
 > | Brave tarafından tanınmayan | 12 |
 > | Gereksiz (yerine geçen) | 2 |
@@ -304,10 +304,10 @@
 | **Version Added** | v2.4.0.0 (2026-07-11) |
 | **Version Removed** | v2.4.1.0 (2026-07-12) |
 | **Tier at Removal** | Balanced |
-| **Reason** | Deprecated in recent Chromium — master autofill toggle now controlled by `AutofillAddressEnabled` and `AutofillCreditCardEnabled` |
+| **Reason** | Deprecated in recent Chromium — master autofill toggle was controlled by `AutofillAddressEnabled` and `AutofillCreditCardEnabled`, both later replaced by `AutofillSettings` in v3.1.0.1 |
 | **Category** | Form data / Privacy |
 | **Was in Production** | Yes (v2.4.0.0 only) |
-| **Notes** | Was added in Phase 9 to disable the master autofill toggle. Redundant because `AutofillAddressEnabled=0` and `AutofillCreditCardEnabled=0` (already in Balanced tier since v2.0) provide the same coverage. Removed in the v2.4.1.0 cleanup after runtime verification. |
+| **Notes** | Was added in Phase 9 to disable the master autofill toggle. Redundant because `AutofillAddressEnabled=0` and `AutofillCreditCardEnabled=0` (already in Balanced tier since v2.0) provide the same coverage. Removed in the v2.4.1.0 cleanup after runtime verification. Both successors were themselves deprecated at M156 and replaced by one `AutofillSettings` string policy in v3.1.0.1. |
 
 > 🇹🇷 **Türkçe:**
 >
@@ -317,10 +317,10 @@
 > | **Eklendiği Sürüm** | v2.4.0.0 (2026-07-11) |
 > | **Kaldırıldığı Sürüm** | v2.4.1.0 (2026-07-12) |
 > | **Kaldırıldığı Katman** | Balanced |
-> | **Neden** | Son Chromium sürümlerinde kademeli olarak kaldırıldı — ana otomatik doldurma anahtarı artık `AutofillAddressEnabled` ve `AutofillCreditCardEnabled` tarafından kontrol ediliyor |
+> | **Neden** | Son Chromium sürümlerinde kademeli olarak kaldırıldı — ana otomatik doldurma anahtarı `AutofillAddressEnabled` ve `AutofillCreditCardEnabled` tarafından kontrol ediliyordu; ikisi de v3.1.0.1'de `AutofillSettings` ile değiştirildi |
 > | **Kategori** | Form verisi / Gizlilik |
 > | **Üretimde Oldu mu** | Evet (yalnızca v2.4.0.0) |
-> | **Notlar** | Ana otomatik doldurma anahtarını devre dışı bırakmak için Faz 9'da eklendi. `AutofillAddressEnabled=0` ve `AutofillCreditCardEnabled=0` (v2.0'dan beri Balanced katmanında) aynı kapsamı sağladığı için gereksiz. Çalışma zamanı doğrulamasından sonra v2.4.1.0 temizliğinde kaldırıldı. |
+> | **Notlar** | Ana otomatik doldurma anahtarını devre dışı bırakmak için Faz 9'da eklendi. `AutofillAddressEnabled=0` ve `AutofillCreditCardEnabled=0` (v2.0'dan beri Balanced katmanında) aynı kapsamı sağladığı için gereksiz. Çalışma zamanı doğrulamasından sonra v2.4.1.0 temizliğinde kaldırıldı. Bu iki ardıl politika da M156'da kademeli olarak kaldırıldı ve v3.1.0.1'de tek bir `AutofillSettings` metin politikasıyla değiştirildi. |
 
 ---
 
@@ -869,6 +869,78 @@
 > | **Üretimde Oldu mu** | Hayır — `BraveOmega.ps1`, `config.json` veya herhangi bir profil tarafından yönetilmedi |
 > | **Notlar** | Privacy Settings Tuning Tool ana anahtarı (DWord: 1 = etkin). Politika kullanıcılara yalnızca `ADMX/Brave.admx` ve `ADMX/Brave.adml` içindeki bir tanım olarak ulaştı; proje onu hiç ayarlamadı, dolayısıyla çalışmayan bir kontrolü tanıtırken hiçbir sıkılaştırma sağlamadı. Çapraz referans doğrulayıcısı onu her çalıştırmada betikte bulunmayan Brave'e özgü politika olarak raporluyordu. v2.8.1.1 `<policy>` bloğunu, string kaynaklarını ve presentation referansını siler; bu, `BraveLocalAIEnabled` ile aynı işlemdir. Katman toplamları değişmez — proje toplamı 151 olarak kalır. |
 
+### 31. SafeBrowsingExtendedReportingEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `SafeBrowsingExtendedReportingEnabled` |
+| **Version Removed** | v3.1.0.1 (2026-10-22) |
+| **Tier at Removal** | Essential |
+| **Reason** | Deprecated by Chromium in v66 and removed in M145 — current Brave logs it as an unknown policy and it has no effect |
+| **Category** | Deprecated by Chromium/Chrome |
+| **Was in Production** | Yes (Essential tier) |
+| **Notes** | Chrome Enterprise lists the policy for Chrome 66–144 as deprecated, ineffective from M145, and states that Safe Browsing Extended Reporting was removed from Chrome. Brave reports it as `"Bilinmeyen politika."` while storing value 0. Removed from `Essential.json`, deployment detection, ADMX/ADML, the policy catalog, and all generated artifacts. Essential drops 27 → 26 and the project total 151 → 150; cumulative chain 24 → 50 → 82 → 122 → 150; Chrome Strict 124 → 123; ADMX entries 764 → 763. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `SafeBrowsingExtendedReportingEnabled` |
+> | **Kaldırıldığı Sürüm** | v3.1.0.1 (2026-10-22) |
+> | **Kaldırıldığı Katman** | Temel |
+> | **Neden** | Chromium v66'da kademeli olarak kaldırıldı ve M145'te silindi — güncel Brave onu bilinmeyen politika olarak günlüğe yazıyor ve etkisi bulunmuyor |
+> | **Kategori** | Chromium/Chrome tarafından kademeli olarak kaldırılan |
+> | **Üretimde Oldu mu** | Evet (Temel katmanı) |
+> | **Notlar** | Chrome Enterprise politikayı Chrome 66–144 için kademeli olarak kaldırılmış, M145'ten itibaren etkisiz olarak listeliyor ve Safe Browsing Genişletilmiş Raporlama'nın Chrome'dan kaldırıldığını belirtiyor. Brave değeri 0 olarak saklarken politikayı `"Bilinmeyen politika."` olarak raporluyor. `Essential.json`, dağıtım tespiti, ADMX/ADML, politika kataloğu ve tüm üretilen yapıtlardan çıkarıldı. Temel 27 → 26, proje toplamı 151 → 150; kümülatif zincir 24 → 50 → 82 → 122 → 150; Chrome Katı 124 → 123; ADMX girdileri 764 → 763. |
+
+### 32. AutofillAddressEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `AutofillAddressEnabled` |
+| **Version Removed** | v3.1.0.1 (2026-10-22) |
+| **Tier at Removal** | Balanced |
+| **Reason** | Deprecated by Chromium in M156 — replaced by `AutofillSettings` |
+| **Category** | Deprecated by Chromium/Chrome |
+| **Was in Production** | Yes (Balanced tier) |
+| **Notes** | Deprecated in Chromium's policy definitions at M156. This entry covers the address switch; `AutofillCreditCardEnabled` below covers the card switch, and the two are replaced by one `AutofillSettings` string policy. The replacement blocks `contact_info`, `identity_docs`, `travel`, and `payments` for every URL pattern; `shopping` remains allowed. Brave ADMX 154 still contains the vendor definition and the policy still functions in Brave 154.1.98.28, so `ADMX/Brave.admx` and `ADMX/Brave.adml` stay unchanged as a vendor snapshot; the project stops applying the policy only. Balanced 32 → 31; project total 150 → 149; cumulative chain 24 → 50 → 81 → 121 → 149; Chrome Strict 123 → 122; ADMX entries remain 763. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `AutofillAddressEnabled` |
+> | **Kaldırıldığı Sürüm** | v3.1.0.1 (2026-10-22) |
+> | **Kaldırıldığı Katman** | Dengeli |
+> | **Neden** | Chromium tarafından M156'da kademeli olarak kaldırıldı — yerine `AutofillSettings` geçti |
+> | **Kategori** | Chromium/Chrome tarafından kademeli olarak kaldırılan |
+> | **Üretimde Oldu mu** | Evet (Dengeli katmanı) |
+> | **Notlar** | Chromium politika tanımlarında M156'da kademeli olarak kaldırıldı. Bu kayıt adres anahtarını kapsar; kart anahtarını aşağıdaki `AutofillCreditCardEnabled` kaydı kapsar ve ikisi tek bir `AutofillSettings` metin politikasıyla değiştirilir. Yeni politika tüm URL kalıpları için `contact_info`, `identity_docs`, `travel` ve `payments` türlerini engeller; `shopping` izinli kalır. Brave ADMX 154 satıcı tanımını hâlâ içeriyor ve politika Brave 154.1.98.28 üzerinde hâlâ çalışıyor; bu nedenle `ADMX/Brave.admx` ve `ADMX/Brave.adml` satıcı anlık görüntüsü olarak değiştirilmeden bırakılır, proje yalnızca politikayı uygulamayı durdurur. Dengeli 32 → 31; proje toplamı 150 → 149; kümülatif zincir 24 → 50 → 81 → 121 → 149; Chrome Katı 123 → 122; ADMX girdileri 763 olarak kalır. |
+
+### 33. AutofillCreditCardEnabled
+
+| Field | Value |
+|-------|-------|
+| **Policy Name** | `AutofillCreditCardEnabled` |
+| **Version Removed** | v3.1.0.1 (2026-10-22) |
+| **Tier at Removal** | Balanced |
+| **Reason** | Deprecated by Chromium in M156 — replaced by `AutofillSettings` |
+| **Category** | Deprecated by Chromium/Chrome |
+| **Was in Production** | Yes (Balanced tier) |
+| **Notes** | Deprecated in Chromium's policy definitions at M156. This entry covers the card switch; `AutofillAddressEnabled` above covers the address switch, and the two are replaced by one `AutofillSettings` string policy. The replacement blocks `contact_info`, `identity_docs`, `travel`, and `payments` for every URL pattern; `shopping` remains allowed. Brave ADMX 154 still contains the vendor definition and the policy still functions in Brave 154.1.98.28, so `ADMX/Brave.admx` and `ADMX/Brave.adml` stay unchanged as a vendor snapshot; the project stops applying the policy only. Balanced 32 → 31; project total 150 → 149; cumulative chain 24 → 50 → 81 → 121 → 149; Chrome Strict 123 → 122; ADMX entries remain 763. |
+
+> 🇹🇷 **Türkçe:**
+>
+> | Alan | Değer |
+> |------|-------|
+> | **Politika Adı** | `AutofillCreditCardEnabled` |
+> | **Kaldırıldığı Sürüm** | v3.1.0.1 (2026-10-22) |
+> | **Kaldırıldığı Katman** | Dengeli |
+> | **Neden** | Chromium tarafından M156'da kademeli olarak kaldırıldı — yerine `AutofillSettings` geçti |
+> | **Kategori** | Chromium/Chrome tarafından kademeli olarak kaldırılan |
+> | **Üretimde Oldu mu** | Evet (Dengeli katmanı) |
+> | **Notlar** | Chromium politika tanımlarında M156'da kademeli olarak kaldırıldı. Bu kayıt kart anahtarını kapsar; adres anahtarını yukarıdaki `AutofillAddressEnabled` kaydı kapsar ve ikisi tek bir `AutofillSettings` metin politikasıyla değiştirilir. Yeni politika tüm URL kalıpları için `contact_info`, `identity_docs`, `travel` ve `payments` türlerini engeller; `shopping` izinli kalır. Brave ADMX 154 satıcı tanımını hâlâ içeriyor ve politika Brave 154.1.98.28 üzerinde hâlâ çalışıyor; bu nedenle `ADMX/Brave.admx` ve `ADMX/Brave.adml` satıcı anlık görüntüsü olarak değiştirilmeden bırakılır, proje yalnızca politikayı uygulamayı durdurur. Dengeli 32 → 31; proje toplamı 150 → 149; kümülatif zincir 24 → 50 → 81 → 121 → 149; Chrome Katı 123 → 122; ADMX girdileri 763 olarak kalır. |
+
 ---
 
 ## Policies Moved (Not Removed)
@@ -1008,6 +1080,11 @@ v2.8.1.1 (2026-09-26) — BraveLocalAIEnabled removed from ADMX/ADML (re-verifie
                          BraveLocalAIEnabled ADMX/ADML'den kaldırıldı (yeniden doğrulandı, işlevsel değil)
                          PsstEnabled ADMX/ADML'den kaldırıldı (etkin değil, işlevsel değil)
                          ADMX girişleri 766 → 764; betik toplamı 151 olarak değişmedi
+  ↓
+v3.1.0.1 (2026-10-22) — AutofillAddressEnabled and AutofillCreditCardEnabled removed (deprecated M156)
+                         replaced by one AutofillSettings; Balanced 32 → 31; total 150 → 149
+                         AutofillAddressEnabled ve AutofillCreditCardEnabled kaldırıldı (M156'da kademeli)
+                         tek AutofillSettings ile değiştirildi; Dengeli 32 → 31; toplam 150 → 149
 ```
 
 ---
@@ -1015,15 +1092,15 @@ v2.8.1.1 (2026-09-26) — BraveLocalAIEnabled removed from ADMX/ADML (re-verifie
 ## Categories of Rejection
 ## Reddetme Kategorileri
 
-### Deprecated by Chromium/Chrome (9 policies)
-### Chromium/Chrome Tarafından Kademeli Olarak Kaldırılan (9 politika)
+### Deprecated by Chromium/Chrome (12 policies)
+### Chromium/Chrome Tarafından Kademeli Olarak Kaldırılan (12 politika)
 Policies removed because Chromium/Chrome deprecated the underlying feature or replaced it with a more granular control.
 Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrıntılı bir kontrol ile değiştirdiği için kaldırılan politikalar.
 
 | Policy | Replaced By |
 |--------|-------------|
 | `DefaultMediaStreamSetting` | `DefaultCameraSetting` + `DefaultMicrophoneSetting` |
-| `AutoFillEnabled` | `AutofillAddressEnabled` + `AutofillCreditCardEnabled` |
+| `AutoFillEnabled` | `AutofillSettings` (via `AutofillAddressEnabled` + `AutofillCreditCardEnabled`) |
 | `SigninAllowed` | `BrowserSignin=0` |
 | `DeveloperToolsDisabled` | `DeveloperToolsAvailability=2` |
 | `CloudPrintProxyEnabled` | N/A (Google Cloud Print shut down) |
@@ -1031,13 +1108,16 @@ Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrın
 | `ExtensionManifestV2Availability` | N/A (MV2 sunset handled differently) |
 | `DefaultThirdPartyStoragePartitioningSetting` | N/A (partitioning now mandatory) |
 | `InsecureFormsWarningsEnabled` | N/A (deprecated in Brave 1.92) |
+| `AutofillAddressEnabled` | `AutofillSettings` |
+| `AutofillCreditCardEnabled` | `AutofillSettings` |
+| `SafeBrowsingExtendedReportingEnabled` | N/A (feature removed) |
 
 > 🇹🇷 **Türkçe:**
 >
 > | Politika | Yerine Geçen |
 > |----------|--------------|
 > | `DefaultMediaStreamSetting` | `DefaultCameraSetting` + `DefaultMicrophoneSetting` |
-> | `AutoFillEnabled` | `AutofillAddressEnabled` + `AutofillCreditCardEnabled` |
+> | `AutoFillEnabled` | `AutofillSettings` (via `AutofillAddressEnabled` + `AutofillCreditCardEnabled`) |
 > | `SigninAllowed` | `BrowserSignin=0` |
 > | `DeveloperToolsDisabled` | `DeveloperToolsAvailability=2` |
 > | `CloudPrintProxyEnabled` | Yok (Google Cloud Print kapatıldı) |
@@ -1045,6 +1125,9 @@ Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrın
 > | `ExtensionManifestV2Availability` | Yok (MV2 gün batımı farklı şekilde ele alınıyor) |
 > | `DefaultThirdPartyStoragePartitioningSetting` | Yok (bölümleme artık zorunlu) |
 > | `InsecureFormsWarningsEnabled` | Yok (Brave 1.92'de kademeli olarak kaldırıldı) |
+> | `AutofillAddressEnabled` | `AutofillSettings` |
+> | `AutofillCreditCardEnabled` | `AutofillSettings` |
+> | `SafeBrowsingExtendedReportingEnabled` | Yok (özellik kaldırıldı) |
 
 ### Blocked by Brave (3 policies)
 ### Brave Tarafından Engellenen (3 politika)
@@ -1156,7 +1239,7 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 7. **Origin-only policies** — `BraveLocalAIEnabled` was an Origin-only policy that hadn't reached stable. Check policy promotion status; it was still absent from stable two versions later, when v2.8.1.1 finally removed it from the ADMX.
 8. **Document removals** — This file exists because removals were tracked. Future contributors can learn from past mistakes.
 9. **Always test on brave://policy/** — Two policies (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) existed in Chromium ADMX but showed "Bilinmeyen politika" in Brave 1.92. Always verify before shipping.
-10. **The ADMX is a separate artifact** — Removing a policy from `BraveOmega.ps1` does not remove it from `ADMX/Brave.admx` and `ADMX/Brave.adml`. `BraveLocalAIEnabled` and `PsstEnabled` both stayed in the shipped template after their script removal, silently advertising controls the project does not manage. Edit the template, then re-run `ADMX/ADMX-Validate.ps1` and treat its "Brave policies not in script" count as a release gate.
+10. **The ADMX is a separate artifact** — Removing a policy from `BraveOmega.ps1` does not remove it from `ADMX/Brave.admx` and `ADMX/Brave.adml`. `BraveLocalAIEnabled` and `PsstEnabled` both stayed in the shipped template after their script removal, silently advertising controls the project does not manage. Edit the template, then re-run `ADMX/ADMX-Validate.ps1` and treat its "Brave policies not in script" count as a release gate. A data-only removal is the deliberate exception: keep the vendor snapshot when the policy still functions in the target browser, and document that decision in the policy record.
 
 > 🇹🇷 **Türkçe:**
 >
@@ -1169,14 +1252,14 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 > 7. **Yalnızca origin politikaları** — `BraveLocalAIEnabled` stabilde ulaşmamış bir Yalnızca origin politikasıydı. Politika geçirme durumunu kontrol edin; v2.8.1.1 ADMX'den kaldırdığında hâlâ stabilde yoktu.
 > 8. **Kaldırmaları belgeleyin** — Bu dosya kaldırma kayıtları takip edildiği için mevcuttur. Gelecekteki katılımcılar geçmiş hatalardan öğrenebilir.
 > 9. **Her zaman brave://policy/'de test edin** — İki politika (`InstantMessageSendingEnabled`, `DoNotTrackEnabled`) Chromium ADMX'sinde mevcuttu ancak Brave 150'de "Bilinmeyen politika" olarak göründü. Üretime geçirmeden önce her zaman doğrulayın.
-> 10. **ADMX ayrı bir yapıttır** — Bir politikayı `BraveOmega.ps1`'den kaldırmak onu `ADMX/Brave.admx` ve `ADMX/Brave.adml`'den kaldırmaz. `BraveLocalAIEnabled` ve `PsstEnabled`, betikten kaldırıldıktan sonra da sevk edilen şablonda kalarak projenin yönetmediği kontrolleri sessizce tanıtmaya devam etti. Şablonu düzenleyin, ardından `ADMX/ADMX-Validate.ps1`'i yeniden çalıştırın ve "Brave policies not in script" sayısını sürüm kapısı olarak değerlendirin.
+> 10. **ADMX ayrı bir yapıttır** — Bir politikayı `BraveOmega.ps1`'den kaldırmak onu `ADMX/Brave.admx` ve `ADMX/Brave.adml`'den kaldırmaz. `BraveLocalAIEnabled` ve `PsstEnabled`, betikten kaldırıldıktan sonra da sevk edilen şablonda kalarak projenin yönetmediği kontrolleri sessizce tanıtmaya devam etti. Şablonu düzenleyin, ardından `ADMX/ADMX-Validate.ps1`'i yeniden çalıştırın ve "Brave policies not in script" sayısını sürüm kapısı olarak değerlendirin. Yalnızca veri katmanında kaldırma bilinçli istisnadır: politika hedef tarayıcıda hâlâ çalışıyorsa satıcı anlık görüntüsünü koruyun ve bu kararı politika kaydında belirtin.
 
 ---
 
-*Last updated: v3.1.0.0 (2026-10-09)*
-*Total policies ever rejected/removed: 35*
-*Current active policies: 151 (v3.1.0.0)*
+*Last updated: v3.1.0.1 (2026-10-22)*
+*Total policies ever rejected/removed: 38*
+*Current active policies: 149 (v3.1.0.1)*
 
-*Son güncelleme: v3.1.0.0 (2026-10-09)*
-*Toplam reddedilen/kaldırılan politika: 35*
-*Mevcut aktif politikalar: 151 (v3.1.0.0)*
+*Son güncelleme: v3.1.0.1 (2026-10-22)*
+*Toplam reddedilen/kaldırılan politika: 38*
+*Mevcut aktif politikalar: 149 (v3.1.0.1)*

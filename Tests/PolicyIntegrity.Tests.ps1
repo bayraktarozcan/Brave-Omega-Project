@@ -23,7 +23,7 @@ Describe "Policy Integrity" -Tag "Integration" {
         $policy.type | Should -Be "String"
     }
 
-    It "unified script should hold all 151 definitions in a single table" {
+    It "unified script should hold all 150 definitions in a single table" {
         $lines = Get-PolicyLines -ScriptPath $ScriptMain
         $lines.Count | Should -BeGreaterOrEqual 149
     }

@@ -23,6 +23,21 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v3.1.0.1 - 2026-10-22
+
+**Patch Release - Deprecated Chromium policies replaced**
+
+**Removed:**
+
+- `SafeBrowsingExtendedReportingEnabled` removed from `Essential.json`, deployment detection, ADMX/ADML templates, the policy catalog, and all generated artifacts; Chromium removed the policy in M145, so current Brave logs it as an unknown policy and it has no effect
+- `AutofillAddressEnabled` and `AutofillCreditCardEnabled` removed from `Balanced.json`; Chromium deprecated both in M156 in favour of `AutofillSettings`
+
+**Changed:**
+
+- `AutofillSettings` added to Balanced as a `String` policy with the JSON value `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]`
+- `AutofillPredictionSettings` retained in Advanced as a documented exception: deprecated in M157, but its replacement `AutofillGenAiSettings` is absent from Brave's ADMX 154
+- Essential 51 → 50, Balanced 32 → 31, cumulative chain 24 / 50 / 81 / 121 / 149; Chrome Strict 124 → 122; ADMX policy entries 764 → 763
+- Version surfaces aligned to v3.1.0.1: README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `Enterprise/levels.json`, and test expectations; historical entries untouched
 ### v3.1.0.0 - 2026-10-09
 
 **Feature Release - Windows Chrome target**
@@ -824,7 +839,7 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.1.0.0** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.1** *(current)* | all | all | 11 26H2 | ✅ Active |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.0.0** | all | all | 11 26H2 | 📦 Previous |
@@ -925,6 +940,21 @@ Brave Omega için tam sürüm geçmişi.
 
 ## Sürüm Geçmişi
 
+### v3.1.0.1 - 2026-10-22
+
+**Yama Sürümü - Kullanımdan kaldırılmış Chromium politikaları değiştirildi**
+
+**Kaldırılanlar:**
+
+- `SafeBrowsingExtendedReportingEnabled`; `Essential.json`, dağıtım tespiti, ADMX/ADML şablonları, politika kataloğu ve tüm üretilen yapıtlardan çıkarıldı; Chromium politikayı M145'te kaldırdığı için güncel Brave onu bilinmeyen politika olarak günlüğe yazıyor ve etkisi bulunmuyor
+- `AutofillAddressEnabled` ve `AutofillCreditCardEnabled` `Balanced.json` içinden çıkarıldı; Chromium ikisini M156'da `AutofillSettings` lehine kullanımdan kaldırdı
+
+**Değiştirilenler:**
+
+- `AutofillSettings` Dengeli'ye `String` politika olarak `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` JSON değeriyle eklendi
+- `AutofillPredictionSettings` Gelişmiş'te belgelenmiş istisna olarak korundu: M157'de kullanımdan kaldırıldı, ancak ikamesi `AutofillGenAiSettings` Brave'in ADMX 154 sürümünde yok
+- Temel 51 → 50, Dengeli 32 → 31, kümülatif zincir 24 / 50 / 81 / 121 / 149; Chrome Katı 124 → 122; ADMX politika girdileri 764 → 763
+- Sürüm yüzeyleri v3.1.0.1 ile hizalandı: README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `Enterprise/levels.json` ve test beklentileri; tarihsel kayıtlar korundu
 ### v3.1.0.0 - 2026-10-09
 
 **Özellik Sürümü - Windows Chrome hedefi**
@@ -1727,7 +1757,7 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.1.0.0** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.1** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |

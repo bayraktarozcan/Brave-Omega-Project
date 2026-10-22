@@ -14,8 +14,21 @@
 #
 # V3 DESIGN NOTE   : From v3.0.0.0 onward no dependency version change is ever
 #                    shipped as a project update. The script detects the installed
-#                    Brave/Chromium at runtime and applies the same 151 policies
+#                    Brave/Chromium at runtime and applies the same 150 policies
 #                    in a forward/backward compatible way on every future release.
+#
+# CHANGELOG (v3.1.0.1)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.1.0.1             Patch release — deprecated Safe Browsing policy removal:
+#
+#     [REMOVED]     SafeBrowsingExtendedReportingEnabled from the Essential
+#                   tier and the ADMX templates. Chromium removed the policy;
+#                   Brave ignores it, so brave://policy/ reported it as
+#                   unknown. Essential 27 → 26; Brave total 151 → 150; Chrome
+#                   124 → 123; cumulative chain 24 → 50 → 82 → 122 → 150.
+#
+#     [UNCHANGED]   No other policy, registry, or hardening change. The S/MIME
+#                   extension policies stay untouched.
 #
 # CHANGELOG (v3.1.0.0)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -538,7 +551,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.1.0.0"
+$ScriptVersion   = "v3.1.0.1"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.

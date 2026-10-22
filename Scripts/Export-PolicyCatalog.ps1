@@ -532,8 +532,8 @@ function Export-OmegaPolicyCatalog {
     if (-not $ExpectedCounts) {
         $ExpectedCounts = @{
             'BraveOnly' = 24
-            'Essential' = 27
-            'Balanced'  = 32
+            'Essential' = 26
+            'Balanced'  = 31
             'Advanced'  = 40
             'Strict'    = 28
         }

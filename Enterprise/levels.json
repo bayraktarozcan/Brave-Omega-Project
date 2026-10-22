@@ -1,8 +1,8 @@
 {
     "generatedBy":  "Scripts/Export-PolicyCatalog.ps1",
-    "generatedAtUtc":  "2026-10-08T22:15:38Z",
+    "generatedAtUtc":  "2026-10-22T17:04:38Z",
     "sourceScript":  "Brave-Omega\\BraveOmega.ps1",
-    "scriptVersion":  "v3.1.0.0",
+    "scriptVersion":  "v3.1.0.1",
     "registryTargetHklm":  "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
     "registryTargetPs":  "HKLM:\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
     "levelOrder":  [
@@ -14,17 +14,17 @@
                    ],
     "perLevelIncremental":  {
                                 "BraveOnly":  24,
-                                "Essential":  27,
-                                "Balanced":  32,
+                                "Essential":  26,
+                                "Balanced":  31,
                                 "Advanced":  40,
                                 "Strict":  28
                             },
     "cumulativeTotals":  {
                              "BraveOnly":  24,
-                             "Essential":  51,
-                             "Balanced":  83,
-                             "Advanced":  123,
-                             "Strict":  151
+                             "Essential":  50,
+                             "Balanced":  81,
+                             "Advanced":  121,
+                             "Strict":  149
                          },
     "levels":  {
                    "BraveOnly":  {
@@ -158,8 +158,8 @@
                                                   ]
                                  },
                    "Essential":  {
-                                     "policyCount":  51,
-                                     "cumulativeCount":  51,
+                                     "policyCount":  50,
+                                     "cumulativeCount":  50,
                                      "policies":  [
                                                       {
                                                           "name":  "AlternateErrorPagesEnabled",
@@ -363,11 +363,6 @@
                                                           "value":  "{\"ProxyMode\":\"system\"}"
                                                       },
                                                       {
-                                                          "name":  "SafeBrowsingExtendedReportingEnabled",
-                                                          "type":  "DWord",
-                                                          "value":  0
-                                                      },
-                                                      {
                                                           "name":  "SafeBrowsingProtectionLevel",
                                                           "type":  "DWord",
                                                           "value":  2
@@ -425,8 +420,8 @@
                                                   ]
                                  },
                    "Balanced":  {
-                                    "policyCount":  83,
-                                    "cumulativeCount":  83,
+                                    "policyCount":  81,
+                                    "cumulativeCount":  81,
                                     "policies":  [
                                                      {
                                                          "name":  "AlternateErrorPagesEnabled",
@@ -444,14 +439,9 @@
                                                          "value":  1
                                                      },
                                                      {
-                                                         "name":  "AutofillAddressEnabled",
-                                                         "type":  "DWord",
-                                                         "value":  0
-                                                     },
-                                                     {
-                                                         "name":  "AutofillCreditCardEnabled",
-                                                         "type":  "DWord",
-                                                         "value":  0
+                                                         "name":  "AutofillSettings",
+                                                         "type":  "String",
+                                                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
                                                      },
                                                      {
                                                          "name":  "BackgroundModeEnabled",
@@ -768,11 +758,6 @@
                                                          "value":  3600000
                                                      },
                                                      {
-                                                         "name":  "SafeBrowsingExtendedReportingEnabled",
-                                                         "type":  "DWord",
-                                                         "value":  0
-                                                     },
-                                                     {
                                                          "name":  "SafeBrowsingProtectionLevel",
                                                          "type":  "DWord",
                                                          "value":  2
@@ -857,8 +842,8 @@
                                                  ]
                                 },
                    "Advanced":  {
-                                    "policyCount":  123,
-                                    "cumulativeCount":  123,
+                                    "policyCount":  121,
+                                    "cumulativeCount":  121,
                                     "policies":  [
                                                      {
                                                          "name":  "AIModeSettings",
@@ -881,19 +866,14 @@
                                                          "value":  1
                                                      },
                                                      {
-                                                         "name":  "AutofillAddressEnabled",
-                                                         "type":  "DWord",
-                                                         "value":  0
-                                                     },
-                                                     {
-                                                         "name":  "AutofillCreditCardEnabled",
-                                                         "type":  "DWord",
-                                                         "value":  0
-                                                     },
-                                                     {
                                                          "name":  "AutofillPredictionSettings",
                                                          "type":  "DWord",
                                                          "value":  2
+                                                     },
+                                                     {
+                                                         "name":  "AutofillSettings",
+                                                         "type":  "String",
+                                                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
                                                      },
                                                      {
                                                          "name":  "BackgroundModeEnabled",
@@ -1395,11 +1375,6 @@
                                                          "value":  1
                                                      },
                                                      {
-                                                         "name":  "SafeBrowsingExtendedReportingEnabled",
-                                                         "type":  "DWord",
-                                                         "value":  0
-                                                     },
-                                                     {
                                                          "name":  "SafeBrowsingProtectionLevel",
                                                          "type":  "DWord",
                                                          "value":  2
@@ -1504,8 +1479,8 @@
                                                  ]
                                 },
                    "Strict":  {
-                                  "policyCount":  151,
-                                  "cumulativeCount":  151,
+                                  "policyCount":  149,
+                                  "cumulativeCount":  149,
                                   "policies":  [
                                                    {
                                                        "name":  "AIModeSettings",
@@ -1533,19 +1508,14 @@
                                                        "value":  1
                                                    },
                                                    {
-                                                       "name":  "AutofillAddressEnabled",
-                                                       "type":  "DWord",
-                                                       "value":  0
-                                                   },
-                                                   {
-                                                       "name":  "AutofillCreditCardEnabled",
-                                                       "type":  "DWord",
-                                                       "value":  0
-                                                   },
-                                                   {
                                                        "name":  "AutofillPredictionSettings",
                                                        "type":  "DWord",
                                                        "value":  2
+                                                   },
+                                                   {
+                                                       "name":  "AutofillSettings",
+                                                       "type":  "String",
+                                                       "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
                                                    },
                                                    {
                                                        "name":  "BackgroundModeEnabled",
@@ -2146,11 +2116,6 @@
                                                        "name":  "SafeBrowsingDeepScanningEnabled",
                                                        "type":  "DWord",
                                                        "value":  1
-                                                   },
-                                                   {
-                                                       "name":  "SafeBrowsingExtendedReportingEnabled",
-                                                       "type":  "DWord",
-                                                       "value":  0
                                                    },
                                                    {
                                                        "name":  "SafeBrowsingProtectionLevel",
