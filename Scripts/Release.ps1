@@ -6,7 +6,7 @@
     1. Validates version and files
     2. Creates git tag if needed
     3. Syncs Wiki to GitHub Wiki
-    4. Deprecates previous latest release
+    4. Deprecates the previous latest release on GitHub and GitLab
     5. Builds the runnable release packages under Agent-Scratch/
     6. Creates GitHub release and uploads the package
     7. Creates GitLab release and uploads the package
@@ -298,6 +298,41 @@ if ($SkipDeprecate) {
         } else {
             Write-OK "No previous release to deprecate"
         }
+    } else {
+        Write-Warn "Could not list GitHub releases for deprecation"
+    }
+
+    $gitlabProject = [uri]::EscapeDataString($repo)
+    $gitlabJson = glab api "projects/$gitlabProject/releases?per_page=10" 2>&1
+    if ($LASTEXITCODE -eq 0) {
+        $gitlabReleases = $gitlabJson | ConvertFrom-Json
+        $gitlabPrevious = $gitlabReleases | Where-Object { $_.tag_name -ne $Version } | Select-Object -First 1
+
+        if ($gitlabPrevious) {
+            $gitlabName = if ($gitlabPrevious.name) { $gitlabPrevious.name } else { $gitlabPrevious.tag_name }
+            if ($gitlabName -notmatch "\[DEPRECATED\]") {
+                $gitlabDeprecatedName = "$gitlabName [DEPRECATED]"
+                $gitlabDeprecated = $true
+
+                if (-not $DryRun) {
+                    $gitlabTag = [uri]::EscapeDataString($gitlabPrevious.tag_name)
+                    glab api --method PUT "projects/$gitlabProject/releases/$gitlabTag" --raw-field "name=$gitlabDeprecatedName" 2>&1 | Out-Null
+                    $gitlabDeprecated = ($LASTEXITCODE -eq 0)
+                }
+
+                if ($gitlabDeprecated) {
+                    Write-OK "Deprecated GitLab $($gitlabPrevious.tag_name)"
+                } else {
+                    Write-Warn "Failed to deprecate GitLab release $($gitlabPrevious.tag_name)"
+                }
+            } else {
+                Write-OK "Already deprecated on GitLab: $($gitlabPrevious.tag_name)"
+            }
+        } else {
+            Write-OK "No previous GitLab release to deprecate"
+        }
+    } else {
+        Write-Warn "Could not list GitLab releases for deprecation"
     }
 }
 
