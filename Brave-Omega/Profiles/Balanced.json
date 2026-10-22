@@ -55,7 +55,7 @@
                      {
                          "name":  "AutofillSettings",
                          "type":  "String",
-                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]",
+                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"all\"]}]",
                          "origin":  "chromium",
                          "platforms":  ["windows", "linux"]
                      },

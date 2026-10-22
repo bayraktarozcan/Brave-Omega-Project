@@ -102,7 +102,7 @@ Complete policy reference for Brave Omega v3.1.0.1 — **149 enterprise policies
 | `BlockThirdPartyCookies` | `1` | DWord | Blocks cross-site tracking cookies |
 | `PasswordManagerEnabled` | `0` | DWord | Disables built-in password saving |
 | `PasswordManagerPasskeysEnabled` | `0` | DWord | Disables passkey saving |
-| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | String | Blocks address, payment, identity and travel autofill |
+| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["all"]}]` | String | Blocks all autofill data types |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Shows full URLs (anti-phishing) |
 | `QuicAllowed` | `0` | DWord | Disables QUIC, falls back to TCP/TLS |
 | `ChromeVariations` | `1` | DWord | Critical field trials only |
@@ -359,7 +359,7 @@ Brave Omega v3.1.0.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `BlockThirdPartyCookies` | `1` | DWord | Siteler arası izleme çerezlerini engeller |
 | `PasswordManagerEnabled` | `0` | DWord | Yerleşik parola kaydetmeyi devre dışı bırakır |
 | `PasswordManagerPasskeysEnabled` | `0` | DWord | Passkey kaydetmeyi devre dışı bırakır |
-| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["contact_info","identity_docs","travel","payments"]}]` | String | Adres, ödeme, kimlik ve seyahat otomatik doldurmayı engeller |
+| `AutofillSettings` | `[{"url_pattern":"*","blocked_types":["all"]}]` | String | Tüm otomatik doldurma veri türlerini engeller |
 | `ShowFullUrlsInAddressBar` | `1` | DWord | Tam URL'leri gösterir (oltalamaya karşı) |
 | `QuicAllowed` | `0` | DWord | QUIC'i devre dışı bırakır, TCP/TLS'ye döner |
 | `ChromeVariations` | `1` | DWord | Yalnızca kritik alan denemeleri |

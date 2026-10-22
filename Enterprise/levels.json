@@ -1,6 +1,6 @@
 {
     "generatedBy":  "Scripts/Export-PolicyCatalog.ps1",
-    "generatedAtUtc":  "2026-10-22T17:04:38Z",
+    "generatedAtUtc":  "2026-10-22T19:52:08Z",
     "sourceScript":  "Brave-Omega\\BraveOmega.ps1",
     "scriptVersion":  "v3.1.0.1",
     "registryTargetHklm":  "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
@@ -441,7 +441,7 @@
                                                      {
                                                          "name":  "AutofillSettings",
                                                          "type":  "String",
-                                                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
+                                                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"all\"]}]"
                                                      },
                                                      {
                                                          "name":  "BackgroundModeEnabled",
@@ -873,7 +873,7 @@
                                                      {
                                                          "name":  "AutofillSettings",
                                                          "type":  "String",
-                                                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
+                                                         "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"all\"]}]"
                                                      },
                                                      {
                                                          "name":  "BackgroundModeEnabled",
@@ -1515,7 +1515,7 @@
                                                    {
                                                        "name":  "AutofillSettings",
                                                        "type":  "String",
-                                                       "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
+                                                       "value":  "[{\"url_pattern\":\"*\",\"blocked_types\":[\"all\"]}]"
                                                    },
                                                    {
                                                        "name":  "BackgroundModeEnabled",

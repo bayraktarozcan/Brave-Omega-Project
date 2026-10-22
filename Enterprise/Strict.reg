@@ -7,7 +7,7 @@ Windows Registry Editor Version 5.00
 "AudioCaptureAllowed"=dword:00000000
 "AudioSandboxEnabled"=dword:00000001
 "AutofillPredictionSettings"=dword:00000002
-"AutofillSettings"="[{\"url_pattern\":\"*\",\"blocked_types\":[\"contact_info\",\"identity_docs\",\"travel\",\"payments\"]}]"
+"AutofillSettings"="[{\"url_pattern\":\"*\",\"blocked_types\":[\"all\"]}]"
 "BackgroundModeEnabled"=dword:00000000
 "BlockExternalExtensions"=dword:00000001
 "BlockThirdPartyCookies"=dword:00000001

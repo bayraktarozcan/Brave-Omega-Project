@@ -17,6 +17,15 @@
 #                    Brave/Chromium at runtime and applies the same 149 policies
 #                    in a forward/backward compatible way on every future release.
 #
+# CHANGELOG (Unreleased)
+# ─────────────────────────────────────────────────────────────────────────────
+# Unreleased          Privacy hardening — complete autofill block:
+#
+#     [CHANGED]     Balanced's AutofillSettings string now blocks every
+#                   autofill data type ("blocked_types":["all"]) on every URL
+#                   pattern, including shopping. Advanced and Strict inherit
+#                   the value; tier counts and totals are unchanged.
+#
 # CHANGELOG (v3.1.0.1)
 # ─────────────────────────────────────────────────────────────────────────────
 # v3.1.0.1             Patch release — deprecated Chromium policy removal:
