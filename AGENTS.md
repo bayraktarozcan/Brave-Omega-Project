@@ -459,7 +459,7 @@ from `git status` and `git diff`.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=6fb3ae5b0e49fd2a3bd9e4db0fda581d050ccdf4 -->
+<!-- mirror-sync: sync-sha=7a34d72c0a8b051f1512bd844f2c01a42a3a7b10 -->
 
 ---
 
@@ -500,7 +500,7 @@ Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = 
 
 ### Commands
 
-Run from the repository root (`pwsh` 7.6.7 when present, otherwise Windows PowerShell 5.1):
+Run from the repository root (`pwsh` 7.6.8 when present, otherwise Windows PowerShell 5.1):
 
 ```powershell
 # CI conformance gate - runs every check the Quality workflow declares.
