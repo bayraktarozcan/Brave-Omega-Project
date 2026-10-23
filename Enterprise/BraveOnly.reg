@@ -24,6 +24,12 @@ Windows Registry Editor Version 5.00
 "SafeBrowsingProtectionLevel"=dword:00000002
 "TorDisabled"=dword:00000001
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsDisabledForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsDisabledForUrls]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsEnabledForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsEnabledForUrls]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NotificationsAllowedForUrls]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NotificationsAllowedForUrls]
+"1"="https://web.whatsapp.com"

@@ -25,8 +25,10 @@
 ## EN English Changelog
 
 ### Table of Contents
-1. [Unreleased](#en-unreleased)
-    * [Fixed](#en-unreleased-fixed)
+1. [v3.1.0.2 — 2026-10-23](#en-v3102)
+    * [Summary](#en-v3102-summary)
+    * [Added](#en-v3102-added)
+    * [Fixed](#en-v3102-fixed)
 2. [v3.1.0.1 — 2026-10-22](#en-v3101)
     * [Summary](#en-v3101-summary)
     * [Removed](#en-v3101-removed)
@@ -209,15 +211,38 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ---
 
-<a id="en-unreleased"></a>
+<a id="en-v3102"></a>
 
-## [Unreleased]
+## [v3.1.0.2] — 2026-10-23
 
-<a id="en-unreleased-fixed"></a>
+<a id="en-v3102-summary"></a>
+
+### Summary
+
+**Patch release — WhatsApp Web notification allowlist, GitLab release parity, and list-valued registry export correctness.** Brave Only now allows notifications from the exact `https://web.whatsapp.com` origin while every other origin stays blocked. The release script deprecates the previous release on both hosts, and generated `.reg` files clear list-valued policy keys before rewriting them.
+
+| Metric | Before (v3.1.0.1) | After (v3.1.0.2) |
+|--------|-------------------|------------------|
+| Hardening levels | 5 | 5 |
+| Total policies | 149 | **150** |
+| Cumulative chain | 24→50→81→121→149 | **25→51→82→122→150** |
+| Script version | v3.1.0.1 | v3.1.0.2 |
+| Chrome chromium-origin total | 122 | **123** |
+| ADMX policy entries | 763 | 763 |
+
+<a id="en-v3102-added"></a>
+
+### Added
+
+**`NotificationsAllowedForUrls` now lists the exact WhatsApp Web origin `https://web.whatsapp.com`.** Brave Only gains the policy, so Essential, Balanced, and Advanced inherit it; Strict overrides it with an empty list, keeping the unique total at 150 rather than 151. Balanced and above still set `DefaultNotificationsSetting=2`, so every other origin stays blocked while WhatsApp Web can raise notification permission prompts.
+
+<a id="en-v3102-fixed"></a>
 
 ### Fixed
 
 **`Scripts/Release.ps1` deprecated the previous release only on GitHub, leaving the GitLab release title untouched.** The two hosts are a mirror, so deprecating one and not the other publishes two different release histories; the script now finds the previous release on GitLab through the API and applies the same `[DEPRECATED]` title, skipping the write on `-DryRun` and warning rather than aborting the release when the GitLab call fails. The already-published v3.1.0.0 GitLab release was corrected to match GitHub by hand.
+
+**Generated `.reg` artifacts now remove list-valued policies before rewriting them, so an override cannot leave a stale subkey behind.** `Write-PolicyValue` already deleted every `MultiString` child key, but `ConvertTo-OmegaRegContent` emitted only the new list values, so a generated `.reg` could retain entries the script would have cleared. The exporter now emits `[-<base-registry-path>\<policy-name>]` before the list subkeys, which makes the Strict empty override for `NotificationsAllowedForUrls` a real clear rather than a no-op.
 
 <a id="en-v3101"></a>
 
@@ -2380,8 +2405,10 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [Yayımlanmamış](#tr-yayimlanmamis)
-    * [Düzeltildi](#tr-yayimlanmamis-duzeltildi)
+1. [v3.1.0.2 — 2026-10-23](#tr-v3102)
+    * [Özet](#tr-v3102-ozet)
+    * [Eklendi](#tr-v3102-eklendi)
+    * [Düzeltildi](#tr-v3102-duzeltildi)
 2. [v3.1.0.1 — 2026-10-22](#tr-v3101)
     * [Özet](#tr-v3101-ozet)
     * [Kaldırıldı](#tr-v3101-kaldirildi)
@@ -2579,15 +2606,38 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ---
 
-<a id="tr-yayimlanmamis"></a>
+<a id="tr-v3102"></a>
 
-## [Yayımlanmamış]
+## [v3.1.0.2] — 2026-10-23
 
-<a id="tr-yayimlanmamis-duzeltildi"></a>
+<a id="tr-v3102-ozet"></a>
+
+### Özet
+
+**Yama sürümü — WhatsApp Web bildirim izin listesi, GitLab sürüm eşliği ve liste değerli kayıt defteri dışa aktarımı doğruluğu.** Brave Yalnız artık yalnızca `https://web.whatsapp.com` kaynağından bildirime izin veriyor, diğer tüm kaynaklar engelli kalıyor. Sürüm betiği önceki sürümü iki konakta da deprecate ediyor ve üretilen `.reg` dosyaları liste değerli politika anahtarlarını yeniden yazmadan önce temizliyor.
+
+| Ölçüt | Önce (v3.1.0.1) | Sonra (v3.1.0.2) |
+|-------|------------------|-------------------|
+| Sıkılaştırma katmanı | 5 | 5 |
+| Toplam politika | 149 | **150** |
+| Kümülatif zincir | 24→50→81→121→149 | **25→51→82→122→150** |
+| Betik sürümü | v3.1.0.1 | v3.1.0.2 |
+| Chrome chromium-kökenli toplam | 122 | **123** |
+| ADMX politika girdileri | 763 | 763 |
+
+<a id="tr-v3102-eklendi"></a>
+
+### Eklendi
+
+**`NotificationsAllowedForUrls` artık tam WhatsApp Web kaynak adresini `https://web.whatsapp.com` olarak listeliyor.** Politika Brave Yalnız'a eklendi; Temel, Dengeli ve Gelişmiş onu devralıyor; Katı boş listeyle geçersiz kılıyor ve benzersiz toplam 151 değil 150 olarak kalıyor. Dengeli ve üstü hâlâ `DefaultNotificationsSetting=2` ayarlıyor; böylece diğer tüm kaynaklar engelli kalıyor ve yalnızca WhatsApp Web bildirim izni isteyebiliyor.
+
+<a id="tr-v3102-duzeltildi"></a>
 
 ### Düzeltildi
 
 **`Scripts/Release.ps1` önceki sürümü yalnızca GitHub'da deprecate ediyor, GitLab release başlığını olduğu gibi bırakıyordu.** İki konak bir aynadır, dolayısıyla birini deprecate edip diğerini etmemek iki farklı sürüm geçmişi yayınlar; betik artık GitLab'daki önceki sürümü API üzerinden bulup aynı `[DEPRECATED]` başlığını uyguluyor, `-DryRun` altında yazmayı atlıyor ve GitLab çağrısı başarısız olduğunda release'i durdurmak yerine uyarı veriyor. Yayınlanmış v3.1.0.0 GitLab release'i GitHub ile eşleşecek şekilde elle düzeltildi.
+
+**Üretilen `.reg` yapıtları, liste değerli politikaları yeniden yazmadan önce artık siliyor; böylece bir geçersiz kılma geride eski bir alt anahtar bırakamıyor.** `Write-PolicyValue` her `MultiString` alt anahtarını zaten siliyordu, ancak `ConvertTo-OmegaRegContent` yalnızca yeni liste değerlerini yazıyordu; bu yüzden üretilen bir `.reg`, betiğin temizleyeceği girdileri tutabiliyordu. Dışa aktarıcı artık liste alt anahtarlarından önce `[-<temel-kayıt-defteri-yolu>\<politika-adı>]` satırını üretiyor; `NotificationsAllowedForUrls` için Katı'daki boş geçersiz kılmayı gerçek bir temizleme yapan da budur.
 
 <a id="tr-v3101"></a>
 

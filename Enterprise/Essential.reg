@@ -49,8 +49,15 @@ Windows Registry Editor Version 5.00
 "WebRtcEventLogCollectionAllowed"=dword:00000000
 "WebRtcTextLogCollectionAllowed"=dword:00000000
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsDisabledForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsDisabledForUrls]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsEnabledForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsEnabledForUrls]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallSources]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallSources]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NotificationsAllowedForUrls]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NotificationsAllowedForUrls]
+"1"="https://web.whatsapp.com"

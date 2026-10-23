@@ -352,6 +352,7 @@ function ConvertTo-OmegaRegContent {
 
     foreach ($name in @($listPolicies | Sort-Object)) {
         $lines.Add('')
+        $lines.Add("[-$BaseRegistryPath\$name]")
         $lines.Add("[$BaseRegistryPath\$name]")
         $items = @([string[]]$PolicySet[$name]['Value'])
         for ($i = 0; $i -lt $items.Count; $i++) {
@@ -531,11 +532,11 @@ function Export-OmegaPolicyCatalog {
 
     if (-not $ExpectedCounts) {
         $ExpectedCounts = @{
-            'BraveOnly' = 24
+            'BraveOnly' = 25
             'Essential' = 26
             'Balanced'  = 31
             'Advanced'  = 40
-            'Strict'    = 28
+            'Strict'    = 29
         }
     }
 

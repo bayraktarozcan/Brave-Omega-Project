@@ -1,8 +1,8 @@
 {
     "generatedBy":  "Scripts/Export-PolicyCatalog.ps1",
-    "generatedAtUtc":  "2026-10-22T19:52:08Z",
+    "generatedAtUtc":  "2026-10-23T13:51:01Z",
     "sourceScript":  "Brave-Omega\\BraveOmega.ps1",
-    "scriptVersion":  "v3.1.0.1",
+    "scriptVersion":  "v3.1.0.2",
     "registryTargetHklm":  "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
     "registryTargetPs":  "HKLM:\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
     "levelOrder":  [
@@ -13,23 +13,23 @@
                        "Strict"
                    ],
     "perLevelIncremental":  {
-                                "BraveOnly":  24,
+                                "BraveOnly":  25,
                                 "Essential":  26,
                                 "Balanced":  31,
                                 "Advanced":  40,
-                                "Strict":  28
+                                "Strict":  29
                             },
     "cumulativeTotals":  {
-                             "BraveOnly":  24,
-                             "Essential":  50,
-                             "Balanced":  81,
-                             "Advanced":  121,
-                             "Strict":  149
+                             "BraveOnly":  25,
+                             "Essential":  51,
+                             "Balanced":  82,
+                             "Advanced":  122,
+                             "Strict":  150
                          },
     "levels":  {
                    "BraveOnly":  {
-                                     "policyCount":  24,
-                                     "cumulativeCount":  24,
+                                     "policyCount":  25,
+                                     "cumulativeCount":  25,
                                      "policies":  [
                                                       {
                                                           "name":  "BraveAIChatEnabled",
@@ -141,6 +141,13 @@
                                                           "value":  0
                                                       },
                                                       {
+                                                          "name":  "NotificationsAllowedForUrls",
+                                                          "type":  "MultiString",
+                                                          "value":  [
+                                                                        "https://web.whatsapp.com"
+                                                                    ]
+                                                      },
+                                                      {
                                                           "name":  "PasswordProtectionWarningTrigger",
                                                           "type":  "DWord",
                                                           "value":  3
@@ -158,8 +165,8 @@
                                                   ]
                                  },
                    "Essential":  {
-                                     "policyCount":  50,
-                                     "cumulativeCount":  50,
+                                     "policyCount":  51,
+                                     "cumulativeCount":  51,
                                      "policies":  [
                                                       {
                                                           "name":  "AlternateErrorPagesEnabled",
@@ -348,6 +355,13 @@
                                                           "value":  2
                                                       },
                                                       {
+                                                          "name":  "NotificationsAllowedForUrls",
+                                                          "type":  "MultiString",
+                                                          "value":  [
+                                                                        "https://web.whatsapp.com"
+                                                                    ]
+                                                      },
+                                                      {
                                                           "name":  "PasswordProtectionWarningTrigger",
                                                           "type":  "DWord",
                                                           "value":  3
@@ -420,8 +434,8 @@
                                                   ]
                                  },
                    "Balanced":  {
-                                    "policyCount":  81,
-                                    "cumulativeCount":  81,
+                                    "policyCount":  82,
+                                    "cumulativeCount":  82,
                                     "policies":  [
                                                      {
                                                          "name":  "AlternateErrorPagesEnabled",
@@ -713,6 +727,13 @@
                                                          "value":  1
                                                      },
                                                      {
+                                                         "name":  "NotificationsAllowedForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "https://web.whatsapp.com"
+                                                                   ]
+                                                     },
+                                                     {
                                                          "name":  "PasswordManagerEnabled",
                                                          "type":  "DWord",
                                                          "value":  0
@@ -842,8 +863,8 @@
                                                  ]
                                 },
                    "Advanced":  {
-                                    "policyCount":  121,
-                                    "cumulativeCount":  121,
+                                    "policyCount":  122,
+                                    "cumulativeCount":  122,
                                     "policies":  [
                                                      {
                                                          "name":  "AIModeSettings",
@@ -1325,6 +1346,13 @@
                                                          "value":  1
                                                      },
                                                      {
+                                                         "name":  "NotificationsAllowedForUrls",
+                                                         "type":  "MultiString",
+                                                         "value":  [
+                                                                       "https://web.whatsapp.com"
+                                                                   ]
+                                                     },
+                                                     {
                                                          "name":  "PasswordManagerEnabled",
                                                          "type":  "DWord",
                                                          "value":  0
@@ -1479,8 +1507,8 @@
                                                  ]
                                 },
                    "Strict":  {
-                                  "policyCount":  149,
-                                  "cumulativeCount":  149,
+                                  "policyCount":  150,
+                                  "cumulativeCount":  150,
                                   "policies":  [
                                                    {
                                                        "name":  "AIModeSettings",
@@ -2051,6 +2079,13 @@
                                                        "name":  "NetworkServiceSandboxEnabled",
                                                        "type":  "DWord",
                                                        "value":  1
+                                                   },
+                                                   {
+                                                       "name":  "NotificationsAllowedForUrls",
+                                                       "type":  "MultiString",
+                                                       "value":  [
+
+                                                                 ]
                                                    },
                                                    {
                                                        "name":  "PasswordLeakDetectionEnabled",

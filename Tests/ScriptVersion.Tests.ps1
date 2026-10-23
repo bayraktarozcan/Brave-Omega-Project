@@ -5,7 +5,7 @@ BeforeAll {
 Describe "Script Version Consistency" -Tag "Integration" {
     It "unified script should have correct version string" {
         $v = Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion"
-        $v | Should -BeExactly "v3.1.0.1"
+        $v | Should -BeExactly "v3.1.0.2"
     }
 
     It "unified script should have a single version variable (no per-language fork)" {
@@ -16,6 +16,6 @@ Describe "Script Version Consistency" -Tag "Integration" {
 
     It "unified script should carry all 150 policy definitions in one place" {
         $policies = Get-PolicyLines -ScriptPath $ScriptMain
-        $policies.Count | Should -BeGreaterOrEqual 149
+        $policies.Count | Should -BeGreaterOrEqual 150
     }
 }

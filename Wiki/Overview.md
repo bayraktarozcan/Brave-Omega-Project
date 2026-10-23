@@ -52,7 +52,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | Feature | Description |
 | --------- | ------------- |
 | 🔒 **Multi-Layer Enforcement (HKCU + HKLM + Omaha)** | HKCU (user) + HKLM (enterprise/ADMX) + Omaha GUID — three independent enforcement layers |
-| 📋 **ADMX-Validated Policies** | 149 ADMX-Validated Policies (5 tiers, 24→50→81→121→149 chain), every entry sourced from Brave's official `policy_templates.zip` |
+| 📋 **ADMX-Validated Policies** | 150 ADMX-Validated Policies (5 tiers, 25→51→82→122→150 chain), every entry sourced from Brave's official `policy_templates.zip` |
 | 🔄 **Idempotent Execution** | Run any number of times — same safe, consistent result |
 | 💾 **Automatic Backup** | Timestamped `.reg` backup of HKLM policy hive before any modifications |
 | 🔁 **One-Command Rollback** | Full restoration: `reg import "<backup_file.reg>"` |
@@ -66,7 +66,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.1.0.1** *(current)* | all | all | 11 26H2 | ✅ Current |
+| **v3.1.0.2** *(current)* | all | all | 11 26H2 | ✅ Current |
+| **v3.1.0.1** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
@@ -110,7 +111,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v3.1.0.1 - Deprecated Safe Browsing policy removed](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v3.1.0.2 - WhatsApp Web notification allowlist and release parity fixes](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 > This matrix lists the Brave and Chromium version validated for each release. The [Changelog](Changelog) is the complete release history.
 
@@ -196,7 +197,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | Özellik | Açıklama |
 | --------- | ---------- |
 | 🔒 **Çok Katmanlı Zorunlu Kılma (HKCU + HKLM + Omaha)** | HKCU (kullanıcı) + HKLM (kurumsal/ADMX) + Omaha GUID — üç bağımsız zorunlu kılma katmanı |
-| 📋 **ADMX Doğrulamalı Politikalar** | 149 ADMX Doğrulamalı Politika (5 kademe, 24→50→81→121→149 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
+| 📋 **ADMX Doğrulamalı Politikalar** | 150 ADMX Doğrulamalı Politika (5 kademe, 25→51→82→122→150 zinciri), her giriş Brave'in resmî `policy_templates.zip` dosyasından kaynaklanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | İstediğiniz kadar çalıştırın — aynı güvenli, tutarlı sonuç |
 | 💾 **Otomatik Yedekleme** | Değişikliklerden önce HKLM politika kovası için zaman damgalı `.reg` yedeği |
 | 🔁 **Tek Komutla Geri Alma** | Tam eski duruma dönüş: `reg import "<yedek_dosyası.reg>"` |
@@ -210,7 +211,8 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.1.0.1** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.2** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.1** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
@@ -254,7 +256,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v3.1.0.1 - Kullanımdan kaldırılmış Safe Browsing politikası kaldırıldı](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v3.1.0.2 - WhatsApp Web bildirim izin listesi ve sürüm eşliği düzeltmeleri](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 > Bu matris her sürüm için doğrulanan Brave ve Chromium sürümünü listeler. [Değişiklik Günlüğü](Changelog#-türkçe) eksiksiz sürüm geçmişidir.
 

@@ -25,7 +25,7 @@ Describe "Policy Integrity" -Tag "Integration" {
 
     It "unified script should hold all 150 definitions in a single table" {
         $lines = Get-PolicyLines -ScriptPath $ScriptMain
-        $lines.Count | Should -BeGreaterOrEqual 149
+        $lines.Count | Should -BeGreaterOrEqual 150
     }
 
 }

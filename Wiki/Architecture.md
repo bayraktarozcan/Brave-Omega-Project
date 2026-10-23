@@ -39,11 +39,11 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 
 | Level | Policies | Scope | User Impact |
 | ------- | ---------- | ------- | ------------- |
-| **1. Brave Only** | 24 Brave-specific policies | HKLM | None |
-| **2. Essential** ⭐ | 24 + 26 = 50 | HKLM + HKCU + Omaha | None |
-| **3. Balanced** | 50 + 31 = 81 | + WebRTC, HTTPS, DNS | Low |
-| **4. Advanced** | 81 + 40 = 121 | + Sensors, Imports, Extensions, Profiles | Low |
-| **5. Strict** | 121 + 28 = 149 | + JIT, Cookies, Clipboard, FS, DevTools | Medium |
+| **1. Brave Only** | 25 Brave-specific policies | HKLM | None |
+| **2. Essential** ⭐ | 25 + 26 = 51 | HKLM + HKCU + Omaha | None |
+| **3. Balanced** | 51 + 31 = 82 | + WebRTC, HTTPS, DNS | Low |
+| **4. Advanced** | 82 + 40 = 122 | + Sensors, Imports, Extensions, Profiles | Low |
+| **5. Strict** | 122 + 28 = 150 | + JIT, Cookies, Clipboard, FS, DevTools | Medium |
 
 Select your level interactively when running the script or use the `-Level` parameter:
 
@@ -141,8 +141,9 @@ The apply step writes each policy with its own `New-ItemProperty` rather than
 staging a single `.reg` file and importing it in one pass. That is a deliberate
 choice, not an oversight.
 
-Measured on the full policy set with the destination key already present, three
-runs averaged **98 ms for all 149 writes — about 0.66 ms per policy**. The whole
+Measured on the 149-policy set with the destination key already present, three
+runs averaged **98 ms for all 149 writes — about 0.66 ms per policy**. The
+current set adds one list value, so the per-policy cost still holds. The whole
 hierarchy is written in roughly a tenth of a second, so the batching argument
 does not buy anything a user can notice.
 
@@ -150,7 +151,7 @@ What the per-policy form buys instead:
 
 - **Isolated failure.** One policy that cannot be written is reported by name.
   A bulk import fails as a unit and leaves the operator reading a single error
-  for a batch of 149.
+  for a batch of 150.
 - **`-WhatIf` accuracy.** The preview reports the same path, name, type and
   value the apply step will actually write, because both call the same function.
   A generated `.reg` file would be a separate description of the intended state
@@ -219,11 +220,11 @@ Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız 
 
 | Seviye | Politika | Kapsam | Kullanım Etkisi |
 | -------- | ---------- | -------- | ----------------- |
-| **1. Brave Yalnız** | 24 Brave'e özgü politika | HKLM | Yok |
-| **2. Temel** ⭐ | 24 + 26 = 50 | HKLM + HKCU + Omaha | Yok |
-| **3. Dengeli** | 50 + 31 = 81 | + WebRTC, HTTPS, DNS | Düşük |
-| **4. Gelişmiş** | 81 + 40 = 121 | + Sensörler, İçe Aktarmalar, Uzantılar, Profiller | Düşük |
-| **5. Katı** | 121 + 28 = 149 | + JIT, Çerezler, Pano, FS, DevTools | Orta |
+| **1. Brave Yalnız** | 25 Brave'e özgü politika | HKLM | Yok |
+| **2. Temel** ⭐ | 25 + 26 = 51 | HKLM + HKCU + Omaha | Yok |
+| **3. Dengeli** | 51 + 31 = 82 | + WebRTC, HTTPS, DNS | Düşük |
+| **4. Gelişmiş** | 82 + 40 = 122 | + Sensörler, İçe Aktarmalar, Uzantılar, Profiller | Düşük |
+| **5. Katı** | 122 + 28 = 150 | + JIT, Çerezler, Pano, FS, DevTools | Orta |
 
 Betiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:
 
@@ -321,15 +322,16 @@ Uygulama adımı, politikaları hazırlanmış tek bir `.reg` dosyasıyla toplu
 içe aktarmak yerine her biri için kendi `New-ItemProperty` çağrısıyla yazar. Bu
 bilinçli bir tercihtir, bir gözden kaçma değil.
 
-Hedef anahtar zaten mevcutken tüm politik kümesi üzerinde yapılan üç koşunun
+Hedef anahtar zaten mevcutken 149 politikalık küme üzerinde yapılan üç koşunun
 ortalaması **149 yazım için 98 ms — politika başına yaklaşık 0.66 ms** çıktı.
+Güncel küme bir liste değeri eklediği için politika başına maliyet aynı kalıyor.
 Tüm hiyerarşi kabaca onda bir saniyede yazılıyor, yani toplu yazmanın kazandırdığı
 hiçbir şey kullanıcının fark edebileceği bir kazanç değil.
 
 Bunun yerine politika başına yazma şunları sağlıyor:
 
 - **Hata yalıtımı.** Yazılamayan tek politika adıyla raporlanır. Toplu içe aktarma
-  bir bütün olarak başarısız olur ve işleticiyi 149 politikalık bir yığın için tek
+  bir bütün olarak başarısız olur ve işleticiyi 150 politikalık bir yığın için tek
   bir hata mesajı okumaya bırakır.
 - **`-WhatIf` doğruluğu.** Önizleme, uygulama adımının gerçekten yazacağı yolu,
   adı, türü ve değeri raporlar; çünkü ikisi de aynı işlevi çağırır. Üretilmiş bir

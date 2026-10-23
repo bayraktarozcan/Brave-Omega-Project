@@ -14,11 +14,11 @@ Describe "Policy Definitions Loading" -Tag "Unit" {
 
     It "has the expected incremental policy counts" {
         $expected = @{
-            'BraveOnly' = 24
+            'BraveOnly' = 25
             'Essential' = 26
             'Balanced'  = 31
             'Advanced'  = 40
-            'Strict'    = 28
+            'Strict'    = 29
         }
         foreach ($tier in $script:Order) {
             @($script:Definitions[$tier]).Count | Should -BeExactly $expected[$tier]
@@ -35,13 +35,13 @@ Describe "Policy Definitions Loading" -Tag "Unit" {
 }
 
 Describe "Cumulative Merge" -Tag "Unit" {
-    It "grows cumulative totals to 149 unique policies and documents the tier chain" {
+    It "grows cumulative totals to 150 unique policies and documents the tier chain" {
         $expected = @{
-            'BraveOnly' = 24
-            'Essential' = 50
-            'Balanced'  = 81
-            'Advanced'  = 121
-            'Strict'    = 149
+            'BraveOnly' = 25
+            'Essential' = 51
+            'Balanced'  = 82
+            'Advanced'  = 122
+            'Strict'    = 150
         }
         foreach ($tier in $script:Order) {
             $script:Cumulative[$tier].Count | Should -BeExactly $expected[$tier]
@@ -145,6 +145,9 @@ Describe "Reg Content" -Tag "Unit" {
             $script:StrictReg -match $subkey | Should -Be $true
 
             $start = $script:StrictReg.IndexOf("[$('HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\' + $name)]")
+            $deleteStart = $script:StrictReg.IndexOf("[-$('HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\' + $name)]")
+            $deleteStart | Should -BeGreaterOrEqual 0
+            $deleteStart | Should -BeLessThan $start
             $next = $script:StrictReg.IndexOf('[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave]', $start + 1)
             $end = [regex]::Match($script:StrictReg.Substring($start + 1), '\r?\n\[HKEY_LOCAL_MACHINE')
             $section = if ($end.Success) {
@@ -161,6 +164,9 @@ Describe "Reg Content" -Tag "Unit" {
         $name = 'ScreenCaptureAllowedByOrigins'
         $start = $script:StrictReg.IndexOf("[$('HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\' + $name)]")
         $start | Should -BeGreaterOrEqual 0
+        $deleteStart = $script:StrictReg.IndexOf("[-$('HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\' + $name)]")
+        $deleteStart | Should -BeGreaterOrEqual 0
+        $deleteStart | Should -BeLessThan $start
         $section = $script:StrictReg.Substring($start + 1)
         $end = [regex]::Match($section, '^\[', [System.Text.RegularExpressions.RegexOptions]::Multiline)
         $body = if ($end.Success) { $section.Substring(0, $end.Index) } else { $section }
@@ -197,8 +203,8 @@ Describe "Levels Json" -Tag "Unit" {
     }
 
     It "reports matching incremental and cumulative totals" {
-        $incremental = @{ 'BraveOnly'=24; 'Essential'=26; 'Balanced'=31; 'Advanced'=40; 'Strict'=28 }
-        $cumulative  = @{ 'BraveOnly'=24; 'Essential'=50; 'Balanced'=81; 'Advanced'=121; 'Strict'=149 }
+        $incremental = @{ 'BraveOnly'=25; 'Essential'=26; 'Balanced'=31; 'Advanced'=40; 'Strict'=29 }
+        $cumulative  = @{ 'BraveOnly'=25; 'Essential'=51; 'Balanced'=82; 'Advanced'=122; 'Strict'=150 }
         foreach ($tier in $script:Order) {
             $script:Json.perLevelIncremental.$tier | Should -BeExactly $incremental[$tier]
             $script:Json.cumulativeTotals.$tier    | Should -BeExactly $cumulative[$tier]
@@ -273,8 +279,8 @@ Describe "Full Export" -Tag "Integration" {
         $catalog = Get-Content -Path (Join-Path $script:OutDir 'levels.json') -Raw | ConvertFrom-Json
         $catalog.generatedBy  | Should -BeExactly 'Scripts/Export-PolicyCatalog.ps1'
         $catalog.scriptVersion | Should -Match '^v\d+\.\d+\.\d+\.\d+$'
-        $catalog.cumulativeTotals.Strict | Should -BeExactly 149
-        @($catalog.levels.Strict.policies).Count | Should -BeExactly 149
+        $catalog.cumulativeTotals.Strict | Should -BeExactly 150
+        @($catalog.levels.Strict.policies).Count | Should -BeExactly 150
     }
 
     It "fails loudly when expected counts are out of date" {
@@ -298,9 +304,19 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
         $baseRegKey = 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave'
         $content = Get-Content -LiteralPath $Path -Raw
         $map = @{}
+        $deletions = @{}
         $section = $null
 
         foreach ($line in ($content -split "\r?\n")) {
+            if ($line -match '^\[-(?<key>.*)\]$') {
+                $key = $matches['key']
+                if ($key -clike ($baseRegKey + '\*')) {
+                    $deletions[$key.Substring($baseRegKey.Length + 1)] = $true
+                }
+                $section = $null
+                continue
+            }
+
             if ($line -match '^\[(?<key>.*)\]$') {
                 $key = $matches['key']
                 if ($key -ceq $baseRegKey) {
@@ -310,10 +326,11 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
                     $section = $key.Substring($baseRegKey.Length + 1)
                     if (-not $map.ContainsKey($section)) {
                         $map[$section] = [pscustomobject]@{
-                            Kind  = 'MultiString'
-                            Hex   = $null
-                            Text  = $null
-                            Items = @()
+                            Kind       = 'MultiString'
+                            Hex        = $null
+                            Text       = $null
+                            Items      = @()
+                            WasDeleted = $deletions.ContainsKey($section)
                         }
                     }
                 }
@@ -327,10 +344,11 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
 
             if ($line -match '^\s*"(?<name>[^"]+)"\s*=\s*dword:(?<hex>[0-9a-fA-F]{8})\s*$') {
                 $map[$matches['name']] = [pscustomobject]@{
-                    Kind  = 'DWord'
-                    Hex   = $matches['hex'].ToLowerInvariant()
-                    Text  = $null
-                    Items = @()
+                    Kind       = 'DWord'
+                    Hex        = $matches['hex'].ToLowerInvariant()
+                    Text       = $null
+                    Items      = @()
+                    WasDeleted = $false
                 }
             }
             elseif ($line -match '^\s*"(?<name>[^"]+)"\s*=\s*hex\(2\):(?<hex>[0-9a-fA-F,]+)\s*$') {
@@ -340,18 +358,20 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
                     $textValue = [System.Text.Encoding]::Unicode.GetString($hexBytes, 0, $hexBytes.Count - 2)
                 }
                 $map[$matches['name']] = [pscustomobject]@{
-                    Kind  = 'ExpandString'
-                    Hex   = $matches['hex'].ToLowerInvariant()
-                    Text  = $textValue
-                    Items = @()
+                    Kind       = 'ExpandString'
+                    Hex        = $matches['hex'].ToLowerInvariant()
+                    Text       = $textValue
+                    Items      = @()
+                    WasDeleted = $false
                 }
             }
             elseif ($section -ceq '' -and $line -match '^\s*"(?<name>[^"]+)"\s*=\s*"(?<val>.*)"\s*$') {
                 $map[$matches['name']] = [pscustomobject]@{
-                    Kind  = 'String'
-                    Hex   = $null
-                    Text  = $matches['val']
-                    Items = @()
+                    Kind       = 'String'
+                    Hex        = $null
+                    Text       = $matches['val']
+                    Items      = @()
+                    WasDeleted = $false
                 }
             }
             elseif ($section -and $line -match '^\s*"(?<name>\d+)"\s*=\s*"(?<val>.*)"\s*$') {
@@ -415,6 +435,7 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
                     }
                     'MultiString' {
                         $entry.Kind | Should -BeExactly 'MultiString'
+                        $entry.WasDeleted | Should -Be $true
                         $rawItems = @([object[]]$policy.value)
                         @($entry.Items).Count | Should -BeExactly $rawItems.Count
                         for ($i = 0; $i -lt $rawItems.Count; $i++) {
@@ -434,7 +455,7 @@ Describe "Checked-In Artifact Cross-Check" -Tag "Integration" {
             @($expected.Keys | Sort-Object) | Should -BeExactly @($actual.Keys | Sort-Object)
 
             foreach ($name in $expected.Keys) {
-                foreach ($field in 'Kind', 'Hex', 'Text') {
+                foreach ($field in 'Kind', 'Hex', 'Text', 'WasDeleted') {
                     $actual[$name].$field | Should -BeExactly $expected[$name].$field
                 }
                 @($actual[$name].Items) | Should -BeExactly @($expected[$name].Items)

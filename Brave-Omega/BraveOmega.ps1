@@ -14,8 +14,26 @@
 #
 # V3 DESIGN NOTE   : From v3.0.0.0 onward no dependency version change is ever
 #                    shipped as a project update. The script detects the installed
-#                    Brave/Chromium at runtime and applies the same 149 policies
+#                    Brave/Chromium at runtime and applies the same 150 policies
 #                    in a forward/backward compatible way on every future release.
+#
+# CHANGELOG (v3.1.0.2)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.1.0.2             Patch release — notification allowlist and release parity:
+#
+#     [ADDED]       NotificationsAllowedForUrls in BraveOnly with
+#                   https://web.whatsapp.com; Essential, Balanced, and Advanced
+#                   inherit it, Strict clears it. Totals 149 → 150; chain
+#                   25 → 51 → 82 → 122 → 150; Chrome 122 → 123.
+#
+#     [FIXED]       Scripts/Release.ps1 deprecates the previous release on
+#                   GitLab as well as GitHub.
+#
+#     [FIXED]       ConvertTo-OmegaRegContent deletes list-valued policy keys
+#                   before rewriting them, so Strict's empty override clears
+#                   the inherited WhatsApp Web entry.
+#
+#     [UNCHANGED]   ADMX entries remain 763.
 #
 # CHANGELOG (v3.1.0.1)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -557,7 +575,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.1.0.1"
+$ScriptVersion   = "v3.1.0.2"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.

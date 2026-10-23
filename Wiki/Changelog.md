@@ -23,6 +23,22 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v3.1.0.2 - 2026-10-23
+
+**Patch Release - WhatsApp Web notification allowlist and release parity fixes**
+
+**Added:**
+
+- `NotificationsAllowedForUrls` added to Brave Only with the exact `https://web.whatsapp.com` origin; Essential, Balanced, and Advanced inherit it, while Strict clears it with an empty list; totals 149 → 150, cumulative chain 25 / 51 / 82 / 122 / 150, Chrome 123
+
+**Fixed:**
+
+- `Scripts/Release.ps1` now deprecates the previous release on GitLab as well as GitHub, so both hosts publish the same release history
+- `ConvertTo-OmegaRegContent` clears list-valued policy keys before rewriting them, making Strict's empty override a real clear
+- Version surfaces aligned to v3.1.0.2: README, SECURITY, index.html, the Wiki pages, `AGENTS.md`, `Enterprise/levels.json`, the policy catalog, and test expectations; historical entries untouched
+
+---
+
 ### v3.1.0.1 - 2026-10-22
 
 **Patch Release - Deprecated Chromium policies replaced**
@@ -851,7 +867,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.1.0.1** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.2** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.1** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.0.0** | all | all | 11 26H2 | 📦 Previous |
@@ -951,6 +968,22 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v3.1.0.2 - 2026-10-23
+
+**Yama Sürümü - WhatsApp Web bildirim izin listesi ve sürüm eşliği düzeltmeleri**
+
+**Eklenenler:**
+
+- `NotificationsAllowedForUrls` tam `https://web.whatsapp.com` kaynağıyla Brave Yalnız'a eklendi; Temel, Dengeli ve Gelişmiş onu devralıyor, Katı ise boş listeyle temizliyor; toplam 149 → 150, kümülatif zincir 25 / 51 / 82 / 122 / 150, Chrome 123
+
+**Düzeltilenler:**
+
+- `Scripts/Release.ps1` önceki sürümü artık GitLab'da da deprecate ediyor; böylece iki konak aynı sürüm geçmişini yayımlıyor
+- `ConvertTo-OmegaRegContent` liste değerli politika anahtarlarını yeniden yazmadan önce temizliyor; Katı'daki boş geçersiz kılma gerçek bir temizleme oluyor
+- Sürüm yüzeyleri v3.1.0.2 ile hizalandı: README, SECURITY, index.html, Wiki sayfaları, `AGENTS.md`, `Enterprise/levels.json`, politika kataloğu ve test beklentileri; tarihsel kayıtlar korundu
+
+---
 
 ### v3.1.0.1 - 2026-10-22
 
@@ -1781,7 +1814,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.1.0.1** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.2** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.1** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |

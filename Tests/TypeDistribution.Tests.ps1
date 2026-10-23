@@ -37,8 +37,8 @@ BeforeAll {
 }
 
 Describe "Registry Type Distribution" -Tag "Integration" {
-    It "resolves 149 unique policies from the data layer" {
-        $script:Effective.Count | Should -BeExactly 149
+    It "resolves 150 unique policies from the data layer" {
+        $script:Effective.Count | Should -BeExactly 150
     }
 
     It "uses only registry types the writer supports" {
@@ -100,12 +100,12 @@ Describe "Registry Type Reporting" -Tag "Integration" {
 
 Describe "Catalog Type Distribution Documentation" -Tag "Integration" {
     It "states the real distribution in the EN header" {
-        $expected = '121 DWord ' + [char]0x00B7 + ' 8 String ' + [char]0x00B7 + ' 19 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
+        $expected = '121 DWord ' + [char]0x00B7 + ' 8 String ' + [char]0x00B7 + ' 20 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
         $script:Catalog -match [regex]::Escape('**Type distribution:** ' + $expected) | Should -Be $true
     }
 
     It "states the real distribution in the TR header" {
-        $expected = '121 DWord ' + [char]0x00B7 + ' 8 String ' + [char]0x00B7 + ' 19 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
+        $expected = '121 DWord ' + [char]0x00B7 + ' 8 String ' + [char]0x00B7 + ' 20 MultiString ' + [char]0x00B7 + ' 1 ExpandString'
         $label = '**T' + [char]0x00FC + 'r da' + [char]0x011F + [char]0x0131 + 'l' + [char]0x0131 + 'm' + [char]0x0131 + ':** '
         $script:Catalog -match [regex]::Escape($label + $expected) | Should -Be $true
     }

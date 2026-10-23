@@ -136,11 +136,11 @@ Describe "Detect Script" -Tag "Unit" {
         }
     }
 
-    It "embedded tier data totals 149 unique policies" {
+    It "embedded tier data totals 150 unique policies" {
         $tiers = Get-OmegaTierPolicyNames
         $all = @()
         foreach ($tier in $script:Order) { $all += @($tiers[$tier]) }
-        @($all | Sort-Object -Unique).Count | Should -BeExactly 149
+        @($all | Sort-Object -Unique).Count | Should -BeExactly 150
     }
 
     It "embedded tier data is fully covered by existing catalog names" {
@@ -158,14 +158,11 @@ Describe "Detect Script" -Tag "Unit" {
         }
     }
 
-    It "embedded incremental names exactly match the catalog tier deltas" {
+    It "embedded tier names exactly match catalog tier entries" {
         $tiers = Get-OmegaTierPolicyNames
-        $priorNames = @()
         foreach ($tier in $script:Order) {
-            $catalogNames = @($script:Catalog.levels.$tier.policies | ForEach-Object { $_.name })
-            $expectedIncrement = @($catalogNames | Where-Object { $_ -notin $priorNames } | Sort-Object)
-            @($tiers[$tier] | Sort-Object) | Should -BeExactly $expectedIncrement
-            $priorNames = $catalogNames
+            $catalogNames = @(Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptMain | ForEach-Object { $_.name } | Sort-Object)
+            @($tiers[$tier] | Sort-Object) | Should -BeExactly $catalogNames
         }
     }
 
@@ -297,14 +294,14 @@ Describe "Detect Script - Browser Target" -Tag "Unit" {
 
     It "Chrome cumulative names exclude every Brave-origin policy" {
         $names = @(Get-OmegaLevelNames -Level 'Strict' -Browser 'Chrome')
-        $names.Count | Should -BeExactly 122
+        $names.Count | Should -BeExactly 123
         foreach ($excluded in @('BraveRewardsDisabled', 'TorDisabled', 'EmailAliasesEnabled', 'DefaultBraveAdblockSetting')) {
             $names | Should -Not -Contain $excluded
         }
     }
 
     It "Brave cumulative names keep the full set" {
-        @(Get-OmegaLevelNames -Level 'Strict' -Browser 'Brave').Count | Should -BeExactly 149
-        @(Get-OmegaLevelNames -Level 'Strict').Count | Should -BeExactly 149
+        @(Get-OmegaLevelNames -Level 'Strict' -Browser 'Brave').Count | Should -BeExactly 150
+        @(Get-OmegaLevelNames -Level 'Strict').Count | Should -BeExactly 150
     }
 }

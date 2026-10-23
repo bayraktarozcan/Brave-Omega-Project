@@ -5,23 +5,23 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v3.1.0.1 — **149 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v3.1.0.2 — **150 enterprise policies** across 5 progressive restriction levels.
 
 ---
 
 ## Level Overview
 
-| Level | Own Policies | HKCU | HKLM | Cumulative Total |
+| Level | Additional Policies | HKCU | HKLM | Cumulative Total |
 | ------- | ---------- | ------ | ------ | ------------ |
-| **1. Brave Only** | 24 | — | 24 | Base |
-| **2. Essential** ⭐ | 26 | UsageStatsInSample | 50 | Includes Level 1 |
-| **3. Balanced** | 31 | UsageStatsInSample | 81 | Includes Levels 1-2 |
-| **4. Advanced** | 40 | UsageStatsInSample | 121 | Includes Levels 1-3 |
-| **5. Strict** | 28 | UsageStatsInSample | 149 | Includes Levels 1-4 |
+| **1. Brave Only** | 25 | — | 25 | Base |
+| **2. Essential** ⭐ | 26 | UsageStatsInSample | 51 | Includes Level 1 |
+| **3. Balanced** | 31 | UsageStatsInSample | 82 | Includes Levels 1-2 |
+| **4. Advanced** | 40 | UsageStatsInSample | 122 | Includes Levels 1-3 |
+| **5. Strict** | 28 | UsageStatsInSample | 150 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 149 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 150 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (all levels)
 
@@ -31,7 +31,7 @@ Complete policy reference for Brave Omega v3.1.0.1 — **149 enterprise policies
 | `ChromeVariations` | HKCU | `1` | DWord | Restricts Chromium to critical field trials only |
 | `usagestats` *(per GUID)* | HKCU | `0` | DWord | Disables Omaha updater telemetry per application GUID |
 
-### Brave Only Level — Brave-Specific Policies (24)
+### Brave Only Level — Brave-Specific Policies (25)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -50,6 +50,7 @@ Complete policy reference for Brave Omega v3.1.0.1 — **149 enterprise policies
 | `TorDisabled` | `1` | DWord | Disables Tor integration |
 | `SafeBrowsingProtectionLevel` | `2` | DWord | Enforces standard Safe Browsing protection |
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Enables password reuse warning |
+| `NotificationsAllowedForUrls` | `@("https://web.whatsapp.com")` | MultiString | Allows WhatsApp Web notifications; every other origin remains blocked |
 | `BraveDeAmpEnabled` | `1` | DWord | Disables Brave De-AMP |
 | `BraveDebouncingEnabled` | `1` | DWord | Disables Brave Debouncing |
 | `BraveReduceLanguageEnabled` | `1` | DWord | Disables language header reduction |
@@ -172,7 +173,7 @@ Complete policy reference for Brave Omega v3.1.0.1 — **149 enterprise policies
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | Empty list uses default IP mappings |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Disables temporary opt-out from LNA restrictions |
 
-### Strict Level — Advanced + Maximum Privacy (28 total)
+### Strict Level — Advanced + Maximum Privacy (28 additional)
 
 | Registry Key | Value | Type | Effect |
 | -------------- | ------- | ------ | -------- |
@@ -205,6 +206,10 @@ Complete policy reference for Brave Omega v3.1.0.1 — **149 enterprise policies
 | `BrowserSignin` | `0` | DWord | **[Phase 9]** Disables Google browser sign-in. Applied only at Strict tier; **excluded by `-AllowSync`** to keep Brave Sync usable |
 | `SyncDisabled` | `1` | DWord | **[Phase 9]** Disables Chrome Sync. Applied only at Strict tier; **excluded by `-AllowSync`** to keep Brave Sync usable |
 
+> The Strict profile also sets `NotificationsAllowedForUrls` to an empty list,
+> clearing the Brave Only allowlist. Because it overrides an existing policy
+> rather than adding one, the unique total stays at 150.
+
 ---
 
 ## Registry Paths
@@ -225,7 +230,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 149 policies should show as **Active** (green checkmark).
+All 150 policies should show as **Active** (green checkmark).
 
 ---
 
@@ -262,23 +267,23 @@ All 149 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v3.1.0.1 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **149 kurumsal politika**.
+Brave Omega v3.1.0.2 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **150 kurumsal politika**.
 
 ---
 
 ## Seviye Genel Bakış
 
-| Seviye | Kendi Politikaları | HKCU | HKLM | Kümülatif Toplam |
+| Seviye | Ek Politikalar | HKCU | HKLM | Kümülatif Toplam |
 | -------- | ---------- | ------ | ------ | ----------- |
-| **1. Brave Yalnız** | 24 Brave'e özgü | — | 24 | Temel |
-| **2. Temel** ⭐ | 26 | UsageStatsInSample | 50 | 1. Seviyeyi kapsar |
-| **3. Dengeli** | 31 | UsageStatsInSample | 81 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 40 | UsageStatsInSample | 121 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 28 | UsageStatsInSample | 149 | 1-4. Seviyeleri kapsar |
+| **1. Brave Yalnız** | 25 Brave'e özgü | — | 25 | Temel |
+| **2. Temel** ⭐ | 26 | UsageStatsInSample | 51 | 1. Seviyeyi kapsar |
+| **3. Dengeli** | 31 | UsageStatsInSample | 82 | 1-2. Seviyeleri kapsar |
+| **4. Gelişmiş** | 40 | UsageStatsInSample | 122 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 28 | UsageStatsInSample | 150 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere Göre Politika Başvurusu
 
-> 149 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 150 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -288,7 +293,7 @@ Brave Omega v3.1.0.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `ChromeVariations` | HKCU | `1` | DWord | Chromium'u yalnızca kritik alan denemeleriyle sınırlar |
 | `usagestats` *(GUID başına)* | HKCU | `0` | DWord | Uygulama GUID tanımlayıcısı başına Omaha güncelleyici veri aktarımını devre dışı bırakır |
 
-### Brave Yalnız Seviyesi — Brave'e Özgü Politikalar (24)
+### Brave Yalnız Seviyesi — Brave'e Özgü Politikalar (25)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -307,6 +312,7 @@ Brave Omega v3.1.0.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `TorDisabled` | `1` | DWord | Tor entegrasyonunu devre dışı bırakır |
 | `SafeBrowsingProtectionLevel` | `2` | DWord | Standart Güvenli Gezinti korumasını zorunlu kılar |
 | `PasswordProtectionWarningTrigger` | `3` | DWord | Parola tekrar kullanım uyarısını etkinleştirir |
+| `NotificationsAllowedForUrls` | `@("https://web.whatsapp.com")` | MultiString | WhatsApp Web bildirimlerine izin verir; diğer tüm kaynaklar engelli kalır |
 | `BraveDeAmpEnabled` | `1` | DWord | Brave De-AMP'yi devre dışı bırakır |
 | `BraveDebouncingEnabled` | `1` | DWord | Brave Debouncing'i devre dışı bırakır |
 | `BraveReduceLanguageEnabled` | `1` | DWord | Dil başlığı azaltmayı devre dışı bırakır |
@@ -429,7 +435,7 @@ Brave Omega v3.1.0.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | Boş liste varsayılan IP eşlemelerini kullanır |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Yerel ağ erişimi kısıtlamalarından geçici çıkış devre dışı |
 
-### Katı Seviye — Gelişmiş + Azami Gizlilik (28 toplam)
+### Katı Seviye — Gelişmiş + Azami Gizlilik (28 ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 | ------------------------ | ------- | ----- | ------ |
@@ -462,6 +468,10 @@ Brave Omega v3.1.0.1 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `BrowserSignin` | `0` | DWord | **[Faz 9]** Brave tarayıcı girişini devre dışı bırakır. Yalnızca Katı kademesinde uygulanır; Brave Sync'i açık tutmak için `-SenkronizasyonaIzinVer` ile hariç tutulur |
 | `SyncDisabled` | `1` | DWord | **[Faz 9]** Chrome Sync'i devre dışı bırakır. Yalnızca Katı kademesinde uygulanır; Brave Sync'i açık tutmak için `-SenkronizasyonaIzinVer` ile hariç tutulur |
 
+> Katı profili ayrıca `NotificationsAllowedForUrls` politikasını boş bir listeyle
+> ayarlayarak Brave Yalnız izin listesini temizler. Yeni bir politika eklemek
+> yerine mevcut olanı geçersiz kıldığı için benzersiz toplam 150 olarak kalır.
+
 ---
 
 ## Kayıt Defteri Yolları
@@ -482,7 +492,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-149 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+150 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

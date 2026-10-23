@@ -217,6 +217,15 @@
                                    ],
                          "origin":  "chromium",
                          "platforms":  ["windows", "linux"]
+                     },
+                     {
+                         "name":  "NotificationsAllowedForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      }
                  ]
 }

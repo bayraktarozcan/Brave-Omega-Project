@@ -111,33 +111,49 @@ Windows Registry Editor Version 5.00
 "WebRtcIPHandling"="disable_non_proxied_udp"
 "WebRtcTextLogCollectionAllowed"=dword:00000000
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsDisabledForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsDisabledForUrls]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsEnabledForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\BraveShieldsEnabledForUrls]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionAllowedTypes]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionAllowedTypes]
 "1"="extension"
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallAllowlist]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallAllowlist]
 "1"="eimadpbcbfnmbkopoojfekhnkhdbieeh"
 "2"="maafgiompdekodanheihhgilkjchcakm"
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallBlocklist]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallBlocklist]
 "1"="*"
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallForcelist]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallForcelist]
 "1"="eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"
 "2"="maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx"
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallSources]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallSources]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\LocalNetworkAccessAllowedForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\LocalNetworkAccessAllowedForUrls]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\LocalNetworkAccessBlockedForUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\LocalNetworkAccessBlockedForUrls]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\LocalNetworkAccessIpAddressSpaceOverrides]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\LocalNetworkAccessIpAddressSpaceOverrides]
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NativeMessagingAllowlist]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NativeMessagingAllowlist]
 "1"="com.microsoft.outlook.smime.chromenativeapp"
 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NotificationsAllowedForUrls]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\NotificationsAllowedForUrls]
+"1"="https://web.whatsapp.com"
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\WebRtcLocalIpsAllowedUrls]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\WebRtcLocalIpsAllowedUrls]

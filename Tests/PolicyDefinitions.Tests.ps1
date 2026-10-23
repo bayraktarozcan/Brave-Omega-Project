@@ -36,11 +36,11 @@ Describe "Policy Definitions" -Tag "Unit" {
 
     It "should have correct policy counts per tier from data layer" {
         $expectedCounts = @{
-            "BraveOnly" = 24
+            "BraveOnly" = 25
             "Essential" = 26
             "Balanced"  = 31
             "Advanced"  = 40
-            "Strict"    = 28
+            "Strict"    = 29
         }
         foreach ($tier in @("BraveOnly","Essential","Balanced","Advanced","Strict")) {
             $policies = Get-OmegaTierPolicies -Level $tier -ScriptPath $ScriptMain
@@ -48,8 +48,7 @@ Describe "Policy Definitions" -Tag "Unit" {
         }
     }
 
-    It "should have 149 total policy definitions (data layer)" {
-        $lines = Get-PolicyLines -ScriptPath $ScriptMain
-        $lines.Count | Should -BeExactly 149
+    It "should have 150 unique policy definitions (data layer)" {
+        @(Get-OmegaAllPolicyNames -ScriptPath $ScriptMain).Count | Should -BeExactly 150
     }
 }

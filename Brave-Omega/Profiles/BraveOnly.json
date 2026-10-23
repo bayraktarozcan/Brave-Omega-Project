@@ -172,6 +172,15 @@
                          "value":  3,
                          "origin":  "chromium",
                          "platforms":  ["windows", "linux"]
+                     },
+                     {
+                         "name":  "NotificationsAllowedForUrls",
+                         "type":  "MultiString",
+                         "value":  [
+                                       "https://web.whatsapp.com"
+                                   ],
+                         "origin":  "chromium",
+                         "platforms":  ["windows", "linux"]
                      }
                  ]
 }
