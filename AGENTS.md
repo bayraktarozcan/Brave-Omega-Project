@@ -452,8 +452,6 @@ All committed file and directory names are English.
 - The verifier takes both paths as parameters and names neither, and `-AllowMissingMirror` covers intentional absence such as CI. `Tests/MirrorSync.Tests.ps1` pins the behavior with fixtures: a clean pair, a CRLF mirror, each class of drift, the tolerated granularity, an ordered checklist that keeps, loses, reorders, and drops an anchor, and an absent mirror.
 - A mismatch means drift. Fix it by refreshing the mirror, then setting the reported value in both markers; never by editing one marker to match the other.
 
-<!-- mirror-sync: sync-sha=cbae4182f15192af706b13c223b566de86d4dd63 -->
-
 ---
 
 ## 13. Project Layer — Brave Omega
@@ -493,7 +491,7 @@ Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = 
 
 ### Commands
 
-Run from the repository root (`pwsh` 7.6.8 when present, otherwise Windows PowerShell 5.1):
+Run from the repository root (`pwsh` 7.6.9 when present, otherwise Windows PowerShell 5.1):
 
 ```powershell
 # CI conformance gate - runs every check the Quality workflow declares.
@@ -711,3 +709,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
+<!-- mirror-sync: sync-sha=ee63d323f85f8b7e7a6c04ae3b7e380431e52b08 -->
