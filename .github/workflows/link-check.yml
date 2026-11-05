@@ -26,6 +26,9 @@ jobs:
         with:
           # One exclusion is left, and it is the one still justified by evidence:
           # support.brave.app = Zendesk blocks bots with 403, a human browser works.
+          # iso.org = rate-limits / blocks CI runners intermittently; these are
+          #   versioned standards pages that resolve in a browser but lychee gets
+          #   429/403 on CI. Excluded defensively; they resolve fine locally.
           #
           # '^file://' and --exclude-path 'chrome-policies' were removed after
           # being measured rather than trusted. lychee rewrites every relative
@@ -58,6 +61,7 @@ jobs:
             --no-progress --verbose --max-retries 2 --retry-wait-time 5
             --host-concurrency 2 --host-request-interval 500ms
             --exclude 'support\.brave\.app'
+            --exclude 'iso\.org'
             --exclude 'file://.*/Wiki/[A-Za-z-]+(#[^/]*)?$'
             './**/*.md'
           fail: true
