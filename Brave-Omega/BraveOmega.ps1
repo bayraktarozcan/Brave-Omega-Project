@@ -35,6 +35,11 @@
 #
 #     [UNCHANGED]   ADMX entries remain 763.
 #
+#     [ADDED]     ExtensionInstallAllowlist and ExtensionSettings in Advanced now also allow
+#                 jcokkipkhhgiakinbnnplhkdbjbgcgpe and ejoelgckfgogkoppbgkklbbjdkjdbmen;
+#                 both are marked allowed in ExtensionSettings. No new policy is defined, so
+#                 totals stay 150 (chain 25 → 51 → 82 → 122 → 150; Chrome 123).
+#
 # CHANGELOG (v3.1.0.1)
 # ─────────────────────────────────────────────────────────────────────────────
 # v3.1.0.1             Patch release — deprecated Chromium policy removal:

@@ -236,6 +236,8 @@ All notable changes to this project are documented below, following the [Keep a 
 
 **`NotificationsAllowedForUrls` now lists the exact WhatsApp Web origin `https://web.whatsapp.com`.** Brave Only gains the policy, so Essential, Balanced, and Advanced inherit it; Strict overrides it with an empty list, keeping the unique total at 150 rather than 151. Balanced and above still set `DefaultNotificationsSetting=2`, so every other origin stays blocked while WhatsApp Web can raise notification permission prompts.
 
+**`ExtensionInstallAllowlist` and `ExtensionSettings` in the Advanced tier now also list `jcokkipkhhgiakinbnnplhkdbjbgcgpe` and `ejoelgckfgogkoppbgkklbbjdkjdbmen`; both are marked `allowed` in `ExtensionSettings`.** `BlockExternalExtensions` stays enabled and `ExtensionAllowedTypes` stays `extension`, so only allowlisted extensions can install. No new policy is defined and no tier count changes — total stays 150, chain `25→51→82→122→150`, Chrome 123.
+
 <a id="en-v3102-fixed"></a>
 
 ### Fixed
@@ -2630,6 +2632,8 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 ### Eklendi
 
 **`NotificationsAllowedForUrls` artık tam WhatsApp Web kaynak adresini `https://web.whatsapp.com` olarak listeliyor.** Politika Brave Yalnız'a eklendi; Temel, Dengeli ve Gelişmiş onu devralıyor; Katı boş listeyle geçersiz kılıyor ve benzersiz toplam 151 değil 150 olarak kalıyor. Dengeli ve üstü hâlâ `DefaultNotificationsSetting=2` ayarlıyor; böylece diğer tüm kaynaklar engelli kalıyor ve yalnızca WhatsApp Web bildirim izni isteyebiliyor.
+
+**`ExtensionInstallAllowlist` ve `ExtensionSettings` Gelişmiş katmanında artık `jcokkipkhhgiakinbnnplhkdbjbgcgpe` ve `ejoelgckfgogkoppbgkklbbjdkjdbmen` de listeleniyor; her ikisi `ExtensionSettings` içinde `allowed` olarak işaretleniyor.** `BlockExternalExtensions` etkin kalıyor ve `ExtensionAllowedTypes` `extension` kalıyor, bu yüzden yalnızca izin listenindeki eklentiler kurulabiliyor. Yeni politika tanımlanmıyor ve katman sayıları değişmiyor — toplam 150, kümülatif zincir 25 / 51 / 82 / 122 / 150, Chrome 123.
 
 <a id="tr-v3102-duzeltildi"></a>
 

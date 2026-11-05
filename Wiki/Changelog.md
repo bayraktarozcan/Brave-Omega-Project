@@ -30,6 +30,7 @@ Complete version history for Brave Omega.
 **Added:**
 
 - `NotificationsAllowedForUrls` added to Brave Only with the exact `https://web.whatsapp.com` origin; Essential, Balanced, and Advanced inherit it, while Strict clears it with an empty list; totals 149 → 150, cumulative chain 25 / 51 / 82 / 122 / 150, Chrome 123
+- `ExtensionInstallAllowlist` and `ExtensionSettings` in the Advanced tier now also allow `jcokkipkhhgiakinbnnplhkdbjbgcgpe` and `ejoelgckfgogkoppbgkklbbjdkjdbmen`; both are marked `allowed` in `ExtensionSettings`. No new policy is defined and no tier count changes — totals stay 150, cumulative chain 25 / 51 / 82 / 122 / 150, Chrome 123
 
 **Fixed:**
 
@@ -976,6 +977,7 @@ Brave Omega için tam sürüm geçmişi.
 **Eklenenler:**
 
 - `NotificationsAllowedForUrls` tam `https://web.whatsapp.com` kaynağıyla Brave Yalnız'a eklendi; Temel, Dengeli ve Gelişmiş onu devralıyor, Katı ise boş listeyle temizliyor; toplam 149 → 150, kümülatif zincir 25 / 51 / 82 / 122 / 150, Chrome 123
+- `ExtensionInstallAllowlist` ve `ExtensionSettings` Gelişmiş katmanında artık `jcokkipkhhgiakinbnnplhkdbjbgcgpe` ve `ejoelgckfgogkoppbgkklbbjdkjdbmen`'e de izin veriliyor; her ikisi `ExtensionSettings` içinde `allowed` olarak işaretleniyor. Yeni politika tanımlanmıyor ve katman sayıları değişmiyor — toplam 150, kümülatif zincir 25 / 51 / 82 / 122 / 150, Chrome 123
 
 **Düzeltilenler:**
 

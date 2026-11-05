@@ -92,7 +92,9 @@
                          "type":  "MultiString",
                          "value":  [
                                        "eimadpbcbfnmbkopoojfekhnkhdbieeh",
-                                       "maafgiompdekodanheihhgilkjchcakm"
+                                       "maafgiompdekodanheihhgilkjchcakm",
+                                       "jcokkipkhhgiakinbnnplhkdbjbgcgpe",
+                                       "ejoelgckfgogkoppbgkklbbjdkjdbmen"
                                    ],
                          "origin":  "chromium",
                          "platforms":  ["windows", "linux"]
@@ -116,7 +118,7 @@
                      {
                          "name":  "ExtensionSettings",
                          "type":  "String",
-                         "value":  "{\"*\":{\"installation_mode\":\"blocked\"},\"eimadpbcbfnmbkopoojfekhnkhdbieeh\":{\"installation_mode\":\"allowed\"},\"maafgiompdekodanheihhgilkjchcakm\":{\"installation_mode\":\"allowed\",\"override_update_url\":true}}",
+                         "value":  "{\"*\":{\"installation_mode\":\"blocked\"},\"eimadpbcbfnmbkopoojfekhnkhdbieeh\":{\"installation_mode\":\"allowed\"},\"maafgiompdekodanheihhgilkjchcakm\":{\"installation_mode\":\"allowed\",\"override_update_url\":true},\"jcokkipkhhgiakinbnnplhkdbjbgcgpe\":{\"installation_mode\":\"allowed\"},\"ejoelgckfgogkoppbgkklbbjdkjdbmen\":{\"installation_mode\":\"allowed\"}}",
                          "origin":  "chromium",
                          "platforms":  ["windows", "linux"]
                      },

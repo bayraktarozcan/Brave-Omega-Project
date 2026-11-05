@@ -72,7 +72,7 @@ Windows Registry Editor Version 5.00
 "EmailAliasesEnabled"=dword:00000000
 "EnableOnlineRevocationChecks"=dword:00000001
 "EncryptedClientHelloEnabled"=dword:00000001
-"ExtensionSettings"="{\"*\":{\"installation_mode\":\"blocked\"},\"eimadpbcbfnmbkopoojfekhnkhdbieeh\":{\"installation_mode\":\"allowed\"},\"maafgiompdekodanheihhgilkjchcakm\":{\"installation_mode\":\"allowed\",\"override_update_url\":true}}"
+"ExtensionSettings"="{\"*\":{\"installation_mode\":\"blocked\"},\"eimadpbcbfnmbkopoojfekhnkhdbieeh\":{\"installation_mode\":\"allowed\"},\"maafgiompdekodanheihhgilkjchcakm\":{\"installation_mode\":\"allowed\",\"override_update_url\":true},\"jcokkipkhhgiakinbnnplhkdbjbgcgpe\":{\"installation_mode\":\"allowed\"},\"ejoelgckfgogkoppbgkklbbjdkjdbmen\":{\"installation_mode\":\"allowed\"}}"
 "GeminiActOnWebSettings"=dword:00000001
 "GeminiSettings"=dword:00000001
 "GeminiSparkSettings"=dword:00000001
@@ -149,6 +149,8 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallAllowlist]
 "1"="eimadpbcbfnmbkopoojfekhnkhdbieeh"
 "2"="maafgiompdekodanheihhgilkjchcakm"
+"3"="jcokkipkhhgiakinbnnplhkdbjbgcgpe"
+"4"="ejoelgckfgogkoppbgkklbbjdkjdbmen"
 
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallBlocklist]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallBlocklist]
