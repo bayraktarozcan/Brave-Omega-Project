@@ -405,6 +405,7 @@ Repository management and dependency conventions.
 - **Version bumps.** A bump adds the bilingual changelog entry (table of contents, anchors), bumps `$ScriptVersion` plus the script header block, then updates README matrices, SECURITY, index.html (badges, terminal text, compat and changelog rows, i18n tables), the Wiki pages (including the Quick-Start prerequisite OS), this file (§13), `Enterprise/levels.json` (regenerated — `.reg` byte-identical), policy catalog headers, and test expectations. `Tests/VersionParity.Tests.ps1` pins parity across those places.
 - **Release parity.** Releases on both hosts mirror each other exactly: same tag, title, description, and notes, verified byte-for-byte after upload. Release notes are bilingual (EN paragraph first, TR paragraph after, at equal scope, detail, and quality). The runnable package ships on both releases: `Brave-Omega-<ver>.zip` (Windows) and `Brave-Omega-<ver>-linux.tar.gz` (Linux).
 - **Historical records** (changelog, compatibility tables, per-version release notes) describe the repository as it stood at that version. Rename and cleanup guards exempt them by a scoped marker, per file or per line region, never by a whole-file exemption, and a guard checks that each declared marker is still present.
+- **Release completeness.** Before writing release notes, review every commit between the previous tag and the current one. Confirm each commit is accounted for in the notes (added, changed, fixed, removed, deprecated, security), and that no commit is omitted. The notes must be complete against the tag diff, not just a summary.
 
 ### Naming
 
@@ -709,4 +710,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=ee63d323f85f8b7e7a6c04ae3b7e380431e52b08 -->
+<!-- mirror-sync: sync-sha=52eb6c6887d9e36c5a5abc98c99524c991836390 -->
