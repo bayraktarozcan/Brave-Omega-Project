@@ -309,8 +309,11 @@ link-check:
     # default. Identical lychee version and identical arguments to the GitHub
     # workflow, so the two hosts cannot drift into checking different things.
     #
-    # One exclusion is left, and it is the one still justified by evidence:
+    # Exclusions justified by evidence:
     # support.brave.app = Zendesk blocks bots with 403, a human browser works.
+    # Specific ISO standard pages below = rate-limited / blocked for CI
+    #   runners intermittently (429/403); they resolve in a browser and
+    #   locally. Excluded by exact URL, not by iso.org domain.
     # '^file://' and --exclude-path 'chrome-policies' were removed after being
     # measured rather than trusted: lychee rewrites every relative Markdown link
     # into a file:// URL, so '^file://' was excluding every internal link in the
@@ -337,6 +340,9 @@ link-check:
         --max-retries 2 --retry-wait-time 5 \
         --host-concurrency 2 --host-request-interval 500ms \
         --exclude 'support\.brave\.app' \
+        --exclude '^https://www\.iso\.org/standard/77520\.html$' \
+        --exclude '^https://www\.iso\.org/standard/86308\.html$' \
+        --exclude '^https://www\.iso\.org/standard/86612\.html$' \
         --exclude 'file://.*/Wiki/[A-Za-z-]+(#[^/]*)?$' \
         './**/*.md'
 

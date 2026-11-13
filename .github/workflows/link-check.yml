@@ -24,11 +24,11 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          # One exclusion is left, and it is the one still justified by evidence:
+          # Exclusions justified by evidence:
           # support.brave.app = Zendesk blocks bots with 403, a human browser works.
-          # iso.org = rate-limits / blocks CI runners intermittently; these are
-          #   versioned standards pages that resolve in a browser but lychee gets
-          #   429/403 on CI. Excluded defensively; they resolve fine locally.
+          # Specific ISO standard pages below = rate-limited / blocked for CI
+          #   runners intermittently (429/403); they resolve in a browser and
+          #   locally. Excluded by exact URL, not by iso.org domain.
           #
           # '^file://' and --exclude-path 'chrome-policies' were removed after
           # being measured rather than trusted. lychee rewrites every relative
@@ -61,7 +61,9 @@ jobs:
             --no-progress --verbose --max-retries 2 --retry-wait-time 5
             --host-concurrency 2 --host-request-interval 500ms
             --exclude 'support\.brave\.app'
-            --exclude 'iso\.org'
+            --exclude '^https://www\.iso\.org/standard/77520\.html$'
+            --exclude '^https://www\.iso\.org/standard/86308\.html$'
+            --exclude '^https://www\.iso\.org/standard/86612\.html$'
             --exclude 'file://.*/Wiki/[A-Za-z-]+(#[^/]*)?$'
             './**/*.md'
           fail: true
