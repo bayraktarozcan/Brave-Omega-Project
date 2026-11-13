@@ -1,4 +1,4 @@
-> **Language / Dil** &nbsp;
+﻿> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -15,7 +15,7 @@
 | ------------- | -------- |
 | **OS** | Windows 11 (latest stable 26H2 build recommended) |
 | **Browser** | **Brave Browser — latest stable** ([brave.com/download](https://brave.com/download)) |
-| **PowerShell** | 5.1+ (included with Windows 11; PowerShell 7.6.9 recommended) |
+| **PowerShell** | 5.1+ (included with Windows 11; PowerShell 7+ recommended) |
 | **Privileges** | **Administrator** (required for HKLM registry writes) |
 | **Execution Policy** | Handled automatically via `-ExecutionPolicy Bypass` flag |
 
@@ -202,7 +202,7 @@ Each file carries a timestamp (e.g. `HKLM_BravePolicy_20260613_120000.reg`).
 | ------------ | --------- |
 | **İşletim Sistemi** | Windows 11 (önerilen: en güncel kararlı 26H2 derlemesi) |
 | **Tarayıcı** | **Brave Browser — en güncel kararlı** ([brave.com/download](https://brave.com/download)) |
-| **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir; PowerShell 7.6.9 önerilir) |
+| **PowerShell** | 5.1+ (Windows 11 ile birlikte gelir; PowerShell 7+ önerilir) |
 | **Ayrıcalık** | **Yönetici** (HKLM kayıt defteri yazmaları için gerekli) |
 | **Çalıştırma İlkesi** | `-ExecutionPolicy Bypass` bayrağı ile otomatik olarak yönetilir |
 

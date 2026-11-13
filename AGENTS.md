@@ -1,4 +1,4 @@
-<!-- ================================================================== -->
+!-- ================================================================== -->
 <!--          BRAVE OMEGA PROJECT — AGENTS.md                           -->
 <!--        Community Edition · Open Source · Privacy First             -->
 <!-- ================================================================== -->
@@ -492,7 +492,7 @@ Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = 
 
 ### Commands
 
-Run from the repository root (`pwsh` 7.6.9 when present, otherwise Windows PowerShell 5.1):
+Run from the repository root (PowerShell 7+ `pwsh` when present, otherwise Windows PowerShell 5.1):
 
 ```powershell
 # CI conformance gate - runs every check the Quality workflow declares.
@@ -710,4 +710,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=da5f0c85f08a807f8834082b6faaf5f265aff28a -->
+<!-- mirror-sync: sync-sha=ea8a644f8f7c585d8e6d8e99aebf6a29366bd2da -->
