@@ -505,7 +505,7 @@ Run from the repository root (`pwsh` 7.6.9 when present, otherwise Windows Power
 Invoke-Pester Tests/ -PassThru          # expected: 392/392 passing
 
 # ADMX cross-reference
-& "ADMX/ADMX-Validate.ps1"              # expected: PASS - 150/150
+& "ADMX/ADMX-Validate.ps1"              # expected: PASS - 149/149
 
 # PSScriptAnalyzer (exclude list is an array; a comma-joined string is silently
 # accepted and then ignored, so pass a real array)
@@ -710,4 +710,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=52eb6c6887d9e36c5a5abc98c99524c991836390 -->
+<!-- mirror-sync: sync-sha=da5f0c85f08a807f8834082b6faaf5f265aff28a -->

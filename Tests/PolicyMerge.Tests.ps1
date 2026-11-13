@@ -65,7 +65,7 @@ Describe "Policy Merge" -Tag "Unit" {
                 $MergedPolicies[$p.name] = $tier
             }
         }
-        $MergedPolicies.Count | Should -BeExactly 150
+        $MergedPolicies.Count | Should -BeExactly 149
     }
 
     It "DownloadRestrictions should live in Essential only (smart value, not a blanket block)" {

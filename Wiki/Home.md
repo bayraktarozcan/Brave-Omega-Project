@@ -28,7 +28,7 @@
 
 ---
 
-> **Latest Release:** [v3.1.0.2 - WhatsApp Web notification allowlist and release parity fixes](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v3.1.0.3 - Deprecated Autofill policy removed](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
@@ -71,7 +71,7 @@
 
 ---
 
-> **Son Sürüm:** [v3.1.0.2 - WhatsApp Web bildirim izin listesi ve sürüm eşliği düzeltmeleri](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v3.1.0.3 - Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 

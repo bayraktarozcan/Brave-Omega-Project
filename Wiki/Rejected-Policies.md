@@ -1,4 +1,4 @@
-<a id="-english"></a>
+﻿<a id="-english"></a>
 # Rejected & Removed Policies Database
 
 > **Brave Omega Project** — Community Edition
@@ -1256,10 +1256,10 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 
 ---
 
-*Last updated: v3.1.0.2 (2026-10-23)*
+*Last updated: v3.1.0.3 (2026-10-23)*
 *Total policies ever rejected/removed: 38*
-*Current active policies: 150 (v3.1.0.2)*
+*Current active policies: 149 (v3.1.0.3)*
 
-*Son güncelleme: v3.1.0.2 (2026-10-23)*
+*Son güncelleme: v3.1.0.3 (2026-10-23)*
 *Toplam reddedilen/kaldırılan politika: 38*
-*Mevcut aktif politikalar: 150 (v3.1.0.2)*
+*Mevcut aktif politikalar: 149 (v3.1.0.3)*

@@ -39,7 +39,7 @@ Describe "Policy Definitions" -Tag "Unit" {
             "BraveOnly" = 25
             "Essential" = 26
             "Balanced"  = 31
-            "Advanced"  = 40
+            "Advanced"  = 39
             "Strict"    = 29
         }
         foreach ($tier in @("BraveOnly","Essential","Balanced","Advanced","Strict")) {
@@ -49,6 +49,6 @@ Describe "Policy Definitions" -Tag "Unit" {
     }
 
     It "should have 150 unique policy definitions (data layer)" {
-        @(Get-OmegaAllPolicyNames -ScriptPath $ScriptMain).Count | Should -BeExactly 150
+        @(Get-OmegaAllPolicyNames -ScriptPath $ScriptMain).Count | Should -BeExactly 149
     }
 }

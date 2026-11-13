@@ -1,4 +1,4 @@
-> **Language / Dil** &nbsp;
+﻿> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -66,7 +66,8 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.1.0.2** *(current)* | all | all | 11 26H2 | ✅ Current |
+| **v3.1.0.3** *(current)* | all | all | 11 26H2 | ✅ Current |
+| **v3.1.0.2** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.1** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
@@ -111,7 +112,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Previous |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Archived |
 
-> **Latest Release:** [v3.1.0.2 - WhatsApp Web notification allowlist and release parity fixes](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v3.1.0.3 - Deprecated Autofill policy removed](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 > This matrix lists the Brave and Chromium version validated for each release. The [Changelog](Changelog) is the complete release history.
 
@@ -211,7 +212,8 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.1.0.2** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.3** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.2** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.1** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
@@ -256,7 +258,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 | v1.1 | 1.91.168 | 149 | 11 25H2 | 📦 Önceki |
 | v1.0 | 1.91.168 | 149 | 11 25H2 | 🔒 Arşivlendi |
 
-> **Son Sürüm:** [v3.1.0.2 - WhatsApp Web bildirim izin listesi ve sürüm eşliği düzeltmeleri](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v3.1.0.3 - Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 > Bu matris her sürüm için doğrulanan Brave ve Chromium sürümünü listeler. [Değişiklik Günlüğü](Changelog#-türkçe) eksiksiz sürüm geçmişidir.
 

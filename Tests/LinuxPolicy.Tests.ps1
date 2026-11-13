@@ -27,7 +27,7 @@ Describe 'Linux managed-JSON renderer' -Tag 'Unit' {
         $r.ExitCode | Should -Be 0
         ($r.Output | ConvertFrom-Json).PSObject.Properties |
             Measure-Object | Select-Object -ExpandProperty Count |
-            Should -Be 150
+            Should -Be 149
     }
 
     It 'renders exactly the chromium-origin set for chrome' {
@@ -36,7 +36,7 @@ Describe 'Linux managed-JSON renderer' -Tag 'Unit' {
         $keys = @((($r.Output | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $_.Name }))
         $brave = @('BraveAIChatEnabled', 'TorDisabled', 'EmailAliasesEnabled', 'DefaultBraveAdblockSetting')
         foreach ($name in $brave) { $keys | Should -Not -Contain $name }
-        $keys.Count | Should -Be 123
+        $keys.Count | Should -Be 122
     }
 
     It 'prefers platform values per platform' {

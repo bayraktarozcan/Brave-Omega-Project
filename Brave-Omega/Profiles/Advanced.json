@@ -1,4 +1,4 @@
-﻿{
+{
     "tier":  "Advanced",
     "policies":  [
                      {
@@ -177,13 +177,6 @@
                          "name":  "AIModeSettings",
                          "type":  "DWord",
                          "value":  1,
-                         "origin":  "chromium",
-                         "platforms":  ["windows", "linux"]
-                     },
-                     {
-                         "name":  "AutofillPredictionSettings",
-                         "type":  "DWord",
-                         "value":  2,
                          "origin":  "chromium",
                          "platforms":  ["windows", "linux"]
                      },

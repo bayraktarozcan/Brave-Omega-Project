@@ -17,7 +17,7 @@ Describe "Policy Definitions Loading" -Tag "Unit" {
             'BraveOnly' = 25
             'Essential' = 26
             'Balanced'  = 31
-            'Advanced'  = 40
+            'Advanced'  = 39
             'Strict'    = 29
         }
         foreach ($tier in $script:Order) {
@@ -40,8 +40,8 @@ Describe "Cumulative Merge" -Tag "Unit" {
             'BraveOnly' = 25
             'Essential' = 51
             'Balanced'  = 82
-            'Advanced'  = 122
-            'Strict'    = 150
+            'Advanced'  = 121
+            'Strict'    = 149
         }
         foreach ($tier in $script:Order) {
             $script:Cumulative[$tier].Count | Should -BeExactly $expected[$tier]
@@ -203,8 +203,8 @@ Describe "Levels Json" -Tag "Unit" {
     }
 
     It "reports matching incremental and cumulative totals" {
-        $incremental = @{ 'BraveOnly'=25; 'Essential'=26; 'Balanced'=31; 'Advanced'=40; 'Strict'=29 }
-        $cumulative  = @{ 'BraveOnly'=25; 'Essential'=51; 'Balanced'=82; 'Advanced'=122; 'Strict'=150 }
+        $incremental = @{ 'BraveOnly'=25; 'Essential'=26; 'Balanced'=31; 'Advanced'=39; 'Strict'=29 }
+        $cumulative  = @{ 'BraveOnly'=25; 'Essential'=51; 'Balanced'=82; 'Advanced'=121; 'Strict'=149 }
         foreach ($tier in $script:Order) {
             $script:Json.perLevelIncremental.$tier | Should -BeExactly $incremental[$tier]
             $script:Json.cumulativeTotals.$tier    | Should -BeExactly $cumulative[$tier]
@@ -279,8 +279,8 @@ Describe "Full Export" -Tag "Integration" {
         $catalog = Get-Content -Path (Join-Path $script:OutDir 'levels.json') -Raw | ConvertFrom-Json
         $catalog.generatedBy  | Should -BeExactly 'Scripts/Export-PolicyCatalog.ps1'
         $catalog.scriptVersion | Should -Match '^v\d+\.\d+\.\d+\.\d+$'
-        $catalog.cumulativeTotals.Strict | Should -BeExactly 150
-        @($catalog.levels.Strict.policies).Count | Should -BeExactly 150
+        $catalog.cumulativeTotals.Strict | Should -BeExactly 149
+        @($catalog.levels.Strict.policies).Count | Should -BeExactly 149
     }
 
     It "fails loudly when expected counts are out of date" {

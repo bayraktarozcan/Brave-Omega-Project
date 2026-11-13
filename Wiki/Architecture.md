@@ -1,4 +1,4 @@
-> **Language / Dil** &nbsp;
+﻿> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -42,8 +42,8 @@ In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hard
 | **1. Brave Only** | 25 Brave-specific policies | HKLM | None |
 | **2. Essential** ⭐ | 25 + 26 = 51 | HKLM + HKCU + Omaha | None |
 | **3. Balanced** | 51 + 31 = 82 | + WebRTC, HTTPS, DNS | Low |
-| **4. Advanced** | 82 + 40 = 122 | + Sensors, Imports, Extensions, Profiles | Low |
-| **5. Strict** | 122 + 28 = 150 | + JIT, Cookies, Clipboard, FS, DevTools | Medium |
+| **4. Advanced** | 82 + 39 = 121 | + Sensors, Imports, Extensions, Profiles | Low |
+| **5. Strict** | 121 + 28 = 149 | + JIT, Cookies, Clipboard, FS, DevTools | Medium |
 
 Select your level interactively when running the script or use the `-Level` parameter:
 
@@ -151,7 +151,7 @@ What the per-policy form buys instead:
 
 - **Isolated failure.** One policy that cannot be written is reported by name.
   A bulk import fails as a unit and leaves the operator reading a single error
-  for a batch of 150.
+  for a batch of 149.
 - **`-WhatIf` accuracy.** The preview reports the same path, name, type and
   value the apply step will actually write, because both call the same function.
   A generated `.reg` file would be a separate description of the intended state
@@ -223,8 +223,8 @@ Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız 
 | **1. Brave Yalnız** | 25 Brave'e özgü politika | HKLM | Yok |
 | **2. Temel** ⭐ | 25 + 26 = 51 | HKLM + HKCU + Omaha | Yok |
 | **3. Dengeli** | 51 + 31 = 82 | + WebRTC, HTTPS, DNS | Düşük |
-| **4. Gelişmiş** | 82 + 40 = 122 | + Sensörler, İçe Aktarmalar, Uzantılar, Profiller | Düşük |
-| **5. Katı** | 122 + 28 = 150 | + JIT, Çerezler, Pano, FS, DevTools | Orta |
+| **4. Gelişmiş** | 82 + 39 = 121 | + Sensörler, İçe Aktarmalar, Uzantılar, Profiller | Düşük |
+| **5. Katı** | 121 + 28 = 149 | + JIT, Çerezler, Pano, FS, DevTools | Orta |
 
 Betiği çalıştırırken seviyenizi etkileşimli olarak seçin veya `-Level` parametresini kullanın:
 
@@ -331,7 +331,7 @@ hiçbir şey kullanıcının fark edebileceği bir kazanç değil.
 Bunun yerine politika başına yazma şunları sağlıyor:
 
 - **Hata yalıtımı.** Yazılamayan tek politika adıyla raporlanır. Toplu içe aktarma
-  bir bütün olarak başarısız olur ve işleticiyi 150 politikalık bir yığın için tek
+  bir bütün olarak başarısız olur ve işleticiyi 149 politikal\u0131k bir yığın için tek
   bir hata mesajı okumaya bırakır.
 - **`-WhatIf` doğruluğu.** Önizleme, uygulama adımının gerçekten yazacağı yolu,
   adı, türü ve değeri raporlar; çünkü ikisi de aynı işlevi çağırır. Üretilmiş bir

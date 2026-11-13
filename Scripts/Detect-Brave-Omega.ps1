@@ -193,7 +193,6 @@ function Get-OmegaTierPolicyNames {
         )
         "Advanced" = @(
             "AIModeSettings"
-            "AutofillPredictionSettings"
             "BlockExternalExtensions"
             "BrowserAddPersonEnabled"
             "BrowserGuestModeEnabled"

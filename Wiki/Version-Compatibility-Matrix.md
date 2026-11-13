@@ -1,4 +1,4 @@
-> **Language / Dil** &nbsp;
+﻿> **Language / Dil** &nbsp;
 > [EN English](#-english) &nbsp;·&nbsp; [TR Türkçe](#-türkçe)
 
 <a id="-english"></a>
@@ -13,7 +13,8 @@ Complete compatibility reference for Brave Omega versions.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status | Release Date |
 | ------------- | --------------- | ---------- | --------- | -------- | -------------- |
-| **v3.1.0.2** ✅ | all | all | Windows 11 26H2 | ✅ Active | 2026-10-23 |
+| **v3.1.0.3** ✅ | all | all | Windows 11 26H2 | ✅ Active | 2026-11-12 |
+| **v3.1.0.2** 📦 | all | all | Windows 11 26H2 | 📦 Previous | 2026-10-23 |
 | **v3.1.0.1** 📦 | all | all | Windows 11 26H2 | 📦 Previous | 2026-10-22 |
 | **v3.1.0.0** 📦 | all | all | Windows 11 26H2 | 📦 Previous | 2026-10-09 |
 | **v3.0.2.0** 📦 | all | all | Windows 11 26H2 | 📦 Previous | 2026-10-08 |
@@ -88,15 +89,15 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v3.1.0.2) If
+### Use Current (v3.1.0.3) If
 
 - Running any Brave release (V3 version-agnostic — no pinned version)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
-- Need full extension lockdown, proxy enforcement, and 150 total policies
+- Need full extension lockdown, proxy enforcement, and 149 total policies
 
-### Use Previous (v3.0.2.0) If
+### Use Previous (v3.1.0.2) If
 
-- Cannot update to v3.1.0.2 immediately
+- Cannot update to v3.1.0.3 immediately
 - Do not need Windows Chrome support
 
 ### Use Legacy (v2.2.1.0) If
@@ -137,8 +138,8 @@ if (Test-Path $bravePath) {
 
 | Scenario | Recommendation |
 | ---------- | ---------------- |
-| Any Brave release (V3) | Use v3.1.0.2 — version-agnostic, no matrix lookup needed |
-| Staying on v3.0.2.0 | Update to v3.1.0.2 for Windows Chrome support |
+| Any Brave release (V3) | Use v3.1.0.3 — version-agnostic, no matrix lookup needed |
+| Staying on an older release | Update to v3.1.0.3 for the latest policy set |
 | Windows build differs | Windows 11 recommended; other builds likely compatible |
 
 ---
@@ -146,6 +147,7 @@ if (Test-Path $bravePath) {
 ## Policy Coverage by Version
 
 | Version | Policies | Coverage | New Policies |
+| v3.1.0.3 | 149 | 100% | Patch release — deprecated Autofill policy removed (2026-11-12). `AutofillPredictionSettings` dropped from the Advanced tier (deprecated in Chromium M157, replaced upstream by `AutofillGenAiSettings`); Advanced 40 → 39, totals 150 → 149, Chrome 123 → 122; ADMX vendor snapshot preserved at 763 entries (not regenerated). Chain 25 / 51 / 82 / 121 / 149. No regressions across all 5 tiers |
 | v3.1.0.2 | 150 | 100% | Patch release — WhatsApp Web notification allowlist and release parity fixes (2026-10-23). `NotificationsAllowedForUrls` allows only `https://web.whatsapp.com` in Brave Only, inherited by Essential/Balanced/Advanced and emptied in Strict; GitLab release deprecation and list-valued .reg clearing fixed; totals 150; chain 25 / 51 / 82 / 122 / 150. No regressions across all 5 tiers |
 | v3.1.0.1 | 149 | 100% | Patch release — deprecated Chromium policies replaced (2026-10-22). `SafeBrowsingExtendedReportingEnabled` dropped from Essential and ADMX; `AutofillAddressEnabled` and `AutofillCreditCardEnabled` replaced by `AutofillSettings` in Balanced; totals 149; chain 24 / 50 / 81 / 121 / 149. No regressions across the remaining tiers |
 | v3.1.0.0 | 151 | 100% | Feature release — Windows Chrome target (2026-10-09). Browser selection with origin filter; 2x2 Windows/Linux × Brave/Chromium matrix complete. No policy changes, no regressions across all 5 tiers |
@@ -247,7 +249,8 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum | Yayın Tarihi |
 | ------------- | -------------- | ---------- | --------- | ------- | -------------- |
-| **v3.1.0.2** ✅ | tümü | tümü | Windows 11 26H2 | ✅ Etkin | 2026-10-23 |
+| **v3.1.0.3** ✅ | tümü | tümü | Windows 11 26H2 | ✅ Etkin | 2026-11-12 |
+| **v3.1.0.2** 📦 | tümü | tümü | Windows 11 26H2 | 📦 Önceki | 2026-10-23 |
 | **v3.1.0.1** 📦 | tümü | tümü | Windows 11 26H2 | 📦 Önceki | 2026-10-22 |
 | **v3.1.0.0** 📦 | tümü | tümü | Windows 11 26H2 | 📦 Önceki | 2026-10-09 |
 | **v3.0.2.0** 📦 | tümü | tümü | Windows 11 26H2 | 📦 Önceki | 2026-10-08 |
@@ -381,7 +384,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | v3.1.0.2 | 150 | 100% | Yama sürümü — WhatsApp Web bildirim izin listesi ve sürüm eşliği düzeltmeleri (2026-10-23). `NotificationsAllowedForUrls` Brave Yalnız katmanında yalnızca `https://web.whatsapp.com` adresine izin verir; Temel/Dengeli/Gelişmiş tarafından devralınır ve Katı katmanında boşaltılır; GitLab sürüm deprecation'ı ve liste değerli .reg temizliği düzeltildi; toplam 150; zincir 25 / 51 / 82 / 122 / 150. 5 seviyede de gerileme yok |
-| v3.1.0.1 | 149 | 100% | Yama sürümü — kullanımdan kaldırılmış Chromium politikaları değiştirildi (2026-10-22). `SafeBrowsingExtendedReportingEnabled` Essential ve ADMX şablonlarından çıkarıldı; `AutofillAddressEnabled` ve `AutofillCreditCardEnabled` dengeli katmanda `AutofillSettings` ile değiştirildi; toplam 149; zincir 24 / 50 / 81 / 121 / 149. Kalan katmanlarda gerileme yok |
+| v3.1.0.3 | 149 | 100% | Yama sürümü — Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı (2026-11-12). AutofillPredictionSettings İleri katmandan çıkarıldı (Chromium M157'de deprecated,上游 Chromium'da AutofillGenAiSettings ile değiştirildi); İleri 40 → 39, toplam 150 → 149; Chrome 123 → 122; ADMX vendor snapshot 763 girdi olarak korundu (yeniden üretilmedi). zincir 25 / 51 / 82 / 121 / 149. 5 seviyede de gerileme yok
 | v3.1.0.0 | 151 | 100% | Özellik sürümü — Windows Chrome hedefi (2026-10-09). Tarayıcı seçimi ve origin filtresi; 2x2 Windows/Linux × Brave/Chromium matrisi tamam. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v3.0.2.0 | 151 | 100% | Uyumluluk sürümü — Linux desteği ve genel Chromium profilleri (2026-10-08). Tüm politikalarda origin/platform etiketi, brave+chrome profilleri, yönetilen JSON üreteci ve POSIX kurucu. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v3.0.1.0 | 151 | 100% | Uyumluluk sürümü — Yönetici koruması desteği (2026-10-08). Kullanıcı işlemleri SID ile her yerel profili hedefler; Brave tespiti tüm profillerin AppData dizinini tarar. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |

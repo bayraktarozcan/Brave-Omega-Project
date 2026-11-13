@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 <br>
 
@@ -17,10 +17,10 @@
 
 # Brave Omega — Policy Catalog
 
-> **Source:** `BraveOmega.ps1` v3.1.0.2 (bilingual EN/TR)\
-> **Date:** 2026-10-23\
-> **Total unique policies:** 150 (no overlaps)\
-> **Type distribution:** 121 DWord · 8 String · 20 MultiString · 1 ExpandString\
+> **Source:** `BraveOmega.ps1` v3.1.0.3 (bilingual EN/TR)\
+> **Date:** 2026-11-11\
+> **Total unique policies:** 149 (no overlaps)\
+> **Type distribution:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\
 > **Validated on:** V3 version-agnostic — all Brave + Chromium versions (no pinned validation target)
 
 ---
@@ -149,50 +149,49 @@
 | 104 | `DefaultJavaScriptSetting` | DWord | `0` | Advanced | Windows·Linux | JavaScript execution |
 | 105 | `GeminiSettings` | DWord | `1` | Advanced | Windows·Linux | Gemini AI suggestions |
 | 106 | `AIModeSettings` | DWord | `1` | Advanced | Windows·Linux | AI Mode in Search |
-| 107 | `AutofillPredictionSettings` | DWord | `2` | Advanced | Windows·Linux | Autofill predictions |
-| 108 | `ChromeSuggestionsSettings` | DWord | `1` | Advanced | Windows·Linux | Chrome suggestions |
-| 109 | `CreateThemesSettings` | DWord | `2` | Advanced | Windows·Linux | Theme creation |
-| 110 | `DevToolsGenAiSettings` | DWord | `2` | Advanced | Windows·Linux | DevTools AI assistant |
-| 111 | `HelpMeWriteSettings` | DWord | `2` | Advanced | Windows·Linux | Help Me Write |
-| 112 | `HistorySearchSettings` | DWord | `2` | Advanced | Windows·Linux | History search |
-| 113 | `SearchContentSharingSettings` | DWord | `1` | Advanced | Windows·Linux | Search content sharing |
-| 114 | `SmartTabSharingSettings` | DWord | `1` | Advanced | Windows·Linux | Smart tab sharing |
-| 115 | `TabCompareSettings` | DWord | `2` | Advanced | Windows·Linux | Tab comparison |
-| 116 | `GeminiActOnWebSettings` | DWord | `1` | Advanced | Windows·Linux | Gemini web actions |
-| 117 | `GeminiSparkSettings` | DWord | `1` | Advanced | Windows·Linux | Gemini page spark |
-| 118 | `RendererAppContainerEnabled` | DWord | `1` | Advanced | Windows·Linux | Renderer sandbox |
-| 119 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | Advanced | Windows·Linux | Local network allowlist |
-| 120 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | Advanced | Windows·Linux | Local network blocklist |
-| 121 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | Advanced | Windows·Linux | Local network IP overrides |
-| 122 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | Advanced | Windows·Linux | Local network opt-out |
-| 123 | `TranslateEnabled` | DWord | `0` | Strict | Windows·Linux | Text to Google for translation |
-| 124 | `DefaultClipboardSetting` | DWord | `2` | Strict | Windows·Linux | Clipboard read/write |
-| 125 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Strict | Windows·Linux | File system read |
-| 126 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Strict | Windows·Linux | File system write |
-| 127 | `DefaultInsecureContentSetting` | DWord | `2` | Strict | Windows·Linux | Mixed content |
-| 128 | `DefaultJavaScriptJitSetting` | DWord | `2` | Strict | Windows·Linux | JIT compilation |
-| 129 | `DefaultCookiesSetting` | DWord | `2` | Strict | Windows·Linux | All cookies |
-| 130 | `ImportBookmarks` | DWord | `0` | Strict | Windows·Linux | Cross-browser bookmarks |
-| 131 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Strict | Windows·Linux | First-party storage |
-| 132 | `IncognitoModeAvailability` | DWord | `1` | Strict | Windows·Linux | Incognito mode |
-| 133 | `TaskManagerEndProcessEnabled` | DWord | `0` | Strict | Windows·Linux | Task Manager |
-| 134 | `PrintingEnabled` | DWord | `0` | Strict | Windows·Linux | Print function |
-| 135 | `DisablePrintPreview` | DWord | `1` | Strict | Windows·Linux | Print preview |
-| 136 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Strict | Windows·Linux | Server-side download scan |
-| 137 | `DeveloperToolsAvailability` | DWord | `2` | Strict | Windows·Linux | Developer Tools |
-| 138 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Strict | Windows·Linux | Auto-clear browsing data |
-| 139 | `AlwaysOpenPdfExternally` | DWord | `1` | Strict | Windows·Linux | Built-in PDF viewer |
-| 140 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Strict | Windows·Linux | Certificate Transparency |
-| 141 | `PasswordLeakDetectionEnabled` | DWord | `1` | Strict | Windows·Linux | Password leak detection |
-| 142 | `SpellCheckServiceEnabled` | DWord | `0` | Strict | Windows·Linux | Spell check network service |
-| 143 | `BrowserSignin` | DWord | `0` | Strict | Windows·Linux | Chrome sign-in prompt |
-| 144 | `SyncDisabled` | DWord | `1` | Strict | Windows·Linux | Brave Sync |
-| 145 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Screen capture allowlist |
-| 146 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Same-origin tab capture |
-| 147 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Tab capture allowlist |
-| 148 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Window capture allowlist |
-| 149 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Strict | Windows·Linux | Local network capture allowlist |
-| 150 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Strict | Windows·Linux | Local network capture blocklist |
+| 107 | `ChromeSuggestionsSettings` | DWord | `1` | Advanced | Windows·Linux | Chrome suggestions |
+| 108 | `CreateThemesSettings` | DWord | `2` | Advanced | Windows·Linux | Theme creation |
+| 109 | `DevToolsGenAiSettings` | DWord | `2` | Advanced | Windows·Linux | DevTools AI assistant |
+| 110 | `HelpMeWriteSettings` | DWord | `2` | Advanced | Windows·Linux | Help Me Write |
+| 111 | `HistorySearchSettings` | DWord | `2` | Advanced | Windows·Linux | History search |
+| 112 | `SearchContentSharingSettings` | DWord | `1` | Advanced | Windows·Linux | Search content sharing |
+| 113 | `SmartTabSharingSettings` | DWord | `1` | Advanced | Windows·Linux | Smart tab sharing |
+| 114 | `TabCompareSettings` | DWord | `2` | Advanced | Windows·Linux | Tab comparison |
+| 115 | `GeminiActOnWebSettings` | DWord | `1` | Advanced | Windows·Linux | Gemini web actions |
+| 116 | `GeminiSparkSettings` | DWord | `1` | Advanced | Windows·Linux | Gemini page spark |
+| 117 | `RendererAppContainerEnabled` | DWord | `1` | Advanced | Windows·Linux | Renderer sandbox |
+| 118 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | Advanced | Windows·Linux | Local network allowlist |
+| 119 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | Advanced | Windows·Linux | Local network blocklist |
+| 120 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | Advanced | Windows·Linux | Local network IP overrides |
+| 121 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | Advanced | Windows·Linux | Local network opt-out |
+| 122 | `TranslateEnabled` | DWord | `0` | Strict | Windows·Linux | Text to Google for translation |
+| 123 | `DefaultClipboardSetting` | DWord | `2` | Strict | Windows·Linux | Clipboard read/write |
+| 124 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Strict | Windows·Linux | File system read |
+| 125 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Strict | Windows·Linux | File system write |
+| 126 | `DefaultInsecureContentSetting` | DWord | `2` | Strict | Windows·Linux | Mixed content |
+| 127 | `DefaultJavaScriptJitSetting` | DWord | `2` | Strict | Windows·Linux | JIT compilation |
+| 128 | `DefaultCookiesSetting` | DWord | `2` | Strict | Windows·Linux | All cookies |
+| 129 | `ImportBookmarks` | DWord | `0` | Strict | Windows·Linux | Cross-browser bookmarks |
+| 130 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Strict | Windows·Linux | First-party storage |
+| 131 | `IncognitoModeAvailability` | DWord | `1` | Strict | Windows·Linux | Incognito mode |
+| 132 | `TaskManagerEndProcessEnabled` | DWord | `0` | Strict | Windows·Linux | Task Manager |
+| 133 | `PrintingEnabled` | DWord | `0` | Strict | Windows·Linux | Print function |
+| 134 | `DisablePrintPreview` | DWord | `1` | Strict | Windows·Linux | Print preview |
+| 135 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Strict | Windows·Linux | Server-side download scan |
+| 136 | `DeveloperToolsAvailability` | DWord | `2` | Strict | Windows·Linux | Developer Tools |
+| 137 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Strict | Windows·Linux | Auto-clear browsing data |
+| 138 | `AlwaysOpenPdfExternally` | DWord | `1` | Strict | Windows·Linux | Built-in PDF viewer |
+| 139 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Strict | Windows·Linux | Certificate Transparency |
+| 140 | `PasswordLeakDetectionEnabled` | DWord | `1` | Strict | Windows·Linux | Password leak detection |
+| 141 | `SpellCheckServiceEnabled` | DWord | `0` | Strict | Windows·Linux | Spell check network service |
+| 142 | `BrowserSignin` | DWord | `0` | Strict | Windows·Linux | Chrome sign-in prompt |
+| 143 | `SyncDisabled` | DWord | `1` | Strict | Windows·Linux | Brave Sync |
+| 144 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Screen capture allowlist |
+| 145 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Same-origin tab capture |
+| 146 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Tab capture allowlist |
+| 147 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Strict | Windows·Linux | Window capture allowlist |
+| 148 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Strict | Windows·Linux | Local network capture allowlist |
+| 149 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Strict | Windows·Linux | Local network capture blocklist |
 
 ---
 
@@ -207,10 +206,10 @@ Data leak prevention. No usability impact. Stops all Chromium/Brave telemetry, b
 ### Balanced — 31 policies (+31 = 82 cumulative)
 Security & convenience balance. WebRTC hardening, encrypted DNS, cookie blocking, password/autofill disable, permission defaults, site isolation, download controls, Dark Reader extension.
 
-### Advanced — 40 policies (+40 = 122 cumulative)
+### Advanced — 39 policies (+39 = 121 cumulative)
 Extended hardening. Disables sensors, fonts, serial, idle detection, guest mode, cross-browser imports, extension restrictions, JavaScript default off, AI features disabled.
 
-### Strict — 29 policies (+29 = 150 cumulative)
+### Strict — 29 policies (+29 = 149 cumulative)
 Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, printing, downloads, developer tools, cloud reporting. Auto-clears browsing data every 24 hours.
 
 ---
@@ -219,11 +218,11 @@ Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, pri
 
 | Type | Count | Percentage |
 |------|-------|------------|
-| DWord | 121 | 80.7% |
-| String | 8 | 5.3% |
-| MultiString | 20 | 13.3% |
+| DWord | 120 | 80.5% |
+| String | 8 | 5.4% |
+| MultiString | 20 | 13.4% |
 | ExpandString | 1 | 0.7% |
-| **Total (unique)** | **150** | **100%** |
+| **Total (unique)** | **149** | **100%** |
 
 ---
 
@@ -255,10 +254,10 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega.ps1` v3.1.0.2 (iki dilli EN/TR)\
-> **Tarih:** 2026-10-23\
-> **Toplam benzersiz politika:** 150 (çakışma yok)\
-> **Tür dağılımı:** 121 DWord · 8 String · 20 MultiString · 1 ExpandString\
+> **Kaynak:** `BraveOmega.ps1` v3.1.0.3 (iki dilli EN/TR)\
+> **Tarih:** 2026-11-11\
+> **Toplam benzersiz politika:** 149 (çakışma yok)\
+> **Tür dağılımı:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\
 > **Doğrulandı:** V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri (sabit doğrulama hedefi yok)
 
 ---
@@ -274,6 +273,18 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 | **Katman** | Bu politikayı içeren ilk sıkılaştırma katmanı |
 | **Kaynak** | Politikanın uygulandığı platform(lar) |
 | **Risk** | Uygulanmadığı takdirde gizlilik/güvenlik etkisi |
+
+---
+
+## Tür Dağılımı
+
+| Tür | Adet | Yüzde |
+|-----|------|-------|
+| DWord | 120 | 80.5% |
+| String | 8 | 5.4% |
+| MultiString | 20 | 13.4% |
+| ExpandString | 1 | 0.7% |
+| **Toplam (benzersiz)** | **149** | **%100** |
 
 ---
 
@@ -387,50 +398,49 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 | 104 | `DefaultJavaScriptSetting` | DWord | `0` | İleri | Windows·Linux | JavaScript çalıştırma |
 | 105 | `GeminiSettings` | DWord | `1` | İleri | Windows·Linux | Gemini AI önerileri |
 | 106 | `AIModeSettings` | DWord | `1` | İleri | Windows·Linux | Arama'da AI Modu |
-| 107 | `AutofillPredictionSettings` | DWord | `2` | İleri | Windows·Linux | Otomatik doldurma tahminleri |
-| 108 | `ChromeSuggestionsSettings` | DWord | `1` | İleri | Windows·Linux | Chrome önerileri |
-| 109 | `CreateThemesSettings` | DWord | `2` | İleri | Windows·Linux | Tema oluşturma |
-| 110 | `DevToolsGenAiSettings` | DWord | `2` | İleri | Windows·Linux | Geliştirici araçları AI asistanı |
-| 111 | `HelpMeWriteSettings` | DWord | `2` | İleri | Windows·Linux | Yazmaya Yardım Et |
-| 112 | `HistorySearchSettings` | DWord | `2` | İleri | Windows·Linux | Geçmiş arama |
-| 113 | `SearchContentSharingSettings` | DWord | `1` | İleri | Windows·Linux | Arama içeriği paylaşma |
-| 114 | `SmartTabSharingSettings` | DWord | `1` | İleri | Windows·Linux | Akıllı sekme paylaşma |
-| 115 | `TabCompareSettings` | DWord | `2` | İleri | Windows·Linux | Sekme karşılaştırma |
-| 116 | `GeminiActOnWebSettings` | DWord | `1` | İleri | Windows·Linux | Gemini web işlemleri |
-| 117 | `GeminiSparkSettings` | DWord | `1` | İleri | Windows·Linux | Gemini sayfa kıvılcımı |
-| 118 | `RendererAppContainerEnabled` | DWord | `1` | İleri | Windows·Linux | İşleyici kum havuzu |
-| 119 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | İleri | Windows·Linux | Yerel ağ izin listesi |
-| 120 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | İleri | Windows·Linux | Yerel ağ engelleme listesi |
-| 121 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | İleri | Windows·Linux | Yerel ağ IP overrides |
-| 122 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | İleri | Windows·Linux | Yerel ağ çıkış seçeneği |
-| 123 | `TranslateEnabled` | DWord | `0` | Katı | Windows·Linux | Google'a çeviri için metin |
-| 124 | `DefaultClipboardSetting` | DWord | `2` | Katı | Windows·Linux | Pano okuma/yazma |
-| 125 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Katı | Windows·Linux | Dosya sistemi okuma |
-| 126 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Katı | Windows·Linux | Dosya sistemi yazma |
-| 127 | `DefaultInsecureContentSetting` | DWord | `2` | Katı | Windows·Linux | Karma içerik |
-| 128 | `DefaultJavaScriptJitSetting` | DWord | `2` | Katı | Windows·Linux | JIT derleme |
-| 129 | `DefaultCookiesSetting` | DWord | `2` | Katı | Windows·Linux | Tüm çerezler |
-| 130 | `ImportBookmarks` | DWord | `0` | Katı | Windows·Linux | Tarayıcılar arası yer imleri |
-| 131 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Katı | Windows·Linux | Birinci taraf depolama |
-| 132 | `IncognitoModeAvailability` | DWord | `1` | Katı | Windows·Linux | Gizli mod |
-| 133 | `TaskManagerEndProcessEnabled` | DWord | `0` | Katı | Windows·Linux | Görev Yöneticisi |
-| 134 | `PrintingEnabled` | DWord | `0` | Katı | Windows·Linux | Yazdırma işlevi |
-| 135 | `DisablePrintPreview` | DWord | `1` | Katı | Windows·Linux | Yazdırma önizleme |
-| 136 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Katı | Windows·Linux | Sunucu tarafı indirme taraması |
-| 137 | `DeveloperToolsAvailability` | DWord | `2` | Katı | Windows·Linux | Geliştirici araçları |
-| 138 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Katı | Windows·Linux | Otomatik gezinti verisi temizleme |
-| 139 | `AlwaysOpenPdfExternally` | DWord | `1` | Katı | Windows·Linux | Yerleşik PDF görüntüleyici |
-| 140 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Katı | Windows·Linux | Sertifika Saydamlığı |
-| 141 | `PasswordLeakDetectionEnabled` | DWord | `1` | Katı | Windows·Linux | Parola sızıntısı algılama |
-| 142 | `SpellCheckServiceEnabled` | DWord | `0` | Katı | Windows·Linux | Yazım denetimi ağ hizmeti |
-| 143 | `BrowserSignin` | DWord | `0` | Katı | Windows·Linux | Chrome giriş istemi |
-| 144 | `SyncDisabled` | DWord | `1` | Katı | Windows·Linux | Brave Sync |
-| 145 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Ekran yakalama izin listesi |
-| 146 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Aynı köken sekme yakalama |
-| 147 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Sekme yakalama izin listesi |
-| 148 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Pencere yakalama izin listesi |
-| 149 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Katı | Windows·Linux | Yerel ağ yakalama izin listesi |
-| 150 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Katı | Windows·Linux | Yerel ağ yakalama engelleme listesi |
+| 107 | `ChromeSuggestionsSettings` | DWord | `1` | İleri | Windows·Linux | Chrome önerileri |
+| 108 | `CreateThemesSettings` | DWord | `2` | İleri | Windows·Linux | Tema oluşturma |
+| 109 | `DevToolsGenAiSettings` | DWord | `2` | İleri | Windows·Linux | Geliştirici araçları AI asistanı |
+| 110 | `HelpMeWriteSettings` | DWord | `2` | İleri | Windows·Linux | Yazmaya Yardım Et |
+| 111 | `HistorySearchSettings` | DWord | `2` | İleri | Windows·Linux | Geçmiş arama |
+| 112 | `SearchContentSharingSettings` | DWord | `1` | İleri | Windows·Linux | Arama içeriği paylaşma |
+| 113 | `SmartTabSharingSettings` | DWord | `1` | İleri | Windows·Linux | Akıllı sekme paylaşma |
+| 114 | `TabCompareSettings` | DWord | `2` | İleri | Windows·Linux | Sekme karşılaştırma |
+| 115 | `GeminiActOnWebSettings` | DWord | `1` | İleri | Windows·Linux | Gemini web işlemleri |
+| 116 | `GeminiSparkSettings` | DWord | `1` | İleri | Windows·Linux | Gemini sayfa kıvılcımı |
+| 117 | `RendererAppContainerEnabled` | DWord | `1` | İleri | Windows·Linux | İşleyici kum havuzu |
+| 118 | `LocalNetworkAccessAllowedForUrls` | MultiString | `@()` | İleri | Windows·Linux | Yerel ağ izin listesi |
+| 119 | `LocalNetworkAccessBlockedForUrls` | MultiString | `@()` | İleri | Windows·Linux | Yerel ağ engelleme listesi |
+| 120 | `LocalNetworkAccessIpAddressSpaceOverrides` | MultiString | `@()` | İleri | Windows·Linux | Yerel ağ IP overrides |
+| 121 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | DWord | `0` | İleri | Windows·Linux | Yerel ağ çıkış seçeneği |
+| 122 | `TranslateEnabled` | DWord | `0` | Katı | Windows·Linux | Google'a çeviri için metin |
+| 123 | `DefaultClipboardSetting` | DWord | `2` | Katı | Windows·Linux | Pano okuma/yazma |
+| 124 | `DefaultFileSystemReadGuardSetting` | DWord | `2` | Katı | Windows·Linux | Dosya sistemi okuma |
+| 125 | `DefaultFileSystemWriteGuardSetting` | DWord | `2` | Katı | Windows·Linux | Dosya sistemi yazma |
+| 126 | `DefaultInsecureContentSetting` | DWord | `2` | Katı | Windows·Linux | Karma içerik |
+| 127 | `DefaultJavaScriptJitSetting` | DWord | `2` | Katı | Windows·Linux | JIT derleme |
+| 128 | `DefaultCookiesSetting` | DWord | `2` | Katı | Windows·Linux | Tüm çerezler |
+| 129 | `ImportBookmarks` | DWord | `0` | Katı | Windows·Linux | Tarayıcılar arası yer imleri |
+| 130 | `DefaultBraveRemember1PStorageSetting` | DWord | `2` | Katı | Windows·Linux | Birinci taraf depolama |
+| 131 | `IncognitoModeAvailability` | DWord | `1` | Katı | Windows·Linux | Gizli mod |
+| 132 | `TaskManagerEndProcessEnabled` | DWord | `0` | Katı | Windows·Linux | Görev Yöneticisi |
+| 133 | `PrintingEnabled` | DWord | `0` | Katı | Windows·Linux | Yazdırma işlevi |
+| 134 | `DisablePrintPreview` | DWord | `1` | Katı | Windows·Linux | Yazdırma önizleme |
+| 135 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Katı | Windows·Linux | Sunucu tarafı indirme taraması |
+| 136 | `DeveloperToolsAvailability` | DWord | `2` | Katı | Windows·Linux | Geliştirici araçları |
+| 137 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Katı | Windows·Linux | Otomatik gezinti verisi temizleme |
+| 138 | `AlwaysOpenPdfExternally` | DWord | `1` | Katı | Windows·Linux | Yerleşik PDF görüntüleyici |
+| 139 | `CertificateTransparencyEnforcementDisabledForUrls` | MultiString | `@()` | Katı | Windows·Linux | Sertifika Saydamlığı |
+| 140 | `PasswordLeakDetectionEnabled` | DWord | `1` | Katı | Windows·Linux | Parola sızıntısı algılama |
+| 141 | `SpellCheckServiceEnabled` | DWord | `0` | Katı | Windows·Linux | Yazım denetimi ağ hizmeti |
+| 142 | `BrowserSignin` | DWord | `0` | Katı | Windows·Linux | Chrome giriş istemi |
+| 143 | `SyncDisabled` | DWord | `1` | Katı | Windows·Linux | Brave Sync |
+| 144 | `ScreenCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Ekran yakalama izin listesi |
+| 145 | `SameOriginTabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Aynı köken sekme yakalama |
+| 146 | `TabCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Sekme yakalama izin listesi |
+| 147 | `WindowCaptureAllowedByOrigins` | MultiString | `@()` | Katı | Windows·Linux | Pencere yakalama izin listesi |
+| 148 | `LocalNetworkAllowedForUrls` | MultiString | `@()` | Katı | Windows·Linux | Yerel ağ yakalama izin listesi |
+| 149 | `LocalNetworkBlockedForUrls` | MultiString | `@()` | Katı | Windows·Linux | Yerel ağ yakalama engelleme listesi |
 
 ---
 
@@ -445,10 +455,10 @@ Veri sızıntısı önleme. Kullanılabilirlik etkisi yok. Tüm Chromium/Brave t
 ### Dengeli — 31 politika (+31 = 82 kümülatif)
 Güvenlik ve kullanım dengesi. WebRTC sıkılaştırması, şifreli DNS, çerez engelleme, parola/otomatik doldurma devre dışı bırakma, izin varsayılanları, site izolasyonu, indirme kontrolleri, Dark Reader eklentisi.
 
-### İleri — 40 politika (+40 = 122 kümülatif)
+### İleri — 39 politika (+39 = 121 kümülatif)
 Genişletilmiş sıkılaştırma. Sensörler, yazı tipleri, seri bağlantı noktası, boşta algılama, misafir modu, tarayıcılar arası içe aktarmalar, eklenti kısıtlamaları, JavaScript varsayılanı kapalı, yapay zeka özellikleri devre dışı.
 
-### Katı — 29 politika (+29 = 150 kümülatif)
+### Katı — 29 politika (+29 = 149 kümülatif)
 Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirmeler, geliştirici araçları, bulut raporlama devre dışı. Gezinti verilerini her 24 saatte bir otomatik temizler.
 
 ---
@@ -457,11 +467,11 @@ Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirme
 
 | Tür | Adet | Yüzde |
 |-----|------|-------|
-| DWord | 121 | %80,7 |
-| String | 8 | %5,3 |
-| MultiString | 20 | %13,3 |
+| DWord | 120 | %80,5 |
+| String | 8 | %5,4 |
+| MultiString | 20 | %13,4 |
 | ExpandString | 1 | %0,7 |
-| **Toplam (benzersiz)** | **150** | **%100** |
+| **Toplam (benzersiz)** | **149** | **%100** |
 
 ---
 

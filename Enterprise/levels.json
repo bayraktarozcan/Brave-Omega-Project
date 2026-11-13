@@ -1,8 +1,8 @@
 {
   "generatedBy": "Scripts/Export-PolicyCatalog.ps1",
-  "generatedAtUtc": "2026-11-05T20:22:08Z",
+  "generatedAtUtc": "2026-11-11T17:13:06Z",
   "sourceScript": "Brave-Omega\\BraveOmega.ps1",
-  "scriptVersion": "v3.1.0.2",
+  "scriptVersion": "v3.1.0.3",
   "registryTargetHklm": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
   "registryTargetPs": "HKLM:\\SOFTWARE\\Policies\\BraveSoftware\\Brave",
   "levelOrder": [
@@ -16,15 +16,15 @@
     "BraveOnly": 25,
     "Essential": 26,
     "Balanced": 31,
-    "Advanced": 40,
+    "Advanced": 39,
     "Strict": 29
   },
   "cumulativeTotals": {
     "BraveOnly": 25,
     "Essential": 51,
     "Balanced": 82,
-    "Advanced": 122,
-    "Strict": 150
+    "Advanced": 121,
+    "Strict": 149
   },
   "levels": {
     "BraveOnly": {
@@ -845,8 +845,8 @@
       ]
     },
     "Advanced": {
-      "policyCount": 122,
-      "cumulativeCount": 122,
+      "policyCount": 121,
+      "cumulativeCount": 121,
       "policies": [
         {
           "name": "AIModeSettings",
@@ -867,11 +867,6 @@
           "name": "AudioSandboxEnabled",
           "type": "DWord",
           "value": 1
-        },
-        {
-          "name": "AutofillPredictionSettings",
-          "type": "DWord",
-          "value": 2
         },
         {
           "name": "AutofillSettings",
@@ -1477,8 +1472,8 @@
       ]
     },
     "Strict": {
-      "policyCount": 150,
-      "cumulativeCount": 150,
+      "policyCount": 149,
+      "cumulativeCount": 149,
       "policies": [
         {
           "name": "AIModeSettings",
@@ -1504,11 +1499,6 @@
           "name": "AudioSandboxEnabled",
           "type": "DWord",
           "value": 1
-        },
-        {
-          "name": "AutofillPredictionSettings",
-          "type": "DWord",
-          "value": 2
         },
         {
           "name": "AutofillSettings",

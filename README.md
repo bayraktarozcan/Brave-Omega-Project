@@ -1,4 +1,4 @@
-<!-- ================================================================== -->
+﻿<!-- ================================================================== -->
 <!--                  BRAVE OMEGA PROJECT — README.md                   -->
 <!--          Community Edition · Open Source · Privacy First           -->
 <!-- ================================================================== -->
@@ -79,7 +79,7 @@ monetization features, and other privacy-eroding components — all without touc
 browser's internals or requiring any third-party tools.
 
 Brave Omega uses a **five-tier hardening model** — Brave Only (25 policies),
-Essential ⭐ (51), Balanced (82), Advanced (122), and Strict (150) — giving users precise control over
+Essential ⭐ (51), Balanced (82), Advanced (121), and Strict (149) — giving users precise control over
 their privacy posture, from minimal Brave-specific tweaks to comprehensive enterprise-grade
 hardening. Levels are cumulative: each tier includes all policies from previous tiers.
 
@@ -87,7 +87,7 @@ hardening. Levels are cumulative: each tier includes all policies from previous 
 >
 > `BraveOmega.ps1` — The single unified bilingual script. On first launch it asks
 > `Press 1 for English / Türkçe için 2'ye basın`, or pin the language with
-> `-Language EN|TR`. One file, both languages, all 150 policies.
+> `-Language EN|TR`. One file, both languages, all 149 policies.
 
 ---
 
@@ -210,8 +210,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language EN -Level 
 | `-Level BraveOnly` | `-Level "Brave Yalnız"` | Brave Only | 25 |
 | `-Level Essential` | `-Level Temel` | Essential ⭐ | 51 |
 | `-Level Balanced` | `-Level Dengeli` | Balanced | 82 |
-| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 122 |
-| `-Level Strict` | `-Level Katı` | Strict | 150 |
+| `-Level Advanced` | `-Level Gelişmiş` | Advanced | 121 |
+| `-Level Strict` | `-Level Katı` | Strict | 149 |
 
 > The `-ExecutionPolicy Bypass` flag applies only to this single command. No permanent execution policy change is made — close the window and everything resets.
 
@@ -244,7 +244,7 @@ and offers **five hardening levels** that determine how many policies are applie
 ├─────────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  25–150 ADMX-validated enterprise policies (level-based).     │
+│  ↳  25\u2013149 ADMX-validated enterprise policies (level-based).     │
 │     Appear gray and locked in browser Settings UI.         │
 │     Cannot be overridden by user interaction.              │
 ├─────────────────────────────────────────────────────────────┤
@@ -263,8 +263,8 @@ and offers **five hardening levels** that determine how many policies are applie
 | **Brave Only** | 25 | 25 | 0 | 0 | None |
 | **Essential ⭐** | 51 | 25 | 26 | 0 | None |
 | **Balanced** | 82 | 25 | 26 | 31 | Low |
-| **Advanced** | 122 | 25 | 26 | 71 | Low |
-| **Strict** | 150 | 25 | 26 | 99 | High |
+| **Advanced** | 121 | 25 | 26 | 71 | Low |
+| **Strict** | 149 | 25 | 26 | 99 | High |
 
 #### 6.2 Policy Sources & Methodology
 
@@ -330,7 +330,7 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v3.1.0.2** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.3** *(current)* | all | all | 11 26H2 | ✅ Active |
 | **v3.1.0.1** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
@@ -388,7 +388,7 @@ no longer have any effect.
 
 ### 9. Policy Reference
 
-> Brave Omega offers **5 hardening levels** with **150 enterprise policies** total. The policy reference below is organized by registry hive and level.
+> Brave Omega offers **5 hardening levels** with **149 enterprise policies** total. The policy reference below is organized by registry hive and level.
 
 #### 9.1 HKCU — User-Level Preferences (all levels)
 
@@ -523,7 +523,6 @@ no longer have any effect.
 | `DefaultJavaScriptSetting` | `0` | DWord | Allows JavaScript by default (0=allow, 1=block) |
 | `GeminiSettings` | `1` | DWord | Disables Gemini AI integration |
 | `AIModeSettings` | `1` | DWord | Blocks Chrome AI Mode entirely |
-| `AutofillPredictionSettings` | `2` | DWord | Disables AI-powered autofill predictions |
 | `ChromeSuggestionsSettings` | `1` | DWord | Disables AI-powered suggestions |
 | `CreateThemesSettings` | `2` | DWord | Disables AI theme creation |
 | `DevToolsGenAiSettings` | `2` | DWord | Disables AI features in DevTools |
@@ -972,7 +971,7 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  25–150 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
+│  ↳  25\u2013149 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -991,8 +990,8 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 | **Brave Yalnız** | 25 | 25 | 0 | 0 | Yok |
 | **Temel ⭐** | 51 | 25 | 26 | 0 | Yok |
 | **Dengeli** | 82 | 25 | 26 | 31 | Düşük |
-| **Gelişmiş** | 122 | 25 | 26 | 71 | Düşük |
-| **Katı** | 150 | 25 | 26 | 99 | Yüksek |
+| **Geli\u015fmi\u015f** \| 121 \| 25 \| 26 \| 71 | Düşük |
+| **Kat\u0131** \| 149 \| 25 \| 26 \| 99 | Yüksek |
 
 #### 6.2 Politika Kaynakları ve Yöntem
 
@@ -1061,7 +1060,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v3.1.0.2** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.3** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
 | **v3.1.0.1** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
@@ -1254,7 +1253,6 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `DefaultJavaScriptSetting` | `0` | DWord | JavaScript'i varsayılan olarak etkinleştirir (0=izin ver, 1=engelle) |
 | `GeminiSettings` | `1` | DWord | Gemini yapay zeka entegrasyonunu devre dışı bırakır |
 | `AIModeSettings` | `1` | DWord | Chrome Yapay Zeka Modunu tamamen engeller |
-| `AutofillPredictionSettings` | `2` | DWord | Yapay zeka destekli otomatik doldurma tahminlerini devre dışı bırakır |
 | `ChromeSuggestionsSettings` | `1` | DWord | Yapay zeka destekli önerileri devre dışı bırakır |
 | `CreateThemesSettings` | `2` | DWord | Yapay zeka tema oluşturmayı devre dışı bırakır |
 | `DevToolsGenAiSettings` | `2` | DWord | Geliştirici araçlarındaki yapay zeka özelliklerini devre dışı bırakır |
@@ -1418,7 +1416,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı
 - [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString, ExpandString
 - [x] **`-Level` parametresi** — sessiz/otomatik dağıtım
-- [x] **150 toplam politika** — 17'den 150'e genişletildi
+- [x] **149 toplam politika** — 17'den 150'e genişletildi
 - [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar
 - [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi**
 - [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle

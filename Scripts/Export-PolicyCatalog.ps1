@@ -535,7 +535,7 @@ function Export-OmegaPolicyCatalog {
             'BraveOnly' = 25
             'Essential' = 26
             'Balanced'  = 31
-            'Advanced'  = 40
+            'Advanced'  = 39
             'Strict'    = 29
         }
     }

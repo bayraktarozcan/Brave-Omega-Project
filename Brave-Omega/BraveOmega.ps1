@@ -14,8 +14,20 @@
 #
 # V3 DESIGN NOTE   : From v3.0.0.0 onward no dependency version change is ever
 #                    shipped as a project update. The script detects the installed
-#                    Brave/Chromium at runtime and applies the same 150 policies
+#                    Brave/Chromium at runtime and applies the same 149 policies
 #                    in a forward/backward compatible way on every future release.
+#
+# CHANGELOG (v3.1.0.3)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.1.0.3             Patch release — deprecated Autofill policy removal:
+#
+#     [REMOVED]     AutofillPredictionSettings from the Advanced tier.
+#                   Deprecated in Chromium M157 (replaced by
+#                   AutofillGenAiSettings in upstream Chromium).
+#                   Advanced drops 40 → 39; totals 150 → 149; cumulative
+#                   chain 25 → 51 → 82 → 121 → 149; Chrome 123 → 122.
+#
+#     [UNCHANGED]   ADMX entries remain 763 (vendor snapshot preserved).
 #
 # CHANGELOG (v3.1.0.2)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -580,7 +592,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.1.0.2"
+$ScriptVersion   = "v3.1.0.3"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.

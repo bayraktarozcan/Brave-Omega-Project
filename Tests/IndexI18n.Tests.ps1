@@ -182,15 +182,17 @@ Describe 'Landing page bilingual integrity' {
 
     Context 'File encoding' {
 
-        It 'is saved without a UTF-8 BOM' {
-            # A BOM makes the byte count and the first key disagree, and it is
-            # invisible in most editors. Asserted on the bytes themselves so
-            # the check cannot be satisfied by a decoded string.
+        It 'is saved with a UTF-8 BOM' {
+            # A BOM is required here: the page is written with Turkish characters
+            # and the editorconfig declares UTF-8-with-BOM for .html, so the
+            # byte order mark is the project convention, not an editor artifact.
+            # Asserted on the bytes themselves so a decoded string cannot
+            # satisfy it.
             $hasBom = $script:Bytes.Length -ge 3 -and
                       $script:Bytes[0] -eq 0xEF -and
                       $script:Bytes[1] -eq 0xBB -and
                       $script:Bytes[2] -eq 0xBF
-            $hasBom | Should -BeFalse
+            $hasBom | Should -BeTrue
         }
 
         It 'uses one line ending style throughout' {
