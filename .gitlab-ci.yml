@@ -1,6 +1,6 @@
 # Brave Omega Project - GitLab mirror CI.
 # Canonical CI lives in .github/workflows (GitHub). This file mirrors the same
-# quality gates on the mirror with pinned tool versions so both sides behave
+# quality gates on the mirror with current tool versions so both sides behave
 # identically. GitLab-specific additions: GitLab Pages deployment (pages) and
 # JUnit test report upload (pester-tests).
 #
@@ -25,8 +25,9 @@
 #
 # NOTES
 # * The runner does its git checkout with the image's git, so every image
-#   below includes git (node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32, python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970,
-#   mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a -> git installed via apt in pester-tests, alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d -> apk git).
+#   below includes git (node:22-alpine, python:${PYTHON_VERSION} with a
+#   3.11 + latest parallel matrix,
+#   mcr.microsoft.com/powershell:lts-ubuntu-22.04 -> git installed via apt in pester-tests, alpine:3.21 -> apk git).
 # * The runner shell is bash/sh; PowerShell is piped to `pwsh -Command -`
 #   via a quoted heredoc (<<"'PWSH'">>), so the exact GitHub bodies run
 #   verbatim with no quoting mangling.
@@ -54,7 +55,7 @@ stages:
 
 secret-scan:
   stage: scan
-  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+  image: alpine:3.21
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
@@ -71,7 +72,7 @@ secret-scan:
 
 markdown-lint:
   stage: validate
-  image: node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32
+  image: node:22-alpine
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
@@ -81,7 +82,10 @@ markdown-lint:
 
 yaml-validate:
   stage: validate
-  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  image: python:${PYTHON_VERSION}
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.11", "latest"]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
@@ -91,7 +95,7 @@ yaml-validate:
 
 powershell-syntax:
   stage: validate
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
@@ -113,7 +117,7 @@ powershell-syntax:
 
 version-check:
   stage: validate
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
       changes: ["Brave-Omega/*.ps1"]
@@ -133,7 +137,7 @@ version-check:
 
 hygiene:
   stage: validate
-  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+  image: alpine:3.21
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
       changes: [".github/workflows/**"]
@@ -150,7 +154,7 @@ hygiene:
 
 admx-validate:
   stage: validate
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
       changes: ["ADMX/**", "Brave-Omega/BraveOmega.ps1"]
@@ -182,7 +186,7 @@ admx-validate:
 
 pester-tests:
   stage: test
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
@@ -218,7 +222,7 @@ pester-tests:
 
 ps-script-analyzer:
   stage: test
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
@@ -232,7 +236,7 @@ ps-script-analyzer:
 
 policy-integrity:
   stage: test
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04@sha256:663a172849444279d8e7b50e19977b6e42380eae6856bdc8931ca08e2e03e92a
+  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
@@ -244,18 +248,24 @@ policy-integrity:
 
 utf8-integrity:
   stage: test
-  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  image: python:${PYTHON_VERSION}
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.11", "latest"]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
-    # Mojibake-Scan.py imports only os/re/sys, so the pinned python image is the
+    # Mojibake-Scan.py imports only os/re/sys, so the python image is the
     # whole toolchain here. No install step, and the run line is identical to
-    # the GitHub one - a gate that differs by a pin is not the same gate.
+    # the GitHub one - a gate that differs by a version is not the same gate.
     - python3 Scripts/Mojibake-Scan.py .
 
 json-validity:
   stage: test
-  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  image: python:${PYTHON_VERSION}
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.11", "latest"]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
@@ -268,7 +278,10 @@ json-validity:
 
 shellcheck:
   stage: test
-  image: python:3.12-bookworm@sha256:581429e3df12d76e6af4be5ab7d0e7fc2013eb57dc23d2de691411c8efdbb970
+  image: python:${PYTHON_VERSION}
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.11", "latest"]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
@@ -289,7 +302,7 @@ shellcheck:
 
 link-check:
   stage: links
-  image: alpine:3.21@sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+  image: alpine:3.21
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
       changes: ["**/*.md"]
@@ -351,7 +364,7 @@ link-check:
 
 pages:
   stage: deploy
-  image: node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32
+  image: node:22-alpine
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   script:
