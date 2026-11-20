@@ -233,6 +233,10 @@ For enterprise deployments:
 3. Pin to a specific release tag, not `main` branch
 4. Verify SHA256 checksums of downloaded release artifacts
 
+#### 6.4 Accepted risk: mutable CI references
+
+On 2026-11-21 (UTC+03:00) the project deliberately moved CI to the "always latest" model: third-party actions track their upstream default branch (`@main`, or `@master` for `lycheeverse/lychee-action`, which has no `main` ref), container images use mutable tags, and the GitHub repository setting `sha_pinning_required` is `false`. This is a conscious acceptance of a supply-chain trade-off: a compromised upstream default branch reaches CI without an intervening pin update. Mitigations that remain: checksum-verified downloads (gitleaks, actionlint, lychee) keep the release pin the checksum names; `Tests/ActionRefs.Tests.ps1` guards that every action ref matches the recorded upstream default branch; the second host's independent gate and the local 9-check gate still run on every push. Reversing the decision requires restoring full-commit SHA refs and re-enabling `sha_pinning_required`.
+
 ---
 
 <a id="en-registry-safety"></a>
@@ -528,6 +532,10 @@ Kurumsal dağıtımlar için:
 2. Üretim ortamından önce test ortamında çalıştırın
 3. `main` dalı değil, belirli bir sürüm etiketine sabitleyin
 4. İndirilen sürüm yapıtlarının SHA256 sağlama toplamlarını doğrulayın
+
+#### 6.4 Kabul edilen risk: değişken CI referansları
+
+21.11.2026 (UTC+03:00) tarihinde proje bilinçli olarak CI'ı "her daim en güncel" modeline geçirdi: üçüncü parti aksiyonlar upstream varsayılan dalını izler (`@main`; `main` dalı olmayan `lycheeverse/lychee-action` için `@master`), konteyner imajları değişken etiketler kullanır ve GitHub depo ayarı `sha_pinning_required` `false`'tur. Bu, tedarik zinciri açısından bilinçli bir risk kabulüdür: ele geçirilen bir upstream varsayılan dalı, pin güncellemesi olmadan CI'a ulaşabilir. Korunan önlemler: checksum ile doğrulanan indirmeler (gitleaks, actionlint, lychee) checksum'ın adlandırdığı sürüm pinini korur; `Tests/ActionRefs.Tests.ps1` her aksiyon referansının kaydedilen upstream varsayılan dalıyla eşleştiğini denetler; ikinci hostun bağımsız kapısı ve yerel 9 kontrollü kapı her push'ta çalışmaya devam eder. Kararın geri alınması tam commit SHA referanslarının geri getirilmesini ve `sha_pinning_required` ayarının yeniden açılmasını gerektirir.
 
 ---
 
