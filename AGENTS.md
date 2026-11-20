@@ -230,7 +230,7 @@ Before directing the person to a web interface, check the programmatic path: `<t
 
 ### Local dependencies
 
-Global is the default, at the narrowest scope needing no elevation (per-user: `winget --scope user`, `Install-Module -Scope CurrentUser`); machine-wide installation is the person's decision. A project-scope install needs per-project approval and is recorded in §13. Host dependencies this project declares live in §13 Toolchain. The shell is never installed on the agent's own initiative. Official source only, exact version, checksum or signature verified where one exists (see "Security & privacy").
+Global is the default, at the narrowest scope needing no elevation (per-user: `winget --scope user`, `Install-Module -Scope CurrentUser`); machine-wide installation is the person's decision. A project-scope install needs per-project approval and is recorded in §13. Host dependencies this project declares live in §13 Toolchain. The shell is never installed on the agent's own initiative. Official source only, latest version, checksum or signature verified where one exists (see "Security & privacy").
 - **Probe before changing.** Learn what an install would do with a read-only probe first (`-WhatIf`, `--dry-run`, `--simulate`) and record the installed set before upgrading a global environment, so the change stays reversible. (The gate installs nothing; CI jobs own their tools.)
 - **Name the interpreter.** Never call a bare `pip` or a bare interpreter where more than one runtime exists; invoke through the owning runtime with its version (`py -3 -m pip`).
 - **A missing prebuilt binary is a signal, not a task.** Do not install a compiler toolchain to force it; separate the causes first (version constraint, missing binary, missing source dependency), then prefer a runtime with prebuilt packages, or stop and ask (a toolchain is machine-wide: "Ask first").
@@ -366,8 +366,8 @@ Repository management and dependency conventions.
 - **Dependabot.** Configured in `.github/dependabot.yml` with a weekly cadence; commit messages follow Conventional Commits (`chore(deps)`).
 - **CodeQL.** There is no `.github/workflows/codeql.yml` in this project; secrets are scanned via gitleaks in `secret-scan.yml` and static analysis runs in the gate instead. A `codeql.yml` on push plus weekly remains the standing target.
 - **Auto-approve.** No auto-approve workflow exists in this project; nothing is auto-approved.
-- **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions are pinned to a full commit SHA (with the tag in a comment) and kept current by Dependabot.
-- **Dependency pinning.** Runtime and build dependencies are locked to an exact version (here: Pester 5.7.1, PSScriptAnalyzer 1.25.0); dev dependencies may use flexible ranges (`>=`, `^`); lockfiles are committed; updates go through Dependabot. A new dependency is justified (need, maintenance state, license) before it is added. Types: **Runtime** (needed to run the app), **Dev** (development-time only), **Build** (compile-time only).
+- **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions use the latest version and are kept current by Dependabot.
+- **Dependency currency.** Runtime and build dependencies use the latest version (here: Pester 5.7.1, PSScriptAnalyzer 1.25.0); dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot. A new dependency is justified (need, maintenance state, license) before it is added. Types: **Runtime** (needed to run the app), **Dev** (development-time only), **Build** (compile-time only).
 - **Standard workflow triggers.** Test on `push` and `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot weekly.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API, never by hand; human intervention is not required.
 - **New-repository checklist.** The bootstrap order is the rule, not a suggestion: the ignore file comes first so nothing private is swept into the first commit, then the root documents, then the landing page, then the hidden layers, and only then version control.
@@ -488,7 +488,7 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 
 Policy totals: 150 across 5 tiers; cumulative chain `25 → 51 → 82 → 122 → 150` (Brave; Chrome keeps the 123 chromium-origin policies).
 
-Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = bug fixes, Minor = security patches and improvements, Major = features, Version = major additions. Runtime and build dependencies are pinned (`Pester 5.7.1`); dev tooling may use flexible ranges.
+Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = bug fixes, Minor = security patches and improvements, Major = features, Version = major additions. Runtime and build dependencies use the latest version (here: Pester 5.7.1); dev tooling may use flexible ranges.
 
 ### Commands
 
@@ -545,7 +545,7 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 ### Toolchain
 
 - Compatibility floor: Windows PowerShell 5.1+; no `pwsh`-only syntax in shipped scripts.
-- Suite runner: Pester 5.7.1 (pinned in CI); static analysis PSScriptAnalyzer 1.25.0; Python 3 stdlib for the scanners and renderers; shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
+- Suite runner: Pester 5.7.1 (use the latest version in CI); static analysis PSScriptAnalyzer 1.25.0 (use the latest version in CI); Python 3 stdlib for the scanners and renderers (CI runs a matrix of 3.11 + latest); shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
 
 ### Releases
 
@@ -568,7 +568,7 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 
 ### Dependencies
 
-- Host tool dependencies are declared in §13 Toolchain (exact versions: Pester 5.7.1, PSScriptAnalyzer 1.25.0; Python 3 stdlib, shellcheck, markdownlint, yamllint installed in CI). Per "Local dependencies", global scope is the default and machine-wide installation is the person's decision.
+- Host tool dependencies are declared in §13 Toolchain (latest versions: Pester 5.7.1, PSScriptAnalyzer 1.25.0; Python 3 stdlib, shellcheck, markdownlint, yamllint installed in CI). Per "Local dependencies", global scope is the default and machine-wide installation is the person's decision.
 - No project-scope install is approved in this project; none is recorded here.
 - Retained exceptions: none recorded. (A version kept past its support window would be listed here with reason, exposure, exit trigger, and review cadence.)
 - The gate itself (`Scripts/Invoke-CI.ps1`) installs nothing; CI jobs install their own tools.
@@ -710,4 +710,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=ea8a644f8f7c585d8e6d8e99aebf6a29366bd2da -->
+<!-- mirror-sync: sync-sha=258fbc069e4d159e83d54da1d371374a6af75e17 -->
