@@ -19,8 +19,8 @@ jobs:
     name: Lint Markdown
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: DavidAnson/markdownlint-cli2-action@696eb3f2509270d7b882d2aa68347bc676e7af34 # v25.0.0
+      - uses: actions/checkout@main
+      - uses: DavidAnson/markdownlint-cli2-action@main
         with:
           globs: "**/*.md"
           config: ".github/linters/.markdownlint.json"
@@ -29,7 +29,7 @@ jobs:
     name: Validate YAML
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
       - name: Install yamllint
         run: pip install yamllint
       - name: Run yamllint
@@ -40,7 +40,7 @@ jobs:
     name: Check PowerShell Syntax
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
       - name: Validate PowerShell syntax
         shell: pwsh
         run: |
@@ -65,7 +65,7 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
         with:
           # The regression suite reads its oracle out of git history rather than
           # out of a hand-kept copy of the damage it is meant to catch, so the
@@ -101,13 +101,13 @@ jobs:
           if ($result.FailedCount -gt 0) { exit 1 }
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        uses: actions/upload-artifact@main
         with:
           name: test-results-${{ matrix.os }}
           path: test-results.xml
       - name: Upload code coverage
         if: always()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        uses: actions/upload-artifact@main
         with:
           name: code-coverage-${{ matrix.os }}
           path: coverage.xml
@@ -117,7 +117,7 @@ jobs:
     name: PSScriptAnalyzer
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
       - name: Install PSScriptAnalyzer
         shell: pwsh
         run: |
@@ -133,7 +133,7 @@ jobs:
     name: Policy Integrity
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
       - name: Validate ADMX cross-references
         shell: pwsh
         run: |
@@ -144,7 +144,7 @@ jobs:
     name: UTF-8 / Mojibake Integrity
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
       - name: Scan repo for mojibake and invalid UTF-8
         run: |
           python3 Scripts/Mojibake-Scan.py .
@@ -153,7 +153,7 @@ jobs:
     name: Linux Policy JSON Validity
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
       - name: Render every browser and tier combination
         run: |
           for browser in brave chrome; do
@@ -166,7 +166,7 @@ jobs:
     name: Shell Script Analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@main
       - name: Install shellcheck
         run: sudo apt-get update && sudo apt-get install -y shellcheck
       - name: Run shellcheck
