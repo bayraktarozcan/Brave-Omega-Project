@@ -545,7 +545,7 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 ### Toolchain
 
 - Compatibility floor: Windows PowerShell 5.1+; no `pwsh`-only syntax in shipped scripts.
-- Suite runner: Pester 5.7.1; static analysis PSScriptAnalyzer 1.25.0 (CI installs these versions on both hosts so the two gates stay reproducible); Python 3 stdlib for the scanners and renderers (GitLab CI runs a matrix of 3.11 + latest; GitHub has no Python job); shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
+- Suite runner: Pester 5.7.1; static analysis PSScriptAnalyzer 1.25.0 (CI installs these versions on both hosts so the two gates stay reproducible); Python 3 stdlib for the scanners and renderers (GitLab CI runs a matrix of 3.11 + latest; GitHub runs the same scripts with the runner's default `python3`, with no explicit version or matrix); shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
 
 ### Releases
 
@@ -711,4 +711,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=79827eb9870db71b6c74d1c8412ede30c2b9412a -->
+<!-- mirror-sync: sync-sha=f15170d571d9766cb632e44c2bfe2b4050dd5e07 -->
