@@ -1,7 +1,8 @@
 # Brave Omega Project - GitLab mirror CI.
 # Canonical CI lives in .github/workflows (GitHub). This file mirrors the same
-# quality gates on the mirror with current tool versions so both sides behave
-# identically. GitLab-specific additions: GitLab Pages deployment (pages) and
+# quality gates on the mirror so both sides run the same checks. Tools follow
+# mutable refs where available; checksum-verified downloads keep the release pin
+# the checksum names. GitLab-specific additions: Pages deployment (pages) and
 # JUnit test report upload (pester-tests).
 #
 # IMPORTANT: CI is enabled. Account identity verification
@@ -257,7 +258,8 @@ utf8-integrity:
   script:
     # Mojibake-Scan.py imports only os/re/sys, so the python image is the
     # whole toolchain here. No install step, and the run line is identical to
-    # the GitHub one - a gate that differs by a version is not the same gate.
+    # the GitHub one. This job additionally runs on 3.11 + latest via the
+    # matrix; that widens coverage rather than changing the gate body.
     - python3 Scripts/Mojibake-Scan.py .
 
 json-validity:
@@ -319,8 +321,9 @@ link-check:
     # anonymous requests from a shared runner is what github.com answers with
     # 503. The rate is lowered to what an anonymous client is expected to send,
     # and a throttled answer is retried after a real pause rather than the 1s
-    # default. Identical lychee version and identical arguments to the GitHub
-    # workflow, so the two hosts cannot drift into checking different things.
+    # default. Identical arguments to the GitHub workflow. GitHub tracks
+    # lychee-action@master while this job verifies a checksummed lychee release,
+    # so the versions are not guaranteed equal; that gap stays a human read.
     #
     # Exclusions justified by evidence:
     # support.brave.app = Zendesk blocks bots with 403, a human browser works.
