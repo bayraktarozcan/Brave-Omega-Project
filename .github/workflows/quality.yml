@@ -77,7 +77,7 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module -Name Pester -RequiredVersion 5.7.1 -Force -SkipPublisherCheck
+          Install-Module -Name Pester -Force -SkipPublisherCheck
       - name: Run Pester tests
         shell: pwsh
         run: |
@@ -122,7 +122,7 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module -Name PSScriptAnalyzer -RequiredVersion 1.25.0 -Force -SkipPublisherCheck
+          Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck
       - name: Run Invoke-ScriptAnalyzer on unified script
         shell: pwsh
         run: |
@@ -141,19 +141,33 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit 1 }
 
   utf8-integrity:
-    name: UTF-8 / Mojibake Integrity
+    name: UTF-8 / Mojibake Integrity (${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.x"]
+      fail-fast: false
     steps:
       - uses: actions/checkout@main
+      - uses: actions/setup-python@main
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Scan repo for mojibake and invalid UTF-8
         run: |
           python3 Scripts/Mojibake-Scan.py .
 
   json-validity:
-    name: Linux Policy JSON Validity
+    name: Linux Policy JSON Validity (${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.x"]
+      fail-fast: false
     steps:
       - uses: actions/checkout@main
+      - uses: actions/setup-python@main
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Render every browser and tier combination
         run: |
           for browser in brave chrome; do

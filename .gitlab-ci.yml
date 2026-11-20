@@ -1,8 +1,8 @@
 # Brave Omega Project - GitLab mirror CI.
 # Canonical CI lives in .github/workflows (GitHub). This file mirrors the same
-# quality gates on the mirror so both sides run the same checks. Tools follow
-# mutable refs where available; checksum-verified downloads keep the release pin
-# the checksum names. GitLab-specific additions: Pages deployment (pages) and
+# quality gates on the mirror so both sides run the same checks. Every tool
+# follows the latest ref; checksum-verified downloads resolve the latest release
+# and its checksum together at run time. GitLab-specific additions: Pages deployment (pages) and
 # JUnit test report upload (pester-tests).
 #
 # IMPORTANT: CI is enabled. Account identity verification
@@ -26,23 +26,19 @@
 #
 # NOTES
 # * The runner does its git checkout with the image's git, so every image
-#   below includes git (node:22-alpine, python:${PYTHON_VERSION} with a
+#   below includes git (node:alpine, python:${PYTHON_VERSION} with a
 #   3.11 + latest parallel matrix,
-#   mcr.microsoft.com/powershell:lts-ubuntu-22.04 -> git installed via apt in pester-tests, alpine:3.21 -> apk git).
+#   mcr.microsoft.com/powershell:latest -> git installed via apt in pester-tests, alpine -> apk git).
 # * The runner shell is bash/sh; PowerShell is piped to `pwsh -Command -`
 #   via a quoted heredoc (<<"'PWSH'">>), so the exact GitHub bodies run
 #   verbatim with no quoting mangling.
-# * Checksum files from the tool releases are verified before the tarballs
-#   are unpacked. Downloads keep their exact release filename so
-#   `sha256sum --check` sees the file it names.
+# * The latest release and its checksum file are resolved together from the
+#   release API, then verified with `sha256sum --check` before the tarball is
+#   unpacked. The exact filename comes from the API response, so the checksum
+#   always names the file that was downloaded.
 
 variables:
   GIT_DEPTH: 0
-  GITLEAKS_VERSION: v8.30.1
-  PESTER_VERSION: 5.7.1
-  PSSA_VERSION: 1.25.0
-  MARKDOWNLINT_CLI2_VERSION: 0.23.2
-  LYCHEE_VERSION: lychee-v0.24.2
 
 stages:
   - scan
@@ -52,18 +48,26 @@ stages:
   - deploy
 
 # ------------------------------------------------------------------ scan
-# Mirror of .github/workflows/secret-scan.yml (pinned gitleaks, full history).
+# Mirror of .github/workflows/secret-scan.yml (latest gitleaks + checksum, full history).
 
 secret-scan:
   stage: scan
-  image: alpine:3.21
+  image: alpine
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
-    - apk add --no-cache git curl tar coreutils
-    - cd /tmp && curl -sSL -o "gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
-    - cd /tmp && curl -sSL -o "gitleaks_${GITLEAKS_VERSION#v}_checksums.txt" "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_checksums.txt"
-    - cd /tmp && grep "gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" "gitleaks_${GITLEAKS_VERSION#v}_checksums.txt" | sha256sum --check --strict && tar -xzf "gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" gitleaks
+    - |
+      set -eu
+      apk add --no-cache git curl tar coreutils jq
+      cd /tmp
+      api=$(curl -sSL https://api.github.com/repos/gitleaks/gitleaks/releases/latest)
+      tarball=$(printf '%s' "$api" | jq -r '.assets[].name' | grep 'linux_x64[.]tar[.]gz$' | head -n 1)
+      checksum=$(printf '%s' "$api" | jq -r '.assets[].name' | grep 'checksums[.]txt$' | head -n 1)
+      test -n "$tarball" && test -n "$checksum"
+      curl -sSL -o "$tarball" "https://github.com/gitleaks/gitleaks/releases/latest/download/$tarball"
+      curl -sSL -o checksums.txt "https://github.com/gitleaks/gitleaks/releases/latest/download/$checksum"
+      grep "$tarball" checksums.txt | sha256sum --check --strict
+      tar -xzf "$tarball" gitleaks
   script:
     - cd "$CI_PROJECT_DIR" && /tmp/gitleaks git --redact --exit-code 1
 
@@ -73,11 +77,11 @@ secret-scan:
 
 markdown-lint:
   stage: validate
-  image: node:22-alpine
+  image: node:alpine
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
-    - npm install --silent --global "markdownlint-cli2@${MARKDOWNLINT_CLI2_VERSION}"
+    - npm install --silent --global markdownlint-cli2
   script:
     - markdownlint-cli2 --config ".github/linters/.markdownlint.json" "**/*.md"
 
@@ -96,7 +100,7 @@ yaml-validate:
 
 powershell-syntax:
   stage: validate
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
+  image: mcr.microsoft.com/powershell:latest
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
@@ -118,7 +122,7 @@ powershell-syntax:
 
 version-check:
   stage: validate
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
+  image: mcr.microsoft.com/powershell:latest
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
       changes: ["Brave-Omega/*.ps1"]
@@ -138,24 +142,30 @@ version-check:
 
 hygiene:
   stage: validate
-  image: alpine:3.21
+  image: alpine
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
       changes: [".github/workflows/**"]
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-  variables:
-    ACTIONLINT_VERSION: v1.7.12
   before_script:
-    - apk add --no-cache git curl tar coreutils
-    - cd /tmp && curl -sSL -o "actionlint_${ACTIONLINT_VERSION#v}_linux_amd64.tar.gz" "https://github.com/rhysd/actionlint/releases/download/${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION#v}_linux_amd64.tar.gz"
-    - cd /tmp && curl -sSL -o "actionlint_${ACTIONLINT_VERSION#v}_checksums.txt" "https://github.com/rhysd/actionlint/releases/download/${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION#v}_checksums.txt"
-    - cd /tmp && grep "actionlint_${ACTIONLINT_VERSION#v}_linux_amd64.tar.gz" "actionlint_${ACTIONLINT_VERSION#v}_checksums.txt" | sha256sum --check --strict && tar -xzf "actionlint_${ACTIONLINT_VERSION#v}_linux_amd64.tar.gz"
+    - |
+      set -eu
+      apk add --no-cache git curl tar coreutils jq
+      cd /tmp
+      api=$(curl -sSL https://api.github.com/repos/rhysd/actionlint/releases/latest)
+      tarball=$(printf '%s' "$api" | jq -r '.assets[].name' | grep 'linux_amd64[.]tar[.]gz$' | head -n 1)
+      checksum=$(printf '%s' "$api" | jq -r '.assets[].name' | grep 'checksums[.]txt$' | head -n 1)
+      test -n "$tarball" && test -n "$checksum"
+      curl -sSL -o "$tarball" "https://github.com/rhysd/actionlint/releases/latest/download/$tarball"
+      curl -sSL -o checksums.txt "https://github.com/rhysd/actionlint/releases/latest/download/$checksum"
+      grep "$tarball" checksums.txt | sha256sum --check --strict
+      tar -xzf "$tarball"
   script:
     - cd "$CI_PROJECT_DIR" && /tmp/actionlint
 
 admx-validate:
   stage: validate
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
+  image: mcr.microsoft.com/powershell:latest
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
       changes: ["ADMX/**", "Brave-Omega/BraveOmega.ps1"]
@@ -187,7 +197,7 @@ admx-validate:
 
 pester-tests:
   stage: test
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
+  image: mcr.microsoft.com/powershell:latest
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
@@ -198,7 +208,7 @@ pester-tests:
     #      is found. The PowerShell image carries no python, so the suite is
     #      installed here instead of being made to pass by going quiet.
     - apt-get update && apt-get install -y --no-install-recommends git ca-certificates python3
-    - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name Pester -RequiredVersion ${PESTER_VERSION} -Force -SkipPublisherCheck"
+    - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name Pester -Force -SkipPublisherCheck"
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'
@@ -223,11 +233,11 @@ pester-tests:
 
 ps-script-analyzer:
   stage: test
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
+  image: mcr.microsoft.com/powershell:latest
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   before_script:
-    - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name PSScriptAnalyzer -RequiredVersion ${PSSA_VERSION} -Force -SkipPublisherCheck"
+    - pwsh -NoProfile -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted; Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck"
   script:
     - |
       pwsh -NoProfile -Command - <<'PWSH'
@@ -237,7 +247,7 @@ ps-script-analyzer:
 
 policy-integrity:
   stage: test
-  image: mcr.microsoft.com/powershell:lts-ubuntu-22.04
+  image: mcr.microsoft.com/powershell:latest
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule"'
   script:
@@ -304,16 +314,25 @@ shellcheck:
 
 link-check:
   stage: links
-  image: alpine:3.21
+  image: alpine
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
       changes: ["**/*.md"]
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
   before_script:
-    - apk add --no-cache git curl tar coreutils
-    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-musl.tar.gz "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-musl.tar.gz"
-    - cd /tmp && curl -sSL -o lychee-x86_64-unknown-linux-musl.tar.gz.sha256 "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-musl.tar.gz.sha256"
-    - cd /tmp && sha256sum --check --strict lychee-x86_64-unknown-linux-musl.tar.gz.sha256 && tar -xzf lychee-x86_64-unknown-linux-musl.tar.gz && mv /tmp/lychee-x86_64-unknown-linux-musl/lychee /tmp/lychee
+    - |
+      set -eu
+      apk add --no-cache git curl tar coreutils jq
+      cd /tmp
+      api=$(curl -sSL https://api.github.com/repos/lycheeverse/lychee/releases/latest)
+      tarball=$(printf '%s' "$api" | jq -r '.assets[].name' | grep 'x86_64-unknown-linux-musl[.]tar[.]gz$' | head -n 1)
+      checksum=$(printf '%s' "$api" | jq -r '.assets[].name' | grep 'x86_64-unknown-linux-musl[.]tar[.]gz[.]sha256$' | head -n 1)
+      test -n "$tarball" && test -n "$checksum"
+      curl -sSL -o "$tarball" "https://github.com/lycheeverse/lychee/releases/latest/download/$tarball"
+      curl -sSL -o "$checksum" "https://github.com/lycheeverse/lychee/releases/latest/download/$checksum"
+      sha256sum --check --strict "$checksum"
+      tar -xzf "$tarball"
+      mv /tmp/lychee-x86_64-unknown-linux-musl/lychee /tmp/lychee
   script:
     # lychee sends 10 simultaneous requests to one host by default. GitHub
     # Actions never sees that on github.com because lychee-action hands lychee
@@ -367,7 +386,7 @@ link-check:
 
 pages:
   stage: deploy
-  image: node:22-alpine
+  image: node:alpine
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   script:
