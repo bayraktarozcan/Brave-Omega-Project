@@ -366,7 +366,7 @@ Repository management and dependency conventions.
 - **Dependabot.** Configured in `.github/dependabot.yml` with a weekly cadence; commit messages follow Conventional Commits (`chore(deps)`).
 - **CodeQL.** There is no `.github/workflows/codeql.yml` in this project; secrets are scanned via gitleaks in `secret-scan.yml` and static analysis runs in the gate instead. A `codeql.yml` on push plus weekly remains the standing target.
 - **Auto-approve.** No auto-approve workflow exists in this project; nothing is auto-approved.
-- **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions use the latest version and are kept current by Dependabot.
+- **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions use the latest version and are kept current by Dependabot. The GitHub repository setting `sha_pinning_required` is deliberately `false` so that `@main` references are admitted (see §13 Bypasses).
 - **Dependency currency.** Runtime and build dependencies use the latest version (here: Pester 5.7.1, PSScriptAnalyzer 1.25.0); dev dependencies may use flexible ranges (`>=`, `^`); updates go through Dependabot. A new dependency is justified (need, maintenance state, license) before it is added. Types: **Runtime** (needed to run the app), **Dev** (development-time only), **Build** (compile-time only).
 - **Standard workflow triggers.** Test on `push` and `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot weekly.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API, never by hand; human intervention is not required.
@@ -559,6 +559,7 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 - The `main` branch ruleset (`Protect main`) nominally requires a pull request and is deliberately bypassed rather than satisfied: the owner is a bypass actor, so a direct push to `main` is admitted; the nine required status checks run _after_ the push rather than gating it. The second host's CI is the independent gate. Removing the bypass means adopting a PR workflow, and that is deliberately not taken.
 - Auto-approve: none exists; nothing is auto-approved.
 - CodeQL: no workflow exists; gitleaks secret scan plus gate static analysis stand in.
+- Third-party action SHA pinning: the GitHub repository setting `sha_pinning_required` is deliberately `false` so workflows can use `@main` and follow the latest published action (see §11 Workflow hardening and Dependency currency). Verified against the live repository configuration; removing this bypass would require full-commit SHA references again.
 
 ### Transport
 
@@ -710,4 +711,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=258fbc069e4d159e83d54da1d371374a6af75e17 -->
+<!-- mirror-sync: sync-sha=6e402157d0933866eac835eeac75a61f69b1f1fa -->
