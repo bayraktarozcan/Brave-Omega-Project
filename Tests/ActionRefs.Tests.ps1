@@ -18,6 +18,7 @@ BeforeAll {
         'actions/checkout'                  = 'main'
         'actions/configure-pages'           = 'main'
         'actions/deploy-pages'              = 'main'
+        'actions/setup-python'              = 'main'
         'actions/stale'                     = 'main'
         'actions/upload-artifact'           = 'main'
         'actions/upload-pages-artifact'     = 'main'
@@ -49,6 +50,16 @@ Describe 'Action reference invariants' -Tag 'Unit' {
         $script:References.Count | Should -BeGreaterThan 0 -Because 'a check that finds no action reference has never been exercised'
         $shas = @($script:References | Where-Object { $_.Ref -cmatch '^[0-9a-f]{40}$' })
         $shas | Should -BeNullOrEmpty -Because ('the latest-version rule forbids full-commit SHA pins: ' + (($shas | ForEach-Object { "$($_.File): $($_.Repo)@$($_.Ref)" }) -join ', '))
+
+        $pinPattern = '(?m)(?:RequiredVersion\s+\S+|@sha256:[0-9a-f]{64}|pip install [^\s]+==|GITLEAKS_VERSION|PESTER_VERSION|PSSA_VERSION|MARKDOWNLINT_CLI2_VERSION|LYCHEE_VERSION|ACTIONLINT_VERSION)'
+        $pins = @()
+        foreach ($path in (@(Join-Path $script:WorkflowDir 'quality.yml') + @(Join-Path $script:WorkflowDir 'secret-scan.yml') + @(Join-Path $script:RepoRoot '.gitlab-ci.yml'))) {
+            $text = Get-Content -LiteralPath $path -Raw
+            foreach ($match in [regex]::Matches($text, $pinPattern)) {
+                $pins += "$(Split-Path -Leaf $path): $($match.Value)"
+            }
+        }
+        $pins | Should -BeNullOrEmpty -Because ('the always-latest rule forbids any pinned tool version or digest: ' + ($pins -join ', '))
     }
 
     It 'resolves every action against the upstream default branch recorded for it' {
