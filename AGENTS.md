@@ -442,7 +442,7 @@ All committed file and directory names are English.
 
 - **Policy and data edits.** Policy definitions live only in `Brave-Omega/config.json` plus `Brave-Omega/Profiles/*.json` (with `origin`/`platforms` tags and `Brave-Omega/Browsers/*.json` for browser targets), loaded at runtime via `Import-OmegaPolicyData` into `$OmegaState`. Deprecated policies are removed from the profile files; `ADMX/ADMX-Validate.ps1` enforces the cross-reference.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git, and there is no `.env.example` in this project because the script reads no environment configuration (all behavior comes from parameters and the data layer); variable names use `UPPER_SNAKE_CASE` where they appear.
-- **Testing quality bar.** The Pester suite (currently 402 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 402/402 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
+- **Testing quality bar.** The Pester suite (currently 411 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 411/411 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
 - **Setup & deployment.** Provisioning is one step: `Scripts/Deploy-Brave-Omega.ps1` applies the Enterprise `.reg` artifacts; runtime state is verified with `Scripts/Detect-Brave-Omega.ps1`. Production deployment runs through the CI/CD pipeline on both hosts.
 
 ### Local Human-Language Mirror
@@ -505,7 +505,7 @@ Run from the repository root (PowerShell 7+ `pwsh` when present, otherwise Windo
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 402/402 passing
+Invoke-Pester Tests/ -PassThru          # expected: 411/411 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 149/149
@@ -548,7 +548,8 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 ### Toolchain
 
 - Compatibility floor: Windows PowerShell 5.1+; no `pwsh`-only syntax in shipped scripts.
-- Suite runner: Pester and PSScriptAnalyzer (CI installs the latest release on both hosts); Python 3 stdlib for the scanners and renderers, with both hosts running a 3.11 + latest matrix (GitHub via `actions/setup-python@main`, GitLab via `python:${PYTHON_VERSION}`); shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
+- Suite runner: Pester and PSScriptAnalyzer (CI installs the latest release on both hosts); Python 3 stdlib for the scanners and renderers, with both hosts running an oldest-supported-minor + latest matrix declared in the CI manifests (GitHub via `actions/setup-python@main`, GitLab via `python:${PYTHON_VERSION}`); shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
+- **Python floor currency.** `Scripts/Update-PythonFloor.ps1` resolves the oldest supported Python minor from the core team's release calendar (`https://peps.python.org/api/release-cycle.json`), refuses downgrades and declaration drift, and updates only the two CI manifests. The weekly `python-floor` workflow opens one pull request and merges it after the Quality checks. This file is never edited by the automation.
 
 ### Releases
 
@@ -714,4 +715,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=1a4b290737030a2c3c279ed28ea705246b2e33a7 -->
+<!-- mirror-sync: sync-sha=ba739b9aeb33e1f7f6173e07554e0c4272f52df8 -->
