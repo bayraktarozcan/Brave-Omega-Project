@@ -238,9 +238,11 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Fixed
 
-- Release script no longer appends `[DEPRECATED]` to the end of a title; the marker is always a prefix. Current-state test count updated to 421.
+- Release script no longer appends `[DEPRECATED]` to the end of a title; the marker is always a prefix. Current-state test count updated to 423.
 - Quality audit of `ae5b376..def8d2b`: `README.md` keeps its UTF-8 BOM, both changelog tables of contents are renumbered after the Unreleased entry, the generator preserves dotted version numbers and removes table skeletons emptied by row filtering, explicit `-Title`/`-NotesFile` no longer require a changelog section, and the release guards exercise releases that actually contain the defects.
 - CodeQL documentation now matches the live default setup (`state: configured`, weekly, languages `actions` and `python`) instead of claiming that no code scanning exists.
+- Quality audit of `4384373`: the host tool probe no longer declares winget IDs that do not resolve (`koalamer.ShellCheck`, `tamasfe.yamllint`, `DavidAnson.markdownlint-cli2`); shellcheck uses the verified `koalaman.shellcheck`, while yamllint and markdownlint-cli2 are probed through pip and npm at per-user scope. `Tests/HostTools.Tests.ps1` pins the verified ID map.
+- Pages deployment retries once after a short pause when the artifact metadata API fails transiently, and fails only when both attempts lose. `Tests/PagesDeploy.Tests.ps1` pins the retry path.
 
 ---
 
@@ -2758,9 +2760,11 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Düzeltilenler
 
-- Yayın betiği `[DEPRECATED]` işaretini artık başlığın sonuna eklemiyor; işaret her zaman öne konuyor. Güncel test sayısı 421 olarak güncellendi.
+- Yayın betiği `[DEPRECATED]` işaretini artık başlığın sonuna eklemiyor; işaret her zaman öne konuyor. Güncel test sayısı 423 olarak güncellendi.
 - `ae5b376..def8d2b` kalite denetimi: `README.md` UTF-8 BOM'unu koruyor, her iki değişiklik günlüğü içindekiler tablosu Yayınlanmadı girdisinden sonra yeniden numaralandırıldı, üreteç noktalı sürüm numaralarını koruyor ve satır filtrelemesiyle boşalan tablo iskeletlerini kaldırıyor, açık `-Title`/`-NotesFile` artık changelog bölümü gerektirmiyor ve yayın korumaları kusuru gerçekten taşıyan sürümleri sınıyor.
 - CodeQL belgeleri canlı varsayılan kurulumla eşleşiyor (`state: configured`, haftalık, diller `actions` ve `python`); kod taramasının olmadığı iddiası kaldırıldı.
+- `4384373` kalite denetimi: host aracı sorgusu artık çözümlenmeyen winget kimliklerini bildirmiyor (`koalamer.ShellCheck`, `tamasfe.yamllint`, `DavidAnson.markdownlint-cli2`); shellcheck doğrulanmış `koalaman.shellcheck` kimliğini kullanıyor, yamllint ve markdownlint-cli2 ise pip ve npm üzerinden per-user kapsamda sorgulanıyor. `Tests/HostTools.Tests.ps1` doğrulanmış kimlik haritasını sabitliyor.
+- Pages dağıtımı, artifact metadata API'si geçici olarak hata verdiğinde kısa bir beklemeden sonra bir kez yeniden deniyor; yalnızca iki deneme de başarısız olursa kırmızıya dönüyor. `Tests/PagesDeploy.Tests.ps1` yeniden deneme yolunu sabitliyor.
 
 ---
 

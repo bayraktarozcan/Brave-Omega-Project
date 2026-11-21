@@ -31,4 +31,26 @@ Describe 'Host tool currency' -Tag 'Unit' {
         $text | Should -Match '-Scope CurrentUser'
         $text | Should -Not -Match '--system|\bAllUsers\b|sudo'
     }
+
+    It 'declares verified sources and probes pip tools through the real interpreter' {
+        # Verified live on 2026-11-21: an ID that cannot be resolved would
+        # make the probe report "not installed" forever and never offer an
+        # update, which is a silently dead guard.
+        @($script:WingetTools | ForEach-Object Id) | Should -Be @(
+            'Gitleaks.Gitleaks', 'rhysd.actionlint', 'lycheeverse.lychee',
+            'koalaman.shellcheck', 'Microsoft.PowerShell'
+        )
+        @($script:PackageTools | ForEach-Object Manager) | Should -Be @('pip', 'npm')
+
+        # A resolved interpreter is an executable plus a prefix argument;
+        # passing the whole array as one command name silently breaks the
+        # probe, so exercise the real call path here.
+        $interpreter = @(Get-PythonCommand | Where-Object { $_ })
+        $interpreter.Count | Should -BeGreaterOrEqual 1
+        $interpreter[0].Length | Should -BeGreaterThan 1
+
+        $version = Get-PackageVersion -Id 'yamllint' -Manager pip
+        $version | Should -Not -BeNullOrEmpty
+        $version | Should -Not -Match 'not recognized|cmdlet|terim'
+    }
 }

@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.retry.outputs.page_url || steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@main
       - name: Prepare site directory
@@ -36,5 +36,31 @@ jobs:
           path: "_site"
       - id: deployment
         uses: actions/deploy-pages@main
+        continue-on-error: true
         env:
           NODE_OPTIONS: "--no-deprecation"
+
+      # The artifact is finalized before this step starts, but the metadata
+      # API has answered "No artifacts named github-pages" on several runs.
+      # Retry once after a short pause and fail only if both attempts lose.
+      - name: Pause before retry
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 20
+
+      - id: retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@main
+        continue-on-error: true
+        env:
+          NODE_OPTIONS: "--no-deprecation"
+
+      - name: Assert deployment
+        shell: bash
+        env:
+          FIRST: ${{ steps.deployment.outcome }}
+          SECOND: ${{ steps.retry.outcome }}
+        run: |
+          if [ "$FIRST" != "success" ] && [ "$SECOND" != "success" ]; then
+            echo "both Pages deployment attempts failed"
+            exit 1
+          fi

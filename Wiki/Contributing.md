@@ -101,7 +101,7 @@ When Brave releases a new stable version:
 
 ### Testing (Phase 3)
 
-**Pester tests** live in `Tests/` (48 files, 421 It blocks).
+**Pester tests** live in `Tests/` (49 files, 423 It blocks).
 
 When adding or modifying policies:
 
@@ -307,7 +307,7 @@ Brave yeni bir kararlı sürüm yayımladığında:
 
 ### Test Etme (Faz 3)
 
-**Pester testleri** `Tests/` klasöründedir (48 dosya, 421 It bloğu).
+**Pester testleri** `Tests/` klasöründedir (49 dosya, 423 It bloğu).
 
 Politika eklerken veya değiştirirken:
 
