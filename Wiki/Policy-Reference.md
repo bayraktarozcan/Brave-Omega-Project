@@ -156,7 +156,6 @@ Complete policy reference for Brave Omega v3.1.0.2 — **150 enterprise policies
 | `DefaultJavaScriptSetting` | `0` | DWord | **[Phase 9]** Allows JavaScript by default |
 | `GeminiSettings` | `1` | DWord | **[Phase 9]** Disables Gemini AI integration |
 | `AIModeSettings` | `1` | DWord | Blocks Chrome AI Mode entirely |
-| `AutofillPredictionSettings` | `2` | DWord | Disables AI-powered autofill predictions |
 | `ChromeSuggestionsSettings` | `1` | DWord | Disables AI-powered suggestions |
 | `CreateThemesSettings` | `2` | DWord | Disables AI theme creation |
 | `DevToolsGenAiSettings` | `2` | DWord | Disables AI in DevTools |
@@ -418,7 +417,6 @@ Brave Omega v3.1.0.2 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | `DefaultJavaScriptSetting` | `0` | DWord | **[Faz 9]** Varsayılan olarak JavaScript'e izin verir |
 | `GeminiSettings` | `1` | DWord | **[Faz 9]** Gemini AI entegrasyonunu devre dışı bırakır |
 | `AIModeSettings` | `1` | DWord | Chrome AI Modunu tamamen engeller |
-| `AutofillPredictionSettings` | `2` | DWord | Yapay zeka destekli otomatik doldurma tahminlerini devre dışı bırakır |
 | `ChromeSuggestionsSettings` | `1` | DWord | Yapay zeka destekli önerileri devre dışı bırakır |
 | `CreateThemesSettings` | `2` | DWord | Yapay zeka tema oluşturmayı devre dışı bırakır |
 | `DevToolsGenAiSettings` | `2` | DWord | Geliştirici araçlarındaki yapay zekayı devre dışı bırakır |
@@ -492,7 +490,7 @@ Brave Omega'yı çalıştırdıktan sonra tüm politikaları şu adreste doğrul
 brave://policy
 ```
 
-150 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
+149 politikanın tümü **Etkin** (yeşil onay işareti) olarak görünmelidir.
 
 ---
 

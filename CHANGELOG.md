@@ -231,7 +231,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Fixed
 
-- Stale documentation corrected: test total 395, ADMX 149/149, 11 workflows, 9 gate checks, script v3.1.0.3, policy totals 149/122, and a missing Turkish v3.1.0.3 entry in the Wiki changelog. The Turkish mirror was refreshed in the same change.
+- Stale documentation corrected across README, Wiki pages and the Turkish mirror: script v3.1.0.3, policy totals 149 / chain 25-51-82-121-149 / Chrome 122, ADMX 149/149, test total 395 (42 test files + 2 helpers), 11 workflows, 9 gate checks, and the missing Turkish v3.1.0.3 changelog entry. `Wiki/Policy-Reference.md` now reflects v3.1.0.3 and no longer lists the removed `AutofillPredictionSettings`. Live ruleset state is recorded accurately.
 
 ---
 
@@ -2685,7 +2685,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Düzeltilenler
 
-- Eski belgeler düzeltildi: test sayısı 395, ADMX 149/149, 11 iş akışı, 9 kapı kontrolü, betik v3.1.0.3, ilke toplamları 149/122 ve Wiki değişiklik günlüğündeki eksik Türkçe v3.1.0.3 girdisi. Türkçe ayna aynı değişiklikte yenilendi.
+- README, Wiki sayfaları ve Türkçe aynadaki eski belgeler düzeltildi: betik v3.1.0.3, ilke toplamları 149 / zincir 25-51-82-121-149 / Chrome 122, ADMX 149/149, test sayısı 395 (42 test dosyası + 2 yardımcı), 11 iş akışı, 9 kapı kontrolü ve Wiki değişiklik günlüğündeki eksik Türkçe v3.1.0.3 girdisi. `Wiki/Policy-Reference.md` v3.1.0.3'ü yansıtıyor ve kaldırılan `AutofillPredictionSettings` artık listelenmiyor. Canlı ruleset durumu doğru kaydedildi.
 
 ---
 

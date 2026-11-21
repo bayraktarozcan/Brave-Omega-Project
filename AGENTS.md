@@ -340,8 +340,8 @@ The loop runs inside one piece (see "Cadence"); it never chains pieces together.
 - Force push is allowed when justified, uses `--force-with-lease`, and is reported to the person.
 - Push after each meaningful commit; consecutive small commits may be pushed together.
 - Remotes: `origin` pushes to both GitHub and GitLab (dual pushurl). Keep the two remotes in parity — there is no PR workflow for own commits. A dual remote is also a dual gate: the second host carries its own CI enforcing the same checks. Removing the bypass below is a decision to adopt a PR workflow, and it is deliberately not taken here.
-- The `main` branch ruleset nominally requires a pull request and is deliberately bypassed rather than satisfied: the owner is a bypass actor, so a direct push to `main` is admitted; the nine required status checks therefore run _after_ the push rather than gating it. The second host's CI is the independent gate. This bypass is recorded here (not enforced as a gate) with what runs afterward.
-- Guard the phrase "ruleset" in prose: this project's script never shells out to `gh`/`glab` for release or branch work without the person's explicit direction — wait, it does for releases. Strike that: releases are cut with `gh`/`glab` only when the person orders a release; routine branch work never touches the API.
+- The `main` branch ruleset is currently **disabled** (live check: `gh api repos/.../rulesets` → `main-guard`, `enforcement: disabled`), and classic branch protection declares no required status checks. Direct pushes to `main` are therefore admitted without a PR; the nine Quality jobs and the second host's CI run _after_ the push but do not gate it. The PR-workflow target remains recorded here; re-enabling the ruleset is what would make those checks gating.
+- Guard the phrase "ruleset" in prose: routine branch work never shells out to `gh`/`glab`; releases are cut with `gh`/`glab` only when the person explicitly orders a release.
 
 ### Security & privacy
 
@@ -363,7 +363,7 @@ Committed files never reference uncommitted (gitignored or untracked) files or d
 Repository management and dependency conventions.
 
 - **Security files.** `SECURITY.md` (vulnerability reporting) lives at the repository root; GitHub's security features expect it there.
-- **Dependabot.** Configured in `.github/dependabot.yml` with a weekly cadence; commit messages follow Conventional Commits (`chore(deps)`). With all refs tracking mutable branches there is no version for it to bump today; the configuration is retained so any future pinned ref is surfaced.
+- **Dependabot.** Configured in `.github/dependabot.yml` with a weekly cadence; commit messages follow Conventional Commits (`chore(deps)`). With all refs tracking mutable branches there is no version for it to bump today, so the Dependabot auto-merge workflow currently has no bot PR to merge; the configuration is retained so any future pinned ref is surfaced.
 - **CodeQL.** There is no `.github/workflows/codeql.yml` in this project; secrets are scanned via gitleaks in `secret-scan.yml` and static analysis runs in the gate instead. A `codeql.yml` on push plus weekly remains the standing target.
 - **Auto-approve.** No auto-approve workflow exists in this project; nothing is auto-approved.
 - **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions use the latest version by tracking `@main` directly; Dependabot covers the ecosystems configured in `.github/dependabot.yml`. The GitHub repository setting `sha_pinning_required` is deliberately `false` so that `@main` references are admitted (see §13 Bypasses).
@@ -556,7 +556,7 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 
 ### Bypasses
 
-- The `main` branch ruleset (`Protect main`) nominally requires a pull request and is deliberately bypassed rather than satisfied: the owner is a bypass actor, so a direct push to `main` is admitted; the nine required status checks run _after_ the push rather than gating it. The second host's CI is the independent gate. Removing the bypass means adopting a PR workflow, and that is deliberately not taken.
+- The `main` branch ruleset (`main-guard`) is currently disabled (`enforcement: disabled`, verified live), so no PR is required and the nine Quality jobs plus the second host's CI run after the push without gating it. Re-enabling the ruleset would make those checks gating and imply a PR workflow; that is deliberately not taken.
 - Auto-approve: none exists; nothing is auto-approved.
 - CodeQL: no workflow exists; gitleaks secret scan plus gate static analysis stand in.
 - Third-party action SHA pinning: the GitHub repository setting `sha_pinning_required` is deliberately `false` so workflows can use `@main` and follow the latest published action (see §11 Workflow hardening). Verified against the live repository configuration; removing this bypass would require full-commit SHA references again.
@@ -711,4 +711,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=eabb0dd1cbf4a7b2d2104ccb7b385a1cc3f5c11e -->
+<!-- mirror-sync: sync-sha=9ed471d947939e8cf84db825f09a70590f434cac -->

@@ -325,7 +325,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v3.1.0.2) Kullan Eğer
+### Güncel (v3.1.0.3) Kullan Eğer
 
 - Herhangi bir Brave sürümü çalışıyorsa (V3 sürüm-bağımsız — sabit sürüm yok)
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
@@ -333,7 +333,7 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ### Önceki (v3.0.2.0) Kullan Eğer
 
-- Hemen v3.1.0.2'a güncelleyemiyorsanız
+- Hemen v3.1.0.3'e güncelleyemiyorsanız
 - Windows Chrome desteğine ihtiyacınız yoksa
 
 ### Eski (v2.2.1.0) Kullan Eğer
@@ -374,8 +374,8 @@ if (Test-Path $bravePath) {
 
 | Senaryo | Öneri |
 | --------- | ------- |
-| Herhangi bir Brave sürümü (V3) | v3.1.0.2 kullanın — sürüm-bağımsız, matris araması gerekmez |
-| v3.0.2.0'da kalınıyorsa | Windows Chrome desteği için v3.1.0.2'a geçin |
+| Herhangi bir Brave sürümü (V3) | v3.1.0.3 kullanın — sürüm-bağımsız, matris araması gerekmez |
+| v3.0.2.0'da kalınıyorsa | Windows Chrome desteği için v3.1.0.3'e geçin |
 | Windows derlemesi farklı | Windows 11 önerilir; diğer derlemeler muhtemelen uyumludur |
 
 ---

@@ -111,7 +111,7 @@ Brave Omega builds that bridge — and keeps it current throughout the browser's
 
 | Feature | Description |
 |---------|-------------|
-| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (25 policies), **Essential ⭐** (51 policies), **Balanced** (82), **Advanced** (122), or **Strict** (150) |
+| 🔒 **Five-Tier Privacy Model** | Choose your hardening level: **Brave Only** (25 policies), **Essential ⭐** (51 policies), **Balanced** (82), **Advanced** (121), or **Strict** (149) |
 | 🌐 **Multi-Type Registry Engine** | Supports DWord, String, MultiString, and ExpandString registry types — MultiString uses .NET API (`[Microsoft.Win32.Registry]`) natively since PowerShell lacks `REG_MULTI_SZ` cmdlets, and ExpandString is written as `REG_EXPAND_SZ` so environment variables such as `%USERPROFILE%` resolve |
 | 📋 **ADMX-Validated Policies** | Every policy entry sourced and verified against Brave's official ADMX templates and Chromium's policy documentation |
 | 🔄 **Idempotent Execution** | Run the script any number of times — same safe, consistent result every time |
@@ -574,7 +574,7 @@ no longer have any effect.
 
 > The Strict profile also clears the inherited `NotificationsAllowedForUrls`
 > allowlist with an empty override. This changes a policy that is already counted
-> in Brave Only, so the unique total remains 150 rather than 151.
+> in Brave Only, so the unique total remains 149 rather than 150.
 
 ---
 
@@ -623,7 +623,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projection sync
 │   ├── Release.ps1                        Release automation
 │   └── Mojibake-Scan.py                   Character-integrity scanner
-├── Tests/                                 Pester suite (latest release; 42 test files + 1 helper)
+├── Tests/                                 Pester suite (latest release; 42 test files + 2 helpers)
 ├── Wiki/                                  Wiki source of truth (15 pages)
 ├── index.html                             Landing page (GitHub Pages)
 ├── AGENTS.md                              Agent and contributor rules
@@ -681,7 +681,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Multi-type registry engine** — DWord, String, MultiString, ExpandString type-aware dispatching (v2.0)
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
-- [x] **150 total policies** — expanded from 17 to 150 across 5 levels (v2.0–v2.5.0.0)
+- [x] **149 total policies** — expanded from 17 to 150 across 5 levels (v2.0–v2.5.0.0), reduced to 149 in v3.1.0.3
 - [x] **v2.2.1.0 — Policy Expansion** — 12 new Chromium security/data policies added across Essential and Balanced levels (v2.2.1.0)
 - [x] **v2.3.0.0 — Phase 8 Expansion** — 19 new enterprise policies added across all 5 levels: Safe Browsing protection, extension lockdown (block all + forcelist), Incognito disable, developer tools disable, proxy configuration, printing disable, and more
 - [x] **5-tier hardening model** — Advanced level added between Balanced and Strict (v2.2.0)
@@ -809,14 +809,14 @@ ve gizliliği aşındıran diğer özellikler sistematik biçimde devre dışı 
 yapısına hiç dokunulmaz; herhangi bir üçüncü taraf araç gerekmez.
 
 Brave Omega **beş katmanlı bir sıkılaştırma modeli** sunar — Brave Yalnız (25 politika),
-Temel ⭐ (51), Dengeli (82), Gelişmiş (122) ve Katı (150) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
+Temel ⭐ (51), Dengeli (82), Gelişmiş (121) ve Katı (149) — kullanıcılara gizlilik duruşları üzerinde hassas kontrol
 sağlar. Seviyeler kümülatiftir: her katman bir öncekinin tüm politikalarını içerir.
 
 > **Tek betik. İki dil. Sıfır maliyet.**
 >
 > `BraveOmega.ps1` — Tek birleşik iki dilli betik. İlk açılışta
 > `Press 1 for English / Türkçe için 2'ye basın` diye sorar; `-Language EN|TR`
-> ile dil sabitlenebilir. Tek dosya, iki dil, 150 politikanın tamamı.
+> ile dil sabitlenebilir. Tek dosya, iki dil, 149 politikanın tamamı.
 
 ---
 
@@ -840,7 +840,7 @@ Brave Omega o köprüyü inşa eder — ve tarayıcının yaşam döngüsü boyu
 
 | Özellik | Açıklama |
 |---------|----------|
-| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (25 politika), **Temel ⭐** (51), **Dengeli** (82), **Gelişmiş** (122) veya **Katı** (150) |
+| 🔒 **Beş Katmanlı Gizlilik Modeli** | Sıkılaştırma seviyenizi seçin: **Brave Yalnız** (25 politika), **Temel ⭐** (51), **Dengeli** (82), **Gelişmiş** (121) veya **Katı** (149) |
 | 🌐 **Çoklu Tür Kayıt Defteri Motoru** | DWord, String, MultiString ve ExpandString kayıt türlerini otomatik dağıtır — MultiString için .NET API (`[Microsoft.Win32.Registry]`) kullanılır (PowerShell'de `REG_MULTI_SZ` cmdlet'i yoktur), ExpandString ise `REG_EXPAND_SZ` olarak yazılır; böylece `%USERPROFILE%` gibi ortam değişkenleri genişletilir |
 | 📋 **ADMX Doğrulamalı İlkeler** | Her politika girişi Brave'in resmî ADMX şablonları ve Chromium politika belgelendirmesi ile doğrulanmıştır |
 | 🔄 **Kararsız Olmayan Çalışma** | Betiği istediğiniz kadar çalıştırın — her seferinde aynı güvenli, tutarlı sonuç |
@@ -939,8 +939,8 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -Language TR -Level 
 | `-Level "Brave Yalnız"` | `-Level BraveOnly` | Brave Yalnız | 25 |
 | `-Level Temel` | `-Level Essential` | Temel ⭐ | 51 |
 | `-Level Dengeli` | `-Level Balanced` | Dengeli | 82 |
-| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 122 |
-| `-Level Katı` | `-Level Strict` | Katı | 150 |
+| `-Level Gelişmiş` | `-Level Advanced` | Gelişmiş | 121 |
+| `-Level Katı` | `-Level Strict` | Katı | 149 |
 
 > `-ExecutionPolicy Bypass` bayrağı yalnızca bu tek komut için geçerlidir. Kalıcı bir çalıştırma ilkesi değişikliği yapılmaz — pencereyi kapatın, her şey sıfırlanır.
 
@@ -1118,7 +1118,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 ### 9. Politika Başvuru Tablosu
 
-> Brave Omega **5 sıkılaştırma seviyesi** ve **150 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
+> Brave Omega **5 sıkılaştırma seviyesi** ve **149 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
 
 #### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
 
@@ -1304,7 +1304,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 > Katı profili ayrıca devralınan `NotificationsAllowedForUrls` izin listesini boş
 > bir geçersiz kılmayla temizler. Bu, Brave Yalnız altında zaten sayılan bir
-> politikayı değiştirdiği için benzersiz toplam 151 değil 150 olarak kalır.
+> politikayı değiştirdiği için benzersiz toplam 150 değil 149 olarak kalır.
 
 ---
 
@@ -1354,7 +1354,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
 │   ├── Release.ps1                        Sürüm otomasyonu
 │   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
-├── Tests/                                 Pester paketi (en güncel sürüm; 42 test dosyası + 1 yardımcı)
+├── Tests/                                 Pester paketi (en güncel sürüm; 42 test dosyası + 2 yardımcı)
 ├── Wiki/                                  Wiki kaynağı (15 sayfa)
 ├── index.html                             Açılış sayfası (GitHub Pages)
 ├── AGENTS.md                              Ajan ve katkıcı kuralları
@@ -1416,7 +1416,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı
 - [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString, ExpandString
 - [x] **`-Level` parametresi** — sessiz/otomatik dağıtım
-- [x] **149 toplam politika** — 17'den 150'e genişletildi
+- [x] **149 toplam politika** — 17'den 150'e genişletildi, v3.1.0.3'te 149'a indirildi
 - [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar
 - [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi**
 - [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle
