@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Audits published releases on GitHub and GitLab against the §12 rule.
 .DESCRIPTION
