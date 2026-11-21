@@ -13,9 +13,11 @@
 .PARAMETER Version
     Version string (e.g., "v2.3.2.0")
 .PARAMETER Title
-    Release title (e.g., "Brave 1.93.100 Compatibility")
+    Release title. Omit to derive the canonical title from CHANGELOG.md
+    (tag once, descriptive Title Case, no [DEPRECATED] on the current tag).
 .PARAMETER NotesFile
-    Path to release notes markdown file
+    Path to release notes markdown file. Omit to generate bilingual notes
+    from CHANGELOG.md via Scripts/Build-ReleaseNotes.py.
 .PARAMETER SkipWiki
     Skip Wiki sync step
 .PARAMETER SkipDeprecate
@@ -34,7 +36,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$Version,
 
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory=$false)]
     [string]$Title,
 
     [Parameter(Mandatory=$false)]
@@ -147,6 +149,26 @@ Write-Host "  Version: $Version" -ForegroundColor Cyan
 if ($DryRun) { Write-Host "  MODE: DRY-RUN" -ForegroundColor DarkYellow }
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
+
+# Canonical metadata is derived from CHANGELOG.md by a stdlib-only helper, so
+# a new release cannot drift from the title/body rules in AGENTS.md §12.
+function Get-ReleaseNotes {
+    param([string]$Ver, [switch]$Current)
+    $bare = $Ver.TrimStart('v')
+    $out = Join-Path $scriptDir "Agent-Scratch\release-notes-$Ver.md"
+    $outDir = Split-Path $out
+    if (-not (Test-Path -LiteralPath $outDir)) { New-Item -ItemType Directory -Path $outDir | Out-Null }
+    $args = @('-3', (Join-Path $scriptDir 'Scripts\Build-ReleaseNotes.py'), $bare, $out)
+    if ($Current) { $args += '--current' }
+    $generated = & py @args 2>&1
+    if ($LASTEXITCODE -ne 0) { throw "Failed to build canonical release notes: $generated" }
+    return @{ Title = ($generated | Select-Object -First 1); Path = $out }
+}
+
+$canonical = Get-ReleaseNotes -Ver $Version -Current
+if (-not $Title) { $Title = $canonical.Title }
+if (-not $NotesFile) { $NotesFile = $canonical.Path }
+$notesPath = if (Test-Path -LiteralPath $NotesFile) { (Resolve-Path -LiteralPath $NotesFile).Path } else { $NotesFile }
 
 # ----------------------------------------
 # Step 1: Validate
@@ -262,8 +284,9 @@ if ($SkipDeprecate) {
         }
 
         if ($currentLatest -and $currentLatest.tagName -ne $Version) {
-            if ($currentLatest.name -notmatch "\[DEPRECATED\]") {
-                $deprecatedName = "[DEPRECATED] $($currentLatest.name)"
+            if ($currentLatest.name -notmatch "^\[DEPRECATED\]") {
+                $prevCanonical = Get-ReleaseNotes -Ver $currentLatest.tagName
+                $deprecatedName = $prevCanonical.Title
 
                 if (-not $DryRun) {
                     # Update Title
@@ -294,8 +317,9 @@ if ($SkipDeprecate) {
 
         if ($gitlabPrevious) {
             $gitlabName = if ($gitlabPrevious.name) { $gitlabPrevious.name } else { $gitlabPrevious.tag_name }
-            if ($gitlabName -notmatch "\[DEPRECATED\]") {
-                $gitlabDeprecatedName = "[DEPRECATED] $gitlabName"
+            if ($gitlabName -notmatch "^\[DEPRECATED\]") {
+                $gitlabPrevCanonical = Get-ReleaseNotes -Ver $gitlabPrevious.tag_name
+                $gitlabDeprecatedName = $gitlabPrevCanonical.Title
                 $gitlabDeprecated = $true
 
                 if (-not $DryRun) {
@@ -346,10 +370,10 @@ if ($SkipPackage) {
 # ----------------------------------------
 Write-Step "6/7" "Creating GitHub release..."
 
-$ghArgs = @("release", "create", $Version, "--repo", $repo, "--title", "$Version - $Title", "--latest")
-if ($NotesFile -and (Test-Path $NotesFile)) {
+$ghArgs = @("release", "create", $Version, "--repo", $repo, "--title", $Title, "--latest")
+if ($notesPath -and (Test-Path -LiteralPath $notesPath)) {
     $ghArgs += "--notes-file"
-    $ghArgs += (Resolve-Path $NotesFile).Path
+    $ghArgs += $notesPath
 } else {
     $ghArgs += "--notes"
     $ghArgs += "Release $Version - see [CHANGELOG](https://github.com/$repo/blob/main/CHANGELOG.md) for details."
@@ -376,10 +400,10 @@ Write-OK "GitHub release created: https://github.com/$repo/releases/tag/$Version
 # ----------------------------------------
 Write-Step "7/7" "Creating GitLab release..."
 
-$glabArgs = @("release", "create", $Version, "--repo", $repo, "--name", "$Version - $Title")
-if ($NotesFile -and (Test-Path $NotesFile)) {
+$glabArgs = @("release", "create", $Version, "--repo", $repo, "--name", $Title)
+if ($notesPath -and (Test-Path -LiteralPath $notesPath)) {
     $glabArgs += "--notes-file"
-    $glabArgs += (Resolve-Path -LiteralPath $NotesFile).Path
+    $glabArgs += $notesPath
 }
 
 if (-not $DryRun) {

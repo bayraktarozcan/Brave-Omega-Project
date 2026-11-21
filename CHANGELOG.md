@@ -25,7 +25,8 @@
 ## EN English Changelog
 
 ### Table of Contents
-1. [v3.1.0.5 — 2026-11-21](#en-v3105)
+1. [Unreleased](#en-unreleased)
+2. [v3.1.0.5 — 2026-11-21](#en-v3105)
     * [Summary](#en-v3105-summary)
     * [Fixed](#en-v3105-fixed)
 2. [v3.1.0.4 — 2026-11-21](#en-v3104)
@@ -220,6 +221,20 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-unreleased"></a>
+
+## [Unreleased]
+
+### Added
+
+- `Scripts/Build-ReleaseNotes.py` derives canonical, bilingual release titles and notes from `CHANGELOG.md` at release time; `Scripts/Release.ps1` now uses it by default for the current tag and for deprecating older ones, so a new release cannot drift from the §12 title/body rules. `Tests/ReleaseNotes.Tests.ps1` pins that behavior.
+
+### Fixed
+
+- Release script no longer appends `[DEPRECATED]` to the end of a title; the marker is always a prefix. Current-state test count updated to 400.
 
 ---
 
@@ -2509,7 +2524,8 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
-1. [v3.1.0.5 — 2026-11-21](#tr-v3105)
+1. [Yayınlanmadı](#tr-unreleased)
+2. [v3.1.0.5 — 2026-11-21](#tr-v3105)
     * [Özet](#tr-v3105-ozet)
     * [Düzeltilenler](#tr-v3105-duzeltilen)
 2. [v3.1.0.4 — 2026-11-21](#tr-v3104)
@@ -2719,6 +2735,20 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-unreleased"></a>
+
+## [Yayınlanmadı]
+
+### Eklenenler
+
+- `Scripts/Build-ReleaseNotes.py`, yayın zamanında `CHANGELOG.md`'den kanonik iki dilli başlık ve notlar üretir; `Scripts/Release.ps1` artık güncel etiket ve eski sürümleri deprecate ederken bunu varsayılan olarak kullanır, böylece yeni bir sürüm §12 başlık/gövde kurallarından sapamaz. `Tests/ReleaseNotes.Tests.ps1` bu davranışı sabitler.
+
+### Düzeltilenler
+
+- Yayın betiği `[DEPRECATED]` işaretini artık başlığın sonuna eklemiyor; işaret her zaman öne konuyor. Güncel test sayısı 400 olarak güncellendi.
 
 ---
 
