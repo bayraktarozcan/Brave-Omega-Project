@@ -1,0 +1,53 @@
+# Brave Omega Project — Text Audit
+# Weekly sweep of the public text fields on both release hosts. The workflow
+# only downloads JSON into a temporary directory; the scanner itself is the
+# same stdlib tool that checks the repository tree and makes no network calls.
+# A merge made with GITHUB_TOKEN emits no push event, so this stays scheduled.
+
+name: "Text Audit"
+
+on:
+  schedule:
+    - cron: "15 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: text-audit
+  cancel-in-progress: false
+
+jobs:
+  text-audit:
+    name: Scan published text fields
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@main
+
+      - name: Fetch GitHub and GitLab text fields
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: bayraktarozcan/Brave-Omega-Project
+        run: |
+          set -euo pipefail
+          audit_dir="$RUNNER_TEMP/text-audit"
+          mkdir -p "$audit_dir"
+
+          gh api "repos/$REPO" \
+            --jq '{name, description, homepage, default_branch, topics}' \
+            > "$audit_dir/gh-metadata.json"
+          gh api "repos/$REPO/releases?per_page=100" --paginate \
+            --jq '.[] | {name, tag_name, body}' \
+            | jq -s '.' > "$audit_dir/gh-releases.json"
+
+          project=bayraktarozcan%2FBrave-Omega-Project
+          curl -fsSL "https://gitlab.com/api/v4/projects/$project" \
+            -o "$audit_dir/gl-metadata.json"
+          curl -fsSL "https://gitlab.com/api/v4/projects/$project/releases?per_page=100" \
+            -o "$audit_dir/gl-releases.json"
+
+      - name: Scan payloads for mojibake
+        shell: bash
+        run: python3 Scripts/Mojibake-Scan.py "$RUNNER_TEMP/text-audit"

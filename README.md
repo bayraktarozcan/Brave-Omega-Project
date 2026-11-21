@@ -690,7 +690,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Reset/uninstall mode** via `-Reset` parameter — remove all applied policies cleanly (v2.1)
 - [x] **CONTRIBUTING.md** and GitHub issue templates (v2.1)
 - [x] **GitHub Actions ADMX validation pipeline** — weekly automated policy diff validation (v2.1)
-- [x] **Quality & Test Infrastructure** — 411 Pester tests (45 test files + 1 helper), PSScriptAnalyzer, policy integrity CI, platform matrix (Ubuntu + Windows), version-check workflow
+- [x] **Quality & Test Infrastructure** — 421 Pester tests (48 test files + 1 helper), PSScriptAnalyzer, policy integrity CI, platform matrix (Ubuntu + Windows), version-check workflow
 - [ ] Additional language editions (community contributions welcome — see CONTRIBUTING.md)
 - [ ] Per-policy override support — explicitly include/exclude individual policies from any level
 - [ ] PowerShell help system (`Get-Help BraveOmega.ps1 -Detailed`)
@@ -1439,7 +1439,7 @@ BRAVE OMEGA PROJECT/
 
 #### ✅ Aşama 3 — Kalite & Test
 
-- [x] **Pester test takımı** — 45 birim + entegrasyon test dosyası, 411 test
+- [x] **Pester test takımı** — 48 birim + entegrasyon test dosyası, 421 test
 - [x] **PSScriptAnalyzer** — statik analiz CI entegrasyonu
 - [x] **Politika bütünlük CI** — ADMX çapraz referans doğrulama
 - [x] **Platform matrisi** — ubuntu + windows CI

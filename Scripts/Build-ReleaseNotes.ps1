@@ -17,7 +17,7 @@
 .PARAMETER Current
     Omit the [DEPRECATED] prefix (use for the version being published).
 .EXAMPLE
-    .\Scripts\Build-ReleaseNotes.ps1 3.1.0.5 .\Agent-Scratch\notes.md -Current
+    .\Scripts\Build-ReleaseNotes.ps1 3.1.0.5 .\notes.md -Current
 #>
 param(
     [Parameter(Mandatory = $true)][string]$Version,

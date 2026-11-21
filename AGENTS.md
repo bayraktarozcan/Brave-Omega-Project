@@ -364,11 +364,11 @@ Repository management and dependency conventions.
 
 - **Security files.** `SECURITY.md` (vulnerability reporting) lives at the repository root; GitHub's security features expect it there.
 - **Dependabot.** Configured in `.github/dependabot.yml` with a weekly cadence; commit messages follow Conventional Commits (`chore(deps)`). With all refs tracking mutable branches there is no version for it to bump today, so the Dependabot auto-merge workflow currently has no bot PR to merge; the configuration is retained so any future pinned ref is surfaced.
-- **CodeQL.** There is no `.github/workflows/codeql.yml` in this project; secrets are scanned via gitleaks in `secret-scan.yml` and static analysis runs in the gate instead. A `codeql.yml` on push plus weekly remains the standing target.
+- **CodeQL.** Code scanning is enabled through GitHub's default setup (`state: configured`, weekly schedule, languages `actions` and `python`), so no committed `codeql.yml` is needed. Secrets are scanned via gitleaks in `secret-scan.yml` and static analysis runs in the gate; those remain separate controls.
 - **Auto-approve.** No auto-approve workflow exists in this project; nothing is auto-approved.
 - **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions use the latest version by tracking `@main` directly; Dependabot covers the ecosystems configured in `.github/dependabot.yml`. The GitHub repository setting `sha_pinning_required` is deliberately `false` so that `@main` references are admitted (see §13 Bypasses).
 - **Dependency currency.** Every runtime, build and dev dependency uses the latest version; checksum verification travels with the latest release — the release and its checksum are resolved together at run time and the artifact is verified before use. No version pin is a valid long-term state. A new dependency is justified (need, maintenance state, license) before it is added. Types: **Runtime** (needed to run the app), **Dev** (development-time only), **Build** (compile-time only).
-- **Standard workflow triggers.** Test on `push` and `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push and weekly; Dependabot weekly.
+- **Standard workflow triggers.** Test on `push` and `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push through default setup and on a weekly schedule; Dependabot weekly.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API, never by hand; human intervention is not required.
 - **New-repository checklist.** The bootstrap order is the rule, not a suggestion: the ignore file comes first so nothing private is swept into the first commit, then the root documents, then the landing page, then the hidden layers, and only then version control.
   - [ ] `.gitignore` written first, with the hidden layers already named in it?
@@ -376,7 +376,7 @@ Repository management and dependency conventions.
   - [ ] `index.html` landing page added, where the project has one?
   - [ ] `._dont_migrate_` placed in each hidden layer, created from the universal layer downward and never the reverse, all covered by the single root ignore pattern?
   - [ ] `.github/dependabot.yml` configured?
-  - [ ] `.github/workflows/codeql.yml` added?
+  - [x] CodeQL default setup enabled?
   - [ ] `.github/workflows/` auto-approve workflow added?
   - [ ] `.github/workflows/` workflows for recurring git operations written?
   - [ ] `.github/pull_request_template.md`, `RELEASE-NOTE-TEMPLATE.md`, and `CODEOWNERS` added?
@@ -442,7 +442,7 @@ All committed file and directory names are English.
 
 - **Policy and data edits.** Policy definitions live only in `Brave-Omega/config.json` plus `Brave-Omega/Profiles/*.json` (with `origin`/`platforms` tags and `Brave-Omega/Browsers/*.json` for browser targets), loaded at runtime via `Import-OmegaPolicyData` into `$OmegaState`. Deprecated policies are removed from the profile files; `ADMX/ADMX-Validate.ps1` enforces the cross-reference.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git, and there is no `.env.example` in this project because the script reads no environment configuration (all behavior comes from parameters and the data layer); variable names use `UPPER_SNAKE_CASE` where they appear.
-- **Testing quality bar.** The Pester suite (currently 411 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 411/411 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
+- **Testing quality bar.** The Pester suite (currently 421 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 421/421 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
 - **Setup & deployment.** Provisioning is one step: `Scripts/Deploy-Brave-Omega.ps1` applies the Enterprise `.reg` artifacts; runtime state is verified with `Scripts/Detect-Brave-Omega.ps1`. Production deployment runs through the CI/CD pipeline on both hosts.
 
 ### Local Human-Language Mirror
@@ -505,7 +505,7 @@ Run from the repository root (PowerShell 7+ `pwsh` when present, otherwise Windo
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 411/411 passing
+Invoke-Pester Tests/ -PassThru          # expected: 421/421 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 149/149
@@ -550,6 +550,8 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 - Compatibility floor: Windows PowerShell 5.1+; no `pwsh`-only syntax in shipped scripts.
 - Suite runner: Pester and PSScriptAnalyzer (CI installs the latest release on both hosts); Python 3 stdlib for the scanners and renderers, with both hosts running an oldest-supported-minor + latest matrix declared in the CI manifests (GitHub via `actions/setup-python@main`, GitLab via `python:${PYTHON_VERSION}`); shellcheck for `Install-OmegaLinux.sh` (installed in CI, `before_script` where missing).
 - **Python floor currency.** `Scripts/Update-PythonFloor.ps1` resolves the oldest supported Python minor from the core team's release calendar (`https://peps.python.org/api/release-cycle.json`), refuses downgrades and declaration drift, and updates only the two CI manifests. The weekly `python-floor` workflow opens one pull request and merges it after the Quality checks. This file is never edited by the automation.
+- **Text audit.** `.github/workflows/text-audit.yml` runs weekly and feeds the public metadata and release notes of both hosts through `Scripts/Mojibake-Scan.py`. The workflow only downloads JSON into a temporary directory; the scanner makes no network calls.
+- **Host tool currency.** `Scripts/Update-HostTools.ps1` probes winget and PowerShell Gallery and prints one row per declared host tool. It changes nothing without `-Apply` and never elevates (`--scope user`, `-Scope CurrentUser`).
 
 ### Releases
 
@@ -562,7 +564,7 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 
 - The `main` branch ruleset (`main-guard`) is currently disabled (`enforcement: disabled`, verified live), so no PR is required and the nine Quality jobs plus the second host's CI run after the push without gating it. Re-enabling the ruleset would make those checks gating and imply a PR workflow; that is deliberately not taken.
 - Auto-approve: none exists; nothing is auto-approved.
-- CodeQL: no workflow exists; gitleaks secret scan plus gate static analysis stand in.
+- CodeQL: GitHub default setup is configured (weekly, languages `actions` and `python`); no committed workflow file is needed. Gitleaks secret scan plus gate static analysis remain separate controls.
 - Third-party action SHA pinning: the GitHub repository setting `sha_pinning_required` is deliberately `false` so workflows can use `@main` and follow the latest published action (see §11 Workflow hardening). Verified against the live repository configuration; removing this bypass would require full-commit SHA references again.
 
 ### Transport
@@ -715,4 +717,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=ba739b9aeb33e1f7f6173e07554e0c4272f52df8 -->
+<!-- mirror-sync: sync-sha=d1bb30ac3aee967daa40f057d90a039a8dbb2913 -->

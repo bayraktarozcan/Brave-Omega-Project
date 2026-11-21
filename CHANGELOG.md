@@ -232,11 +232,15 @@ All notable changes to this project are documented below, following the [Keep a 
 
 - `Scripts/Build-ReleaseNotes.ps1` derives canonical, bilingual release titles and notes from `CHANGELOG.md` at release time; `Scripts/Release.ps1` now uses it by default for the current tag and for deprecating older ones, so a new release cannot drift from the §12 title/body rules. `Tests/ReleaseNotes.Tests.ps1` pins that behavior. The helper is PowerShell-only, so the release path needs no extra runtime.
 - EOL-aware Python floor automation: `Scripts/Update-PythonFloor.ps1` resolves the oldest supported Python minor from the Python core team's calendar, refuses downgrades and declaration drift, and updates only the two CI manifests while preserving their BOM state. `.github/workflows/python-floor.yml` opens one pull request weekly when the floor becomes EOL and merges it after the Quality checks, then mirrors main to GitLab. `Tests/PythonFloor.Tests.ps1` pins the calendar logic and drift detection.
+- Weekly published-text audit: `.github/workflows/text-audit.yml` downloads GitHub and GitLab metadata and release bodies into a temporary directory and scans them with the existing `Scripts/Mojibake-Scan.py`. `Tests/TextAudit.Tests.ps1` pins the schedule, both hosts and JSON payload scanning.
+- `Scripts/Update-HostTools.ps1` probes winget and PowerShell Gallery, reports one row per host tool, and changes nothing without `-Apply`; all writes stay at per-user scope so no elevation is needed. `Tests/HostTools.Tests.ps1` pins numeric version comparison and the probe-first contract.
+- `Tests/HiddenLayerNames.Tests.ps1` guards the no-naming rule: only the canonical rules, ignore patterns, historical records and the tools that must use a layer may name a private path.
 
 ### Fixed
 
-- Release script no longer appends `[DEPRECATED]` to the end of a title; the marker is always a prefix. Current-state test count updated to 411.
+- Release script no longer appends `[DEPRECATED]` to the end of a title; the marker is always a prefix. Current-state test count updated to 421.
 - Quality audit of `ae5b376..def8d2b`: `README.md` keeps its UTF-8 BOM, both changelog tables of contents are renumbered after the Unreleased entry, the generator preserves dotted version numbers and removes table skeletons emptied by row filtering, explicit `-Title`/`-NotesFile` no longer require a changelog section, and the release guards exercise releases that actually contain the defects.
+- CodeQL documentation now matches the live default setup (`state: configured`, weekly, languages `actions` and `python`) instead of claiming that no code scanning exists.
 
 ---
 
@@ -2748,11 +2752,15 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 - `Scripts/Build-ReleaseNotes.ps1`, yayın zamanında `CHANGELOG.md`'den kanonik iki dilli başlık ve notlar üretir; `Scripts/Release.ps1` artık güncel etiket ve eski sürümleri deprecate ederken bunu varsayılan olarak kullanır, böylece yeni bir sürüm §12 başlık/gövde kurallarından sapamaz. `Tests/ReleaseNotes.Tests.ps1` bu davranışı sabitler. Yardımcı yalnızca PowerShell olduğundan yayın yolu ek bir çalışma zamanı gerektirmez.
 - Python alt sınırı için EOL otomasyonu: `Scripts/Update-PythonFloor.ps1`, Python çekirdek ekibinin takviminden desteklenen en eski küçük sürümü çözer; düşürmeyi ve bildirim sapmasını reddeder, yalnızca iki CI bildirimini günceller ve dosyaların BOM'unu korur. `.github/workflows/python-floor.yml`, alt sınır EOL olduğunda haftalık tek bir çekme isteği açar, Quality denetimlerinden sonra birleştirir ve ana dalı GitLab'a aynalar. `Tests/PythonFloor.Tests.ps1` takvim mantığını ve sapma tespitini sabitler.
+- Haftalık yayın metni denetimi: `.github/workflows/text-audit.yml` GitHub ve GitLab metadata ile yayın gövdelerini geçici dizine indirir ve mevcut `Scripts/Mojibake-Scan.py` ile tarar. `Tests/TextAudit.Tests.ps1` zamanlamayı, iki konakları ve JSON taramasını sabitler.
+- `Scripts/Update-HostTools.ps1` winget ve PowerShell Gallery'i sorgular, her host aracı için bir satır gösterir ve `-Apply` olmadan hiçbir şey değiştirmez; tüm yazımlar per-user kapsamda kalır, yükseltme gerekmez. `Tests/HostTools.Tests.ps1` sayısal sürüm karşılaştırmasını ve probe-first sözleşmesini sabitler.
+- `Tests/HiddenLayerNames.Tests.ps1` isimlendirme yasağını korur: yalnızca kurallar, ignore desenleri, tarihsel kayıtlar ve katmanı kullanması gereken araçlar özel yol adı yazabilir.
 
 ### Düzeltilenler
 
-- Yayın betiği `[DEPRECATED]` işaretini artık başlığın sonuna eklemiyor; işaret her zaman öne konuyor. Güncel test sayısı 411 olarak güncellendi.
+- Yayın betiği `[DEPRECATED]` işaretini artık başlığın sonuna eklemiyor; işaret her zaman öne konuyor. Güncel test sayısı 421 olarak güncellendi.
 - `ae5b376..def8d2b` kalite denetimi: `README.md` UTF-8 BOM'unu koruyor, her iki değişiklik günlüğü içindekiler tablosu Yayınlanmadı girdisinden sonra yeniden numaralandırıldı, üreteç noktalı sürüm numaralarını koruyor ve satır filtrelemesiyle boşalan tablo iskeletlerini kaldırıyor, açık `-Title`/`-NotesFile` artık changelog bölümü gerektirmiyor ve yayın korumaları kusuru gerçekten taşıyan sürümleri sınıyor.
+- CodeQL belgeleri canlı varsayılan kurulumla eşleşiyor (`state: configured`, haftalık, diller `actions` ve `python`); kod taramasının olmadığı iddiası kaldırıldı.
 
 ---
 
