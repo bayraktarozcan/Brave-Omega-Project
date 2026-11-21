@@ -328,7 +328,7 @@ Describe "Version compatibility matrix" -Tag "Unit" {
             $table = @(
                 '| Brave Omega | Brave Version | Chromium | Windows | Status |',
                 '| ------------- | --------------- | ---------- | --------- | -------- |',
-                '| **v3.1.0.4** *(current)* | all | all | 11 | Current |'
+                '| **v3.1.0.5** *(current)* | all | all | 11 | Current |'
             )
             $versions = Get-MatrixRowVersions -Table $table
 

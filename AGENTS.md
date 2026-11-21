@@ -407,7 +407,7 @@ Repository management and dependency conventions.
 - **Historical records** (changelog, compatibility tables, per-version release notes) describe the repository as it stood at that version. Rename and cleanup guards exempt them by a scoped marker, per file or per line region, never by a whole-file exemption, and a guard checks that each declared marker is still present.
 - **Release completeness.** Before writing release notes, review every commit between the previous tag and the current one. Confirm each commit is accounted for in the notes (added, changed, fixed, removed, deprecated, security), and that no commit is omitted. The notes must be complete against the tag diff, not just a summary.
 
-- **Heading case.** In documentation and prose comments, every word of a heading starts with a capital letter except articles, coordinating conjunctions and short prepositions (`and`, `or`, `but`, `for`, `of`, `on`, `to`, `via`, `with`; `ve`, `veya`, `ile`, `için`, `bir`). Acronyms are written in full capitals (`ADMX`, `API`, `CI`, `HTML`, `JSON`, `URL`), while established mixed-case names stay as written (`IoC`, not `IOC`; `PowerShell`, `GitHub`, `Dependabot`). Code identifiers, commands, paths, version strings, anchors, i18n keys, historical release headings and code fences are exempt; the rule never changes code structure.
+- **Heading case.** In documentation and prose comments, every word of a heading starts with a capital letter except articles, coordinating conjunctions and short prepositions (for example `and`, `or`, `but`, `for`, `of`, `on`, `to`, `via`, `with`, `by`, `in`, `at`, `as`, `if`; `ve`, `veya`, `ile`, `için`, `bir`, `göre`). Acronyms are written in full capitals (`ADMX`, `API`, `CI`, `HTML`, `JSON`, `URL`), while established mixed-case names stay as written (`IoC`, not `IOC`; `PowerShell`, `GitHub`, `Dependabot`). Code identifiers, commands, paths, version strings, anchors, i18n keys, historical release headings and code fences are exempt; the rule never changes code structure.
 
 ### Naming
 
@@ -484,7 +484,7 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v3.1.0.4` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v3.1.0.5` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | _(unpinned — detected at runtime)_ | `$ValidatedBrave` (populated from install; V3 never blocks) |
 | Chromium | _(unpinned — detected at runtime)_ | `$ValidatedChromium` (populated from install; V3 never blocks) |
 
@@ -713,4 +713,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=be8c8bbfaaf60aa66b158146aef8733a20372340 -->
+<!-- mirror-sync: sync-sha=bf2ea3d2dbe0bb7529e73661e0bc0b11196c874e -->

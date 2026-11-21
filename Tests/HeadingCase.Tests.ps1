@@ -8,9 +8,13 @@
 
 BeforeAll {
     $script:RepoRoot = Split-Path -Parent $PSScriptRoot
-    $script:Minor = @('a','an','the','and','or','but','for','nor','of','on','per','to','via','with','as','at','by','in','if','ve','veya','ya','ile','için','den','dan','gibi','kadar','göre','karşın','ancak','fakat','çünkü','ki','bir')
+    # Articles, conjunctions and short prepositions named in AGENTS.md §12,
+    # including the common English/TR function words used in existing headings.
+    $script:Minor = @('a','an','the','and','or','but','nor','for','of','on','per','to','via','with','as','at','by','in','if','ve','veya','ya','ile','için','den','dan','gibi','göre','kadar','karşın','ancak','fakat','çünkü','ki','bir')
     $script:Acronyms = @('ADMX','ADML','API','ASCII','BOM','CD','CI','CSV','DOM','GUID','HKCU','HKLM','HTML','HTTP','HTTPS','ID','JSON','JS','LTS','MD','OS','PDF','PS1','REG','SHA','SHA1','SHA256','SSL','TLS','UTC','URL','UTF','UTF8','XML','YAML','ZIP','CSS','IO','UI','UX','AI','CLI','CDN','DNS','GDPR','CCPA','TR','EN')
-    $script:Mixed = @('ioc','powershell','github','gitlab','dependabot','pester','lychee','gitleaks','actionlint','omaha','markdown','javascript','i18n','changelog','readme','wiki','brave','chrome','chromium','windows','linux','git','codeql','yamllint')
+    # Only names whose canonical spelling has internal capitals or lowercase
+    # prefixes. Ordinary words must be capitalised like any other word.
+    $script:Mixed = @('ioc','powershell','github','gitlab','dependabot','pester','javascript','i18n','codeql','yamllint')
 
     function Get-HeadingViolations {
         param([string]$Path)
@@ -37,7 +41,7 @@ BeforeAll {
                 if ($script:Mixed -contains $low) { continue }
                 if ($script:Acronyms -contains $core.ToUpperInvariant()) { continue }
                 if ($script:Minor -contains $low -and $w -gt 0 -and $w -lt $words.Count - 1) { continue }
-                $subs = @($core -split '[-/]') | Where-Object { $_ -ne '' }
+                $subs = @(@($core -split '[-/]') | Where-Object { $_ -ne '' })
                 foreach ($sub in $subs) {
                     $subLow = $sub.ToLowerInvariant()
                     if ($script:Mixed -contains $subLow -or $script:Acronyms -contains $sub.ToUpperInvariant()) { continue }

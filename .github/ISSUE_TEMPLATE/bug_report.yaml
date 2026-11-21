@@ -33,7 +33,7 @@ body:
     attributes:
       label: "Script Version / Betik Sürümü"
       description: "Version from the script header"
-      placeholder: "e.g. v3.1.0.4"
+      placeholder: "e.g. v3.1.0.5"
     validations:
       required: true
 

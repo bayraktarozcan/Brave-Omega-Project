@@ -143,7 +143,7 @@ Navigate to `brave://policy` in Brave — all policies (51 for Essential level) 
 | ------- | -------- |
 | **1. Pre-flight** | Detects running Brave, prompts continue/cancel |
 | **2. Backup** | Creates timestamped `.reg` backup of HKLM policy hive |
-| **3. Apply** | Writes policies across 3 tiers based on selected level (25/51/82/121/149) |
+| **3. Apply** | Writes policies across 5 tiers based on selected level (25/51/82/121/149) |
 | **4. Summary** | Per-category success/failure counters + rollback info |
 | **5. Cleanup** | Exits cleanly — no residual processes |
 
@@ -331,7 +331,7 @@ Brave'de `brave://policy` adresine git — tüm politikalar (Temel seviyede 51) 
 | ------- | ------- |
 | **1. Ön Kontrol** | Çalışan Brave'i tespit eder, devam/iptal istemi gösterir |
 | **2. Yedekleme** | HKLM politika kovasının zaman damgalı `.reg` yedeğini oluşturur |
-| **3. Uygulama** | Seçilen seviyeye göre 3 katmanda politikaları yazar (25/51/82/121/149) |
+| **3. Uygulama** | Seçilen seviyeye göre 5 katmanda politikaları yazar (25/51/82/121/149) |
 | **4. Özet** | Kategori bazında başarı/hata sayaçları + geri alma bilgisi |
 | **5. Temizlik** | Artık süreç bırakmadan temiz çıkış |
 

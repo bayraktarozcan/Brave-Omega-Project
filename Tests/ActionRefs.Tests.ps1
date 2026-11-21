@@ -35,11 +35,17 @@ BeforeAll {
         $references = @()
         foreach ($file in (Get-ChildItem -LiteralPath $script:WorkflowDir -Filter '*.yml')) {
             $text = Get-Content -LiteralPath $file.FullName -Raw
-            foreach ($match in [regex]::Matches($text, '(?m)^\s*(?:-\s*)?uses:\s*([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)@([^\s#]+)')) {
+            # Match the whole token so reusable-workflow refs
+            # (owner/repo/.github/workflows/x.yml@ref) and docker:// refs are
+            # enumerated too - a SHA on those must fail the same guard.
+            foreach ($match in [regex]::Matches($text, '(?m)^\s*(?:-\s*)?uses:\s*(\S+)')) {
+                $raw = $match.Groups[1].Value
+                if ($raw -notlike '*@*') { continue }
+                $at = $raw.LastIndexOf('@')
                 $references += [pscustomobject]@{
                     File = $file.Name
-                    Repo = $match.Groups[1].Value
-                    Ref  = $match.Groups[2].Value
+                    Repo = $raw.Substring(0, $at)
+                    Ref  = $raw.Substring($at + 1)
                 }
             }
         }

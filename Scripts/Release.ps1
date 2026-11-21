@@ -22,6 +22,8 @@
     Skip deprecation of previous release
 .PARAMETER DryRun
     Show what would be done without making changes
+.PARAMETER SkipPackage
+    Skip building and uploading the Windows and Linux release packages
 .EXAMPLE
     .\Scripts\Release.ps1 -Version "v2.4.1.0" -Title "Brave 1.93.100 Compatibility" -NotesFile ".\RELEASE-NOTES.md"
 .EXAMPLE
@@ -261,7 +263,7 @@ if ($SkipDeprecate) {
 
         if ($currentLatest -and $currentLatest.tagName -ne $Version) {
             if ($currentLatest.name -notmatch "\[DEPRECATED\]") {
-                $deprecatedName = "$($currentLatest.name) [DEPRECATED]"
+                $deprecatedName = "[DEPRECATED] $($currentLatest.name)"
 
                 if (-not $DryRun) {
                     # Update Title
@@ -293,7 +295,7 @@ if ($SkipDeprecate) {
         if ($gitlabPrevious) {
             $gitlabName = if ($gitlabPrevious.name) { $gitlabPrevious.name } else { $gitlabPrevious.tag_name }
             if ($gitlabName -notmatch "\[DEPRECATED\]") {
-                $gitlabDeprecatedName = "$gitlabName [DEPRECATED]"
+                $gitlabDeprecatedName = "[DEPRECATED] $gitlabName"
                 $gitlabDeprecated = $true
 
                 if (-not $DryRun) {

@@ -17,7 +17,13 @@
 #                    Brave/Chromium at runtime and applies the same 149 policies
 #                    in a forward/backward compatible way on every future release.
 #
-# CHANGELOG (v3.1.0.4)
+# CHANGELOG (v3.1.0.5)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.1.0.5             Patch release — release-note and formatting corrections:
+#
+#     [FIXED]       Turkish release-note typo ("bululan" -> "bulunan").
+#     [FIXED]       Missing space in Turkish compatibility rows ("deprecated,yukarı akış").
+#
 # ─────────────────────────────────────────────────────────────────────────────
 # v3.1.0.4             Patch release — dependency currency, CI hardening and parity:
 #
@@ -599,7 +605,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.1.0.4"
+$ScriptVersion   = "v3.1.0.5"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.

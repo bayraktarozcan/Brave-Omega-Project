@@ -23,6 +23,18 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v3.1.0.5 - 2026-11-21
+
+**Patch Release — Release-Note and Formatting Corrections**
+
+**Fixed:**
+
+- Corrected the Turkish release-note typo `bululan` → `bulunan` on both hosts.
+- Added the missing space in Turkish compatibility rows (`deprecated, yukarı akış`).
+- Post-release audit confirmed tag parity, byte-identical notes and assets, Wiki sync, package contents and all local gates. Policy set unchanged: 149 policies.
+
+---
+
 ### v3.1.0.4 - 2026-11-21
 
 **Patch Release — Always-Latest Policy, CI Hardening and Documentation Parity**
@@ -902,7 +914,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.1.0.4** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.5** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.4** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.3** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.2** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
@@ -1004,6 +1017,18 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v3.1.0.5 - 2026-11-21
+
+**Yama Sürümü — Yayın Notu ve Biçim Düzeltmeleri**
+
+**Düzeltilenler:**
+
+- Türkçe yayın notlarındaki `bululan` yazım hatası `bulunan` olarak düzeltildi.
+- Türkçe uyumluluk satırlarında eksik boşluk giderildi (`deprecated, yukarı akış`).
+- Yayın sonrası denetim etiket eşliğini, bayt özdeş not ve varlıkları, Wiki senkronunu, paket içeriğini ve yerel kapıları doğruladı. Politika seti değişmedi: 149 politika.
+
+---
 
 ### v3.1.0.4 - 2026-11-21
 
@@ -1885,7 +1910,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.1.0.4** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.5** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.4** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.3** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.2** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |

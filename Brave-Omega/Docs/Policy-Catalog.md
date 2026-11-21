@@ -17,7 +17,7 @@
 
 # Brave Omega — Policy Catalog
 
-> **Source:** `BraveOmega.ps1` v3.1.0.4 (bilingual EN/TR)\
+> **Source:** `BraveOmega.ps1` v3.1.0.5 (bilingual EN/TR)\
 > **Date:** 2026-11-11\
 > **Total unique policies:** 149 (no overlaps)\
 > **Type distribution:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\
@@ -254,7 +254,7 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 
 # Brave Omega — Politika Kataloğu
 
-> **Kaynak:** `BraveOmega.ps1` v3.1.0.4 (iki dilli EN/TR)\
+> **Kaynak:** `BraveOmega.ps1` v3.1.0.5 (iki dilli EN/TR)\
 > **Tarih:** 2026-11-11\
 > **Toplam benzersiz politika:** 149 (çakışma yok)\
 > **Tür dağılımı:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\

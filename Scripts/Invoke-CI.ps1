@@ -206,8 +206,8 @@ function Get-TrackedMarkdownFiles {
 
 function Invoke-ToolCheck {
     <#
-        Runs an external linter. Reports MISSING rather than failing obscurely
-        when the tool is absent, so the gap is named instead of guessed at.
+        Runs an external linter. Reports FAIL (not installed) rather than
+        failing obscurely when the tool is absent, so the gap is named.
     #>
     param(
         [Parameter(Mandatory)][string]$Name,

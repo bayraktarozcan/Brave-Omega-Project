@@ -11,7 +11,7 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v3.1.0.4** — *Always-latest policy, CI hardening and parity* (2026-11-21)
+**v3.1.0.5** — *Release-note and formatting corrections* (2026-11-21)
 
 Current release: 149 policies across 5 hardening tiers (Brave Only 25 / Essential 26 / Balanced 31 / Advanced 39 / Strict 28); deprecated `AutofillPredictionSettings` removed from the Advanced tier (Chromium M157 deprecated it, replaced upstream by `AutofillGenAiSettings`); Advanced 40 → 39, totals 150 → 149; Chrome 123 → 122; ADMX vendor snapshot preserved at 763 entries (not regenerated). Cumulative chain: 25→51→82→121→149.
 
@@ -19,9 +19,9 @@ Current release: 149 policies across 5 hardening tiers (Brave Only 25 / Essentia
 
 ## Previous Version
 
-**v3.1.0.3** — *Deprecated Autofill policy removed* (2026-11-12)
+**v3.1.0.4** — *Dependency currency, CI hardening and parity* (2026-11-21)
 
-Previous release: 149 policies across 5 hardening tiers (Brave Only 25 / Essential 26 / Balanced 31 / Advanced 39 / Strict 28); `AutofillPredictionSettings` removed from Advanced (Chromium M157 deprecation), Chrome origin total 123 → 122, cumulative chain 25→51→82→121→149. ADMX vendor snapshot preserved at 763 entries.
+Previous release: 149 policies across 5 hardening tiers; dependency policy switched to always-latest refs and floating images, checksum downloads resolve the latest release together with its checksum, 397 tests and 11 workflows / 9 gate checks. Policy set unchanged from v3.1.0.3.
 
 ---
 
@@ -262,7 +262,7 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v3.1.0.4** — *Her daim en güncel ilkesi, CI sertleştirmesi ve eşlik* (2026-11-21)
+**v3.1.0.5** — *Yayın notu ve biçim düzeltmeleri* (2026-11-21)
 
 Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 / Temel 26 / Dengeli 31 / Gelişmiş 39 / Katı 28); kullanımdan kaldırılmış `AutofillPredictionSettings` İleri katmandan çıkarıldı (Chromium M157'de deprecated, İeri Chromium'da `AutofillGenAiSettings` ile değiştirildi); İeri 40 → 39, toplam 150 → 149; Chrome 123 → 122; ADMX vendor snapshot 763 girdi olarak korundu (yeniden üretilmedi). Kümülatif zincir: 25→51→82→121→149.
 
@@ -270,9 +270,9 @@ Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 /
 
 ## Önceki Sürüm
 
-**v3.1.0.3** — *Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı* (2026-11-12)
+**v3.1.0.4** — *Bağımlılık politikası, CI sertleştirmesi ve eşlik* (2026-11-21)
 
-Önceki sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 / Temel 26 / Dengeli 31 / Gelişmiş 39 / Katı 28); `AutofillPredictionSettings` Gelişmiş katmandan kaldırıldı (Chromium M157 kullanımdan kaldırma), Chrome kökenli toplam 123 → 122, kümülatif zincir 25→51→82→121→149. ADMX satıcı anlık görüntüsü 763 girdi olarak korundu.
+Önceki sürüm: 5 sıkılaştırma katmanında 149 politika; bağımlılık ilkesi en güncel referanslara ve floating imajlara geçti, checksum'lı indirmeler en güncel yayını checksum'ıyla birlikte çözüyor, 397 test ve 11 iş akışı / 9 kapı kontrolü. Politika seti v3.1.0.3'ten değişmedi.
 
 ---
 

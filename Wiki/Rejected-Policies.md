@@ -1256,10 +1256,10 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 
 ---
 
-*Last updated: v3.1.0.4 (2026-11-21)*
+*Last updated: v3.1.0.5 (2026-11-21)*
 *Total policies ever rejected/removed: 38*
-*Current active policies: 149 (v3.1.0.4)*
+*Current active policies: 149 (v3.1.0.5)*
 
-*Son güncelleme: v3.1.0.4 (2026-11-21)*
+*Son güncelleme: v3.1.0.5 (2026-11-21)*
 *Toplam reddedilen/kaldırılan politika: 38*
-*Mevcut aktif politikalar: 149 (v3.1.0.4)*
+*Mevcut aktif politikalar: 149 (v3.1.0.5)*
