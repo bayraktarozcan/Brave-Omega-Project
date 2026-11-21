@@ -36,7 +36,19 @@ Describe 'Release notes invariants' -Tag 'Unit' {
         $script:Current.Body | Should -Match '(?m)^### Özet\s*$'
         $script:Current.Body | Should -Match '(?m)^### Documentation\s*$'
         $script:Current.Body | Should -Match '(?m)^### Belgelendirme\s*$'
-        $script:Current.Body | Should -Not -Match '(?m)^\|\s*#\d+'
         $script:Current.Body | Should -Not -Match 'Table of Contents|İçindekiler'
+    }
+
+    It 'removes bare issue links and the empty table skeleton from an old release' {
+        # v1.1 genuinely carried "| #5 |" rows; a guard only exercised on a
+        # release without them can never fail and proves nothing.
+        $old = Get-ReleaseMetadata -Version 'v1.1'
+        $old.Body | Should -Not -Match '(?m)^\|\s*#\d+'
+        $old.Body | Should -Not -Match '^\| Change # \|'
+    }
+
+    It 'keeps dotted version numbers intact in a generated title' {
+        $compat = Get-ReleaseMetadata -Version 'v2.8.1.0'
+        $compat.Title | Should -Match '1\.96\.59'
     }
 }

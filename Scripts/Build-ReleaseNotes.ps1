@@ -62,7 +62,6 @@ function Convert-ToTitleCase {
     foreach ($token in ($Text -split '\s+')) {
         $word = $token.Trim('-/.,;:|()[]{}*"')
         if ([string]::IsNullOrEmpty($word)) { continue }
-        if ($word -match '^v?\d+(\.\d+){1,3}$') { continue }
         $low = $word.ToLowerInvariant()
         if ($acronyms.ContainsKey($low)) { $words += $acronyms[$low]; continue }
         if ($mixed.ContainsKey($low)) { $words += $mixed[$low]; continue }
@@ -113,13 +112,25 @@ function Get-Section {
         for ($j = $i + 1; $j -lt $body.Count; $j++) {
             $prose = $body[$j].Trim()
             if ([string]::IsNullOrWhiteSpace($prose) -or $prose -eq '---') { continue }
-            $bold = [regex]::Match($prose, '^\*\*(.{3,120}?)\*\*')
-            $desc = if ($bold.Success -and $bold.Groups[1].Value -cnotmatch '[^\u0000-\u2500]') { $bold.Groups[1].Value } else { $prose }
+            $bold = [regex]::Match($prose, '^\*\*(.{3,260}?)\*\*')
+            $desc = if ($bold.Success -and $bold.Groups[1].Value -cnotmatch '[^\u0000-\u2500]') {
+                $bold.Groups[1].Value
+            } else {
+                # No lead-in: the first sentence is the canonical description.
+                # A version such as 1.96.59 has no space after its dots, so it
+                # survives this split.
+                [regex]::Match($prose, '^[^.!?]+[.!?]?').Value
+            }
             $desc = $desc.Replace('**', '')
-            $desc = [regex]::Replace($desc, '[^\w\s—–-]', '')
-            $desc = [regex]::Replace($desc, '^[A-Za-zÇĞİÖŞÜçğıöşü ]+?(release|sürümü)\s*[—–-]\s*', '', 'IgnoreCase')
+            # Keep the characters that carry meaning in a release title:
+            # dotted version numbers (1.96.59, 150.0.7871.128), inline code
+            # backticks, ampersands, arrows and slash-separated acronyms.
+            # Dropping them silently corrupts a title on deprecation.
+            $desc = [regex]::Replace($desc, '(?<=\d)\.(?=\d)', '--DOT--')
+            $desc = [regex]::Replace($desc, '[^\w\s—–›→&`/+\-]', '')
+            $desc = $desc.Replace('--DOT--', '.')
+            $desc = [regex]::Replace($desc, '^(v?\d+(\.\d+){1,3}|[A-Za-zÇĞİÖŞÜçğıöşü ]+?(release|sürümü))\s*[—–-]\s*', '', 'IgnoreCase')
             $desc = (($desc -split '\s+' | Where-Object { $_ -ne '' }) -join ' ').Trim(' ', '.', ':', '-')
-            if ($desc.Length -gt 110) { $desc = $desc.Substring(0, 110).TrimEnd(); $desc = $desc.Substring(0, $desc.LastIndexOf(' ')) }
             if (-not [string]::IsNullOrWhiteSpace($desc)) { $description = $desc }
             break
         }
@@ -153,7 +164,11 @@ function Convert-Body {
         $kept += $trimmed
     }
     while ($kept.Count -gt 0 -and $kept[-1] -eq '') { $kept = $kept[0..($kept.Count - 2)] }
-    return ($kept -join "`n")
+    $body = $kept -join "`n"
+    # Filtering rows out of a table can leave a header and separator with no
+    # data rows. Drop the empty skeleton instead of shipping a broken table.
+    $body = [regex]::Replace($body, '(?m)^\|[^\n]*\|\n\|[\s:|-]+\|\n(?=\n|### |\z)', '')
+    return $body
 }
 
 $bare = $Version.TrimStart('v')

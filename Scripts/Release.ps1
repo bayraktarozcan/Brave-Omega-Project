@@ -167,10 +167,14 @@ function Get-ReleaseNotes {
     return @{ Title = ($generated | Select-Object -First 1); Path = $out }
 }
 
-$canonical = Get-ReleaseNotes -Ver $Version -Current
-if (-not $Title) { $Title = $canonical.Title }
-if (-not $NotesFile) { $NotesFile = $canonical.Path }
-$notesPath = if (Test-Path -LiteralPath $NotesFile) { (Resolve-Path -LiteralPath $NotesFile).Path } else { $NotesFile }
+# Only read the changelog when a value was omitted. An explicit -Title and
+# -NotesFile must still work for a tag whose changelog entry is written later.
+if (-not $Title -or -not $NotesFile) {
+    $canonical = Get-ReleaseNotes -Ver $Version -Current
+    if (-not $Title) { $Title = $canonical.Title }
+    if (-not $NotesFile) { $NotesFile = $canonical.Path }
+}
+$notesPath = if ($NotesFile -and (Test-Path -LiteralPath $NotesFile)) { (Resolve-Path -LiteralPath $NotesFile).Path } else { $NotesFile }
 
 # ----------------------------------------
 # Step 1: Validate
@@ -287,8 +291,11 @@ if ($SkipDeprecate) {
 
         if ($currentLatest -and $currentLatest.tagName -ne $Version) {
             if ($currentLatest.name -notmatch "^\[DEPRECATED\]") {
-                $prevCanonical = Get-ReleaseNotes -Ver $currentLatest.tagName
-                $deprecatedName = $prevCanonical.Title
+                $deprecatedName = "[DEPRECATED] $($currentLatest.name)"
+                try {
+                    $prevCanonical = Get-ReleaseNotes -Ver $currentLatest.tagName
+                    $deprecatedName = $prevCanonical.Title
+                } catch { Write-Warn "Canonical title unavailable for $($currentLatest.tagName); using prefix on the existing title" }
 
                 if (-not $DryRun) {
                     # Update Title
@@ -320,8 +327,11 @@ if ($SkipDeprecate) {
         if ($gitlabPrevious) {
             $gitlabName = if ($gitlabPrevious.name) { $gitlabPrevious.name } else { $gitlabPrevious.tag_name }
             if ($gitlabName -notmatch "^\[DEPRECATED\]") {
-                $gitlabPrevCanonical = Get-ReleaseNotes -Ver $gitlabPrevious.tag_name
-                $gitlabDeprecatedName = $gitlabPrevCanonical.Title
+                $gitlabDeprecatedName = "[DEPRECATED] $gitlabName"
+                try {
+                    $gitlabPrevCanonical = Get-ReleaseNotes -Ver $gitlabPrevious.tag_name
+                    $gitlabDeprecatedName = $gitlabPrevCanonical.Title
+                } catch { Write-Warn "Canonical title unavailable for $($gitlabPrevious.tag_name); using prefix on the existing title" }
                 $gitlabDeprecated = $true
 
                 if (-not $DryRun) {
