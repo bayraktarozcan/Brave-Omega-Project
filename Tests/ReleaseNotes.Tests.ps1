@@ -1,16 +1,15 @@
-# Invariant: release metadata is derived from the canonical changelog, so a new
+﻿# Invariant: release metadata is derived from the canonical changelog, so a new
 # tag cannot drift from the title and body rules in AGENTS.md §12.
 BeforeAll {
     $script:RepoRoot = Split-Path -Parent $PSScriptRoot
-    $script:Helper = Join-Path $script:RepoRoot 'Scripts\Build-ReleaseNotes.py'
+    $script:Helper = Join-Path $script:RepoRoot 'Scripts\Build-ReleaseNotes.ps1'
     $script:Output = Join-Path $script:RepoRoot 'Agent-Scratch\release-notes-test.md'
 
     function Get-ReleaseMetadata {
         param([string]$Version, [switch]$Current)
         $bare = $Version.TrimStart('v')
-        $args = @('-3', $script:Helper, $bare, $script:Output)
-        if ($Current) { $args += '--current' }
-        $title = (& py @args 2>&1 | Select-Object -First 1)
+        if ($Current) { $title = (& $script:Helper $bare $script:Output -Current 2>&1 | Select-Object -First 1) }
+        else { $title = (& $script:Helper $bare $script:Output 2>&1 | Select-Object -First 1) }
         $body = if (Test-Path -LiteralPath $script:Output) { Get-Content -LiteralPath $script:Output -Raw } else { '' }
         return @{ Title = $title; Body = $body }
     }

@@ -230,7 +230,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Added
 
-- `Scripts/Build-ReleaseNotes.py` derives canonical, bilingual release titles and notes from `CHANGELOG.md` at release time; `Scripts/Release.ps1` now uses it by default for the current tag and for deprecating older ones, so a new release cannot drift from the §12 title/body rules. `Tests/ReleaseNotes.Tests.ps1` pins that behavior.
+- `Scripts/Build-ReleaseNotes.ps1` derives canonical, bilingual release titles and notes from `CHANGELOG.md` at release time; `Scripts/Release.ps1` now uses it by default for the current tag and for deprecating older ones, so a new release cannot drift from the §12 title/body rules. `Tests/ReleaseNotes.Tests.ps1` pins that behavior. The helper is PowerShell-only, so the release path needs no extra runtime.
 
 ### Fixed
 
@@ -2744,7 +2744,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Eklenenler
 
-- `Scripts/Build-ReleaseNotes.py`, yayın zamanında `CHANGELOG.md`'den kanonik iki dilli başlık ve notlar üretir; `Scripts/Release.ps1` artık güncel etiket ve eski sürümleri deprecate ederken bunu varsayılan olarak kullanır, böylece yeni bir sürüm §12 başlık/gövde kurallarından sapamaz. `Tests/ReleaseNotes.Tests.ps1` bu davranışı sabitler.
+- `Scripts/Build-ReleaseNotes.ps1`, yayın zamanında `CHANGELOG.md`'den kanonik iki dilli başlık ve notlar üretir; `Scripts/Release.ps1` artık güncel etiket ve eski sürümleri deprecate ederken bunu varsayılan olarak kullanır, böylece yeni bir sürüm §12 başlık/gövde kurallarından sapamaz. `Tests/ReleaseNotes.Tests.ps1` bu davranışı sabitler. Yardımcı yalnızca PowerShell olduğundan yayın yolu ek bir çalışma zamanı gerektirmez.
 
 ### Düzeltilenler
 

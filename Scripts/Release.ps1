@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Brave Omega Release Automation Script
 .DESCRIPTION
@@ -17,7 +17,7 @@
     (tag once, descriptive Title Case, no [DEPRECATED] on the current tag).
 .PARAMETER NotesFile
     Path to release notes markdown file. Omit to generate bilingual notes
-    from CHANGELOG.md via Scripts/Build-ReleaseNotes.py.
+    from CHANGELOG.md via Scripts/Build-ReleaseNotes.ps1.
 .PARAMETER SkipWiki
     Skip Wiki sync step
 .PARAMETER SkipDeprecate
@@ -150,18 +150,20 @@ if ($DryRun) { Write-Host "  MODE: DRY-RUN" -ForegroundColor DarkYellow }
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Canonical metadata is derived from CHANGELOG.md by a stdlib-only helper, so
-# a new release cannot drift from the title/body rules in AGENTS.md §12.
+# Canonical metadata is derived from CHANGELOG.md by a PowerShell helper, so a
+# new release cannot drift from the title/body rules in AGENTS.md §12 and no
+# extra runtime is needed.
 function Get-ReleaseNotes {
     param([string]$Ver, [switch]$Current)
     $bare = $Ver.TrimStart('v')
     $out = Join-Path $scriptDir "Agent-Scratch\release-notes-$Ver.md"
     $outDir = Split-Path $out
     if (-not (Test-Path -LiteralPath $outDir)) { New-Item -ItemType Directory -Path $outDir | Out-Null }
-    $args = @('-3', (Join-Path $scriptDir 'Scripts\Build-ReleaseNotes.py'), $bare, $out)
-    if ($Current) { $args += '--current' }
-    $generated = & py @args 2>&1
-    if ($LASTEXITCODE -ne 0) { throw "Failed to build canonical release notes: $generated" }
+    $helper = Join-Path $scriptDir 'Scripts\Build-ReleaseNotes.ps1'
+    try {
+        if ($Current) { $generated = & $helper $bare $out -Current 2>&1 }
+        else { $generated = & $helper $bare $out 2>&1 }
+    } catch { throw "Failed to build canonical release notes: $_" }
     return @{ Title = ($generated | Select-Object -First 1); Path = $out }
 }
 
