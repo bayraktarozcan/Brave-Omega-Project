@@ -27,3 +27,14 @@ jobs:
         # Upstream tracks latest; GitLab verifies a checksummed release tarball.
         # actionlint exits nonzero on findings by default, so no input is needed.
         uses: rhysd/actionlint@main
+
+  release-hygiene:
+    name: Audit Published Releases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Audit release titles and bodies on both hosts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pwsh -NoProfile -File ./Scripts/Assert-ReleaseHygiene.ps1

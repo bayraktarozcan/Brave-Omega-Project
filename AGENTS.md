@@ -442,7 +442,7 @@ All committed file and directory names are English.
 
 - **Policy and data edits.** Policy definitions live only in `Brave-Omega/config.json` plus `Brave-Omega/Profiles/*.json` (with `origin`/`platforms` tags and `Brave-Omega/Browsers/*.json` for browser targets), loaded at runtime via `Import-OmegaPolicyData` into `$OmegaState`. Deprecated policies are removed from the profile files; `ADMX/ADMX-Validate.ps1` enforces the cross-reference.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git, and there is no `.env.example` in this project because the script reads no environment configuration (all behavior comes from parameters and the data layer); variable names use `UPPER_SNAKE_CASE` where they appear.
-- **Testing quality bar.** The Pester suite (currently 423 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 423/423 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
+- **Testing quality bar.** The Pester suite (currently 436 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 436/436 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
 - **Setup & deployment.** Provisioning is one step: `Scripts/Deploy-Brave-Omega.ps1` applies the Enterprise `.reg` artifacts; runtime state is verified with `Scripts/Detect-Brave-Omega.ps1`. Production deployment runs through the CI/CD pipeline on both hosts.
 
 ### Local Human-Language Mirror
@@ -505,7 +505,7 @@ Run from the repository root (PowerShell 7+ `pwsh` when present, otherwise Windo
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 423/423 passing
+Invoke-Pester Tests/ -PassThru          # expected: 436/436 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 149/149
@@ -552,6 +552,9 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 - **Python floor currency.** `Scripts/Update-PythonFloor.ps1` resolves the oldest supported Python minor from the core team's release calendar (`https://peps.python.org/api/release-cycle.json`), refuses downgrades and declaration drift, and updates only the two CI manifests. The weekly `python-floor` workflow opens one pull request and merges it after the Quality checks. This file is never edited by the automation.
 - **Text audit.** `.github/workflows/text-audit.yml` runs weekly and feeds the public metadata and release notes of both hosts through `Scripts/Mojibake-Scan.py`. The workflow only downloads JSON into a temporary directory; the scanner makes no network calls.
 - **Host tool currency.** `Scripts/Update-HostTools.ps1` probes winget and PowerShell Gallery and prints one row per declared host tool. It changes nothing without `-Apply` and never elevates (`--scope user`, `-Scope CurrentUser`).
+- **Published release hygiene.** `Scripts/Assert-ReleaseHygiene.ps1` audits every published release on both hosts by name (pair count, title format, bilingual body structure, no bare autolinks or embedded TOCs, cross-host byte parity, changelog coverage with a named historical exemption for v1.0 and v1.1) and is wired into the weekly Hygiene workflow.
+- **Expression boundaries.** Workflow expressions are passed through `env:`, never written inside `run:` blocks; `Tests/ActionRefs.Tests.ps1` pins the rule.
+- **Text endings.** Every tracked text file ends with LF; vendor artifacts and runtime-owned state are declared exceptions, pinned by `Tests/FinalNewline.Tests.ps1`.
 
 ### Releases
 
@@ -717,4 +720,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=f3f687df80c3e26a2b3c630bae57a78935fe6edd -->
+<!-- mirror-sync: sync-sha=2fa1b277f88161d2e60dc7b5332367157ee0b06e -->

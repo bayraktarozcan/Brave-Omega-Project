@@ -27,6 +27,7 @@ jobs:
       - name: Clone, sync, and push Wiki
         env:
           WIKI_SYNC_TOKEN: ${{ secrets.WIKI_SYNC_TOKEN }}
+          SYNC_SHA: ${{ github.sha }}
         run: |
           set -e
           WIKI_DIR="/tmp/wiki-repo"
@@ -43,7 +44,7 @@ jobs:
           echo "*.md text eol=lf" > "$WIKI_DIR/.gitattributes"
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
-            git commit -m "sync: update Wiki from main (${{ github.sha }})"
+            git commit -m "sync: update Wiki from main ($SYNC_SHA)"
             git -c http.extraHeader="$WIKI_AUTH" push origin master
             echo "Wiki synced successfully"
           else

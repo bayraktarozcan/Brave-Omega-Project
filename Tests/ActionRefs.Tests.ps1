@@ -52,6 +52,21 @@ BeforeAll {
         return $references
     }
 
+    function Test-RunBlockExpression {
+        param([string[]]$Lines)
+        $leaks = @()
+        $indent = -1
+        for ($i = 0; $i -lt $Lines.Count; $i++) {
+            $line = $Lines[$i]
+            if ($line -match '^(\s*)run:\s*[|>]?') { $indent = $Matches[1].Length; continue }
+            if ($indent -lt 0 -or [string]::IsNullOrWhiteSpace($line)) { continue }
+            $trimmed = $line.TrimStart()
+            if (($line.Length - $trimmed.Length) -le $indent) { $indent = -1; continue }
+            if ($line -cmatch '\$\{\{') { $leaks += "$($i + 1): $($trimmed)" }
+        }
+        return $leaks
+    }
+
     $script:References = @(Get-ActionReference)
 }
 
@@ -87,5 +102,19 @@ Describe 'Action reference invariants' -Tag 'Unit' {
         $linkCheck = Get-Content -LiteralPath (Join-Path $script:WorkflowDir 'link-check.yml') -Raw
         $linkCheck | Should -Match '(?m)^\s*#.*master, not main'
         $linkCheck | Should -Match 'lycheeverse/lychee-action@master'
+    }
+
+    It 'passes workflow expressions through env, never into run blocks' {
+        $leaks = @()
+        foreach ($file in (Get-ChildItem -LiteralPath $script:WorkflowDir -Filter '*.yml' -File)) {
+            foreach ($hit in @(Test-RunBlockExpression -Lines (Get-Content -LiteralPath $file.FullName))) {
+                $leaks += "$($file.Name):$hit"
+            }
+        }
+        $leaks | Should -BeNullOrEmpty -Because ('an expression inside run: can inject shell text; pass it through env: ' + ($leaks -join ', '))
+
+        # The detector must fail on the exact shape it exists to catch.
+        $planted = @('      run: |', '        echo "${{ github.event.pull_request.title }}"')
+        @(Test-RunBlockExpression -Lines $planted).Count | Should -Be 1
     }
 }
