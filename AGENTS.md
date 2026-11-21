@@ -340,7 +340,7 @@ The loop runs inside one piece (see "Cadence"); it never chains pieces together.
 - Force push is allowed when justified, uses `--force-with-lease`, and is reported to the person.
 - Push after each meaningful commit; consecutive small commits may be pushed together.
 - Remotes: `origin` pushes to both GitHub and GitLab (dual pushurl). Keep the two remotes in parity — there is no PR workflow for own commits. A dual remote is also a dual gate: the second host carries its own CI enforcing the same checks. Removing the bypass below is a decision to adopt a PR workflow, and it is deliberately not taken here.
-- The `main` branch ruleset is currently **disabled** (live check: `gh api repos/.../rulesets` → `main-guard`, `enforcement: disabled`), and classic branch protection declares no required status checks. Direct pushes to `main` are therefore admitted without a PR; the nine Quality jobs and the second host's CI run _after_ the push but do not gate it. The PR-workflow target remains recorded here; re-enabling the ruleset is what would make those checks gating.
+- The `main` branch ruleset `main-guard` is **active** (live check 2026-11-21: `enforcement: active`, nine required status checks, `non_fast_forward`, `deletion`, `required_linear_history`), and the repository owner is an `always` bypass actor. Classic branch protection declares no required status checks. Direct pushes to `main` are admitted in practice because of that owner bypass; the nine Quality jobs and the second host's CI run after the push. The PR-workflow target remains recorded here; removing the bypass while keeping the ruleset would make those checks gating.
 - Guard the phrase "ruleset" in prose: routine branch work never shells out to `gh`/`glab`; releases are cut with `gh`/`glab` only when the person explicitly orders a release.
 
 ### Security & Privacy
@@ -366,7 +366,7 @@ Repository management and dependency conventions.
 - **Dependabot.** Configured in `.github/dependabot.yml` with a weekly cadence; commit messages follow Conventional Commits (`chore(deps)`). With all refs tracking mutable branches there is no version for it to bump today, so the Dependabot auto-merge workflow currently has no bot PR to merge; the configuration is retained so any future pinned ref is surfaced.
 - **CodeQL.** Code scanning is enabled through GitHub's default setup (`state: configured`, weekly schedule, languages `actions` and `python`), so no committed `codeql.yml` is needed. Secrets are scanned via gitleaks in `secret-scan.yml` and static analysis runs in the gate; those remain separate controls.
 - **Auto-approve.** No auto-approve workflow exists in this project; nothing is auto-approved.
-- **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions use the latest version by tracking `@main` directly; Dependabot covers the ecosystems configured in `.github/dependabot.yml`. The GitHub repository setting `sha_pinning_required` is deliberately `false` so that `@main` references are admitted (see §13 Bypasses).
+- **Workflow hardening.** Every workflow sets the narrowest `permissions:` it needs. Third-party actions use the latest version by tracking `@main` directly; Dependabot covers the ecosystems configured in `.github/dependabot.yml`. Mutable default-branch refs are deliberately used so actions follow their upstream default branch; the effective state is confirmed by CI runs rather than a repository API field (see §13 Bypasses).
 - **Dependency currency.** Every runtime, build and dev dependency uses the latest version; checksum verification travels with the latest release — the release and its checksum are resolved together at run time and the artifact is verified before use. No version pin is a valid long-term state. A new dependency is justified (need, maintenance state, license) before it is added. Types: **Runtime** (needed to run the app), **Dev** (development-time only), **Build** (compile-time only).
 - **Standard workflow triggers.** Test on `push` and `pull_request` (unit tests, lint, type check); Build on `push` to `main`; Release on tag `v*`; CodeQL on push through default setup and on a weekly schedule; Dependabot weekly.
 - **Machine-maintained logs.** Recurring git and audit events (dependency updates, PR journals, version checks) are logged by the workflow itself via API, never by hand; human intervention is not required.
@@ -442,7 +442,7 @@ All committed file and directory names are English.
 
 - **Policy and data edits.** Policy definitions live only in `Brave-Omega/config.json` plus `Brave-Omega/Profiles/*.json` (with `origin`/`platforms` tags and `Brave-Omega/Browsers/*.json` for browser targets), loaded at runtime via `Import-OmegaPolicyData` into `$OmegaState`. Deprecated policies are removed from the profile files; `ADMX/ADMX-Validate.ps1` enforces the cross-reference.
 - **Environment variables.** Never commit real secrets: `.env` stays out of Git, and there is no `.env.example` in this project because the script reads no environment configuration (all behavior comes from parameters and the data layer); variable names use `UPPER_SNAKE_CASE` where they appear.
-- **Testing quality bar.** The Pester suite (currently 436 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 436/436 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
+- **Testing quality bar.** The Pester suite (currently 437 tests) must pass before any commit — Invoke-Pester Tests/ -PassThru          # expected: 437/437 passing. Pre-commit gates: the local conformance gate (`Scripts/Invoke-CI.ps1`, 9 checks), secret scan, `.gitignore` compliance. Test levels in this project: unit plus integration under one `Tests/` suite and one CI job per host; each invariant gets its own file, and every guard is first seen to fail.
 - **Setup & deployment.** Provisioning is one step: `Scripts/Deploy-Brave-Omega.ps1` applies the Enterprise `.reg` artifacts; runtime state is verified with `Scripts/Detect-Brave-Omega.ps1`. Production deployment runs through the CI/CD pipeline on both hosts.
 
 ### Local Human-Language Mirror
@@ -478,7 +478,7 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
 | `index.html` | Single-page landing page (true black, dark theme, no external JS) |
 | Root governance set | `README.md`, `SECURITY.md`, `PRIVACY.md`, `SUPPORT.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `RELEASE-NOTE-TEMPLATE.md`, `CODEOWNERS`, `LICENSE`, `NOTICE` |
-| `.github/workflows/` | CI/CD (11 files): Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene, Dependabot Auto-Merge, Mirror Main to GitLab |
+| `.github/workflows/` | CI/CD (13 files): Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene, Dependabot Auto-Merge, Mirror Main to GitLab, Python Floor Currency, Text Audit |
 | `.gitlab-ci.yml` | Second gate — the same checks enforced on the second remote |
 
 ### Versions
@@ -505,7 +505,7 @@ Run from the repository root (PowerShell 7+ `pwsh` when present, otherwise Windo
 & "Scripts/Invoke-CI.ps1" -InstallHook
 
 # Pester
-Invoke-Pester Tests/ -PassThru          # expected: 436/436 passing
+Invoke-Pester Tests/ -PassThru          # expected: 437/437 passing
 
 # ADMX cross-reference
 & "ADMX/ADMX-Validate.ps1"              # expected: PASS - 149/149
@@ -565,10 +565,10 @@ Per-directory conventions and exemptions live in `Tests/FileNaming.Tests.ps1` (s
 
 ### Bypasses
 
-- The `main` branch ruleset (`main-guard`) is currently disabled (`enforcement: disabled`, verified live), so no PR is required and the nine Quality jobs plus the second host's CI run after the push without gating it. Re-enabling the ruleset would make those checks gating and imply a PR workflow; that is deliberately not taken.
+- The `main` branch ruleset (`main-guard`) is active with nine required status checks, but the repository owner is an `always` bypass actor (live check 2026-11-21), so direct pushes and justified force pushes are admitted in practice. Removing the bypass would make those checks gating and imply a PR workflow; that is deliberately not taken.
 - Auto-approve: none exists; nothing is auto-approved.
 - CodeQL: GitHub default setup is configured (weekly, languages `actions` and `python`); no committed workflow file is needed. Gitleaks secret scan plus gate static analysis remain separate controls.
-- Third-party action SHA pinning: the GitHub repository setting `sha_pinning_required` is deliberately `false` so workflows can use `@main` and follow the latest published action (see §11 Workflow hardening). Verified against the live repository configuration; removing this bypass would require full-commit SHA references again.
+- Third-party action SHA pinning: workflows deliberately track mutable default-branch refs (`@main`, `@master` where that is the default) so they follow the latest published action. The repository API does not expose a `sha_pinning_required` field; the effective state is confirmed by observation — mutable refs run in CI (see §11 Workflow hardening). Removing this bypass would require full-commit SHA references again.
 
 ### Transport
 
@@ -720,4 +720,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=2fa1b277f88161d2e60dc7b5332367157ee0b06e -->
+<!-- mirror-sync: sync-sha=cd0f2ef775cdd1a727ad06952e45ad07e175132a -->

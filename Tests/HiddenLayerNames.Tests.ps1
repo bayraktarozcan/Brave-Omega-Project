@@ -14,6 +14,7 @@ BeforeAll {
         'Scripts/Release.ps1'           = 'tooling that stages the package'
         'Tests/ReleaseNotes.Tests.ps1'  = 'tooling that writes generated notes'
         'Tests/DocCounts.Tests.ps1'     = 'verifies the mirror count'
+        'Tests/CI-Parity.Tests.ps1'     = 'verifies the mirrored workflow inventory'
         'Tests/HeadingCase.Tests.ps1'   = 'verifies the mirror headings'
         'Tests/IgnoreRules.Tests.ps1'   = 'verifies the ignore patterns'
         'Tests/LayerMarkers.Tests.ps1'  = 'verifies the layer roots'

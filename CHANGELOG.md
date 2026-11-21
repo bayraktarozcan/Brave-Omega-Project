@@ -241,13 +241,14 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Fixed
 
-- Release script no longer appends `[DEPRECATED]` to the end of a title; the marker is always a prefix. Current-state test count updated to 436.
+- Release script no longer appends `[DEPRECATED]` to the end of a title; the marker is always a prefix. Current-state test count updated to 437.
 - Quality audit of `ae5b376..def8d2b`: `README.md` keeps its UTF-8 BOM, both changelog tables of contents are renumbered after the Unreleased entry, the generator preserves dotted version numbers and removes table skeletons emptied by row filtering, explicit `-Title`/`-NotesFile` no longer require a changelog section, and the release guards exercise releases that actually contain the defects.
 - CodeQL documentation now matches the live default setup (`state: configured`, weekly, languages `actions` and `python`) instead of claiming that no code scanning exists.
 - Quality audit of `4384373`: the host tool probe no longer declares winget IDs that do not resolve (`koalamer.ShellCheck`, `tamasfe.yamllint`, `DavidAnson.markdownlint-cli2`); shellcheck uses the verified `koalaman.shellcheck`, while yamllint and markdownlint-cli2 are probed through pip and npm at per-user scope. `Tests/HostTools.Tests.ps1` pins the verified ID map.
 - Pages deployment retries once after a short pause when the artifact metadata API fails transiently, and fails only when both attempts lose. `Tests/PagesDeploy.Tests.ps1` pins the retry path.
 - v2.8.1.1 release notes no longer carry a bare `PR #37357` token that GitHub would autolink to an unrelated local issue; both hosts were updated byte-identically.
 - Quality audit of `9bc624d`: the published-release audit no longer receives the write-capable `GITLAB_PUSH_TOKEN`; it reads the public GitLab REST endpoint without credentials and keeps `glab` only as a local fallback. `Tests/ReleaseHygiene.Tests.ps1` pins the least-privilege contract.
+- General audit: `AGENTS.md` and `SECURITY.md` now match the live GitHub configuration — the `main-guard` ruleset is `active` with nine required checks and the repository owner is an `always` bypass actor, while `sha_pinning_required` is not exposed by the repository API and is described by its observable effect instead of an unverifiable field value. The documented workflow count is 13 in every current-state document, pinned by a new parity test.
 
 ---
 
@@ -2768,13 +2769,14 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Düzeltilenler
 
-- Yayın betiği `[DEPRECATED]` işaretini artık başlığın sonuna eklemiyor; işaret her zaman öne konuyor. Güncel test sayısı 436 olarak güncellendi.
+- Yayın betiği `[DEPRECATED]` işaretini artık başlığın sonuna eklemiyor; işaret her zaman öne konuyor. Güncel test sayısı 437 olarak güncellendi.
 - `ae5b376..def8d2b` kalite denetimi: `README.md` UTF-8 BOM'unu koruyor, her iki değişiklik günlüğü içindekiler tablosu Yayınlanmadı girdisinden sonra yeniden numaralandırıldı, üreteç noktalı sürüm numaralarını koruyor ve satır filtrelemesiyle boşalan tablo iskeletlerini kaldırıyor, açık `-Title`/`-NotesFile` artık changelog bölümü gerektirmiyor ve yayın korumaları kusuru gerçekten taşıyan sürümleri sınıyor.
 - CodeQL belgeleri canlı varsayılan kurulumla eşleşiyor (`state: configured`, haftalık, diller `actions` ve `python`); kod taramasının olmadığı iddiası kaldırıldı.
 - `4384373` kalite denetimi: host aracı sorgusu artık çözümlenmeyen winget kimliklerini bildirmiyor (`koalamer.ShellCheck`, `tamasfe.yamllint`, `DavidAnson.markdownlint-cli2`); shellcheck doğrulanmış `koalaman.shellcheck` kimliğini kullanıyor, yamllint ve markdownlint-cli2 ise pip ve npm üzerinden per-user kapsamda sorgulanıyor. `Tests/HostTools.Tests.ps1` doğrulanmış kimlik haritasını sabitliyor.
 - Pages dağıtımı, artifact metadata API'si geçici olarak hata verdiğinde kısa bir beklemeden sonra bir kez yeniden deniyor; yalnızca iki deneme de başarısız olursa kırmızıya dönüyor. `Tests/PagesDeploy.Tests.ps1` yeniden deneme yolunu sabitliyor.
 - v2.8.1.1 yayın notlarında GitHub'ı ilgisiz yerel bir issue'ya bağlayacak çıplak `PR #37357` belirteci kaldırıldı; iki host bayt özdeş güncellendi.
 - `9bc624d` kalite denetimi: yayın denetimi artık yazma yetkili `GITLAB_PUSH_TOKEN`'ı almıyor; herkese açık GitLab REST uç noktasını kimliksiz okuyor, `glab` yalnızca yerel yedek. `Tests/ReleaseHygiene.Tests.ps1` en az yetki sözleşmesini sabitliyor.
+- Genel denetim: `AGENTS.md` ve `SECURITY.md` canlı GitHub yapılandırmasıyla eşleşiyor — `main-guard` ruleset'i dokuz zorunlu kontrolle `active` ve depo sahibi `always` atlatma aktörü; `sha_pinning_required` depo API'sinde yer almadığı için doğrulanamayan alan değeri yerine gözlemlenen etkisiyle anlatılıyor. Tüm güncel durum belgelerinde iş akışı sayısı 13 olarak düzeltildi ve yeni bir parite testiyle sabitlendi.
 
 ---
 

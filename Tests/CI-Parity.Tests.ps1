@@ -199,4 +199,17 @@ Describe "CI conformance" {
             $jobs[1].Text | Should -Not -Match 'fetch-depth:\s*0'
         }
     }
+
+    Context 'documented workflow inventory' {
+        It 'states the real workflow count in every current-state document' {
+            $actual = @(Get-ChildItem -LiteralPath $script:WorkflowDir -Filter '*.yml' -File).Count
+            $actual | Should -BeGreaterThan 0
+            foreach ($name in @('AGENTS.md', 'AGENTS-TR.md', 'README.md', 'Wiki/Installation.md')) {
+                $path = Join-Path $script:RepoRoot $name
+                if (-not (Test-Path -LiteralPath $path)) { continue }
+                $text = Get-Content -LiteralPath $path -Raw
+                $text | Should -Match "\($actual (files|dosya)\)" -Because "$name must not promise a stale workflow count"
+            }
+        }
+    }
 }
