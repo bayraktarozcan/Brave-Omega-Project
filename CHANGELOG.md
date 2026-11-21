@@ -231,7 +231,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Fixed
 
-- Stale documentation corrected across README, Wiki pages and the Turkish mirror: script v3.1.0.3, policy totals 149 / chain 25-51-82-121-149 / Chrome 122, ADMX 149/149, test total 395 (42 test files + 2 helpers), 11 workflows, 9 gate checks, and the missing Turkish v3.1.0.3 changelog entry. `Wiki/Policy-Reference.md` now reflects v3.1.0.3 and no longer lists the removed `AutofillPredictionSettings`. Live ruleset state is recorded accurately.
+- Stale documentation corrected across README, Wiki pages and the Turkish mirror: script v3.1.0.3, policy totals 149 / chain 25-51-82-121-149 / Chrome 122, ADMX 149/149, test total 397 (43 test files + 2 helpers), 11 workflows, 9 gate checks, and the missing Turkish v3.1.0.3 changelog entry. `Wiki/Policy-Reference.md` now reflects v3.1.0.3 and no longer lists the removed `AutofillPredictionSettings`. Live ruleset state is recorded accurately.
 
 ---
 
@@ -2685,7 +2685,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Düzeltilenler
 
-- README, Wiki sayfaları ve Türkçe aynadaki eski belgeler düzeltildi: betik v3.1.0.3, ilke toplamları 149 / zincir 25-51-82-121-149 / Chrome 122, ADMX 149/149, test sayısı 395 (42 test dosyası + 2 yardımcı), 11 iş akışı, 9 kapı kontrolü ve Wiki değişiklik günlüğündeki eksik Türkçe v3.1.0.3 girdisi. `Wiki/Policy-Reference.md` v3.1.0.3'ü yansıtıyor ve kaldırılan `AutofillPredictionSettings` artık listelenmiyor. Canlı ruleset durumu doğru kaydedildi.
+- README, Wiki sayfaları ve Türkçe aynadaki eski belgeler düzeltildi: betik v3.1.0.3, ilke toplamları 149 / zincir 25-51-82-121-149 / Chrome 122, ADMX 149/149, test sayısı 397 (43 test dosyası + 2 yardımcı), 11 iş akışı, 9 kapı kontrolü ve Wiki değişiklik günlüğündeki eksik Türkçe v3.1.0.3 girdisi. `Wiki/Policy-Reference.md` v3.1.0.3'ü yansıtıyor ve kaldırılan `AutofillPredictionSettings` artık listelenmiyor. Canlı ruleset durumu doğru kaydedildi.
 
 ---
 
@@ -2697,7 +2697,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Özet
 
-**Yama sürümü — kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı.** `AutofillPredictionSettings` İleri katmandan kaldırıldı. Chromium M157'de kullanımdan kaldırılmış ve上游 Chromium'da `AutofillGenAiSettings` ile değiştirilmiştir. İleri 40 → 39; toplam 150 → 149; kümülatif zincir `25 → 51 → 82 → 121 → 149`; Chrome 123 → 122. ADMX girdileri 763 olarak korunur (vendor snapshot korunur).
+**Yama sürümü — kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı.** `AutofillPredictionSettings` İleri katmandan kaldırıldı. Chromium M157'de kullanımdan kaldırılmış veyukarı akış Chromium'da `AutofillGenAiSettings` ile değiştirilmiştir. İleri 40 → 39; toplam 150 → 149; kümülatif zincir `25 → 51 → 82 → 121 → 149`; Chrome 123 → 122. ADMX girdileri 763 olarak korunur (vendor snapshot korunur).
 
 | Ölçüt | Once (v3.1.0.2) | Sonra (v3.1.0.3) |
 |-------|------------------|-------------------|
@@ -2712,13 +2712,13 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Kaldırıldı
 
-**`AutofillPredictionSettings` (DWord, değer 2) İleri katmandan kaldırıldı.** Bu politika Chromium M157'de kullanımdan kaldırılmış ve上游 Chromium'da `AutofillGenAiSettings` ile değiştirilmiştir. `Brave-Omega/Profiles/Advanced.json`, `Enterprise/Advanced.reg`, `Enterprise/Strict.reg`, `Enterprise/levels.json`, `Scripts/Detect-Brave-Omega.ps1`, `Scripts/Export-PolicyCatalog.ps1`, `Brave-Omega/Docs/Policy-Catalog.md`, `README.md` ve `index.html` dosyalarından kaldırılmıştır. `ADMX/` dizinindeki ADMX vendor snapshot'ı 763 girdi olarak korunur — ADMX dondurulmuş bir vendor artifact'tır ve bu değişiklik ile yeniden üretilmez.
+**`AutofillPredictionSettings` (DWord, değer 2) İleri katmandan kaldırıldı.** Bu politika Chromium M157'de kullanımdan kaldırılmış veyukarı akış Chromium'da `AutofillGenAiSettings` ile değiştirilmiştir. `Brave-Omega/Profiles/Advanced.json`, `Enterprise/Advanced.reg`, `Enterprise/Strict.reg`, `Enterprise/levels.json`, `Scripts/Detect-Brave-Omega.ps1`, `Scripts/Export-PolicyCatalog.ps1`, `Brave-Omega/Docs/Policy-Catalog.md`, `README.md` ve `index.html` dosyalarından kaldırılmıştır. `ADMX/` dizinindeki ADMX vendor snapshot'ı 763 girdi olarak korunur — ADMX dondurulmuş bir vendor artifact'tır ve bu değişiklik ile yeniden üretilmez.
 
 <a id="tr-v3103-degisiklik"></a>
 
 ### Değişiklik
 
-**İleri katman sayısı: 40 → 39.** Kümülatif zincir `25 → 51 → 82 → 122 → 150`'den `25 → 51 → 82 → 121 → 149`'e değişir. Chrome kökenli politika toplamı 123'ten 122'ye düşer. `Brave-Omega/Docs/Policy-Catalog.md` dosyasındaki politika katalog başlığı, tür dağılımı tablosu ve katman bazlı özet blokları buna göreüncellenir. `Enterprise/levels.json`, `Scripts/Export-PolicyCatalog.ps1` ile yeni sayılar kullanılarak yeniden üretilir.
+**İleri katman sayısı: 40 → 39.** Kümülatif zincir `25 → 51 → 82 → 122 → 150`'den `25 → 51 → 82 → 121 → 149`'e değişir. Chrome kökenli politika toplamı 123'ten 122'ye düşer. `Brave-Omega/Docs/Policy-Catalog.md` dosyasındaki politika katalog başlığı, tür dağılımı tablosu ve katman bazlı özet blokları buna göre güncellenir. `Enterprise/levels.json`, `Scripts/Export-PolicyCatalog.ps1` ile yeni sayılar kullanılarak yeniden üretilir.
 
 ---
 

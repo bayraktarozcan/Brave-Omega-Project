@@ -477,7 +477,7 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 | `Wiki/` | Source of truth for the GitHub Wiki (auto-synced by `wiki-sync.yml`) |
 | `index.html` | Single-page landing page (true black, dark theme, no external JS) |
 | Root governance set | `README.md`, `SECURITY.md`, `PRIVACY.md`, `SUPPORT.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `RELEASE-NOTE-TEMPLATE.md`, `CODEOWNERS`, `LICENSE`, `NOTICE` |
-| `.github/workflows/` | CI/CD: Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene |
+| `.github/workflows/` | CI/CD (11 files): Quality, Pages, Wiki Sync, ADMX, Secret Scan, Link Check, Stale, Version Check, Hygiene, Dependabot Auto-Merge, Mirror Main to GitLab |
 | `.gitlab-ci.yml` | Second gate — the same checks enforced on the second remote |
 
 ### Versions
@@ -713,4 +713,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=803372618a29d8aad0908638caf80dff885a56c6 -->
+<!-- mirror-sync: sync-sha=a5d7b6e6cc47fb1bebe0a330401b0899ca1bc010 -->

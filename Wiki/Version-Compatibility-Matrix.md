@@ -75,15 +75,15 @@ Complete compatibility reference for Brave Omega versions.
 
 ---
 
-## Version Pinning Policy
+## Version Agnostic Policy
 
-Every Brave Omega release is **explicitly pinned** to:
+Every Brave Omega V3 release is **version-agnostic**:
 
-- Exact Brave Browser version
-- Exact Chromium version
-- Validated Windows build
+- Brave and Chromium versions are detected at runtime
+- One validated policy set applies to all supported versions
+- Windows build requirements are stated, not browser-version-pinned
 
-> **No ambiguity:** You always know exactly what environment the script was tested against.
+> **No ambiguity:** the script validates the installed browser instead of trusting a pinned version.
 
 ---
 
@@ -311,15 +311,15 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 ---
 
-## Sürüm Sabitleme Politikası
+## Sürüm Bağımsızlığı Politikası
 
-Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
+Her Brave Omega V3 sürümü **sürüm-bağımsızdır**:
 
-- Tam Brave Browser sürümü
-- Tam Chromium sürümü
-- Doğrulanmış Windows derlemesi
+- Brave ve Chromium sürümleri runtime'da tespit edilir
+- Tek bir doğrulanmış politika seti desteklenen tüm sürümlere uygulanır
+- Windows derleme gereksinimi belirtilir, tarayıcı sürümü sabitlenmez
 
-> **Belirsizlik yok:** Betiğin hangi ortama karşı test edildiğini her zaman tam olarak bilirsiniz.
+> **Belirsizlik yok:** betik sabitlenmiş bir sürüme güvenmek yerine kurulu tarayıcıyı doğrular.
 
 ---
 
@@ -384,7 +384,7 @@ if (Test-Path $bravePath) {
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | v3.1.0.2 | 150 | 100% | Yama sürümü — WhatsApp Web bildirim izin listesi ve sürüm eşliği düzeltmeleri (2026-10-23). `NotificationsAllowedForUrls` Brave Yalnız katmanında yalnızca `https://web.whatsapp.com` adresine izin verir; Temel/Dengeli/Gelişmiş tarafından devralınır ve Katı katmanında boşaltılır; GitLab sürüm deprecation'ı ve liste değerli .reg temizliği düzeltildi; toplam 150; zincir 25 / 51 / 82 / 122 / 150. 5 seviyede de gerileme yok |
-| v3.1.0.3 | 149 | 100% | Yama sürümü — Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı (2026-11-12). AutofillPredictionSettings İleri katmandan çıkarıldı (Chromium M157'de deprecated,上游 Chromium'da AutofillGenAiSettings ile değiştirildi); İleri 40 → 39, toplam 150 → 149; Chrome 123 → 122; ADMX vendor snapshot 763 girdi olarak korundu (yeniden üretilmedi). zincir 25 / 51 / 82 / 121 / 149. 5 seviyede de gerileme yok
+| v3.1.0.3 | 149 | 100% | Yama sürümü — Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı (2026-11-12). AutofillPredictionSettings İleri katmandan çıkarıldı (Chromium M157'de deprecated,yukarı akış Chromium'da AutofillGenAiSettings ile değiştirildi); İleri 40 → 39, toplam 150 → 149; Chrome 123 → 122; ADMX vendor snapshot 763 girdi olarak korundu (yeniden üretilmedi). zincir 25 / 51 / 82 / 121 / 149. 5 seviyede de gerileme yok
 | v3.1.0.0 | 151 | 100% | Özellik sürümü — Windows Chrome hedefi (2026-10-09). Tarayıcı seçimi ve origin filtresi; 2x2 Windows/Linux × Brave/Chromium matrisi tamam. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v3.0.2.0 | 151 | 100% | Uyumluluk sürümü — Linux desteği ve genel Chromium profilleri (2026-10-08). Tüm politikalarda origin/platform etiketi, brave+chrome profilleri, yönetilen JSON üreteci ve POSIX kurucu. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |
 | v3.0.1.0 | 151 | 100% | Uyumluluk sürümü — Yönetici koruması desteği (2026-10-08). Kullanıcı işlemleri SID ile her yerel profili hedefler; Brave tespiti tüm profillerin AppData dizinini tarar. Politika değişikliği yok, 5 seviyede de gerileme gözlenmedi |

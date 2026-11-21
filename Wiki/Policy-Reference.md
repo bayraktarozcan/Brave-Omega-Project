@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v3.1.0.2 — **150 enterprise policies** across 5 progressive restriction levels.
+Complete policy reference for Brave Omega v3.1.0.3 — **149 enterprise policies** across 5 progressive restriction levels, plus 2 documented legacy HKCU user-preference keys.
 
 ---
 
@@ -16,12 +16,12 @@ Complete policy reference for Brave Omega v3.1.0.2 — **150 enterprise policies
 | **1. Brave Only** | 25 | — | 25 | Base |
 | **2. Essential** ⭐ | 26 | UsageStatsInSample | 51 | Includes Level 1 |
 | **3. Balanced** | 31 | UsageStatsInSample | 82 | Includes Levels 1-2 |
-| **4. Advanced** | 40 | UsageStatsInSample | 122 | Includes Levels 1-3 |
-| **5. Strict** | 28 | UsageStatsInSample | 150 | Includes Levels 1-4 |
+| **4. Advanced** | 39 | UsageStatsInSample | 121 | Includes Levels 1-3 |
+| **5. Strict** | 28 | UsageStatsInSample | 149 | Includes Levels 1-4 |
 
 ## Policy Reference by Level
 
-> All 150 enterprise policies are listed below — no need to consult the script. Policies are organized by registry hive and hardening level.
+> All 149 enterprise policies are listed below (plus 2 legacy HKCU keys marked as such) — no need to consult the script. Policies are organized by registry hive and hardening level.
 
 ### HKCU — User-Level Preferences (All Levels)
 
@@ -207,7 +207,7 @@ Complete policy reference for Brave Omega v3.1.0.2 — **150 enterprise policies
 
 > The Strict profile also sets `NotificationsAllowedForUrls` to an empty list,
 > clearing the Brave Only allowlist. Because it overrides an existing policy
-> rather than adding one, the unique total stays at 150.
+> rather than adding one, the unique total stays at 149.
 
 ---
 
@@ -266,7 +266,7 @@ All 149 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v3.1.0.2 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **150 kurumsal politika**.
+Brave Omega v3.1.0.3 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **149 kurumsal politika** ve belgelenmiş 2 eski HKCU kullanıcı tercihi anahtarı.
 
 ---
 
@@ -277,12 +277,12 @@ Brave Omega v3.1.0.2 için tam politika başvurusu — 5 kademeli ilerleyici kı
 | **1. Brave Yalnız** | 25 Brave'e özgü | — | 25 | Temel |
 | **2. Temel** ⭐ | 26 | UsageStatsInSample | 51 | 1. Seviyeyi kapsar |
 | **3. Dengeli** | 31 | UsageStatsInSample | 82 | 1-2. Seviyeleri kapsar |
-| **4. Gelişmiş** | 40 | UsageStatsInSample | 122 | 1-3. Seviyeleri kapsar |
-| **5. Katı** | 28 | UsageStatsInSample | 150 | 1-4. Seviyeleri kapsar |
+| **4. Gelişmiş** | 39 | UsageStatsInSample | 121 | 1-3. Seviyeleri kapsar |
+| **5. Katı** | 28 | UsageStatsInSample | 149 | 1-4. Seviyeleri kapsar |
 
 ## Seviyelere göre Politika Başvurusu
 
-> 150 kurumsal politikanın tamamı aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
+> 149 kurumsal politikanın tamamı (artık eski olarak işaretlenmiş 2 HKCU anahtarı) aşağıda listelenmiştir — betik kaynağına bakmanıza gerek yok. Politikalar kayıt defteri kovanı ve sıkılaştırma seviyesine göre düzenlenmiştir.
 
 ### HKCU — Kullanıcı Düzeyi Tercihleri (Tüm Seviyeler)
 
@@ -468,7 +468,7 @@ Brave Omega v3.1.0.2 için tam politika başvurusu — 5 kademeli ilerleyici kı
 
 > Katı profili ayrıca `NotificationsAllowedForUrls` politikasını boş bir listeyle
 > ayarlayarak Brave Yalnız izin listesini temizler. Yeni bir politika eklemek
-> yerine mevcut olanı geçersiz kıldığı için benzersiz toplam 150 olarak kalır.
+> yerine mevcut olanı geçersiz kıldığı için benzersiz toplam 149 olarak kalır.
 
 ---
 

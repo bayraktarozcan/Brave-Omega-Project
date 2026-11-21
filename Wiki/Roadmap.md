@@ -172,12 +172,12 @@ Tier counts (v2.4.1.0): BraveOnly 24 / Essential 28 / Balanced 31 / Advanced 21 
 
 | Component | Change Type | Example |
 |-----------|-------------|--------|
-| **Version** | Brave major rewrite, platform target change | v1.0.0.0 → v2.0.0.0 |
-| **Major** | Script architecture/breaking change | v1.0.0.0 → v1.1.0.0 |
-| **Minor** | Brave/Chromium upgrade or new policy added | v1.0.0.0 → v1.0.1.0 |
-| **Revision** | Fix, revision, documentation update | v1.0.0.0 → v1.0.0.1 |
+| **Version** | Major addition | v1.0.0.0 → v2.0.0.0 |
+| **Major** | Feature | v1.0.0.0 → v1.1.0.0 |
+| **Minor** | Security patch or improvement | v1.0.0.0 → v1.0.1.0 |
+| **Revision** | Bug fix | v1.0.0.0 → v1.0.0.1 |
 
-**Version Pinning:** Every release explicitly tagged with exact Brave + Chromium version.
+**Version Agnostic:** V3 detects browser versions at runtime; no release pins a browser version.
 
 ---
 
@@ -221,7 +221,7 @@ Tier counts (v2.4.1.0): BraveOnly 24 / Essential 28 / Balanced 31 / Advanced 21 
 
 | Commitment | Implementation |
 |------------|----------------|
-| **Version Pinning** | Every release tagged with exact Brave + Chromium version |
+| **Version Agnostic** | Browser versions detected at runtime, never pinned |
 | **Policy Review** | ADMX diff on every Brave stable release |
 | **Breaking Change Notices** | Changelog migration notes for removed/renamed keys |
 | **Community Currency** | Version mismatches & new policies reviewed promptly |
@@ -264,13 +264,13 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 **v3.1.0.3** — *Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı* (2026-11-12)
 
-Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 / Temel 26 / Dengeli 31 / Geli\u015fmi\u015f 39 / Kat\u0131 28); kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f `AutofillPredictionSettings` \u0130leri katmandan \u00e7\u0131kar\u0131ld\u0131 (Chromium M157'de deprecated, \u0130eri Chromium'da `AutofillGenAiSettings` ile de\u011fi\u015ftirildi); \u0130eri 40 \u2192 39, toplam 150 \u2192 149; Chrome 123 \u2192 122; ADMX vendor snapshot 763 girdi olarak korundu (yeniden \u00fcretilmedi). K\u00fcm\u00fclatif zincir: 25\u219251\u219282\u2192121\u2192149.
+Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 / Temel 26 / Dengeli 31 / Gelişmiş 39 / Katı 28); kullanımdan kaldırılmış `AutofillPredictionSettings` İleri katmandan çıkarıldı (Chromium M157'de deprecated, İeri Chromium'da `AutofillGenAiSettings` ile değiştirildi); İeri 40 → 39, toplam 150 → 149; Chrome 123 → 122; ADMX vendor snapshot 763 girdi olarak korundu (yeniden üretilmedi). Kümülatif zincir: 25→51→82→121→149.
 
 ---
 
-## \U00d6nceki S\U00fcr\U00fcm
+## Önceki Sürüm
 
-**v3.1.0.2** — *WhatsApp Web bildirim izin listesi ve s\u00fcr\u00fcm e\u015flli\u011fi d\u00fczeltmeleri* (2026-10-23)
+**v3.1.0.2** — *WhatsApp Web bildirim izin listesi ve sürüm eşlliği düzeltmeleri* (2026-10-23)
 
 Önceki sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 24 / Temel 26 / Dengeli 31 / Gelişmiş 40 / Katı 28); kullanımdan kaldırılmış Safe Browsing ve Autofill politikaları desteklenen eşdeğerleriyle değiştirildi; Chrome Strict 124 → 122. Kümülatif zincir: 24→50→81→121→149.
 
@@ -386,12 +386,12 @@ Katman sayıları (v2.4.1.0): Brave Yalnız 24 / Temel 28 / Dengeli 31 / Gelişm
 
 | Bileşen | Değişiklik Türü | Örnek |
 |---------|-----------------|-------|
-| **Version** | Brave major yeniden yazımı, hedef platform değişikliği | v1.0.0.0 → v2.0.0.0 |
-| **Major** | Betik mimarisi/kırılım değişikliği | v1.0.0.0 → v1.1.0.0 |
-| **Minor** | Brave/Chromium yükseltmesi veya yeni politika eklendi | v1.0.0.0 → v1.0.1.0 |
-| **Revision** | Düzeltme, revizyon, doküman güncellemesi | v1.0.0.0 → v1.0.0.1 |
+| **Version** | Büyük ekleme | v1.0.0.0 → v2.0.0.0 |
+| **Major** | Özellik | v1.0.0.0 → v1.1.0.0 |
+| **Minor** | Güvenlik yaması veya iyileştirme | v1.0.0.0 → v1.0.1.0 |
+| **Revision** | Hata düzeltmesi | v1.0.0.0 → v1.0.0.1 |
 
-**Sürüm Sabitleme:** Her sürüm, tam Brave + Chromium sürümüyle açıkça etiketlenir.
+**Sürüm Bağımsızlığı:** V3 tarayıcı sürümlerini runtime'da tespit eder; hiçbir sürüm sabitlenmez.
 
 ---
 
@@ -435,7 +435,7 @@ Katman sayıları (v2.4.1.0): Brave Yalnız 24 / Temel 28 / Dengeli 31 / Gelişm
 
 | Taahhüt | Uygulama |
 |---------|----------|
-| **Sürüm Sabitleme** | Her sürüm, tam Brave + Chromium sürümüyle etiketlenir |
+| **Sürüm Bağımsızlığı** | Tarayıcı sürümleri runtime'da tespit edilir, asla sabitlenmez |
 | **Politika İncelemesi** | Her Brave kararlı sürümünde ADMX farkı |
 | **Kırıcı Değişiklik Bildirimleri** | Kaldırılan/yeniden adlandırılan anahtarlar için değişiklik günlüğü geçiş notları |
 | **Topluluk Güncelliği** | Sürüm uyuşmazlıkları ve yeni politikalar hızla incelenir |

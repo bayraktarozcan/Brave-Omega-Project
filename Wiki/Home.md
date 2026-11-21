@@ -18,7 +18,7 @@
 | [🏠 Overview](Overview) | What is Brave Omega, why it exists, key concepts |
 | [🚀 Quick Start](Quick-Start) | Get running in 3 minutes |
 | [🏗️ Architecture](Architecture) | Multi-layer enforcement model, policy sources |
-| [📋 Policy Reference](Policy-Reference) | Complete 150-policy registry reference |
+| [📋 Policy Reference](Policy-Reference) | Complete 149-policy registry reference |
 | [🔧 Installation](Installation) | Prerequisites, execution policy, step-by-step |
 | [🛡️ Security](Security) | Safety model, backup/rollback, process guard |
 | [🔍 Troubleshooting](Troubleshooting) | Common issues and solutions |

@@ -331,7 +331,7 @@ hiçbir şey kullanıcının fark edebileceği bir kazanç değil.
 Bunun yerine politika başına yazma şunları sağlıyor:
 
 - **Hata yalıtımı.** Yazılamayan tek politika adıyla raporlanır. Toplu içe aktarma
-  bir bütün olarak başarısız olur ve işleticiyi 149 politikal\u0131k bir yığın için tek
+  bir bütün olarak başarısız olur ve işleticiyi 149 politikalık bir yığın için tek
   bir hata mesajı okumaya bırakır.
 - **`-WhatIf` doğruluğu.** Önizleme, uygulama adımının gerçekten yazacağı yolu,
   adı, türü ve değeri raporlar; çünkü ikisi de aynı işlevi çağırır. Üretilmiş bir

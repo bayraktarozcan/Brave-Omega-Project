@@ -244,7 +244,7 @@ and offers **five hardening levels** that determine how many policies are applie
 ├─────────────────────────────────────────────────────────────┤
 │  TIER 2 — HKLM (Enterprise Policy Layer / ADMX)            │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  25\u2013149 ADMX-validated enterprise policies (level-based).     │
+│  ↳  25–149 ADMX-validated enterprise policies (level-based).     │
 │     Appear gray and locked in browser Settings UI.         │
 │     Cannot be overridden by user interaction.              │
 ├─────────────────────────────────────────────────────────────┤
@@ -305,9 +305,9 @@ no longer have any effect.
 
 **Brave Omega is built around a lifecycle-first commitment:**
 
-- **Version Pinning** — Every script release is explicitly tagged in its header with the
-  exact validated Brave + Chromium version combination. There is no ambiguity about what
-  environment the script was tested against.
+- **Version Agnostic** — V3 detects the installed Brave + Chromium versions at runtime and
+  applies the same validated policy set to every supported version. No release pins a
+  browser version.
 
 - **Policy Review on Every Brave Stable Release** — When Brave ships a new stable version,
   the ADMX template package is reviewed against the previous version. New policies are
@@ -623,7 +623,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projection sync
 │   ├── Release.ps1                        Release automation
 │   └── Mojibake-Scan.py                   Character-integrity scanner
-├── Tests/                                 Pester suite (latest release; 42 test files + 2 helpers)
+├── Tests/                                 Pester suite (latest release; 43 test files + 2 helpers)
 ├── Wiki/                                  Wiki source of truth (15 pages)
 ├── index.html                             Landing page (GitHub Pages)
 ├── AGENTS.md                              Agent and contributor rules
@@ -750,6 +750,7 @@ Every root document is reachable from here; a document nobody links to does not 
 | [NOTICE](NOTICE) | Third-party attribution |
 | [RELEASE-NOTE-TEMPLATE.md](RELEASE-NOTE-TEMPLATE.md) | Structure every release note follows |
 | [CODEOWNERS](CODEOWNERS) | Who reviews which path |
+| [LOW-GLOW-DESIGN-CORE.md](LOW-GLOW-DESIGN-CORE.md) | Human- and planet-centred design principles behind the low-glow UI |
 
 ---
 
@@ -971,7 +972,7 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 ├─────────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM (Kurumsal İlke Katmanı / ADMX)           │
 │  HKLM:\SOFTWARE\Policies\BraveSoftware\Brave                │
-│  ↳  25\u2013149 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
+│  ↳  25–149 ADMX doğrulamalı kurumsal ilke (seviye bazlı).  │
 │     Tarayıcı Ayarlar arayüzünde gri/kilitli görünür.      │
 │     Kullanıcı etkileşimiyle değiştirilemez.               │
 ├─────────────────────────────────────────────────────────────┤
@@ -990,8 +991,8 @@ kaç politikanın uygulanacağını belirleyen **beş sıkılaştırma seviyesi*
 | **Brave Yalnız** | 25 | 25 | 0 | 0 | Yok |
 | **Temel ⭐** | 51 | 25 | 26 | 0 | Yok |
 | **Dengeli** | 82 | 25 | 26 | 31 | Düşük |
-| **Geli\u015fmi\u015f** \| 121 \| 25 \| 26 \| 71 | Düşük |
-| **Kat\u0131** \| 149 \| 25 \| 26 \| 99 | Yüksek |
+| **Gelişmiş** \| 121 \| 25 \| 26 \| 71 | Düşük |
+| **Katı** \| 149 \| 25 \| 26 \| 99 | Yüksek |
 
 #### 6.2 Politika Kaynakları ve Yöntem
 
@@ -1034,9 +1035,9 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 **Brave Omega, yaşam döngüsünü esas alan bir taahhüt üzerine inşa edilmiştir:**
 
-- **Sürüm Sabitleme** — Her betik sürümü, başlığında doğrulanmış Brave + Chromium sürüm
-  kombinasyonuyla açıkça etiketlenir. Betiğin hangi ortama karşı sınanıldığı konusunda
-  hiçbir belirsizlik yoktur.
+- **Sürüm Bağımsızlığı** — V3 kurulu Brave + Chromium sürümünü runtime'da tespit eder ve
+  aynı doğrulanmış politika setini desteklenen her sürüme uygular. Hiçbir sürüm tarayıcı
+  sürümüne sabitlenmez.
 
 - **Her Brave Kararlı Sürümünde Politika Gözden Geçirmesi** — Brave yeni bir kararlı sürüm
   yayımladığında ADMX şablon paketi önceki sürümle karşılaştırılır. Yeni politikalar
@@ -1354,7 +1355,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
 │   ├── Release.ps1                        Sürüm otomasyonu
 │   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
-├── Tests/                                 Pester paketi (en güncel sürüm; 42 test dosyası + 2 yardımcı)
+├── Tests/                                 Pester paketi (en güncel sürüm; 43 test dosyası + 2 yardımcı)
 ├── Wiki/                                  Wiki kaynağı (15 sayfa)
 ├── index.html                             Açılış sayfası (GitHub Pages)
 ├── AGENTS.md                              Ajan ve katkıcı kuralları
@@ -1512,6 +1513,7 @@ Buraya bağlanmayan belge var olmayan belgedir; her kök belge buradan erişileb
 | [NOTICE](NOTICE) | Üçüncü taraf atıfları |
 | [RELEASE-NOTE-TEMPLATE.md](RELEASE-NOTE-TEMPLATE.md) | Her sürüm notunun izlediği yapı |
 | [CODEOWNERS](CODEOWNERS) | Hangi yolu kim inceler |
+| [LOW-GLOW-DESIGN-CORE.md](LOW-GLOW-DESIGN-CORE.md) | Düşük ışıklı arayüzün insan ve gezegen odaklı tasarım ilkeleri |
 
 ---
 

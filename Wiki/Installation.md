@@ -246,7 +246,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projection sync
 │   ├── Release.ps1                        Release automation
 │   └── Mojibake-Scan.py                   Character-integrity scanner
-├── Tests/                                 Pester suite (latest release; 42 test files + 2 helpers)
+├── Tests/                                 Pester suite (latest release; 43 test files + 2 helpers)
 ├── Wiki/                                  Wiki source of truth (15 pages)
 ├── index.html                             Landing page (GitHub Pages)
 ├── AGENTS.md                              Agent and contributor rules
@@ -523,7 +523,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
 │   ├── Release.ps1                        Sürüm otomasyonu
 │   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
-├── Tests/                                 Pester paketi (en güncel sürüm; 42 test dosyası + 2 yardımcı)
+├── Tests/                                 Pester paketi (en güncel sürüm; 43 test dosyası + 2 yardımcı)
 ├── Wiki/                                  Wiki kaynağı (15 sayfa)
 ├── index.html                             Açılış sayfası (GitHub Pages)
 ├── AGENTS.md                              Ajan ve katkıcı kuralları

@@ -31,7 +31,7 @@ Brave Omega is designed with a **security-first** approach. Every design decisio
 | **Partial application** | Per-operation try/catch with individual success/failure counters |
 | **Brave data loss** | Process guard detects running Brave, prompts continue/cancel |
 | **Privilege escalation** | Script only requests Admin for HKLM; HKCU/Omaha need no elevation |
-| **Stale policy application** | Version pinning + Brave version check at runtime |
+| **Stale policy application** | Runtime browser-version detection + stale-policy cleanup |
 
 ---
 

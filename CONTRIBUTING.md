@@ -31,7 +31,7 @@ workflow for policy updates, bug reports, translations, and feature requests.
 
 1. [Code of Conduct](#1-code-of-conduct)
 2. [Priority Areas](#2-priority-areas)
-3. [Version Updates](#3-version-updates)
+3. [Browser Updates](#3-browser-updates)
 4. [New Policies](#4-new-policies)
 5. [Bug Reports](#5-bug-reports)
 6. [Feature Requests](#6-feature-requests)

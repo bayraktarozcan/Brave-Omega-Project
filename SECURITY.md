@@ -423,7 +423,7 @@ Brave Omega, tarayıcı sıkılaştırmasını **üç bağımsız zorunlu kılma
 │  ↳ Kullanıcı tarafından değiştirilebilir, yedek koruma    │
 ├──────────────────────────────────────────────────────────┤
 │  KATMAN 2 — HKLM Kurumsal Politika (ADMX)                │
-│  ↳ Sıkılaştırma seviyesine bağlı olarak 25\u2013149 politika   │
+│  ↳ Sıkılaştırma seviyesine bağlı olarak 25–149 politika   │
 │  ↳ Tarayıcı arayüzünde kilitli/gri — kullanıcı değiştiremez│
 │  ↳ Yazmak için Yönetici ayrıcalıkları gerekir            │
 ├──────────────────────────────────────────────────────────┤
@@ -600,7 +600,7 @@ Brave Omega beş kademeli sıkılaştırma seviyesi sunar:
 | **Temel ⭐** | 51 (Brave Yalnız + 26) | Brave + sıfır etkili veri sızıntısı önleme | Yok |
 | **Dengeli** | 82 (Temel + 31) | Tam güvenlik temeli, küçük değişiklikler | Düşük |
 | **Gelişmiş** | 121 (Dengeli + 39) | Gelişmiş gizlilik — sensörler, içe aktarmalar, profiller | Düşük |
-| **Katı** | 149 (Geli\u015fmi\u015f + 28) | Azami gizlilik koruması | Orta |
+| **Katı** | 149 (Gelişmiş + 28) | Azami gizlilik koruması | Orta |
 
 Her seviye, önceki seviyelerdeki tüm politikaları kümülatif olarak içerir. Tam politika referansı için [README.md](README.md) dosyasına bakın.
 

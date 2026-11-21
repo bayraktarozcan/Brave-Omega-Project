@@ -38,8 +38,8 @@ Copy the template below and fill in placeholders when creating new releases.
 
 ### Files
 
-- `BraveOmega.ps1` — Unified bilingual script (EN/TR)
-- `index.html` — Interactive policy configurator
+- `Brave-Omega/BraveOmega.ps1` — Unified bilingual script (EN/TR)
+- `index.html` — Single-page project landing page
 
 ### Documentation
 
@@ -79,14 +79,14 @@ Adds `ProxySettings` to Essential tier for proxy configuration placeholder suppo
 
 ### Changed
 
-- Script version → `v2.3.1.0`
-- Validated Brave → `1.92.139` (Chromium 150.0.7871.114)
+- Script version → `{VERSION}`
+- Browser support → V3 is version-agnostic; browser versions are detected at runtime
 - Documentation updated (README, Wiki, CHANGELOG)
 
 ### Files
 
-- `BraveOmega.ps1` — Unified bilingual script (EN/TR)
-- `index.html` — Interactive policy configurator
+- `Brave-Omega/BraveOmega.ps1` — Unified bilingual script (EN/TR)
+- `index.html` — Single-page project landing page
 
 ### Documentation
 
