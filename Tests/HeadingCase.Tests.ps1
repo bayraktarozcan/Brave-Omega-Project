@@ -22,6 +22,9 @@ BeforeAll {
             if ($line -match '^\s*(```|~~~)') { $inFence = -not $inFence; continue }
             if ($inFence -or $line -notmatch '^(\s*)(#{1,6})\s+(.*)$') { continue }
             $text = $Matches[3]
+            if ($text -cmatch 'İ(?:s|n|f|nto|nside)\b') {
+                $violations += "$($Path):$($i+1): Turkish dotted I in an English word"
+            }
             if ($text -match '^\[?v\d' -or $text -match '^\[?Unreleased' -or $text -match '^\[?Yayınlanmadı') { continue }
             if ((Split-Path -Leaf $Path) -eq 'Policy-Catalog.md' -and $text -match '— \d+ (policies|politika)') { continue }
             $words = @($text -split '\s+' | Where-Object { $_ -ne '' })

@@ -111,7 +111,7 @@ If you discover a security-related issue in Brave Omega — whether a policy tha
 
 ### 4. Security Posture
 
-#### 4.1 Defense-İn-Depth Architecture
+#### 4.1 Defense-in-Depth Architecture
 
 Brave Omega implements browser hardening through **three independent enforcement layers**:
 

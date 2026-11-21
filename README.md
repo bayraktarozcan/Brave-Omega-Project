@@ -69,7 +69,7 @@
 
 ---
 
-### 1. What İs Brave Omega?
+### 1. What Is Brave Omega?
 
 Brave Omega is an open-source PowerShell automation project that hardens the
 [Brave Browser](https://brave.com) through **official enterprise policy channels**. Using

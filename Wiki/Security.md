@@ -136,7 +136,7 @@ reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 # 3. Restart Brave
 ```
 
-### Manual Rollback (İf Backup Lost)
+### Manual Rollback (if Backup Lost)
 
 ```powershell
 # Remove HKLM policies
