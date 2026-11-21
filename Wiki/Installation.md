@@ -218,7 +218,7 @@ BRAVE OMEGA PROJECT/
 │   ├── ISSUE_TEMPLATE/                    Bug and feature request forms
 │   ├── dependabot.yml                     Dependency update schedule
 │   ├── linters/                           Shared markdownlint / yamllint config
-│   └── workflows/                         CI/CD workflows (12 files)
+│   └── workflows/                         CI/CD workflows (11 files)
 ├── ADMX/
 │   ├── ADMX-Validate.ps1                  Policy cross-reference validator
 │   ├── Brave.admx                         Brave ADMX policy template
@@ -238,7 +238,7 @@ BRAVE OMEGA PROJECT/
 │   ├── levels.json                        Tier metadata for deployment
 │   ├── BraveOnly.reg … Strict.reg         Per-tier registry packages
 ├── Scripts/
-│   ├── Invoke-CI.ps1                      Local conformance gate (7 checks)
+│   ├── Invoke-CI.ps1                      Local conformance gate (9 checks)
 │   ├── Deploy-Brave-Omega.ps1             Deployment entry point
 │   ├── Detect-Brave-Omega.ps1             Installed-state detection
 │   ├── Export-PolicyCatalog.ps1           Regenerates the policy catalog
@@ -246,7 +246,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projection sync
 │   ├── Release.ps1                        Release automation
 │   └── Mojibake-Scan.py                   Character-integrity scanner
-├── Tests/                                 Pester 5.7.1 suite (32 test files + 2 helpers)
+├── Tests/                                 Pester suite (latest release; 42 test files + 1 helper)
 ├── Wiki/                                  Wiki source of truth (15 pages)
 ├── index.html                             Landing page (GitHub Pages)
 ├── AGENTS.md                              Agent and contributor rules
@@ -495,7 +495,7 @@ BRAVE OMEGA PROJECT/
 │   ├── ISSUE_TEMPLATE/                    Hata ve özellik talebi formları
 │   ├── dependabot.yml                     Bağımlılık güncelleme takvimi
 │   ├── linters/                           Paylaşılan markdownlint / yamllint yapılandırması
-│   └── workflows/                         CI/CD iş akışları (12 dosya)
+│   └── workflows/                         CI/CD iş akışları (11 dosya)
 ├── ADMX/
 │   ├── ADMX-Validate.ps1                  Politika çapraz referans doğrulayıcı
 │   ├── Brave.admx                         Brave ADMX politika şablonu
@@ -515,7 +515,7 @@ BRAVE OMEGA PROJECT/
 │   ├── levels.json                        Dağıtım için kademe üstverisi
 │   ├── BraveOnly.reg … Strict.reg         Kademe başına kayıt defteri paketleri
 ├── Scripts/
-│   ├── Invoke-CI.ps1                      Yerel uyumluluk kapısı (7 kontrol)
+│   ├── Invoke-CI.ps1                      Yerel uyumluluk kapısı (9 kontrol)
 │   ├── Deploy-Brave-Omega.ps1             Dağıtım giriş noktası
 │   ├── Detect-Brave-Omega.ps1             Kurulu durum algılama
 │   ├── Export-PolicyCatalog.ps1           Politika kataloğunu yeniden üretir
@@ -523,7 +523,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
 │   ├── Release.ps1                        Sürüm otomasyonu
 │   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
-├── Tests/                                 Pester 5.7.1 paketi (32 test dosyası + 2 yardımcı)
+├── Tests/                                 Pester paketi (en güncel sürüm; 42 test dosyası + 1 yardımcı)
 ├── Wiki/                                  Wiki kaynağı (15 sayfa)
 ├── index.html                             Açılış sayfası (GitHub Pages)
 ├── AGENTS.md                              Ajan ve katkıcı kuralları

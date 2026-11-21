@@ -356,7 +356,7 @@
                     <span class="text-xl">&#x26a1;</span>
                     <h4 class="font-bold text-sm" data-i18n="feat_lifecycle_title">Yaşam Döngüsü Taahhüdü</h4>
                 </div>
-                <p class="text-gray-500 text-xs" data-i18n="feat_lifecycle_desc">Her Brave sürümünde politika gözden geçirmesi, sürüm sabitleme.</p>
+                <p class="text-gray-500 text-xs" data-i18n="feat_lifecycle_desc">Her Brave sürümünde politika gözden geçirmesi, sürüm bağımsız tespit.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
                 <div class="flex items-center gap-3 mb-3">
@@ -384,8 +384,8 @@
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d1">
-                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_pin_title">Sürüm Sabitleme</div>
-                <p class="text-gray-500 text-xs" data-i18n="lc_pin_desc">Her betik sürümü, başlığında doğrulanmış Brave + Chromium versiyonuyla etiketlidir.</p>
+                <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_pin_title">Sürüm Bağımsızlığı</div>
+                <p class="text-gray-500 text-xs" data-i18n="lc_pin_desc">V3 kurulu Brave + Chromium sürümünü runtime'da tespit eder; hiçbir tarayıcı sürümüne sabitlenmez.</p>
             </div>
             <div class="glow-card bg-[#000] rounded-xl p-5 animate-fade-in-up-d2">
                 <div class="text-[#22c55e] font-bold text-sm mb-2" data-i18n="lc_review_title">Her Sürümde Gözden Geçirme</div>
@@ -1372,12 +1372,12 @@ about_card2_desc: "Brave Yaln\u0131z / Temel / Dengeli / Geli\u015fmi\u015f / Ka
             feat_guard_desc: "\u00c7al\u0131\u015fan Brave \u00f6rneklerini alg\u0131lar, onay ister.",
             feat_summary_desc: "Kategori baz\u0131nda ba\u015far\u0131/hata saya\u00e7lar\u0131; \u00e7\u0131k\u0131\u015f kodu 0/1 ile CI/CD entegrasyonu.",
             feat_biling_desc: "T\u00fcrk\u00e7e ve \u0130ngilizce, birebir i\u015flevsellikle.",
-            feat_lifecycle_desc: "Her Brave s\u00fcr\u00fcm\u00fcnde politika g\u00f6zden ge\u00e7irmesi, s\u00fcr\u00fcm sabitleme.",
+            feat_lifecycle_desc: "Her Brave s\u00fcr\u00fcm\u00fcnde politika g\u00f6zden ge\u00e7irmesi, s\u00fcr\u00fcm ba\u011f\u0131ms\u0131z tespit.",
             feat_guid_desc: "Kay\u0131t defterini regex ile tarayarak Omaha GUID\u2019lerini bulur \u2014 sabit ID yok, s\u00fcr\u00fcm de\u011fi\u015fikliklerine kar\u015f\u0131 dayan\u0131kl\u0131.",
             feat_enc_desc: "Ba\u015flang\u0131\u00e7ta UTF-8 kodlamas\u0131 zorlanarak T\u00fcrk\u00e7e karakter bozulmas\u0131 \u00f6nlenir.",
             lifecycle_quote: "G\u00fcncelli\u011fini yitiren bir gizlilik s\u0131k\u0131la\u015ft\u0131rma ara\u00e7\u0131, g\u00fcvenlik g\u00fcvencesi de\u011fil \u2014 yanl\u0131\u015f bir g\u00fcvenlik duygusudur.",
-            lc_pin_title: "S\u00fcr\u00fcm Sabitleme",
-            lc_pin_desc: "Her betik s\u00fcr\u00fcm\u00fc, ba\u015fl\u0131\u011f\u0131nda do\u011frulanm\u0131\u015f Brave + Chromium versiyonuyla etiketlidir.",
+            lc_pin_title: "S\u00fcr\u00fcm Ba\u011f\u0131ms\u0131zl\u0131\u011f\u0131",
+            lc_pin_desc: "V3 kurulu Brave + Chromium s\u00fcr\u00fcm\u00fcn\u00fc runtime'da tespit eder; hi\u00e7bir taray\u0131c\u0131 s\u00fcr\u00fcm\u00fcne sabitlenmez.",
             lc_review_title: "Her S\u00fcr\u00fcmde G\u00f6zden Ge\u00e7irme",
             lc_review_desc: "Yeni Brave kararl\u0131 s\u00fcr\u00fcm\u00fcnde ADMX \u015fablonu kar\u015f\u0131la\u015ft\u0131r\u0131l\u0131r, politikalar g\u00fcncellenir.",
             lc_breaking_title: "K\u0131r\u0131c\u0131 De\u011fi\u015fiklik Bildirimleri",
@@ -1684,12 +1684,12 @@ cl_v3103: "Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıl
             feat_guard_desc: "Detects running Brave instances, prompts for confirmation.",
             feat_summary_desc: "Per-category success/failure counters with exit code 0/1 for CI/CD integration.",
             feat_biling_desc: "Turkish and English, identical functionality.",
-            feat_lifecycle_desc: "Policy review on every Brave release, version pinning.",
+            feat_lifecycle_desc: "Policy review on every Brave release, version-agnostic detection.",
             feat_guid_desc: "Scans registry with regex for Omaha updater GUIDs \u2014 no hardcoded IDs, version-resilient.",
             feat_enc_desc: "Forces UTF-8 encoding on launch to prevent Turkish character corruption.",
             lifecycle_quote: "A privacy hardening tool that falls out of date is not a safeguard \u2014 it is a false sense of security.",
-            lc_pin_title: "Version Pinning",
-            lc_pin_desc: "Every script release is tagged with the validated Brave + Chromium version combination.",
+            lc_pin_title: "Version Agnostic",
+            lc_pin_desc: "V3 detects the installed Brave + Chromium version at runtime; it is never pinned to a browser version.",
             lc_review_title: "Review on Every Release",
             lc_review_desc: "When Brave ships a new stable version, the ADMX template package is reviewed against the previous version.",
             lc_breaking_title: "Breaking Change Notices",

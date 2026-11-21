@@ -8,7 +8,7 @@ _Describe the change and what problem it solves._
 
 ## Type of Change
 
-- [ ] Version bump (Brave / Chromium)
+- [ ] Policy data-layer update (no browser-version pin)
 - [ ] New policy addition
 - [ ] Policy fix / correction
 - [ ] Bug fix
@@ -23,7 +23,7 @@ _Describe the change and what problem it solves._
 ## Checklist
 
 - [ ] Script runs without errors (`-WhatIf -Level Essential`)
-- [ ] All version constants updated (`$ScriptVersion`, `$ValidatedBrave`, `$ValidatedChromium` in `Brave-Omega/BraveOmega.ps1`)
+- [ ] `$ScriptVersion` updated if this is a project release (browser versions are detected at runtime, never pinned)
 - [ ] CHANGELOG.md updated
 - [ ] index.html updated (if applicable — version table, i18n keys)
 - [ ] README.md updated (if applicable)

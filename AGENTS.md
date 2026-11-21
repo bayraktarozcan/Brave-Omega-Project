@@ -482,11 +482,11 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v3.1.0.2` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v3.1.0.3` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | _(unpinned — detected at runtime)_ | `$ValidatedBrave` (populated from install; V3 never blocks) |
 | Chromium | _(unpinned — detected at runtime)_ | `$ValidatedChromium` (populated from install; V3 never blocks) |
 
-Policy totals: 150 across 5 tiers; cumulative chain `25 → 51 → 82 → 122 → 150` (Brave; Chrome keeps the 123 chromium-origin policies).
+Policy totals: 149 across 5 tiers; cumulative chain `25 → 51 → 82 → 121 → 149` (Brave; Chrome keeps the 122 chromium-origin policies).
 
 Versions follow `v{Version}.{Major}.{Minor}.{Revision}`. Bump scope: Revision = bug fixes, Minor = security patches and improvements, Major = features, Version = major additions. Every runtime, build and dev dependency uses the latest version; no pinned version is kept.
 
@@ -711,4 +711,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=e12fee4e0926be2d83ad769ffcff6219df9239b8 -->
+<!-- mirror-sync: sync-sha=eabb0dd1cbf4a7b2d2104ccb7b385a1cc3f5c11e -->

@@ -25,6 +25,7 @@
 ## EN English Changelog
 
 ### Table of Contents
+0. [Unreleased](#en-unreleased)
 1. [v3.1.0.3 — 2026-11-12](#en-v3103)
     * [Summary](#en-v3103-summary)
     * [Removed](#en-v3103-removed)
@@ -212,6 +213,25 @@
 <a id="en-introduction"></a>
 
 All notable changes to this project are documented below, following the [Keep a Changelog](https://keepachangelog.com/) format.
+
+---
+
+<a id="en-unreleased"></a>
+
+## [Unreleased]
+
+### Added
+
+- `Tests/ActionRefs.Tests.ps1` guards action refs, branch-map coverage and the absence of reintroduced version pins or digests.
+
+### Changed
+
+- CI follows an explicit always-latest policy: third-party actions track mutable default branches (`@main`, `@master` for `lycheeverse/lychee-action`), container images use digest-free floating tags, and PowerShell/npm/pip tooling installs the latest release. Checksum-verified downloads resolve the latest release and its checksum together at run time.
+- Python jobs run a 3.11 + latest matrix on both hosts. The GitHub repository setting `sha_pinning_required` is deliberately `false`; the decision and its risk acceptance are recorded in `SECURITY.md` §6.4 and `AGENTS.md` §13.
+
+### Fixed
+
+- Stale documentation corrected: test total 395, ADMX 149/149, 11 workflows, 9 gate checks, script v3.1.0.3, policy totals 149/122, and a missing Turkish v3.1.0.3 entry in the Wiki changelog. The Turkish mirror was refreshed in the same change.
 
 ---
 
@@ -2444,6 +2464,7 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 ## TR Türkçe Değişiklik Günlüğü
 
 ### İçindekiler
+0. [Yayınlanmadı](#tr-unreleased)
 1. [v3.1.0.3 — 2026-11-12](#tr-v3103)
     * [Özet](#tr-v3103-ozet)
     * [Kaldırıldı](#tr-v3103-kaldirildi)
@@ -2646,6 +2667,25 @@ Initial community release. Stable, tested hardening automation for Brave Browser
 <a id="tr-introduction"></a>
 
 Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachangelog.com/) formatına uygun olarak aşağıda belgelenmiştir.
+
+---
+
+<a id="tr-unreleased"></a>
+
+## [Yayınlanmadı]
+
+### Eklenenler
+
+- `Tests/ActionRefs.Tests.ps1`, aksiyon referanslarını, dal haritası kapsamını ve yeniden eklenen sürüm pin'leri veya digest'leri denetler.
+
+### Değiştirilenler
+
+- CI açık bir her daim en güncel ilkesine geçti: üçüncü parti aksiyonlar değişken varsayılan dalları izler (`@main`; `lycheeverse/lychee-action` için `@master`), konteyner imajları digest'siz floating etiketler kullanır, PowerShell/npm/pip araçları en güncel sürümü kurar. Checksum ile doğrulanan indirmeler en güncel yayını ve checksum'ını çalışma zamanında birlikte çözümler.
+- Python işleri her iki hostta 3.11 + latest matrisinde çalışır. GitHub depo ayarı `sha_pinning_required` kasıtlı olarak `false`'tur; karar ve risk kabulü `SECURITY.md` §6.4 ve `AGENTS.md` §13'te kayıtlıdır.
+
+### Düzeltilenler
+
+- Eski belgeler düzeltildi: test sayısı 395, ADMX 149/149, 11 iş akışı, 9 kapı kontrolü, betik v3.1.0.3, ilke toplamları 149/122 ve Wiki değişiklik günlüğündeki eksik Türkçe v3.1.0.3 girdisi. Türkçe ayna aynı değişiklikte yenilendi.
 
 ---
 

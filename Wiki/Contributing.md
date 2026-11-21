@@ -65,7 +65,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 When Brave releases a new stable version:
 
 1. Check [Brave ADMX templates](https://github.com/brave/brave-core/tree/master/components/policy/resources/templates/policy_definitions/BraveSoftware)
-2. Update policy values in the unified `BraveOmega.ps1` (single source; both languages follow)
+2. Update policy values in `Brave-Omega/config.json` and `Brave-Omega/Profiles/*.json` (the single policy data layer; both languages follow)
 3. Update `Version Compatibility Matrix` in wiki & README
 4. Update changelog with migration notes if keys changed
 
@@ -131,7 +131,7 @@ Test expectations:
 
 **Requirements:**
 
-- Add a column to the $Strings table and $LevelDisplayNames map in BraveOmega.ps1`r
+- Add a column to the $Strings table and $LevelDisplayNames map in BraveOmega.ps1
 - Maintain functional parity (same features, same order)
 - Use consistent terminology
 - Native speaker review preferred
@@ -271,7 +271,7 @@ PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega.ps1" -WhatIf
 Brave yeni bir kararlı sürüm yayımladığında:
 
 1. [Brave ADMX şablonlarını](https://github.com/brave/brave-core/tree/master/components/policy/resources/templates/policy_definitions/BraveSoftware) kontrol edin
-2. Politika değerlerini birleşik `BraveOmega.ps1` içinde güncelleyin (tek kaynak; iki dil de uyar)
+2. Politika değerlerini `Brave-Omega/config.json` ve `Brave-Omega/Profiles/*.json` içinde güncelleyin (tek politika veri katmanı; iki dil de uyar)
 3. Wiki ve README'deki `Sürüm Uyumluluk Matrisi`ni güncelleyin
 4. Anahtarlar değiştiyse geçiş notlarıyla değişiklik günlüğünü güncelleyin
 

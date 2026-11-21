@@ -53,22 +53,24 @@ be tolerated.
 
 | Area | Description |
 |------|-------------|
-| **Version bumps** | Updating policies when Brave or Chromium ships a new stable release |
+| **Policy updates** | Updating the data layer when Brave or Chromium ships new or deprecated policies |
 | **Policy verification** | Checking that existing policies still apply in newer versions |
 | **New Chromium policies** | Adding official enterprise policies from Chromium's documentation |
 | **Bug fixes** | Correcting registry paths, types, or values that cause unexpected behavior |
 | **Documentation** | Improving README, CHANGELOG, index.html, or this file |
 | **Translations** | Porting the English scripts and docs to additional languages |
 
-### 3. Version Updates
+### 3. Browser Updates
 
-When a new Brave stable version is released:
+V3 is version-agnostic: `$ValidatedBrave` and `$ValidatedChromium` are populated
+from the installed browser at runtime and are never pinned. When a browser
+release changes policy behavior:
 
 1. Check `brave://policy` for any deprecated or changed policies.
 2. Compare against Brave's official ADMX templates (downloaded via Group Policy
    Administrative Templates or the Chromium policy list).
-3. Update the version constants in `BraveOmega.ps1`
-   (`$ValidatedBrave`, `$ValidatedChromium`) — a single place covers both languages.
+3. Add, remove or change the policy in `Brave-Omega/config.json` and
+   `Brave-Omega/Profiles/*.json` — the only policy definition layer.
 4. Add a changelog entry.
 
 ### 4. New Policies
@@ -189,7 +191,7 @@ akışını açıklamaktadır.
 
 1. [Davranış Kuralları](#1-davranış-kuralları)
 2. [Öncelikli Alanlar](#2-öncelikli-alanlar)
-3. [Sürüm Güncellemeleri](#3-sürüm-güncellemeleri)
+3. [Tarayıcı Güncellemeleri](#3-tarayıcı-güncellemeleri)
 4. [Yeni Politikalar](#4-yeni-politikalar)
 5. [Hata Raporları](#5-hata-raporları)
 6. [Özellik Talepleri](#6-özellik-talepleri)
@@ -210,23 +212,25 @@ her katkıda bulunan değerlidir. Taciz, trolleme ve kişisel saldırılar hoş 
 
 | Alan | Açıklama |
 |------|----------|
-| **Sürüm güncellemeleri** | Brave veya Chromium yeni bir kararlı sürüm yayınladığında politikaları güncelleme |
+| **Politika güncellemeleri** | Brave veya Chromium yeni veya kullanımdan kaldırılmış politika yayınladığında veri katmanını güncelleme |
 | **Politika doğrulama** | Mevcut politikaların yeni sürümlerde hâlâ geçerli olduğunu kontrol etme |
 | **Yeni Chromium politikaları** | Chromium belgelerinden resmî kurumsal politikalar ekleme |
 | **Hata düzeltmeleri** | Beklenmeyen davranışa neden olan kayıt defteri yollarını, türlerini veya değerlerini düzeltme |
 | **Belgelendirme** | README, CHANGELOG, index.html veya bu dosyayı iyileştirme |
 | **Çeviriler** | İngilizce betikleri ve belgeleri ek dillere taşıma |
 
-### 3. Sürüm Güncellemeleri
+### 3. Tarayıcı Güncellemeleri
 
-Yeni bir Brave kararlı sürümü yayınlandığında:
+V3 sürüm-bağımsızdır: `$ValidatedBrave` ve `$ValidatedChromium` kurulu tarayıcıdan
+runtime'da doldurulur ve asla sabitlenmez. Bir tarayıcı sürümü politika davranışını
+değiştirdiğinde:
 
 1. Kullanımdan kaldırılmış veya değişmiş politikalar için `brave://policy` sayfasını
    kontrol edin.
 2. Brave'in resmî ADMX şablonları (Grup Yönetim İlkeleri Yönetim Şablonları veya Chromium
    politika listesi üzerinden indirilir) ile karşılaştırın.
-3. `BraveOmega.ps1` dosyasındaki sürüm sabitlerini
-   (`$ValidatedBrave`, `$ValidatedChromium`) güncelleyin — tek yer iki dili kapsar.
+3. Politikayı `Brave-Omega/config.json` ve `Brave-Omega/Profiles/*.json` içinde ekleyin,
+   kaldırın veya değiştirin — tek politika tanım katmanı burasıdır.
 4. Değişiklik günlüğüne bir girdi ekleyin.
 
 ### 4. Yeni Politikalar
