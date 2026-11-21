@@ -61,7 +61,7 @@
 | [🏠 Genel Bakış](Overview#-türkçe) | Brave Omega nedir, neden var, temel kavramlar |
 | [🚀 Hızlı Başlangıç](Quick-Start#-türkçe) | 3 dakikada çalıştırma |
 | [🏗️ Mimari](Architecture#-türkçe) | Çok katmanlı uygulama modeli, politika kaynakları |
-| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 150 politikalık kayıt defteri başvuru tablosu |
+| [📋 Politika Başvurusu](Policy-Reference#-türkçe) | 149 politikalık kayıt defteri başvuru tablosu |
 | [🔧 Kurulum](Installation#-türkçe) | Ön gereksinimler, çalıştırma ilkesi, adım adım |
 | [🛡️ Güvenlik](Security#-türkçe) | Güvenlik modeli, yedekleme/geri alma, süreç koruyucu |
 | [🔍 Sorun Giderme](Troubleshooting#-türkçe) | Sık karşılaşılan sorunlar ve çözümleri |

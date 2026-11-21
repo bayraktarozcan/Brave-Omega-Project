@@ -4,7 +4,7 @@ BeforeAll {
 
 Describe "Stale Policy Cleanup" -Tag "Unit" {
 
-    It "should declare v3.1.0.2 in the unified script" {
+    It "should declare v3.1.0.3 in the unified script" {
         (Get-VariableRegex -ScriptPath $ScriptMain -VariableName "ScriptVersion") | Should -Be "v3.1.0.3"
     }
 

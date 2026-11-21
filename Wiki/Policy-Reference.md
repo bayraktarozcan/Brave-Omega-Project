@@ -229,7 +229,7 @@ After running Brave Omega, verify all policies at:
 brave://policy
 ```
 
-All 150 policies should show as **Active** (green checkmark).
+All 149 policies should show as **Active** (green checkmark).
 
 ---
 
