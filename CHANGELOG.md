@@ -222,7 +222,7 @@ All notable changes to this project are documented below, following the [Keep a 
 
 ### Added
 
-- `Tests/ActionRefs.Tests.ps1` guards action refs, branch-map coverage and the absence of reintroduced version pins or digests.
+- `Tests/ActionRefs.Tests.ps1` guards action refs, branch-map coverage and the absence of reintroduced version pins or digests. `Tests/HeadingCase.Tests.ps1` enforces the new Title Case rule across Markdown headings outside code fences.
 
 ### Changed
 
@@ -1233,7 +1233,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 
 ### Removed
 
-#### 6 broken/unrecognized policies removed
+#### 6 Broken/Unrecognized Policies Removed
 
 - **`ContextualSearchEnabled`** — Unrecognized by Brave policy engine.
 - **`CrossOriginEmbedderPolicy`** — Unrecognized by Brave policy engine.
@@ -1242,7 +1242,7 @@ Historical entries below and the version-compatibility tables keep the old spell
 - **`PasswordReuseDetectionEnabled`** — Unrecognized by Brave policy engine.
 - **`TabDiscardingEnabled`** — Unrecognized by Brave policy engine.
 
-#### 3 deprecated/cloud-only policies removed (Brave verification)
+#### 3 Deprecated/Cloud-Only Policies Removed (Brave Verification)
 
 - **`CacheEncryptionEnabled`** — Cloud-only policy, not supported locally.
 - **`CloudReportingEnabled`** — Cloud-only policy, machine not registered with Brave Browser Cloud Management.
@@ -1306,12 +1306,12 @@ Fixes #50
 
 ### Removed
 
-#### From Balanced (2 policies removed)
+#### From Balanced (2 Policies Removed)
 
 - **`AutoFillEnabled`** — Deprecated in recent Chromium. Master autofill toggle is now controlled by AutofillAddressEnabled and AutofillCreditCardEnabled. Redundant.
 - **`SigninAllowed`** — Deprecated in Chrome 137+. BrowserSignin=0 at Essential tier already blocks sign-in flow entirely. Redundant.
 
-#### From Advanced (5 policies removed)
+#### From Advanced (5 Policies Removed)
 
 - **`DefaultMediaStreamSetting`** — Deprecated. Replaced by DefaultCameraSetting and DefaultMicrophoneSetting for granular camera/microphone control.
 - **`TabFreezingEnabled`** — Unrecognized by Brave ("Bilinmeyen politika"). Not a valid Chromium enterprise policy.
@@ -1319,7 +1319,7 @@ Fixes #50
 - **`NewTabPageLocation`** — Blocked by Brave. Same as HomepageLocation — Brave ignores this policy value.
 - **`RestoreOnStartup`** — Blocked by Brave. Brave controls startup behavior through its own settings.
 
-#### From Strict (1 policy removed)
+#### From Strict (1 Policy Removed)
 
 - **`GenAiDefaultSettings`** — Ignored at runtime ("Politika bir bulut kaynağı tarafından belirlenmediği için yok sayıldı"). Requires cloud source configuration not available in local policy deployment.
 
@@ -1327,7 +1327,7 @@ Fixes #50
 
 ### Changed
 
-#### Extension policy configuration (Balanced + Advanced)
+#### Extension Policy Configuration (Balanced + Advanced)
 
 - **`ExtensionInstallForcelist`** (Balanced) — Simplified to Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) only. Removed AdBlock Plus, unknown extension, and Google Docs Offline.
 - **`ExtensionInstallAllowlist`** (Advanced) — Simplified to Dark Reader only. Removed Google Docs Offline and Kaspersky Protection.
@@ -1360,19 +1360,19 @@ Fixes #50
 
 ### Added
 
-#### Essential (3 policies)
+#### Essential (3 Policies)
 
 - **`BrowserSignin`** — Disables browser sign-in flow (DWord: 0). Prevents Google account integration at the browser level.
 - **`SigninAllowed`** — Prevents Google account sign-in entirely (DWord: 0). Blocks all sign-in attempts to Google accounts.
 - **`ExtensionInstallSources`** — Restricts extension installation to Chrome Web Store only (MultiString: empty). Blocks sideloading from any other source.
 
-#### Balanced (3 policies)
+#### Balanced (3 Policies)
 
 - **`AutoFillEnabled`** — Disables the master autofill toggle (DWord: 0). Prevents the browser from offering to autofill any form data.
 - **`RelaunchNotification`** — Forces relaunch notification that cannot be dismissed (DWord: 2). Ensures users apply updates promptly.
 - **`RelaunchNotificationPeriod`** — Sets relaunch reminder to 1 hour in milliseconds (DWord: 3600000). Forces immediate update relaunch.
 
-#### Advanced (10 policies)
+#### Advanced (10 Policies)
 
 - **`HomepageLocation`** — Sets homepage to `about:blank` (String). Clean start with no external homepage.
 - **`ShowHomeButton`** — Hides the home button from the toolbar (DWord: 0). Reduces UI clutter.
@@ -1385,7 +1385,7 @@ Fixes #50
 - **`GenAiDefaultSettings`** — Disables GenAI defaults (DWord: 1). Prevents generative AI features from activating.
 - **`TabFreezingEnabled`** — Disables tab freezing (DWord: 0). Background tabs stay active for faster response time.
 
-#### Strict (14 policies)
+#### Strict (14 Policies)
 
 - **`CloudReportingEnabled`** — Disables cloud telemetry reporting (DWord: 0). Prevents usage data from being sent to cloud services.
 - **`BrowsingDataLifetime`** — Auto-clears browsing history, download history, and cached files after 24 hours (String: JSON).
@@ -1438,7 +1438,7 @@ Fixes #50
 
 ### Added
 
-#### Essential (1 policy)
+#### Essential (1 Policy)
 
 - **`ProxySettings`** — Configures proxy server address (String: JSON with `"proxyServer": "http://proxy:8080"`). Placeholder — customize per deployment.
 
@@ -1477,23 +1477,23 @@ Fixes #50
 
 ### Added
 
-#### Brave Only (2 policies)
+#### Brave Only (2 Policies)
 
 - **`SafeBrowsingProtectionLevel`** — Sets enhanced Safe Browsing protection level (DWord: 2). Blocks dangerous sites, downloads, and extensions with real-time scanning. Cumulative for all lower levels.
 - **`PasswordProtectionWarningTrigger`** — Enables password protection warning for all domains (DWord: 3). Warns users when their stored password is entered on any site. Cumulative for all lower levels.
 
-#### Essential (1 policy)
+#### Essential (1 Policy)
 
 - **`EnableOnlineRevocationChecks`** — Forces online OCSP/CRL revocation checks for TLS certificates (DWord: 1). Adds a privacy-verified certificate validation layer. Cumulative for all lower levels.
 
-#### Balanced (4 policies)
+#### Balanced (4 Policies)
 
 - **`ExtensionInstallForcelist`** — Silently installs and pins Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) and Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) extensions. Users cannot remove or disable (MultiString).
 - **`DownloadRestrictions`** — Blocks dangerous download types (DWord: 3). Prevents malicious file downloads from any site.
 - **`DownloadDirectory`** — Sets a fixed download directory path (String: `C:\BraveDownloads`).
 - **`PromptForDownloadLocation`** — Always prompts for download location before saving (DWord: 1).
 
-#### Advanced (18 policies)
+#### Advanced (18 Policies)
 
 - **`ExtensionInstallBlocklist`** — Blocks all extensions by wildcard rule (MultiString: `*`).
 - **`ExtensionInstallAllowlist`** — Empty allowlist, meaning no extension is allowed by exception (MultiString: empty).
@@ -1514,7 +1514,7 @@ Fixes #50
 - **`DefaultJavaScriptSetting`** — Allows JavaScript execution (DWord: 1). Required for modern web compatibility.
 - **`PasswordManagerEnabled`** — Enables built-in password manager (DWord: 1). Users can save and autofill passwords.
 
-#### Strict (overrides)
+#### Strict (Overrides)
 
 - **`TranslateEnabled`** — Override: top priority, forces translation enabled regardless of lower tier settings.
 - **`DownloadRestrictions`** — Override: escalated from `1` (Balanced) to `3` (Strict). Blocks dangerous AND uncommon downloads.
@@ -1566,7 +1566,7 @@ Fixes #50
 
 ### Added
 
-#### Essential (8 policies)
+#### Essential (8 Policies)
 
 - **`DefaultWebUsbGuardSetting`** — Blocks websites from accessing USB devices by default (DWord: 2).
 - **`DefaultWebBluetoothGuardSetting`** — Blocks websites from accessing Bluetooth devices by default (DWord: 2).
@@ -1577,7 +1577,7 @@ Fixes #50
 - **`PaymentMethodQueryEnabled`** — Disables Payment Request API queries, reducing fingerprinting surface (DWord: 0).
 - **`SuppressDifferentOriginSubframeDialogs`** — Suppresses JavaScript dialogs (`alert`, `confirm`, `prompt`) from cross-origin iframes (DWord: 1).
 
-#### Balanced (4 policies)
+#### Balanced (4 Policies)
 
 - **`DefaultWindowManagementSetting`** — Blocks sites from viewing detailed screen information (DWord: 2).
 - **`SitePerProcess`** — Forces every site into its own OS process for strong isolation (DWord: 1).
@@ -2179,20 +2179,20 @@ Documentation:
 
 ### ✨ Added
 
-#### Telemetry & Analytics (2 policies)
+#### Telemetry & Analytics (2 Policies)
 - `BraveP3AEnabled = 0` — Disables Privacy-Preserving Product Analytics (P3A)
 - `BraveWebDiscoveryEnabled = 0` — Disables Web Discovery Project data contribution
 
-#### Integrated Services (3 policies)
+#### Integrated Services (3 Policies)
 - `BraveTalkDisabled = 1` — Disables Brave Talk video conferencing
 - `BraveNewsDisabled = 1` — Disables Brave News feed
 - `BravePlaylistEnabled = 0` — Disables Brave Playlist
 
-#### Reader & Discovery (2 policies)
+#### Reader & Discovery (2 Policies)
 - `BraveSpeedreaderEnabled = 0` — Disables Speedreader mode
 - `BraveWaybackMachineEnabled = 0` — Disables Wayback Machine integration
 
-#### Network & Other (1 policy)
+#### Network & Other (1 Policy)
 - `TorDisabled = 1` — Disables Tor network integration
 
 #### Documentation
@@ -2676,7 +2676,7 @@ Bu projedeki tüm önemli değişiklikler, [Keep a Changelog](https://keepachang
 
 ### Eklenenler
 
-- `Tests/ActionRefs.Tests.ps1`, aksiyon referanslarını, dal haritası kapsamını ve yeniden eklenen sürüm pin'leri veya digest'leri denetler.
+- `Tests/ActionRefs.Tests.ps1`, aksiyon referanslarını, dal haritası kapsamını ve yeniden eklenen sürüm pin'leri veya digest'leri denetler. `Tests/HeadingCase.Tests.ps1`, kod blokları dışındaki Markdown başlıklarında yeni Başlık Büyüklüğü kuralını uygular.
 
 ### Değiştirilenler
 
@@ -3689,7 +3689,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 
 ### Kaldırıldı
 
-#### 6 bozuk/tanınmayan politika kaldırıldı
+#### 6 Bozuk/Tanınmayan Politika Kaldırıldı
 
 - **`ContextualSearchEnabled`** — Brave politika motoru tarafından tanınmıyor.
 - **`CrossOriginEmbedderPolicy`** — Brave politika motoru tarafından tanınmıyor.
@@ -3698,7 +3698,7 @@ Aşağıdaki tarihsel girdiler ve sürüm uyumluluk tabloları eski yazımları 
 - **`PasswordReuseDetectionEnabled`** — Brave politika motoru tarafından tanınmıyor.
 - **`TabDiscardingEnabled`** — Brave politika motoru tarafından tanınmıyor.
 
-#### 3 kullanımdan kaldırılmış/bulut politikası kaldırıldı (Brave doğrulaması)
+#### 3 Kullanımdan Kaldırılmış/Bulut Politikası Kaldırıldı (Brave Doğrulaması)
 
 - **`CacheEncryptionEnabled`** — Yalnızca bulut politikası, yerel olarak desteklenmiyor.
 - **`CloudReportingEnabled`** — Yalnızca bulut politikası, cihaz Brave Tarayıcı Bulut Yönetimi'ne kayıtlı değil.
@@ -3762,12 +3762,12 @@ Fixes #50
 
 ### Kaldırıldı
 
-#### Dengeli'den kaldırılan (2 politika)
+#### Dengeli'den Kaldırılan (2 Politika)
 
 - **`AutoFillEnabled`** — Son Chromium sürümlerinde kullanımdan kaldırıldı. Ana otomatik doldurma artık AutofillAddressEnabled ve AutofillCreditCardEnabled ile kontrol edilir. Gereksiz.
 - **`SigninAllowed`** — Chrome 137+'da kullanımdan kaldırıldı. Essential kademesindeki BrowserSignin=0 zaten oturum açma akışını tamamen engeller. Gereksiz.
 
-#### Gelişmiş'den kaldırılan (5 politika)
+#### Gelişmiş'den Kaldırılan (5 Politika)
 
 - **`DefaultMediaStreamSetting`** — Kullanımdan kaldırıldı. Yerine DefaultCameraSetting ve DefaultMicrophoneSetting ile ayrıntılı kamera/mikrofon kontrolü gelmiştir.
 - **`TabFreezingEnabled`** — Brave tarafından tanınmadı ("Bilinmeyen politika"). Geçerli bir Chromium kurumsal politikası değil.
@@ -3775,7 +3775,7 @@ Fixes #50
 - **`NewTabPageLocation`** — Brave tarafından engellendi. HomepageLocation ile aynı — Brave bu politika değerini yoksayar.
 - **`RestoreOnStartup`** — Brave tarafından engellendi. Brave başlangıç davranışını kendi ayarlarıyla kontrol eder.
 
-#### Katı'dan kaldırılan (1 politika)
+#### Katı'dan Kaldırılan (1 Politika)
 
 - **`GenAiDefaultSettings`** — Çalışma zamanında yoksayıldı ("Politika bir bulut kaynağı tarafından belirlenmediği için yok sayıldı"). Yerel politika dağıtımında mevcut olmayan bulut kaynağı yapılandırması gerektirir.
 
@@ -3783,7 +3783,7 @@ Fixes #50
 
 ### Değiştirildi
 
-#### Uzantı politikası yapılandırması (Dengeli + Gelişmiş)
+#### Uzantı Politikası Yapılandırması (Dengeli + Gelişmiş)
 
 - **`ExtensionInstallForcelist`** (Dengeli) — Yalnızca Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) olarak basitleştirildi. AdBlock Plus, bilinmeyen uzantı ve Google Dokümanlar Çevrimdışı kaldırıldı.
 - **`ExtensionInstallAllowlist`** (Gelişmiş) — Yalnızca Dark Reader olarak basitleştirildi. Google Dokümanlar Çevrimdışı ve Kaspersky Protection kaldırıldı.
@@ -3816,19 +3816,19 @@ Fixes #50
 
 ### Eklendi
 
-#### Temel (3 politika)
+#### Temel (3 Politika)
 
 - **`BrowserSignin`** — Tarayıcı oturum açma akışını devre dışı bırakır (DWord: 0). Tarayıcı düzeyinde Google hesabı entegrasyonunu engeller.
 - **`SigninAllowed`** — Google hesabına tamamen oturum açmayı engeller (DWord: 0). Google hesaplarına yapılan tüm oturum açma denemelerini engeller.
 - **`ExtensionInstallSources`** — Eklenti yüklemeyi yalnızca Chrome Web Mağazası ile kısıtlar (MultiString: boş). Başka herhangi bir kaynaktan yükleme yolunu engeller.
 
-#### Dengeli (3 politika)
+#### Dengeli (3 Politika)
 
 - **`AutoFillEnabled`** — Ana otomatik doldurma seçeneğini devre dışı bırakır (DWord: 0). Tarayıcının herhangi bir form verisini otomatik doldurmayı teklif etmesini engeller.
 - **`RelaunchNotification`** — Kapatılamayan yeniden başlatma bildirimini zorlar (DWord: 2). Kullanıcıların güncellemeleri zamanında uygulamasını sağlar.
 - **`RelaunchNotificationPeriod`** — Yeniden başlatma hatırlatıcısını 1 saate ayarlar (DWord: 3600000). Anında güncelleme yeniden başlatmasını zorlar.
 
-#### Gelişmiş (10 politika)
+#### Gelişmiş (10 Politika)
 
 - **`HomepageLocation`** — Ana sayfayı `about:blank` olarak ayarlar (String). Dış ana sayfa olmadan temel başlangıç.
 - **`ShowHomeButton`** — Araç çubuğundaki ana sayfa düğmesini gizler (DWord: 0). Arayüz kalabalığını azaltır.
@@ -3841,7 +3841,7 @@ Fixes #50
 - **`GenAiDefaultSettings`** — GenAI varsayılanlarını devre dışı bırakır (DWord: 1). Üretken yapay zeka özelliklerinin etkinleşmesini engeller.
 - **`TabFreezingEnabled`** — Sekme dondurmayı devre dışı bırakır (DWord: 0). Arka plan sekmeleri daha hızlı tepki süresi için aktif kalır.
 
-#### Katı (14 politika)
+#### Katı (14 Politika)
 
 - **`CloudReportingEnabled`** — Bulut☁️ raporlamasını devre dışı bırakır (DWord: 0). Kullanım verilerinin bulut hizmetlerine gönderilmesini engeller.
 - **`BrowsingDataLifetime`** — Tarama geçmişini, indirme geçmişini ve önbelleğe alınmış dosyaları 24 saat sonra otomatik olarak temizler (String: JSON).
@@ -3894,7 +3894,7 @@ Fixes #50
 
 ### Eklendi
 
-#### Temel (1 politika)
+#### Temel (1 Politika)
 
 - **`ProxySettings`** — Proxy sunucu adresini yapılandırır (String: JSON ile `"proxyServer": "http://proxy:8080"`). Yer tutucu — dağıtıma göre özelleştirin.
 
@@ -3933,23 +3933,23 @@ Fixes #50
 
 ### Eklendi
 
-#### Brave Yalnız (2 politika)
+#### Brave Yalnız (2 Politika)
 
 - **`SafeBrowsingProtectionLevel`** — Gelişmiş Güvenli Gezinti koruma seviyesini ayarlar (DWord: 2). Tehlikeli siteleri, indirmeleri ve uzantıları gerçek zamanlı taramayla engeller. Sonraki tüm seviyeler için kümülatif.
 - **`PasswordProtectionWarningTrigger`** — Tüm alan adlarında parola koruma uyarısını etkinleştirir (DWord: 3). Kaydedilmiş parola herhangi bir siteye girildiğinde kullanıcıyı uyarır. Sonraki tüm seviyeler için kümülatif.
 
-#### Temel (1 politika)
+#### Temel (1 Politika)
 
 - **`EnableOnlineRevocationChecks`** — TLS sertifikaları için çevrimiçi OCSP/CRL iptal denetimini zorlar (DWord: 1). Gizlilik onaylı sertifika doğrulama katmanı ekler. Sonraki tüm seviyeler için kümülatif.
 
-#### Dengeli (4 politika)
+#### Dengeli (4 Politika)
 
 - **`ExtensionInstallForcelist`** — Dark Reader (`eimadpbcbfnmbkopoojfekhnkhdbieeh`) ve Google Docs Offline (`ghbmnnjooekpmoecnnfilnnbdbckceme`) uzantılarını sessizce yükler ve sabitler. Kullanıcılar kaldıramaz veya devre dışı bırakamaz (MultiString).
 - **`DownloadRestrictions`** — Tehlikeli indirme türlerini engeller (DWord: 3). Kötü amaçlı dosya indirmelerini herhangi bir siteden önler.
 - **`DownloadDirectory`** — Sabit bir indirme dizini yolu belirler (String: `C:\BraveDownloads`).
 - **`PromptForDownloadLocation`** — Kaydetmeden önce her zaman indirme konumu sorar (DWord: 1).
 
-#### Gelişmiş (18 politika)
+#### Gelişmiş (18 Politika)
 
 - **`ExtensionInstallBlocklist`** — Tüm uzantıları joker karakter kuralıyla engeller (MultiString: `*`).
 - **`ExtensionInstallAllowlist`** — Boş izin listesi, hiçbir uzantıya istisna tanınmaz (MultiString: boş).
@@ -3970,7 +3970,7 @@ Fixes #50
 - **`DefaultJavaScriptSetting`** — JavaScript çalışmasına izin verir (DWord: 1). Modern web uyumluluğu için gereklidir.
 - **`PasswordManagerEnabled`** — Yerleşik şifre yöneticisini etkinleştirir (DWord: 1). Kullanıcılar şifreleri kaydedebilir ve otomatik doldurabilir.
 
-#### Katı (override'lar)
+#### Katı (Override'lar)
 
 - **`TranslateEnabled`** — Override: üst öncelik, alt seviye ayarlarından bağımsız olarak çeviriyi zorlar.
 - **`DownloadRestrictions`** — Override: Dengeli'deki `1` değerinden `3`'e yükseltilir. Tehlikeli VE yaygın olmayan indirmeleri engeller.
@@ -4022,7 +4022,7 @@ Fixes #50
 
 ### Eklendi
 
-#### Temel (8 politika)
+#### Temel (8 Politika)
 
 - **`DefaultWebUsbGuardSetting`** — Web sitelerinin USB aygıtlarına erişimini varsayılan olarak engeller (DWord: 2).
 - **`DefaultWebBluetoothGuardSetting`** — Web sitelerinin Bluetooth aygıtlarına erişimini varsayılan olarak engeller (DWord: 2).
@@ -4033,7 +4033,7 @@ Fixes #50
 - **`PaymentMethodQueryEnabled`** — Payment Request API sorgularını devre dışı bırakır, parmak izi yüzeyini azaltır (DWord: 0).
 - **`SuppressDifferentOriginSubframeDialogs`** — Farklı kaynaklı iframe'lerden gelen JavaScript iletişim kutularını (`alert`, `confirm`, `prompt`) bastırır (DWord: 1).
 
-#### Dengeli (4 politika)
+#### Dengeli (4 Politika)
 
 - **`DefaultWindowManagementSetting`** — Sitelerin ayrıntılı ekran bilgilerini görmesini engeller (DWord: 2).
 - **`SitePerProcess`** — Her siteyi güçlü yalıtım için kendi işleminde çalışmaya zorlar (DWord: 1).
@@ -4456,7 +4456,7 @@ Eklenen/Değiştirilen Dosyalar:
 - **MultiString** (REG_MULTI_SZ) desteği liste politikalar için (WebRtcLocalIpsAllowedUrls)
 - **Tür bilinçli dağıtım** — betik her politika için doğru kayıt defteri yazma yöntemini otomatik seçer
 
-#### Seviyelere Göre Yeni Politikalar
+#### Seviyelere göre Yeni Politikalar
 
 **Temel (17 yeni — veri sızıntısı önleme, sıfır kullanım etkisi):**
 | Politika | Değer | Etki |
@@ -4638,20 +4638,20 @@ Belgelendirme:
 
 ### ✨ Eklendi
 
-#### Telemetri ve Analiz (2 politika)
+#### Telemetri ve Analiz (2 Politika)
 - `BraveP3AEnabled = 0` — Gizliliği Koruyan Ürün Analizlerini (P3A) devre dışı bırakır
 - `BraveWebDiscoveryEnabled = 0` — Web Keşif Projesi veri katkısını devre dışı bırakır
 
-#### Entegre Hizmetler (3 politika)
+#### Entegre Hizmetler (3 Politika)
 - `BraveTalkDisabled = 1` — Brave Talk video konferansını devre dışı bırakır
 - `BraveNewsDisabled = 1` — Brave Haber akışını devre dışı bırakır
 - `BravePlaylistEnabled = 0` — Brave Çalma Listesini devre dışı bırakır
 
-#### Okuyucu ve Keşif (2 politika)
+#### Okuyucu ve Keşif (2 Politika)
 - `BraveSpeedreaderEnabled = 0` — Hızlı Okuyucu modunu devre dışı bırakır
 - `BraveWaybackMachineEnabled = 0` — Wayback Machine entegrasyonunu devre dışı bırakır
 
-#### Ağ ve Diğer (1 politika)
+#### Ağ ve Diğer (1 Politika)
 - `TorDisabled = 1` — Tor ağı entegrasyonunu devre dışı bırakır
 
 #### Belgelendirme
