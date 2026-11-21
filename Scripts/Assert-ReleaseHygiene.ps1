@@ -94,6 +94,36 @@ function Get-NormalizedWords {
     return @($clean.ToLowerInvariant().Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries))
 }
 
+function Test-NoteGenerator {
+    param([string]$CurrentTag, [string]$GeneratorPath, [string]$RepoRoot)
+    if (-not (Test-Path -LiteralPath $GeneratorPath)) { return @('note-generator: Build-ReleaseNotes.ps1 missing') }
+    $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ('note-gen-' + [guid]::NewGuid().ToString('N') + '.md')
+    try {
+        $null = & $GeneratorPath -Version $CurrentTag.TrimStart('v', 'V') -Current -Output $tmp 2>&1
+        if (-not (Test-Path -LiteralPath $tmp)) { return @('note-generator: no body produced') }
+        $body = [System.IO.File]::ReadAllText($tmp)
+        $required = @('### Summary', '### Files', '### Documentation',
+            '### Özet', '### Dosyalar', '### Belgelendirme')
+        $missing = @($required | Where-Object { -not $body.Contains($_) })
+        if ($missing.Count -gt 0) { return @('note-generator: missing ' + ($missing -join ', ')) }
+        if ($body -cnotmatch '(?ms)^### Summary\s*\n+\S') { return @('note-generator: empty English summary') }
+        if ($body -cnotmatch '(?ms)^### Özet\s*\n+\S') { return @('note-generator: empty Turkish summary') }
+        $enContent = @([regex]::Matches($body, '(?m)^### (Added|Changed|Removed|Fixed)\s*$'))
+        $trContent = @([regex]::Matches($body, '(?m)^### (Eklendi|Eklenenler|Değiştirildi|Değiştirilenler|Kaldırıldı|Kaldırılanlar|Düzeltildi|Düzeltilendi|Düzeltilenler)\s*$'))
+        if ($enContent.Count -eq 0 -or $trContent.Count -eq 0 -or $enContent.Count -ne $trContent.Count) {
+            return @('note-generator: EN/TR content sections differ')
+        }
+        if (@([regex]::Matches($body, '(?m)^## v')).Count -ne 2) {
+            return @('note-generator: body does not have two version headings')
+        }
+        return @()
+    } catch {
+        return @("note-generator: $_")
+    } finally {
+        if (Test-Path -LiteralPath $tmp) { Remove-Item -LiteralPath $tmp -Force }
+    }
+}
+
 function Test-ReleaseHygiene {
     param(
         [object[]]$GitHub,
@@ -248,9 +278,14 @@ function Test-ReleaseHygiene {
 if ($Library) { return }
 
 $current = Get-CurrentVersion
+$repoRoot = Split-Path -Parent $PSScriptRoot
 $gh = @(Get-GitHubReleases -Repo $Repository)
 $gl = @(Get-GitLabReleases -Project $GitLabProject)
 $failures = @(Test-ReleaseHygiene -GitHub $gh -GitLab $gl -CurrentTag $current)
+$failures += @(Test-NoteGenerator -CurrentTag $current -GeneratorPath (Join-Path $PSScriptRoot 'Build-ReleaseNotes.ps1') -RepoRoot $repoRoot)
+if (@($failures | Where-Object { $_ -like 'note-generator:*' }).Count -eq 0) {
+    Write-Host 'PASS note-generator: canonical bilingual notes for the current tag'
+}
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Host "FAIL $_" }
     exit 1

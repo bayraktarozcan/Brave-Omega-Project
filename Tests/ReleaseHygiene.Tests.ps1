@@ -189,6 +189,11 @@ Describe 'Published release hygiene' -Tag 'Unit' {
         $helper | Should -Match '\[System\.Text\.Encoding\]::UTF8\.GetString'
     }
 
+    It 'audits the generator for the canonical current tag' {
+        $generator = Join-Path $script:RepoRoot 'Scripts\Build-ReleaseNotes.ps1'
+        @(Test-NoteGenerator -CurrentTag 'v3.1.0.5' -GeneratorPath $generator -RepoRoot $script:RepoRoot) | Should -BeNullOrEmpty
+    }
+
     It 'keeps the historical coverage exemption narrow' {
         $script:CoverageExemptTags | Should -Be @('v1.0', 'v1.1')
     }
