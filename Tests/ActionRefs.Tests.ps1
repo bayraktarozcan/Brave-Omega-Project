@@ -7,8 +7,12 @@
 # drifts away from it.
 #
 # What this check cannot see: a future upstream default-branch rename that is
-# not reflected in the map. The map is deliberately local and deterministic so
-# the gate does not depend on network access; refreshing it is a code change.
+# not reflected in the map, a self-authored map that is itself wrong, or a
+# compromise of a tracked branch. It proves that the workflows agree with this
+# local declaration, not that the upstream refs are still what we believe.
+# The map is deliberately local and deterministic so the gate does not depend
+# on network access; refreshing it is a reviewed code change. Branch compromise
+# is the accepted risk recorded in SECURITY.md §6.4.
 
 BeforeAll {
     $script:RepoRoot = Split-Path -Parent $PSScriptRoot
@@ -53,7 +57,8 @@ Describe 'Action reference invariants' -Tag 'Unit' {
 
         $pinPattern = '(?m)(?:RequiredVersion\s+\S+|@sha256:[0-9a-f]{64}|pip install [^\s]+==|GITLEAKS_VERSION|PESTER_VERSION|PSSA_VERSION|MARKDOWNLINT_CLI2_VERSION|LYCHEE_VERSION|ACTIONLINT_VERSION)'
         $pins = @()
-        foreach ($path in (@(Join-Path $script:WorkflowDir 'quality.yml') + @(Join-Path $script:WorkflowDir 'secret-scan.yml') + @(Join-Path $script:RepoRoot '.gitlab-ci.yml'))) {
+        $ciFiles = @(Get-ChildItem -LiteralPath $script:WorkflowDir -Filter '*.yml' | ForEach-Object { $_.FullName }) + @(Join-Path $script:RepoRoot '.gitlab-ci.yml')
+        foreach ($path in $ciFiles) {
             $text = Get-Content -LiteralPath $path -Raw
             foreach ($match in [regex]::Matches($text, $pinPattern)) {
                 $pins += "$(Split-Path -Leaf $path): $($match.Value)"

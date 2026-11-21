@@ -1283,7 +1283,9 @@ Describe "Repository file and directory naming" -Tag "Unit" {
 
         It "the update-check step reads the version from the renamed local file" {
             $workflow = Get-Content -LiteralPath (Join-Path $ProjectRoot ".github\workflows\admx-validate.yml") -Raw
+            $gitlabCi = Get-Content -LiteralPath (Join-Path $ProjectRoot ".gitlab-ci.yml") -Raw
             $workflow | Should -Not -Match 'VERSION_BRAVE_ADMX' -Because "that file is gone, and a stale reference would break the step"
+            $gitlabCi | Should -Not -Match 'VERSION_BRAVE_ADMX' -Because "the second host carries the same update check, so a stale reference there would break it too"
             # Case-sensitive, and that is the point of the line. The remote archive
             # still names its own file in lowercase, so an ordinary -Match would be
             # satisfied by the one reference that is *not* ours to rename and would
@@ -1291,6 +1293,7 @@ Describe "Repository file and directory naming" -Tag "Unit" {
             # no longer exists. The inline flag turns case folding off for this one
             # pattern, so the lowercase vendor name cannot stand in for ours.
             $workflow | Should -Match '(?-i:Brave\.admx)' -Because "the step must read the version from the single source of truth, under its current name and nothing else on the page matches it"
+            $gitlabCi | Should -Match '(?-i:Brave\.admx)' -Because "the second host's update check must read the same source of truth as the first"
         }
     }
 }
