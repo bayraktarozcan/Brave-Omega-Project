@@ -210,6 +210,10 @@ Describe "CI conformance" {
                 $text = Get-Content -LiteralPath $path -Raw
                 $text | Should -Match "\($actual (files|dosya)\)" -Because "$name must not promise a stale workflow count"
             }
+
+            $autoMerge = Get-Content -LiteralPath (Join-Path $script:WorkflowDir 'dependabot-auto-merge.yml') -Raw
+            $autoMerge | Should -Match '(?m)^  noop:' -Because 'a run with no mergeable PR must not report all jobs skipped'
+            $autoMerge | Should -Match "workflow_run\.event != 'pull_request'"
         }
     }
 }

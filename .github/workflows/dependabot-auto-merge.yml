@@ -87,3 +87,14 @@ jobs:
           chmod +x "$helper"
           git -c credential.helper= -c "credential.helper=$helper" \
             push "https://gitlab.com/${GITLAB_REPOSITORY}.git" HEAD:refs/heads/main
+
+  noop:
+    name: Skip (non-mergeable workflow run)
+    runs-on: ubuntu-latest
+    # A workflow whose only job is skipped reports "skipped", which fails a
+    # required-check expectation. Keep the run green on push-triggered or
+    # failed Quality runs where there is no Dependabot PR to merge.
+    if: github.event.workflow_run.event != 'pull_request' || github.event.workflow_run.conclusion != 'success'
+    steps:
+      - name: No-op
+        run: echo "No Dependabot merge to perform for this workflow run."
