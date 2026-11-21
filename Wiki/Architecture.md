@@ -33,7 +33,7 @@ Brave Omega uses a **three-tier enforcement model** that creates redundant, inde
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Hardening Levels (v2.0+)
+## Hardening Levels (V2.0+)
 
 In addition to the three enforcement tiers, Brave Omega v2.0+ offers **five hardening levels** with cumulative inheritance. Each level includes all policies from the previous one:
 
@@ -135,7 +135,7 @@ Every policy is traceable to one authoritative source:
    └─ Exit code 0 on success, non-zero on failure
 ```
 
-### Why policies are written one at a time
+### Why Policies Are Written One at a Time
 
 The apply step writes each policy with its own `New-ItemProperty` rather than
 staging a single `.reg` file and importing it in one pass. That is a deliberate
@@ -214,7 +214,7 @@ Brave Omega, Windows + Brave + Omaha yığınının her katmanında bağımsız 
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Sıkılaştırma Seviyeleri (v2.0+)
+## Sıkılaştırma Seviyeleri (V2.0+)
 
 Üç zorunlu kılma katmanına ek olarak, Brave Omega v2.0+ **beş sıkılaştırma seviyesi** sunar. Her seviye bir öncekinin tüm politikalarını kapsar:
 
@@ -316,7 +316,7 @@ Her politika tek bir yetkili kaynağa izlenebilir:
    └─ Başarıda çıkış kodu 0, hatada sıfır değil
 ```
 
-### Neden politikalar tek tek yazılıyor?
+### Neden Politikalar Tek Tek Yazılıyor?
 
 Uygulama adımı, politikaları hazırlanmış tek bir `.reg` dosyasıyla toplu
 içe aktarmak yerine her biri için kendi `New-ItemProperty` çağrısıyla yazar. Bu

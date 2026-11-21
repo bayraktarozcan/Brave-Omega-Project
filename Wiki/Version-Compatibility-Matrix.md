@@ -89,24 +89,24 @@ Every Brave Omega release is **explicitly pinned** to:
 
 ## Version Selection Guide
 
-### Use Current (v3.1.0.3) If
+### Use Current (V3.1.0.3) If
 
 - Running any Brave release (V3 version-agnostic — no pinned version)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 149 total policies
 
-### Use Previous (v3.1.0.2) If
+### Use Previous (V3.1.0.2) If
 
 - Cannot update to v3.1.0.3 immediately
 - Do not need Windows Chrome support
 
-### Use Legacy (v2.2.1.0) If
+### Use Legacy (V2.2.1.0) If
 
 - Cannot update to v2.3.x immediately
 - Running Brave 1.92.134
 - Need hardware API blocking and ECH enforcement
 
-### Avoid Archived (v1.0) If
+### Avoid Archived (V1.0) If
 
 - Policies outdated (only 7 vs 150 current)
 - No backup/rollback, no process guard
@@ -325,24 +325,24 @@ Her Brave Omega sürümü **açıkça şunlara sabitlenmiştir**:
 
 ## Sürüm Seçim Kılavuzu
 
-### Güncel (v3.1.0.3) Kullan Eğer
+### Güncel (V3.1.0.3) Kullan Eğer
 
 - Herhangi bir Brave sürümü çalışıyorsa (V3 sürüm-bağımsız — sabit sürüm yok)
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
 - Tam uzantı kilitleme, proxy zorunlu kılma ve 150 toplam politika
 
-### Önceki (v3.0.2.0) Kullan Eğer
+### Önceki (V3.0.2.0) Kullan Eğer
 
 - Hemen v3.1.0.3'e güncelleyemiyorsanız
 - Windows Chrome desteğine ihtiyacınız yoksa
 
-### Eski (v2.2.1.0) Kullan Eğer
+### Eski (V2.2.1.0) Kullan Eğer
 
 - Hemen v2.3.x güncelleyemiyorsanız
 - Brave 1.92.134 çalışıyorsa
 - Donanım API engelleme ve ECH zorlamaya ihtiyacınız varsa
 
-### Arşivlenmiş (v1.0) Kullanma Eğer
+### Arşivlenmiş (V1.0) Kullanma Eğer
 
 - Politikalar güncel değil (7'ye karşı 150)
 - Yedekleme/geri alma, süreç koruyucusu yok
@@ -380,7 +380,7 @@ if (Test-Path $bravePath) {
 
 ---
 
-## Sürüme Göre Politika Kapsamı
+## Sürüme göre Politika Kapsamı
 
 | Sürüm | Politika | Kapsam | Yeni Politikalar |
 | v3.1.0.2 | 150 | 100% | Yama sürümü — WhatsApp Web bildirim izin listesi ve sürüm eşliği düzeltmeleri (2026-10-23). `NotificationsAllowedForUrls` Brave Yalnız katmanında yalnızca `https://web.whatsapp.com` adresine izin verir; Temel/Dengeli/Gelişmiş tarafından devralınır ve Katı katmanında boşaltılır; GitLab sürüm deprecation'ı ve liste değerli .reg temizliği düzeltildi; toplam 150; zincir 25 / 51 / 82 / 122 / 150. 5 seviyede de gerileme yok |

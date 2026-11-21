@@ -29,7 +29,7 @@ Quick-reference guide for common Brave Omega issues.
 
 ## Detailed Solutions
 
-### 1. "CRITICAL ERROR: Administrator privileges required"
+### 1. "CRITICAL ERROR: Administrator Privileges Required"
 
 **Cause:** Script not running with elevated privileges.
 
@@ -283,7 +283,7 @@ Sık karşılaşılan Brave Omega sorunları için hızlı başvuru kılavuzu.
 
 ## Ayrıntılı Çözümler
 
-### 1. "KRİTİK HATA: Yönetici ayrıcalıkları gerekli"
+### 1. "KRİTİK HATA: Yönetici Ayrıcalıkları Gerekli"
 
 **Neden:** Betik yükseltilmiş ayrıcalıklarla çalışmıyor.
 

@@ -400,7 +400,7 @@ Katkıda bulunanlar şuralarda tanınır:
 
 ---
 
-## Sorularınız mı Var?
+## Sorularınız Mı Var?
 
 - [GitHub Tartışmaları](https://github.com/bayraktarozcan/Brave-Omega-Project/discussions)
 - [Sorun Takipçisi](https://github.com/bayraktarozcan/Brave-Omega-Project/issues)

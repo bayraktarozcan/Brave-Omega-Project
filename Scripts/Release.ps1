@@ -169,12 +169,12 @@ Write-Host ""
 # ----------------------------------------
 Write-Step "1/7" "Validating..."
 
-# Check version format
+# Check Version Format
 if ($Version -notmatch "^v\d+\.\d+\.\d+\.\d+$") {
     throw "Invalid version format: $Version (expected: vX.Y.Z.W)"
 }
 
-# Check if version exists in script
+# Check if Version Exists in Script
 $scriptPath = Join-Path $scriptDir "Brave-Omega\BraveOmega.ps1"
 if (Test-Path $scriptPath) {
     $scriptContent = Get-Content $scriptPath -Raw
@@ -221,7 +221,7 @@ if ($SkipWiki) {
     $originalLocation = Get-Location
 
     try {
-        # Clone wiki
+        # Clone Wiki
         $wikiUrl = "https://github.com/$repo.wiki.git"
         Write-Host "  Cloning $wikiUrl..." -ForegroundColor White
         $cloneOutput = git clone $wikiUrl $wikiTemp 2>&1
@@ -231,11 +231,11 @@ if ($SkipWiki) {
         git -C $wikiTemp config user.name "github-actions[bot]"
         git -C $wikiTemp config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-        # Copy files
+        # Copy Files
         $wikiSource = Join-Path $scriptDir "Wiki\*"
         Copy-Item $wikiSource "$wikiTemp\" -Force
 
-        # Check for changes
+        # Check for Changes
         Set-Location $wikiTemp
         git add -A | Out-Null
         $wikiStatus = git status --porcelain
@@ -266,7 +266,7 @@ if ($SkipDeprecate) {
 } else {
     Write-Step "4/7" "Deprecating previous release..."
 
-    # Find current latest release
+    # Find Current Latest Release
     $latestJson = gh release list --repo $repo --limit 10 --json tagName,name,isLatest,isDraft 2>&1
     if ($LASTEXITCODE -eq 0) {
         $releases = $latestJson | ConvertFrom-Json
@@ -282,7 +282,7 @@ if ($SkipDeprecate) {
                 $deprecatedName = "$($currentLatest.name) [DEPRECATED]"
 
                 if (-not $DryRun) {
-                    # Update title
+                    # Update Title
                     gh release edit $currentLatest.tagName --repo $repo --title "$deprecatedName" 2>&1 | Out-Null
 
                     # Set make_latest to false

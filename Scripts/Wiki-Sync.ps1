@@ -27,13 +27,13 @@ if ($DryRun) { Write-Host "  MODE: DRY-RUN" -ForegroundColor DarkYellow }
 $wikiTemp = Join-Path $env:TEMP "wiki-sync-$([guid]::NewGuid().ToString('N').Substring(0,8))"
 
 try {
-    # Clone wiki
+    # Clone Wiki
     $wikiUrl = "https://github.com/$repo.wiki.git"
     Write-Host "  Cloning $wikiUrl..." -ForegroundColor White
     $cloneOutput = git clone $wikiUrl $wikiTemp 2>&1
     if ($LASTEXITCODE -ne 0) { throw "Failed to clone wiki: $cloneOutput" }
 
-    # Copy files
+    # Copy Files
     $wikiSource = Join-Path (Split-Path -Parent $PSScriptRoot) "Wiki\*"
     if (-not (Test-Path $wikiSource)) {
         # Fallback: try from current directory
@@ -41,7 +41,7 @@ try {
     }
     Copy-Item $wikiSource "$wikiTemp\" -Force
 
-    # Check for changes
+    # Check for Changes
     Set-Location $wikiTemp
     git add -A | Out-Null
     $wikiStatus = git status --porcelain

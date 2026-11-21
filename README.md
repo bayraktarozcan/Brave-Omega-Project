@@ -69,7 +69,7 @@
 
 ---
 
-### 1. What is Brave Omega?
+### 1. What İs Brave Omega?
 
 Brave Omega is an open-source PowerShell automation project that hardens the
 [Brave Browser](https://brave.com) through **official enterprise policy channels**. Using
@@ -294,7 +294,7 @@ excluded — along with a documented explanation of why.
 
 <a id="7-lifecycle-commitment-throughout-lifecycle-always-up-to-date"></a>
 
-### 7. ♻️ Lifecycle Commitment: Throughout Lifecycle Always Up-to-Date
+### 7. ♻️ Lifecycle Commitment: Throughout Lifecycle Always Up-To-Date
 
 > **A privacy hardening tool that falls out of date is not a safeguard — it is a false sense of security.**
 
@@ -390,7 +390,7 @@ no longer have any effect.
 
 > Brave Omega offers **5 hardening levels** with **149 enterprise policies** total. The policy reference below is organized by registry hive and level.
 
-#### 9.1 HKCU — User-Level Preferences (all levels)
+#### 9.1 HKCU — User-Level Preferences (All Levels)
 
 | Registry Key | Hive | Value | Type | Effect |
 |--------------|------|-------|------|--------|
@@ -428,7 +428,7 @@ no longer have any effect.
 | `NotificationsAllowedForUrls` | `@("https://web.whatsapp.com")` | MultiString | Allows WhatsApp Web notifications while every other origin stays blocked |
 | `EmailAliasesEnabled` | `0` | DWord | Disables anonymous email alias feature |
 
-#### 9.3 Essential Level — Brave Only + Data Leak Prevention (26 additional)
+#### 9.3 Essential Level — Brave Only + Data Leak Prevention (26 Additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -459,7 +459,7 @@ no longer have any effect.
 | `ScreenCaptureAllowed` | `0` | DWord | Blocks web screen capture APIs (getDisplayMedia, etc.) |
 | `DownloadRestrictions` | `4` | DWord | Blocks only downloads verified as malicious (moved from Strict) |
 
-#### 9.4 Balanced Level — Essential + Security Baseline (31 additional)
+#### 9.4 Balanced Level — Essential + Security Baseline (31 Additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -495,7 +495,7 @@ no longer have any effect.
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Disables auto-approve for local network permission requests |
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Disables local AI model download |
 
-#### 9.5 Advanced Level — Balanced + Enhanced Privacy (40 additional)
+#### 9.5 Advanced Level — Balanced + Enhanced Privacy (40 Additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -539,7 +539,7 @@ no longer have any effect.
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP space overrides (empty = default mappings) |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Disables temporary opt-out of local network restrictions |
 
-#### 9.6 Strict Level — Advanced + Maximum Privacy (28 additional)
+#### 9.6 Strict Level — Advanced + Maximum Privacy (28 Additional)
 
 | Registry Key | Value | Type | Effect |
 |--------------|-------|------|--------|
@@ -1120,7 +1120,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 > Brave Omega **5 sıkılaştırma seviyesi** ve **149 kurumsal politika** sunmaktadır. Aşağıdaki politika başvuru tablosu kayıt defteri kovanı ve seviyeye göre düzenlenmiştir.
 
-#### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (tüm seviyeler)
+#### 9.1 HKCU — Kullanıcı Düzeyi Tercihleri (Tüm Seviyeler)
 
 | Kayıt Defteri Anahtarı | Kovan | Değer | Tür | Etki |
 |------------------------|-------|-------|-----|------|
@@ -1158,7 +1158,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `NotificationsAllowedForUrls` | `@("https://web.whatsapp.com")` | MultiString | WhatsApp Web bildirimlerine izin verir, diğer tüm kaynaklar engelli kalır |
 | `EmailAliasesEnabled` | `0` | DWord | Anonim e-posta takma adı oluşturmayı devre dışı bırakır |
 
-#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (26 ek)
+#### 9.3 Temel Seviye — Brave Yalnız + Veri Sızıntısı Önleme (26 Ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1189,7 +1189,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `ScreenCaptureAllowed` | `0` | DWord | Web ekran yakalama API'lerini engeller (getDisplayMedia vb.) |
 | `DownloadRestrictions` | `4` | DWord | Yalnızca kötü amaçlı olduğu doğrulanan indirmeleri engeller (Katı'dan taşındı) |
 
-#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (31 ek)
+#### 9.4 Dengeli Seviye — Temel + Güvenlik Taban Çizgisi (31 Ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1225,7 +1225,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `LocalNetworkAccessPermissionsPolicyDefaultEnabled` | `0` | DWord | Yerel ağ izin isteklerinin otomatik onayını devre dışı bırakır |
 | `GenAILocalFoundationalModelSettings` | `1` | DWord | Yerel yapay zeka modeli indirmeyi devre dışı bırakır |
 
-#### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (40 ek)
+#### 9.5 Gelişmiş Seviye — Dengeli + Gelişmiş Gizlilik (40 Ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|
@@ -1269,7 +1269,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 | `LocalNetworkAccessIpAddressSpaceOverrides` | `@()` | MultiString | IP alanı geçersiz kılmaları (boş = varsayılan eşlemeler) |
 | `LocalNetworkAccessRestrictionsTemporaryOptOut` | `0` | DWord | Yerel ağ kısıtlamalarından geçici çıkış seçeneğini devre dışı bırakır |
 
-#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (28 ek)
+#### 9.6 Katı Seviye — Gelişmiş + Azami Gizlilik (28 Ek)
 
 | Kayıt Defteri Anahtarı | Değer | Tür | Etki |
 |------------------------|-------|-----|------|

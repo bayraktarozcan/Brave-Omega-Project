@@ -1346,7 +1346,7 @@ if (-not $Level -or $Level -eq "") {
     }
 }
 
-# Map Turkish names to English
+# Map Turkish Names to English
 $LevelMap = @{
     "Brave Yalnız" = "BraveOnly"
     "Temel"        = "Essential"
@@ -1702,7 +1702,7 @@ Write-Host ((Get-LocalizedString 'StepPolicies') -f $LevelDisplayName) -Foregrou
 $SuccessCount = 0
 $ErrorCount   = 0
 
-# Track which type counts for summary
+# Track Which Type Counts for Summary
 $typeCounts = @{ "DWord" = 0; "String" = 0; "MultiString" = 0; "ExpandString" = 0 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1877,6 +1877,6 @@ if ($Level -in @("Advanced", "Strict")) {
     Write-Host ""
 }
 
-# Exit code
+# Exit Code
 foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
 if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0) { exit 1 } else { exit 0 }

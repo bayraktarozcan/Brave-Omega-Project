@@ -98,7 +98,7 @@ at `chrome://policy` instead of `brave://policy`.
 
 ---
 
-## Step-by-Step (Expanded)
+## Step-By-Step (Expanded)
 
 ### 1. Open PowerShell as Administrator
 

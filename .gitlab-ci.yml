@@ -47,7 +47,7 @@ stages:
   - links
   - deploy
 
-# ------------------------------------------------------------------ scan
+# ------------------------------------------------------------------ Scan
 # Mirror of .github/workflows/secret-scan.yml (latest gitleaks + checksum, full history).
 
 secret-scan:
@@ -72,7 +72,7 @@ secret-scan:
   script:
     - cd "$CI_PROJECT_DIR" && /tmp/gitleaks git --redact --exit-code 1
 
-# -------------------------------------------------------------- validate
+# -------------------------------------------------------------- Validate
 # Mirrors of .github/workflows/quality.yml, admx-validate.yml and
 # version-check.yml.
 
@@ -195,7 +195,7 @@ admx-validate:
       }
       PWSH
 
-# ------------------------------------------------------------------ test
+# ------------------------------------------------------------------ Test
 # Mirror of .github/workflows/quality.yml (tests + analyzers; GH runs Pester
 # on a ubuntu+windows matrix, GitLab runs the single Ubuntu-based image).
 
@@ -304,7 +304,7 @@ shellcheck:
     - apt-get update && apt-get install -y shellcheck
     - shellcheck -S error Brave-Omega/Install-OmegaLinux.sh
 
-# ------------------------------------------------------------------- links
+# ------------------------------------------------------------------- Links
 # Mirror of .github/workflows/link-check.yml.
 #
 # This stage sits after `test` on purpose. Every link in the check is fetched

@@ -70,7 +70,7 @@ reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 - Backup includes full HKLM policy hive state
 - Restore is atomic and complete
 
-### 5. Execution Policy Safety (v1.2.2+)
+### 5. Execution Policy Safety (V1.2.2+)
 
 ```powershell
 # Single-command bypass — no persistence
@@ -136,7 +136,7 @@ reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 # 3. Restart Brave
 ```
 
-### Manual Rollback (if backup lost)
+### Manual Rollback (İf Backup Lost)
 
 ```powershell
 # Remove HKLM policies
@@ -290,7 +290,7 @@ reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 - Yedek, tam HKLM politika kovası durumunu içerir
 - Geri yükleme atomik ve eksiksizdir
 
-### 5. Çalıştırma İlkesi Güvenliği (v1.2.2+)
+### 5. Çalıştırma İlkesi Güvenliği (V1.2.2+)
 
 ```powershell
 # Tek komutla bypass — kalıcılık yok
@@ -356,7 +356,7 @@ reg import "$env:TEMP\BravePolicyBackup\HKLM_BravePolicy_20260613_120000.reg"
 # 3. Brave'i yeniden başlat
 ```
 
-### Manuel Geri Alma (yedek kaybolursa)
+### Manuel Geri Alma (Yedek Kaybolursa)
 
 ```powershell
 # HKLM politikalarını kaldır

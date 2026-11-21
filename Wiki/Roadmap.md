@@ -27,7 +27,7 @@ Previous release: 149 policies across 5 hardening tiers (Brave Only 24 / Essenti
 
 ## 9-Phase Execution History
 
-### Phase 1 — Core Framework ✅ **Completed (v2.0)**
+### Phase 1 — Core Framework ✅ **Completed (V2.0)**
 
 | Component | Description | Status |
 |-----------|-------------|--------|
@@ -40,7 +40,7 @@ Foundation of the script architecture: cumulative inheritance model where each l
 
 ---
 
-### Phase 2 — Safety & Rollback ✅ **Completed (v2.1)**
+### Phase 2 — Safety & Rollback ✅ **Completed (V2.1)**
 
 | Component | Description | Status |
 |-----------|-------------|--------|
@@ -52,7 +52,7 @@ Foundation of the script architecture: cumulative inheritance model where each l
 
 ---
 
-### Phase 3 — Brave 1.92 Migration & Data Leakage ✅ **Completed (v2.1.5 → v2.2.0.2)**
+### Phase 3 — Brave 1.92 Migration & Data Leakage ✅ **Completed (V2.1.5 → V2.2.0.2)**
 
 | Component | Version | Status |
 |-----------|---------|--------|
@@ -67,7 +67,7 @@ Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 ---
 
-### Phase 4 — Quality & Testing ✅ **Completed (v2.1.6.0)**
+### Phase 4 — Quality & Testing ✅ **Completed (V2.1.6.0)**
 
 | Component | Description | Status |
 |-----------|-------------|--------|
@@ -79,7 +79,7 @@ Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 ---
 
-### Phase 5 — Documentation & Distribution ✅ **Completed (v2.1.6.0)**
+### Phase 5 — Documentation & Distribution ✅ **Completed (V2.1.6.0)**
 
 | Component | Description | Status |
 |-----------|-------------|--------|
@@ -89,7 +89,7 @@ Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 ---
 
-### Phase 6 — Advanced Tier Addition ✅ **Completed (v2.2.0)**
+### Phase 6 — Advanced Tier Addition ✅ **Completed (V2.2.0)**
 
 | Component | Description | Status |
 |-----------|-------------|--------|
@@ -100,7 +100,7 @@ Cross-version Brave upgrade path: 1.91.172 → 1.92.134, Chromium 149 → 150.
 
 ---
 
-### Phase 7 — Hardware API & Security Hardening ✅ **Completed (v2.2.1.0)**
+### Phase 7 — Hardware API & Security Hardening ✅ **Completed (V2.2.1.0)**
 
 | Policy | Category | Level |
 |--------|----------|-------|
@@ -120,7 +120,7 @@ Total: 80→91 policies (+11). Phase milestone: 90+ policy barrier broken.
 
 ---
 
-### Phase 8 — Extension Lockdown, Proxy & Privacy Hardening ✅ **Completed (v2.3.0.0)**
+### Phase 8 — Extension Lockdown, Proxy & Privacy Hardening ✅ **Completed (V2.3.0.0)**
 
 | Policy | Category | Level |
 |--------|----------|-------|
@@ -153,7 +153,7 @@ Total: 91→110 policies (+19). Cumulative chain: 24→50→79→97→110.
 
 ---
 
-### Phase 9 — Brave 150 Validation & Policy Cleanup ✅ **Completed (v2.4.0.0 → v2.4.1.0)**
+### Phase 9 — Brave 150 Validation & Policy Cleanup ✅ **Completed (V2.4.0.0 → V2.4.1.0)**
 
 | Version | Description | Policies |
 |---------|-------------|----------|
@@ -268,7 +268,7 @@ Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 /
 
 ---
 
-## \u00d6nceki S\u00fcr\u00fcm
+## \U00d6nceki S\U00fcr\U00fcm
 
 **v3.1.0.2** — *WhatsApp Web bildirim izin listesi ve s\u00fcr\u00fcm e\u015flli\u011fi d\u00fczeltmeleri* (2026-10-23)
 
@@ -278,7 +278,7 @@ Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 /
 
 ## 9 Aşamalı Uygulama Geçmişi
 
-### Aşama 1 — Temel Çerçeve ✅ **Tamamlandı (v2.0)**
+### Aşama 1 — Temel Çerçeve ✅ **Tamamlandı (V2.0)**
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
@@ -291,7 +291,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 ---
 
-### Aşama 2 — Güvenlik & Geri Alma ✅ **Tamamlandı (v2.1)**
+### Aşama 2 — Güvenlik & Geri Alma ✅ **Tamamlandı (V2.1)**
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
@@ -303,7 +303,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 ---
 
-### Aşama 3 — Brave 1.92 Geçişi & Veri Sızıntısı ✅ **Tamamlandı (v2.1.5 → v2.2.0.2)**
+### Aşama 3 — Brave 1.92 Geçişi & Veri Sızıntısı ✅ **Tamamlandı (V2.1.5 → V2.2.0.2)**
 
 | Bileşen | Sürüm | Durum |
 |---------|-------|-------|
@@ -316,7 +316,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 ---
 
-### Aşama 4 — Kalite & Test ✅ **Tamamlandı (v2.1.6.0)**
+### Aşama 4 — Kalite & Test ✅ **Tamamlandı (V2.1.6.0)**
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
@@ -328,7 +328,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 ---
 
-### Aşama 5 — Dokümantasyon & Dağıtım ✅ **Tamamlandı (v2.1.6.0)**
+### Aşama 5 — Dokümantasyon & Dağıtım ✅ **Tamamlandı (V2.1.6.0)**
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
@@ -338,7 +338,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 ---
 
-### Aşama 6 — Gelişmiş Katman Ekleme ✅ **Tamamlandı (v2.2.0)**
+### Aşama 6 — Gelişmiş Katman Ekleme ✅ **Tamamlandı (V2.2.0)**
 
 | Bileşen | Açıklama | Durum |
 |---------|----------|-------|
@@ -349,7 +349,7 @@ Birikimli miras modeli: her seviye bir öncekinin tüm politikalarını kapsar.
 
 ---
 
-### Aşama 7 — Donanım API & Güvenlik Sıkılaştırması ✅ **Tamamlandı (v2.2.1.0)**
+### Aşama 7 — Donanım API & Güvenlik Sıkılaştırması ✅ **Tamamlandı (V2.2.1.0)**
 
 11 yeni politika: WebUSB, WebBluetooth, WebHID, WebSerial, WebUSB, WebXR engelleme, ECH zorlama, Payment Request devre dışı, WindowManagement izolasyonu, SitePerProcess, DefaultBrowserSetting.
 
@@ -357,7 +357,7 @@ Toplam: 80→91 politika (+11). 90+ politika engeli aşıldı.
 
 ---
 
-### Aşama 8 — Uzantı Kilitleme, Proxy & Gizlilik Sıkılaştırması ✅ **Tamamlandı (v2.3.0.0)**
+### Aşama 8 — Uzantı Kilitleme, Proxy & Gizlilik Sıkılaştırması ✅ **Tamamlandı (V2.3.0.0)**
 
 22 yeni politika: SafeBrowsingProtectionLevel, PasswordProtectionWarningTrigger, EnableOnlineRevocationChecks, ExtensionInstallForcelist, DownloadRestrictions, DownloadDirectory, PromptForDownloadLocation, ExtensionInstallBlocklist, ExtensionInstallAllowlist, ExtensionAllowedTypes, BlockExternalExtensions, ExtensionSettings, ManifestV2Unsupported, IncognitoModeAvailability, DeveloperToolsDisabled, DeveloperToolsAvailability, TaskManagerEndProcessEnabled, PrintingEnabled, DisablePrintPreview, ProxyMode, BuiltInDnsClientEnabled, BraveUpdateDisabled.
 
@@ -367,7 +367,7 @@ Toplam: 91→110 politika (+19). Kümülatif zincir: 24→50→79→97→110.
 
 ---
 
-### Aşama 9 — Brave 150 Doğrulaması ve Politika Temizliği ✅ **Tamamlandı (v2.4.0.0 → v2.4.1.0)**
+### Aşama 9 — Brave 150 Doğrulaması ve Politika Temizliği ✅ **Tamamlandı (V2.4.0.0 → V2.4.1.0)**
 
 | Sürüm | Açıklama | Politika Sayısı |
 |-------|----------|-----------------|

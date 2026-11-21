@@ -49,7 +49,7 @@ Copy the template below and fill in placeholders when creating new releases.
 
 ---
 
-## Example: v2.3.1.0
+## Example: V2.3.1.0
 
 ```markdown
 ## v2.3.1.0 — Brave 1.92.139 Compatibility & ProxyMode Deprecation Fix

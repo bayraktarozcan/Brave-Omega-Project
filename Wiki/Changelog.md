@@ -938,7 +938,7 @@ Fixes #50
 
 ---
 
-## Migration Checklist (v1.2.2 to v2.0)
+## Migration Checklist (V1.2.2 to V2.0)
 
 - [ ] Download v2.0 scripts
 - [ ] Run with: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1"` and select a hardening level
@@ -947,7 +947,7 @@ Fixes #50
 
 ---
 
-## Migration Checklist (v2.0 to v2.1)
+## Migration Checklist (V2.0 to V2.1)
 
 - [ ] Download v2.1 scripts
 - [ ] Run with `-WhatIf` for dry-run preview: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-EN.ps1" -WhatIf`
@@ -1901,7 +1901,7 @@ Fixes #50
 
 ---
 
-## Geçiş Kontrol Listesi (v1.2.2 → v2.0)
+## Geçiş Kontrol Listesi (V1.2.2 → V2.0)
 
 - [ ] v2.0 betiklerini indirin
 - [ ] Şu komutla çalıştırın: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1"` ve bir sıkılaştırma seviyesi seçin
@@ -1910,7 +1910,7 @@ Fixes #50
 
 ---
 
-## Geçiş Kontrol Listesi (v2.0 → v2.1)
+## Geçiş Kontrol Listesi (V2.0 → V2.1)
 
 - [ ] v2.1 betiklerini indirin
 - [ ] Kuru çalıştırma için `-WhatIf` ile çalıştırın: `PowerShell -ExecutionPolicy Bypass -File ".\BraveOmega-TR.ps1" -WhatIf`

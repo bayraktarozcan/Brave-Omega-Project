@@ -446,13 +446,13 @@ politikaları kaldırır — yedekleme başarısız olursa hiçbir şeyi kaldır
 ### Manuel Kaldırma
 
 ```powershell
-# HKLM politikalarını kaldır
+# HKLM Politikalarını Kaldır
 Remove-Item "HKLM:\SOFTWARE\Policies\BraveSoftware\Brave" -Recurse -Force
 
-# HKCU kullanıcı tercihlerini kaldır
+# HKCU Kullanıcı Tercihlerini Kaldır
 Remove-Item "HKCU:\Software\BraveSoftware\Brave-Browser" -Recurse -Force
 
-# Omaha usagestats'i sıfırla
+# Omaha Usagestats'i Sıfırla
 Get-Item "HKCU:\Software\BraveSoftware\Update\ClientState\*" | ForEach-Object {
     Set-ItemProperty $_.PSPath -Name "usagestats" -Value 1
 }

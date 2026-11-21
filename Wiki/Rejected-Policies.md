@@ -42,7 +42,7 @@
 
 ---
 
-## Policies Removed from Production Code
+## Policies Removed From Production Code
 <a id="-türkçe"></a>
 ## Üretim Kodundan Kaldırılan Politikalar
 
@@ -1092,8 +1092,8 @@ v3.1.0.1 (2026-10-22) — AutofillAddressEnabled and AutofillCreditCardEnabled r
 ## Categories of Rejection
 ## Reddetme Kategorileri
 
-### Deprecated by Chromium/Chrome (12 policies)
-### Chromium/Chrome Tarafından Kademeli Olarak Kaldırılan (12 politika)
+### Deprecated by Chromium/Chrome (12 Policies)
+### Chromium/Chrome Tarafından Kademeli Olarak Kaldırılan (12 Politika)
 Policies removed because Chromium/Chrome deprecated the underlying feature or replaced it with a more granular control.
 Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrıntılı bir kontrol ile değiştirdiği için kaldırılan politikalar.
 
@@ -1129,8 +1129,8 @@ Chromium/Chrome temel özelliği kademeli olarak kaldırdığı veya daha ayrın
 > | `AutofillCreditCardEnabled` | `AutofillSettings` |
 > | `SafeBrowsingExtendedReportingEnabled` | Yok (özellik kaldırıldı) |
 
-### Blocked by Brave (3 policies)
-### Brave Tarafından Engellenen (3 politika)
+### Blocked by Brave (3 Policies)
+### Brave Tarafından Engellenen (3 Politika)
 Policies where Brave's browser explicitly blocks the Chromium enterprise policy.
 Brave tarayıcısının Chromium kurumsal politikasını açıkça engellediği politikalar.
 
@@ -1148,8 +1148,8 @@ Brave tarayıcısının Chromium kurumsal politikasını açıkça engellediği 
 > | `NewTabPageLocation` | HomepageLocation ile aynı |
 > | `RestoreOnStartup` | Brave başlangıcı kendi ayarları aracılığıyla kontrol eder |
 
-### Unrecognized by Brave (12 policies)
-### Brave Tarafından Tanınmayan (12 politika)
+### Unrecognized by Brave (12 Policies)
+### Brave Tarafından Tanınmayan (12 Politika)
 Policies not present in Brave's policy engine.
 Brave'in politika motorunda bulunmayan politikalar.
 
@@ -1185,8 +1185,8 @@ Brave'in politika motorunda bulunmayan politikalar.
 > | `ContextualSearchEnabled` | "Bilinmeyen politika" |
 > | `PsstEnabled` | Brave'de etkin değil; işlevsel değil |
 
-### Cloud-only (not local) (3 policies)
-### Yalnızca bulut tabanlı (yerel olmayan) (3 politika)
+### Cloud-Only (Not Local) (3 Policies)
+### Yalnızca Bulut Tabanlı (Yerel Olmayan) (3 Politika)
 Policies that require Brave Browser Cloud Management infrastructure; local HKLM registry deployment is ignored.
 Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM kayıt defteri dağıtımı yoksayılır.
 
@@ -1204,8 +1204,8 @@ Brave Tarayıcı Bulut Yönetimi altyapısı gerektiren politikalar; yerel HKLM 
 > | `CacheEncryptionEnabled` | "Yalnızca bulut kullanıcı politikası olarak ayarlanabileceği için politika yoksayıldı" |
 > | `CloudReportingEnabled` | "Makine, Brave Tarayıcı Bulut Yönetimi'ne kayıtlı olmadığı için yok sayıldı" |
 
-### Other (5 policies)
-### Diğer (5 politika)
+### Other (5 Policies)
+### Diğer (5 Politika)
 
 | Policy | Reason |
 |--------|--------|
