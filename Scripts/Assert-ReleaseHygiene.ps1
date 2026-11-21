@@ -44,7 +44,12 @@ function Get-GitHubReleases {
     param([string]$Repo)
     $json = & gh api --paginate "repos/$Repo/releases" 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0) { throw "gh release listing failed: $json" }
-    $items = @($json | ConvertFrom-Json)
+    # Windows PowerShell 5.1 wraps a multi-document JSON array as one object
+    # when it is piped straight into @(...). Assign first, then wrap so both
+    # engines enumerate the releases identically.
+    $parsed = $json | ConvertFrom-Json
+    $items = @($parsed)
+    if ($items.Count -eq 0) { throw 'empty GitHub release list' }
     return @($items | ForEach-Object {
         [pscustomobject]@{ tag_name = $_.tag_name; name = $_.name; body = $_.body }
     })
@@ -59,12 +64,24 @@ function Get-GitLabReleases {
     # every host; Invoke-RestMethod returned one wrapping object on Linux.
     try {
         $response = Invoke-WebRequest -Uri $url -TimeoutSec 30 -UseBasicParsing
-        $items = @($response.Content | ConvertFrom-Json)
+        # PS 5.1 can decode a charset-less JSON body as Latin-1, turning em
+        # dashes into mojibake before the byte-parity check ever sees them.
+        $stream = $response.RawContentStream
+        $jsonText = $response.Content
+        if ($null -ne $stream -and $stream.Length -gt 0) {
+            $stream.Position = 0
+            $bytes = New-Object byte[] $stream.Length
+            [void]$stream.Read($bytes, 0, $bytes.Length)
+            $jsonText = [System.Text.Encoding]::UTF8.GetString($bytes)
+        }
+        $parsed = $jsonText | ConvertFrom-Json
+        $items = @($parsed)
         if ($items.Count -eq 0) { throw 'empty release list' }
     } catch {
         $json = & glab api "projects/$Project/releases?per_page=100" 2>&1 | Out-String
         if ($LASTEXITCODE -ne 0) { throw "GitLab release listing failed: $_; glab: $json" }
-        $items = @($json | ConvertFrom-Json)
+        $parsed = $json | ConvertFrom-Json
+        $items = @($parsed)
     }
     return @($items | ForEach-Object {
         [pscustomobject]@{ tag_name = $_.tag_name; name = $_.name; body = $_.description }
@@ -168,8 +185,9 @@ function Test-ReleaseHygiene {
     else { Write-Host 'PASS cross-host: titles and bodies byte-identical after LF normalization' }
 
     # Every changelog bullet under a released version must still be visible
-    # in that release's notes. Only the English half is needed: the check is
-    # about content coverage, not translation, which cross-host already pins.
+    # in that release's notes, in the matching language half. Cross-host byte
+    # parity proves both hosts publish the same text, not that each language
+    # still carries its own changelog content.
     if (-not (Test-Path -LiteralPath $ChangelogPath)) {
         $failures += 'changelog-coverage: CHANGELOG.md not found'
         return $failures
@@ -182,31 +200,39 @@ function Test-ReleaseHygiene {
         return $failures
     }
     $enHalf = $changelog.Substring($enStart, $trStart - $enStart)
-    $clLines = @($enHalf -split "`n")
+    $trHalf = $changelog.Substring($trStart)
     $uncovered = @()
     foreach ($tag in $ghByTag.Keys) {
         if ($script:CoverageExemptTags -ccontains $tag) { continue }
         $version = [regex]::Escape($tag.TrimStart('v'))
-        $start = -1
-        for ($i = 0; $i -lt $clLines.Count; $i++) {
-            if ($clLines[$i] -cmatch "^## \[v?$version\]") { $start = $i; break }
-        }
-        if ($start -lt 0) { $uncovered += "${tag}: no changelog section"; continue }
-        $end = $clLines.Count
-        for ($i = $start + 1; $i -lt $clLines.Count; $i++) {
-            if ($clLines[$i] -cmatch '^## ') { $end = $i; break }
-        }
-        $bodyWords = @(Get-NormalizedWords -Text ([string]$ghByTag[$tag].body))
-        for ($i = $start + 1; $i -lt $end; $i++) {
-            $line = $clLines[$i]
-            if ($line -cnotmatch '^\s*- ') { continue }
-            $bold = [regex]::Match($line, '^\s*-\s+\*\*(.+?)\*\*')
-            if ($bold.Success) { $prose = $bold.Groups[1].Value }
-            else { $prose = ([regex]::Replace($line, '^\s*-\s+', '') -replace '[*`]', '').Split('.')[0] }
-            $lead = @(Get-NormalizedWords -Text $prose | Select-Object -First 4)
-            if ($lead.Count -eq 0) { continue }
-            $missing = @($lead | Where-Object { $bodyWords -cnotcontains $_ })
-            if ($missing.Count -gt 0) { $uncovered += "${tag}: $($lead -join ' ')" }
+        $halves = @([regex]::Split((Normalize-ReleaseBody -Body ([string]$ghByTag[$tag].body)), '(?m)^## v'))
+        $languages = @(
+            @{ Name = 'EN'; Lines = @($enHalf -split "`n"); Body = $(if ($halves.Count -ge 2) { $halves[1] } else { '' }) },
+            @{ Name = 'TR'; Lines = @($trHalf -split "`n"); Body = $(if ($halves.Count -ge 3) { $halves[2] } else { '' }) }
+        )
+        foreach ($language in $languages) {
+            $lines = @($language.Lines)
+            $start = -1
+            for ($i = 0; $i -lt $lines.Count; $i++) {
+                if ($lines[$i] -cmatch "^## \[v?$version\]") { $start = $i; break }
+            }
+            if ($start -lt 0) { $uncovered += "${tag} $($language.Name): no changelog section"; continue }
+            $end = $lines.Count
+            for ($i = $start + 1; $i -lt $lines.Count; $i++) {
+                if ($lines[$i] -cmatch '^## ') { $end = $i; break }
+            }
+            $bodyWords = @(Get-NormalizedWords -Text ([string]$language.Body))
+            for ($i = $start + 1; $i -lt $end; $i++) {
+                $line = $lines[$i]
+                if ($line -cnotmatch '^\s*- ') { continue }
+                $bold = [regex]::Match($line, '^\s*-\s+\*\*(.+?)\*\*')
+                if ($bold.Success) { $prose = $bold.Groups[1].Value }
+                else { $prose = ([regex]::Replace($line, '^\s*-\s+', '') -replace '[*`]', '').Split('.')[0] }
+                $lead = @(Get-NormalizedWords -Text $prose | Select-Object -First 4)
+                if ($lead.Count -eq 0) { continue }
+                $missing = @($lead | Where-Object { $bodyWords -cnotcontains $_ })
+                if ($missing.Count -gt 0) { $uncovered += "${tag} $($language.Name): $($lead -join ' ')" }
+            }
         }
     }
     if ($uncovered.Count) {

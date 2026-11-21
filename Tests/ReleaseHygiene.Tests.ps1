@@ -29,6 +29,12 @@ BeforeAll {
 ### Eklenenler
 
 - Bir değişiklik.
+
+## [9.9.9.8] — 2026-11-20
+
+### Eklenenler
+
+- Bir değişiklik.
 '@ | Set-Content -LiteralPath $script:Changelog -Encoding UTF8
 
     function New-Release {
@@ -161,6 +167,26 @@ Describe 'Published release hygiene' -Tag 'Unit' {
         } finally {
             [System.IO.File]::WriteAllText($script:Changelog, $original)
         }
+    }
+
+    It 'rejects a Turkish changelog bullet missing from the Turkish notes' {
+        $original = [System.IO.File]::ReadAllText($script:Changelog)
+        try {
+            $planted = [regex]::Replace($original, [regex]::Escape('- Bir değişiklik.'), '- Görünmeyen özellik.', 1)
+            [System.IO.File]::WriteAllText($script:Changelog, $planted)
+            $f = @(Test-ReleaseHygiene -GitHub $script:GoodGh -GitLab $script:GoodGl -CurrentTag $script:Current -ChangelogPath $script:Changelog)
+            ($f -join ' ') | Should -Match 'changelog-coverage'
+        } finally {
+            [System.IO.File]::WriteAllText($script:Changelog, $original)
+        }
+    }
+
+    It 'parses API payloads identically on both PowerShell engines' {
+        $helper = Get-Content -LiteralPath $script:Helper -Raw
+        $helper | Should -Not -Match '@\([^\r\n]*\|\s*ConvertFrom-Json'
+        $helper | Should -Match '\$parsed\s*=\s*\$jsonText\s*\|\s*ConvertFrom-Json'
+        $helper | Should -Match 'RawContentStream'
+        $helper | Should -Match '\[System\.Text\.Encoding\]::UTF8\.GetString'
     }
 
     It 'keeps the historical coverage exemption narrow' {
