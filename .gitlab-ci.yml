@@ -22,11 +22,12 @@
 #   .github/workflows/link-check.yml       -> link-check
 #   .github/workflows/pages.yml            -> pages
 # GitHub-only (no GitLab equivalent): stale (bot), wiki-sync (dedicated
-# GitHub wiki), CodeQL (not on GitLab Free).
+# GitHub wiki), CodeQL (no workflow configured in this project).
 #
 # NOTES
-# * The runner does its git checkout with the image's git, so every image
-#   below includes git (node:alpine, python:${PYTHON_VERSION} with a
+# * Jobs that invoke git install it explicitly: the alpine jobs use apk and
+#   pester-tests uses apt. Images carry the other tools they need
+#   (node:alpine, python:${PYTHON_VERSION} with a
 #   3.11 + latest parallel matrix,
 #   mcr.microsoft.com/powershell:latest -> git installed via apt in pester-tests, alpine -> apk git).
 # * The runner shell is bash/sh; PowerShell is piped to `pwsh -Command -`
@@ -184,14 +185,34 @@ admx-validate:
         Write-Warning "Could not read a version from $localAdmx"
       }
       try {
-        $result = Invoke-WebRequest -Uri "https://brave-browser-downloads.s3.brave.com/latest/policy_templates.zip" -Method Head -UseBasicParsing
-        $newEtag = $result.Headers["ETag"]
-        $newLastMod = $result.Headers["Last-Modified"]
-        Write-Host "Current ADMX version: $oldVersion"
-        Write-Host "Remote ADMX ETag: $newEtag"
-        Write-Host "Remote ADMX Last-Modified: $newLastMod"
+        $uri = "https://brave-browser-downloads.s3.brave.com/latest/policy_templates.zip"
+        $zip = Join-Path ([System.IO.Path]::GetTempPath()) "policy_templates.zip"
+        $dir = Join-Path ([System.IO.Path]::GetTempPath()) "policy_templates"
+        Invoke-WebRequest -Uri $uri -OutFile $zip -UseBasicParsing
+        if (Test-Path -LiteralPath $dir) { Remove-Item -LiteralPath $dir -Recurse -Force }
+        Expand-Archive -LiteralPath $zip -DestinationPath $dir -Force
+        $remoteAdmx = Get-ChildItem -LiteralPath $dir -Recurse -Filter "brave.admx" | Select-Object -First 1
+        if (-not $remoteAdmx) {
+          Write-Warning "Remote ADMX package has no Brave template; version comparison skipped."
+        } else {
+          $remoteVersion = ([regex]::Match((Get-Content -LiteralPath $remoteAdmx.FullName -Raw), 'brave version:\s*([\d.]+)')).Groups[1].Value
+          if ([string]::IsNullOrWhiteSpace($remoteVersion)) {
+            Write-Warning "Remote Brave ADMX has no version comment; comparison skipped."
+          } else {
+            [version]$localParsed = $null; [version]$remoteParsed = $null
+            $localOk = [version]::TryParse($oldVersion, [ref]$localParsed)
+            $remoteOk = [version]::TryParse($remoteVersion, [ref]$remoteParsed)
+            if ($localOk -and $remoteOk -and $remoteParsed -gt $localParsed) {
+              Write-Warning "Brave ADMX $remoteVersion is newer than the repository copy $oldVersion. Refresh ADMX/Brave.admx and ADMX/Brave.adml."
+            } elseif ($localOk -and $remoteOk -and $remoteParsed -lt $localParsed) {
+              Write-Warning "Brave ADMX $remoteVersion is older than the repository copy $oldVersion. Investigate an upstream rollback."
+            } else {
+              Write-Host "Brave ADMX templates are current ($oldVersion)."
+            }
+          }
+        }
       } catch {
-        Write-Host "Could not reach Brave S3 to check for updates - skipping"
+        Write-Warning "Could not check Brave ADMX for updates: $($_.Exception.Message)"
       }
       PWSH
 

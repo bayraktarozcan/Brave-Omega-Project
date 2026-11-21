@@ -24,6 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Run actionlint
+        # Upstream tracks latest; GitLab verifies a checksummed release tarball.
+        # actionlint exits nonzero on findings by default, so no input is needed.
         uses: rhysd/actionlint@main
-        with:
-          fail-on-error: true
