@@ -330,7 +330,7 @@ no longer have any effect.
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 |-------------|---------------|----------|---------|--------|
-| **v3.1.0.3** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.4** *(current)* | all | all | 11 26H2 | ✅ Active |
 | **v3.1.0.1** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
@@ -681,7 +681,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Multi-type registry engine** — DWord, String, MultiString, ExpandString type-aware dispatching (v2.0)
 - [x] **`-Level` parameter** — silent/automated deployment without interactive menu (v2.0)
 - [x] **SECURITY.md** — comprehensive security policy with vulnerability disclosure process (v2.0)
-- [x] **149 total policies** — expanded from 17 to 150 across 5 levels (v2.0–v2.5.0.0), reduced to 149 in v3.1.0.3
+- [x] **149 total policies** — expanded from 17 to 150 across 5 levels (v2.0–v2.5.0.0), reduced to 149 in v3.1.0.3. Shipped as v3.1.0.4.
 - [x] **v2.2.1.0 — Policy Expansion** — 12 new Chromium security/data policies added across Essential and Balanced levels (v2.2.1.0)
 - [x] **v2.3.0.0 — Phase 8 Expansion** — 19 new enterprise policies added across all 5 levels: Safe Browsing protection, extension lockdown (block all + forcelist), Incognito disable, developer tools disable, proxy configuration, printing disable, and more
 - [x] **5-tier hardening model** — Advanced level added between Balanced and Strict (v2.2.0)
@@ -1061,7 +1061,7 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 |-------------|--------------|----------|---------|-------|
-| **v3.1.0.3** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.4** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
 | **v3.1.0.1** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
@@ -1417,7 +1417,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Çok katmanlı sıkılaştırma sistemi** — Brave Yalnız / Temel / Dengeli / Katı
 - [x] **Çoklu tür kayıt defteri motoru** — DWord, String, MultiString, ExpandString
 - [x] **`-Level` parametresi** — sessiz/otomatik dağıtım
-- [x] **149 toplam politika** — 17'den 150'e genişletildi, v3.1.0.3'te 149'a indirildi
+- [x] **149 toplam politika** — 17'den 150'e genişletildi, v3.1.0.3'te 149'a indirildi; güncel sürüm v3.1.0.4
 - [x] **Otomatik Brave sürüm tespiti** — yüklü sürüm doğrulanmış hedeften farklıysa uyar
 - [x] **`-WhatIf` parametresiyle kuru çalıştırma kipi**
 - [x] **Sıfırlama/kaldırma kipi** — `-Sıfırla` parametresiyle tüm politikaları temizle

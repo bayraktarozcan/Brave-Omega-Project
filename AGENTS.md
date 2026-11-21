@@ -484,7 +484,7 @@ Facts this project states once, here. Nothing below restates a rule from §§1�
 
 | Constant | Current | Where |
 |----------|---------|-------|
-| Script | `v3.1.0.3` | `BraveOmega.ps1` header + `$ScriptVersion` |
+| Script | `v3.1.0.4` | `BraveOmega.ps1` header + `$ScriptVersion` |
 | Brave | _(unpinned — detected at runtime)_ | `$ValidatedBrave` (populated from install; V3 never blocks) |
 | Chromium | _(unpinned — detected at runtime)_ | `$ValidatedChromium` (populated from install; V3 never blocks) |
 
@@ -713,4 +713,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=a5d7b6e6cc47fb1bebe0a330401b0899ca1bc010 -->
+<!-- mirror-sync: sync-sha=be8c8bbfaaf60aa66b158146aef8733a20372340 -->

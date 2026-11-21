@@ -11,7 +11,7 @@ Brave Omega's development roadmap — community-driven, lifecycle-first, organiz
 
 ## Current Version
 
-**v3.1.0.3** — *Deprecated Autofill policy removed* (2026-11-12)
+**v3.1.0.4** — *Always-latest policy, CI hardening and parity* (2026-11-21)
 
 Current release: 149 policies across 5 hardening tiers (Brave Only 25 / Essential 26 / Balanced 31 / Advanced 39 / Strict 28); deprecated `AutofillPredictionSettings` removed from the Advanced tier (Chromium M157 deprecated it, replaced upstream by `AutofillGenAiSettings`); Advanced 40 → 39, totals 150 → 149; Chrome 123 → 122; ADMX vendor snapshot preserved at 763 entries (not regenerated). Cumulative chain: 25→51→82→121→149.
 
@@ -19,9 +19,9 @@ Current release: 149 policies across 5 hardening tiers (Brave Only 25 / Essentia
 
 ## Previous Version
 
-**v3.1.0.2** — *WhatsApp Web notification allowlist and release parity fixes* (2026-10-23)
+**v3.1.0.3** — *Deprecated Autofill policy removed* (2026-11-12)
 
-Previous release: 149 policies across 5 hardening tiers (Brave Only 24 / Essential 26 / Balanced 31 / Advanced 40 / Strict 28); deprecated Safe Browsing and Autofill policies replaced by supported equivalents; Chrome Strict 124 → 122. Cumulative chain: 24→50→81→121→149.
+Previous release: 149 policies across 5 hardening tiers (Brave Only 25 / Essential 26 / Balanced 31 / Advanced 39 / Strict 28); `AutofillPredictionSettings` removed from Advanced (Chromium M157 deprecation), Chrome origin total 123 → 122, cumulative chain 25→51→82→121→149. ADMX vendor snapshot preserved at 763 entries.
 
 ---
 
@@ -262,7 +262,7 @@ Brave Omega geliştirme yol haritası — topluluk odaklı, yaşam döngüsü ö
 
 ## Güncel Sürüm
 
-**v3.1.0.3** — *Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı* (2026-11-12)
+**v3.1.0.4** — *Her daim en güncel ilkesi, CI sertleştirmesi ve eşlik* (2026-11-21)
 
 Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 / Temel 26 / Dengeli 31 / Gelişmiş 39 / Katı 28); kullanımdan kaldırılmış `AutofillPredictionSettings` İleri katmandan çıkarıldı (Chromium M157'de deprecated, İeri Chromium'da `AutofillGenAiSettings` ile değiştirildi); İeri 40 → 39, toplam 150 → 149; Chrome 123 → 122; ADMX vendor snapshot 763 girdi olarak korundu (yeniden üretilmedi). Kümülatif zincir: 25→51→82→121→149.
 
@@ -270,9 +270,9 @@ Güncel sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 /
 
 ## Önceki Sürüm
 
-**v3.1.0.2** — *WhatsApp Web bildirim izin listesi ve sürüm eşlliği düzeltmeleri* (2026-10-23)
+**v3.1.0.3** — *Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı* (2026-11-12)
 
-Önceki sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 24 / Temel 26 / Dengeli 31 / Gelişmiş 40 / Katı 28); kullanımdan kaldırılmış Safe Browsing ve Autofill politikaları desteklenen eşdeğerleriyle değiştirildi; Chrome Strict 124 → 122. Kümülatif zincir: 24→50→81→121→149.
+Önceki sürüm: 5 sıkılaştırma katmanında 149 politika (Brave Yalnız 25 / Temel 26 / Dengeli 31 / Gelişmiş 39 / Katı 28); `AutofillPredictionSettings` Gelişmiş katmandan kaldırıldı (Chromium M157 kullanımdan kaldırma), Chrome kökenli toplam 123 → 122, kümülatif zincir 25→51→82→121→149. ADMX satıcı anlık görüntüsü 763 girdi olarak korundu.
 
 ---
 

@@ -17,7 +17,14 @@
 #                    Brave/Chromium at runtime and applies the same 149 policies
 #                    in a forward/backward compatible way on every future release.
 #
-# CHANGELOG (v3.1.0.3)
+# CHANGELOG (v3.1.0.4)
+# ─────────────────────────────────────────────────────────────────────────────
+# v3.1.0.4             Patch release — dependency currency, CI hardening and parity:
+#
+#     [CHANGED]     CI tracks latest action refs, floating images and latest tools; checksummed downloads resolve the latest release and its checksum together.
+#     [ADDED]       Guards for action refs, pin regressions, heading case and a real GitLab ADMX version comparison.
+#     [FIXED]       Stale documentation, version parity, Turkish mirror, landing page, pre-push hook portability and dead code.
+#
 # ─────────────────────────────────────────────────────────────────────────────
 # v3.1.0.3             Patch release — deprecated Autofill policy removal:
 #
@@ -592,7 +599,7 @@ param(
 # ─────────────────────────────────────────────────────────────────────────────
 # SCRIPT VERSION CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
-$ScriptVersion   = "v3.1.0.3"
+$ScriptVersion   = "v3.1.0.4"
 # V3 DESIGN: Validated versions are no longer hardcoded.
 # The script detects the installed Brave version at runtime and adapts policies
 # globally — no future version update of this script is required for new Brave releases.

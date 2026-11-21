@@ -5,7 +5,7 @@
 
 # 📋 Policy Reference — Complete Registry Table
 
-Complete policy reference for Brave Omega v3.1.0.3 — **149 enterprise policies** across 5 progressive restriction levels, plus 2 documented legacy HKCU user-preference keys.
+Complete policy reference for Brave Omega v3.1.0.4 — **149 enterprise policies** across 5 progressive restriction levels, plus 2 documented legacy HKCU user-preference keys.
 
 ---
 
@@ -266,7 +266,7 @@ All 149 policies should show as **Active** (green checkmark).
 
 # 📋 Politika Başvurusu — Tam Kayıt Defteri Tablosu
 
-Brave Omega v3.1.0.3 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **149 kurumsal politika** ve belgelenmiş 2 eski HKCU kullanıcı tercihi anahtarı.
+Brave Omega v3.1.0.4 için tam politika başvurusu — 5 kademeli ilerleyici kısıtlama düzeyinde **149 kurumsal politika** ve belgelenmiş 2 eski HKCU kullanıcı tercihi anahtarı.
 
 ---
 

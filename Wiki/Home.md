@@ -28,7 +28,7 @@
 
 ---
 
-> **Latest Release:** [v3.1.0.3 - Deprecated Autofill policy removed](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Latest Release:** [v3.1.0.4 - Always-latest policy and CI hardening](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 
@@ -71,7 +71,7 @@
 
 ---
 
-> **Son Sürüm:** [v3.1.0.3 - Kullanımdan kaldırılmış Otomatik Doldurma politikası kaldırıldı](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
+> **Son Sürüm:** [v3.1.0.4 - Her daim en güncel ilkesi ve CI sertleştirmesi](https://github.com/bayraktarozcan/Brave-Omega-Project/releases/latest)
 
 ---
 

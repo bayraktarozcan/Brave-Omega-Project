@@ -23,6 +23,25 @@ Complete version history for Brave Omega.
 
 ## Release History
 
+### v3.1.0.4 - 2026-11-21
+
+**Patch Release — Always-Latest Policy, CI Hardening and Documentation Parity**
+
+**Changed:**
+
+- CI tracks the latest action refs, floating container tags and latest tooling; checksum-verified downloads resolve the latest release and its checksum together at run time.
+- Python jobs run a 3.11 + latest matrix on both hosts; Quality permissions narrowed, pre-push hook made portable.
+
+**Added:**
+
+- Guards for action refs, pin regressions and heading case; a real GitLab ADMX version comparison; the accepted supply-chain risk recorded in `SECURITY.md` §6.4.
+
+**Fixed:**
+
+- Stale version/count claims across all documentation, a corrupted policy reference repaired, dead code removed, test hygiene and bilingual parity restored. Policy set unchanged: 149 policies.
+
+---
+
 ### v3.1.0.3 - 2026-11-12
 
 **Patch Release - Deprecated Autofill policy removal**
@@ -883,7 +902,8 @@ Fixes #50
 
 | Brave Omega | Brave Version | Chromium | Windows | Status |
 | ------------- | --------------- | ---------- | --------- | -------- |
-| **v3.1.0.3** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.4** *(current)* | all | all | 11 26H2 | ✅ Active |
+| **v3.1.0.3** | all | all | 11 26H2 | 📦 Previous |
 | **v3.1.0.2** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.2.0** | all | all | 11 26H2 | 📦 Previous |
 | **v3.0.1.0** | all | all | 11 26H2 | 📦 Previous |
@@ -984,6 +1004,25 @@ Brave Omega için tam sürüm geçmişi.
 ---
 
 ## Sürüm Geçmişi
+
+### v3.1.0.4 - 2026-11-21
+
+**Yama Sürümü — Her Daim En Güncel İlkesi, CI Sertleştirmesi ve Belge Eşliği**
+
+**Değiştirilenler:**
+
+- CI en güncel aksiyon referanslarını, floating konteyner etiketlerini ve en güncel araçları izler; checksum ile doğrulanan indirmeler en güncel yayını ve checksum'ını birlikte çözümler.
+- Python işleri her iki hostta 3.11 + latest matrisinde çalışır; Quality izinleri daraltıldı, pre-push kancası taşınabilir hâle getirildi.
+
+**Eklenenler:**
+
+- Aksiyon referansları, pin gerilemeleri ve başlık büyüklüğü için korumalar; gerçek bir GitLab ADMX sürüm karşılaştırması; kabul edilen tedarik zinciri riski `SECURITY.md` §6.4'te kayıtlı.
+
+**Düzeltilenler:**
+
+- Tüm belgelerdeki bayat sürüm/sayı iddiaları, bozulan politika başvurusu onarımı, ölü kod kaldırma ve test hijyeni. Politika seti değişmedi: 149 politika.
+
+---
 
 ### v3.1.0.3 - 2026-11-12
 
@@ -1846,7 +1885,8 @@ Fixes #50
 
 | Brave Omega | Brave Sürümü | Chromium | Windows | Durum |
 | ------------- | -------------- | ---------- | --------- | ------- |
-| **v3.1.0.3** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.4** *(güncel)* | tümü | tümü | 11 26H2 | ✅ Etkin |
+| **v3.1.0.3** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.1.0.2** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.2.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
 | **v3.0.1.0** | tümü | tümü | 11 26H2 | 📦 Önceki |
