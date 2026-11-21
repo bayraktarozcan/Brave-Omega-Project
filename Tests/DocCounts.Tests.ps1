@@ -1,4 +1,4 @@
-# Invariant: the numbers AGENTS.md states about this repository are read from the
+﻿# Invariant: the numbers AGENTS.md states about this repository are read from the
 # repository itself, not typed by hand. A hand-typed count agrees with the tree
 # on the day it is written and rots on the next test added or policy changed -
 # and nothing fails, because no check reads the number back. This file is the

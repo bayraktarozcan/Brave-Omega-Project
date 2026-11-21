@@ -1,4 +1,4 @@
-# Invariant: an action reference must name a ref that exists in the upstream
+﻿# Invariant: an action reference must name a ref that exists in the upstream
 # repository. The blanket SHA -> @main rewrite failed on lycheeverse/
 # lychee-action, whose default branch is master and which has no main ref, so
 # link-check could not start. This guard keeps that fact in the tree instead of

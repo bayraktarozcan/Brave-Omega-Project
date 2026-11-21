@@ -72,24 +72,6 @@ function Write-Warn {
     Write-Host "  WARNING: $Message" -ForegroundColor Red
 }
 
-function Write-Skip {
-    param([string]$Message)
-    Write-Host "  SKIP: $Message" -ForegroundColor DarkGray
-}
-
-function Invoke-OrDie {
-    param([string]$Description, [scriptblock]$Command)
-    if ($DryRun) {
-        Write-Host "  DRY-RUN: $Description" -ForegroundColor DarkYellow
-        return $null
-    }
-    $result = & $Command
-    if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne $null) {
-        throw "$Description failed with exit code $LASTEXITCODE"
-    }
-    return $result
-}
-
 function New-OmegaReleasePackage {
     param([string]$Version, [string]$RepoRoot)
     $workDir = Join-Path $RepoRoot "Agent-Scratch"

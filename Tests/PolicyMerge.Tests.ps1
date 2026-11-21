@@ -57,7 +57,7 @@ Describe "Policy Merge" -Tag "Unit" {
         $MergedPolicies.Count | Should -Be 5
     }
 
-    It "should produce 150 unique policies after cumulative merge from data layer" {
+    It "should produce 149 unique policies after cumulative merge from data layer" {
         $LevelOrder = Get-OmegaLevelOrder -ScriptPath $ScriptMain
         $MergedPolicies = @{}
         foreach ($tier in $LevelOrder) {

@@ -496,6 +496,11 @@ BeforeAll {
             Anchor = 'Remote brave.admx carries no version comment'
             Why    = "the same vendor-side filename, reported because the version it should carry could not be read"
         }
+        @{
+            File   = ".gitlab-ci.yml"
+            Anchor = '-Recurse -Filter "brave.admx"'
+            Why    = "the second host compares the same vendor archive, so the filter must keep the vendor's lowercase name there too"
+        }
     )
 
     # Lines inside this file that have to name a retired spelling in order to

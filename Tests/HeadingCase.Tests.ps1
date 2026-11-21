@@ -1,4 +1,4 @@
-# Invariant: documentation headings follow the Title Case rule declared in
+﻿# Invariant: documentation headings follow the Title Case rule declared in
 # AGENTS.md §12. The rule is easy to drift from because it spans 27 Markdown
 # files; this guard reads the tree instead of trusting a one-time cleanup.
 #

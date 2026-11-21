@@ -17,7 +17,7 @@
     exactly, so a job added to the workflow without a counterpart here fails by
     name instead of quietly going unchecked.
 
-    A tool that is not installed is reported as MISSING and fails the gate. It
+    A tool that is not installed is reported as FAIL (not installed) and stops the gate. It
     is a real blind spot, and a gate that reports itself green while skipping
     half its work is the thing this script exists to prevent. -AllowMissingTools
     downgrades that one state to a warning, for a machine that accepts the gap
@@ -492,7 +492,7 @@ function Install-PrePushHook {    $hooks = Join-Path (git rev-parse --git-dir) '
         '# Installed by Scripts/Invoke-CI.ps1 -InstallHook.',
         '# Refuses a push whose Quality-workflow checks do not pass here first.',
         'root=$(git rev-parse --show-toplevel) || exit 1',
-        'powershell -NoProfile -ExecutionPolicy Bypass -File "$root/Scripts/Invoke-CI.ps1"'
+        'if command -v pwsh >/dev/null 2>&1; then pwsh -NoProfile -File "$root/Scripts/Invoke-CI.ps1"; else powershell -NoProfile -ExecutionPolicy Bypass -File "$root/Scripts/Invoke-CI.ps1"; fi'
     )
     $body = ($lines -join "`n") + "`n"
     [System.IO.File]::WriteAllText(

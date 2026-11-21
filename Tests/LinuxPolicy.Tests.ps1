@@ -22,7 +22,7 @@ Describe 'Linux managed-JSON renderer' -Tag 'Unit' {
         $r.ExitCode | Should -Not -Be 0 -Because 'an unknown browser has no profile and no policy directory'
     }
 
-    It 'renders 150 keys for brave Strict on linux' {
+    It 'renders 149 keys for brave Strict on linux' {
         $r = Invoke-OmegaRenderer @('--browser', 'brave', '--tier', 'Strict', '--platform', 'linux')
         $r.ExitCode | Should -Be 0
         ($r.Output | ConvertFrom-Json).PSObject.Properties |

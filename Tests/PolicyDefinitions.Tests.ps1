@@ -48,7 +48,7 @@ Describe "Policy Definitions" -Tag "Unit" {
         }
     }
 
-    It "should have 150 unique policy definitions (data layer)" {
+    It "should have 149 unique policy definitions (data layer)" {
         @(Get-OmegaAllPolicyNames -ScriptPath $ScriptMain).Count | Should -BeExactly 149
     }
 }

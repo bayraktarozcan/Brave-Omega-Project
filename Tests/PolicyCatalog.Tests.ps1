@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . $PSScriptRoot\TestHelper.ps1
     . (Join-Path $ProjectRoot 'Scripts\Export-PolicyCatalog.ps1')
 
@@ -35,7 +35,7 @@ Describe "Policy Definitions Loading" -Tag "Unit" {
 }
 
 Describe "Cumulative Merge" -Tag "Unit" {
-    It "grows cumulative totals to 150 unique policies and documents the tier chain" {
+    It "grows cumulative totals to 149 unique policies and documents the tier chain" {
         $expected = @{
             'BraveOnly' = 25
             'Essential' = 51
