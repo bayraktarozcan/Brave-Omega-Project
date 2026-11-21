@@ -340,7 +340,7 @@ The loop runs inside one piece (see "Cadence"); it never chains pieces together.
 - Force push is allowed when justified, uses `--force-with-lease`, and is reported to the person.
 - Push after each meaningful commit; consecutive small commits may be pushed together.
 - Remotes: `origin` pushes to both GitHub and GitLab (dual pushurl). Keep the two remotes in parity — there is no PR workflow for own commits. A dual remote is also a dual gate: the second host carries its own CI enforcing the same checks. Removing the bypass below is a decision to adopt a PR workflow, and it is deliberately not taken here.
-- The `main` branch ruleset `main-guard` is **active** (live check 2026-11-21: `enforcement: active`, nine required status checks, `non_fast_forward`, `deletion`, `required_linear_history`), and the repository owner is an `always` bypass actor. Classic branch protection declares no required status checks. Direct pushes to `main` are admitted in practice because of that owner bypass; the nine Quality jobs and the second host's CI run after the push. The PR-workflow target remains recorded here; removing the bypass while keeping the ruleset would make those checks gating.
+- The `main` branch ruleset `main-guard` is **active** (live check 2026-11-21: `enforcement: active`, nine required status checks, `non_fast_forward`, `deletion`, `required_linear_history`), and the repository owner is an `always` bypass actor. Classic branch protection declares no required status checks. Direct pushes to `main` are admitted in practice because of that owner bypass; the nine Quality jobs and the second host's CI run after the push. Because the bypass is on the ruleset rather than classic branch protection, GitHub no longer prints the classic warnings (`Bypassed rule violations`, `N of N required status checks are expected`) on those pushes — the nine checks appear on the subsequent run instead. The PR-workflow target remains recorded here; removing the bypass while keeping the ruleset would make those checks gating.
 - Guard the phrase "ruleset" in prose: routine branch work never shells out to `gh`/`glab`; releases are cut with `gh`/`glab` only when the person explicitly orders a release.
 
 ### Security & Privacy
@@ -720,4 +720,4 @@ Runtimes use the current LTS line (Node.js LTS, .NET LTS); build output goes thr
 - `.git/` is the **internal Git repository structure**, not a project config file.
 
 **Guiding rule:** "It looks special" does not mean "It is a standard special file." The meaning of any file is determined by the software that reads and interprets it.
-<!-- mirror-sync: sync-sha=8bb3cb55806423b75d013301245a4a60f6129b5f -->
+<!-- mirror-sync: sync-sha=af24134d87a34ab6a32bee37f8d1b44fe6a40247 -->
