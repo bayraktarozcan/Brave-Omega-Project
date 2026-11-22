@@ -87,6 +87,11 @@ jobs:
           $config.TestResult.Enabled = $true
           $config.TestResult.OutputFormat = "NUnitXml"
           $config.TestResult.OutputPath = "test-results.xml"
+          # Informational only. The suite executes function blocks extracted from
+          # BraveOmega.ps1 via New-FunctionScriptBlock, so Pester cannot attribute
+          # executed commands to the original file. The reported percentage is
+          # NOT production-code coverage and must never become a gate.
+          $config.CodeCoverage.Path = @("Brave-Omega/BraveOmega.ps1")
           $config.CodeCoverage.Enabled = $true
           $config.CodeCoverage.OutputPath = "coverage.xml"
           $config.CodeCoverage.OutputFormat = "Cobertura"
