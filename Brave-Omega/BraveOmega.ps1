@@ -12,10 +12,11 @@
 #                    browser of unnecessary services. Supports 5 hardening
 #                    tiers: Brave Only, Essential, Balanced, Advanced, Strict.
 #
-# V3 DESIGN NOTE   : From v3.0.0.0 onward no dependency version change is ever
-#                    shipped as a project update. The script detects the installed
-#                    Brave/Chromium at runtime and applies the same 149 policies
-#                    in a forward/backward compatible way on every future release.
+# V3 DESIGN NOTE   : No browser version is pinned; the installed Brave/Chromium
+#                    is detected at runtime and detection never blocks execution.
+#                    Policy validity is reviewed on every stable release. Runtime
+#                    detection alone is not a guarantee that a policy is still
+#                    honored by a future browser build.
 #
 # CHANGELOG (v3.1.0.5)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -682,6 +683,7 @@ $script:Strings = @{
     ProcCloseRerun = @{ EN = "  It is recommended to close {0} and re-run the script.`n"; TR = "  {0} adlı tarayıcıyı kapatıp betiği yeniden çalıştırmanız önerilir.`n" }
     ProcCancelled = @{ EN = "`n  Operation cancelled by the user. Please close {0} and try again."; TR = "`n  İşlem kullanıcı tarafından iptal edildi. {0} adlı tarayıcıyı kapatıp yeniden deneyin." }
     ProcClean = @{ EN = "  -> Clean: No running {0} processes detected.`n"; TR = "  -> Temiz: Çalışan {0} süreci tespit edilmedi.`n" }
+    ProcContinue = @{ EN = "  Continue anyway? [y/N]: "; TR = "  Yine de devam edilsin mi? [e/H]: " }
     InternalErrorLevel = @{ EN = "Internal error: invalid level '{0}'. Exiting."; TR = "İç hata: geçersiz katman '{0}'. Çıkılıyor." }
     InfoApplyCount = @{ EN = "[INFO] Level '{0}' will apply {1} policies.`n"; TR = "[BİLGİ] '{0}' katmanı {1} politika uygulayacak.`n" }
     AllowSyncExcluded = @{ EN = "[INFO] -AllowSync: '{0}' excluded (Brave Sync stays available)."; TR = "[BİLGİ] -SenkronizasyonaIzinVer: '{0}' hariç tutuldu (Brave Sync kullanılabilir kalır)." }
@@ -695,13 +697,13 @@ $script:Strings = @{
     OmahaWriteError = @{ EN = "  [ERROR] Failed to write to {0} -> usagestats: {1}"; TR = "  [HATA] {0} -> usagestats yazılamadı: {1}" }
     OmahaSummary = @{ EN = "  -> Omaha: {0} succeeded / {1} failed`n"; TR = "  -> Omaha: {0} başarılı / {1} başarısız`n" }
     OmahaNone = @{ EN = "  -> Info: No dynamic update ID found on the system or the area is already stable.`n"; TR = "  -> Bilgi: Sistemde dinamik güncelleme kimliği bulunamadı veya alan zaten kararlı.`n" }
-    Step2Header = @{ EN = "[2/7] Backing Up HKLM Policy Hive..."; TR = "[2/7] HKLM Politika Kovası Yedekleniyor..." }
+    Step2Header = @{ EN = "[PRE-FLIGHT] Backing Up Registry Hives..."; TR = "[PRE-FLIGHT] Kayıt Defteri Kovaları Yedekleniyor..." }
     Step2Created = @{ EN = "  -> Backup created     : {0}"; TR = "  -> Yedek oluşturuldu  : {0}" }
     Step2Restore = @{ EN = "  -> To restore, use    : reg import `"{0}`"`n"; TR = "  -> Geri yüklemek için : reg import `"{0}`"`n" }
     Step2Warn = @{ EN = "  -> Warning: Backup could not be completed. Script is continuing."; TR = "  -> Uyarı: Yedek alınamadı. Betik devam ediyor." }
     Step2Reason = @{ EN = "  -> Reason : {0}`n"; TR = "  -> Sebep : {0}`n" }
     Step2NoHive = @{ EN = "  -> Info: HKLM policy hive does not exist yet, backup skipped.`n"; TR = "  -> Bilgi: HKLM politika kovası henüz mevcut değil, yedek atlandı.`n" }
-    Step2WhatIf = @{ EN = "[2/7] Backup Skipped (-WhatIf mode)`n"; TR = "  -> [WhatIf] Yedekleme atlandı (yalnızca önizleme).`n" }
+    Step2WhatIf = @{ EN = "[PRE-FLIGHT] Backup Skipped (-WhatIf mode)`n"; TR = "  -> [WhatIf] Yedekleme atlandı (yalnızca önizleme).`n" }
     Step3Header = @{ EN = "[3/7] Preparing Registry Target Directory Structure..."; TR = "[3/7] Kayıt Defteri Hedef Dizin Yapısı Hazırlanıyor..." }
     Step3Hkcu = @{ EN = "  -> HKCU: {0}"; TR = "  -> HKCU: {0}" }
     Step3Hklm = @{ EN = "  -> HKLM: {0}`n"; TR = "  -> HKLM: {0}`n" }
@@ -862,31 +864,6 @@ Write-Host ((Get-LocalizedString 'ExecTime') -f $(Get-Date -Format 'dd-MM-yyyy H
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# STEP 0B: VERSION CHECK (V3 DESIGN — Global Compatibility)
-# ─────────────────────────────────────────────────────────────────────────────
-# V3: No hardcoded validated versions. The script detects the installed Brave
-# version at runtime and adapts. Policies are designed to be globally compatible
-# with all Brave versions — no future script update is required for new releases.
-# A compatibility warning is shown for major version differences, but the script
-# proceeds in all cases since V3 is designed for forward/backward compatibility.
-# ─────────────────────────────────────────────────────────────────────────────
-$braveInfo = Get-BraveVersion -Browser $Browser
-
-if ($braveInfo) {
-    $ValidatedBrave = $braveInfo.BraveVersion
-    $ValidatedChromium = $braveInfo.ChromiumMajor
-    $verDetectedKey = if ($Browser -eq "Chrome") { 'VerDetectedChrome' } else { 'VerDetected' }
-    $verMatchKey = if ($Browser -eq "Chrome") { 'VerMatchChrome' } else { 'VerMatch' }
-    Write-Host ((Get-LocalizedString $verDetectedKey) -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGray
-    Write-Host ((Get-LocalizedString $verMatchKey) -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGreen
-    Write-Host (Get-LocalizedString 'VerSomePolicies') -ForegroundColor Gray
-} else {
-    Write-Host (Get-LocalizedString 'VerNoDetect') -ForegroundColor Yellow
-    Write-Host (Get-LocalizedString 'VerProceed') -ForegroundColor DarkGray
-}
-
-
-# ─────────────────────────────────────────────────────────────────────────────
 # OMEGA DATA LAYER (config.json + Profiles) — Issue #28
 # Policy data now lives in config.json + Profiles/*.json; the loaders below
 # wire them into the same script variables used throughout (identical runtime
@@ -1014,6 +991,30 @@ if (Test-Path -LiteralPath $browserProfilePath) {
 }
 Write-Host ((Get-LocalizedString 'SelectedBrowser') -f $Browser) -ForegroundColor Cyan
 Write-Host ""
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 0B: VERSION CHECK (V3 DESIGN — Global Compatibility)
+# ─────────────────────────────────────────────────────────────────────────────
+# Runs after browser selection: in interactive mode the target is only known
+# once the menu has been answered. Detecting before that point would report a
+# false "not detected" on a Chrome-only machine.
+# V3: no hardcoded validated versions. Detection never blocks execution.
+# ─────────────────────────────────────────────────────────────────────────────
+$braveInfo = Get-BraveVersion -Browser $Browser
+
+if ($braveInfo) {
+    $ValidatedBrave = $braveInfo.BraveVersion
+    $ValidatedChromium = $braveInfo.ChromiumMajor
+    $verDetectedKey = if ($Browser -eq "Chrome") { 'VerDetectedChrome' } else { 'VerDetected' }
+    $verMatchKey = if ($Browser -eq "Chrome") { 'VerMatchChrome' } else { 'VerMatch' }
+    Write-Host ((Get-LocalizedString $verDetectedKey) -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGray
+    Write-Host ((Get-LocalizedString $verMatchKey) -f $ValidatedBrave, $ValidatedChromium) -ForegroundColor DarkGreen
+    Write-Host (Get-LocalizedString 'VerSomePolicies') -ForegroundColor Gray
+} else {
+    Write-Host (Get-LocalizedString 'VerNoDetect') -ForegroundColor Yellow
+    Write-Host (Get-LocalizedString 'VerProceed') -ForegroundColor DarkGray
+}
+
 
 # -----------------------------------------------------------------------------
 # Per-user hive resolution (Administrator protection compatibility).
@@ -1294,7 +1295,9 @@ if ($Reset) {
         if (-not (Test-Path "$rootPath\Update\ClientState")) { continue }
         $guids = Get-ChildItem -Path "$rootPath\Update\ClientState" -Recurse -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty Name |
-            ForEach-Object { $_ -replace "^HKEY_USERS", "Registry::HKEY_USERS" } |
+            ForEach-Object {
+                $_ -replace "HKEY_CURRENT_USER", "HKCU:" -replace "^HKEY_USERS", "Registry::HKEY_USERS"
+            } |
             Where-Object { $_ -match "\\\{[a-fA-F0-9-]+\}$" }
         foreach ($guidPath in $guids) {
             try {
@@ -1457,6 +1460,33 @@ $TotalPolicyCount = $MergedPolicies.Count
 Write-Host ((Get-LocalizedString 'InfoApplyCount') -f $LevelDisplayName, $TotalPolicyCount) -ForegroundColor DarkGray
 
 # ─────────────────────────────────────────────────────────────────────────────
+# PRE-FLIGHT BACKUP (skipped in -WhatIf mode)
+# ─────────────────────────────────────────────────────────────────────────────
+# Runs before the first write of the run: the -AllowSync removals below and the
+# Omaha telemetry pass both modify the registry, so a backup taken after them
+# would capture already-modified state. Per-user hives are backed up regardless
+# of whether the HKLM policy key exists yet.
+Write-Host (Get-LocalizedString 'Step2Header') -ForegroundColor Gray
+
+if ($WhatIf) {
+    Write-Host (Get-LocalizedString 'Step2WhatIf') -ForegroundColor Magenta
+} else {
+    if (Test-Path $HKLM_Target) {
+        $null = Export-OmegaRegistryBackup -Path $HKLM_Target -FileNamePrefix "HKLM_BravePolicy"
+    } else {
+        Write-Host (Get-LocalizedString 'Step2NoHive') -ForegroundColor DarkGray
+    }
+    foreach ($UserHive in $OmegaUserHives) {
+        if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) { continue }
+        if (Test-Path $UserHive.HkcuRoot) {
+            $safeLabel = $UserHive.Label -replace '[^A-Za-z0-9]', '_'
+            $null = Export-OmegaRegistryBackup -Path $UserHive.HkcuRoot -FileNamePrefix ("HKCU_BraveSoftware_" + $safeLabel)
+        }
+    }
+}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # ALLOW SYNC OVERRIDE (-AllowSync: keep Brave Sync available even at Strict)
 # ─────────────────────────────────────────────────────────────────────────────
 if ($AllowSync) {
@@ -1587,6 +1617,11 @@ function Write-PolicyValue {
 }
 
 
+# Every hive this run mounts is released on all exit paths, including an
+# unexpected terminating error in one of the steps below. The earlier Reset
+# and process-guard exits have their own explicit unmount before they fire.
+try {
+
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 1: RECURSIVE SCAN, DYNAMIC GUID RESOLUTION, OMAHA TELEMETRY DISABLE
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1598,6 +1633,7 @@ $OmahaErrorCount = 0
 foreach ($UserHive in $OmegaUserHives) {
     $RootPath = $UserHive.HkcuRoot
     if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) {
+        if (-not $WhatIf) { $OmahaErrorCount++ }
         Write-Host ((Get-LocalizedString 'UserHiveMountFailed') -f $UserHive.Label, $RootPath) -ForegroundColor Yellow
         continue
     }
@@ -1634,27 +1670,6 @@ if ($DynamicPaths) {
 } else {
     Write-Host (Get-LocalizedString 'OmahaNone') -ForegroundColor DarkGray
 }
-}
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# STEP 2: HKLM POLICY HIVE BACKUP (skipped in -WhatIf mode)
-# ─────────────────────────────────────────────────────────────────────────────
-Write-Host (Get-LocalizedString 'Step2Header') -ForegroundColor Gray
-
-if ($WhatIf) {
-    Write-Host (Get-LocalizedString 'Step2WhatIf') -ForegroundColor Magenta
-} elseif (Test-Path $HKLM_Target) {
-    $null = Export-OmegaRegistryBackup -Path $HKLM_Target -FileNamePrefix "HKLM_BravePolicy"
-    foreach ($UserHive in $OmegaUserHives) {
-        if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) { continue }
-        if (Test-Path $UserHive.HkcuRoot) {
-            $safeLabel = $UserHive.Label -replace '[^A-Za-z0-9]', '_'
-            $null = Export-OmegaRegistryBackup -Path $UserHive.HkcuRoot -FileNamePrefix ("HKCU_BraveSoftware_" + $safeLabel)
-        }
-    }
-} else {
-    Write-Host (Get-LocalizedString 'Step2NoHive') -ForegroundColor DarkGray
 }
 
 
@@ -1891,5 +1906,9 @@ if ($Level -in @("Advanced", "Strict")) {
 }
 
 # Exit Code
-foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
-if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0) { exit 1 } else { exit 0 }
+} finally {
+    foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
+}
+# A partial HKCU or Omaha failure is a real failure for silent/CI runs even
+# when every HKLM policy was written: the exit code must not report success.
+if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0 -or $HKCUSkippedCount -gt 0 -or $OmahaErrorCount -gt 0) { exit 1 } else { exit 0 }
