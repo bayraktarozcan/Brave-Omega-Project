@@ -19,7 +19,7 @@
 
 > **Source:** `BraveOmega.ps1` v3.1.0.5 (bilingual EN/TR)\
 > **Date:** 2026-11-11\
-> **Total unique policies:** 149 (no overlaps)\
+> **Total unique policies:** 149 (150 declarations; one intentional Strict override)\
 > **Type distribution:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\
 > **Validated on:** V3 version-agnostic — all Brave + Chromium versions (no pinned validation target)
 
@@ -67,7 +67,7 @@
 | 22 | `EmailAliasesEnabled` | DWord | `0` | BraveOnly | Windows·Linux | Anonymous email aliases |
 | 23 | `SafeBrowsingProtectionLevel` | DWord | `2` | BraveOnly | Windows·Linux | Safe Browsing protection level |
 | 24 | `PasswordProtectionWarningTrigger` | DWord | `3` | BraveOnly | Windows·Linux | Password leak warning trigger |
-| 25 | `NotificationsAllowedForUrls` | MultiString | `@("https://web.whatsapp.com")` | BraveOnly | Windows·Linux | Allows WhatsApp Web notifications while every other origin stays blocked |
+| 25 | `NotificationsAllowedForUrls` | MultiString | `@("https://web.whatsapp.com")` | BraveOnly | Windows·Linux | Allows WhatsApp Web notifications while every other origin stays blocked; Strict clears this list |
 | 26 | `MetricsReportingEnabled` | DWord | `0` | Essential | Windows·Linux | Chromium usage/crash metrics |
 | 27 | `UrlKeyedAnonymizedDataCollectionEnabled` | DWord | `0` | Essential | Windows·Linux | Visited URLs to Google |
 | 28 | `SearchSuggestEnabled` | DWord | `0` | Essential | Windows·Linux | Keystroke data leak |
@@ -118,7 +118,7 @@
 | 73 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Balanced | Windows·Linux | Background timer throttling |
 | 74 | `UserFeedbackAllowed` | DWord | `0` | Balanced | Windows·Linux | User feedback prompts |
 | 75 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Balanced | Windows·Linux | Force-installed extension |
-| 76 | `DownloadDirectory` | ExpandString | `${env:USERPROFILE}\Downloads\` | Balanced | Windows·Linux | Download path |
+| 76 | `DownloadDirectory` | ExpandString | `%USERPROFILE%\Downloads\` | Balanced | Windows·Linux | Download path |
 | 77 | `PromptForDownloadLocation` | DWord | `0` | Balanced | Windows·Linux | Download location prompt |
 | 78 | `RelaunchNotification` | DWord | `2` | Balanced | Windows·Linux | Browser relaunch notification |
 | 79 | `RelaunchNotificationPeriod` | DWord | `3600000` | Balanced | Windows·Linux | Relaunch timer (1 hour) |
@@ -177,7 +177,7 @@
 | 132 | `TaskManagerEndProcessEnabled` | DWord | `0` | Strict | Windows·Linux | Task Manager |
 | 133 | `PrintingEnabled` | DWord | `0` | Strict | Windows·Linux | Print function |
 | 134 | `DisablePrintPreview` | DWord | `1` | Strict | Windows·Linux | Print preview |
-| 135 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Strict | Windows·Linux | Server-side download scan |
+| 135 | `SafeBrowsingDeepScanningEnabled` | DWord | `1` | Strict | Windows·Linux | Server-side download scan |
 | 136 | `DeveloperToolsAvailability` | DWord | `2` | Strict | Windows·Linux | Developer Tools |
 | 137 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Strict | Windows·Linux | Auto-clear browsing data |
 | 138 | `AlwaysOpenPdfExternally` | DWord | `1` | Strict | Windows·Linux | Built-in PDF viewer |
@@ -230,7 +230,7 @@ Maximum privacy. Disables translation, clipboard, file system, JIT, cookies, pri
 
 | Policy Name | Reason |
 |-------------|--------|
-| `CloudPrintProxyEnabled` | Present in `$allPolicyNames` (reset list) but deprecated by Chromium; not assigned to any tier |
+| `CloudPrintProxyEnabled` | Deprecated by Chromium; not assigned to any tier and not in the data-layer-derived reset list |
 
 ---
 
@@ -256,7 +256,7 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 
 > **Kaynak:** `BraveOmega.ps1` v3.1.0.5 (iki dilli EN/TR)\
 > **Tarih:** 2026-11-11\
-> **Toplam benzersiz politika:** 149 (çakışma yok)\
+> **Toplam benzersiz politika:** 149 (150 tanım; bir kasıtlı Katı geçersiz kılma)\
 > **Tür dağılımı:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\
 > **Doğrulandı:** V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri (sabit doğrulama hedefi yok)
 
@@ -316,7 +316,7 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 | 22 | `EmailAliasesEnabled` | DWord | `0` | Brave Yalnız | Windows·Linux | Anonim e-posta takma adları |
 | 23 | `SafeBrowsingProtectionLevel` | DWord | `2` | Brave Yalnız | Windows·Linux | Safe Browsing koruma düzeyi |
 | 24 | `PasswordProtectionWarningTrigger` | DWord | `3` | Brave Yalnız | Windows·Linux | Parola sızıntısı uyarı tetikleyici |
-| 25 | `NotificationsAllowedForUrls` | MultiString | `@("https://web.whatsapp.com")` | Brave Yalnız | Windows·Linux | WhatsApp Web bildirimlerine izin verir, diğer tüm kaynaklar engelli kalır |
+| 25 | `NotificationsAllowedForUrls` | MultiString | `@("https://web.whatsapp.com")` | Brave Yalnız | Windows·Linux | WhatsApp Web bildirimlerine izin verir, diğer tüm kaynaklar engelli kalır; Katı bu listeyi boşaltır |
 | 26 | `MetricsReportingEnabled` | DWord | `0` | Temel | Windows·Linux | Chromium kullanım/çökme metrikleri |
 | 27 | `UrlKeyedAnonymizedDataCollectionEnabled` | DWord | `0` | Temel | Windows·Linux | Ziyaret edilen URL'ler Google'a |
 | 28 | `SearchSuggestEnabled` | DWord | `0` | Temel | Windows·Linux | Tuş vuruşu veri sızıntısı |
@@ -367,7 +367,7 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 | 73 | `IntensiveWakeUpThrottlingEnabled` | DWord | `1` | Dengeli | Windows·Linux | Arka plan zamanlayıcı kısıtlaması |
 | 74 | `UserFeedbackAllowed` | DWord | `0` | Dengeli | Windows·Linux | Kullanıcı geri bildirim istemleri |
 | 75 | `ExtensionInstallForcelist` | MultiString | `eimadpbcbfnmbkopoojfekhnkhdbieeh;…, maafgiompdekodanheihhgilkjchcakm;https://outlook.office.com/owa/SmimeCrxUpdate.ashx` | Dengeli | Windows·Linux | Zorunlu eklenti |
-| 76 | `DownloadDirectory` | ExpandString | `${env:USERPROFILE}\Downloads\` | Dengeli | Windows·Linux | İndirme yolu |
+| 76 | `DownloadDirectory` | ExpandString | `%USERPROFILE%\Downloads\` | Dengeli | Windows·Linux | İndirme yolu |
 | 77 | `PromptForDownloadLocation` | DWord | `0` | Dengeli | Windows·Linux | İndirme konumu istemi |
 | 78 | `RelaunchNotification` | DWord | `2` | Dengeli | Windows·Linux | Tarayıcı yeniden başlatma bildirimi |
 | 79 | `RelaunchNotificationPeriod` | DWord | `3600000` | Dengeli | Windows·Linux | Yeniden başlatma zamanlayıcı (1 saat) |
@@ -426,7 +426,7 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 | 132 | `TaskManagerEndProcessEnabled` | DWord | `0` | Katı | Windows·Linux | Görev Yöneticisi |
 | 133 | `PrintingEnabled` | DWord | `0` | Katı | Windows·Linux | Yazdırma işlevi |
 | 134 | `DisablePrintPreview` | DWord | `1` | Katı | Windows·Linux | Yazdırma önizleme |
-| 135 | `SafeBrowsingDeepScanningEnabled` | DWord | `0` | Katı | Windows·Linux | Sunucu tarafı indirme taraması |
+| 135 | `SafeBrowsingDeepScanningEnabled` | DWord | `1` | Katı | Windows·Linux | Sunucu tarafı indirme taraması |
 | 136 | `DeveloperToolsAvailability` | DWord | `2` | Katı | Windows·Linux | Geliştirici araçları |
 | 137 | `BrowsingDataLifetime` | String | `{"data_types"=@(…);"time_to_live…"=24}` | Katı | Windows·Linux | Otomatik gezinti verisi temizleme |
 | 138 | `AlwaysOpenPdfExternally` | DWord | `1` | Katı | Windows·Linux | Yerleşik PDF görüntüleyici |
@@ -479,7 +479,7 @@ Azami gizlilik. Çeviri, pano, dosya sistemi, JIT, çerezler, yazdırma, indirme
 
 | Politika Adı | Gerekçe |
 |-------------|---------|
-| `CloudPrintProxyEnabled` | `$allPolicyNames` listesinde (sıfırlama) mevcut ancak Chromium tarafından kullanımdan kaldırıldı; hiçbir katmana atanmamıştır |
+| `CloudPrintProxyEnabled` | Chromium tarafından kullanımdan kaldırıldı; hiçbir katmana atanmamıştır ve veri katmanından türetilen sıfırlama listesinde de yoktur |
 
 ---
 

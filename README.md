@@ -305,9 +305,9 @@ no longer have any effect.
 
 **Brave Omega is built around a lifecycle-first commitment:**
 
-- **Version Agnostic** — V3 detects the installed Brave + Chromium versions at runtime and
-  applies the same validated policy set to every supported version. No release pins a
-  browser version.
+- **Version-Agnostic Runtime** — V3 detects the installed Brave + Chromium versions at runtime;
+  detection never blocks execution and no release pins a browser version. This is a runtime
+  property, not a guarantee that every policy is still honored by every future browser build.
 
 - **Policy Review on Every Brave Stable Release** — When Brave ships a new stable version,
   the ADMX template package is reviewed against the previous version. New policies are
@@ -623,7 +623,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projection sync
 │   ├── Release.ps1                        Release automation
 │   └── Mojibake-Scan.py                   Character-integrity scanner
-├── Tests/                                 Pester suite (latest release; 43 test files + 2 helpers)
+├── Tests/                                 Pester suite (latest release; 51 test files + 2 helpers)
 ├── Wiki/                                  Wiki source of truth (15 pages)
 ├── index.html                             Landing page (GitHub Pages)
 ├── AGENTS.md                              Agent and contributor rules
@@ -662,7 +662,10 @@ BRAVE OMEGA PROJECT/
 ### 12. Troubleshooting
 
 > [!NOTE]
-> Brave Omega V3 is version-agnostic and runs on **all Brave + Chromium releases** (Stable, Beta, Nightly). No Brave/Chromium version bump requires a project update.
+> Brave Omega V3 detects the installed Brave + Chromium version at runtime and does not block
+> on a version mismatch. Policy validity is reviewed on every stable release; a new browser
+> build is not behaviourally verified until that review is done, so absolute compatibility is
+> not guaranteed.
 
 | Symptom | Likely Cause | Resolution |
 |---------|-------------|------------|
@@ -690,7 +693,7 @@ BRAVE OMEGA PROJECT/
 - [x] **Reset/uninstall mode** via `-Reset` parameter — remove all applied policies cleanly (v2.1)
 - [x] **CONTRIBUTING.md** and GitHub issue templates (v2.1)
 - [x] **GitHub Actions ADMX validation pipeline** — weekly automated policy diff validation (v2.1)
-- [x] **Quality & Test Infrastructure** — 440 Pester tests (51 test files + 1 helper), PSScriptAnalyzer, policy integrity CI, platform matrix (Ubuntu + Windows), version-check workflow
+- [x] **Quality & Test Infrastructure** — 440 Pester tests (51 test files + 2 helpers), PSScriptAnalyzer, policy integrity CI, platform matrix (Ubuntu + Windows), version-check workflow
 - [ ] Additional language editions (community contributions welcome — see CONTRIBUTING.md)
 - [ ] Per-policy override support — explicitly include/exclude individual policies from any level
 - [ ] PowerShell help system (`Get-Help BraveOmega.ps1 -Detailed`)
@@ -1035,9 +1038,10 @@ daha kötüsü, sessizce artık hiçbir etkisi olmayan eski yapılandırmaları 
 
 **Brave Omega, yaşam döngüsünü esas alan bir taahhüt üzerine inşa edilmiştir:**
 
-- **Sürüm Bağımsızlığı** — V3 kurulu Brave + Chromium sürümünü runtime'da tespit eder ve
-  aynı doğrulanmış politika setini desteklenen her sürüme uygular. Hiçbir sürüm tarayıcı
-  sürümüne sabitlenmez.
+- **Sürüm Bağımsız Çalışma Zamanı** — V3 kurulu Brave + Chromium sürümünü çalışma anında tespit
+  eder; algılama hiçbir zaman çalışmayı engellemez ve hiçbir sürüm tarayıcı sürümüne sabitlenmez.
+  Bu bir çalışma zamanı özelliğidir; her politikanın gelecekteki her tarayıcı sürümünde geçerli
+  olduğu garantisi değildir.
 
 - **Her Brave Kararlı Sürümünde Politika Gözden Geçirmesi** — Brave yeni bir kararlı sürüm
   yayımladığında ADMX şablon paketi önceki sürümle karşılaştırılır. Yeni politikalar
@@ -1355,7 +1359,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
 │   ├── Release.ps1                        Sürüm otomasyonu
 │   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
-├── Tests/                                 Pester paketi (en güncel sürüm; 43 test dosyası + 2 yardımcı)
+├── Tests/                                 Pester paketi (en güncel sürüm; 51 test dosyası + 2 yardımcı)
 ├── Wiki/                                  Wiki kaynağı (15 sayfa)
 ├── index.html                             Açılış sayfası (GitHub Pages)
 ├── AGENTS.md                              Ajan ve katkıcı kuralları
@@ -1395,7 +1399,10 @@ BRAVE OMEGA PROJECT/
 ### 12. Sorun Giderme
 
 > [!NOTE]
-> Brave Omega V3 sürüm-bağımsızdır ve **tüm Brave + Chromium sürümlerinde** (Stable, Beta, Nightly) çalışır. Hiçbir Brave/Chromium sürüm değişikliği proje güncellemesi gerektirmez.
+> Brave Omega V3 kurulu Brave + Chromium sürümünü çalışma anında tespit eder ve sürüm
+> uyuşmazlığında çalışmayı durdurmaz. Politika geçerliliği her kararlı sürümde gözden geçirilir;
+> yeni bir tarayıcı sürümü bu gözden geçirme yapılmadan davranışsal olarak doğrulanmış sayılmaz,
+> mutlak uyumluluk garanti edilmez.
 
 | Belirti | Olası Neden | Çözüm |
 |---------|------------|-------|
