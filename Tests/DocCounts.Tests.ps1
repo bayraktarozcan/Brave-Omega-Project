@@ -49,6 +49,15 @@ Describe 'AGENTS.md document counts' -Tag 'Unit' {
             $declared = Get-AgentsCount -Path $script:AgentsPath -Pattern 'expected:\s*(\d+)/(\d+)\s+passing'
             $declared.First | Should -Be $declared.Second -Because 'the document promises a fully passing suite, so a split total would bless failures in advance'
             Get-ItStatementCount | Should -Be $declared.First -Because 'a test added or removed without updating the document leaves the next reader trusting a count the suite no longer produces'
+
+            # README repeats the suite shape in its structure and roadmap sections.
+            # Nothing else reads those numbers, so pin them here: an unpinned
+            # count agrees with the tree on the day it is written and rots later.
+            $readme = Get-Content -LiteralPath (Join-Path $ProjectRoot 'README.md') -Raw
+            $readme | Should -Match '440 Pester tests \(51 test files \+ 2 helpers\)'
+            $readme | Should -Match 'latest release; 51 test files \+ 2 helpers'
+            $readme | Should -Match '51 test dosyası \+ 2 yardımcı'
+            $readme | Should -Match '51 birim \+ entegrasyon test dosyası, 440 test'
         }
 
         It 'the Turkish mirror states the same total' {

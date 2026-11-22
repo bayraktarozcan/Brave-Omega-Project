@@ -121,6 +121,16 @@ Describe "Registry Backup Helper" -Tag "Unit" {
         # two backup routines that disagree about the path, the name or the check.
         $content = Get-Content -Path $ScriptMain -Raw
         [regex]::Matches($content, 'reg export "\$flatPath"').Count | Should -Be 1
+
+        # The apply flow must back up before its first write. Both the -AllowSync
+        # removal and the Omaha telemetry pass modify the registry; a backup
+        # placed after either one would preserve already-modified state.
+        $applyBackupIdx = $content.IndexOf("Write-Host (Get-LocalizedString 'Step2Header')")
+        $allowSyncWriteIdx = $content.IndexOf('Remove-ItemProperty -Path $HKLM_Target -Name $SyncPolicyName')
+        $omahaWriteIdx = $content.IndexOf('New-ItemProperty -Path $GUIDPath -Name "usagestats"')
+        $applyBackupIdx | Should -BeGreaterThan 0
+        $allowSyncWriteIdx | Should -BeGreaterThan $applyBackupIdx
+        $omahaWriteIdx | Should -BeGreaterThan $applyBackupIdx
     }
 
     It "helper should write backups under the temporary BravePolicyBackup folder" {

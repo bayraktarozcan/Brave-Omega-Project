@@ -70,6 +70,23 @@ Describe "Cumulative Merge" -Tag "Unit" {
                 [int]$heading.Groups[3].Value | Should -BeExactly $script:Cumulative[$tier].Count
             }
         }
+
+        # The catalog is hand-maintained and its value column had no reader.
+        # DWord rows carry a plain integer, so they can be compared with the
+        # data layer exactly. Structured values are abbreviated in the catalog
+        # and are deliberately out of scope for this guard.
+        $catalogText = Get-Content -LiteralPath $catalogPath -Raw -Encoding UTF8
+        $dwordRows = [regex]::Matches(
+            $catalogText,
+            '(?m)^\|\s*\d+\s*\|\s*`([^`]+)`\s*\|\s*DWord\s*\|\s*`(\d+)`\s*\|'
+        )
+        @($dwordRows).Count | Should -BeGreaterThan 0
+        foreach ($row in $dwordRows) {
+            $policyName = $row.Groups[1].Value
+            $script:Cumulative['Strict'].ContainsKey($policyName) | Should -Be $true
+            [int]$row.Groups[2].Value |
+                Should -BeExactly ([int]$script:Cumulative['Strict'][$policyName].Value)
+        }
     }
 
     It "each tier is a superset of the previous tier" {
