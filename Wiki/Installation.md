@@ -5,7 +5,7 @@
 
 # 🔧 Installation — Complete Setup Guide
 
-Complete installation guide for Brave Omega v3.1.0.5 (V3 version-agnostic — all Brave + Chromium versions supported).
+Complete installation guide for Brave Omega v3.1.0.5 (runtime version detection; policy validity is reviewed on every stable Brave release).
 
 ---
 
@@ -246,7 +246,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projection sync
 │   ├── Release.ps1                        Release automation
 │   └── Mojibake-Scan.py                   Character-integrity scanner
-├── Tests/                                 Pester suite (latest release; 43 test files + 2 helpers)
+├── Tests/                                 Pester suite (latest release; 51 test files + 2 helpers)
 ├── Wiki/                                  Wiki source of truth (15 pages)
 ├── index.html                             Landing page (GitHub Pages)
 ├── AGENTS.md                              Agent and contributor rules
@@ -281,7 +281,7 @@ BRAVE OMEGA PROJECT/
 
 # 🔧 Kurulum — Tam Kurulum Kılavuzu
 
-Brave Omega v3.1.0.5 için tam kurulum kılavuzu (V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri desteklenir).
+Brave Omega v3.1.0.5 için tam kurulum kılavuzu (çalışma anında sürüm algılama; politika geçerliliği her kararlı Brave sürümünde gözden geçirilir).
 
 ---
 
@@ -523,7 +523,7 @@ BRAVE OMEGA PROJECT/
 │   ├── Wiki-Sync.ps1                      Wiki projeksiyonu eşitleme
 │   ├── Release.ps1                        Sürüm otomasyonu
 │   └── Mojibake-Scan.py                   Karakter bütünlüğü tarayıcı
-├── Tests/                                 Pester paketi (en güncel sürüm; 43 test dosyası + 2 yardımcı)
+├── Tests/                                 Pester paketi (en güncel sürüm; 51 test dosyası + 2 yardımcı)
 ├── Wiki/                                  Wiki kaynağı (15 sayfa)
 ├── index.html                             Açılış sayfası (GitHub Pages)
 ├── AGENTS.md                              Ajan ve katkıcı kuralları

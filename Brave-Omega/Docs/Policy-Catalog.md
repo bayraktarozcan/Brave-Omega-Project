@@ -21,7 +21,7 @@
 > **Date:** 2026-11-11\
 > **Total unique policies:** 149 (150 declarations; one intentional Strict override)\
 > **Type distribution:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\
-> **Validated on:** V3 version-agnostic — all Brave + Chromium versions (no pinned validation target)
+> **Validated on:** runtime version detection (no pinned target); validity reviewed on every stable Brave release
 
 ---
 
@@ -258,7 +258,7 @@ All 25 BraveOnly policies are also applied on Linux through the managed JSON ins
 > **Tarih:** 2026-11-11\
 > **Toplam benzersiz politika:** 149 (150 tanım; bir kasıtlı Katı geçersiz kılma)\
 > **Tür dağılımı:** 120 DWord · 8 String · 20 MultiString · 1 ExpandString\
-> **Doğrulandı:** V3 sürüm-bağımsız — tüm Brave + Chromium sürümleri (sabit doğrulama hedefi yok)
+> **Doğrulandı:** çalışma anında sürüm algılama (sabit hedef yok); geçerlilik her kararlı Brave sürümünde gözden geçirilir
 
 ---
 

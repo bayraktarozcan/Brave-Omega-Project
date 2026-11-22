@@ -77,15 +77,17 @@ Complete compatibility reference for Brave Omega versions.
 
 ---
 
-## Version Agnostic Policy
+## Version-Agnostic Runtime
 
-Every Brave Omega V3 release is **version-agnostic**:
+Every Brave Omega V3 release detects the installed browser at runtime and never blocks on a
+version mismatch. That is a runtime property, not a guarantee that every policy is honored by
+every future browser build:
 
 - Brave and Chromium versions are detected at runtime
-- One validated policy set applies to all supported versions
-- Windows build requirements are stated, not browser-version-pinned
+- No release pins a browser version; Windows build requirements are stated separately
+- Policy validity is reviewed on every stable release; a new build is not behaviorally verified until that review is done
 
-> **No ambiguity:** the script validates the installed browser instead of trusting a pinned version.
+> **No ambiguity:** detection is automatic, but absolute compatibility is not guaranteed without the per-release review.
 
 ---
 
@@ -93,7 +95,7 @@ Every Brave Omega V3 release is **version-agnostic**:
 
 ### Use Current (V3.1.0.5) If
 
-- Running any Brave release (V3 version-agnostic — no pinned version)
+- Running a Brave release detected at runtime (no pinned version; review policy validity on new stable builds)
 - Want the latest 5-tier hardening model (Brave Only/Essential/Balanced/Advanced/Strict)
 - Need full extension lockdown, proxy enforcement, and 149 total policies
 
@@ -140,7 +142,7 @@ if (Test-Path $bravePath) {
 
 | Scenario | Recommendation |
 | ---------- | ---------------- |
-| Any Brave release (V3) | Use v3.1.0.5 — version-agnostic, no matrix lookup needed |
+| Any Brave release (V3) | Use v3.1.0.5 — runtime detection, no version pin; review new stable builds |
 | Staying on an older release | Update to v3.1.0.5 for the latest policy set |
 | Windows build differs | Windows 11 recommended; other builds likely compatible |
 
@@ -318,15 +320,17 @@ Brave Omega sürümleri için tam uyumluluk referansı.
 
 ---
 
-## Sürüm Bağımsızlığı Politikası
+## Sürüm Bağımsız Çalışma Zamanı
 
-Her Brave Omega V3 sürümü **sürüm-bağımsızdır**:
+Her Brave Omega V3 sürümü kurulu tarayıcıyı çalışma anında tespit eder ve sürüm uyuşmazlığında
+çalışmayı durdurmaz. Bu bir çalışma zamanı özelliğidir; her politikanın gelecekteki her tarayıcı
+sürümünde geçerli olduğu garantisi değildir:
 
-- Brave ve Chromium sürümleri runtime'da tespit edilir
-- Tek bir doğrulanmış politika seti desteklenen tüm sürümlere uygulanır
-- Windows derleme gereksinimi belirtilir, tarayıcı sürümü sabitlenmez
+- Brave ve Chromium sürümleri çalışma anında tespit edilir
+- Hiçbir sürüm tarayıcı sürümüne sabitlenmez; Windows derleme gereksinimi ayrıca belirtilir
+- Politika geçerliliği her kararlı sürümde gözden geçirilir; yeni sürüm bu gözden geçirme yapılmadan davranışsal olarak doğrulanmış sayılmaz
 
-> **Belirsizlik yok:** betik sabitlenmiş bir sürüme güvenmek yerine kurulu tarayıcıyı doğrular.
+> **Belirsizlik yok:** algılama otomatiktir, ancak sürüm başına gözden geçirme olmadan mutlak uyumluluk garanti edilmez.
 
 ---
 
@@ -334,9 +338,9 @@ Her Brave Omega V3 sürümü **sürüm-bağımsızdır**:
 
 ### Güncel (V3.1.0.5) Kullan Eğer
 
-- Herhangi bir Brave sürümü çalışıyorsa (V3 sürüm-bağımsız — sabit sürüm yok)
+- Çalışma anında algılanagelen bir Brave sürümü varsa (sabit sürüm yok; yeni kararlı sürümlerde politika geçerliliğini gözden geçirin)
 - En son 5 katmanlı sıkılaştırma modelini istiyorsanız (Brave Yalnız/Temel/Dengeli/Gelişmiş/Katı)
-- Tam uzantı kilitleme, proxy zorunlu kılma ve 150 toplam politika
+- Tam uzantı kilitleme, proxy zorunlu kılma ve 149 toplam politika
 
 ### Önceki (V3.1.0.4) Kullan Eğer
 
@@ -381,7 +385,7 @@ if (Test-Path $bravePath) {
 
 | Senaryo | Öneri |
 | --------- | ------- |
-| Herhangi bir Brave sürümü (V3) | v3.1.0.5 kullanın — sürüm-bağımsız, matris araması gerekmez |
+| Herhangi bir Brave sürümü (V3) | v3.1.0.5 kullanın — çalışma anında algılama, sürüm sabitlemesi yok; yeni kararlı sürümleri gözden geçirin |
 | Eski bir sürümde kalınıyorsa | En güncel politika seti için v3.1.0.5'e geçin |
 | Windows derlemesi farklı | Windows 11 önerilir; diğer derlemeler muhtemelen uyumludur |
 

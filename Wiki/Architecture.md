@@ -349,7 +349,7 @@ Bunun yerine politika başına yazma şunları sağlıyor:
 - **`-WhatIf` parametresi** değişiklikleri uygulamadan önizler
 - **`-Reset` parametresi** uygulanan tüm politikaları geri alır — önce iki kovanın da yedeğini alır, yedekleme başarısız olursa vazgeçer
 - Birden fazla çalıştırma = **özdeş sonuç**
-- Yinelenen kayıt defteri girişi yok, çakışma yok
+- 149 benzersiz kayıt defteri girişi (Strict'te 150 tanımdan biri kasıtlı olarak geçersiz kılınır)
 - Otomasyon / zamanlanmış görevler için güvenli
 
 ---
