@@ -759,6 +759,7 @@ $script:Strings = @{
     UserHiveMountFailed = @{ EN = "  [WARN] Hive for '{0}' unavailable: {1} — profile skipped"; TR = "  [UYARI] '{0}' kovanı kullanılamıyor: {1} — profil atlandı" }
     UserHiveUnmounted = @{ EN = "  [OK] Unmounted hive for '{0}'"; TR = "  [OK] '{0}' kovanı ayrıldı" }
     ProfileSummary = @{ EN = "  User profiles      : {0} applied / {1} skipped"; TR = "  Kullanıcı profilleri : {0} uygulandı / {1} atlandı" }
+    SummaryHiveFails = @{ EN = "  User hive mounts   : {0} failed"; TR = "  Kullanıcı kovası bağlama : {0} başarısız" }
     FinalWarn2 = @{ EN = "            review the ERROR lines above and check required permissions."; TR = "            yukarıdaki HATA satırlarını inceleyin ve gerekli izinleri kontrol edin." }
 }
 
@@ -1459,6 +1460,14 @@ for ($i = 0; $i -le $SelectedIndex; $i++) {
 $TotalPolicyCount = $MergedPolicies.Count
 Write-Host ((Get-LocalizedString 'InfoApplyCount') -f $LevelDisplayName, $TotalPolicyCount) -ForegroundColor DarkGray
 
+# Every hive this run mounts is released on all exit paths, including an
+# unexpected terminating error in the pre-flight backup or the -AllowSync pass.
+# The earlier Reset, level and process-guard exits happen before the first
+# mount and keep their own explicit unmount.
+try {
+
+$HiveMountFailCount = 0
+
 # ─────────────────────────────────────────────────────────────────────────────
 # PRE-FLIGHT BACKUP (skipped in -WhatIf mode)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1617,10 +1626,8 @@ function Write-PolicyValue {
 }
 
 
-# Every hive this run mounts is released on all exit paths, including an
-# unexpected terminating error in one of the steps below. The earlier Reset
-# and process-guard exits have their own explicit unmount before they fire.
-try {
+# Steps 1-7 run inside the try opened before the pre-flight backup; the
+# finally at the end releases every hive this run mounted.
 
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 1: RECURSIVE SCAN, DYNAMIC GUID RESOLUTION, OMAHA TELEMETRY DISABLE
@@ -1633,7 +1640,10 @@ $OmahaErrorCount = 0
 foreach ($UserHive in $OmegaUserHives) {
     $RootPath = $UserHive.HkcuRoot
     if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) {
-        if (-not $WhatIf) { $OmahaErrorCount++ }
+        # Counted once here only. Steps 4 and 6 skip an already-failed hive
+        # without adding to their own failure counters, so one locked profile
+        # cannot become three failures and force a misleading hard exit.
+        if (-not $WhatIf) { $HiveMountFailCount++ }
         Write-Host ((Get-LocalizedString 'UserHiveMountFailed') -f $UserHive.Label, $RootPath) -ForegroundColor Yellow
         continue
     }
@@ -1706,7 +1716,8 @@ foreach ($UserHive in $OmegaUserHives) {
     try {
         if (-not $WhatIf) {
             if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) {
-                throw "hive unavailable"
+                # Already counted in Step 1; skip without a second failure count.
+                continue
             }
             New-ItemProperty -Path $UserHive.HkcuTarget -Name "UsageStatsInSample" -Value 0 -PropertyType DWord -Force | Out-Null
         }
@@ -1815,7 +1826,8 @@ foreach ($UserHive in $OmegaUserHives) {
     try {
         if (-not $WhatIf) {
             if (-not (Mount-OmegaUserHive -UserHive $UserHive -WhatIf:$WhatIf)) {
-                throw "hive unavailable"
+                # Already counted in Step 1; skip without a second failure count.
+                continue
             }
             New-ItemProperty -Path $UserHive.HkcuTarget -Name "ChromeVariations" -Value 1 -PropertyType DWord -Force | Out-Null
         }
@@ -1850,6 +1862,9 @@ $HKCUStatus = if ($HKCUSuccess) { "Applied" } else { "Failed" }
 Write-Host ((Get-LocalizedString 'SummaryOmaha') -f $OmahaSuccessCount, $OmahaErrorCount) -ForegroundColor Gray
 Write-Host ((Get-LocalizedString 'SummaryHkcu') -f $HKCUStatus) -ForegroundColor Gray
 Write-Host ((Get-LocalizedString 'ProfileSummary') -f $HKCUAppliedCount, $HKCUSkippedCount) -ForegroundColor Gray
+if ($HiveMountFailCount -gt 0) {
+    Write-Host ((Get-LocalizedString 'SummaryHiveFails') -f $HiveMountFailCount) -ForegroundColor Gray
+}
 Write-Host ((Get-LocalizedString 'SummaryHklm') -f $SuccessCount, $ErrorCount) -ForegroundColor Gray
 if ($StaleRemovedCount -gt 0 -or $StaleFailCount -gt 0) {
     Write-Host ((Get-LocalizedString 'SummaryStale') -f $StaleRemovedCount, $StaleFailCount) -ForegroundColor Gray
@@ -1909,6 +1924,6 @@ if ($Level -in @("Advanced", "Strict")) {
 } finally {
     foreach ($UserHive in $OmegaUserHives) { [void](Dismount-OmegaUserHive -UserHive $UserHive) }
 }
-# A partial HKCU or Omaha failure is a real failure for silent/CI runs even
-# when every HKLM policy was written: the exit code must not report success.
-if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0 -or $HKCUSkippedCount -gt 0 -or $OmahaErrorCount -gt 0) { exit 1 } else { exit 0 }
+# A partial HKCU, Omaha or hive-mount failure is a real failure for silent/CI
+# runs even when every HKLM policy was written. Each cause is counted once.
+if ($ErrorCount -gt 0 -or $StaleFailCount -gt 0 -or $HKCUSkippedCount -gt 0 -or $OmahaErrorCount -gt 0 -or $HiveMountFailCount -gt 0) { exit 1 } else { exit 0 }

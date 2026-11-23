@@ -131,6 +131,14 @@ Describe "Registry Backup Helper" -Tag "Unit" {
         $applyBackupIdx | Should -BeGreaterThan 0
         $allowSyncWriteIdx | Should -BeGreaterThan $applyBackupIdx
         $omahaWriteIdx | Should -BeGreaterThan $applyBackupIdx
+
+        # The backup mounts hives, so the try/finally that releases them must
+        # open before the first mount, not beside Step 1.
+        $preflightIdx = $content.IndexOf('# PRE-FLIGHT BACKUP')
+        $tryIdx = $content.LastIndexOf('try {', $preflightIdx)
+        $tryIdx | Should -BeGreaterThan 0
+        $stepOneIdx = $content.IndexOf('# STEP 1: RECURSIVE SCAN')
+        $content.IndexOf('try {', $preflightIdx, $stepOneIdx - $preflightIdx) | Should -Be -1
     }
 
     It "helper should write backups under the temporary BravePolicyBackup folder" {

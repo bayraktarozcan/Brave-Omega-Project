@@ -45,7 +45,10 @@ Describe "Stale Policy Cleanup" -Tag "Unit" {
         $content = Get-Content -Path $ScriptMain -Raw
         $content -match "Get-LocalizedString 'SummaryStale'" | Should -Be $true
         $content -match 'Stale Cleanup      : \{0\} removed' | Should -Be $true
-        $content -match 'if \(\$ErrorCount -gt 0 -or \$StaleFailCount -gt 0 -or \$HKCUSkippedCount -gt 0 -or \$OmahaErrorCount -gt 0\)' | Should -Be $true
+        $content -match 'if \(\$ErrorCount -gt 0 -or \$StaleFailCount -gt 0 -or \$HKCUSkippedCount -gt 0 -or \$OmahaErrorCount -gt 0 -or \$HiveMountFailCount -gt 0\)' | Should -Be $true
+        # One locked profile must produce one failure signal, not three.
+        $content -match 'throw "hive unavailable"' | Should -Be $false
+        $content -match 'SummaryHiveFails' | Should -Be $true
     }
 
     It "unified smart filter should flag stale Strict-only policies for Advanced but preserve foreign values" {
