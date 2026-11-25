@@ -62,7 +62,7 @@ be tolerated.
 
 ### 3. Browser Updates
 
-V3 is version-agnostic: `$ValidatedBrave` and `$ValidatedChromium` are populated
+V3 detects the installed browser at runtime: `$ValidatedBrave` and `$ValidatedChromium` are populated
 from the installed browser at runtime and are never pinned. When a browser
 release changes policy behavior:
 
@@ -221,7 +221,7 @@ her katkıda bulunan değerlidir. Taciz, trolleme ve kişisel saldırılar hoş 
 
 ### 3. Tarayıcı Güncellemeleri
 
-V3 sürüm-bağımsızdır: `$ValidatedBrave` ve `$ValidatedChromium` kurulu tarayıcıdan
+V3 kurulu tarayıcıyı çalışma anında algılar: `$ValidatedBrave` ve `$ValidatedChromium` kurulu tarayıcıdan
 runtime'da doldurulur ve asla sabitlenmez. Bir tarayıcı sürümü politika davranışını
 değiştirdiğinde:
 

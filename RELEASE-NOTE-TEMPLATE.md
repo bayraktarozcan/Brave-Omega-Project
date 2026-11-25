@@ -80,7 +80,7 @@ Adds `ProxySettings` to Essential tier for proxy configuration placeholder suppo
 ### Changed
 
 - Script version → `{VERSION}`
-- Browser support → V3 is version-agnostic; browser versions are detected at runtime
+- Browser support → runtime version detection, no pinned version; policy validity reviewed on each stable release
 - Documentation updated (README, Wiki, CHANGELOG)
 
 ### Files

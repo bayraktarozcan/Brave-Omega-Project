@@ -44,7 +44,7 @@
 |-----------|-------------|
 | Windows | 11 26H2 (validated build) |
 | PowerShell | 5.1 or newer (Windows PowerShell; `pwsh` is not required) |
-| Brave | All stable releases (V3 version-agnostic — no pinned version) |
+| Brave | Runtime version detection, no pinned version; policy validity reviewed on each stable release |
 | Privileges | Elevated (Administrator) session required for policy writes |
 
 See the [Version Compatibility Matrix](Wiki/Version-Compatibility-Matrix.md) for the full version history.
@@ -82,7 +82,7 @@ See the [Version Compatibility Matrix](Wiki/Version-Compatibility-Matrix.md) for
 |---------|------------|
 | Windows | 11 26H2 (doğrulanmış derleme) |
 | PowerShell | 5.1 veya üzeri (Windows PowerShell; `pwsh` gerekmez) |
-| Brave | Tüm kararlı sürümler (V3 sürüm-bağımsız — sabit sürüm yok) |
+| Brave | Çalışma anında sürüm algılama, sabit sürüm yok; politika geçerliliği her kararlı sürümde gözden geçirilir |
 | Ayrıcalıklar | Politika yazımı için yükseltilmiş (Yönetici) oturum gerekir |
 
 Tam sürüm geçmişi için [Sürüm Uyumluluk Matrisi'ne](Wiki/Version-Compatibility-Matrix.md) bakın.
