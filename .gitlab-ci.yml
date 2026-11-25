@@ -244,6 +244,14 @@ pester-tests:
       $config.TestResult.Enabled = $true
       $config.TestResult.OutputFormat = "NUnitXml"
       $config.TestResult.OutputPath = "test-results.xml"
+      # Informational only: the suite executes extracted function blocks, so
+      # Pester cannot attribute commands to BraveOmega.ps1. Mirrors the GitHub
+      # Quality job; the percentage must never become a gate.
+      $config.CodeCoverage.Path = @("Brave-Omega/BraveOmega.ps1")
+      $config.CodeCoverage.Enabled = $true
+      $config.CodeCoverage.OutputPath = "coverage.xml"
+      $config.CodeCoverage.OutputFormat = "Cobertura"
+      $config.CodeCoverage.CoveragePercentTarget = 0
       $config.Output.Verbosity = "Detailed"
       $result = Invoke-Pester -Configuration $config
       if ($result.FailedCount -gt 0) { exit 1 }
@@ -253,6 +261,7 @@ pester-tests:
     expire_in: 1 week
     paths:
       - test-results.xml
+      - coverage.xml
     reports:
       junit: test-results.xml
 
